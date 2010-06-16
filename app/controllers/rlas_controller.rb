@@ -1,5 +1,5 @@
 class RlasController < ApplicationController
-
+  
   # POST /rlas
   # POST /rlas.xml
   def create

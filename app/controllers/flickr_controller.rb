@@ -12,7 +12,16 @@ class FlickrController < ApplicationController
         frob = flickr.auth.getFrob
         @list = flickr.photos.search(:tags=>q,:extras=>'geo,tags', :has_geo=>'1')
         
-        render :json =>@list
+        
+        # Filtering the json answer
+         json_only = []
+         @list.each do |photo|
+           json_only << {:id => photo.id, :latitude => photo.latitude, :longitude => photo.longitude, :accuracy => photo.accuracy}
+         end
+       # end to filter
+        
+        render :json =>json_only
+        
       else
         render :json => "{'Status':'Error'}"
       end
