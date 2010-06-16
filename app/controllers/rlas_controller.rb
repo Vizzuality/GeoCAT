@@ -14,7 +14,6 @@ class RlasController < ApplicationController
   
   
   def show
-    debugger  
     render :json =>Rla.all , :callback => params[:callback]
   end
   

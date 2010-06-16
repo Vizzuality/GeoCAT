@@ -5,7 +5,7 @@ class MainController < ApplicationController
   def about
   end
 
-  def editor
+  def editor 
   end
 
 end
