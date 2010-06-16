@@ -4,7 +4,9 @@ Rlat::Application.routes.draw do |map|
   root :to => "main#index"
   match 'about' => 'main#about'
   match 'editor' => 'main#editor'
-  #match 'search_flickr' => 'flickr#search'
+  
+  match 'search/flickr' => 'flickr#search'
+  
   #match 'search_gbif' => 'gbif#search'
   
   # The priority is based upon order of creation:
