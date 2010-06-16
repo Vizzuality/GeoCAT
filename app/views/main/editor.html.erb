@@ -1,21 +1,64 @@
 		
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-		<%= javascript_include_tag 'MarkerTooltip', 'editor' %>
-
-		<div id="map"></div>
+		<%= javascript_include_tag 'jquery.dropshadow', 'MarkerTooltip', 'editor' %>
 		
-		<div id="column">
-			<form action="javascript:void searchFlickr()">
-				<input type="text" name="specie" id="specie" />
-				<input type="submit" />
-			</form>
-			<p id="results"></p>
-			<input type="button" value="Add this source" onclick="addSourceToMap()" />
-			<br/>
-			<br/>
-			<ul>
-				<li><input type="checkbox" checked="true" value="0" /><label>Flickr</label></li>
-				<p>--></p>
-			</ul>
-			<%= @list.to_json %>
+
+
+		<div id="editor">
+			
+			<div id="tools">
+				<div class="header">
+					<div class="left">
+						<h2>TOOLS</h2>
+					</div>
+					<div class="right">
+						<h2>ANALYSIS AND SOURCES</h2>
+					</div>
+				</div>
+				<div class="center">
+					<div class="left">
+						<a href="#" class="select selected"></a>
+						<a href="#" class="add"></a>
+						<a href="#" class="remove"></a>
+					</div>
+					<div class="right">
+					</div>
+				</div>
+				<div class="footer"></div>
+			</div>
+			<div id="map_container">
+				<div class="header">
+					<h1 class="specie">213_Luzula_StasekSlouch.rdl<sup>(unsaved)</sup></h1>
+				</div>
+				<div id="map"></div>
+				<div class="footer">
+					<div class="left">
+						<a href="#" class="undo"></a>
+						<a href="#" class="redo"></a>
+					</div>
+					<div class="right">
+						<a href="#" class="save"></a>
+						<a href="#" class="print"></a>
+						<a href="#" class="download"></a>
+					</div>
+				</div>
+			</div>
+			
+			<!-- <div id="map"></div>
+
+						<div id="column">
+							<form action="javascript:void searchFlickr()">
+								<input type="text" name="specie" id="specie" />
+								<input type="submit" />
+							</form>
+							<p id="results"></p>
+							<input type="button" value="Add this source" onclick="addSourceToMap()" />
+							<br/>
+							<br/>
+							<ul>
+								<li><input type="checkbox" checked="true" value="0" /><label>Flickr</label></li>
+								<p>-></p>
+							</ul>
+						</div> -->
 		</div>
+	

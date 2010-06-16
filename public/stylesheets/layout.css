@@ -1,31 +1,46 @@
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var,
-b, i,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent;}
-body {line-height:1;}
-article,aside,canvas,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section,summary {display:block;}
-nav ul {list-style:none;}
-blockquote, q {quotes:none;}
-blockquote:before, blockquote:after,
-q:before, q:after {content:'';content:none;}
-a {margin:0; padding:0; border:0; font-size:100%; vertical-align:baseline; background:transparent;}
-ins {background-color:#ff9; color:#000; text-decoration:none;}
-mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold;}
-del {text-decoration: line-through;}
-abbr[title], dfn[title] {border-bottom:1px dotted #000; cursor:help;}
-table {border-collapse:collapse; border-spacing:0;}
-hr {display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0;}
-input, select {vertical-align:middle;}
-ul{list-style:none;}
+body {background:#333333;}
 
-div#map {position:absolute; top:0; bottom:0; left:0; right:300px;}
-div#column {position:absolute; z-index:10; right:0; top:0; bottom:0; width:300px; background:#333333; font:normal 13px Arial; color:white;}
+
+
+
+
+/*EDITOR*/
+div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; background:url(../images/editor/bkg.jpg) 0 0; z-index:1;}
+
+/*1st layer - tools*/
+div#editor div#tools {position:absolute; top:80px; left:30px; bottom:50px; right:30px; min-height:670px; min-width:1220px; background:#242628; -moz-border-radius:15px; -webkit-border-radius:15px; -webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;
+-webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;}
+div#editor div#tools div.header {position:absolute; top:0; left:0; right:0; height:60px; border-bottom:1px solid #2C2F30; background-image: -moz-linear-gradient(100% 100% 90deg, #1B1F20, #101111); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1B1F20), to(#101111)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-bottom-right-radius:0px; -moz-border-bottom-left-radius:0px; -webkit-border-bottom-left-radius:0px; -webkit-border-bottom-right-radius:0px;}
+div#editor div#tools div.header div.left {float:left; padding:15px 0 0 13px; width:49px; color:white; height:45px;}
+div#editor div#tools div.header div.left h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; text-shadow:0 1px #000000; color:#CCCCCC;}
+div#editor div#tools div.header div.right {float:right; padding:15px 0 0 15px; width:230px; color:white; height:45px;}
+div#editor div#tools div.header div.right h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
+div#editor div#tools div.center {position:absolute; top:61px; bottom:61px; left:0; right:0; border:1px solid #0E0F10; border-right:0px; border-left:0px;}
+div#editor div#tools div.center div.left {float:left; padding:4px 0 0 10px; width:52px;}
+div#editor div#tools div.center div.left a {float:left; width:42px; height:42px; margin:5px 0 0 0;}
+div#editor div#tools div.center div.left a.select {background:url(../images/editor/select_button.png) no-repeat 0 0;}
+div#editor div#tools div.center div.left a.add {background:url(../images/editor/add_button.png) no-repeat 0 0;}
+div#editor div#tools div.center div.left a.remove {background:url(../images/editor/remove_button.png) no-repeat 0 0;}
+div#editor div#tools div.center div.left a.selected {background-position:0 -42px;}
+div#editor div#tools div.center div.left a:hover {background-position:0 -42px;}
+div#editor div#tools div.footer {position:absolute; bottom:0; left:0; right:0; height:60px; border-top:1px solid #2C2F30; background-image: -moz-linear-gradient(100% 100% 90deg, #1B1F20, #101111); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1B1F20), to(#101111)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-bottom-right-radius:0px; -moz-border-bottom-left-radius:0px; -webkit-border-top-left-radius:0px; -webkit-border-top-right-radius:0px;}
+
+
+/*2nd layer - map*/
+div#editor div#map_container {position:absolute; min-width:910px; min-height:740px; top:27px; bottom:33px; left:92px; right:278px; background:#242628; z-index:10; -moz-border-radius:15px; -webkit-border-radius:15px; -webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;
+-webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;}
+div#editor div#map_container div.header {position:absolute; top:0; left:0; right:0; height:64px; border-bottom:1px solid #000000; background-image: -moz-linear-gradient(100% 100% 90deg, #2A2F31, #101213); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2A2F31), to(#101213)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-bottom-right-radius:0px; -moz-border-bottom-left-radius:0px; -webkit-border-bottom-left-radius:0px; -webkit-border-bottom-right-radius:0px;}
+div#editor div#map_container div.header h1 {float:left; margin:24px 0 0 26px; padding:0 0 0 20px; background:url(../images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
+div#editor div#map_container div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
+div#editor div#map_container div#map {position:absolute; top:65px; bottom:65px; left:0; right:0;}
+div#editor div#map_container div.footer {position:absolute; bottom:0; left:0; right:0; height:64px; border-top:1px solid #000000; background-image: -moz-linear-gradient(100% 100% 90deg, #2A2F31, #101213); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2A2F31), to(#101213)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-top-right-radius:0px; -moz-border-top-left-radius:0px; -webkit-border-top-left-radius:0px; -webkit-border-top-right-radius:0px;}
+div#editor div#map_container div.footer div.left {float:left; margin:15px 0 0 15px;}
+div#editor div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(../images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
+div#editor div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(../images/editor/redo_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.left a:hover {background-position:0 -32px;}
+
+div#editor div#map_container div.footer div.right {float:right; margin:15px 15px 0 0;}
+div#editor div#map_container div.footer div.right a.download {float:left; width:118px; height:32px; background:url(../images/editor/download_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.right a.print {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(../images/editor/print_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.right a.save {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(../images/editor/save_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.right a:hover {background-position:0 -32px;}

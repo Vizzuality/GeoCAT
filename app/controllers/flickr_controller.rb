@@ -10,7 +10,8 @@ class FlickrController < ApplicationController
         FlickRaw.shared_secret="35b1704d1c3e1e6d"
         frob = flickr.auth.getFrob
         @list = flickr.photos.search(:tags=>q,:extras=>'geo,tags', :has_geo=>'1')
-        render :json =>@list
+        puts @list
+        render :json => @list
       else
         render :json => "{'Status':'Error'}"
       end
