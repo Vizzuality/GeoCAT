@@ -2,7 +2,8 @@ body {background:#333333;}
 ul{list-style:none;}
 
 /*EDITOR*/
-div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; background:url(../images/editor/bkg.jpg) 0 0; z-index:1;}
+div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; background:url(../images/editor/bkg.jpg) 0 0; z-index:1;
+	overflow:hidden;}
 
 div#editor ul.editor_list {position:absolute; top:20px; right:50px; width:auto;}
 div#editor ul.editor_list li {float:left;}
@@ -23,7 +24,6 @@ div#editor div#tools div.header div.left h2 {float:left; padding:0; text-transfo
 div#editor div#tools div.header div.right {float:right; padding:22px 0 0 0; width:220px; color:white; height:45px;}
 div#editor div#tools div.header div.right h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
 
-
 div#editor div#tools div.table div.center {position:absolute; top:62px; bottom:76px; left:0; right:0;}
 div#editor div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:24px; background:url(../images/editor/left-repeat-tool.png) repeat-y right 0;}
 div#editor div#tools div.table div.center-tool{position:absolute; top:0; bottom:0; left:24px; right:24px; background:#242628;}
@@ -35,7 +35,27 @@ div#editor div#tools div.center div.left a.add {background:url(../images/editor/
 div#editor div#tools div.center div.left a.remove {background:url(../images/editor/remove_button.png) no-repeat 0 0;}
 div#editor div#tools div.center div.left a.selected {background-position:0 -42px;}
 div#editor div#tools div.center div.left a:hover {background-position:0 -42px;}
+div#editor div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:1;}
+div#editor div#tools div.center div.right div.algorithms {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-bottom:1px solid #000000;}
+div#editor div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
+div#editor div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:url(../images/editor/orange_bar.png) no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}
+div#editor div#tools div.center div.right div.algorithms a.first {margin:0;}
+div#editor div#tools div.center div.right div.algorithms a:hover {background-position:0 -24px;}
+div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-top:1px solid #454648;}
+div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
+div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
+div#editor div#tools div.center div.right div.sources span p {float:right; font:normal 11px "Futura"; color:#7C7D7E; padding:0 17px 0 0;}
+div#editor div#tools div.center div.right div.sources a {float:left; padding:3px 0 3px 22px; text-decoration:none;}
+div#editor div#tools div.center div.right div.sources a.blue {background:url(../images/editor/left_black_bar_blue.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a.green {background:url(../images/editor/left_black_bar_green.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a.pink {background:url(../images/editor/left_black_bar_pink.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; background:url(../images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
+div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url(../images/editor/black_bar_add.png) no-repeat 0 0; text-decoration:underline;}
 
+/*We can delete at any time*/
+div#editor div#tools div.center div.right div.sources a.green span {background-position:-114px 0;}
+div#editor div#tools div.center div.right div.sources a.pink span {background-position:-134px 0;}
+/*/We can delete at any time/*/
 
 div#editor div#tools div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:76px;}
 div#editor div#tools div.table div.bottom-left-tool{position:relative; float:left; width:24px; height:76px; background:url(../images/editor/bottom-left-tool.png) no-repeat right top;}
@@ -45,7 +65,7 @@ div#editor div#tools div.table div.bottom-right-tool{position:relative; float:ri
 
 
 /*2nd layer - map*/
-div#editor div#map_container {position:absolute; min-width:940px; min-height:790px; top:10px; bottom:20px; left:83px; right:260px;}
+div#editor div#map_container {position:absolute; min-width:940px; min-height:790px; top:10px; bottom:20px; left:83px; right:260px; z-index:100;}
 
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
 div#editor div#map_container div.table div {position:relative;}

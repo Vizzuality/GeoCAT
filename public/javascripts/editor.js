@@ -17,6 +17,7 @@ var flickr_data;
 	  }
 	  map = new google.maps.Map(document.getElementById("map"), myOptions);
 		bounds = new google.maps.LatLngBounds();
+		searchFlickr();
 	});
 
 
@@ -72,10 +73,11 @@ var flickr_data;
 	
 	
 	function searchFlickr() {
-					$.getJSON("http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=83d63b531d7eb41fbaa916b1bc65ca9a&tags="+$('input#specie').attr('value').replace(' ','+')+"&extras=geo,+tags&format=json&has_geo=1&per_page=40&jsoncallback=?",
+					$.getJSON("/search/flickr/lince+iberico",
 				function(data){
-					$("#results").text(data.photos.total + " results");
+					console.log(data);
 					flickr_data = data;
+					addSourceToMap();
 			}
 		);
 	}
@@ -98,13 +100,13 @@ var flickr_data;
 	
 	function addSourceToMap() {
 			resetProperties();
-			var image = new google.maps.MarkerImage('images/editor/marker.png',new google.maps.Size(12, 12),new google.maps.Point(0,0),new google.maps.Point(6, 6));
+			var image = new google.maps.MarkerImage('images/editor/Flickr_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 
 				bounds = new google.maps.LatLngBounds();
 				
-		    $.each(flickr_data.photos.photo, function(i,item){
+		    $.each(flickr_data, function(i,item){
 					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));
-					$('ul').append('<li><input type="checkbox" checked="true" value="'+global_id+'"/><label>'+item.title+'</label></li>');
+					// $('ul').append('<li><input type="checkbox" checked="true" value="'+global_id+'"/><label>'+item.title+'</label></li>');
 					var object = new Object();
 					object.global_id = global_id;
 					object.item = item;
@@ -136,11 +138,11 @@ var flickr_data;
 			    var circle = new google.maps.Circle({
           	map: map,
           	radius: item.accuracy*2000,
- 						strokeColor: "blue",
+ 						strokeColor: "pink",
 						strokeOpacity: 0.5,
 						strokeWeight: 1,
-						fillOpacity: 0.3,
-						fillColor:"blue"
+						fillOpacity: 0.5,
+						fillColor:"pink"
         	});
 
 					circle.bindTo('map', marker);
