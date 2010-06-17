@@ -4,10 +4,10 @@ function MarkerTooltip(latlng, marker_id, opt, map) {
   this.latlng_ = latlng;
 	this.inf = opt;
 	this.marker_id = marker_id;
-  this.offsetVertical_ = -130;
-  this.offsetHorizontal_ = -87;
-  this.height_ = 130;
-  this.width_ = 174;
+  this.offsetVertical_ = -205;
+  this.offsetHorizontal_ = -116;
+  this.height_ = 211;
+  this.width_ = 233;
   this.setMap(map);
 }
 
@@ -22,9 +22,10 @@ MarkerTooltip.prototype.draw = function() {
     div.style.border = "none";
     div.style.position = "absolute";
     div.style.paddingLeft = "0px";
-		div.style.width = '174px';
-		div.style.height = '130px';
-		div.style.background = 'url(images/editor/tooltip.png) no-repeat 0 0';
+		div.style.opacity = "0";
+		div.style.width = '233px';
+		div.style.height = '211px';
+		div.style.background = 'url(images/editor/info_tooltip.png) no-repeat 0 0';
 		
 		var button = document.createElement('a');
     button.style.position = "relative";
@@ -93,15 +94,33 @@ MarkerTooltip.prototype.deleteMarker = function() {
 
 MarkerTooltip.prototype.hide = function() {
   if (this.div_) {
-    this.div_.style.visibility = "hidden";
+    var div = this.div_;
+    $(div).animate({
+      top: '-=' + 10 + 'px',
+      opacity: 0
+    }, 100, 'swing', function(ev){
+			div.style.visibility = "hidden";
+		});
+	
   }
 }
 
 
 MarkerTooltip.prototype.show = function() {
   if (this.div_) {
-    this.div_.style.visibility = "visible";
-  }
+    var div = this.div_;
+  
+		$(div).css({opacity:0});
+		div.style.visibility = "visible";
+
+    // (we're using chaining on the popup) now animate it's opacity and position
+    $(div).animate({
+      top: '-=' + 10 + 'px',
+      opacity: 1
+    }, 400, 'swing');
+
+	}
+
 }
 
 MarkerTooltip.prototype.toggle = function() {
