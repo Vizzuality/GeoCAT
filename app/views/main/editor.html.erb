@@ -6,59 +6,79 @@
 
 		<div id="editor">
 			
+			<ul class="editor_list">
+				<li class="first"><a href="#">Help</a></li>
+				<li><a href="#">Close tool</a></li>
+			</ul>
+			
 			<div id="tools">
-				<div class="header">
-					<div class="left">
-						<h2>TOOLS</h2>
+				<div class="table">
+					<div class="header">
+						<div class="top-left-tool"></div>
+						<div class="top-repeat-tool">
+							<div class="left">
+								<h2>TOOLS</h2>
+							</div>
+							<div class="right">
+								<h2>ANALYSIS AND SOURCES</h2>
+							</div>
+						</div>						
+						<div class="top-right-tool"></div>
 					</div>
-					<div class="right">
-						<h2>ANALYSIS AND SOURCES</h2>
+					<div class="center">
+						<div class="left-repeat-tool"></div>
+						<div class="center-tool">
+							<div class="left">
+								<a href="#" class="select selected"></a>
+								<a href="#" class="add"></a>
+								<a href="#" class="remove"></a>
+							</div>
+							<div class="right">
+							</div>
+						</div>
+						<div class="right-repeat-tool"></div>
 					</div>
-				</div>
-				<div class="center">
-					<div class="left">
-						<a href="#" class="select selected"></a>
-						<a href="#" class="add"></a>
-						<a href="#" class="remove"></a>
-					</div>
-					<div class="right">
-					</div>
-				</div>
-				<div class="footer"></div>
-			</div>
-			<div id="map_container">
-				<div class="header">
-					<h1 class="specie">213_Luzula_StasekSlouch.rdl<sup>(unsaved)</sup></h1>
-				</div>
-				<div id="map"></div>
-				<div class="footer">
-					<div class="left">
-						<a href="#" class="undo"></a>
-						<a href="#" class="redo"></a>
-					</div>
-					<div class="right">
-						<a href="#" class="save"></a>
-						<a href="#" class="print"></a>
-						<a href="#" class="download"></a>
-					</div>
+					<div class="footer">
+						<div class="bottom-left-tool"></div>
+						<div class="bottom-repeat-tool"></div>
+						<div class="bottom-right-tool"></div>
+					</div>	
 				</div>
 			</div>
 			
-			<!-- <div id="map"></div>
+			<div id="map_container">
+				<div class="table">
+					<div class="header">
+						<div class="top-left-map"></div>
+						<div class="top-repeat-map">
+							<h1 class="specie">213_Luzula_StasekSlouch.rdl<sup>(unsaved)</sup></h1>
+						</div>						
+						<div class="top-right-map"></div>
+					</div>
+					<div class="center">
+						<div class="left-repeat-map"></div>
+						<div class="center-map">
+							<div id="map"></div>
+						</div>
+						<div class="right-repeat-map"></div>
+					</div>
+					<div class="footer">
+						<div class="bottom-left-map"></div>
+						<div class="bottom-repeat-map">
+							<div class="left">
+								<a href="#" class="undo"></a>
+								<a href="#" class="redo"></a>
+							</div>
+							<div class="right">
+								<a href="#" class="save"></a>
+								<a href="#" class="print"></a>
+								<a href="#" class="download"></a>
+							</div>
+						</div>
+						<div class="bottom-right-map"></div>
+					</div>	
+				</div>
+			</div>
 
-						<div id="column">
-							<form action="javascript:void searchFlickr()">
-								<input type="text" name="specie" id="specie" />
-								<input type="submit" />
-							</form>
-							<p id="results"></p>
-							<input type="button" value="Add this source" onclick="addSourceToMap()" />
-							<br/>
-							<br/>
-							<ul>
-								<li><input type="checkbox" checked="true" value="0" /><label>Flickr</label></li>
-								<p>-></p>
-							</ul>
-						</div> -->
 		</div>
 	

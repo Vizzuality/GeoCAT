@@ -1,45 +1,80 @@
 body {background:#333333;}
-
-
-
-
+ul{list-style:none;}
 
 /*EDITOR*/
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; background:url(../images/editor/bkg.jpg) 0 0; z-index:1;}
 
+div#editor ul.editor_list {position:absolute; top:20px; right:50px; width:auto;}
+div#editor ul.editor_list li {float:left;}
+div#editor ul.editor_list li.first {margin:0 20px 0 0;}
+div#editor ul.editor_list li a {font:normal 13px "Futura"; color:#999999; text-decoration:none;}
+div#editor ul.editor_list li a:hover {font:normal 13px "Futura"; color:#dddddd;}
+
 /*1st layer - tools*/
-div#editor div#tools {position:absolute; top:80px; left:30px; bottom:50px; right:30px; min-height:670px; min-width:1220px; background:#242628; -moz-border-radius:15px; -webkit-border-radius:15px; -webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;
--webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;}
-div#editor div#tools div.header {position:absolute; top:0; left:0; right:0; height:60px; border-bottom:1px solid #2C2F30; background-image: -moz-linear-gradient(100% 100% 90deg, #1B1F20, #101111); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1B1F20), to(#101111)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-bottom-right-radius:0px; -moz-border-bottom-left-radius:0px; -webkit-border-bottom-left-radius:0px; -webkit-border-bottom-right-radius:0px;}
-div#editor div#tools div.header div.left {float:left; padding:15px 0 0 13px; width:49px; color:white; height:45px;}
+div#editor div#tools {position:absolute; top:60px; left:20px; bottom:40px; right:20px; min-height:720px; min-width:1240px;}
+
+div#editor div#tools div.table {position:relative; float:left; width:100%; height:100%;}
+div#editor div#tools div.table div {position:relative;}
+div#editor div#tools div.table div.top-left-tool{position:relative; float:left; width:24px; height:62px; background:url(../images/editor/top-left-tool.png) no-repeat right bottom;}
+div#editor div#tools div.table div.top-repeat-tool{position:absolute; left:24px; right:24px; top:0; height:62px; background:url(../images/editor/top-repeat-tool.png)  0 bottom;}
+div#editor div#tools div.table div.top-right-tool {position:relative; float:right; width:24px; height:62px; background:url(../images/editor/top-right-tool.png) no-repeat left bottom;}
+div#editor div#tools div.header div.left {float:left; padding:22px 0 0 5px; width:49px; color:white; height:45px;}
 div#editor div#tools div.header div.left h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; text-shadow:0 1px #000000; color:#CCCCCC;}
-div#editor div#tools div.header div.right {float:right; padding:15px 0 0 15px; width:230px; color:white; height:45px;}
+div#editor div#tools div.header div.right {float:right; padding:22px 0 0 0; width:220px; color:white; height:45px;}
 div#editor div#tools div.header div.right h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
-div#editor div#tools div.center {position:absolute; top:61px; bottom:61px; left:0; right:0; border:1px solid #0E0F10; border-right:0px; border-left:0px;}
-div#editor div#tools div.center div.left {float:left; padding:4px 0 0 10px; width:52px;}
+
+
+div#editor div#tools div.table div.center {position:absolute; top:62px; bottom:76px; left:0; right:0;}
+div#editor div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:24px; background:url(../images/editor/left-repeat-tool.png) repeat-y right 0;}
+div#editor div#tools div.table div.center-tool{position:absolute; top:0; bottom:0; left:24px; right:24px; background:#242628;}
+div#editor div#tools div.table div.right-repeat-tool{position:absolute; top:0; right:0; bottom:0; width:24px; background:url(../images/editor/right-repeat-tool.png) repeat-y left 0;}
+div#editor div#tools div.center div.left {float:left; padding:4px 0 0 0; width:52px;}
 div#editor div#tools div.center div.left a {float:left; width:42px; height:42px; margin:5px 0 0 0;}
 div#editor div#tools div.center div.left a.select {background:url(../images/editor/select_button.png) no-repeat 0 0;}
 div#editor div#tools div.center div.left a.add {background:url(../images/editor/add_button.png) no-repeat 0 0;}
 div#editor div#tools div.center div.left a.remove {background:url(../images/editor/remove_button.png) no-repeat 0 0;}
 div#editor div#tools div.center div.left a.selected {background-position:0 -42px;}
 div#editor div#tools div.center div.left a:hover {background-position:0 -42px;}
-div#editor div#tools div.footer {position:absolute; bottom:0; left:0; right:0; height:60px; border-top:1px solid #2C2F30; background-image: -moz-linear-gradient(100% 100% 90deg, #1B1F20, #101111); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1B1F20), to(#101111)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-bottom-right-radius:0px; -moz-border-bottom-left-radius:0px; -webkit-border-top-left-radius:0px; -webkit-border-top-right-radius:0px;}
+
+
+div#editor div#tools div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:76px;}
+div#editor div#tools div.table div.bottom-left-tool{position:relative; float:left; width:24px; height:76px; background:url(../images/editor/bottom-left-tool.png) no-repeat right top;}
+div#editor div#tools div.table div.bottom-repeat-tool{position:absolute; bottom:0; left:24px; right:24px; background:url(../images/editor/bottom-repeat-tool.png) repeat left 0; height:76px;}
+div#editor div#tools div.table div.bottom-right-tool{position:relative; float:right; width:24px; height:76px; background:url(../images/editor/bottom-right-tool.png) no-repeat left top;}
+
 
 
 /*2nd layer - map*/
-div#editor div#map_container {position:absolute; min-width:910px; min-height:740px; top:27px; bottom:33px; left:92px; right:278px; background:#242628; z-index:10; -moz-border-radius:15px; -webkit-border-radius:15px; -webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;
--webkit-box-shadow: 5px 5px 5px #111, -5px -5px 5px #111;}
-div#editor div#map_container div.header {position:absolute; top:0; left:0; right:0; height:64px; border-bottom:1px solid #000000; background-image: -moz-linear-gradient(100% 100% 90deg, #2A2F31, #101213); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2A2F31), to(#101213)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-bottom-right-radius:0px; -moz-border-bottom-left-radius:0px; -webkit-border-bottom-left-radius:0px; -webkit-border-bottom-right-radius:0px;}
-div#editor div#map_container div.header h1 {float:left; margin:24px 0 0 26px; padding:0 0 0 20px; background:url(../images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
-div#editor div#map_container div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
-div#editor div#map_container div#map {position:absolute; top:65px; bottom:65px; left:0; right:0;}
-div#editor div#map_container div.footer {position:absolute; bottom:0; left:0; right:0; height:64px; border-top:1px solid #000000; background-image: -moz-linear-gradient(100% 100% 90deg, #2A2F31, #101213); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2A2F31), to(#101213)); -moz-border-radius:15px; -webkit-border-radius:15px; -moz-border-top-right-radius:0px; -moz-border-top-left-radius:0px; -webkit-border-top-left-radius:0px; -webkit-border-top-right-radius:0px;}
-div#editor div#map_container div.footer div.left {float:left; margin:15px 0 0 15px;}
+div#editor div#map_container {position:absolute; min-width:940px; min-height:790px; top:10px; bottom:20px; left:83px; right:260px;}
+
+div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
+div#editor div#map_container div.table div {position:relative;}
+div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url(../images/editor/top-left-map.png) no-repeat right bottom;}
+div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url(../images/editor/top-repeat-map.png)  0 bottom;}
+div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url(../images/editor/top-right-map.png) no-repeat left bottom;}
+
+div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0;}
+div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url(../images/editor/left-repeat-map.png) repeat-y -6px 0;}
+div#editor div#map_container div.table div.center-map{position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}
+div#editor div#map_container div.table div.right-repeat-map{position:absolute; top:0; bottom:0; right:0; width:25px; background:url(../images/editor/right-repeat-map.png) repeat-y 10px 0;}
+
+div#editor div#map_container div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:80px;}
+div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:url(../images/editor/bottom-left-map.png) no-repeat right top; margin:0;}
+div#editor div#map_container div.table div.bottom-repeat-map{position:absolute; background:url(../images/editor/bottom-repeat-map.png) repeat left 0; left:25px; right:25px; top:0; height:80px;}
+div#editor div#map_container div.table div.bottom-right-map{position:relative; float:right; width:25px; height:80px; background:url(../images/editor/bottom-right-map.png) no-repeat left top;}
+
+div#map {position:relative; height:100%; width:100%; top:0; bottom:0; left:0; right:0; z-index:1000;}
+
+
+div#editor div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(../images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
+div#editor div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
+
+div#editor div#map_container div.footer div.left {float:left; margin:15px 0 0 5px;}
 div#editor div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(../images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
 div#editor div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(../images/editor/redo_button.png) no-repeat 0 0;}
 div#editor div#map_container div.footer div.left a:hover {background-position:0 -32px;}
 
-div#editor div#map_container div.footer div.right {float:right; margin:15px 15px 0 0;}
+div#editor div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
 div#editor div#map_container div.footer div.right a.download {float:left; width:118px; height:32px; background:url(../images/editor/download_button.png) no-repeat 0 0;}
 div#editor div#map_container div.footer div.right a.print {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(../images/editor/print_button.png) no-repeat 0 0;}
 div#editor div#map_container div.footer div.right a.save {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(../images/editor/save_button.png) no-repeat 0 0;}
