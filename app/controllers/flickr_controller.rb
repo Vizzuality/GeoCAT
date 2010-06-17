@@ -1,16 +1,20 @@
 class FlickrController < ApplicationController
-  def search
     
+  def search
+  
     if params.empty?
       render :json => "{'Status':'Error'}"
     else
-      if !params['q'].empty? or !params['q'].nil?
-        q = params['q']
+      
+      #   Search with ?q= in url => 'q' insead of :q (changing the routes file)
+      
+      if !params[:q].empty? or !params[:q].nil?
+        a = params[:q]
         FlickRaw.api_key="ba21020f518d59d9d74b81af71b37e7c"
         FlickRaw.shared_secret="35b1704d1c3e1e6d"
         
         frob = flickr.auth.getFrob
-        @list = flickr.photos.search(:tags=>q,:extras=>'geo,tags', :has_geo=>'1')
+        @list = flickr.photos.search(:tags=>a,:extras=>'geo,tags', :has_geo=>'1')
         
         
         # Filtering the json answer
@@ -25,6 +29,7 @@ class FlickrController < ApplicationController
       else
         render :json => "{'Status':'Error'}"
       end
+    
     end
    
   end

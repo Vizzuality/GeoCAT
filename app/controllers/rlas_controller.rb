@@ -3,6 +3,7 @@ class RlasController < ApplicationController
   # POST /rlas
   # POST /rlas.xml
 
+  # HTTP ACTIONS
   def create
     @rla = Rla.new(params[:rla])
     
@@ -13,9 +14,28 @@ class RlasController < ApplicationController
     end
   end
   
-  
   def show
     render :json =>Rla.all , :callback => params[:callback]
+  end
+
+
+  # Define the imports files
+  
+  # TODO Add validates
+  
+  
+  # CSV
+  def import_csv
+    
+    render :text => "IMPORT CSV"
+    
+  end
+  
+  # RLA
+  def import_rla
+       
+    render :text => "IMPORT RLA"
+    
   end
   
   

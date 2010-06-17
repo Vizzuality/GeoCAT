@@ -1,13 +1,17 @@
 Rlat::Application.routes.draw do |map|
+
+
   resources :rlas
 
   root :to => "main#index"
   match 'about' => 'main#about'
   match 'editor' => 'main#editor'
   
-  match 'search/flickr' => 'flickr#search'
+  match 'search/flickr/:q' => 'flickr#search'
   match 'search/gbif' => 'gbif#search'
-
+  
+  match 'import/csv' => 'rlas#import_csv'
+  match 'import/rla' => 'rlas#import_rla'
 
   #match 'search_gbif' => 'gbif#search'
   

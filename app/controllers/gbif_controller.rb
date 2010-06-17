@@ -1,6 +1,7 @@
 class GbifController < ApplicationController  
-    def search
 
+    # begin SEARCH
+    def search
       if params.empty?
         render :json => "{'Status':'Error'}"
       else
@@ -26,4 +27,6 @@ class GbifController < ApplicationController
       end
 
     end
-  end
+    # end SEARCH
+    
+end
