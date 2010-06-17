@@ -12,7 +12,7 @@ gem 'awesome_print', :require => 'ap'
 gem 'json', '1.4.3'
 gem 'flickraw', '0.8.2'
 gem 'awesome_print', :require => 'ap'
-
+gem 'RedCloth', '4.2.3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
