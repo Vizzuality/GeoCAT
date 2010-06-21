@@ -2,14 +2,13 @@ class RlasController < ApplicationController
   
   # POST /rlas
   # POST /rlas.xml
-
+  
+  
   # HTTP ACTIONS
   def create
     
     @rla = Rla.new(params[:rla])
     
-    
-    debugger
     if @rla.save
       render :json => params[:rla][:data], callback => params[:callback]
     else

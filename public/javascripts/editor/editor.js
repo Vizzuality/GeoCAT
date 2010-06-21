@@ -2,7 +2,8 @@ var specie;  /* specie name */
 
 var map;
 var bounds;
-var flickr
+var flickr_data = [];
+var gbif_data = [];
 
 
 // var tooltip;
@@ -73,7 +74,7 @@ var flickr
 																break;
 						default: 						null;
 					}
-					$(element).find('span p').text(data.data.length + ((data.data.length == 1) ? " point" : " points") + ' founded');
+					$(element).find('span p').text(data[0].data.length + ((data[0].data.length == 1) ? " point" : " points") + ' founded');
 					onLoadedSource(element);
 				}
 		);
@@ -86,7 +87,22 @@ var flickr
 		$(element).find('span p').addClass('loaded');
 		$(element).find('span a').addClass('enabled');
 	}
-
+	
+	
+	/* Show mamufas map */
+	function showMamufasMap() {
+		$('#mamufas_map').show('fast',function(ev){
+			$('#mamufas_map span').show('fast');
+		});
+	}
+	
+	
+	/* Hide mamufas map */
+	function hideMamufasMap() {
+		$('#mamufas_map span').hide('fast',function(ev){
+			$('#mamufas_map').hide('fast');
+		});	
+	}
 
 	// function toggleMarker(element) {
 	// 		if ($(element).val()==0) {

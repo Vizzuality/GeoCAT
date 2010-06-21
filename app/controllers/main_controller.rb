@@ -6,6 +6,7 @@ class MainController < ApplicationController
   end
 
   def editor 
+    @Specie = "Puma"
   end
 
 end

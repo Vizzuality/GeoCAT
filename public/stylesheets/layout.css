@@ -71,9 +71,13 @@ div#editor div#tools div.center div.right div.sources a.green {background:url(..
 div#editor div#tools div.center div.right div.sources a.pink {background:url(../images/editor/left_black_bar_pink.png) no-repeat 0 3px;}
 div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; background:url(../images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url(../images/editor/black_bar_add.png) no-repeat 0 0; text-decoration:underline;}
+div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px;}
+div#editor div#tools div.center div.right div.sources a.add.open {color:#FFFFFF; background-position:0 -48px; text-decoration:none;}
+div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
+
 
 /*add new source*/
-div#editor div#tools div.center div.right div.sources div#add_source_container {position:absolute; width:209px; bottom:22px; right:15px; z-index:100;}
+div#editor div#tools div.center div.right div.sources div#add_source_container {position:absolute; width:209px; bottom:22px; right:15px; z-index:100; display:none;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.top {float:left; width:209px; padding:51px 0 0 0; background:url(../images/editor/add_source_top.png) no-repeat 0 top;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.bottom {float:left; width:209px; padding:0 0 25px; background:url(../images/editor/add_source_bottom.png) no-repeat 0 bottom;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle {float:left; width:185px; padding:0 12px; background:url(../images/editor/add_source_repeat.png) repeat-y 0 0;}
