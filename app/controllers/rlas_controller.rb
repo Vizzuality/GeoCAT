@@ -7,6 +7,8 @@ class RlasController < ApplicationController
   # HTTP ACTIONS
   def create
     
+    # @name_file = File.basename(params[:rla]["data"])
+    
     @rla = Rla.new(params[:rla])
     
     if @rla.save
