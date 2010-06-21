@@ -19,16 +19,12 @@ class RlasController < ApplicationController
   end
 
 
-  # Define the imports files
   
   # TODO Add validates
   
-  
-  # CSV
-  def import_csv
-    
-    render :text => "IMPORT CSV"
-    
+  def download_rla 
+      File.open('./public/data.rla', 'w') {|f| f.write('prueba') }
+      render :nothing => true
   end
   
   def upload_rla

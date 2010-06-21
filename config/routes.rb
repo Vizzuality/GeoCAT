@@ -10,13 +10,11 @@ Rlat::Application.routes.draw do |map|
   match 'search/flickr/:q' => 'flickr#search'
   match 'search/gbif/:q' => 'gbif#search'
   
+  
+  match 'download/rlas/' => 'rlas#download_rla'
   match 'upload/rlas/' => 'rlas#upload_rla'
   
   
-  # match 'import/csv' => 'rlas#import_csv'
-  #   match 'import/rla' => 'rlas#import_rla'
-
-  #match 'search_gbif' => 'gbif#search'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

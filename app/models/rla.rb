@@ -3,6 +3,9 @@ class Rla < ActiveRecord::Base
   
   validates_presence_of :name, :data  
   
+  
+  
+  
   def self.save(upload)
       name =  upload['datafile'].original_filename
       directory = "public/data"
