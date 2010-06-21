@@ -45,7 +45,7 @@
 									<!-- <a href="#" class="blue" id="our_points"><span>Your Points (11)</span></a>
 									<a href="#" class="green" id="GBIF_points"><span>Points from GBIF (7)</span></a>
 									<a href="#" class="pink" id="Flickr_points"><span>Points from Flickr (5)</span></a> -->
-									<a href="#" class="add">Add new source</a>
+									<a href="#" class="add" id="add_source_button">Add new source</a>
 									
 									<div id="add_source_container">
 										<div class="top">
@@ -56,14 +56,14 @@
 															<a id="add_flickr" class="checkbox">Add points from Flickr</a>
 															<span>
 																<p>Loading</p>
-																<a id="import_flickr" class="disabled">import</a>
+																<a class="import_data">import</a>
 															</span>
 														</li>
 														<li>
 															<a id="add_gbif" class="checkbox">Add points from GBIF</a>
 															<span>
 																<p>Loading</p>
-																<a id="import_gbif" class="disabled">import</a>
+																<a class="import_data">import</a>
 															</span>
 														</li>
 														<li>
@@ -96,7 +96,7 @@
 					<div class="header">
 						<div class="top-left-map"></div>
 						<div class="top-repeat-map">
-							<h1 class="specie">1_Puma_.rdl<sup>(unsaved)</sup></h1>
+							<h1 class="specie">1_<%= @Specie %>.rdl<sup>(unsaved)</sup></h1>
 						</div>						
 						<div class="top-right-map"></div>
 					</div>

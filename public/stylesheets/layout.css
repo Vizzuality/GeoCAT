@@ -72,7 +72,7 @@ div#editor div#tools div.center div.right div.sources a.pink {background:url(../
 div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; background:url(../images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url(../images/editor/black_bar_add.png) no-repeat 0 0; text-decoration:underline;}
 div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px;}
-div#editor div#tools div.center div.right div.sources a.add.open {color:#FFFFFF; background-position:0 -48px; text-decoration:none;}
+div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc; background-position:0 -48px; text-decoration:none;}
 div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
 
 
@@ -94,8 +94,8 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span {display:block;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 12px; width:103px; background:url(../images/editor/loader_source.gif) no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.loaded {background:url(../images/editor/ok_loaded.png) no-repeat 9px 9px #EBF7D6; color:#666666;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.disabled {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.disabled:hover {cursor:default;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a:hover {cursor:default;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
 
