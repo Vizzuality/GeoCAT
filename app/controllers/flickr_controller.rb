@@ -26,7 +26,6 @@ class FlickrController < ApplicationController
            
        # end to filter
         
-        debugger 
         render :json =>@json_head
         
       else

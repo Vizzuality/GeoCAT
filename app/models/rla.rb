@@ -5,7 +5,6 @@ class Rla < ActiveRecord::Base
     
   def self.save
       
-
       name =  rlas['datafile'].original_filename
       directory = "public/data"
       # create the file path
