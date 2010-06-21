@@ -5,9 +5,12 @@ class RlasController < ApplicationController
 
   # HTTP ACTIONS
   def create
+    
     @rla = Rla.new(params[:rla])
     
-    if @rla.save        
+    
+    debugger
+    if @rla.save
       render :json => params[:rla][:data], callback => params[:callback]
     else
       render :json => {:status => 'error'}.to_json, :callback => params[:callback]
@@ -23,8 +26,10 @@ class RlasController < ApplicationController
   # TODO Add validates
   
   def download_rla 
+    
       File.open('./public/data.rla', 'w') {|f| f.write('prueba') }
       render :nothing => true
+      
   end
   
   def upload_rla

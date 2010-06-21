@@ -12,14 +12,15 @@
 </div>
 
 
-	<!-- UPLOAD EXAMPLE -->
-	<!-- <% form_for Rla.new do |r| %>
-				<%= r.label :id, 'Text: ' %>
+<!-- UPLOAD EXAMPLE -->
+	<!-- < % form_for Rla.new do |r| % > -->
+	
+	<%= form_for Rla.new, :html => {:multipart => true} do |r| %>
+				<%= r.label :id, '1' %>:
 				
-				<%= r.file_field :name %>
-
+				<%= r.file_field :Data %>
+				
 				<%= r.submit %>
 
-			<% end %> -->
-	
+			<% end %>
 
