@@ -1,2 +1,13 @@
 <h1>Main#index</h1>
 <p>Find me in app/views/main/index.html.erb</p>
+
+
+	<% form_for Rla.new do |r| %>
+		<%= r.label :id, 'Text: ' %>:
+		
+		<%= r.file_field :name %>
+
+		<%= r.submit %>
+
+	<% end %>
+	

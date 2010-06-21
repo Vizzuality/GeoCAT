@@ -5,8 +5,8 @@ class GbifController < ApplicationController
       if params.empty?
         render :json => "{'Status':'Error'}"
       else
-        if !params['q'].empty? or !params['q'].nil?
-          q = params['q']
+        if !params[:q].empty? or !params[:q].nil?
+          q = params[:q]
           
           @list = [{"id"=>"gbif_id","name"=>"gbif","data"=>[
             {"lat"=>"40.543026","lng"=>"3.055573","accuracy"=>"14","collector"=>"111"},

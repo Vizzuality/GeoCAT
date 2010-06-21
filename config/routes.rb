@@ -8,10 +8,13 @@ Rlat::Application.routes.draw do |map|
   match 'editor' => 'main#editor'
   
   match 'search/flickr/:q' => 'flickr#search'
-  match 'search/gbif' => 'gbif#search'
+  match 'search/gbif/:q' => 'gbif#search'
   
-  match 'import/csv' => 'rlas#import_csv'
-  match 'import/rla' => 'rlas#import_rla'
+  match 'upload/rlas/' => 'rlas#upload_rla'
+  
+  
+  # match 'import/csv' => 'rlas#import_csv'
+  #   match 'import/rla' => 'rlas#import_rla'
 
   #match 'search_gbif' => 'gbif#search'
   

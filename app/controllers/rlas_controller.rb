@@ -31,12 +31,12 @@ class RlasController < ApplicationController
     
   end
   
-  # RLA
-  def import_rla
-       
-    render :text => "IMPORT RLA"
-    
-  end
+  def upload_rla
+      
+      render :file => 'app/views/main/index.html'
+      # render :text => "download RLA"
+      
+    end
   
   
 end
