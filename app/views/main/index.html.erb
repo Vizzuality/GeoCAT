@@ -1,18 +1,25 @@
-<h1>Main#index</h1>
-<p>Find me in app/views/main/index.html.erb</p>
+<div id="main_container">
+	<h1>Endangered Species Analysis tool</h1>
+	<label>What species do you want to analyse?</label>
+	<form>
+		<input type="text" value="Start typing your desired taxon..." />
+	</form>
+	<form class="upload">
+		<p>or continue working in a previous report</p>
+		<input type="file" value="Upload your file" />
+		<a href="#"></a>
+	</form>
+</div>
 
-	<a href="/download/rlas/" style="color:#FFFFFF">DOWNLOAD</a>
-	
 
-	<!-- UPLOAD EXAMPLE -->
+<!-- UPLOAD EXAMPLE -->
 	<!-- < % form_for Rla.new do |r| % > -->
 	
 	<%= form_for Rla.new, :html => {:multipart => true} do |r| %>
 				<%= r.label :id, '1' %>:
 				
-				<%= r.file_field :data %>
+				<%= r.file_field :Data %>
 				
 				<%= r.submit %>
 
-	<% end %>
-	
+			<% end %>

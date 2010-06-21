@@ -2,7 +2,8 @@ class RlasController < ApplicationController
   
   # POST /rlas
   # POST /rlas.xml
-
+  
+  
   # HTTP ACTIONS
   def create
     
