@@ -5,12 +5,14 @@
 	
 
 	<!-- UPLOAD EXAMPLE -->
-	<!-- <% form_for Rla.new do |r| %>
-				<%= r.label :id, 'Text: ' %>:
+	<!-- < % form_for Rla.new do |r| % > -->
+	
+	<%= form_for Rla.new, :html => {:multipart => true} do |r| %>
+				<%= r.label :id, '1' %>:
 				
-				<%= r.file_field :name %>
-
+				<%= r.file_field :data %>
+				
 				<%= r.submit %>
 
-			<% end %> -->
-	
+			<% end %>
+	i
