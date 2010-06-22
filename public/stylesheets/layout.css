@@ -138,7 +138,7 @@ div#editor div#map_container div.table div.bottom-right-map{position:relative; f
 
 div#editor div#map_container div.table div.center-map div#map {position:relative; height:100%; width:100%;}
 div#editor div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url(../images/editor/mamufas_bkg.png) repeat 0 0;}
-div#editor div#map_container div.table div.center-map div#mamufas_map div {position:relative; margin:30px auto; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
+div#editor div#map_container div.table div.center-map div#mamufas_map div {position:relative; display:none; margin:30px auto; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
 div#editor div#map_container div.table div.center-map div#mamufas_map div img {position:relative; margin:9px 9px;}
 
 
