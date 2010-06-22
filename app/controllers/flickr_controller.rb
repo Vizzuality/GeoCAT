@@ -14,7 +14,7 @@ class FlickrController < ApplicationController
         FlickRaw.shared_secret="35b1704d1c3e1e6d"
         
         frob = flickr.auth.getFrob
-        @list = flickr.photos.search(:tags=>a,:extras=>'geo,tags', :has_geo=>'1')
+        @list = flickr.photos.search(:tags=>a,:extras=>'geo,tags', :has_geo=>'1', :per_page => '50')
 
         # Filtering the json answer
          json_only = []
