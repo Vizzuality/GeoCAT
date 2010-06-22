@@ -6,6 +6,7 @@ var flickr_founded = [];
 var gbif_founded = [];
 var flickr_data = [];
 var gbif_data = [];
+var your_data = []
 
 var tooltip;
 var overlay;
@@ -38,6 +39,9 @@ var flickr_markers = [];
 				resetSourcesProperties();
 				$("#add_source_container").fadeIn();
 				$(this).addClass('open');
+			} else {
+				$("#add_source_container").fadeOut();
+				$(this).removeClass('open');
 			}
 		});
 		
@@ -55,17 +59,18 @@ var flickr_markers = [];
 		//import data
 		$("a.import_data").click(function(ev){
 			if ($(this).hasClass('enabled')) {
-				showMamufasMap();
-				$(this).text('close');
-				switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-					case 'add_flickr': 	flickr_data.push(flickr_founded[0]);
-															addSourceToMap(flickr_data);
-														 	break;
-					case 'add_gbif':  	gbif_data.push(gbif_founded[0]);
-															addSourceToMap(gbif_data);
-															break;
-					default: 						null;
-				}
+					showMamufasMap();
+					$("#add_source_container").fadeOut();
+					$("#add_source_button").removeClass('open');
+					switch($(this).parent().parent().find('a.checkbox').attr('id')) {
+						case 'add_flickr': 	flickr_data.push(flickr_founded[0]);
+																addSourceToMap(flickr_data);
+															 	break;
+						case 'add_gbif':  	gbif_data.push(gbif_founded[0]);
+																addSourceToMap(gbif_data);
+																break;
+						default: 						null;
+					}
 			}
 		});
 
@@ -94,7 +99,6 @@ var flickr_markers = [];
 		
 		$.getJSON(url + specie.replace(' ','+'),
 				function(result){
-					console.log(result);
 					switch(kind) {
 						case 'add_flickr': 	flickr_founded.push(result[0]);
 															 	break;
@@ -103,7 +107,6 @@ var flickr_markers = [];
 						default: 						null;
 					}
 					$(element).find('span p').text(result[0].data.length + ((result[0].data.length == 1) ? " point" : " points") + ' founded');
-					console.log(gbif_founded);
 					onLoadedSource(element);
 				}
 		);
@@ -157,22 +160,22 @@ var flickr_markers = [];
 	
 
 		function addSourceToMap(information) {
-				var image = new google.maps.MarkerImage('images/editor/Flickr_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-				
-				var points = new Array();
-				points = information[0].data;				
-				
-				for (var i=0; i<points.length; i++) {
-   					console.log(points[i]);
-   					bounds.extend(new google.maps.LatLng(points[i].latitude,points[i].longitude));
+				var image = new google.maps.MarkerImage(
+					(information[0].name=='gbif')?'images/editor/Gbif_marker.png' :'images/editor/Flickr_marker.png',
+					new google.maps.Size(25, 25),
+					new google.maps.Point(0,0),
+					new google.maps.Point(12, 12));
+
+		    $.each(information[0].data, function(i,item){
+   					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));
    					var object = new Object();
    					object.global_id = global_id;
-   					object.item = points[i];
+   					object.item = item;
    					var marker = new google.maps.Marker({
-   					        position: new google.maps.LatLng(points[i].latitude,points[i].longitude), 
+   					        position: new google.maps.LatLng(item.latitude,item.longitude), 
    									draggable: true,
    					        map: map,
-   					        title: points[i].title,
+   					        title: item.title,
    									icon: image,
    									data:object
    					    });
@@ -191,82 +194,70 @@ var flickr_markers = [];
    							overlay.hide();
    						}
    					});
-   					
-   
-   					// var circle = new google.maps.Circle({
-   					//  map: map,
-   					//  radius: points[i].accuracy*2000,
-   					//  strokeColor: "pink",
-   					// 	strokeOpacity: 0.5,
-   					// 	strokeWeight: 1,
-   					// 	fillOpacity: 0.5,
-   					// 	fillColor:"pink"
-   					//            	});
-   					//    
-   					// circle.bindTo('map', marker);
-   					//            	circle.bindTo('center', marker, 'position');
-   					// global_id++;
-   					flickr_markers.push(marker);
-				}
 
-					
-		    // $.each(points, function(i,item){
-		    // 					console.log(item);
-		    // 					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));
-		    // 					var object = new Object();
-		    // 					object.global_id = global_id;
-		    // 					object.item = item;
-		    // 					var marker = new google.maps.Marker({
-		    // 					        position: new google.maps.LatLng(item.latitude,item.longitude), 
-		    // 									draggable: true,
-		    // 					        map: map,
-		    // 					        title: item.title,
-		    // 									icon: image,
-		    // 									data:object
-		    // 					    });
-		    // 					
-		    // 					google.maps.event.addListener(marker,"click",function(ev){
-		    // 						if (overlay!=null) {
-		    // 							overlay.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
-		    // 							overlay.show();
-		    // 						} else {
-		    // 							overlay = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
-		    // 						}
-		    // 					});
-		    // 					
-		    // 					google.maps.event.addListener(marker,"dragstart",function(){
-		    // 						if (overlay!=null) {
-		    // 							overlay.hide();
-		    // 						}
-		    // 					});
-		    // 					
-		    // 
-		    // 			    var circle = new google.maps.Circle({
-		    //           	map: map,
-		    //           	radius: item.accuracy*2000,
-		    //  						strokeColor: "pink",
-		    // 						strokeOpacity: 0.5,
-		    // 						strokeWeight: 1,
-		    // 						fillOpacity: 0.5,
-		    // 						fillColor:"pink"
-		    //         	});
-		    // 
-		    // 					circle.bindTo('map', marker);
-		    //         	circle.bindTo('center', marker, 'position');
-		    // 					global_id++;
-		    // 					flickr_markers.push(marker);				
-		    //  		    });
-		    				map.fitBounds(bounds);
-		    
-		    				//MAP EVENTS
-		    				google.maps.event.addListener(map,"bounds_changed",function(){
-		    					if (overlay!=null) {
-		    						overlay.hide();
-		    					}
-		    				});
+   			    var circle = new google.maps.Circle({
+             	map: map,
+             	radius: item.accuracy*2000,
+    					strokeColor: (information[0].name=='gbif')?'white':'pink',
+   						strokeOpacity: 0.5,
+   						strokeWeight: 1,
+   						fillOpacity: 0.5,
+   						fillColor: (information[0].name=='gbif')? 'white':'pink'
+           	});
+   
+   					circle.bindTo('map', marker);
+           	circle.bindTo('center', marker, 'position');
+   					global_id++;
+   					flickr_markers.push(marker);				
+    		});
+
+				//Add this source in SOURCES COLUMN, count points, width bar...
+				switch (information[0].name) {
+					case 'gbif': 		$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+information[0].data.length+')</span></a></li>');
+													break;
+					case 'flickr': 	$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ information[0].data.length +')</span></a></li>');
+													break;
+					default: 				$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ information[0].data.length +')</span></a></li>');
+				}
+				calculateMapPoints();
+				resizeBarPoints();
+			
+ 				map.fitBounds(bounds);
+ 
+ 				//MAP EVENTS
+ 				google.maps.event.addListener(map,"bounds_changed",function(){
+ 					if (overlay!=null) {
+ 						overlay.hide();
+ 					}
+ 				});
 
 				hideMamufasMap();
 					
+		}
+		
+		
+		function calculateMapPoints() {
+			$('div.sources span p.count_points').text(((flickr_data[0]!=undefined)?flickr_data[0].data.length:null) + ((gbif_data[0]!=undefined)?gbif_data[0].data.length:null) + ((your_data[0]!=undefined)?your_data[0].data.length:null) + ' POINTS');
+		}
+		
+		
+		function resizeBarPoints() {
+			var total_points = ((flickr_data[0]!=undefined)?flickr_data[0].data.length:null) + ((gbif_data[0]!=undefined)?gbif_data[0].data.length:null) + ((your_data[0]!=undefined)?your_data[0].data.length:null);
+			
+			
+			if (flickr_data[0]!=undefined && flickr_data[0].data.length!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data[0].data.length)/total_points) - 217+ 'px 0');
+			}
+
+			if (gbif_data[0]!=undefined  &&  gbif_data[0].data.length!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position', ((202*gbif_data[0].data.length)/total_points) - 217 + 'px 0');
+			}
+
+
+			/*We can delete at any time*/
+			// div#editor div#tools div.center div.right div.sources a.green span {background-position:-114px 0;}
+			// div#editor div#tools div.center div.right div.sources a.pink span {background-position:-134px 0;}
+			/*/We can delete at any time/*/
 		}
 		
 	
