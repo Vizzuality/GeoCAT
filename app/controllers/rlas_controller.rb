@@ -22,21 +22,19 @@ class RlasController < ApplicationController
     render :json =>Rla.all , :callback => params[:callback]
   end
 
-
-  
   # TODO Add validates
   
   def download_rla 
     
       File.open('./public/data.rla', 'w') {|f| f.write('prueba') }
       render :nothing => true
-      
+    
   end
   
   def upload_rla
       
-      render :file => 'app/views/main/index.html'
-      # render :text => "download RLA"
+      #render :file => 'app/views/main/index.html'
+      render :text => "download RLA"
       
     end
   

@@ -6,8 +6,8 @@
 	</form>
 	<form class="upload">
 		<p>or continue working in a previous report</p>
-		<input type="file" value="Upload your file" />
-		<a href="#"></a>
+		<input value="Upload your file" />
+		<a href="upload/rlas/"></a>
 	</form>
 </div>
 
@@ -15,11 +15,11 @@
 <!-- UPLOAD EXAMPLE -->
 	<!-- < % form_for Rla.new do |r| % > -->
 	
-	<%= form_for Rla.new, :html => {:multipart => true} do |r| %>
-				<%= r.label :id, '1' %>:
+	<!-- < % = form_for R l a. n e w, : html => { multipart => t r u e } d o | r | %>
+				< % = r . l a b e l : id , % > :
+ 				
+				< % =  r . file_field  % >
 				
-				<%= r.file_field :Data %>
-				
-				<%= r.submit %>
+				< % = r . submit % >
 
-			<% end %>
+			< % end % > -->
