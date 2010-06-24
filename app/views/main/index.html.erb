@@ -1,3 +1,5 @@
+<%= javascript_include_tag "application.js" %>
+
 <div id="main_container">
 	<h1>Endangered Species Analysis tool</h1>
 	<label>What species do you want to analyse?</label>
@@ -6,10 +8,15 @@
 		<input type="text" value="Start typing your desired taxon..." />
 	</form>
 		
-	<%= form_for Rla.new, :html => { :class => "upload" } do |r| %>
+	<%= form_for Rla.new, :html => { :class => "upload", :multipart => true } do |r| %>
 		<p>or continue working in a previous report</p>
-		<a href="#"></a>
-		<%= image_submit_tag ("home/upload_bkg.png") %>
+
+		<!-- To show the rollover effect over the button -->
+		<a id="upload_button"></a>
+
+		<%= r.file_field :name %>	
+
+		debugger
 		
 	<% end %>
 	

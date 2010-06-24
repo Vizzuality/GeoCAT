@@ -12,7 +12,6 @@ Rlat::Application.routes.draw do |map|
   
   
   match 'download/rlas/' => 'rlas#download_rla'
-  
   match 'upload/rlas/' => 'rlas#upload_rla'
   
   
