@@ -145,7 +145,6 @@ var flickr_markers = [];
 			$(this).removeClass('added');
 			$(this).find('span p').removeClass('loaded');
 			$(this).find('span a').removeClass('enabled');
-			$(this).find('span a').text('import');
 		});
 		
 		if (flickr_data[0]!=undefined && flickr_data[0].data.length!=0) {
@@ -247,17 +246,24 @@ var flickr_markers = [];
 			
 			if (flickr_data[0]!=undefined && flickr_data[0].data.length!=0) {
 				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data[0].data.length)/total_points) - 217+ 'px 0');
+				$('div#editor div#tools div.center div.right div.sources a.pink span').hover(function(ev){
+					$(this).css('background-position','right 0');
+				}, function(ev){
+					$(this).css('background-position',((202*flickr_data[0].data.length)/total_points) - 217+ 'px 0');
+				});
+
 			}
 
 			if (gbif_data[0]!=undefined  &&  gbif_data[0].data.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position', ((202*gbif_data[0].data.length)/total_points) - 217 + 'px 0');
+				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*gbif_data[0].data.length)/total_points) - 217+ 'px 0');
+				$('div#editor div#tools div.center div.right div.sources a.green span').hover(function(ev){
+					$(this).css('background-position','right 0');
+				}, function(ev){
+					$(this).css('background-position',((202*gbif_data[0].data.length)/total_points) - 217+ 'px 0');
+				});
 			}
 
 
-			/*We can delete at any time*/
-			// div#editor div#tools div.center div.right div.sources a.green span {background-position:-114px 0;}
-			// div#editor div#tools div.center div.right div.sources a.pink span {background-position:-134px 0;}
-			/*/We can delete at any time/*/
 		}
 		
 	
