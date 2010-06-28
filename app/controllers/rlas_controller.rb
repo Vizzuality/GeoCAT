@@ -31,7 +31,6 @@ class RlasController < ApplicationController
     invalid_file = false
     
     file = File.open(path, "r")
-  
     # Get the header 
     file_content_hash = JSON.parse(file.readline)
     
@@ -40,12 +39,12 @@ class RlasController < ApplicationController
       else
         @rla.zoom = file_content_hash[0]["zoom"].to_i
         @rla.specie = file_content_hash[0]["specie"]
-        @rla.data = {}        
+        @rla.data = {}
         file.each do |json_string| 
           file_content_hash = JSON.parse(json_string)
           @rla.data[file_content_hash[0]["name"]] = file_content_hash 
         end
-        @rla.updated_at = Time.now        
+        @rla.updated_at = Time.now    
     end
     
     file.close
@@ -59,7 +58,9 @@ class RlasController < ApplicationController
   end
   
   # TODO Add validates
-  def download_rla 
+  def download_rla
+    
+      
       File.open('./public/data.rla', 'w') {|f| f.write('prueba') }
       render :nothing => true
   end
