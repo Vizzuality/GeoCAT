@@ -96,6 +96,14 @@ var _markers = [];
 					}
 			}
 		});
+		
+		
+		
+		//if the application comes through an upload file
+		if ($().length>0) {
+			var upload_information = JSON.parse($('#upload_data').text());
+			console.log(upload_information);
+		}
 
 	});
 	
@@ -324,9 +332,18 @@ var _markers = [];
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
 			
-			
-			var rla = new DownloadRLA(specie,flickr_data,gbif_data, null, _markers,map_inf);
+			var rla = new RLA(specie,flickr_data,gbif_data, null, _markers,map_inf,null);
 			rla.download();
+			
+		}
+		
+		
+		function uploadRLA(upload_data) {
+			
+			var rla = new RLA(null,null,null,null,null,null,upload_data);
+			var app_data = rla.upload();
+			
+			console.log(app_data);
 			
 		}
 		

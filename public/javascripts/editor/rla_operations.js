@@ -1,19 +1,20 @@
 
-
-
-	function DownloadRLA (specie,flickr, gbif, own, markers, map_inf) {
+	function RLA (specie, flickr, gbif, own, markers, map_properties, upload_obj) {
 		this.flickr_ = flickr;
 		this.gbif_ = gbif;
 		this.own_ = own;
 		this.specie_ = specie;
 		
+		this.upload_data_ = upload_data;
+		
 		this.markers_ = markers;
 		
-		this.zoom = map_inf.zoom;
-		this.center = map_inf.center;
+		this.zoom = map_properties.zoom;
+		this.center = map_properties.center;
 	}
+
 	
-	DownloadRLA.prototype.download = function() {
+	RLA.prototype.download = function() {
 	  var dataset = new Object();
 		dataset.scientificname = this.specie_;
 		dataset.zoom = this.zoom;
@@ -24,18 +25,18 @@
 		
 		console.log(dataset);
 		
-		$.ajax({
-			url: "/download/RLA",
-      type: "POST",
-      data: ({rla: dataset}),
-      success: function(result){
-         console.log(result);
-      }
-		});
+		// $.ajax({
+		// 	url: "/download/RLA",
+		//       type: "POST",
+		//       data: ({rla: dataset}),
+		//       success: function(result){
+		//          console.log(result);
+		//       }
+		// });
 	}
 	
 	
-	DownloadRLA.prototype.addMarkers = function(obj,markers) {
+	RLA.prototype.addMarkers = function(obj,markers) {
 		for (var i=0; i<markers.length; i++) {
 			var find = false;
 			for (var j=0; j<obj.sources.length; j++) {
@@ -55,6 +56,13 @@
 			}
 
 		}
+	}
+	
+	
+	
+	RLA.prototype.upload = function() {
+		//loop object and give all the objects.
+		return null;
 	}
 	
 	
