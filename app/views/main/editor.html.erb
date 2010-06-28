@@ -1,6 +1,6 @@
 		
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-		<%= javascript_include_tag 'editor/MarkerTooltip', 'editor/editor' %>
+		<%= javascript_include_tag 'editor/MarkerTooltip', 'editor/editor', 'editor/download' %>
 		
 
 
@@ -50,6 +50,7 @@
 									
 									<div id="add_source_container">
 										<div class="top">
+											<a href="javascript:void closeSources()" id="close_sources"></a>
 											<div class="bottom">
 												<div class="middle">
 													<ul>
@@ -70,14 +71,28 @@
 														<li>
 															<a id="add_csv" class="checkbox">Import .CSV</a>
 															<span>
-																<input type="file" />
+																<div>
+																	<a href="#" class="browse"></a>
+																	<p>Select a file...</p>
+																	<a href="#" class="delete"></a>
+																	<form>
+																		<input type="file" />
+																	</form>
+																</div>
 																<a class="import_data">upload and merge</a>
 															</span>
 														</li>
 														<li>
 															<a id="add_rla" class="checkbox">Import .RLA</a>
 															<span>
-																<input type="file" />
+																<div>
+																	<a href="#" class="browse"></a>
+																	<p>Select a file...</p>
+																	<a href="#" class="delete"></a>
+																	<form>
+																		<input type="file" />
+																	</form>
+																</div>
 																<a class="import_data">upload and merge</a>
 															</span>
 														</li>
@@ -86,7 +101,6 @@
 											</div>
 										</div>
 									</div>
-									
 								</div>
 							</div>
 						</div>
@@ -117,6 +131,9 @@
 								<div id="loader_map">
 									<img src="../images/editor/map_loader.gif" alt="Map loader" />
 								</div>
+								<div id="import_success">
+									<img src="../images/editor/import_done.png" alt="Import done" />
+								</div>
 							</div>
 						</div>
 						<div class="right-repeat-map"></div>
@@ -131,7 +148,7 @@
 							<div class="right">
 								<a href="#" class="save"></a>
 								<a href="#" class="print"></a>
-								<a href="#" class="download"></a>
+								<a href="javascript: void dowloadRLA()" class="download"></a>
 							</div>
 						</div>
 						<div class="bottom-right-map"></div>

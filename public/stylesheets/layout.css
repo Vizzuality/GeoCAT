@@ -83,6 +83,8 @@ div#editor div#tools div.center div.right div.sources ul li {float:left; width:1
 /*add new source*/
 div#editor div#tools div.center div.right div.sources div#add_source_container {position:absolute; width:209px; bottom:22px; right:15px; z-index:100; display:none;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.top {float:left; width:209px; padding:51px 0 0 0; background:url(../images/editor/add_source_top.png) no-repeat 0 top;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources {position:absolute; right:23px; top:23px; background:url(../images/editor/close_source.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources:hover {background-position:0 -16px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.bottom {float:left; width:209px; padding:0 0 25px; background:url(../images/editor/add_source_bottom.png) no-repeat 0 bottom;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle {float:left; width:185px; padding:0 12px; background:url(../images/editor/add_source_repeat.png) repeat-y 0 0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul {float:left; width:171px; padding:8px 7px; margin:0; background-image: -moz-linear-gradient(100% 100% 90deg, #F3F3F3, #D4D4D4); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F3F3F3), to(#D4D4D4));}
@@ -104,11 +106,25 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
 
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.browse {float:left; width:63px; height:21px; background:url(../images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:2px; top:2px; background:url(../images/editor/delete_button.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form {display:block; position:absolute; padding:0; margin:0; width:137px; height:21px; z-index:100; overflow:hidden; opacity:0;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form input {float:left; width:137px; height:21px;}
+
+
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a {display:none;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete {display:block;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
+
+
 /*added*/
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a {background-position: 0 -30px; color:#c3c3c3;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a:hover {cursor:default; color:#c3c3c3;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added span {display:none;}
-
 
 
 
@@ -140,8 +156,9 @@ div#editor div#map_container div.table div.bottom-right-map{position:relative; f
 
 div#editor div#map_container div.table div.center-map div#map {position:relative; height:100%; width:100%;}
 div#editor div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url(../images/editor/mamufas_bkg.png) repeat 0 0;}
-div#editor div#map_container div.table div.center-map div#mamufas_map div {position:relative; display:none; margin:30px auto; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
-div#editor div#map_container div.table div.center-map div#mamufas_map div img {position:relative; margin:9px 9px;}
+div#editor div#map_container div.table div.center-map div#mamufas_map div#loader_map {position:relative; display:none; margin:30px auto; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
+div#editor div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
+div#editor div#map_container div.table div.center-map div#mamufas_map div#import_success {position:relative; display:none; margin:260px auto 0; width:202px; height:58px;}
 
 
 div#editor div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(../images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}

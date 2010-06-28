@@ -11,7 +11,7 @@ var your_data = []
 var tooltip;
 var overlay;
 var global_id=1;
-var flickr_markers = [];
+var _markers = [];
 
 
 	$(document).ready(function() {
@@ -33,20 +33,41 @@ var flickr_markers = [];
 		bounds = new google.maps.LatLngBounds();
 		
 		
+		//hover effect in browse input file
+		$('li span div').hover(function(ev){
+			$(this).find('a.browse').css('background-position','0 -21px');
+		},function(ev){
+			$(this).find('a.browse').css('background-position','0 0');
+		});
+		
+		
+		//change file input value
+		$('li span div form input').change(function(ev){
+			$(this).parent().parent().parent().find('a.import_data').addClass('enabled');
+			$(this).parent().parent().addClass('selected');
+			if ($(this).val().length>15) {
+				$(this).parent().parent().find('p').text($(this).val().substr(0,12)+'...');
+			} else {
+				$(this).parent().parent().find('p').text($(this).val());
+			}
+		});	
+		
+
 		//open add sources container
 		$("#add_source_button").click(function(ev){
+			ev.stopPropagation();
+			ev.preventDefault();
 			if (!$('#add_source_container').is(':visible')) {
-				resetSourcesProperties();
-				$("#add_source_container").fadeIn();
-				$(this).addClass('open');
+				openSources();
 			} else {
-				$("#add_source_container").fadeOut();
-				$(this).removeClass('open');
+				closeSources();
 			}
 		});
 		
 		//add source effects
 		$("#add_source_container ul li a.checkbox").click(function(ev){
+			ev.stopPropagation();
+			ev.preventDefault();
 			if (!$(this).parent().hasClass('selected') && !$(this).parent().hasClass('added')) {
 				removeSelectedSources();
 				$(this).parent().addClass('selected');
@@ -58,16 +79,18 @@ var flickr_markers = [];
 		
 		//import data
 		$("a.import_data").click(function(ev){
+			ev.stopPropagation();
+			ev.preventDefault();
 			if ($(this).hasClass('enabled')) {
 					showMamufasMap();
 					$("#add_source_container").fadeOut();
 					$("#add_source_button").removeClass('open');
 					switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-						case 'add_flickr': 	flickr_data.push(flickr_founded[0]);
-																addSourceToMap(flickr_data);
+						case 'add_flickr': 	flickr_data = flickr_founded;
+																setTimeout('addSourceToMap(flickr_data)',1000);
 															 	break;
-						case 'add_gbif':  	gbif_data.push(gbif_founded[0]);
-																addSourceToMap(gbif_data);
+						case 'add_gbif':  	gbif_data = gbif_founded;
+																setTimeout('addSourceToMap(gbif_data)',1000);
 																break;
 						default: 						null;
 					}
@@ -75,6 +98,21 @@ var flickr_markers = [];
 		});
 
 	});
+	
+	
+	
+	function closeSources() {
+		$("#add_source_container").fadeOut();
+		$('#add_source_button').removeClass('open');
+	}
+	
+	
+	
+	function openSources() {
+		resetSourcesProperties();
+		$("#add_source_container").fadeIn();
+		$('#add_source_button').addClass('open');
+	}
 	
 	
 	
@@ -123,16 +161,19 @@ var flickr_markers = [];
 	
 	/* Show mamufas map */
 	function showMamufasMap() {
-		$('#mamufas_map').fadeIn(function(ev){
-			$(this).children('div').fadeIn();
-		});
+		$('#mamufas_map').fadeIn();
+		$('#loader_map').fadeIn();
 	}	
 	
 	/* Hide mamufas map */
 	function hideMamufasMap() {
-		$('#mamufas_map div').fadeOut(function(ev){
-			$(this).parent().fadeOut();
-		});	
+		$('#loader_map').fadeOut(function(ev){
+			$('div#import_success').fadeIn(function(ev){
+				$(this).delay(2000).fadeOut('fast',function(ev){
+					$('#mamufas_map').fadeOut();
+				});
+			});		
+		});
 	}
 	
 	
@@ -145,6 +186,9 @@ var flickr_markers = [];
 			$(this).removeClass('added');
 			$(this).find('span p').removeClass('loaded');
 			$(this).find('span a').removeClass('enabled');
+			$(this).find('div').removeClass('selected');
+			$(this).find('div p').text('Select a file');
+			$(this).find('div form input').attr('value','');
 		});
 		
 		if (flickr_data[0]!=undefined && flickr_data[0].data.length!=0) {
@@ -170,6 +214,8 @@ var flickr_markers = [];
    					var object = new Object();
    					object.global_id = global_id;
    					object.item = item;
+						object.item.active = true;
+						object.kind = information[0].name;
    					var marker = new google.maps.Marker({
    					        position: new google.maps.LatLng(item.latitude,item.longitude), 
    									draggable: true,
@@ -194,20 +240,27 @@ var flickr_markers = [];
    						}
    					});
 
-   			    var circle = new google.maps.Circle({
-             	map: map,
-             	radius: item.accuracy*2000,
-    					strokeColor: (information[0].name=='gbif')?'white':'pink',
+   					google.maps.event.addListener(marker,"dragend",function(ev){
+   						this.data.longitude = ev.latLng.c;
+							this.data.latitude = ev.latLng.b;
+   					});
+
+
+
+   					var circle = new google.maps.Circle({
+   					  map: map,
+   					  radius: item.accuracy*2000,
+   					  strokeColor: (information[0].name=='gbif')?'white':'pink',
    						strokeOpacity: 0.5,
    						strokeWeight: 1,
    						fillOpacity: 0.5,
    						fillColor: (information[0].name=='gbif')? 'white':'pink'
-           	});
-   
+   					           	});
+   					   
    					circle.bindTo('map', marker);
-           	circle.bindTo('center', marker, 'position');
+   					circle.bindTo('center', marker, 'position');
    					global_id++;
-   					flickr_markers.push(marker);				
+   					_markers.push(marker);				
     		});
 
 				//Add this source in SOURCES COLUMN, count points, width bar...
@@ -220,16 +273,16 @@ var flickr_markers = [];
 				}
 				calculateMapPoints();
 				resizeBarPoints();
-			
- 				map.fitBounds(bounds);
- 
- 				//MAP EVENTS
- 				google.maps.event.addListener(map,"bounds_changed",function(){
- 					if (overlay!=null) {
- 						overlay.hide();
- 					}
- 				});
-
+							
+				 				map.fitBounds(bounds);
+				 
+				 				//MAP EVENTS
+				 				google.maps.event.addListener(map,"bounds_changed",function(){
+				 					if (overlay!=null) {
+				 						overlay.hide();
+				 					}
+				 				});
+				
 				hideMamufasMap();
 					
 		}
@@ -242,8 +295,7 @@ var flickr_markers = [];
 		
 		function resizeBarPoints() {
 			var total_points = ((flickr_data[0]!=undefined)?flickr_data[0].data.length:null) + ((gbif_data[0]!=undefined)?gbif_data[0].data.length:null) + ((your_data[0]!=undefined)?your_data[0].data.length:null);
-			
-			
+				
 			if (flickr_data[0]!=undefined && flickr_data[0].data.length!=0) {
 				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data[0].data.length)/total_points) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.pink span').hover(function(ev){
@@ -263,7 +315,19 @@ var flickr_markers = [];
 				});
 			}
 
-
+		}
+		
+		
+		
+		function dowloadRLA() {
+			var map_inf = new Object();
+			map_inf.zoom = map.getZoom();
+			map_inf.center = map.getCenter();
+			
+			
+			var rla = new DownloadRLA(specie,flickr_data,gbif_data, null, _markers,map_inf);
+			rla.download();
+			
 		}
 		
 	
