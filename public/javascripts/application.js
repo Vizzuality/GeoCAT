@@ -9,11 +9,10 @@
 			$('form.upload a').css('background-position','0 0');
 		});
 		
-		$('#rla_name').change(function(){
-		
+
+		$('#rla_name').change(function(){		
 			// console.log(this);
-			validateFile(this);
-			
+			validateFile(this);			
 		})
 		
 		
@@ -33,9 +32,9 @@
 	            return false;
 
 	        }
-			/* SUBMIT */
+			/* IF, EXT IS CORRECT => SUBMIT */
 	        upload_field.form.submit();
-	        return true;
+	        // return true;
 		}
 
 	});
