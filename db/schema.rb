@@ -16,6 +16,9 @@ ActiveRecord::Schema.define(:version => 20100615143439) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "zoom"
+    t.text     "specie"
+    t.text     "center"
     t.integer  "user_id"
   end
 

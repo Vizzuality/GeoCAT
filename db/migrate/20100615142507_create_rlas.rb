@@ -2,9 +2,11 @@ class CreateRlas < ActiveRecord::Migration
   def self.up
     create_table :rlas do |t|
       t.string :name
-      t.text :data
-
+      t.text :data      
       t.timestamps
+      t.integer :zoom
+      t.text :specie 
+      t.text :center
     end
   end
 
