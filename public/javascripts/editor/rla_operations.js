@@ -9,8 +9,8 @@
 		
 		this.markers_ = markers;
 		
-		this.zoom = map_properties.zoom;
-		this.center = map_properties.center;
+		this.zoom = (map_properties==null)? null : map_properties.zoom;
+		this.center = (map_properties==null)? null : map_properties.center;
 	}
 
 	
