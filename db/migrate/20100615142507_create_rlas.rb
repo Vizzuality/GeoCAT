@@ -9,7 +9,7 @@ class CreateRlas < ActiveRecord::Migration
       t.text :center
     end
   end
-
+  
   def self.down
     drop_table :rlas
   end

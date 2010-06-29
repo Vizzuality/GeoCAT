@@ -87,10 +87,10 @@ var _markers = [];
 					$("#add_source_button").removeClass('open');
 					switch($(this).parent().parent().find('a.checkbox').attr('id')) {
 						case 'add_flickr': 	flickr_data = flickr_founded;
-																setTimeout('addSourceToMap(flickr_data)',1000);
+																setTimeout('addSourceToMap(flickr_data,true)',1000);
 															 	break;
 						case 'add_gbif':  	gbif_data = gbif_founded;
-																setTimeout('addSourceToMap(gbif_data)',1000);
+																setTimeout('addSourceToMap(gbif_data,true)',1000);
 																break;
 						default: 						null;
 					}
@@ -106,7 +106,6 @@ var _markers = [];
 			var upload_information = JSON.parse(upload_string);
 			//show new mamufas that it covers all the stage?
 			uploadRLA(upload_information);
-			console.log(upload_information);
 		}
 
 	});
@@ -214,7 +213,7 @@ var _markers = [];
 	}
 	
 
-		function addSourceToMap(information) {
+		function addSourceToMap(information,getBound) {
 				var image = new google.maps.MarkerImage(
 					(information[0].name=='gbif')?'images/editor/Gbif_marker.png' :'images/editor/Flickr_marker.png',
 					new google.maps.Size(25, 25),
@@ -285,15 +284,17 @@ var _markers = [];
 				}
 				calculateMapPoints();
 				resizeBarPoints();
-							
-				 				map.fitBounds(bounds);
-				 
-				 				//MAP EVENTS
-				 				google.maps.event.addListener(map,"bounds_changed",function(){
-				 					if (overlay!=null) {
-				 						overlay.hide();
-				 					}
-				 				});
+				
+				if (getBound) {
+	 				map.fitBounds(bounds);
+				}
+ 
+ 				//MAP EVENTS
+ 				google.maps.event.addListener(map,"bounds_changed",function(){
+ 					if (overlay!=null) {
+ 						overlay.hide();
+ 					}
+ 				});
 				
 				
 					
@@ -347,8 +348,17 @@ var _markers = [];
 			var rla = new RLA(null,null,null,null,null,null,upload_data);
 			var app_data = rla.upload();
 			
-			console.log(app_data);
+			//substitute gbif flickr and own variables
+			for (var i=0; i<app_data.length; i++) {
+				if (i!=0) {
+					addSourceToMap([app_data[i]],false);
+				}
+			}
 			
+			map.setCenter(new google.maps.LatLng(app_data[0].center.b,app_data[0].center.c));
+			map.setZoom(parseInt(app_data[0].zoom));
+			//specie = app_data[0].specie;
+						
 		}
 		
 	

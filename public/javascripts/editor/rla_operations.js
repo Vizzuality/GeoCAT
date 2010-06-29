@@ -5,7 +5,7 @@
 		this.own_ = own;
 		this.specie_ = specie;
 		
-		this.upload_data_ = upload_data;
+		this.upload_data_ = upload_obj;
 		
 		this.markers_ = markers;
 		
@@ -63,11 +63,19 @@
 	RLA.prototype.upload = function() {
 		//loop object and give all the objects.
 		var result = [];
-		for (var i=0; i<this.upload_data_.length; i++) {
-			//result.push();
-		}
 		
-		return null;
+		var obj = new Object();
+		obj.name = "map";
+		obj.center = this.upload_data_.rla.center;
+		obj.zoom = this.upload_data_.rla.zoom;
+		obj.specie = this.upload_data_.rla.specie;
+		
+		result.push(obj);
+		
+		for (var i=0; i<this.upload_data_.rla.source.length; i++) {
+			result.push(this.upload_data_.rla.source[i]);
+		}
+		return result;
 	}
 	
 	
