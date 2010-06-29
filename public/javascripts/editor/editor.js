@@ -351,9 +351,19 @@ var _markers = [];
 			//substitute gbif flickr and own variables
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
+					if (app_data[i].name=='gbif') {
+						gbif_data = [app_data[i]];
+					}
+					if (app_data[i].name=='flickr') {
+						flickr_data = [app_data[i]];
+					}
+					if (app_data[i].name=='your') {
+						your_data = [app_data[i]];
+					}
 					addSourceToMap([app_data[i]],false);
 				}
 			}
+			
 			
 			map.setCenter(new google.maps.LatLng(app_data[0].center.b,app_data[0].center.c));
 			map.setZoom(parseInt(app_data[0].zoom));

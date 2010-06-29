@@ -23,7 +23,7 @@
 		
 		this.addMarkers(dataset,this.markers_);		
 		
-		//console.log(dataset);
+		console.log(dataset);
 
 		$.ajax({
 						url: "/download/rla",
