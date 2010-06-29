@@ -2,6 +2,8 @@
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<%= javascript_include_tag  'jquery.json-2.2','editor/MarkerTooltip', 'editor/editor', 'editor/rla_operations' %>
 		
+			<h1><%= @rla %></h1>
+		
 		<span id="upload_data" style="display:none">{"rla":{"center":{"b":"0","c":"0"},"created_at":"null","source":[{"id":"gbif_id","name":"gbif","data":[{"latitude":"40.543026","longitude":"3.055573","accuracy":"14","collector":"111"}]}],"specie":"puma","zoom":3}}</span>
 
 		<div id="editor">

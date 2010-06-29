@@ -4,8 +4,10 @@ Rlat::Application.routes.draw do |map|
   resources :rlas
 
   root :to => "main#index"
+    
   match 'about' => 'main#about'
-  match 'editor' => 'main#editor'
+  
+  match 'editor' => 'rlas#editor'
   
   match 'search/flickr/:q' => 'flickr#search'
   match 'search/gbif/:q' => 'gbif#search'

@@ -5,8 +5,4 @@ class MainController < ApplicationController
   def about
   end
 
-  def editor    
-    @Specie = "Puma"
-  end
-
 end

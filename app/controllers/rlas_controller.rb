@@ -1,24 +1,24 @@
 class RlasController < ApplicationController
   
-  # POST /rlas
-  # POST /rlas.xml
+  def editor
+    debugger
+    @Specie = "Puma"
+    debugger
+  end
   
-  
+
   # HTTP ACTIONS
   def create
-    
     @rla = Rla.new(params[:rla])
-
-    #@name_file = File.basename(params[:rla]["name"])
     
     if validate_rla(params[:rla]["name"])
-        # go to Editor PAGE
-        render :file => 'app/views/main/editor.html'
+        # go to Editor PAGE        
+        # I want pass to editor @rla
+        render :editor
+        #redirect_to :action => "editor"
+        
     else
-  
-    # if @rla.save
-    #       render :json => params[:rla][:data], callback => params[:callback]
-      render :text => "Archivo incorrecto"
+      render :text => "File wrong"
     end
   end
   
@@ -45,8 +45,6 @@ class RlasController < ApplicationController
           @rla.data[file_content_hash[0]["name"]] = file_content_hash 
         end
         @rla.updated_at = Time.now    
-        
-        debugger
     end
     
     file.close
@@ -61,8 +59,6 @@ class RlasController < ApplicationController
   
   # TODO Add validates
   def download_rla
-    
-      
       File.open('./public/data.rla', 'w') {|f| f.write('prueba') }
       render :nothing => true
   end
