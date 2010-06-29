@@ -13,8 +13,7 @@ Rlat::Application.routes.draw do |map|
   match 'search/gbif/:q' => 'gbif#search'
   
   
-  match 'download/rla/' => 'rlas#download_rla'
-  
+  match 'download/rla/' => 'rlas#download_rla'  
   match 'upload/rla/' => 'rlas#upload_rla'
   
   

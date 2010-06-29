@@ -1,11 +1,11 @@
 		
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<%= javascript_include_tag  'jquery.json-2.2','editor/MarkerTooltip', 'editor/editor', 'editor/rla_operations' %>
-				
-		<span id="upload_data" style="display:none">{"rla":{"center":{"b":"0","c":"0"},"created_at":"null","source":[{"id":"gbif_id","name":"gbif","data":[{"latitude":"40.543026","longitude":"3.055573","accuracy":"14","collector":"111"}]}],"specie":"puma","zoom":3}}</span>
+
+		<span id="upload_data" style="display:none"><%= @rla %></span>
 
 		<div id="editor">
-			<a id="scientific_name"><%= @Specie %></a>
+			<a id="scientific_name"><%= @rla.specie %></a>
 			
 			<ul class="editor_list">
 				<li class="first"><a href="#">Help</a></li>
@@ -119,7 +119,7 @@
 					<div class="header">
 						<div class="top-left-map"></div>
 						<div class="top-repeat-map">
-							<h1 class="specie">1_<%= @Specie %>.rdl<sup>(unsaved)</sup></h1>
+							<h1 class="specie">1_<%= @rla.specie %>.rdl<sup>(unsaved)</sup></h1>
 						</div>						
 						<div class="top-right-map"></div>
 					</div>
@@ -150,6 +150,7 @@
 								<a href="#" class="print"></a>
 								<a href="javascript: void dowloadRLA()" class="download"></a>
 							</div>
+
 						</div>
 						<div class="bottom-right-map"></div>
 					</div>	

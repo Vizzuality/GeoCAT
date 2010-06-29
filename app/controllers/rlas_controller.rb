@@ -1,29 +1,25 @@
 class RlasController < ApplicationController
   
   def editor
-    debugger
-    @Specie = "Puma"
+    @rla = $rla
     debugger
   end
   
-
-  # HTTP ACTIONS
   def create
     @rla = Rla.new(params[:rla])
-    
+
     if validate_rla(params[:rla]["name"])
         # go to Editor PAGE        
-        # I want pass to editor @rla
-        render :editor
-        #redirect_to :action => "editor"
-        
+        # I want pass to editor the @rla value
+        $rla = @rla
+        redirect_to :action => "editor"
     else
       render :text => "File wrong"
     end
   end
   
   def show
-    render :json =>Rla.all , :callback => params[:callback]
+    render :json =>Rla.all, :callback => params[:callback]
   end
 
   # Validate RLA method
