@@ -25,14 +25,14 @@
 		
 		console.log(dataset);
 		
-		// $.ajax({
-		// 	url: "/download/RLA",
-		//       type: "POST",
-		//       data: ({rla: dataset}),
-		//       success: function(result){
-		//          console.log(result);
-		//       }
-		// });
+		$.ajax({
+						url: "/download/rla",
+					      type: "POST",
+					      data: ({rla: JSON.stringify(dataset)}),
+					      success: function(result){
+					         console.log(result);
+					      }
+					});
 	}
 	
 	
