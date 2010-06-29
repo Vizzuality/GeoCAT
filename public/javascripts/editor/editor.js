@@ -94,6 +94,7 @@ var _markers = [];
 																break;
 						default: 						null;
 					}
+					hideMamufasMap();
 			}
 		});
 		
@@ -294,7 +295,7 @@ var _markers = [];
 				 					}
 				 				});
 				
-				hideMamufasMap();
+				
 					
 		}
 		

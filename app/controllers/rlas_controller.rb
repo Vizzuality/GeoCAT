@@ -1,9 +1,7 @@
 class RlasController < ApplicationController
   
   def editor
-    debugger
     @Specie = "Puma"
-    debugger
   end
   
 

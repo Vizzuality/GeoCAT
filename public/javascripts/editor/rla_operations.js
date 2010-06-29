@@ -23,12 +23,12 @@
 		
 		this.addMarkers(dataset,this.markers_);		
 		
-		console.log(dataset);
+		//console.log(dataset);
 		
 		// $.ajax({
 		// 	url: "/download/RLA",
 		//       type: "POST",
-		//       data: ({rla: dataset}),
+		//       data: ({rla: JSON.stringify(dataset)}),
 		//       success: function(result){
 		//          console.log(result);
 		//       }
@@ -62,6 +62,11 @@
 	
 	RLA.prototype.upload = function() {
 		//loop object and give all the objects.
+		var result = [];
+		for (var i=0; i<this.upload_data_.length; i++) {
+			//result.push();
+		}
+		
 		return null;
 	}
 	
