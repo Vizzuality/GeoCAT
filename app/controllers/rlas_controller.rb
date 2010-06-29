@@ -6,14 +6,14 @@ class RlasController < ApplicationController
   
   # HTTP ACTIONS
   def create
-
+    
     @rla = Rla.new(params[:rla])
 
     #@name_file = File.basename(params[:rla]["name"])
     
     if validate_rla(params[:rla]["name"])
         # go to Editor PAGE
-        render :text => "Archivo correcto"
+        render :file => 'app/views/main/editor.html'
     else
   
     # if @rla.save
@@ -45,6 +45,8 @@ class RlasController < ApplicationController
           @rla.data[file_content_hash[0]["name"]] = file_content_hash 
         end
         @rla.updated_at = Time.now    
+        
+        debugger
     end
     
     file.close
