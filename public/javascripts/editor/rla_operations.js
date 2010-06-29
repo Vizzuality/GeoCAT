@@ -24,15 +24,15 @@
 		this.addMarkers(dataset,this.markers_);		
 		
 		//console.log(dataset);
-		
-		// $.ajax({
-		// 	url: "/download/RLA",
-		//       type: "POST",
-		//       data: ({rla: JSON.stringify(dataset)}),
-		//       success: function(result){
-		//          console.log(result);
-		//       }
-		// });
+
+		$.ajax({
+						url: "/download/rla",
+					      type: "POST",
+					      data: ({rla: JSON.stringify(dataset)}),
+					      success: function(result){
+					         console.log(result);
+					      }
+					});
 	}
 	
 	
