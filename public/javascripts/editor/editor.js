@@ -6,7 +6,7 @@ var flickr_founded = [];
 var gbif_founded = [];
 var flickr_data = [];
 var gbif_data = [];
-var your_data = []
+var your_data = [];
 
 var tooltip;
 var overlay;
@@ -100,8 +100,11 @@ var _markers = [];
 		
 		
 		//if the application comes through an upload file
-		if ($().length>0) {
-			var upload_information = JSON.parse($('#upload_data').text());
+		if ($('#upload_data').text()!='') {
+			var upload_string = $('#upload_data').text();
+			var upload_information = JSON.parse(upload_string);
+			//show new mamufas that it covers all the stage?
+			uploadRLA(upload_information);
 			console.log(upload_information);
 		}
 
