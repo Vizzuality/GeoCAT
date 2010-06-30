@@ -19,8 +19,9 @@
 		function validateFile(upload_field){
 			
 			// console.log(upload_field);
-			
-			var correct_ext = /\.rla|\.cvs/;
+
+			var correct_ext = /\.rla/;
+			// var correct_ext = /\.rla|\.csv/;
 			
 	        var filename = upload_field.value;
 

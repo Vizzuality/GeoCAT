@@ -5,7 +5,7 @@
 		<span id="upload_data" style="display:none"><%= @rla_json %></span>
 
 		<div id="editor">
-			<a id="scientific_name"><%= @rla.specie %></a>
+			<a id="scientific_name"><%= (@rla == nil)? '' : @rla.specie %></a>
 			
 			<ul class="editor_list">
 				<li class="first"><a href="#">Help</a></li>
@@ -119,7 +119,7 @@
 					<div class="header">
 						<div class="top-left-map"></div>
 						<div class="top-repeat-map">
-							<h1 class="specie">1_<%= @rla.specie %>.rdl<sup>(unsaved)</sup></h1>
+							<h1 class="specie"><%= (@rla == nil)? 'EMPTY' : '1_'+@rla.specie+'.rdl' %><sup>(unsaved)</sup></h1>
 						</div>						
 						<div class="top-right-map"></div>
 					</div>
