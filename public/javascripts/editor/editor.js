@@ -86,10 +86,10 @@ var _markers = [];
 					$("#add_source_container").fadeOut();
 					$("#add_source_button").removeClass('open');
 					switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-						case 'add_flickr': 	flickr_data = flickr_founded;
+						case 'add_flickr': 	flickr_data = flickr_founded[0];
 																setTimeout('addSourceToMap(flickr_data,true)',1000);
 															 	break;
-						case 'add_gbif':  	gbif_data = gbif_founded;
+						case 'add_gbif':  	gbif_data = gbif_founded[0];
 																setTimeout('addSourceToMap(gbif_data,true)',1000);
 																break;
 						default: 						null;
@@ -202,11 +202,11 @@ var _markers = [];
 			$(this).find('div form input').attr('value','');
 		});
 		
-		if (flickr_data[0]!=undefined && flickr_data[0].data.length!=0) {
+		if (flickr_data.data!=undefined && flickr_data.data.length!=0) {
 			$('#add_flickr').parent().addClass('added');
 		}
 		
-		if (gbif_data[0]!=undefined  &&  gbif_data[0].data.length!=0) {
+		if (gbif_data.data!=undefined  &&  gbif_data.data.length!=0) {
 			$('#add_gbif').parent().addClass('added');
 		}
 		
@@ -215,18 +215,18 @@ var _markers = [];
 
 		function addSourceToMap(information,getBound) {
 				var image = new google.maps.MarkerImage(
-					(information[0].name=='gbif')?'images/editor/Gbif_marker.png' :'images/editor/Flickr_marker.png',
+					(information.name=='gbif')?'images/editor/Gbif_marker.png' :'images/editor/Flickr_marker.png',
 					new google.maps.Size(25, 25),
 					new google.maps.Point(0,0),
 					new google.maps.Point(12, 12));
 
-		    $.each(information[0].data, function(i,item){
+		    $.each(information.data, function(i,item){
    					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));
    					var object = new Object();
    					object.global_id = global_id;
    					object.item = item;
 						object.item.active = true;
-						object.kind = information[0].name;
+						object.kind = information.name;
    					var marker = new google.maps.Marker({
    					        position: new google.maps.LatLng(item.latitude,item.longitude), 
    									draggable: true,
@@ -261,11 +261,11 @@ var _markers = [];
    					var circle = new google.maps.Circle({
    					  map: map,
    					  radius: item.accuracy*2000,
-   					  strokeColor: (information[0].name=='gbif')?'white':'pink',
+   					  strokeColor: (information.name=='gbif')?'white':'pink',
    						strokeOpacity: 0.5,
    						strokeWeight: 1,
    						fillOpacity: 0.5,
-   						fillColor: (information[0].name=='gbif')? 'white':'pink'
+   						fillColor: (information.name=='gbif')? 'white':'pink'
    					           	});
    					   
    					circle.bindTo('map', marker);
@@ -275,12 +275,12 @@ var _markers = [];
     		});
 
 				//Add this source in SOURCES COLUMN, count points, width bar...
-				switch (information[0].name) {
-					case 'gbif': 		$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+information[0].data.length+')</span></a></li>');
+				switch (information.name) {
+					case 'gbif': 		$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+information.data.length+')</span></a></li>');
 													break;
-					case 'flickr': 	$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ information[0].data.length +')</span></a></li>');
+					case 'flickr': 	$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ information.data.length +')</span></a></li>');
 													break;
-					default: 				$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ information[0].data.length +')</span></a></li>');
+					default: 				$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ information.data.length +')</span></a></li>');
 				}
 				calculateMapPoints();
 				resizeBarPoints();
@@ -302,29 +302,28 @@ var _markers = [];
 		
 		
 		function calculateMapPoints() {
-			$('div.sources span p.count_points').text(((flickr_data[0]!=undefined)?flickr_data[0].data.length:null) + ((gbif_data[0]!=undefined)?gbif_data[0].data.length:null) + ((your_data[0]!=undefined)?your_data[0].data.length:null) + ' POINTS');
+			$('div.sources span p.count_points').text(((flickr_data.data!=undefined)?flickr_data.data.length:null) + ((gbif_data.data!=undefined)?gbif_data.data.length:null) + ((your_data.data!=undefined)?your_data.data.length:null) + ' POINTS');
 		}
 		
 		
 		function resizeBarPoints() {
-			var total_points = ((flickr_data[0]!=undefined)?flickr_data[0].data.length:null) + ((gbif_data[0]!=undefined)?gbif_data[0].data.length:null) + ((your_data[0]!=undefined)?your_data[0].data.length:null);
+			var total_points = ((flickr_data.data!=undefined)?flickr_data.data.length:null) + ((gbif_data.data!=undefined)?gbif_data.data.length:null) + ((your_data.data=undefined)?your_data.data.length:null);
 				
-			if (flickr_data[0]!=undefined && flickr_data[0].data.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data[0].data.length)/total_points) - 217+ 'px 0');
+			if (flickr_data.data!=undefined && flickr_data.data.length!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data.data.length)/total_points) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.pink span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*flickr_data[0].data.length)/total_points) - 217+ 'px 0');
+					$(this).css('background-position',((202*flickr_data.data.length)/total_points) - 217+ 'px 0');
 				});
-
 			}
 
-			if (gbif_data[0]!=undefined  &&  gbif_data[0].data.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*gbif_data[0].data.length)/total_points) - 217+ 'px 0');
+			if (gbif_data.data!=undefined  &&  gbif_data.data.length!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*gbif_data.data.length)/total_points) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.green span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*gbif_data[0].data.length)/total_points) - 217+ 'px 0');
+					$(this).css('background-position',((202*gbif_data.data.length)/total_points) - 217+ 'px 0');
 				});
 			}
 
@@ -352,22 +351,21 @@ var _markers = [];
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					if (app_data[i].name=='gbif') {
-						gbif_data = [app_data[i]];
+						gbif_data = app_data[i];
 					}
 					if (app_data[i].name=='flickr') {
-						flickr_data = [app_data[i]];
+						flickr_data = app_data[i];
 					}
 					if (app_data[i].name=='your') {
-						your_data = [app_data[i]];
+						your_data = app_data[i];
 					}
-					addSourceToMap([app_data[i]],false);
+					addSourceToMap(app_data[i],false);
 				}
 			}
 			
 			
 			map.setCenter(new google.maps.LatLng(app_data[0].center.b,app_data[0].center.c));
 			map.setZoom(parseInt(app_data[0].zoom));
-			//specie = app_data[0].specie;
 						
 		}
 		
