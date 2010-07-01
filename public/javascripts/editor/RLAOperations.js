@@ -26,7 +26,7 @@
 
 
 		/*========================================================================================================================*/
-		/*  */
+		/* Download all the data thanks to a .rla file. */
 		/*========================================================================================================================*/
 		RLA.prototype.download = function() {
 		  var dataset = new Object();
@@ -52,14 +52,14 @@
 
 
 		/*========================================================================================================================*/
-		/*  */
+		/* Create the object for download later as a .rla file. */
 		/*========================================================================================================================*/
 		RLA.prototype.addMarkers = function(obj,markers) {
 			for (var i=0; i<markers.length; i++) {
 				var find = false;
 				for (var j=0; j<obj.sources.length; j++) {
 					if (obj.sources[j].name == markers[i].data.kind) {
-						obj.sources[j].data.push(markers[i].data.item);
+						obj.sources[j].points.push(markers[i].data.item);
 						find = true;
 						break;
 					}
@@ -68,8 +68,8 @@
 				if (!find) {
 					var new_source = new Object();
 					new_source.name = markers[i].data.kind;
-					new_source.data = [];
-					new_source.data.push(markers[i].data.item);
+					new_source.points = [];
+					new_source.points.push(markers[i].data.item);
 					obj.sources.push(new_source);
 				}
 
@@ -79,7 +79,7 @@
 	
 	
 		/*========================================================================================================================*/
-		/*  */
+		/* Upload the application from a .rla file. */
 		/*========================================================================================================================*/
 		RLA.prototype.upload = function() {
 			//loop object and give all the objects.

@@ -1,12 +1,15 @@
 var specie;  /* specie name */
 
+var state = 'select';
+
 var map;
 var bounds;
-var flickr_founded = [];
-var gbif_founded = [];
-var flickr_data = [];
-var gbif_data = [];
-var your_data = [];
+var flickr_founded;
+var gbif_founded;
+var own_created;
+var flickr_data;
+var gbif_data;
+var your_data;
 
 var tooltip;
 var overlay;
@@ -34,6 +37,21 @@ var _markers = [];
 	
 		  map = new google.maps.Map(document.getElementById("map"), myOptions);
 			bounds = new google.maps.LatLngBounds();
+			
+			
+			//MAP EVENTS
+			google.maps.event.addListener(map,"bounds_changed",function(){
+				if (overlay!=null) {
+					overlay.hide();
+				}
+			});
+			
+			google.maps.event.addListener(map,"click",function(event){
+				if (state == 'add') {
+					addMarker(event.latLng);
+				}
+			});
+			
 		
 		
 			//hover effect in browse input file
@@ -115,6 +133,19 @@ var _markers = [];
 	
 	
 	
+		/*========================================================================================================================*/
+		/* Set status of the application. */
+		/*========================================================================================================================*/
+		function setStatus(status) {
+			$("div.left a.select").removeClass('selected');
+			$("div.left a.add").removeClass('selected');
+			$("div.left a.remove").removeClass('selected');
+
+			$("div.left a."+status).addClass('selected');
+			state = status;
+			activeMarkers();
+		}
+	
 	
 	
 		/*========================================================================================================================*/
@@ -176,7 +207,7 @@ var _markers = [];
 																	break;
 							default: 						null;
 						}
-						$(element).find('span p').text(result[0].data.length + ((result[0].data.length == 1) ? " point" : " points") + ' founded');
+						$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
 						onLoadedSource(element);
 					}
 			);
@@ -184,6 +215,13 @@ var _markers = [];
 		}
 	
 
+		/*========================================================================================================================*/
+	  /* Change state loading source to loaded source. */
+		/*========================================================================================================================*/
+	  function onLoadedSource(element) {
+	    $(element).find('span p').addClass('loaded');
+	    $(element).find('span a').addClass('enabled');
+	  }
 
 
 
@@ -194,7 +232,6 @@ var _markers = [];
 			$('#mamufas_map').fadeIn();
 			$('#loader_map').fadeIn();
 		}	
-	
 	
 	
 	
@@ -232,11 +269,11 @@ var _markers = [];
 				$(this).find('div form input').attr('value','');
 			});
 		
-			if (flickr_data.data!=undefined && flickr_data.data.length!=0) {
+			if (flickr_data.points!=undefined && flickr_data.points.length!=0) {
 				$('#add_flickr').parent().addClass('added');
 			}
 		
-			if (gbif_data.data!=undefined  &&  gbif_data.data.length!=0) {
+			if (gbif_data.points!=undefined  &&  gbif_data.points.length!=0) {
 				$('#add_gbif').parent().addClass('added');
 			}
 		}
@@ -255,82 +292,51 @@ var _markers = [];
 					new google.maps.Point(0,0),
 					new google.maps.Point(12, 12));
 
-		    $.each(information.data, function(i,item){
+		    $.each(information.points, function(i,item){
    					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));
    					var object = new Object();
    					object.global_id = global_id;
    					object.item = item;
 						object.item.active = true;
 						object.kind = information.name;
-   					var marker = new google.maps.Marker({
-   					        position: new google.maps.LatLng(item.latitude,item.longitude), 
-   									draggable: true,
-   					        map: map,
-   					        title: item.title,
-   									icon: image,
-   									data:object
-   					    });
-   					
-   					google.maps.event.addListener(marker,"click",function(ev){
-   						if (overlay!=null) {
-   							overlay.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
-   							overlay.show();
-   						} else {
-   							overlay = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
-   						}
-   					});
-   					
-   					google.maps.event.addListener(marker,"dragstart",function(){
-   						if (overlay!=null) {
-   							overlay.hide();
-   						}
-   					});
-
-   					google.maps.event.addListener(marker,"dragend",function(ev){
-   						this.data.longitude = ev.latLng.c;
-							this.data.latitude = ev.latLng.b;
-   					});
-
-
-
-   					var circle = new google.maps.Circle({
-   					  map: map,
-   					  radius: item.accuracy*2000,
-   					  strokeColor: (information.name=='gbif')?'white':'pink',
-   						strokeOpacity: 0.5,
-   						strokeWeight: 1,
-   						fillOpacity: 0.5,
-   						fillColor: (information.name=='gbif')? 'white':'pink'
-   					           	});
-   					   
-   					circle.bindTo('map', marker);
-   					circle.bindTo('center', marker, 'position');
+						
+						var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, item, map)
    					global_id++;
    					_markers.push(marker);				
     		});
 
-				//Add this source in SOURCES COLUMN, count points, width bar...
-				switch (information.name) {
-					case 'gbif': 		$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+information.data.length+')</span></a></li>');
-													break;
-					case 'flickr': 	$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ information.data.length +')</span></a></li>');
-													break;
-					default: 				$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ information.data.length +')</span></a></li>');
-				}
+				addSourceToList(information.name);
 				calculateMapPoints();
 				resizeBarPoints();
 				
 				if (getBound) {
 	 				map.fitBounds(bounds);
 				}
- 
- 				//MAP EVENTS
- 				google.maps.event.addListener(map,"bounds_changed",function(){
- 					if (overlay!=null) {
- 						overlay.hide();
- 					}
- 				});
+
 		}
+		
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Add the source to the list if it doesn't exist. */
+		/*========================================================================================================================*/
+		function addSourceToList(kind) {
+			switch (kind) {
+				case 'gbif': 		if (!$('#GBIF_points').length) {
+													$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+gbif_data.points.length+')</span></a></li>');
+												}
+												break;
+				case 'flickr': 	if (!$('#Flickr_points').length) {
+													$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ flickr_data.points.length +')</span></a></li>');
+												}
+												break;
+				default: 				if (!$('#our_points').length) {
+													$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ your_data.points.length +')</span></a></li>');
+												}
+			}
+		}
+		
 		
 		
 		
@@ -340,43 +346,72 @@ var _markers = [];
 		/* Calculate number of points in the map, and show in the sources container. */
 		/*========================================================================================================================*/
 		function calculateMapPoints() {
-			$('div.sources span p.count_points').text(((flickr_data.data!=undefined)?flickr_data.data.length:null) + 
-																								((gbif_data.data!=undefined)?gbif_data.data.length:null) + 
-																								((your_data.data!=undefined)?your_data.data.length:null) + ' POINTS');
+			$('div.sources span p.count_points').text(((flickr_data!=null)?flickr_data.points.length:null) +
+																								((gbif_data!=null)?gbif_data.points.length:null) + 
+																								((your_data!=null)?your_data.points.length:null) + ' POINTS');
 		}
 		
 		
 		
 		
+		/*========================================================================================================================*/
+		/* Calculate number of points for each source. */
+		/*========================================================================================================================*/
+		function calculateSourcePoints(kind) {
+			switch (kind) {
+				case 'gbif': 		$('#GBIF_points span').text('GBIF Points ('+gbif_data.points.length+')');
+												break;
+				case 'flickr': 	$('#Flickr_points span').text('Flickr Points ('+flickr_data.points.length+')');
+												break;
+				default: 				$('#our_points span').text('Your Points ('+ your_data.points.length +')');
+			}
+		}
+		
+
 		
 		/*========================================================================================================================*/
 		/* Create different bars thanks to number of points of each sources. */
 		/*========================================================================================================================*/
 		function resizeBarPoints() {
-			var total_points = ((flickr_data.data!=undefined)?flickr_data.data.length:null) + ((gbif_data.data!=undefined)?gbif_data.data.length:null) + ((your_data.data=undefined)?your_data.data.length:null);
+			var total_points = ((flickr_data!=null)?flickr_data.points.length:null) + ((gbif_data!=null)?gbif_data.points.length:null) + ((your_data!=null)?your_data.points.length:null);
 				
-			if (flickr_data.data!=undefined && flickr_data.data.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data.data.length)/total_points) - 217+ 'px 0');
+			if (flickr_data!=null && flickr_data.points.length!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data.points.length)/total_points) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.pink span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*flickr_data.data.length)/total_points) - 217+ 'px 0');
+					$(this).css('background-position',((202*flickr_data.points.length)/total_points) - 217+ 'px 0');
 				});
+			} else {
+				$('div.sources ul li a.pink').parent().remove();
 			}
 
-			if (gbif_data.data!=undefined  &&  gbif_data.data.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*gbif_data.data.length)/total_points) - 217+ 'px 0');
+			if (gbif_data!=null  &&  gbif_data.points.length!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*gbif_data.points.length)/total_points) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.green span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*gbif_data.data.length)/total_points) - 217+ 'px 0');
+					$(this).css('background-position',((202*gbif_data.points.length)/total_points) - 217+ 'px 0');
 				});
+			} else {
+				$('div.sources ul li a.green').parent().remove();
+			}
+			
+			
+			if (your_data!=null  &&  your_data.points.length!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position',((202*your_data.points.length)/total_points) - 217+ 'px 0');
+				$('div#editor div#tools div.center div.right div.sources a.blue span').hover(function(ev){
+					$(this).css('background-position','right 0');
+				}, function(ev){
+					$(this).css('background-position',((202*your_data.points.length)/total_points) - 217+ 'px 0');
+				});
+			} else {
+				$('div.sources ul li a.blue').parent().remove();
 			}
 		}
 		
 		
-		
-		
+
 		/*========================================================================================================================*/
 		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
 		/*========================================================================================================================*/
@@ -400,7 +435,7 @@ var _markers = [];
 			var rla = new RLA(null,null,null,null,null,null,upload_data);
 			var app_data = rla.upload();
 			
-			//substitute gbif flickr and own variables
+			//substitute gbif, flickr and own variables
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					if (app_data[i].name=='gbif') {
@@ -412,6 +447,7 @@ var _markers = [];
 					if (app_data[i].name=='your') {
 						your_data = app_data[i];
 					}
+					
 					addSourceToMap(app_data[i],false);
 				}
 			}
@@ -419,6 +455,109 @@ var _markers = [];
 			map.setZoom(parseInt(app_data[0].zoom));					
 		}
 		
+		
+
+		/*========================================================================================================================*/
+		/* Remove one marker from map and the marker information in its data (gbif, flickr or own) as well. */
+		/*========================================================================================================================*/
+		function removeMarker(marker) {
+			for (var i=0; i<_markers.length; i++) {
+				if (marker == _markers[i]) {
+					_markers.splice(i,1);
+					marker.setMap(null);
+					switch (marker.data.kind) {
+						case 'gbif': 		removeMarkerInformation(gbif_data,marker);
+														break;
+						case 'flickr': 	removeMarkerInformation(flickr_data,marker);
+														break;
+						default: 				removeMarkerInformation(your_data,marker);
+					}
+					break;
+				}
+			}		
+		}
+		
+		
+		/*========================================================================================================================*/
+		/* Remove the marker information from its data source. */
+		/*========================================================================================================================*/
+		function removeMarkerInformation(collection,marker) {
+			console.log(collection);
+			console.log(marker);
+			for (var i=0; i<collection.points.length; i++) {
+				if (collection.points[i].latitude == marker.data.item.latitude && collection.points[i].longitude == marker.data.item.longitude && 
+						collection.points[i].collector == marker.data.item.collector && collection.points[i].accuracy == marker.data.item.accuracy) {
+					collection.points.splice(i,1);
+					break;
+				}
+			}
+			resizeBarPoints();
+			calculateMapPoints();
+			calculateSourcePoints(marker.data.kind);
+		}		
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Add new marker to the map. */
+		/*========================================================================================================================*/
+		function addMarker(latlng) {
+			
+			var inf = new Object();
+			inf.accuracy = 0;
+			inf.active = true;
+			inf.collector = 'you!';
+			inf.latitude = latlng.lat();
+			inf.longitude = latlng.lng();
+			
+			var marker = CreateMarker(latlng, 'your', false, inf, map);
+			global_id++;
+			bounds.extend(latlng);
+			_markers.push(marker);
+			
+			
+			if (your_data == null || your_data.length==0 ) {			
+				var own_obj = new Object();
+				own_obj.id = 'your_id';
+				own_obj.name = 'your_data';
+				own_obj.points = [marker.data.item];		
+				your_data = own_obj;
+			} else {
+				your_data.points.push(marker.data.item);
+			}
+			
+			addSourceToList('your');
+			resizeBarPoints();
+			calculateMapPoints();
+			calculateSourcePoints('your_data');
+		}	
+		
+		
+
+	
+		
+		/*========================================================================================================================*/
+		/* Put all the markers with/without drag property. */
+		/*========================================================================================================================*/
+		function activeMarkers() {
+			for (var i=0; i<_markers.length; i++) {
+				
+				if (state=='add') {
+					_markers[i].setClickable(false);
+					_markers[i].setCursor('hand');
+				} else {
+					_markers[i].setClickable(true);
+					_markers[i].setCursor('pointer');
+				}
+				
+				if (state=='select') {
+					_markers[i].setDraggable(true);
+				} else {
+					_markers[i].setDraggable(false);
+				}
+
+			}		
+		}
 	
 	
 	

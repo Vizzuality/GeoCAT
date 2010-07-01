@@ -8,7 +8,7 @@ class GbifController < ApplicationController
         if !params[:q].empty? or !params[:q].nil?
           q = params[:q]
           
-          @list = [{"id"=>"gbif_id","name"=>"gbif","data"=>[
+          @list = [{"id"=>"gbif_id","name"=>"gbif","points"=>[
             {"latitude"=>"40.543026","longitude"=>"3.055573","accuracy"=>"14","collector"=>"111"},
             {"latitude"=>"40.543026","longitude"=>"-3.055573","accuracy"=>"14","collector"=>"111"},
             {"latitude"=>"-40.543026","longitude"=>"3.055573","accuracy"=>"14","collector"=>"111"},
