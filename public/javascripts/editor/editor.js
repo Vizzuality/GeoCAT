@@ -207,7 +207,8 @@ var _markers = [];
 																	break;
 							default: 						null;
 						}
-						$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
+						$(element).find('span p').text(result[0].points.length + 
+																				 ((result[0].points.length == 1) ? " point" : " points") + ' founded');
 						onLoadedSource(element);
 					}
 			);
@@ -232,6 +233,7 @@ var _markers = [];
 			$('#mamufas_map').fadeIn();
 			$('#loader_map').fadeIn();
 		}	
+	
 	
 	
 	
@@ -269,11 +271,11 @@ var _markers = [];
 				$(this).find('div form input').attr('value','');
 			});
 		
-			if (flickr_data.points!=undefined && flickr_data.points.length!=0) {
+			if (flickr_data!=null && flickr_data.points.length!=0) {
 				$('#add_flickr').parent().addClass('added');
 			}
 		
-			if (gbif_data.points!=undefined  &&  gbif_data.points.length!=0) {
+			if (gbif_data!=null  &&  gbif_data.points.length!=0) {
 				$('#add_gbif').parent().addClass('added');
 			}
 		}
@@ -300,7 +302,7 @@ var _markers = [];
 						object.item.active = true;
 						object.kind = information.name;
 						
-						var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, item, map)
+						var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, true, item, map)
    					global_id++;
    					_markers.push(marker);				
     		});
@@ -373,7 +375,9 @@ var _markers = [];
 		/* Create different bars thanks to number of points of each sources. */
 		/*========================================================================================================================*/
 		function resizeBarPoints() {
-			var total_points = ((flickr_data!=null)?flickr_data.points.length:null) + ((gbif_data!=null)?gbif_data.points.length:null) + ((your_data!=null)?your_data.points.length:null);
+			var total_points = ((flickr_data!=null)?flickr_data.points.length:null) + 
+												 ((gbif_data!=null)?gbif_data.points.length:null) + 
+												 ((your_data!=null)?your_data.points.length:null);
 				
 			if (flickr_data!=null && flickr_data.points.length!=0) {
 				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data.points.length)/total_points) - 217+ 'px 0');
@@ -504,13 +508,13 @@ var _markers = [];
 		function addMarker(latlng) {
 			
 			var inf = new Object();
-			inf.accuracy = 0;
+			inf.accuracy = 500;
 			inf.active = true;
 			inf.collector = 'you!';
 			inf.latitude = latlng.lat();
 			inf.longitude = latlng.lng();
 			
-			var marker = CreateMarker(latlng, 'your', false, inf, map);
+			var marker = CreateMarker(latlng, 'your', false, false, inf, map);
 			global_id++;
 			bounds.extend(latlng);
 			_markers.push(marker);

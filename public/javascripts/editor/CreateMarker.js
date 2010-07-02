@@ -1,6 +1,19 @@
 
+	/*==========================================================================================================================*/
+	/*  																																																												*/
+	/*				CreateMarker => Create a new marker with circle. (Events included)																								*/
+	/*						*Params ->	latlng: position in the map.																																			*/
+	/*												kind: type of the marker.																																					*/
+	/*												draggable: if it will be draggable at the start.																									*/
+	/*												clickable: if it will be clickable at the start.																									*/
+	/*												data: marker information like name, id, lon&lat, ...																							*/
+	/*												map: where the marker goes...																																			*/
+	/*  																																																												*/
+	/*==========================================================================================================================*/
 
-	function CreateMarker(latlng, kind, draggable, data, map) {
+
+
+	function CreateMarker(latlng, kind, draggable, clickable, data, map) {
 	
 		//Choose marker icon image.
 		var image = new google.maps.MarkerImage('images/editor/'+ kind +'_marker.png',
@@ -16,6 +29,7 @@
 		var marker = new google.maps.Marker({
 		        position: latlng, 
 						draggable: draggable,
+						clickable: clickable,
 		        map: map,
 						icon: image,
 						data: object

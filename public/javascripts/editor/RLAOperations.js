@@ -1,12 +1,16 @@
 
-	/*========================================================================================================================*/
-	/*  																																																											*/
-	/*  																																																											*/
-
-	
-	/*  																																																											*/	
-	/*  																																																											*/
-	/*========================================================================================================================*/
+	/*==========================================================================================================================*/
+	/*  																																																												*/
+	/*				RLA => Class to download and upload .rla files.																																		*/
+	/*						*Params ->	specie: name of the specie.																																				*/
+	/*												flickr: flickr data information.																																	*/
+	/*												gbif: gbif data information.																																			*/
+	/*												own: your own data information.																																		*/
+	/*												markers: whole markers of the map.																																*/
+	/*  											map_properties: zoom and center of the map.																												*/
+	/*												upload_obj: only if you want to make an upload of this file have to be distinct null.							*/	
+	/*  																																																												*/
+	/*==========================================================================================================================*/
 
 
 
