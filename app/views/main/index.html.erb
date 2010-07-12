@@ -5,7 +5,8 @@
 	<label>What species do you want to analyse?</label>
 	
 	<form>
-		<input type="text" value="Start typing your desired taxon..." />
+		<input id="inputSearch" type="text" value="Start typing your desired taxon..." 
+		onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"/>
 	</form>
 		
 	<%= form_for Rla.new, :html => { :class => "upload", :multipart => true } do |r| %>

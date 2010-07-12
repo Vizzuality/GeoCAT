@@ -9,7 +9,7 @@ Rlat::Application.routes.draw do |map|
   
   match 'editor' => 'rlas#editor'
   
-  match 'search/flickr/:q' => 'flickr#search'
+  match 'search/flickr/:q' => 'flickr#search'  
   match 'search/gbif/:q' => 'gbif#search'
   
   
