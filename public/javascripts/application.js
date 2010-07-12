@@ -1,5 +1,9 @@
 
 	$(document).ready(function() {
+
+
+		// HOME
+		
 		
 		//input effect - hack
 		$('form.upload input').hover(function(ev){
@@ -8,7 +12,6 @@
 		function(ev){
 			$('form.upload a').css('background-position','0 0');
 		});
-		
 
 		$('#rla_name').change(function(){		
 			// console.log(this);
