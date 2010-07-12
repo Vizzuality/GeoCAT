@@ -22,7 +22,7 @@ class FlickrController < ApplicationController
            json_only << {:id => photo.id, :latitude => photo.latitude, :longitude => photo.longitude, :accuracy => photo.accuracy}
          end
          
-         @json_head = [{"id"=>"flickr_id","name"=>"flickr","data"=>json_only}]
+         @json_head = [{"id"=>"flickr_id","name"=>"flickr","points"=>json_only}]
            
        # end to filter
         
