@@ -13,6 +13,9 @@ var your_data;
 
 var tooltip;
 var overlay;
+var over_tooltip;
+var over_marker = false;
+var over_mini_tooltip = false;
 var global_id=1;
 var _markers = [];
 
@@ -486,8 +489,6 @@ var _markers = [];
 		/* Remove the marker information from its data source. */
 		/*========================================================================================================================*/
 		function removeMarkerInformation(collection,marker) {
-			console.log(collection);
-			console.log(marker);
 			for (var i=0; i<collection.points.length; i++) {
 				if (collection.points[i].latitude == marker.data.item.latitude && collection.points[i].longitude == marker.data.item.longitude && 
 						collection.points[i].collector == marker.data.item.collector && collection.points[i].accuracy == marker.data.item.accuracy) {
