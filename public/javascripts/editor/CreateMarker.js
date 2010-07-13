@@ -49,7 +49,35 @@
 				}
 			}
 		});
+		
+
+		//Marker mouseover event
+		google.maps.event.addListener(marker,"mouseover",function(ev){
+			if (state == 'select') {
+				over_marker = true;
+				if (over_tooltip!=null) {
+					over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+					over_tooltip.show();
+				} else {
+					over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+				}
+			}
+		});	
+		
+
+		//Marker mouseover event
+		google.maps.event.addListener(marker,"mouseout",function(ev){
+			if (state == 'select') {
+				over_marker = false;
+				setTimeout(function(ev){
+					if (over_tooltip!=null && !over_mini_tooltip) {
+						over_tooltip.hide();
+					}
+				},50);
+			}
+		});
 	
+		
 	
 		//Marker drag start event
 		google.maps.event.addListener(marker,"dragstart",function(){						
