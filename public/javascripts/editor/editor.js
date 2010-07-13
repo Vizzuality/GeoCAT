@@ -422,7 +422,7 @@ var _markers = [];
 		/*========================================================================================================================*/
 		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
 		/*========================================================================================================================*/
-		function dowloadRLA() {
+		function downloadRLA() {
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
