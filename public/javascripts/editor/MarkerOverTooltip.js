@@ -28,7 +28,7 @@ MarkerOverTooltip.prototype.draw = function() {
 		
 		$(div).hover(function(){
 			over_mini_tooltip = true;
-		}, function(){
+		}, function(){			
 			over_mini_tooltip = false;
 			setTimeout(function(ev){
 				if (!over_marker) {

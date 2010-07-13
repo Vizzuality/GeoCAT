@@ -1,23 +1,27 @@
 var specie;  /* specie name */
 
-var state = 'select';
+var state = 'select';						// State of the map
 
-var map;
-var bounds;
-var flickr_founded;
-var gbif_founded;
-var own_created;
-var flickr_data;
-var gbif_data;
-var your_data;
+var map; 												// Map
+var bounds;											// Map bounds
+var flickr_founded;							// Flickr data founded
+var gbif_founded;								// Gbif data founded
 
-var tooltip;
-var overlay;
-var over_tooltip;
-var over_marker = false;
-var over_mini_tooltip = false;
-var global_id=1;
-var _markers = [];
+var flickr_data;								// Flickr Map data
+var gbif_data;									// Gbif Map data
+var your_data;									// You Map data
+
+var click_infowindow;						// Gray main infowindow object  
+var over_tooltip;								// Tiny over infowindow object
+
+
+var over_marker = false;				// True if cursor is over marker, false opposite
+var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
+var is_dragging = false;				// True if user is dragging a marker, false opposite
+var is_infowindow_open = false;	// True if main infowindow is open, false opposite
+
+var global_id=1;								// Global id for the markers
+var _markers = [];							// All the markers of the map
 
 
 		/*========================================================================================================================*/
@@ -44,8 +48,9 @@ var _markers = [];
 			
 			//MAP EVENTS
 			google.maps.event.addListener(map,"bounds_changed",function(){
-				if (overlay!=null) {
-					overlay.hide();
+				if (click_infowindow!=null) {
+					click_infowindow.hide();
+					is_infowindow_open = false;
 				}
 			});
 			

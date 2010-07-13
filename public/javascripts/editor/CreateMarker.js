@@ -41,12 +41,20 @@
 			if (state == 'remove') {
 				removeMarker(this);
 			} else {
-				if (overlay!=null) {
-					overlay.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
-					overlay.show();
-				} else {
-					overlay = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+				if (over_tooltip!=null) {
+					over_tooltip.hide();
 				}
+				
+				if (click_infowindow!=null) {					
+					if (this.position.b!=click_infowindow.latlng_.lat() || this.position.c!=click_infowindow.latlng_.lng() || this.data.item.accuracy!=click_infowindow.inf.accuracy || this.data.item.collector!=click_infowindow.inf.collector || !is_infowindow_open) {
+						click_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+						click_infowindow.show();
+					}
+				} else {
+					click_infowindow = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+				}
+				is_infowindow_open = true;				
+				
 			}
 		});
 		
@@ -55,11 +63,13 @@
 		google.maps.event.addListener(marker,"mouseover",function(ev){
 			if (state == 'select') {
 				over_marker = true;
-				if (over_tooltip!=null) {
-					over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
-					over_tooltip.show();
-				} else {
-					over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+				if (!is_dragging && !is_infowindow_open) {
+					if (over_tooltip!=null) {
+						over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+						over_tooltip.show();
+					} else {
+						over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+					}
 				}
 			}
 		});	
@@ -70,7 +80,7 @@
 			if (state == 'select') {
 				over_marker = false;
 				setTimeout(function(ev){
-					if (over_tooltip!=null && !over_mini_tooltip) {
+					if (over_tooltip!=null && !over_mini_tooltip && !over_marker) {
 						over_tooltip.hide();
 					}
 				},50);
@@ -81,14 +91,20 @@
 	
 		//Marker drag start event
 		google.maps.event.addListener(marker,"dragstart",function(){						
-			if (overlay!=null) {
-				overlay.hide();
+			if (click_infowindow!=null) {
+				click_infowindow.hide();
+				is_infowindow_open = false;
+			}
+			if (over_tooltip!=null) {
+				is_dragging = true;
+				over_tooltip.hide();
 			}
 		});
 
 
 		//Marker drag end event
 		google.maps.event.addListener(marker,"dragend",function(ev){
+			is_dragging = false;
 			this.data.longitude = ev.latLng.c;
 			this.data.latitude = ev.latLng.b;
 		});
