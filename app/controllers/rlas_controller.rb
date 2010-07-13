@@ -70,8 +70,8 @@ class RlasController < ApplicationController
   
   # TODO Add validates
   def download_rla
-      debugger
-      # File.open('./public/data.rla', 'w') {|f| f.write('prueba') }
+      @rla_download = params[:rla]
+      File.open('./public/data/data.rla', 'w') {|f| f.write(@rla_download) }
       render :text => "Llego"
   end
   
