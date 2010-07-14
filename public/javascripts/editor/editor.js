@@ -13,15 +13,17 @@ var your_data;									// You Map data
 
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
-
+var delete_infowindow;					// Delete infowindow object
 
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 var is_infowindow_open = false;	// True if main infowindow is open, false opposite
+var is_delete_open = false; 		// True if delete infowindow is open, false opposite
 
 var global_id=1;								// Global id for the markers
 var _markers = [];							// All the markers of the map
+
 
 
 		/*========================================================================================================================*/
@@ -52,6 +54,10 @@ var _markers = [];							// All the markers of the map
 					click_infowindow.hide();
 					is_infowindow_open = false;
 				}
+				if (delete_infowindow!=null) {
+					delete_infowindow.hide();
+					is_delete_open = false;
+				}
 			});
 			
 			google.maps.event.addListener(map,"click",function(event){
@@ -60,7 +66,6 @@ var _markers = [];							// All the markers of the map
 				}
 			});
 			
-		
 		
 			//hover effect in browse input file
 			$('li span div').hover(function(ev){
@@ -514,7 +519,7 @@ var _markers = [];							// All the markers of the map
 		function addMarker(latlng) {
 			
 			var inf = new Object();
-			inf.accuracy = 500;
+			inf.accuracy = 50;
 			inf.active = true;
 			inf.collector = 'you!';
 			inf.latitude = latlng.lat();

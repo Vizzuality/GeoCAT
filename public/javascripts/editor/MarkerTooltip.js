@@ -4,7 +4,7 @@ function MarkerTooltip(latlng, marker_id, opt, map) {
   this.latlng_ = latlng;
 	this.inf = opt;
 	this.marker_id = marker_id;
-  this.offsetVertical_ = -200;
+  this.offsetVertical_ = -189;
   this.offsetHorizontal_ = -113;
   this.height_ = 203;
   this.width_ = 227;
@@ -232,6 +232,7 @@ MarkerTooltip.prototype.changePosition = function(latlng,marker_id,opt) {
 	  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
 	  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";
   }
+	this.show();
 }
 
 
@@ -243,8 +244,8 @@ MarkerTooltip.prototype.deleteMarker = function() {
 MarkerTooltip.prototype.hide = function() {
   if (this.div_) {
     var div = this.div_;
-    $(div).animate({
-      top: '-=' + 10 + 'px',
+    $(div).stop().animate({
+      top: '+=' + 15 + 'px',
       opacity: 0
     }, 100, 'swing', function(ev){
 			div.style.visibility = "hidden";
@@ -261,11 +262,10 @@ MarkerTooltip.prototype.show = function() {
 		$(div).css({opacity:0});
 		div.style.visibility = "visible";
 
-    $(div).animate({
+    $(div).stop().animate({
       top: '-=' + 10 + 'px',
       opacity: 1
     }, 250, 'swing');
-
 	}
 
 }
@@ -289,6 +289,27 @@ MarkerTooltip.prototype.toggleDOM = function() {
     this.setMap(this.map_);
   }
 }
+
+
+MarkerTooltip.prototype.isVisible = function() {
+  if (this.div_) {
+    var div = this.div_;
+		
+		
+		alert(div.style.visibility);
+		// if ()
+		// 		$(div).css({opacity:0});
+		// 		div.style.visibility = "visible";
+		// 
+		//     $(div).stop().animate({
+		//       top: '-=' + 10 + 'px',
+		//       opacity: 1
+		//     }, 250, 'swing');
+	}
+
+}
+
+
 
 
 
