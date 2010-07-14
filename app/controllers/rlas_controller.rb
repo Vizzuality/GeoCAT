@@ -1,7 +1,6 @@
 class RlasController < ApplicationController
   
   def editor
-    
     if (!$rla.nil?)&&(!$file_content.nil?)       
       @rla = $rla    
       @rla_json = $file_content
@@ -29,12 +28,11 @@ class RlasController < ApplicationController
     invalid_file = false
     
     file = File.open(path, "r")
-
     file_content_JSON = []
     file_content = []
     file.each do |json_string| 
-      file_content_JSON << JSON.parse(json_string)
-      file_content << json_string
+    file_content_JSON << JSON.parse(json_string)
+    file_content << json_string
     end
     
     $file_content = file_content[0]
@@ -65,14 +63,24 @@ class RlasController < ApplicationController
     else
         return true 
     end  
-    
   end
   
   # TODO Add validates
   def download_rla
       @rla_download = params[:rla]
-      File.open('./public/data/data.rla', 'w') {|f| f.write(@rla_download) }
-      render :text => "Llego"
+
+      file_temp = File.open('./public/data/data_temp.rla', 'w') {
+        |f| f.write(@rla_download)
+      }
+      # File.delete file_temp
+
+      # Mandar al cliente la URL para que se lo descargue
+      redirect_to "./public/data/datatemp.rla"
+
+      # Borrar archivo temporal
+      # File.delete file
+
+      # render :text => "Llego"
   end
   
   def upload_rla
