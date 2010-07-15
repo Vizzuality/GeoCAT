@@ -18,8 +18,7 @@ var delete_infowindow;					// Delete infowindow object
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
 var is_dragging = false;				// True if user is dragging a marker, false opposite
-var is_infowindow_open = false;	// True if main infowindow is open, false opposite
-var is_delete_open = false; 		// True if delete infowindow is open, false opposite
+
 
 var global_id=1;								// Global id for the markers
 var _markers = [];							// All the markers of the map
@@ -52,11 +51,10 @@ var _markers = [];							// All the markers of the map
 			google.maps.event.addListener(map,"bounds_changed",function(){
 				if (click_infowindow!=null) {
 					click_infowindow.hide();
-					is_infowindow_open = false;
+					//is_infowindow_open = false;
 				}
 				if (delete_infowindow!=null) {
 					delete_infowindow.hide();
-					is_delete_open = false;
 				}
 			});
 			
@@ -156,7 +154,7 @@ var _markers = [];							// All the markers of the map
 
 			$("div.left a."+status).addClass('selected');
 			state = status;
-			activeMarkers();
+			activeMarkersProperties();
 		}
 	
 	
@@ -477,18 +475,21 @@ var _markers = [];							// All the markers of the map
 		/*========================================================================================================================*/
 		/* Remove one marker from map and the marker information in its data (gbif, flickr or own) as well. */
 		/*========================================================================================================================*/
-		function removeMarker(marker) {
+		function removeMarker(latlng, marker_id, inf) {
 			for (var i=0; i<_markers.length; i++) {
-				if (marker == _markers[i]) {
-					_markers.splice(i,1);
-					marker.setMap(null);
-					switch (marker.data.kind) {
-						case 'gbif': 		removeMarkerInformation(gbif_data,marker);
+				if ((inf.latitude == _markers[i].data.item.latitude) &&  (inf.longitude == _markers[i].data.item.longitude) && (inf.collector == _markers[i].data.item.collector) && (inf.accuracy == _markers[i].data.item.accuracy) && (inf.active == _markers[i].data.item.active)) {
+					switch (_markers[i].data.kind) {
+						case 'gbif': 		removeMarkerInformation(gbif_data,_markers[i]);
 														break;
-						case 'flickr': 	removeMarkerInformation(flickr_data,marker);
+						case 'flickr': 	removeMarkerInformation(flickr_data,_markers[i]);
 														break;
-						default: 				removeMarkerInformation(your_data,marker);
+						default: 				removeMarkerInformation(your_data,_markers[i]);
 					}
+					
+					_markers[i].setMap(null);
+					_markers.splice(i,1);
+					
+					
 					break;
 				}
 			}		
@@ -548,13 +549,49 @@ var _markers = [];							// All the markers of the map
 		}	
 		
 		
+		
+		
+		/*========================================================================================================================*/
+		/* Put a marker active or not. */
+		/*========================================================================================================================*/
+		function makeActive (latlng, marker_id, inf) {
+			for (var i=0; i<_markers.length; i++) {
+				if ((inf.latitude == _markers[i].data.item.latitude) &&  (inf.longitude == _markers[i].data.item.longitude) && (inf.collector == _markers[i].data.item.collector) && (inf.accuracy == _markers[i].data.item.accuracy) && (inf.active == _markers[i].data.item.active)) {
+					switch (_markers[i].data.kind) {
+						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/gbif_marker_no_active.png':'images/editor/gbif_marker.png',
+																										new google.maps.Size(25, 25),
+																										new google.maps.Point(0,0),
+																										new google.maps.Point(12, 12));
+														_markers[i].setIcon(image);				
+														break;
+						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/flickr_marker_no_active.png':'images/editor/flickr_marker.png',
+																										new google.maps.Size(25, 25),
+																										new google.maps.Point(0,0),
+																										new google.maps.Point(12, 12));
+														_markers[i].setIcon(image);
+														break;
+						default: 				var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/you_marker_no_active.png':'images/editor/you_marker.png',
+																										new google.maps.Size(25, 25),
+																										new google.maps.Point(0,0),
+																										new google.maps.Point(12, 12));
+														_markers[i].setIcon(image);
+					}
+					
+					_markers[i].data.item.active = !_markers[i].data.item.active;
+					
+					break;
+				}
+			}		
+		}
+		
+		
 
 	
 		
 		/*========================================================================================================================*/
 		/* Put all the markers with/without drag property. */
 		/*========================================================================================================================*/
-		function activeMarkers() {
+		function activeMarkersProperties() {
 			for (var i=0; i<_markers.length; i++) {
 				
 				if (state=='add') {
