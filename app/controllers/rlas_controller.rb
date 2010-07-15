@@ -67,20 +67,9 @@ class RlasController < ApplicationController
   
   # TODO Add validates
   def download_rla
+ 
+    #@rla_download = params[:rla]
       
-      #Set the X-Accel-Redirect header with the path relative to the /downloads location in nginx
-          response.headers['X-Accel-Redirect'] = '/downloads/myfile.zip'
-          #Set the Content-Type header as nginx won't change it and Rails will send text/html
-          response.headers['Content-Type'] = 'application/octet-stream'
-          #If you want to force download, set the Content-Disposition header (which nginx won't change)
-          response.headers['Content-Disposition'] = 'attachment; filename=myfile.zip'
-          #Make sure we don't render anything
-          render :nothing => true
-          
-      
-      # @rla_download = params[:rla]
-      
-      # 
       # if File.exist?('public/data/data_temp.rla')
       #           respond_to do |format|
       #             format.rla {
@@ -90,8 +79,6 @@ class RlasController < ApplicationController
       #             end
       #   end      
              
-             
-             
       # file = File.open('./public/data/data_temp.rla', 'r')
       #       file.write(@rla_download)
       #       file.close
@@ -99,9 +86,6 @@ class RlasController < ApplicationController
       #       if File.file? file
       #          send_data(File.read(file), :type=> 'application/rla', :disposition => 'attachement')
       #        end
-       
-       
-       
       # file_temp = File.open('./public/data/data_temp.rla', 'w') {
       #   |f| f.write(@rla_download)
       # }
@@ -110,12 +94,13 @@ class RlasController < ApplicationController
       # send_file 'public/data/data_temp.rla', :disposition => 'attachment', :stream => false
       
       # send_file 'public/data/data_temp.rla', :type=>"application/rla", :disposition => 'inline'
-      # redirect_to "public/data/data_temp.rla"
+
+      redirect_to "public/data/data_temp.rla"
 
       # Borrar archivo temporal
       # File.delete file
 
-      # render :text => "Llego"
+      render :nothing => true
   end
   
   def upload_rla

@@ -60,6 +60,9 @@
 				button_o.style.height = "14px";		
 				button_o.style.background = "url(../images/editor/over_o.png) no-repeat 0 0";
 				button_o.style.cursor = "pointer";
+				$(button_o).click(function(ev){
+					me.makeActive();
+				});
 				$(button_o).hover(function(ev){
 					$(this).css('background-position','0 -14px');
 				}, function(ev){
@@ -76,6 +79,9 @@
 				button_x.style.height = "14px";		
 				button_x.style.background = "url(../images/editor/over_x.png) no-repeat 0 0";
 				button_x.style.cursor = "pointer";
+				$(button_x).click(function(ev){
+					me.deleteMarker();
+				});
 				$(button_x).hover(function(ev){
 					$(this).css('background-position','0 -14px');
 				}, function(ev){
@@ -121,6 +127,19 @@
 			  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";
 		  }
 		}
+		
+		
+		MarkerOverTooltip.prototype.deleteMarker = function() {
+			this.hide();
+			removeMarker(this.latlng_, this.marker_id, this.inf);
+		}
+		
+		
+		MarkerOverTooltip.prototype.makeActive = function() {
+			this.hide();
+			makeActive(this.latlng_, this.marker_id, this.inf);
+		}
+		
 
 
 		MarkerOverTooltip.prototype.hide = function() {
@@ -135,6 +154,19 @@
 		  if (this.div_) {
 		    var div = this.div_;  
 				div.style.visibility = "visible";
+			}
+		}
+		
+		
+		MarkerOverTooltip.prototype.isVisible = function() {
+		  if (this.div_) {
+		    var div = this.div_;
+
+				if ($(div).css('visibility')=='visible') {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		}
 

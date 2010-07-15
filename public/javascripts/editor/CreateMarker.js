@@ -41,28 +41,25 @@
 			if (state == 'remove') {
 				
 				if (delete_infowindow!=null) {					
-					if (this.position.b!=delete_infowindow.latlng_.lat() || this.position.c!=delete_infowindow.latlng_.lng() || this.data.item.accuracy!=delete_infowindow.inf.accuracy || this.data.item.collector!=delete_infowindow.inf.collector || !is_delete_open) {
+					if (this.position.b!=delete_infowindow.latlng_.lat() || this.position.c!=delete_infowindow.latlng_.lng() || this.data.item.accuracy!=delete_infowindow.inf.accuracy || this.data.item.collector!=delete_infowindow.inf.collector || !delete_infowindow.isVisible()) {
 						delete_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
 					}
 				} else {
 					delete_infowindow = new DeleteInfowindow(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
 				}				
-				is_delete_open = true;
 				
-				//removeMarker(this);
 			} else {
 				if (over_tooltip!=null) {
 					over_tooltip.hide();
 				}
 				
 				if (click_infowindow!=null) {					
-					if (this.position.b!=click_infowindow.latlng_.lat() || this.position.c!=click_infowindow.latlng_.lng() || this.data.item.accuracy!=click_infowindow.inf.accuracy || this.data.item.collector!=click_infowindow.inf.collector || !is_infowindow_open) {
+					if (this.position.b!=click_infowindow.latlng_.lat() || this.position.c!=click_infowindow.latlng_.lng() || this.data.item.accuracy!=click_infowindow.inf.accuracy || this.data.item.collector!=click_infowindow.inf.collector || !click_infowindow.isVisible()) {
 						click_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
 					}
 				} else {
 					click_infowindow = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
 				}
-				is_infowindow_open = true;
 			}
 		});
 		
@@ -71,14 +68,28 @@
 		google.maps.event.addListener(marker,"mouseover",function(ev){
 			if (state == 'select') {
 				over_marker = true;
-				if (!is_dragging && !is_infowindow_open) {
-					if (over_tooltip!=null) {
-						over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
-						over_tooltip.show();
-					} else {
-						over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+				
+				
+				if (click_infowindow != null) {
+					if (!is_dragging && !click_infowindow.isVisible()) {
+						if (over_tooltip!=null) {
+							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+							over_tooltip.show();
+						} else {
+							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+						}
+					}
+				} else {
+					if (!is_dragging) {
+						if (over_tooltip!=null) {
+							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+							over_tooltip.show();
+						} else {
+							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+						}
 					}
 				}
+
 			}
 		});	
 		
@@ -101,7 +112,7 @@
 		google.maps.event.addListener(marker,"dragstart",function(){						
 			if (click_infowindow!=null) {
 				click_infowindow.hide();
-				is_infowindow_open = false;
+				//is_infowindow_open = false;
 			}
 			if (over_tooltip!=null) {
 				is_dragging = true;
