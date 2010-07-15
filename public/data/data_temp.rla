@@ -1,1 +1,1 @@
-{"scientificname":"lince","zoom":3,"center":{"b":-5.528510525692788,"c":1.318359375},"sources":[{"name":"gbif","points":[{"latitude":"40.543026","longitude":"3.055573","accuracy":"14","collector":"111","active":true}]}]}
+{"scientificname":"lince","zoom":3,"center":{"b":0,"c":0},"sources":[{"name":"gbif","points":[{"latitude":"40.543026","longitude":"3.055573","accuracy":"14","collector":"111","active":true}]}]}
