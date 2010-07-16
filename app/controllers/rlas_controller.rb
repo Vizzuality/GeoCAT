@@ -65,25 +65,62 @@ class RlasController < ApplicationController
     end  
   end
   
+  def get_download_url url
+    if url.present?
+      AWS::S3::Base.establish_connection!(
+              :access_key_id     => ENV['S3_KEY'],
+              :secret_access_key => ENV['S3_SECRET']
+      )
+
+      AWS::S3::S3Object.url_for(
+              url,
+              UserUploadBucket
+      )
+    else
+      ""
+    end
+  end
   # TODO Add validates
   def download_rla
-      @rla_download = params[:rla]
-
-      file_temp = File.open('./public/data/data_temp.rla', 'w') {
-        |f| f.write(@rla_download)
-      }
+ 
+    #@rla_download = params[:rla]
+      
+      # if File.exist?('public/data/data_temp.rla')
+      #           respond_to do |format|
+      #             format.rla {
+      #               send_file 'public/data/data_temp.rla',
+      #                 :filename => 'data_temp.rla'
+      #               }
+      #             end
+      #   end      
+             
+      # file = File.open('./public/data/data_temp.rla', 'r')
+      #       file.write(@rla_download)
+      #       file.close
+      #       
+      #       if File.file? file
+      #          send_data(File.read(file), :type=> 'application/rla', :disposition => 'attachement')
+      #        end
+      # file_temp = File.open('./public/data/data_temp.rla', 'w') {
+      #   |f| f.write(@rla_download)
+      # }
       # File.delete file_temp
+      
+      # send_file 'public/data/data_temp.rla', :disposition => 'attachment', :stream => false
+      
+      # send_file 'public/data/data_temp.rla', :type=>"application/rla", :disposition => 'inline'
 
-      # Mandar al cliente la URL para que se lo descargue
-      redirect_to "./public/data/datatemp.rla"
+      @url = get_download_url 'public/data/data_temp.rla'
+      
+      redirect_to @url
 
       # Borrar archivo temporal
       # File.delete file
 
-      # render :text => "Llego"
+      # render :nothing => true
   end
   
-  def upload_rla
+  def upload_rla 'public/data/data_temp.rla
       #render :file => 'app/views/main/index.html'
       render :text => "download RLA"
     end

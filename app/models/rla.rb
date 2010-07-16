@@ -1,5 +1,8 @@
 class Rla < ActiveRecord::Base
+  
   # attr_accessor :zoom, :specie, :center
+  
+  Mime::Type.register "text/rla", :rla
   
   belongs_to :user
   
@@ -7,19 +10,7 @@ class Rla < ActiveRecord::Base
   
   #From the bucket key, create a temporary authenticated download url for the user
   def get_download_url
-      if url.present?
-        AWS::S3::Base.establish_connection!(
-                :access_key_id     => ENV['S3_KEY'],
-                :secret_access_key => ENV['S3_SECRET']
-        )
-    
-        AWS::S3::S3Object.url_for(
-                url,
-                UserUploadBucket
-        )
-      else
-        ""
-      end
+      
     end
     
   # def self.save
