@@ -119,6 +119,17 @@
 				over_tooltip.hide();
 			}
 		});
+		
+
+		//Marker drag event
+		google.maps.event.addListener(marker,"drag",function(ev){						
+			this.data.longitude = ev.latLng.c;
+			this.data.latitude = ev.latLng.b;
+			if (isConvexHull()) {
+				calculateConvexHull();
+			}
+		});
+
 
 
 		//Marker drag end event

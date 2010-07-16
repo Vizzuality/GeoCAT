@@ -14,6 +14,7 @@ var your_data;									// You Map data
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
 var delete_infowindow;					// Delete infowindow object
+var hull_polygon;								// Convex Hull polygon object
 
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
@@ -22,7 +23,16 @@ var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var global_id=1;								// Global id for the markers
 var _markers = [];							// All the markers of the map
+
+
+// var active_markers = [];			
+// var no_active_markers = [];
+// var removed_markers = [];
+
+
+
 var hullPoints = [];						// Hull points of the map
+
 
 
 		/*========================================================================================================================*/
@@ -492,7 +502,11 @@ var hullPoints = [];						// Hull points of the map
 					
 					break;
 				}
-			}		
+			}
+			
+			if (isConvexHull()) {
+				calculateConvexHull();
+			}	
 		}
 		
 		
@@ -546,6 +560,10 @@ var hullPoints = [];						// Hull points of the map
 			resizeBarPoints();
 			calculateMapPoints();
 			calculateSourcePoints('your_data');
+			
+			if (isConvexHull()) {
+				calculateConvexHull();
+			}
 		}	
 		
 		
@@ -622,37 +640,70 @@ var hullPoints = [];						// Hull points of the map
 		/* Convex Hull stuff */
 		
 		function calculateConvexHull() {
-    	//if (polyline) map.removeOverlay(polyline);
     	_markers.sort(sortPointY);
     	_markers.sort(sortPointX);
     	DrawHull();
 		}
 
+
    	function sortPointX(a,b) { return a.position.c - b.position.c; }
    	function sortPointY(a,b) { return a.position.b - b.position.b; }
 
+
    	function DrawHull() {
    		chainHull_2D( _markers, _markers.length, hullPoints);
-   		var polyline = new google.maps.Polygon({
-				paths: markersToPoints(hullPoints),
-	      strokeColor: "#FF0000",
-	      strokeOpacity: 0.8,
-	      strokeWeight: 3,
-	      fillColor: "#FF0000",
-	      fillOpacity: 0.35
-			});
-   		polyline.setMap(map);
+			if (hull_polygon) {
+				hull_polygon.setPath(markersToPoints(hullPoints));
+			} else {
+	   		hull_polygon = new google.maps.Polygon({
+					paths: markersToPoints(hullPoints),
+		      strokeColor: "#333333",
+		      strokeOpacity: 1,
+		      strokeWeight: 2,
+		      fillColor: "#000000",
+		      fillOpacity: 0.25
+				});
+				hull_polygon.setMap(map);
+			}
+
 	  }
 	
+		
 		
 		function markersToPoints(array) {
 			var result = [];
 			for (var i=0; i<array.length; i++) {
 				result.push(new google.maps.LatLng(array[i].position.b,array[i].position.c));
 			}
-			console.log(result);
 			return result;
 		}
+		
+		
+		
+		function openConvexHull() {
+			if (hull_polygon) {
+				hull_polygon.setMap(map);
+			}
+			var position = $('#convex').offset();
+			$('div.hull_container').css('top',position.top + 'px');
+			$('#convex').css('margin-bottom','300px');
+			$('div.hull_container').fadeIn('fast');
+			calculateConvexHull();
+		}
+		
+		
+		
+		function closeConvexHull() {
+			hull_polygon.setMap(null);
+			$('#convex').css('margin-bottom','0px');
+			$('div.hull_container').fadeOut('slow');
+		}
+		
+		
+		function isConvexHull() {
+			return $('div.hull_container').is(':visible');
+		}
+		
 	
 
 
