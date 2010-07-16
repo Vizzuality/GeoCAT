@@ -120,7 +120,7 @@ class RlasController < ApplicationController
       # render :nothing => true
   end
   
-  def upload_rla 'public/data/data_temp.rla
+  def upload_rla 
       #render :file => 'app/views/main/index.html'
       render :text => "download RLA"
     end
