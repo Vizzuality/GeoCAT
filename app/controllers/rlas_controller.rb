@@ -65,6 +65,21 @@ class RlasController < ApplicationController
     end  
   end
   
+  def get_download_url url
+    if url.present?
+      AWS::S3::Base.establish_connection!(
+              :access_key_id     => ENV['S3_KEY'],
+              :secret_access_key => ENV['S3_SECRET']
+      )
+
+      AWS::S3::S3Object.url_for(
+              url,
+              UserUploadBucket
+      )
+    else
+      ""
+    end
+  end
   # TODO Add validates
   def download_rla
  
@@ -95,15 +110,17 @@ class RlasController < ApplicationController
       
       # send_file 'public/data/data_temp.rla', :type=>"application/rla", :disposition => 'inline'
 
-      redirect_to "public/data/data_temp.rla"
+      @url = get_download_url 'public/data/data_temp.rla'
+      
+      redirect_to @url
 
       # Borrar archivo temporal
       # File.delete file
 
-      render :nothing => true
+      # render :nothing => true
   end
   
-  def upload_rla
+  def upload_rla 'public/data/data_temp.rla
       #render :file => 'app/views/main/index.html'
       render :text => "download RLA"
     end

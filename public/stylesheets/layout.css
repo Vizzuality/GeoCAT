@@ -4,7 +4,6 @@ ul{list-style:none;}
 /*fonts*/
 @font-face { font-family: "Futura"; src: url('../fonts/Futura.ttc'); } 
 
-
 /* HOME */
 div#main_container {margin:116px auto 0; padding:33px; width:408px; height:262px; background:url(../images/home/main_bkg.png) no-repeat 0 0; }
 div#main_container h1 {float:left; padding:0; margin:0; font:normal 31px "Futura"; color:white; line-height:35px;}
