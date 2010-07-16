@@ -22,7 +22,7 @@ var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var global_id=1;								// Global id for the markers
 var _markers = [];							// All the markers of the map
-
+var hullPoints = [];						// Hull points of the map
 
 
 		/*========================================================================================================================*/
@@ -570,7 +570,7 @@ var _markers = [];							// All the markers of the map
 																										new google.maps.Point(12, 12));
 														_markers[i].setIcon(image);
 														break;
-						default: 				var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/you_marker_no_active.png':'images/editor/you_marker.png',
+						default: 				var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/your_marker_no_active.png':'images/editor/your_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
@@ -610,9 +610,49 @@ var _markers = [];							// All the markers of the map
 
 			}		
 		}
+		
+		
+		
+		
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+
+
+		/* Convex Hull stuff */
+		
+		function calculateConvexHull() {
+    	//if (polyline) map.removeOverlay(polyline);
+    	_markers.sort(sortPointY);
+    	_markers.sort(sortPointX);
+    	DrawHull();
+		}
+
+   	function sortPointX(a,b) { return a.position.c - b.position.c; }
+   	function sortPointY(a,b) { return a.position.b - b.position.b; }
+
+   	function DrawHull() {
+   		chainHull_2D( _markers, _markers.length, hullPoints);
+   		var polyline = new google.maps.Polygon({
+				paths: markersToPoints(hullPoints),
+	      strokeColor: "#FF0000",
+	      strokeOpacity: 0.8,
+	      strokeWeight: 3,
+	      fillColor: "#FF0000",
+	      fillOpacity: 0.35
+			});
+   		polyline.setMap(map);
+	  }
 	
-	
-	
+		
+		function markersToPoints(array) {
+			var result = [];
+			for (var i=0; i<array.length; i++) {
+				result.push(new google.maps.LatLng(array[i].position.b,array[i].position.c));
+			}
+			console.log(result);
+			return result;
+		}
 	
 
 
