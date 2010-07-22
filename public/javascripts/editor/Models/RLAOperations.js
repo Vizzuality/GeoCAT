@@ -14,10 +14,7 @@
 
 
 
-		function RLA (specie, flickr, gbif, own, markers, map_properties, upload_obj) {
-			this.flickr_ = flickr;
-			this.gbif_ = gbif;
-			this.own_ = own;
+		function RLA (specie, markers, map_properties, upload_obj) {
 			this.specie_ = specie;
 		
 			this.upload_data_ = upload_obj;
@@ -86,7 +83,8 @@
 		/* Upload the application from a .rla file. */
 		/*========================================================================================================================*/
 		RLA.prototype.upload = function() {
-			//loop object and give all the objects.
+			
+			//loop object and give all the parameters.
 			var result = [];
 		
 			var obj = new Object();
@@ -97,8 +95,8 @@
 		
 			result.push(obj);
 		
-			for (var i=0; i<this.upload_data_.rla.source.length; i++) {
-				result.push(this.upload_data_.rla.source[i]);
+			for (var i=0; i<this.upload_data_.rla.sources.length; i++) {
+				result.push(this.upload_data_.rla.sources[i]);
 			}
 			return result;
 		}

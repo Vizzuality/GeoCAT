@@ -4,12 +4,11 @@ var state = 'select';						// State of the map
 
 var map; 												// Map
 var bounds;											// Map bounds
+
 var flickr_founded;							// Flickr data founded
 var gbif_founded;								// Gbif data founded
 
-var flickr_data;								// Flickr Map data
-var gbif_data;									// Gbif Map data
-var your_data;									// You Map data
+var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
 
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
@@ -20,28 +19,18 @@ var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 
-
-var global_id=1;								// Global id for the markers
-var _markers = [];							// All the markers of the map
-
-
-// var active_markers = [];			
-// var no_active_markers = [];
-// var removed_markers = [];
-
-
-
+var _markers = [];							// All the markers of the map (Associative array)
 var hullPoints = [];						// Hull points of the map
 
+var global_id = 0; 							// Global id for your own markers
 
 
 		/*========================================================================================================================*/
 		/* When the document is loaded. */
 		/*========================================================================================================================*/
 		$(document).ready(function() {
-		
-			//Get scientific_name
-			specie = $('a#scientific_name').text();
+			
+			total_points = new TotalPointsOperations();
 		
 			//initialize map
 		  var myLatlng = new google.maps.LatLng(30,0);
@@ -57,11 +46,9 @@ var hullPoints = [];						// Hull points of the map
 			bounds = new google.maps.LatLngBounds();
 			
 			
-			//MAP EVENTS
 			google.maps.event.addListener(map,"bounds_changed",function(){
 				if (click_infowindow!=null) {
 					click_infowindow.hide();
-					//is_infowindow_open = false;
 				}
 				if (delete_infowindow!=null) {
 					delete_infowindow.hide();
@@ -74,74 +61,7 @@ var hullPoints = [];						// Hull points of the map
 				}
 			});
 			
-		
-			//hover effect in browse input file
-			$('li span div').hover(function(ev){
-				$(this).find('a.browse').css('background-position','0 -21px');
-			},function(ev){
-				$(this).find('a.browse').css('background-position','0 0');
-			});
-		
-		
-			//change file input value
-			$('li span div form input').change(function(ev){
-				$(this).parent().parent().parent().find('a.import_data').addClass('enabled');
-				$(this).parent().parent().addClass('selected');
-				if ($(this).val().length>15) {
-					$(this).parent().parent().find('p').text($(this).val().substr(0,12)+'...');
-				} else {
-					$(this).parent().parent().find('p').text($(this).val());
-				}
-			});	
-		
-
-			//open add sources container
-			$("#add_source_button").click(function(ev){
-				ev.stopPropagation();
-				ev.preventDefault();
-				if (!$('#add_source_container').is(':visible')) {
-					openSources();
-				} else {
-					closeSources();
-				}
-			});
-		
-			//add source effects
-			$("#add_source_container ul li a.checkbox").click(function(ev){
-				ev.stopPropagation();
-				ev.preventDefault();
-				if (!$(this).parent().hasClass('selected') && !$(this).parent().hasClass('added')) {
-					removeSelectedSources();
-					$(this).parent().addClass('selected');
-					if (!$(this).parent().find('span p').hasClass('loaded')) {
-						callSourceService($(this).attr('id'),$(this).parent());
-					}
-				}
-			});
-		
-			//import data
-			$("a.import_data").click(function(ev){
-				ev.stopPropagation();
-				ev.preventDefault();
-				if ($(this).hasClass('enabled')) {
-						showMamufasMap();
-						$("#add_source_container").fadeOut();
-						$("#add_source_button").removeClass('open');
-						switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-							case 'add_flickr': 	flickr_data = flickr_founded[0];
-																	setTimeout('addSourceToMap(flickr_data,true)',1000);
-																 	break;
-							case 'add_gbif':  	gbif_data = gbif_founded[0];
-																	setTimeout('addSourceToMap(gbif_data,true)',1000);
-																	break;
-							default: 						null;
-						}
-						hideMamufasMap();
-				}
-			});
-		
-		
-		
+			
 			//if the application comes through an upload file
 			if ($('#upload_data').text()!='') {
 				var upload_string = $('#upload_data').text();
@@ -167,8 +87,7 @@ var hullPoints = [];						// Hull points of the map
 			activeMarkersProperties();
 		}
 	
-	
-	
+
 		/*========================================================================================================================*/
 		/* Close sources window. */
 		/*========================================================================================================================*/
@@ -177,10 +96,7 @@ var hullPoints = [];						// Hull points of the map
 			$('#add_source_button').removeClass('open');
 		}
 	
-	
-	
-	
-	
+
 		/*========================================================================================================================*/
 		/* Open sources window. */
 		/*========================================================================================================================*/
@@ -190,10 +106,7 @@ var hullPoints = [];						// Hull points of the map
 			$('#add_source_button').addClass('open');
 		}
 	
-	
-	
-	
-	
+
 		/*========================================================================================================================*/
 		/* Remove selected class in -> add source window. */
 		/*========================================================================================================================*/
@@ -228,8 +141,7 @@ var hullPoints = [];						// Hull points of the map
 																	break;
 							default: 						null;
 						}
-						$(element).find('span p').text(result[0].points.length + 
-																				 ((result[0].points.length == 1) ? " point" : " points") + ' founded');
+						$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
 						onLoadedSource(element);
 					}
 			);
@@ -240,28 +152,27 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 	  /* Change state loading source to loaded source. */
 		/*========================================================================================================================*/
-	  function onLoadedSource(element) {
+	  
+		function onLoadedSource(element) {
 	    $(element).find('span p').addClass('loaded');
 	    $(element).find('span a').addClass('enabled');
 	  }
 
 
-
 		/*========================================================================================================================*/
 		/* Show loading map stuff. */
 		/*========================================================================================================================*/
+		
 		function showMamufasMap() {
 			$('#mamufas_map').fadeIn();
 			$('#loader_map').fadeIn();
 		}	
 	
 	
-	
-	
-	
 		/*========================================================================================================================*/
 		/* Hide loading map stuff. */
 		/*========================================================================================================================*/
+		
 		function hideMamufasMap() {
 			$('#loader_map').fadeOut(function(ev){
 				$('div#import_success').fadeIn(function(ev){
@@ -278,6 +189,7 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Reset properties of sources window every time you open it. */
 		/*========================================================================================================================*/	
+		
 		function resetSourcesProperties() {
 			flickr_founded = [];
 			gbif_founded = [];
@@ -292,11 +204,11 @@ var hullPoints = [];						// Hull points of the map
 				$(this).find('div form input').attr('value','');
 			});
 		
-			if (flickr_data!=null && flickr_data.points.length!=0) {
+			if (Flickr_exist) {
 				$('#add_flickr').parent().addClass('added');
 			}
 		
-			if (gbif_data!=null  &&  gbif_data.points.length!=0) {
+			if (Gbif_exist) {
 				$('#add_gbif').parent().addClass('added');
 			}
 		}
@@ -308,24 +220,30 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). */
 		/*========================================================================================================================*/
+		
 		function addSourceToMap(information,getBound) {
-				var image = new google.maps.MarkerImage(
-					(information.name=='gbif')?'images/editor/Gbif_marker.png' :'images/editor/Flickr_marker.png',
+				var marker_kind;
+				switch (information.name) {
+					case 'gbif': 		marker_kind = 'Gbif';
+													Gbif_exist = true;
+													break;
+					case 'flickr': 	marker_kind = 'Flickr';
+													Flickr_exist = true;
+													break;
+					default: 				marker_kind = 'Your';
+													
+				}
+			
+				var image = new google.maps.MarkerImage('images/editor/' + marker_kind + '_marker.png',
 					new google.maps.Size(25, 25),
 					new google.maps.Point(0,0),
 					new google.maps.Point(12, 12));
 
 		    $.each(information.points, function(i,item){
-   					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));
-   					var object = new Object();
-   					object.global_id = global_id;
-   					object.item = item;
-						object.item.active = true;
-						object.kind = information.name;
-						
-						var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, true, item, map)
-   					global_id++;
-   					_markers.push(marker);				
+					total_points.add(marker_kind);	//Add new point to total_point in each class (gbif, flickr or your points)
+   				bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));			
+					var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, true, item, map)
+   				_markers.push(marker);				
     		});
 
 				addSourceToList(information.name);
@@ -344,18 +262,19 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Add the source to the list if it doesn't exist. */
 		/*========================================================================================================================*/
+		
 		function addSourceToList(kind) {
 			switch (kind) {
 				case 'gbif': 		if (!$('#GBIF_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+gbif_data.points.length+')</span></a></li>');
+													$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a></li>');
 												}
 												break;
 				case 'flickr': 	if (!$('#Flickr_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ flickr_data.points.length +')</span></a></li>');
+													$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a></li>');
 												}
 												break;
 				default: 				if (!$('#our_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ your_data.points.length +')</span></a></li>');
+													$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a></li>');
 												}
 			}
 		}
@@ -368,10 +287,9 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Calculate number of points in the map, and show in the sources container. */
 		/*========================================================================================================================*/
+		
 		function calculateMapPoints() {
-			$('div.sources span p.count_points').text(((flickr_data!=null)?flickr_data.points.length:null) +
-																								((gbif_data!=null)?gbif_data.points.length:null) + 
-																								((your_data!=null)?your_data.points.length:null) + ' POINTS');
+			$('div.sources span p.count_points').text( total_points.total() + ' POINTS');
 		}
 		
 		
@@ -380,13 +298,14 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Calculate number of points for each source. */
 		/*========================================================================================================================*/
+		
 		function calculateSourcePoints(kind) {
 			switch (kind) {
-				case 'gbif': 		$('#GBIF_points span').text('GBIF Points ('+gbif_data.points.length+')');
+				case 'gbif': 		$('#GBIF_points span').text('GBIF Points ('+ total_points.get(kind) +')');
 												break;
-				case 'flickr': 	$('#Flickr_points span').text('Flickr Points ('+flickr_data.points.length+')');
+				case 'flickr': 	$('#Flickr_points span').text('Flickr Points ('+ total_points.get(kind) +')');
 												break;
-				default: 				$('#our_points span').text('Your Points ('+ your_data.points.length +')');
+				default: 				$('#our_points span').text('Your Points ('+ total_points.get(kind) +')');
 			}
 		}
 		
@@ -395,40 +314,38 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Create different bars thanks to number of points of each sources. */
 		/*========================================================================================================================*/
+		
 		function resizeBarPoints() {
-			var total_points = ((flickr_data!=null)?flickr_data.points.length:null) + 
-												 ((gbif_data!=null)?gbif_data.points.length:null) + 
-												 ((your_data!=null)?your_data.points.length:null);
 				
-			if (flickr_data!=null && flickr_data.points.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*flickr_data.points.length)/total_points) - 217+ 'px 0');
+			if (total_points.get('flickr')!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.pink span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*flickr_data.points.length)/total_points) - 217+ 'px 0');
+					$(this).css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
 				});
 			} else {
 				$('div.sources ul li a.pink').parent().remove();
 			}
 
-			if (gbif_data!=null  &&  gbif_data.points.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*gbif_data.points.length)/total_points) - 217+ 'px 0');
+			if (total_points.get('gbif')!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.green span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*gbif_data.points.length)/total_points) - 217+ 'px 0');
+					$(this).css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
 				});
 			} else {
 				$('div.sources ul li a.green').parent().remove();
 			}
 			
 			
-			if (your_data!=null  &&  your_data.points.length!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position',((202*your_data.points.length)/total_points) - 217+ 'px 0');
+			if (total_points.get('your')!=0) {
+				$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
 				$('div#editor div#tools div.center div.right div.sources a.blue span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*your_data.points.length)/total_points) - 217+ 'px 0');
+					$(this).css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
 				});
 			} else {
 				$('div.sources ul li a.blue').parent().remove();
@@ -440,12 +357,13 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
 		/*========================================================================================================================*/
+		
 		function downloadRLA() {
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
 			
-			var rla = new RLA(specie,flickr_data,gbif_data, null, _markers,map_inf,null);
+			var rla = new RLA(specie,_markers,map_inf,null);
 			rla.download();		
 		}
 		
@@ -455,29 +373,20 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Restore the application thanks to the file you have uploaded. */
 		/*========================================================================================================================*/
+		
 		function uploadRLA(upload_data) {
-			
-			var rla = new RLA(null,null,null,null,null,null,upload_data);
+			var rla = new RLA(null,null,null,upload_data);
 			var app_data = rla.upload();
 			
-			//substitute gbif, flickr and own variables
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
-					if (app_data[i].name=='gbif') {
-						gbif_data = app_data[i];
-					}
-					if (app_data[i].name=='flickr') {
-						flickr_data = app_data[i];
-					}
-					if (app_data[i].name=='your') {
-						your_data = app_data[i];
-					}
-					
 					addSourceToMap(app_data[i],false);
+				} else {
+					map.setCenter(new google.maps.LatLng(0,0));
+					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
+					map.setZoom(parseInt(app_data[0].zoom));				
 				}
-			}
-			map.setCenter(new google.maps.LatLng(app_data[0].center.b,app_data[0].center.c));
-			map.setZoom(parseInt(app_data[0].zoom));					
+			}				
 		}
 		
 		
@@ -485,6 +394,7 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Remove one marker from map and the marker information in its data (gbif, flickr or own) as well. */
 		/*========================================================================================================================*/
+		
 		function removeMarker(latlng, marker_id, inf) {
 			for (var i=0; i<_markers.length; i++) {
 				if ((inf.latitude == _markers[i].data.item.latitude) &&  (inf.longitude == _markers[i].data.item.longitude) && (inf.collector == _markers[i].data.item.collector) && (inf.accuracy == _markers[i].data.item.accuracy) && (inf.active == _markers[i].data.item.active)) {
@@ -498,8 +408,7 @@ var hullPoints = [];						// Hull points of the map
 					
 					_markers[i].setMap(null);
 					_markers.splice(i,1);
-					
-					
+
 					break;
 				}
 			}
@@ -513,6 +422,7 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Remove the marker information from its data source. */
 		/*========================================================================================================================*/
+		
 		function removeMarkerInformation(collection,marker) {
 			for (var i=0; i<collection.points.length; i++) {
 				if (collection.points[i].latitude == marker.data.item.latitude && collection.points[i].longitude == marker.data.item.longitude && 
@@ -531,11 +441,15 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Add new marker to the map. */
 		/*========================================================================================================================*/
+		
 		function addMarker(latlng) {
+			
+			global_id++;
 			
 			var inf = new Object();
 			inf.accuracy = 50;
 			inf.active = true;
+			inf.catallogue_id = 'your_' + global_id;
 			inf.collector = 'you!';
 			inf.latitude = latlng.lat();
 			inf.longitude = latlng.lng();
@@ -572,30 +486,31 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Put a marker active or not. */
 		/*========================================================================================================================*/
-		function makeActive (latlng, marker_id, inf) {
+		
+		function makeActive (marker_id) {
 			for (var i=0; i<_markers.length; i++) {
-				if ((inf.latitude == _markers[i].data.item.latitude) &&  (inf.longitude == _markers[i].data.item.longitude) && (inf.collector == _markers[i].data.item.collector) && (inf.accuracy == _markers[i].data.item.accuracy) && (inf.active == _markers[i].data.item.active)) {
+				if (_markers[i].data.catalogue_id == marker_id) {
 					switch (_markers[i].data.kind) {
-						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/gbif_marker_no_active.png':'images/editor/gbif_marker.png',
+						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[i].data.active)?'images/editor/gbif_marker_no_active.png':'images/editor/gbif_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
 														_markers[i].setIcon(image);				
 														break;
-						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/flickr_marker_no_active.png':'images/editor/flickr_marker.png',
+						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[i].data.active)?'images/editor/flickr_marker_no_active.png':'images/editor/flickr_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
 														_markers[i].setIcon(image);
 														break;
-						default: 				var image = new google.maps.MarkerImage((_markers[i].data.item.active)?'images/editor/your_marker_no_active.png':'images/editor/your_marker.png',
+						default: 				var image = new google.maps.MarkerImage((_markers[i].data.active)?'images/editor/your_marker_no_active.png':'images/editor/your_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
 														_markers[i].setIcon(image);
 					}
 					
-					_markers[i].data.item.active = !_markers[i].data.item.active;
+					_markers[i].data.active = !_markers[i].data.active;
 					
 					break;
 				}
@@ -609,6 +524,7 @@ var hullPoints = [];						// Hull points of the map
 		/*========================================================================================================================*/
 		/* Put all the markers with/without drag property. */
 		/*========================================================================================================================*/
+		
 		function activeMarkersProperties() {
 			for (var i=0; i<_markers.length; i++) {
 				

@@ -1,8 +1,7 @@
 
 
-		function MarkerOverTooltip(latlng, marker_id, opt, map) {
+		function MarkerOverTooltip(latlng, marker_id, map) {
 		  this.latlng_ = latlng;
-			this.inf = opt;
 			this.marker_id = marker_id;
 		  this.offsetVertical_ = -21;
 		  this.offsetHorizontal_ = 1;
@@ -116,10 +115,9 @@
 		};
 
 
-		MarkerOverTooltip.prototype.changePosition = function(latlng,marker_id,opt) {
+		MarkerOverTooltip.prototype.changePosition = function(latlng,marker_id) {
 			this.marker_id = marker_id;
 			this.latlng_ = latlng;
-			this.inf = opt;
 			var div = this.div_;
 		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
 		  if (pixPosition) {
@@ -131,13 +129,13 @@
 		
 		MarkerOverTooltip.prototype.deleteMarker = function() {
 			this.hide();
-			removeMarker(this.latlng_, this.marker_id, this.inf);
+			removeMarker(this.marker_id);
 		}
 		
 		
 		MarkerOverTooltip.prototype.makeActive = function() {
 			this.hide();
-			makeActive(this.latlng_, this.marker_id, this.inf);
+			makeActive(this.marker_id);
 		}
 		
 

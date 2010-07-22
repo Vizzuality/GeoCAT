@@ -13,7 +13,7 @@
 
 
 
-	function CreateMarker(latlng, kind, draggable, clickable, data, map) {
+	function CreateMarker(latlng, kind, draggable, clickable, item, map) {
 	
 		//Choose marker icon image.
 		var image = new google.maps.MarkerImage('images/editor/'+ kind +'_marker.png',
@@ -21,18 +21,14 @@
 																						new google.maps.Point(0,0),
 																						new google.maps.Point(12, 12));
 	
-		var object = new Object();
-		object.global_id = global_id;
-		object.item = data;
-		object.item.active = true;
-		object.kind = kind;
+	
 		var marker = new google.maps.Marker({
 		        position: latlng, 
 						draggable: draggable,
 						clickable: clickable,
 		        map: map,
 						icon: image,
-						data: object
+						data: item
 		    });
 	
 	
@@ -68,24 +64,23 @@
 		google.maps.event.addListener(marker,"mouseover",function(ev){
 			if (state == 'select') {
 				over_marker = true;
-				
-				
+							
 				if (click_infowindow != null) {
 					if (!is_dragging && !click_infowindow.isVisible()) {
 						if (over_tooltip!=null) {
-							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id);
 							over_tooltip.show();
 						} else {
-							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, map);
 						}
 					}
 				} else {
 					if (!is_dragging) {
 						if (over_tooltip!=null) {
-							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id);
 							over_tooltip.show();
 						} else {
-							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, map);
 						}
 					}
 				}
@@ -107,12 +102,10 @@
 		});
 	
 		
-	
 		//Marker drag start event
 		google.maps.event.addListener(marker,"dragstart",function(){						
 			if (click_infowindow!=null) {
 				click_infowindow.hide();
-				//is_infowindow_open = false;
 			}
 			if (over_tooltip!=null) {
 				is_dragging = true;
@@ -129,7 +122,6 @@
 				calculateConvexHull();
 			}
 		});
-
 
 
 		//Marker drag end event
@@ -152,7 +144,7 @@
 		
 		var circle = new google.maps.Circle({
 		  map: map,
-		  radius: data.accuracy*2000,
+		  radius: item.accuracy*2000,
 		  strokeColor: color,
 			strokeOpacity: 0.3,
 			strokeWeight: 1,
