@@ -13,7 +13,7 @@
 
 
 
-	function CreateMarker(latlng, kind, draggable, clickable, item, map) {
+	function CreateMarker(latlng, kind, draggable, clickable, item, marker_map) {
 	
 		//Choose marker icon image.
 		var image = new google.maps.MarkerImage('images/editor/'+ kind +'_marker.png',
@@ -26,7 +26,7 @@
 		        position: latlng, 
 						draggable: draggable,
 						clickable: clickable,
-		        map: map,
+		        map: marker_map,
 						icon: image,
 						data: item
 		    });
@@ -37,11 +37,11 @@
 			if (state == 'remove') {
 				
 				if (delete_infowindow!=null) {					
-					if (this.position.b!=delete_infowindow.latlng_.lat() || this.position.c!=delete_infowindow.latlng_.lng() || this.data.item.accuracy!=delete_infowindow.inf.accuracy || this.data.item.collector!=delete_infowindow.inf.collector || !delete_infowindow.isVisible()) {
-						delete_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+					if (this.data.catalogue_id == delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
+						delete_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id,this.data);
 					}
 				} else {
-					delete_infowindow = new DeleteInfowindow(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+					delete_infowindow = new DeleteInfowindow(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, this.data, marker_map);
 				}				
 				
 			} else {
@@ -50,11 +50,11 @@
 				}
 				
 				if (click_infowindow!=null) {					
-					if (this.position.b!=click_infowindow.latlng_.lat() || this.position.c!=click_infowindow.latlng_.lng() || this.data.item.accuracy!=click_infowindow.inf.accuracy || this.data.item.collector!=click_infowindow.inf.collector || !click_infowindow.isVisible()) {
-						click_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.global_id,this.data.item);
+					if (this.data.catalogue_id == click_infowindow.marker_id || !click_infowindow.isVisible()) {
+						click_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id,this.data);
 					}
 				} else {
-					click_infowindow = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.global_id, this.data.item,map);
+					click_infowindow = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, this.data,marker_map);
 				}
 			}
 		});
@@ -71,7 +71,7 @@
 							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id);
 							over_tooltip.show();
 						} else {
-							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, map);
+							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, marker_map);
 						}
 					}
 				} else {
@@ -80,7 +80,7 @@
 							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id);
 							over_tooltip.show();
 						} else {
-							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, map);
+							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, marker_map);
 						}
 					}
 				}
@@ -143,7 +143,7 @@
 		}
 		
 		var circle = new google.maps.Circle({
-		  map: map,
+		  map: marker_map,
 		  radius: item.accuracy*2000,
 		  strokeColor: color,
 			strokeOpacity: 0.3,

@@ -250,14 +250,14 @@
 
 		MarkerTooltip.prototype.makeActive = function() {
 			this.hide();
-			makeActive(this.latlng_, this.marker_id, this.inf);
+			makeActive(this.marker_id);
 		}
 
 
 
 		MarkerTooltip.prototype.deleteMarker = function() {
 			this.hide();
-			removeMarker(this.latlng_, this.marker_id, this.inf);
+			removeMarker(this.marker_id);
 		}
 
 

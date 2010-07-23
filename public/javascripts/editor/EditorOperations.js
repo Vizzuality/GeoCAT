@@ -20,6 +20,7 @@ var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false op
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var _markers = [];							// All the markers of the map (Associative array)
+var _active_markers = [];				// Only reference to active map markers (AA as well) - Mainly for hull function
 var hullPoints = [];						// Hull points of the map
 
 var global_id = 0; 							// Global id for your own markers
@@ -60,6 +61,8 @@ var global_id = 0; 							// Global id for your own markers
 					addMarker(event.latLng);
 				}
 			});
+			
+
 			
 			
 			//if the application comes through an upload file
@@ -204,11 +207,11 @@ var global_id = 0; 							// Global id for your own markers
 				$(this).find('div form input').attr('value','');
 			});
 		
-			if (Flickr_exist) {
+			if (total_points.get('flickr')>0) {
 				$('#add_flickr').parent().addClass('added');
 			}
 		
-			if (Gbif_exist) {
+			if (total_points.get('gbif')>0) {
 				$('#add_gbif').parent().addClass('added');
 			}
 		}
@@ -240,10 +243,15 @@ var global_id = 0; 							// Global id for your own markers
 					new google.maps.Point(12, 12));
 
 		    $.each(information.points, function(i,item){
-					total_points.add(marker_kind);	//Add new point to total_point in each class (gbif, flickr or your points)
-   				bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));			
-					var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, true, item, map)
-   				_markers.push(marker);				
+					(item.removed)?null:total_points.add(information.name); //Add new point to total_point in each class (gbif, flickr or your points)
+   				
+					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));			
+					var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, true, item, (item.removed)?null:map);
+   				_markers[marker.data.catalogue_id] = marker;
+					
+					if (item.active && !item.removed) {
+						_active_markers[marker.data.catalogue_id] = marker;
+					}
     		});
 
 				addSourceToList(information.name);
@@ -395,46 +403,30 @@ var global_id = 0; 							// Global id for your own markers
 		/* Remove one marker from map and the marker information in its data (gbif, flickr or own) as well. */
 		/*========================================================================================================================*/
 		
-		function removeMarker(latlng, marker_id, inf) {
-			for (var i=0; i<_markers.length; i++) {
-				if ((inf.latitude == _markers[i].data.item.latitude) &&  (inf.longitude == _markers[i].data.item.longitude) && (inf.collector == _markers[i].data.item.collector) && (inf.accuracy == _markers[i].data.item.accuracy) && (inf.active == _markers[i].data.item.active)) {
-					switch (_markers[i].data.kind) {
-						case 'gbif': 		removeMarkerInformation(gbif_data,_markers[i]);
-														break;
-						case 'flickr': 	removeMarkerInformation(flickr_data,_markers[i]);
-														break;
-						default: 				removeMarkerInformation(your_data,_markers[i]);
-					}
-					
-					_markers[i].setMap(null);
-					_markers.splice(i,1);
+		function removeMarker(marker_id) {
 
-					break;
-				}
+			switch (_markers[marker_id].data.kind) {
+				case 'gbif': 		total_points.deduct('gbif');
+												break;
+				case 'flickr': 	total_points.deduct('flickr');
+												break;
+				default: 				total_points.deduct('your');
 			}
 			
+			_markers[marker_id].data.removed = true;
+			_markers[marker_id].setMap(null);
+
 			if (isConvexHull()) {
+				deleteItemConvexHull(marker_id);
 				calculateConvexHull();
 			}	
-		}
-		
-		
-		/*========================================================================================================================*/
-		/* Remove the marker information from its data source. */
-		/*========================================================================================================================*/
-		
-		function removeMarkerInformation(collection,marker) {
-			for (var i=0; i<collection.points.length; i++) {
-				if (collection.points[i].latitude == marker.data.item.latitude && collection.points[i].longitude == marker.data.item.longitude && 
-						collection.points[i].collector == marker.data.item.collector && collection.points[i].accuracy == marker.data.item.accuracy) {
-					collection.points.splice(i,1);
-					break;
-				}
-			}
+			
 			resizeBarPoints();
 			calculateMapPoints();
-			calculateSourcePoints(marker.data.kind);
-		}		
+			calculateSourcePoints(_markers[marker_id].data.kind);
+		}
+		
+
 		
 		
 		
@@ -449,26 +441,18 @@ var global_id = 0; 							// Global id for your own markers
 			var inf = new Object();
 			inf.accuracy = 50;
 			inf.active = true;
-			inf.catallogue_id = 'your_' + global_id;
+			inf.kind = 'your';
+			inf.removed = false;
+			inf.catalogue_id = 'your_' + global_id;
 			inf.collector = 'you!';
 			inf.latitude = latlng.lat();
 			inf.longitude = latlng.lng();
 			
 			var marker = CreateMarker(latlng, 'your', false, false, inf, map);
-			global_id++;
+			total_points.add(inf.kind);
 			bounds.extend(latlng);
-			_markers.push(marker);
-			
-			
-			if (your_data == null || your_data.length==0 ) {			
-				var own_obj = new Object();
-				own_obj.id = 'your_id';
-				own_obj.name = 'your_data';
-				own_obj.points = [marker.data.item];		
-				your_data = own_obj;
-			} else {
-				your_data.points.push(marker.data.item);
-			}
+			_markers[marker.data.catalogue_id] = marker;
+			_active_markers[marker.data.catalogue_id] = marker;
 			
 			addSourceToList('your');
 			resizeBarPoints();
@@ -476,6 +460,7 @@ var global_id = 0; 							// Global id for your own markers
 			calculateSourcePoints('your_data');
 			
 			if (isConvexHull()) {
+				_active_markers.push(_markers[marker.data.catalogue_id]);
 				calculateConvexHull();
 			}
 		}	
@@ -488,33 +473,39 @@ var global_id = 0; 							// Global id for your own markers
 		/*========================================================================================================================*/
 		
 		function makeActive (marker_id) {
-			for (var i=0; i<_markers.length; i++) {
-				if (_markers[i].data.catalogue_id == marker_id) {
-					switch (_markers[i].data.kind) {
-						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[i].data.active)?'images/editor/gbif_marker_no_active.png':'images/editor/gbif_marker.png',
+
+					switch (_markers[marker_id].data.kind) {
+						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/gbif_marker_no_active.png':'images/editor/gbif_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
-														_markers[i].setIcon(image);				
+														_markers[marker_id].setIcon(image);				
 														break;
-						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[i].data.active)?'images/editor/flickr_marker_no_active.png':'images/editor/flickr_marker.png',
+						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/flickr_marker_no_active.png':'images/editor/flickr_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
-														_markers[i].setIcon(image);
+														_markers[marker_id].setIcon(image);
 														break;
-						default: 				var image = new google.maps.MarkerImage((_markers[i].data.active)?'images/editor/your_marker_no_active.png':'images/editor/your_marker.png',
+						default: 				var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/your_marker_no_active.png':'images/editor/your_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
-														_markers[i].setIcon(image);
+														_markers[marker_id].setIcon(image);
 					}
 					
-					_markers[i].data.active = !_markers[i].data.active;
+					_markers[marker_id].data.active = !_markers[marker_id].data.active;
 					
-					break;
-				}
-			}		
+					// Add or deduct the marker from _active_markers
+					if (isConvexHull()) {
+						if (!_markers[marker_id].data.active) {
+							deleteItemConvexHull(marker_id);
+						} else {
+							_active_markers.push(_markers[marker_id]);
+						}
+						calculateConvexHull();
+					}
+					
 		}
 		
 		
@@ -522,12 +513,11 @@ var global_id = 0; 							// Global id for your own markers
 	
 		
 		/*========================================================================================================================*/
-		/* Put all the markers with/without drag property. */
+		/* Put all the markers with/without drag property.	 */
 		/*========================================================================================================================*/
 		
 		function activeMarkersProperties() {
-			for (var i=0; i<_markers.length; i++) {
-				
+			for (var i in _markers) {
 				if (state=='add') {
 					_markers[i].setClickable(false);
 					_markers[i].setCursor('hand');
@@ -541,7 +531,6 @@ var global_id = 0; 							// Global id for your own markers
 				} else {
 					_markers[i].setDraggable(false);
 				}
-
 			}		
 		}
 		
@@ -556,8 +545,8 @@ var global_id = 0; 							// Global id for your own markers
 		/* Convex Hull stuff */
 		
 		function calculateConvexHull() {
-    	_markers.sort(sortPointY);
-    	_markers.sort(sortPointX);
+    	_active_markers.sort(sortPointY);
+    	_active_markers.sort(sortPointX);
     	DrawHull();
 		}
 
@@ -567,7 +556,7 @@ var global_id = 0; 							// Global id for your own markers
 
 
    	function DrawHull() {
-   		chainHull_2D( _markers, _markers.length, hullPoints);
+   		chainHull_2D( _active_markers, _active_markers.length, hullPoints);
 			if (hull_polygon) {
 				hull_polygon.setPath(markersToPoints(hullPoints));
 			} else {
@@ -580,8 +569,12 @@ var global_id = 0; 							// Global id for your own markers
 		      fillOpacity: 0.25
 				});
 				hull_polygon.setMap(map);
+				google.maps.event.addListener(hull_polygon,"click",function(event){
+					if (state == 'add') {
+						addMarker(event.latLng);
+					}
+				});
 			}
-
 	  }
 	
 		
@@ -589,7 +582,7 @@ var global_id = 0; 							// Global id for your own markers
 		function markersToPoints(array) {
 			var result = [];
 			for (var i=0; i<array.length; i++) {
-				result.push(new google.maps.LatLng(array[i].position.b,array[i].position.c));
+					result.push(new google.maps.LatLng(array[i].position.b,array[i].position.c));
 			}
 			return result;
 		}
@@ -604,6 +597,7 @@ var global_id = 0; 							// Global id for your own markers
 			$('div.hull_container').css('top',position.top + 'px');
 			$('#convex').css('margin-bottom','300px');
 			$('div.hull_container').fadeIn('fast');
+			createActiveMarkers();
 			calculateConvexHull();
 		}
 		
@@ -618,6 +612,26 @@ var global_id = 0; 							// Global id for your own markers
 		
 		function isConvexHull() {
 			return $('div.hull_container').is(':visible');
+		}
+		
+		
+		function createActiveMarkers() {
+			_active_markers = [];
+			for (var i in _markers) {
+				if (_markers[i].data.active && !_markers[i].data.removed) {
+					_active_markers.push(_markers[i]);
+				}
+			}
+		}
+		
+		
+		function deleteItemConvexHull(marker_id) {
+			for (var i=0; i<_active_markers.length; i++) {
+				if (_active_markers[i].data.catalogue_id == marker_id) {
+					_active_markers.splice(i,1);
+					break;
+				}
+			}
 		}
 		
 	

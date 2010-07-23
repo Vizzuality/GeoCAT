@@ -120,7 +120,7 @@
 
 		DeleteInfowindow.prototype.deleteMarker = function() {
 			this.hide();
-			removeMarker(this.latlng_, this.marker_id, this.inf);
+			removeMarker(this.marker_id);
 		}
 
 
@@ -133,7 +133,6 @@
 		    }, 100, 'swing', function(ev){
 					div.style.visibility = "hidden";
 				});
-	
 		  }
 		}
 
