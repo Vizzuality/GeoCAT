@@ -6,7 +6,7 @@
 	/*												kind: type of the marker.																																					*/
 	/*												draggable: if it will be draggable at the start.																									*/
 	/*												clickable: if it will be clickable at the start.																									*/
-	/*												data: marker information like name, id, lon&lat, ...																							*/
+	/*												item: marker data/information like name, id, lon&lat, ...																					*/
 	/*												map: where the marker goes...																																			*/
 	/*  																																																												*/
 	/*==========================================================================================================================*/
@@ -129,6 +129,8 @@
 			is_dragging = false;
 			this.data.longitude = ev.latLng.c;
 			this.data.latitude = ev.latLng.b;
+			if (isConvexHull())
+				calculateConvexHull();
 		});
 
 

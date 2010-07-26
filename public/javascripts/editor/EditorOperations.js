@@ -1,6 +1,6 @@
 var specie;  /* specie name */
 
-var state = 'select';						// State of the map
+var state = 'select';						// State of the map & application
 
 var map; 												// Map
 var bounds;											// Map bounds
@@ -575,6 +575,8 @@ var global_id = 0; 							// Global id for your own markers
 					}
 				});
 			}
+			if (!is_dragging) 
+				getPolygonArea(hull_polygon.getPath().b);
 	  }
 	
 		
@@ -632,6 +634,25 @@ var global_id = 0; 							// Global id for your own markers
 					break;
 				}
 			}
+		}
+		
+		
+		function getPolygonArea(path) {
+			var points='';
+				for (var i=0; i<path.length; i++) {
+					points+=path[i].c+','+path[i].b+'|';
+				}
+				points=points.slice(0,points.length-1);
+
+				$.getJSON('http://api.geojason.info/v1/ws_geo_length_area.php?format=json&in_srid=4326&out_srid=2264&points='+points+'&callback=?',function(data){
+					if (parseInt(data.total_rows)>0){
+						var length = parseFloat(data.rows[0].row.length);
+						var area = parseFloat(data.rows[0].row.area);
+						var area_length = String((area/10000000).toFixed(2)).length;
+						$('p.area').html((area/10000000).toFixed(0) + '<sup>.'+ String((area/10000000).toFixed(2)).substring(area_length-2) +'</sup> <small>(km<sup>2</sup>)</small>');
+					}
+				});
+
 		}
 		
 	
