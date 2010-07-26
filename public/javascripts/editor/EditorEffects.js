@@ -63,10 +63,10 @@
 						$("#add_source_button").removeClass('open');
 						switch($(this).parent().parent().find('a.checkbox').attr('id')) {
 							case 'add_flickr': 	flickr_data = flickr_founded[0];
-																	setTimeout('addSourceToMap(flickr_data,true)',1000);
+																	setTimeout('addSourceToMap(flickr_data,true,true)',1000);
 																 	break;
 							case 'add_gbif':  	gbif_data = gbif_founded[0];
-																	setTimeout('addSourceToMap(gbif_data,true)',1000);
+																	setTimeout('addSourceToMap(gbif_data,true,true)',1000);
 																	break;
 							default: 						null;
 						}

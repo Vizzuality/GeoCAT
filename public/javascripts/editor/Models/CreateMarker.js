@@ -132,6 +132,10 @@
 			if (convex_hull.isVisible()) {
 				convex_hull.calculateConvexHull();
 			}
+			var inf = new Object();
+			inf.latitude = ev.latLng.b;
+			inf.longitude = ev.latLng.c;
+			actions.Do('edit', marker.data.catalogue_id, inf);
 		});
 
 

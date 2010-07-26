@@ -21,7 +21,6 @@ var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false op
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var _markers = [];							// All the markers of the map (Associative array)
-var _active_markers = [];				// Only reference to active map markers (AA as well) - Mainly for hull function
 
 var global_id = 0; 							// Global id for your own markers
 
@@ -227,7 +226,7 @@ var global_id = 0; 							// Global id for your own markers
 		/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). */
 		/*========================================================================================================================*/
 		
-		function addSourceToMap(information,getBound) {
+		function addSourceToMap(information,getBound, saveAction) {
 				var marker_kind;
 				switch (information.name) {
 					case 'gbif': 		marker_kind = 'Gbif';
@@ -255,7 +254,14 @@ var global_id = 0; 							// Global id for your own markers
 					if (item.active && !item.removed && convex_hull.isVisible()) {
 						convex_hull.addPoint(marker);
 					}
+					
+					if (saveAction) {
+						actions.Do('add', marker.data.catalogue_id, information);
+					}
+					
     		});
+
+
 
 				addSourceToList(information.name);
 				calculateMapPoints();
@@ -391,7 +397,7 @@ var global_id = 0; 							// Global id for your own markers
 			
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
-					addSourceToMap(app_data[i],false);
+					addSourceToMap(app_data[i],false,false);
 				} else {
 					map.setCenter(new google.maps.LatLng(0,0));
 					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
@@ -418,6 +424,9 @@ var global_id = 0; 							// Global id for your own markers
 			
 			_markers[marker_id].data.removed = true;
 			_markers[marker_id].setMap(null);
+
+			actions.Do('remove', marker_id, null);
+			
 
 			if (convex_hull.isVisible()) {
 				convex_hull.deductPoint(marker_id);
@@ -454,7 +463,8 @@ var global_id = 0; 							// Global id for your own markers
 			total_points.add(inf.kind);
 			bounds.extend(latlng);
 			_markers[marker.data.catalogue_id] = marker;
-			_active_markers[marker.data.catalogue_id] = marker;
+			
+			actions.Do('add', marker.data.catalogue_id, inf);
 			
 			addSourceToList('your');
 			resizeBarPoints();
@@ -496,6 +506,13 @@ var global_id = 0; 							// Global id for your own markers
 					}
 					
 					_markers[marker_id].data.active = !_markers[marker_id].data.active;
+					
+					if (!_markers[marker_id].data.active) {
+						actions.Do('hide',marker_id,null);
+					} else {
+						actions.Do('show',marker_id,null);
+					}
+					
 					
 					// Add or deduct the marker from _active_markers
 					if (convex_hull.isVisible()) {
@@ -569,5 +586,14 @@ var global_id = 0; 							// Global id for your own markers
 
 		
 	
+		function unDoAction() {
+			actions.Undo();
+		}
+		
+		
+		function reDoAction() {
+			actions.Redo();
+		}
+		
 
 
