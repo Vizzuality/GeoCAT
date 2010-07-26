@@ -9,11 +9,11 @@ var flickr_founded;							// Flickr data founded
 var gbif_founded;								// Gbif data founded
 
 var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
+var convex_hull;								// Convex Hull model Object for calculating the polygon
 
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
 var delete_infowindow;					// Delete infowindow object
-var hull_polygon;								// Convex Hull polygon object
 
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
@@ -21,18 +21,17 @@ var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var _markers = [];							// All the markers of the map (Associative array)
 var _active_markers = [];				// Only reference to active map markers (AA as well) - Mainly for hull function
-var hullPoints = [];						// Hull points of the map
 
 var global_id = 0; 							// Global id for your own markers
+
+
 
 
 		/*========================================================================================================================*/
 		/* When the document is loaded. */
 		/*========================================================================================================================*/
 		$(document).ready(function() {
-			
-			total_points = new TotalPointsOperations();
-		
+					
 			//initialize map
 		  var myLatlng = new google.maps.LatLng(30,0);
 		  var myOptions = {
@@ -45,6 +44,10 @@ var global_id = 0; 							// Global id for your own markers
 	
 		  map = new google.maps.Map(document.getElementById("map"), myOptions);
 			bounds = new google.maps.LatLngBounds();
+			
+			total_points = new TotalPointsOperations();  		// TotalPoints Model
+			convex_hull = new HullOperations(map);					// Convex Hull Object
+			
 			
 			
 			google.maps.event.addListener(map,"bounds_changed",function(){
@@ -63,8 +66,6 @@ var global_id = 0; 							// Global id for your own markers
 			});
 			
 
-			
-			
 			//if the application comes through an upload file
 			if ($('#upload_data').text()!='') {
 				var upload_string = $('#upload_data').text();
@@ -249,8 +250,8 @@ var global_id = 0; 							// Global id for your own markers
 					var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, true, item, (item.removed)?null:map);
    				_markers[marker.data.catalogue_id] = marker;
 					
-					if (item.active && !item.removed) {
-						_active_markers[marker.data.catalogue_id] = marker;
+					if (item.active && !item.removed && convex_hull.isVisible()) {
+						convex_hull.addPoint(marker);
 					}
     		});
 
@@ -416,9 +417,8 @@ var global_id = 0; 							// Global id for your own markers
 			_markers[marker_id].data.removed = true;
 			_markers[marker_id].setMap(null);
 
-			if (isConvexHull()) {
-				deleteItemConvexHull(marker_id);
-				calculateConvexHull();
+			if (convex_hull.isVisible()) {
+				convex_hull.deductPoint(marker_id);
 			}	
 			
 			resizeBarPoints();
@@ -459,9 +459,8 @@ var global_id = 0; 							// Global id for your own markers
 			calculateMapPoints();
 			calculateSourcePoints('your_data');
 			
-			if (isConvexHull()) {
-				_active_markers.push(_markers[marker.data.catalogue_id]);
-				calculateConvexHull();
+			if (convex_hull.isVisible()) {
+				convex_hull.addPoint(marker);
 			}
 		}	
 		
@@ -497,13 +496,12 @@ var global_id = 0; 							// Global id for your own markers
 					_markers[marker_id].data.active = !_markers[marker_id].data.active;
 					
 					// Add or deduct the marker from _active_markers
-					if (isConvexHull()) {
+					if (convex_hull.isVisible()) {
 						if (!_markers[marker_id].data.active) {
-							deleteItemConvexHull(marker_id);
+							convex_hull.deductPoint(marker_id);
 						} else {
-							_active_markers.push(_markers[marker_id]);
+							convex_hull.addPoint(_markers[marker_id]);
 						}
-						calculateConvexHull();
 					}
 					
 		}
@@ -514,8 +512,7 @@ var global_id = 0; 							// Global id for your own markers
 		
 		/*========================================================================================================================*/
 		/* Put all the markers with/without drag property.	 */
-		/*========================================================================================================================*/
-		
+		/*========================================================================================================================*/		
 		function activeMarkersProperties() {
 			for (var i in _markers) {
 				if (state=='add') {
@@ -535,125 +532,28 @@ var global_id = 0; 							// Global id for your own markers
 		}
 		
 		
-		
-		
+
 		/*========================================================================================================================*/
+		/* Open Convex Hull window and show the convex hull polygon.	 */
 		/*========================================================================================================================*/
-		/*========================================================================================================================*/
-
-
-		/* Convex Hull stuff */
-		
-		function calculateConvexHull() {
-    	_active_markers.sort(sortPointY);
-    	_active_markers.sort(sortPointX);
-    	DrawHull();
-		}
-
-
-   	function sortPointX(a,b) { return a.position.c - b.position.c; }
-   	function sortPointY(a,b) { return a.position.b - b.position.b; }
-
-
-   	function DrawHull() {
-   		chainHull_2D( _active_markers, _active_markers.length, hullPoints);
-			if (hull_polygon) {
-				hull_polygon.setPath(markersToPoints(hullPoints));
-			} else {
-	   		hull_polygon = new google.maps.Polygon({
-					paths: markersToPoints(hullPoints),
-		      strokeColor: "#333333",
-		      strokeOpacity: 1,
-		      strokeWeight: 2,
-		      fillColor: "#000000",
-		      fillOpacity: 0.25
-				});
-				hull_polygon.setMap(map);
-				google.maps.event.addListener(hull_polygon,"click",function(event){
-					if (state == 'add') {
-						addMarker(event.latLng);
-					}
-				});
-			}
-			if (!is_dragging) 
-				getPolygonArea(hull_polygon.getPath().b);
-	  }
-	
-		
-		
-		function markersToPoints(array) {
-			var result = [];
-			for (var i=0; i<array.length; i++) {
-					result.push(new google.maps.LatLng(array[i].position.b,array[i].position.c));
-			}
-			return result;
-		}
-		
-		
-		
 		function openConvexHull() {
-			if (hull_polygon) {
-				hull_polygon.setMap(map);
-			}
+			convex_hull.createPolygon(_markers);
 			var position = $('#convex').offset();
 			$('div.hull_container').css('top',position.top + 'px');
 			$('#convex').css('margin-bottom','300px');
 			$('div.hull_container').fadeIn('fast');
-			createActiveMarkers();
-			calculateConvexHull();
 		}
 		
 		
-		
+		/*========================================================================================================================*/
+		/* Close Convex Hull window and hide the convex hull polygon.	 */
+		/*========================================================================================================================*/	
 		function closeConvexHull() {
-			hull_polygon.setMap(null);
+			convex_hull.removePolygon();
 			$('#convex').css('margin-bottom','0px');
 			$('div.hull_container').fadeOut('slow');
 		}
-		
-		
-		function isConvexHull() {
-			return $('div.hull_container').is(':visible');
-		}
-		
-		
-		function createActiveMarkers() {
-			_active_markers = [];
-			for (var i in _markers) {
-				if (_markers[i].data.active && !_markers[i].data.removed) {
-					_active_markers.push(_markers[i]);
-				}
-			}
-		}
-		
-		
-		function deleteItemConvexHull(marker_id) {
-			for (var i=0; i<_active_markers.length; i++) {
-				if (_active_markers[i].data.catalogue_id == marker_id) {
-					_active_markers.splice(i,1);
-					break;
-				}
-			}
-		}
-		
-		
-		function getPolygonArea(path) {
-			var points='';
-				for (var i=0; i<path.length; i++) {
-					points+=path[i].c+','+path[i].b+'|';
-				}
-				points=points.slice(0,points.length-1);
 
-				$.getJSON('http://api.geojason.info/v1/ws_geo_length_area.php?format=json&in_srid=4326&out_srid=2264&points='+points+'&callback=?',function(data){
-					if (parseInt(data.total_rows)>0){
-						var length = parseFloat(data.rows[0].row.length);
-						var area = parseFloat(data.rows[0].row.area);
-						var area_length = String((area/10000000).toFixed(2)).length;
-						$('p.area').html((area/10000000).toFixed(0) + '<sup>.'+ String((area/10000000).toFixed(2)).substring(area_length-2) +'</sup> <small>(km<sup>2</sup>)</small>');
-					}
-				});
-
-		}
 		
 	
 

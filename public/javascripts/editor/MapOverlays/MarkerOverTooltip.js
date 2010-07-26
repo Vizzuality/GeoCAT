@@ -119,7 +119,7 @@
 			this.marker_id = marker_id;
 			this.latlng_ = latlng;
 			var div = this.div_;
-		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
+		  var pixPosition = this.getProjection().fromLatLngToDivPixel(latlng);
 		  if (pixPosition) {
 			  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
 			  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";

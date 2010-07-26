@@ -118,8 +118,8 @@
 		google.maps.event.addListener(marker,"drag",function(ev){						
 			this.data.longitude = ev.latLng.c;
 			this.data.latitude = ev.latLng.b;
-			if (isConvexHull()) {
-				calculateConvexHull();
+			if (convex_hull.isVisible()) {
+				convex_hull.calculateConvexHull();
 			}
 		});
 
@@ -129,8 +129,9 @@
 			is_dragging = false;
 			this.data.longitude = ev.latLng.c;
 			this.data.latitude = ev.latLng.b;
-			if (isConvexHull())
-				calculateConvexHull();
+			if (convex_hull.isVisible()) {
+				convex_hull.calculateConvexHull();
+			}
 		});
 
 
