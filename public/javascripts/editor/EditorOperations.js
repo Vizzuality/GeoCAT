@@ -10,6 +10,7 @@ var gbif_founded;								// Gbif data founded
 
 var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
 var convex_hull;								// Convex Hull model Object for calculating the polygon
+var actions;										// UnredoOperations model Object for actions made by the user.
 
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
@@ -45,8 +46,9 @@ var global_id = 0; 							// Global id for your own markers
 		  map = new google.maps.Map(document.getElementById("map"), myOptions);
 			bounds = new google.maps.LatLngBounds();
 			
-			total_points = new TotalPointsOperations();  		// TotalPoints Model
+			total_points = new TotalPointsOperations();  		// TotalPoints Object
 			convex_hull = new HullOperations(map);					// Convex Hull Object
+			actions = new UnredoOperations();								// Un-Re-Do Object
 			
 			
 			
@@ -553,6 +555,17 @@ var global_id = 0; 							// Global id for your own markers
 			$('#convex').css('margin-bottom','0px');
 			$('div.hull_container').fadeOut('slow');
 		}
+		
+		
+		
+		
+		
+		
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+																								/* UNDO-REDO STUFF.	 */
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
 
 		
 	

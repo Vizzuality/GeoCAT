@@ -7,7 +7,6 @@
 	"sources": [{
 		"id":"gbif_id",
 		"name":"gbif",
-		"No_points": "2",
 		"points": [{
 					"latitude":"40.543026",
 					"longitude":"3.055573",
