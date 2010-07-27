@@ -1,4 +1,4 @@
-body {background:#EAEAEB; /*background:url(../images/editor/bkg.jpg) 0 0;*/ padding:0; margin:0;}
+body {background:#EAEAEB; padding:0; margin:0;}
 ul{list-style:none;}
 
 /*fonts*/
@@ -60,10 +60,6 @@ footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 footer div.inner div.right {float:right;}
 footer div.inner div.right p {float:left; font:normal 13px Arial; color:#37671C; padding:10px 5px 0 0;}
 footer div.inner div.right img {float:left; margin:7px 0 0 0;}
-
-
-
-
 
 
 

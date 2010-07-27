@@ -18,7 +18,6 @@
 				obj.inf = data;
 				this.actions.push(obj);
 				this.position++;
-				console.log(this.actions);
 			}
 			
 			
