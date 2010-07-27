@@ -3,6 +3,26 @@
 
 
 		// HOME
+	  var myLatlng = new google.maps.LatLng(20,-3);
+	  var myOptions = {
+	    zoom: 8,
+	    center: myLatlng,
+	    mapTypeId: google.maps.MapTypeId.TERRAIN,
+			disableDefaultUI: true,
+			scrollwheel: false
+	  }
+
+	  map = new google.maps.Map(document.getElementById("map"), myOptions);
+		if (google.loader.ClientLocation) {
+      var zoom = 9;
+      var latlng = new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
+    } else {
+    	var zoom = 9;
+      var latlng = new google.maps.LatLng(51.5001524, -0.1262362);       
+    }
+		
+		map.setCenter(latlng);
+		map.setZoom(zoom);
 		
 		
 		//input effect - hack

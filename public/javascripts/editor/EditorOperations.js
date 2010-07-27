@@ -62,7 +62,7 @@ var global_id = 0; 							// Global id for your own markers
 			
 			google.maps.event.addListener(map,"click",function(event){
 				if (state == 'add') {
-					addMarker(event.latLng);
+					addMarker(event.latLng,null,false);
 				}
 			});
 			
@@ -445,26 +445,31 @@ var global_id = 0; 							// Global id for your own markers
 		/* Add new marker to the map. */
 		/*========================================================================================================================*/
 		
-		function addMarker(latlng) {
+		function addMarker(latlng, item_data , fromAction) {
 			
 			global_id++;
 			
-			var inf = new Object();
-			inf.accuracy = 50;
-			inf.active = true;
-			inf.kind = 'your';
-			inf.removed = false;
-			inf.catalogue_id = 'your_' + global_id;
-			inf.collector = 'you!';
-			inf.latitude = latlng.lat();
-			inf.longitude = latlng.lng();
-			
-			var marker = CreateMarker(latlng, 'your', false, false, inf, map);
+			if (data == null) {
+				var inf = new Object();
+				inf.accuracy = 50;
+				inf.active = true;
+				inf.kind = 'your';
+				inf.removed = false;
+				inf.catalogue_id = 'your_' + global_id;
+				inf.collector = 'you!';
+				inf.latitude = latlng.lat();
+				inf.longitude = latlng.lng();
+				var marker = CreateMarker(latlng, 'your', false, false, inf, map);
+			} else {
+				var marker = CreateMarker(latlng, 'your', false, false, item_data, map);
+			}
+
 			total_points.add(inf.kind);
 			bounds.extend(latlng);
 			_markers[marker.data.catalogue_id] = marker;
 			
-			actions.Do('add', marker.data.catalogue_id, inf);
+			if (!fromAction)
+				actions.Do('add', marker.data.catalogue_id, inf);
 			
 			addSourceToList('your');
 			resizeBarPoints();
@@ -483,7 +488,7 @@ var global_id = 0; 							// Global id for your own markers
 		/* Put a marker active or not. */
 		/*========================================================================================================================*/
 		
-		function makeActive (marker_id) {
+		function makeActive (marker_id, fromAction) {
 
 					switch (_markers[marker_id].data.kind) {
 						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/gbif_marker_no_active.png':'images/editor/gbif_marker.png',
@@ -507,12 +512,14 @@ var global_id = 0; 							// Global id for your own markers
 					
 					_markers[marker_id].data.active = !_markers[marker_id].data.active;
 					
-					if (!_markers[marker_id].data.active) {
-						actions.Do('hide',marker_id,null);
-					} else {
-						actions.Do('show',marker_id,null);
+					//If the action doesnt come from the UnredoOperations object
+					if (!fromAction) {
+						if (!_markers[marker_id].data.active) {
+							actions.Do('hide',marker_id,null);
+						} else {
+							actions.Do('show',marker_id,null);
+						}
 					}
-					
 					
 					// Add or deduct the marker from _active_markers
 					if (convex_hull.isVisible()) {

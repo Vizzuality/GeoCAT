@@ -135,7 +135,7 @@
 		
 		MarkerOverTooltip.prototype.makeActive = function() {
 			this.hide();
-			makeActive(this.marker_id);
+			makeActive(this.marker_id,false);
 		}
 		
 

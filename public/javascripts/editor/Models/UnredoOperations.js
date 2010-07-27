@@ -28,20 +28,18 @@
 			
 			
 			UnredoOperations.prototype.Undo = function() {
-				
 				if (this.position!=0) {
-					console.log(this.actions);
 					this.position--;
 					switch(this.actions[this.position].kind) {
-						case 'add': 		removeMarker(this.actions[this.position].marker_id);
+						case 'add': 		removeMarker(this.actions[this.position].marker_id,true);
 														break;
 						case 'edit': 		
 														break;
-						case 'hide': 		makeActive(this.actions[this.position].marker_id);
+						case 'hide': 		makeActive(this.actions[this.position].marker_id,true);
 														break;						
-						case 'show': 		makeActive(this.actions[this.position].marker_id);
+						case 'show': 		makeActive(this.actions[this.position].marker_id,true);
 														break;						
-						case 'remove': 	
+						case 'remove': 	addMarker(this.actions[this.position].marker_id,null,true);
 														break;						
 						default: 				null;
 						

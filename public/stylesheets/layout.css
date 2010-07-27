@@ -1,24 +1,71 @@
-body {background:#333333; background:url(../images/editor/bkg.jpg) 0 0;}
+body {background:#EAEAEB; /*background:url(../images/editor/bkg.jpg) 0 0;*/ padding:0; margin:0;}
 ul{list-style:none;}
 
 /*fonts*/
 @font-face { font-family: "Futura"; src: url('../fonts/Futura.ttc'); } 
 
 /* HOME */
-div#main_container {margin:116px auto 0; padding:33px; width:408px; height:262px; background:url(../images/home/main_bkg.png) no-repeat 0 0; }
-div#main_container h1 {float:left; padding:0; margin:0; font:normal 31px "Futura"; color:white; line-height:35px;}
-div#main_container label {float:left; padding:30px 0 10px 0; width:100%; font:normal 19px "Futura"; color:#BFBFBF;}
-div#main_container input[type="text"] {float:left; width:378px; -webkit-border-radius:7px; -moz-border-radius:7px; background:url(../images/home/text_input_bkg.png) repeat-x 0 0 white; height:38px; border:none; font:normal 15px Arial; color:#999999; padding:0 15px;}
-div#main_container input[type="text"]:focus {outline:none;}
-div#main_container form.upload {position:relative; float:left; margin:45px 0 0 0; width:408px;}
-div#main_container form.upload p {float:left; font:normal 15px "Futura"; color:#858585; letter-spacing:-1px;}
+
+div#map {position:absolute; right:0; left:0; top:0; height:390px; z-index:0;}
+div.opaque {position:absolute; right:0; left:0; top:0; height:390px; width:100%; background:black; opacity:0.8; z-index:1;}
+
+div.layout {position:relative; margin:0 auto; width:950px; z-index:100;}
+div.layout.header {height:390px;}
+div.layout header {float:left; padding:37px 0 130px 0; width:100%;}
+div.layout header h2 {float:left; font:normal 15px Arial; color:white; padding:0; margin:0;}
+div.layout section.name {float:left; padding:0; margin:0;}
+div.layout section.name h1 {float:left; width:450px; font:bold 47px Arial; color:white; text-shadow:0 3px black; letter-spacing:-2px; padding:0; margin:0;}
+
+div.white_band {position:relative; width:100%; background:#F5F5F5; border-bottom:1px solid #CCCCCC; height:61px;}
+div.white_band div.inner {position:relative; margin:0 auto; width:950px; height:61px;}
+div.white_band div.inner img.arrow {position:absolute; bottom:-1px; left:36px;}
+div.white_band div.inner ul {padding:0; margin:0; float:left;}
+div.white_band div.inner ul li {float:left; width:auto; padding:18px 28px 0 0; margin:0;}
+div.white_band div.inner ul li a {float:left; font:bold 15px Arial; color:#729900; text-decoration:none;}
+div.white_band div.inner ul li a:hover {color:#333333;}
+div.white_band div.inner ul li.selected a {color:#333333;}
+
+div.white_band div#main_container {position:absolute; bottom:30px; right:0; padding:30px; width:404px; height:187px; background:url(../images/home/main_bkg.png) no-repeat 0 0; z-index:100;}
+div.white_band div#main_container label {float:left; padding:0 0 5px 0; width:100%; font:normal 19px "Futura"; color:#BFBFBF;}
+div.white_band div#main_container form.up {float:left; margin:5px 0 0 0;}
+div.white_band div#main_container form.up input[type="text"] {float:left; width:378px; -webkit-border-radius:7px; -moz-border-radius:7px; background:url(../images/home/text_input_bkg.png) repeat-x 0 0 white; height:38px; border:none; font:normal 15px Arial; color:#999999; padding:0 15px;}
+div.white_band div#main_container form.up input[type="text"]:focus {outline:none;}
+div.white_band div#main_container form.up p {float:right; padding:6px 0 0 0; margin:0; font:normal 13px Arial; color:#C3C3C3;}
+div.white_band div#main_container form.up p a {color:#6F972F;}
+div.white_band div#main_container form.up p a:hover {text-decoration:none;}
+div.white_band div#main_container form.upload {position:relative; float:left; margin:50px 0 0 0; width:408px;}
+div.white_band div#main_container form.upload p {float:left; font:normal 15px "Futura"; color:#858585; letter-spacing:-1px;}
+div.white_band div#main_container form.upload input[type="file"]{position:absolute; top:0px; right:0px; width:133px; margin:10px 0 0 0; height:32px; border:none; opacity:0; z-index:100;}
+div.white_band div#main_container form.upload input[type="file"]:hover {cursor:pointer;}
+div.white_band div#main_container form.upload a {position:absolute; top:10px; right:0px; width:133px; height:32px; background:url(../images/home/upload_bkg.png) no-repeat 0 0; }
+div.white_band div#main_container form.upload a:hover {background-position:0 -32px; cursor:pointer;}
+div.white_band span.main_shadow {position:absolute; bottom:15px; right:-8px; width:479px; height:28px; background:url(../images/home/main_shadow.png) no-repeat center center; z-index:20;}
+
+div.layout.blocks {height:350px; padding:25px 0 0 0;}
+div.layout.blocks div.block {position:relative; float:left; width:310px; margin:0 10px 0 0; padding:0; background:url(../images/home/block_bkg.png) no-repeat 31px bottom; height:290px;}
+div.layout.blocks div.block img.top {position:absolute; left:-18px; top:124px; z-index:10;}
+div.layout.blocks div.block img.bottom {position:absolute; left:-18px; bottom:50px; z-index:10;}
+div.layout.blocks div.block.last {margin:0; padding:0;}
+div.layout.blocks div.block h3 {float:left; width:300px; font:bold 17px Arial; color:#333333;}
+div.layout.blocks div.block div.image {float:left; padding:6px; background:white; border:1px solid #CCCCCC; width:288px;}
+div.layout.blocks div.block div.image img {float:left;}
+
+footer {float:left; width:100%; padding:0; margin:0; background:#729900; border-top:1px solid #608800; z-index:100; height:59px;}
+footer div.inner {margin:0 auto; width:950px;}
+footer div.inner div.left {float:left;}
+footer div.inner div.left p {float:left; font:normal 13px Arial; color:#003500; padding:10px 5px 0 0;}
+footer div.inner div.left p a {color:#003500;}
+footer div.inner div.left p a:hover {text-decoration:none;}
+footer div.inner div.left img {float:left; margin:12px 0 0 0;}
+footer div.inner div.right {float:right;}
+footer div.inner div.right p {float:left; font:normal 13px Arial; color:#37671C; padding:10px 5px 0 0;}
+footer div.inner div.right img {float:left; margin:7px 0 0 0;}
 
 
-div#main_container form.upload input[type="file"]{position:absolute; top:0px; right:0px; width:133px; margin:10px 0 0 0; height:32px; border:none; opacity:0; z-index:100;}
-div#main_container form.upload input[type="file"]:hover {cursor:pointer;}
 
-div#main_container form.upload a {position:absolute; top:10px; right:0px; width:133px; height:32px; background:url(../images/home/upload_bkg.png) no-repeat 0 0; }
-div#main_container form.upload a:hover {background-position:0 -32px; cursor:pointer;}
+
+
+
 
 
 /*EDITOR*/
@@ -75,7 +122,6 @@ div.hull_container p.diameter {position:absolute; top:72px; left:31px;}
 div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
 div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
-
 
 div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-top:1px solid #454648;}
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}

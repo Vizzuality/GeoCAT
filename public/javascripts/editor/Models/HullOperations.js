@@ -115,7 +115,7 @@
 					});
 					google.maps.event.addListener(this.polygon,"click",function(event){
 						if (state == 'add') {
-							addMarker(event.latLng);
+							addMarker(event.latLng,null,false);
 						}
 					});
 				}
