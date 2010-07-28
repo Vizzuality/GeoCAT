@@ -19,12 +19,14 @@ class FlickrController < ApplicationController
         # Filtering the json answer
          json_only = []
          @list.each do |photo|
-           json_only << {:id => photo.id, :latitude => photo.latitude, :longitude => photo.longitude, :accuracy => photo.accuracy}
+           
+           json_only << {:latitude => photo.latitude.to_s, :longitude => photo.longitude.to_s, :accuracy => photo.accuracy, "collector" => "111", "active" => "true", "removed" => "false",
+             "catalogue_id" => "flickr_" + photo.id, "kind" => "flickr" }
          end
          
          @json_head = [{"id"=>"flickr_id","name"=>"flickr","points"=>json_only}]
-           
-       # end to filter
+         
+         # end to filter
         
         render :json =>@json_head
         
