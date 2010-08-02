@@ -7,10 +7,14 @@ class GbifController < ApplicationController
       else
         if !params[:q].empty? or !params[:q].nil?
           q = params[:q]
-          
+        
+          # TO TEST THE SEARCH
+          # q = "13191720"
+        
           # TO GET THE TAXON LIST
           # http://es.mirror.gbif.org/species/nameSearch?maxResults=30&amp;returnType=nameId&amp;startIndex=0&amp;view=json&amp;query=ESPECIE_A_BUSCAR
-                
+          # http://data.gbif.org/species/nameSearch?maxResults=1&view=json&returnType=nameIdMap&query=Lince%20americano&exactOnly=true
+
           # TO GET THE POINTS BY SPECIE - Puma con color in this case (13191720)
           require 'open-uri'            
             open("http://es.mirror.gbif.org/ws/rest/density/list?taxonconceptkey="+ q) {|f| @list =  f.read
