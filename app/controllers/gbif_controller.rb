@@ -38,7 +38,7 @@ class GbifController < ApplicationController
             @longitude = ((@minLongitude + @maxLongitude) / 2).to_s
 
             points << {"latitude"=> @latitude,"longitude"=> @longitude,
-              "accuracy"=>"14","collector"=>"111","active"=>"true","removed"=>"false","catalogue_id"=>"'gbif_" + @cellid + "'","kind"=>"gbif"}
+              "accuracy"=>"14","collector"=>"111","active"=>"true","removed"=>"false","catalogue_id"=>"gbif_" + @cellid + "","kind"=>"gbif"}
           end
                     
           @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]
