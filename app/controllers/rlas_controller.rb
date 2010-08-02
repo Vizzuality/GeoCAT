@@ -25,20 +25,22 @@ class RlasController < ApplicationController
 
   # Validate RLA method
   def validate_rla(path)
-    invalid_file = false
+    # invalid_file = false
     
     file = File.open(path, "r")
     file_content_JSON = []
     file_content = []
+    
     file.each do |json_string| 
-    file_content_JSON << JSON.parse(json_string)
-    file_content << json_string
+      file_content_JSON << JSON.parse(json_string)
+      file_content << json_string
     end
     
     $file_content = file_content[0]
+    
     @rla.specie = file_content_JSON[0]["rla"]["specie"]
     @rla.zoom = file_content_JSON[0]["rla"]["zoom"]
-    @rla.data = file_content_JSON[0]["rla"]["source"]
+    @rla.data = file_content_JSON[0]["rla"]["sources"]
     
     # Get the header     
     # file_content_hash = JSON.parse(file.readline)
@@ -58,27 +60,16 @@ class RlasController < ApplicationController
     
     file.close
     
-    if (invalid_file == true)
-        return false
-    else
-        return true 
-    end  
+    return true
+    # if (invalid_file == true)
+    #      return false
+    #  else
+    #      return true 
+    #  end  
   end
   
   def get_download_url url
-    if url.present?
-      AWS::S3::Base.establish_connection!(
-              :access_key_id     => ENV['S3_KEY'],
-              :secret_access_key => ENV['S3_SECRET']
-      )
-
-      AWS::S3::S3Object.url_for(
-              url,
-              UserUploadBucket
-      )
-    else
-      ""
-    end
+    
   end
   # TODO Add validates
   def download_rla
