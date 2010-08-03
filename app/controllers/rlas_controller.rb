@@ -1,7 +1,7 @@
 class RlasController < ApplicationController
   
   def editor
-    if (!$rla.nil?)&&(!$file_content.nil?)       
+    if (!$rla.nil?)&&(!$file_content.nil?)     
       @rla = $rla    
       @rla_json = $file_content
     else

@@ -33,8 +33,22 @@ div.white_band div#main_container form.up p {float:right; padding:6px 0 0 0; mar
 div.white_band div#main_container form.up p a {color:#6F972F;}
 div.white_band div#main_container form.up p a:hover {text-decoration:none;}
 div.white_band div#main_container form.up img.loader {position:absolute; right:24px; top:22px; display:none;}
+/*autocomplete css*/
+.ac_results {padding:0 10px 50px 10px; border: 1px solid #CCCCCC; border-top:none; background: url(../images/home/search_bkg.png) repeat 0 0; overflow: hidden; z-index: 99999; -moz-border-radius-bottomleft: 5px;  -moz-border-radius-bottomright: 5px;  -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;}
+.ac_results_small{ border: 1px solid #00334E; border-top:none;} 
+.ac_results ul {width: 100%; list-style-position: outside; list-style: none; padding: 0; border:none; margin: 0;}
+.ac_results li {margin: 0px; padding: 12px 5px; display: block; overflow: hidden; border-bottom:1px solid #343434; color:white;}
+.ac_results li.empty {position:absolute; border-top:1px solid #CCCCCC; width:427px; padding:13px 0 0 0; left:-3px; height:41px; bottom:-8px; font:normal 15px "Futura"; color:black; text-shadow:#CCCCCC 0 1px; text-align:center; background:url(../images/home/last_bkg.png) no-repeat 3px -7px;}
+.ac_results li.empty a {text-decoration:underline; color:black;}
+.ac_results li.empty a:hover {text-decoration:none;}
+.ac_results li.last {border-bottom:none;}
+.ac_results li p {margin:0; padding:0;}
+.ac_results li p strong {text-decoration:underline;}
+.ac_results li.ac_over {cursor: pointer; color: #999999;}
+.ac_results li.empty.ac_over {cursor: default; color: black;}
 
-div.white_band div#main_container form.upload {position:relative; float:left; margin:50px 0 0 0; width:408px;}
+
+div.white_band div#main_container form.upload {position:relative; float:left; margin:35px 0 0 13px; width:408px;}
 div.white_band div#main_container form.upload p {float:left; font:normal 15px "Futura"; color:#858585; letter-spacing:-1px;}
 div.white_band div#main_container form.upload input[type="file"]{position:absolute; top:0px; right:0px; width:133px; margin:10px 0 0 0; height:32px; border:none; opacity:0; z-index:100;}
 div.white_band div#main_container form.upload input[type="file"]:hover {cursor:pointer;}
@@ -234,75 +248,5 @@ div#editor div#map_container div.footer div.right a:hover {background-position:0
 
 
 
-/*AUTOCOMPLETE CSS*/
-.ac_results {
-	padding:0 10px 50px 10px;
-	border: 1px solid #CCCCCC;
-	border-top:none;
-	background: url(../images/home/search_bkg.png) repeat 0 0;
-	overflow: hidden;
-	z-index: 99999;
-	-moz-border-radius-bottomleft: 5px; 
-	-moz-border-radius-bottomright: 5px; 
-	-webkit-border-bottom-left-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-}
 
-.ac_results_small{
-	border: 1px solid #00334E;
-	border-top:none;
-} 
-
-.ac_results ul {
-	width: 100%;
-	list-style-position: outside;
-	list-style: none;
-	padding: 0;
-	border:none;
-	margin: 0;
-}
-
-
-.ac_results li {
-	margin: 0px;
-	padding: 12px 5px;
-	display: block;
-	overflow: hidden;
-	border-bottom:1px solid #343434;
-	color:white;
-}
-
-
-.ac_results li.empty {
-	position:absolute;
-	border-top:1px solid #CCCCCC;
-	width:427px;
-	padding:13px 0 0 0;
-	left:-3px;
-	height:41px;
-	bottom:-8px;
-	font:normal 15px "Futura";
-	color:black;
-	text-shadow:#CCCCCC 0 1px;
-	text-align:center;
-	background:url(../images/home/last_bkg.png) no-repeat 3px -7px;
-	}
-
-.ac_results li.empty a {text-decoration:underline; color:black;}
-.ac_results li.empty a:hover {text-decoration:none;}
-
-.ac_results li.last {border-bottom:none;}
-
-.ac_results li p {margin:0; padding:0;}
-.ac_results li p strong {text-decoration:underline;}
-
-.ac_results li.ac_over {
-	cursor: pointer;
-	color: #999999;
-}
-
-.ac_results li.empty.ac_over {
-	cursor: default;
-	color: black;
-}
 

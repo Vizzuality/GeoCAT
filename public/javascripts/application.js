@@ -51,7 +51,7 @@
 					multiple: false,
 					scroll: false
 				}).result(function(event,row){
-					location.href = row.url;
+					//location.href = row.url;
 				});
 
 		
