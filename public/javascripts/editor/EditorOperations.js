@@ -21,6 +21,8 @@ var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false op
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var _markers = [];							// All the markers of the map (Associative array)
+var _information = [];								// Variable needed for adding markers asynchronously
+
 
 var global_id = 0; 							// Global id for your own markers
 
@@ -169,6 +171,7 @@ var global_id = 0; 							// Global id for your own markers
 		/*========================================================================================================================*/
 		
 		function showMamufasMap() {
+			$('#mamufas_map').css('background','url(../images/editor/mamufas_bkg.png) repeat 0 0');
 			$('#mamufas_map').fadeIn();
 			$('#loader_map').fadeIn();
 		}	
@@ -180,10 +183,12 @@ var global_id = 0; 							// Global id for your own markers
 		
 		function hideMamufasMap() {
 			$('#loader_map').fadeOut(function(ev){
+				$('#mamufas_map').css('background','none');
 				$('div#import_success').fadeIn(function(ev){
-					$(this).delay(2000).fadeOut('fast',function(ev){
+					$(this).delay(2000).animate({height:556, width:808, opacity:0, marginTop:-228, marginLeft:-404}, 300,function(ev){
 						$('#mamufas_map').fadeOut();
 					});
+					$(this).children('img').delay(2000).animate({height:232, width:808, marginTop:162}, 300);
 				});		
 			});
 		}
@@ -227,6 +232,7 @@ var global_id = 0; 							// Global id for your own markers
 		/*========================================================================================================================*/
 		
 		function addSourceToMap(information,getBound, saveAction) {
+				showMamufasMap();
 				var marker_kind;
 				switch (information.name) {
 					case 'gbif': 		marker_kind = 'Gbif';
@@ -243,34 +249,40 @@ var global_id = 0; 							// Global id for your own markers
 					new google.maps.Size(25, 25),
 					new google.maps.Point(0,0),
 					new google.maps.Point(12, 12));
-
-		    $.each(information.points, function(i,item){
-					(item.removed)?null:total_points.add(information.name); //Add new point to total_point in each class (gbif, flickr or your points)
-   				
-					bounds.extend(new google.maps.LatLng(item.latitude,item.longitude));			
-					var marker = CreateMarker(new google.maps.LatLng(item.latitude,item.longitude), information.name, true, true, item, (item.removed)?null:map);
-   				_markers[marker.data.catalogue_id] = marker;
 					
-					if (item.active && !item.removed && convex_hull.isVisible()) {
-						convex_hull.addPoint(marker);
-					}
-					
-					// if (saveAction) {
-					// 	actions.Do('add', marker.data.catalogue_id, information);
-					// }
-					
-    		});
+					var total = information.points.length;
+					_information = information.points;
+					setTimeout("asynAddMarker("+0+","+total+","+getBound+","+ saveAction+")", 0);
 
+		}
+		
+		function asynAddMarker(i,total,_bounds, _saveAction) {
+			if(i < total){
+				(_information[i].removed)?null:total_points.add(_information[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
+ 				
+				bounds.extend(new google.maps.LatLng(_information[i].latitude,_information[i].longitude));			
+				var marker = CreateMarker(new google.maps.LatLng(_information[i].latitude,_information[i].longitude), _information[i].kind, true, true, _information[i], (_information[i].removed)?null:map);
+ 				_markers[marker.data.catalogue_id] = marker;
+				
+				if (_information[i].active && !_information[i].removed && convex_hull.isVisible()) {
+					convex_hull.addPoint(marker);
+				}
+				
+				// if (_saveAction) {
+		    // 	actions.Do('add', marker.data.catalogue_id, information);
+		    // }
 
-
-				addSourceToList(information.name);
+	      i++;
+	      setTimeout("asynAddMarker("+i+","+total+","+ _bounds+","+_saveAction+")", 0);
+	    } else {
+				addSourceToList(_information[total-1].kind);
 				calculateMapPoints();
 				resizeBarPoints();
-				
-				if (getBound) {
+				hideMamufasMap();
+				if (_bounds) {
 	 				map.fitBounds(bounds);
 				}
-
+	    }
 		}
 		
 		

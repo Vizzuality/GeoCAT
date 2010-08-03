@@ -228,8 +228,8 @@ div#editor div#map_container div.table div.center-map div#map {position:relative
 div#editor div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url(../images/editor/mamufas_bkg.png) repeat 0 0;}
 div#editor div#map_container div.table div.center-map div#mamufas_map div#loader_map {position:absolute; top:50%; left:50%; margin:-25px 0 0 -25px;/*hack*/ display:none; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
 div#editor div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
-div#editor div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-29px 0 0 -101px;/*hack*/ width:202px; height:58px;}
-
+div#editor div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
+div#editor div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
 
 div#editor div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(../images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
 div#editor div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
