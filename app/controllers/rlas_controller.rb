@@ -1,5 +1,18 @@
 class RlasController < ApplicationController
   
+  
+  def editor_params 
+    if !params[:id].nil? && !params[:specie].nil?
+      
+      @rla = Rla.new
+      @rla.specie = params[:specie]
+      @rla.data = params[:id]
+      redirect_to :controller => "rlas", :action => "editor"
+    else
+      redirect_to :controller => "main"
+    end
+  end
+  
   def editor
     if (!$rla.nil?)&&(!$file_content.nil?)     
       @rla = $rla    
@@ -10,6 +23,7 @@ class RlasController < ApplicationController
   end
   
   def create
+    debugger
     @rla = Rla.new(params[:rla])
 
     if validate_rla(params[:rla]["name"])

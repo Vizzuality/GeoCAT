@@ -23,8 +23,6 @@
 		map.setCenter(latlng);
 		map.setZoom(zoom);
 		
-		
-		
 		$('#inputSearch').focus().autocomplete('http://data.gbif.org/species/nameSearch?maxResults=5&returnType=nameId&view=json',{
 					dataType: 'jsonp',
 					parse: function(data){
