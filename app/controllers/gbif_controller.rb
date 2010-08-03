@@ -16,6 +16,7 @@ class GbifController < ApplicationController
           # http://data.gbif.org/species/nameSearch?maxResults=1&view=json&returnType=nameIdMap&query=Lince%20americano&exactOnly=true
 
           # TO GET THE POINTS BY SPECIE - Puma con color in this case (13191720)
+          q = "13191720"
           require 'open-uri'            
             open("http://es.mirror.gbif.org/ws/rest/density/list?taxonconceptkey="+ q) {|f| @list =  f.read
           }
@@ -42,7 +43,7 @@ class GbifController < ApplicationController
             @longitude = ((@minLongitude + @maxLongitude) / 2).to_s
 
             points << {"latitude"=> @latitude,"longitude"=> @longitude,
-              "accuracy"=>"14","collector"=>"111","active"=>"true","removed"=>"false","catalogue_id"=>"gbif_" + @cellid + "","kind"=>"gbif"}
+              "accuracy"=>"14","collector"=>"111","active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @cellid + "","kind"=>"gbif"}
           end
                     
           @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]

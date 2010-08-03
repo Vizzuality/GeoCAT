@@ -47,7 +47,7 @@ var global_id = 0; 							// Global id for your own markers
 			
 			total_points = new TotalPointsOperations();  		// TotalPoints Object
 			convex_hull = new HullOperations(map);					// Convex Hull Object
-			actions = new UnredoOperations();								// Un-Re-Do Object
+			//actions = new UnredoOperations();								// Un-Re-Do Object
 			
 			
 			
@@ -255,9 +255,9 @@ var global_id = 0; 							// Global id for your own markers
 						convex_hull.addPoint(marker);
 					}
 					
-					if (saveAction) {
-						actions.Do('add', marker.data.catalogue_id, information);
-					}
+					// if (saveAction) {
+					// 	actions.Do('add', marker.data.catalogue_id, information);
+					// }
 					
     		});
 
@@ -335,22 +335,38 @@ var global_id = 0; 							// Global id for your own markers
 		function resizeBarPoints() {
 				
 			if (total_points.get('flickr')!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
+				if ((((202*total_points.get('flickr'))/total_points.total())-217)<(-204)) {
+					$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position','-204px 0');
+				} else {
+					$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
+				}				
 				$('div#editor div#tools div.center div.right div.sources a.pink span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
+					if ((((202*total_points.get('flickr'))/total_points.total())-217)<(-204)) {
+						$(this).css('background-position','-204px 0');
+					} else {
+						$(this).css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
+					}				
 				});
 			} else {
 				$('div.sources ul li a.pink').parent().remove();
 			}
 
 			if (total_points.get('gbif')!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
+				if ((((202*total_points.get('gbif'))/total_points.total())-217)<(-204)) {
+					$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position','-204px 0');
+				} else {
+					$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
+				}
 				$('div#editor div#tools div.center div.right div.sources a.green span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
+					if ((((202*total_points.get('gbif'))/total_points.total())-217)<(-204)) {
+						$(this).css('background-position','-204px 0');
+					} else {
+						$(this).css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
+					}				
 				});
 			} else {
 				$('div.sources ul li a.green').parent().remove();
@@ -358,11 +374,19 @@ var global_id = 0; 							// Global id for your own markers
 			
 			
 			if (total_points.get('your')!=0) {
-				$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
+				if ((((202*total_points.get('your'))/total_points.total())-217)<(-204)) {
+					$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position','-204px 0');
+				} else {
+					$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
+				}
 				$('div#editor div#tools div.center div.right div.sources a.blue span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					$(this).css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
+					if ((((202*total_points.get('your'))/total_points.total())-217)<(-204)) {
+						$(this).css('background-position','-204px 0');
+					} else {
+						$(this).css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
+					}				
 				});
 			} else {
 				$('div.sources ul li a.blue').parent().remove();
@@ -394,7 +418,6 @@ var global_id = 0; 							// Global id for your own markers
 		function uploadRLA(upload_data) {
 			var rla = new RLA(null,null,null,upload_data);
 			var app_data = rla.upload();
-			
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					addSourceToMap(app_data[i],false,false);
@@ -425,7 +448,7 @@ var global_id = 0; 							// Global id for your own markers
 			_markers[marker_id].data.removed = true;
 			_markers[marker_id].setMap(null);
 
-			actions.Do('remove', marker_id, null);
+			//actions.Do('remove', marker_id, null);
 			
 
 			if (convex_hull.isVisible()) {
@@ -449,7 +472,7 @@ var global_id = 0; 							// Global id for your own markers
 			
 			global_id++;
 			
-			if (data == null) {
+			if (item_data == null) {
 				var inf = new Object();
 				inf.accuracy = 50;
 				inf.active = true;
@@ -468,8 +491,8 @@ var global_id = 0; 							// Global id for your own markers
 			bounds.extend(latlng);
 			_markers[marker.data.catalogue_id] = marker;
 			
-			if (!fromAction)
-				actions.Do('add', marker.data.catalogue_id, inf);
+			// if (!fromAction)
+			// 	actions.Do('add', marker.data.catalogue_id, inf);
 			
 			addSourceToList('your');
 			resizeBarPoints();
@@ -513,13 +536,13 @@ var global_id = 0; 							// Global id for your own markers
 					_markers[marker_id].data.active = !_markers[marker_id].data.active;
 					
 					//If the action doesnt come from the UnredoOperations object
-					if (!fromAction) {
-						if (!_markers[marker_id].data.active) {
-							actions.Do('hide',marker_id,null);
-						} else {
-							actions.Do('show',marker_id,null);
-						}
-					}
+					// if (!fromAction) {
+					// 	if (!_markers[marker_id].data.active) {
+					// 		actions.Do('hide',marker_id,null);
+					// 	} else {
+					// 		actions.Do('show',marker_id,null);
+					// 	}
+					// }
 					
 					// Add or deduct the marker from _active_markers
 					if (convex_hull.isVisible()) {
@@ -594,12 +617,12 @@ var global_id = 0; 							// Global id for your own markers
 		
 	
 		function unDoAction() {
-			actions.Undo();
+			//actions.Undo();
 		}
 		
 		
 		function reDoAction() {
-			actions.Redo();
+			//actions.Redo();
 		}
 		
 

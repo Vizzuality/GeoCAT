@@ -4,6 +4,8 @@ class RlasController < ApplicationController
     if (!$rla.nil?)&&(!$file_content.nil?)       
       @rla = $rla    
       @rla_json = $file_content
+    else
+      redirect_to :controller => "main"
     end
   end
   
@@ -115,5 +117,12 @@ class RlasController < ApplicationController
       #render :file => 'app/views/main/index.html'
       render :text => "download RLA"
     end
+    
+    
+  def make_screenshot
+    width, height, bmp = Win32::Screenshot.foreground
+    img = Magick::Image.from_blob(bmp)[0]
+    img.write("./screenshot.png")
+  end 
   
 end

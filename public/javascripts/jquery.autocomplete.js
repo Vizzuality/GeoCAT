@@ -252,7 +252,7 @@ $.Autocompleter = function(input, options) {
 		currentValue = lastWord(currentValue);
 		if ( currentValue.length >= options.minChars) {
 			//$input.addClass(options.loadingClass);
-			$(".search_spinner, .search_spinner_mini, .search_spinner_header").show();
+			$("img.loader").show();
 			//$input.css('background', "white url('../images/indicator.gif') 97% center no-repeat");
 			if (!options.matchCase)
 				currentValue = currentValue.toLowerCase();
@@ -366,13 +366,14 @@ $.Autocompleter = function(input, options) {
 				// limit abortion to this input
 				port: "autocomplete" + input.name,
 				dataType: options.dataType,
+				method: "GET",
 				url: options.url,
 				data: $.extend({
-					q: lastWord(term),
+					query: lastWord(term),
 					limit: options.max
 				}, extraParams),
 				success: function(data) {
-					var parsed = options.parse && options.parse(data) || parse(data);
+					var parsed = options.parse && options.parse(data.Resultset.Result) || parse(data.Resultset.Result);
 					cache.add(term, parsed);
 					success(term, parsed);
 				}
@@ -403,7 +404,7 @@ $.Autocompleter = function(input, options) {
 
 	function stopLoading() {
 		//$input.removeClass(options.loadingClass);
-		$(".search_spinner, .search_spinner_mini, .search_spinner_header").hide();
+		$("img.loader").hide();
 	};
 
 };
@@ -671,9 +672,11 @@ $.Autocompleter.Select = function (options, input, select, config) {
 			var formatted = options.formatItem(data[i].data, i+1, max, data[i].value, term);
 			if ( formatted === false )
 				continue;
-			var li = $("<li/>").html( options.highlight(formatted, term) ).addClass(i%2 == 0 ? "ac_even" : "ac_odd").appendTo(list)[0];
+			var li = $("<li/>").html( options.highlight(formatted, term) ).addClass(i == max-1 ? "last" : "").appendTo(list)[0];
 			$.data(li, "ac_data", data[i]);
 		}
+			var li = $("<li class='empty'>can’t find your desired species? <a href='#'>Start a new one</a></li>").appendTo(list)[0];
+		
 		listItems = list.find("li");
 		if ( options.selectFirst ) {
 			listItems.slice(0, 1).addClass(CLASSES.ACTIVE);
@@ -712,6 +715,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
 			}
 		},
 		hide: function() {
+			$('form.up').css('background','url(/images/home/form_bkg.png) no-repeat 200px 300px');
 			element && element.hide();
 			listItems && listItems.removeClass(CLASSES.ACTIVE);
 			active = -1;
@@ -724,10 +728,12 @@ $.Autocompleter.Select = function (options, input, select, config) {
 		},
 		show: function() {
 			var offset = $(input).offset();
+			$('form.up').css('background','url(/images/home/form_bkg.png) no-repeat 3px 0');
+			
 			element.css({
 				width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).width(),
-				top: offset.top + input.offsetHeight - 5,
-				left: offset.left
+				top: offset.top + input.offsetHeight + 3,
+				left: offset.left - 9
 			}).show();
             if(options.scroll) {
                 list.scrollTop(0);
@@ -736,7 +742,8 @@ $.Autocompleter.Select = function (options, input, select, config) {
 					overflow: 'auto'
 				});
 				
-                if($.browser.msie && typeof document.body.style.maxHeight === "undefined") {
+				
+       if($.browser.msie && typeof document.body.style.maxHeight === "undefined") {
 					var listHeight = 0;
 					listItems.each(function() {
 						listHeight += this.offsetHeight;

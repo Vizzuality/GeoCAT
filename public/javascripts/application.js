@@ -1,7 +1,6 @@
 
 	$(document).ready(function() {
 
-
 		// HOME
 	  var myLatlng = new google.maps.LatLng(20,-3);
 	  var myOptions = {
@@ -26,34 +25,35 @@
 		
 		
 		
-		$('#inputSearch').focus().autocomplete('http://data.gbif.org/species/nameSearch?rank=species&view=json&query=',{
-					dataType: 'json',
+		$('#inputSearch').focus().autocomplete('http://data.gbif.org/species/nameSearch?maxResults=5&returnType=nameId&view=json',{
+					dataType: 'jsonp',
 					parse: function(data){
-											console.log(data);
-                                            var rows = new Array();
-                                            rows = data["Result"]
+                      var animals = new Array();
+                      gbif_data = data;
 
-                                            return rows;
+                      for(var i=0; i<gbif_data.length; i++) {
+                        animals[i] = { data: gbif_data[i], value: gbif_data[i].scientificName, result: gbif_data[i].scientificName };
+                      }
+
+                      return animals;
 					}, 
-					formatItem: function(row, i, n) {
-						
-						alert('ESPECIE: '+ row);
-						// var menu_string = '<img src="'+ row.image + '" style="float:left;margin:7px 7px 5px 2px;border:1px solid #ccc;"><div style="margin-top:7px;float:left;width:270px;font-size:13px;">' + row.english_name + '<br><span style="color:#aaa;font-size:10px; line-height:5px;">' + row.designation + '</span></div><div style="float:right;margin-top:7px; width:10px;">';
-						// 
-						// menu_string = menu_string + '</div>';
-						// return menu_string;
-		      		},					
-					width: 335,
+					formatItem: function(row, i, n, value, term) {
+								
+						var menu_string = '<p style="float:left;width:100%;font:bold 15px Arial;">' + value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>") + '</p>';
+						return menu_string;
+		      },					
+					width: 404,
 					height: 100,
 					minChars: 4,
 					max: 5,
 					selectFirst: false,
+					loadingClass: 'loader',
 					multiple: false,
 					scroll: false
 				}).result(function(event,row){
-					
-					location.href = row;
+					location.href = row.url;
 				});
+
 		
 		
 		//input effect - hack

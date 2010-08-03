@@ -29,6 +29,7 @@
 						<input id="inputSearch" type="text" value="Start typing your desired taxon..." 
 						onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"/>
 						<p>you can try with <a href="#">Luzula Luzuloides</a></p>
+						<img src="images/home/ajax-loader.gif" class="loader">
 					</form>
 
 					<%= form_for Rla.new, :html => { :class => "upload", :multipart => true } do |r| %>
