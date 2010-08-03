@@ -49,7 +49,7 @@
 					multiple: false,
 					scroll: false
 				}).result(function(event,row){
-					//location.href = row.url;
+					location.href = '/editor/' + row.id + '/' + escape(row.scientificName);
 				});
 
 		

@@ -44,6 +44,9 @@
 				button_i.style.height = "14px";		
 				button_i.style.background = "url(../images/editor/over_i.png) no-repeat 0 0";
 				button_i.style.cursor = "pointer";
+				$(button_i).click(function(ev){
+					me.showInformation();
+				});
 				$(button_i).hover(function(ev){
 					$(this).css('background-position','0 -14px');
 				}, function(ev){
@@ -137,6 +140,18 @@
 			this.hide();
 			makeActive(this.marker_id,false);
 		}
+		
+		
+		MarkerOverTooltip.prototype.showInformation = function() {
+			this.hide();
+			if (click_infowindow!=null) {					
+				if (_markers[this.marker_id].data.catalogue_id == click_infowindow.marker_id || !click_infowindow.isVisible()) {
+					click_infowindow.changePosition(new google.maps.LatLng(_markers[this.marker_id].position.b,_markers[this.marker_id].position.c),_markers[this.marker_id].data.catalogue_id,_markers[this.marker_id].data);
+				}
+			} else {
+				click_infowindow = new MarkerTooltip(new google.maps.LatLng(_markers[this.marker_id].position.b,_markers[this.marker_id].position.c), _markers[this.marker_id].data.catalogue_id, _markers[this.marker_id].data, map);
+			}
+		}		
 		
 
 

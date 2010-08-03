@@ -23,7 +23,6 @@ class RlasController < ApplicationController
   end
   
   def create
-    debugger
     @rla = Rla.new(params[:rla])
 
     if validate_rla(params[:rla]["name"])

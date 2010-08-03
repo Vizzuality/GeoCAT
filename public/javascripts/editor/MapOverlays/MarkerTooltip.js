@@ -4,10 +4,16 @@
 		  this.latlng_ = latlng;
 			this.inf = opt;
 			this.marker_id = marker_id;
-		  this.offsetVertical_ = -189;
-		  this.offsetHorizontal_ = -113;
-		  this.height_ = 203;
-		  this.width_ = 227;
+		  // this.offsetVertical_ = -189;
+		  // this.offsetHorizontal_ = -113;
+		  // this.height_ = 203;
+		  // this.width_ = 227;
+		
+		  this.offsetVertical_ = -230;
+		  this.offsetHorizontal_ = -116;
+		  this.height_ = 259;
+		  this.width_ = 233;
+		
 		  this.setMap(map);
 		}
 
@@ -24,15 +30,15 @@
 		    div.style.position = "absolute";
 		    div.style.paddingLeft = "0px";
 				div.style.opacity = "0";
-				div.style.width = '227px';
-				div.style.height = '203px';
-				div.style.background = 'url(images/editor/tooltip_bkg.png) no-repeat 0 0';
+				div.style.width = '233px';
+				div.style.height = '259px';
+				div.style.background = 'url(images/editor/tooltip_bkg2.png) no-repeat 0 0';
 		
 				//Close Infowindow button
 				var close_button = document.createElement('a');
 		    close_button.style.position = "absolute";
-				close_button.style.right = "-2px";
-				close_button.style.top = "-2px";
+				close_button.style.right = "1px";
+				close_button.style.top = "1px";
 				close_button.style.width = "21px";
 				close_button.style.height = "21px";
 				close_button.style.cursor = 'pointer';
@@ -53,8 +59,8 @@
 				var latitude = document.createElement('p');
 				$(latitude).addClass('latitude');
 		    latitude.style.position = "absolute";
-				latitude.style.left = "22px";
-				latitude.style.top = "13px";
+				latitude.style.left = "26px";
+				latitude.style.top = "14px";
 				latitude.style.margin = "0";
 				latitude.style.lineHeight = "29px";
 				latitude.style.font = "normal 29px Georgia";
@@ -79,8 +85,8 @@
 				var longitude = document.createElement('p');
 				$(longitude).addClass('longitude');
 		    longitude.style.position = "absolute";
-				longitude.style.left = "127px";
-				longitude.style.top = "13px";
+				longitude.style.left = "131px";
+				longitude.style.top = "14px";
 				longitude.style.margin = "0";
 				longitude.style.lineHeight = "29px";
 				longitude.style.font = "normal 29px Georgia";
@@ -104,34 +110,58 @@
 				//Marker accuracy
 				var accuracy = document.createElement('p');
 				$(accuracy).addClass('accuracy');
-		    accuracy.style.position = "absolute";
-				accuracy.style.left = "21px";
-				accuracy.style.top = "94px";
+				accuracy.style.position = "absolute";
+				accuracy.style.left = "24px";
+				accuracy.style.top = "97px";
 				accuracy.style.margin = "0";
 				accuracy.style.font = "normal 11px Arial";
 				accuracy.style.color = "#666666";
-				$(accuracy).text(this.inf.accuracy+'km aprox.');
+				$(accuracy).text(this.inf.accuracy+'km');
 				div.appendChild(accuracy);
-		
-		
+				
+
 				//Marker collector
 				var collector = document.createElement('p');
 				$(collector).addClass('collector');
 		    collector.style.position = "absolute";
-				collector.style.left = "21px";
-				collector.style.top = "126px";
+				collector.style.left = "24px";
+				collector.style.top = "129px";
 				collector.style.margin = "0";
 				collector.style.font = "normal 11px Arial";
 				collector.style.color = "#666666";
 				$(collector).text(this.inf.collector);
 				div.appendChild(collector);
 
+
+				//Precision
+				var precision = document.createElement('p');
+				$(precision).addClass('precision');
+		    precision.style.position = "absolute";
+				precision.style.right = "22px";
+				precision.style.top = "157px";
+				precision.style.margin = "0";
+				precision.style.font = "bold 10px Arial";
+				precision.style.color = "#F4A939";
+				$(precision).text(this.inf.accuracy+'KM');
+				div.appendChild(precision);
+				
+				var precision_slider = document.createElement('div');
+				$(precision_slider).attr('id','precision_slider');
+				precision_slider.style.position = 'absolute';
+				precision_slider.style.left = "22px";
+				precision_slider.style.top = "170px";
+				precision_slider.style.margin = "6px 0 0 0";
+				precision_slider.style.height = '5px';
+				precision_slider.style.width = '190px';
+				div.appendChild(precision_slider);
+
+
 		
 				//Buttons
 				var delete_button = document.createElement('a');
 		    delete_button.style.position = "absolute";
-				delete_button.style.left = "21px";
-				delete_button.style.bottom = "28px";
+				delete_button.style.left = "24px";
+				delete_button.style.bottom = "42px";
 				delete_button.style.width = "58px";
 				delete_button.style.height = "19px";
 				delete_button.style.cursor = 'pointer';
@@ -152,8 +182,8 @@
 				var hide_button = document.createElement('a');
 				$(hide_button).addClass('hide_button_');
 		    hide_button.style.position = "absolute";
-				hide_button.style.left = "83px";
-				hide_button.style.bottom = "28px";
+				hide_button.style.left = "87px";
+				hide_button.style.bottom = "42px";
 				hide_button.style.width = "58px";
 				hide_button.style.height = "19px";
 				hide_button.style.cursor = 'pointer';
@@ -173,8 +203,6 @@
 				});
 				div.appendChild(hide_button);
 
-
-
 		    var panes = this.getPanes();
 		    panes.floatPane.appendChild(div);
 		  }
@@ -192,6 +220,28 @@
 		    top: '-=' + 10 + 'px',
 		    opacity: 1
 		  }, 250, 'swing');
+		
+		
+				$("div#precision_slider").slider({
+							range: "min",
+							value: me.inf.accuracy,
+							min: 1,
+							max: 50,
+							slide: function(event, ui) {
+								_markers[me.marker_id].set('distance',ui.value*1000);
+								_markers[me.marker_id].data.accuracy = ui.value;
+								$(div).find('p.precision').html(ui.value + 'KM');
+							}
+			 });
+			
+			google.maps.event.addDomListener(div,'mousedown',function(ev){ 
+			    try{
+						ev.stopPropagation();
+					}catch(e){
+						event.cancelBubble=true;
+					}; 
+			  });
+			
 
 		};
 
@@ -237,7 +287,9 @@
 			$(div).find('p.longitude').html((this.latlng_.lng()).toFixed(0)+'<sup style="color: rgb(102, 102, 102); font: normal normal normal 15px/normal Georgia; ">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
 			$(div).find('p.accuracy').text(this.inf.accuracy+'km aprox.');
 			$(div).find('p.collector').text(this.inf.collector);
-
+			$(div).find('p.precision').text(this.inf.accuracy+'KM');
+			$("div#precision_slider").slider({value: this.inf.accuracy});
+			
 	
 		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
 		  if (pixPosition) {

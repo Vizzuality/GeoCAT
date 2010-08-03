@@ -149,18 +149,29 @@
 			default: 				color = '#066FB6';
 		}
 		
+
+	  
+		// var circle = new CircleAccuracy(color);
+		// circle.bindTo('map', this);
+		//     circle.bindTo('center', marker, 'position');
+		//     marker.bindTo('distance', circle);
+	
 		var circle = new google.maps.Circle({
-		  map: marker_map,
-		  radius: item.accuracy*2000,
-		  strokeColor: color,
-			strokeOpacity: 0.3,
-			strokeWeight: 1,
-			fillOpacity: 0.3,
-			fillColor: color
-		});
-	   
+				  map: marker_map,
+				  radius: item.accuracy*1000,
+				  strokeColor: color,
+					strokeOpacity: 0.3,
+					strokeWeight: 1,
+					fillOpacity: 0.3,
+					fillColor: color
+				});
+		
+		marker.set('distance', marker.data.accuracy*1000);
+	
 		circle.bindTo('map', marker);
 		circle.bindTo('center', marker, 'position');
+		circle.bindTo('radius', marker, 'distance');
 	
 		return marker;
 	}
+	

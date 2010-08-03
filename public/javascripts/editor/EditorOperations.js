@@ -62,11 +62,15 @@ var global_id = 0; 							// Global id for your own markers
 				}
 			});
 			
+			
+			
 			google.maps.event.addListener(map,"click",function(event){
 				if (state == 'add') {
 					addMarker(event.latLng,null,false);
 				}
 			});
+			
+			
 			
 
 			//if the application comes through an upload file
