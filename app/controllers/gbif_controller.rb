@@ -8,21 +8,21 @@ class GbifController < ApplicationController
         if !params[:q].empty? or !params[:q].nil?
           q = params[:q]
         
-          # TO TEST THE SEARCH
-          # q = "13191720"
-        
-          # TO GET THE TAXON LIST
-          # http://es.mirror.gbif.org/species/nameSearch?maxResults=30&amp;returnType=nameId&amp;startIndex=0&amp;view=json&amp;query=ESPECIE_A_BUSCAR
-          # http://data.gbif.org/species/nameSearch?maxResults=1&view=json&returnType=nameIdMap&query=Lince%20americano&exactOnly=true
-
-          # TO GET THE POINTS BY SPECIE - Puma con color in this case (13191720)
+          # TO GET THE POINTS BY SPECIE - 
+          # Puma in this case (13191720) 
+          # Lepidoptera (13141205)
+          
+          
+          
           q = "13191720"
           require 'open-uri'            
-            open("http://es.mirror.gbif.org/ws/rest/density/list?taxonconceptkey="+ q) {|f| @list =  f.read
-          }
           
+          open("http://es.mirror.gbif.org/ws/rest/Occurrence/list?georeferencedonly=true&maxresults=200&coordinateissues=false&taxonconceptkey="+ q) {
+            |f| @list =  f.read
+          }
+
           doc = Nokogiri::XML(@list)
-                 
+
           # TO GET THE TOTAL REGISTERS
           @total_returned = doc.xpath("//gbif:summary")[0].attr('totalReturned').to_i
 
@@ -33,17 +33,13 @@ class GbifController < ApplicationController
           
           (0..@total_returned - 1).each do |node|
             
-            @cellid = doc.xpath("//gbif:densityRecords/gbif:densityRecord")[node].attr('cellid')
-            @minLatitude = doc.xpath("//gbif:minLatitude")[node].text.to_i
-            @maxLatitude = doc.xpath("//gbif:maxLatitude")[node].text.to_i
-            @latitude = ((@minLatitude + @maxLatitude) / 2).to_s
-                        
-            @minLongitude = doc.xpath("//gbif:minLongitude")[node].text.to_i
-            @maxLongitude = doc.xpath("//gbif:maxLongitude")[node].text.to_i
-            @longitude = ((@minLongitude + @maxLongitude) / 2).to_s
+            @catalogNumber = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:catalogNumber")[node].text
+            @gbifKey = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence")[node].attr('gbifKey')
+            @latitude = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:decimalLatitude")[node].text.to_f            
+            @longitude = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:decimalLongitude")[node].text.to_f
 
             points << {"latitude"=> @latitude,"longitude"=> @longitude,
-              "accuracy"=>"14","collector"=>"111","active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @cellid + "","kind"=>"gbif"}
+              "accuracy"=>"14","collector"=>@gbifKey,"active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @catalogNumber + "","kind"=>"gbif"}
           end
                     
           @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]
