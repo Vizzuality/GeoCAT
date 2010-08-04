@@ -50,19 +50,17 @@ var global_id = 0; 							// Global id for your own markers
 			total_points = new TotalPointsOperations();  		// TotalPoints Object
 			convex_hull = new HullOperations(map);					// Convex Hull Object
 			//actions = new UnredoOperations();								// Un-Re-Do Object
-			
-			
-			
-			google.maps.event.addListener(map,"bounds_changed",function(){
-				if (click_infowindow!=null) {
-					click_infowindow.hide();
-				}
-				if (delete_infowindow!=null) {
-					delete_infowindow.hide();
-				}
-			});
-			
-			
+
+
+			// google.maps.event.addListener(map,"bounds_changed",function(){
+			// 	if (click_infowindow!=null) {
+			// 		click_infowindow.hide();
+			// 	}
+			// 	if (delete_infowindow!=null) {
+			// 		delete_infowindow.hide();
+			// 	}
+			// });
+
 			
 			google.maps.event.addListener(map,"click",function(event){
 				if (state == 'add') {
@@ -188,6 +186,17 @@ var global_id = 0; 							// Global id for your own markers
 		function hideMamufasMap() {
 			$('#loader_map').fadeOut(function(ev){
 				$('#mamufas_map').css('background','none');
+				
+				$('div#import_success').css('width','202px');
+				$('div#import_success').css('height','139px');
+				$('div#import_success').css('margin-top','-70px');
+				$('div#import_success').css('margin-left','-101px');
+				$('div#import_success').css('opacity', '0.7');
+				
+				$('div#import_success img').css('width','202px');
+				$('div#import_success img').css('height','58px');
+				$('div#import_success img').css('margin-top','40px');
+				
 				$('div#import_success').fadeIn(function(ev){
 					$(this).delay(2000).animate({height:417, width:606, opacity:0, marginTop:-209, marginLeft:-303}, 300,function(ev){
 						$('#mamufas_map').fadeOut();

@@ -4,14 +4,11 @@
 		  this.latlng_ = latlng;
 			this.inf = opt;
 			this.marker_id = marker_id;
-		  // this.offsetVertical_ = -189;
-		  // this.offsetHorizontal_ = -113;
-		  // this.height_ = 203;
-		  // this.width_ = 227;
+			this.map_ = map;
 		
 		  this.offsetVertical_ = -230;
 		  this.offsetHorizontal_ = -116;
-		  this.height_ = 259;
+		  this.height_ = 245;
 		  this.width_ = 233;
 		
 		  this.setMap(map);
@@ -20,6 +17,7 @@
 		MarkerTooltip.prototype = new google.maps.OverlayView();
 
 		MarkerTooltip.prototype.draw = function() {
+						
 		  var me = this;
 			var num = 0;
 	
@@ -31,7 +29,7 @@
 		    div.style.paddingLeft = "0px";
 				div.style.opacity = "0";
 				div.style.width = '233px';
-				div.style.height = '259px';
+				div.style.height = '245px';
 				div.style.background = 'url(images/editor/tooltip_bkg2.png) no-repeat 0 0';
 		
 				//Close Infowindow button
@@ -207,46 +205,54 @@
 				});
 				div.appendChild(hide_button);
 
-		    var panes = this.getPanes();
-		    panes.floatPane.appendChild(div);
-		  }
-
-		  // Position the overlay 
-		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
-		  if (pixPosition) {
-			  div.style.width = this.width_ + "px";
-			  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
-			  div.style.height = this.height_ + "px";
-			  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";
-		  }
-
-			$(div).animate({
-		    top: '-=' + 10 + 'px',
-		    opacity: 1
-		  }, 250, 'swing');
-		
-		
-			$("div#precision_slider").slider({
-				range: "min",
-				value: me.inf.accuracy,
-				min: 1,
-				max: 50,
-				slide: function(event, ui) {
-					_markers[me.marker_id].set('distance',ui.value*1000);
-					_markers[me.marker_id].data.accuracy = ui.value;
-					$(div).find('p.precision').html(ui.value + 'KM');
-				}
-			});
-			
-			google.maps.event.addDomListener(div,'mousedown',function(ev){ 
+				google.maps.event.addDomListener(div,'mousedown',function(ev){ 
 			    try{
 						ev.stopPropagation();
 					}catch(e){
 						event.cancelBubble=true;
 					}; 
 			  });
-			
+				
+				
+		    var panes = this.getPanes();
+		    panes.floatPane.appendChild(div);
+		
+				this.moveMaptoOpen();
+		  }
 
+			setTimeout(function(){
+				var pixPosition = me.getProjection().fromLatLngToDivPixel(me.latlng_);
+			  if (pixPosition) {
+				  div.style.width = me.width_ + 'px';
+				  div.style.left = (pixPosition.x + me.offsetHorizontal_) + 'px';
+				  div.style.height = me.height_ + 'px';
+				  div.style.top = (pixPosition.y + me.offsetVertical_ - (($(div).css('opacity') == 1)? 10 : 0)) + 'px';
+			  }
+			
+				if ($(div).css('opacity') == 0) {
+					$(div).animate({
+				    top: '-=' + 10 + 'px',
+				    opacity: 1
+				  }, 250, 'swing');
+				}
+
+				$("div#precision_slider").slider({
+					range: "min",
+					value: me.inf.accuracy,
+					min: 1,
+					max: 50,
+					slide: function(event, ui) {
+						_markers[me.marker_id].set('distance',ui.value*1000);
+						_markers[me.marker_id].data.accuracy = ui.value;
+						$(div).find('p.precision').html(ui.value + 'KM');
+					}
+				});
+
+			},300);
+		  
+
+			
+			
 		};
 
 		MarkerTooltip.prototype.remove = function() {
@@ -263,7 +269,8 @@
 
 		MarkerTooltip.prototype.changePosition = function(latlng,marker_id,opt) {
 			var num = 0;
-	
+			var me = this;
+			
 			this.marker_id = marker_id;
 			this.latlng_ = latlng;
 			this.inf = opt;
@@ -297,13 +304,15 @@
 			$(div).find('p.collector').text(this.inf.collector);
 			$(div).find('p.precision').text(this.inf.accuracy+'KM');
 			$("div#precision_slider").slider({value: this.inf.accuracy});
+				
+			this.moveMaptoOpen();	
 			
-	
-		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
+		  var pixPosition = me.getProjection().fromLatLngToDivPixel(me.latlng_);
 		  if (pixPosition) {
-			  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
-			  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";
+			  div.style.left = (pixPosition.x + me.offsetHorizontal_) + "px";
+			  div.style.top = (pixPosition.y + me.offsetVertical_) + "px";
 		  }
+
 			this.show();
 		}
 
@@ -325,7 +334,7 @@
 		  if (this.div_) {
 		    var div = this.div_;
 		    $(div).stop().animate({
-		      top: '+=' + 15 + 'px',
+		      top: '+=' + 10 + 'px',
 		      opacity: 0
 		    }, 100, 'swing', function(ev){
 					div.style.visibility = "hidden";
@@ -344,6 +353,7 @@
 		      top: '-=' + 10 + 'px',
 		      opacity: 1
 		    }, 250, 'swing');
+				
 			}
 		}
 
@@ -360,11 +370,25 @@
 				}
 			}
 		}
+		
+		
+		MarkerTooltip.prototype.moveMaptoOpen = function() {
+			var left = 0;
+			var top = 0;
+			
+		  var pixPosition = this.getProjection().fromLatLngToContainerPixel(this.latlng_);
 
-
-
-
-
-
-
-
+			if ((pixPosition.x + this.offsetHorizontal_) < 0) {
+				left = (pixPosition.x + this.offsetHorizontal_ - 20);
+			}
+			
+			if ((pixPosition.x - this.offsetHorizontal_) >= ($('div#map').width())) {
+				left = (pixPosition.x - this.offsetHorizontal_ - $('div#map').width() + 20);
+			}
+			
+			if ((pixPosition.y + this.offsetVertical_) < 0) {
+				top = (pixPosition.y + this.offsetVertical_ - 10);
+			}
+			
+			this.map_.panBy(left,top);
+		}

@@ -135,7 +135,7 @@
 			var inf = new Object();
 			inf.latitude = ev.latLng.b;
 			inf.longitude = ev.latLng.c;
-			actions.Do('edit', marker.data.catalogue_id, inf);
+			//actions.Do('edit', marker.data.catalogue_id, inf);
 		});
 
 
