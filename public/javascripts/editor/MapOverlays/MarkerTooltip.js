@@ -68,7 +68,11 @@
 				$(latitude).text((this.latlng_.lat()).toFixed(0));
 		
 				if ($(latitude).text().length>2) {
-					num = 4;
+					if ($(latitude).text().length>3) {
+						num = 2;
+					} else {
+						num = 4;
+					}
 				} else {
 					num = 5;
 				}
@@ -222,17 +226,17 @@
 		  }, 250, 'swing');
 		
 		
-				$("div#precision_slider").slider({
-							range: "min",
-							value: me.inf.accuracy,
-							min: 1,
-							max: 50,
-							slide: function(event, ui) {
-								_markers[me.marker_id].set('distance',ui.value*1000);
-								_markers[me.marker_id].data.accuracy = ui.value;
-								$(div).find('p.precision').html(ui.value + 'KM');
-							}
-			 });
+			$("div#precision_slider").slider({
+				range: "min",
+				value: me.inf.accuracy,
+				min: 1,
+				max: 50,
+				slide: function(event, ui) {
+					_markers[me.marker_id].set('distance',ui.value*1000);
+					_markers[me.marker_id].data.accuracy = ui.value;
+					$(div).find('p.precision').html(ui.value + 'KM');
+				}
+			});
 			
 			google.maps.event.addDomListener(div,'mousedown',function(ev){ 
 			    try{
@@ -279,7 +283,11 @@
 			$(div).find('p.latitude').html((this.latlng_.lat()).toFixed(0)+'<sup style="color: rgb(102, 102, 102); font: normal normal normal 15px/normal Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');
 	
 			if ((this.latlng_.lng()).toFixed(0).length>2) {
-				num = 4;
+				if ((this.latlng_.lng()).toFixed(0).length>3) {
+					num = 2;
+				} else {
+					num = 4;
+				}
 			} else {
 				num = 5;
 			}	
@@ -322,7 +330,6 @@
 		    }, 100, 'swing', function(ev){
 					div.style.visibility = "hidden";
 				});
-	
 		  }
 		}
 
@@ -330,7 +337,6 @@
 		MarkerTooltip.prototype.show = function() {
 		  if (this.div_) {
 		    var div = this.div_;
-
 				$(div).css({opacity:0});
 				div.style.visibility = "visible";
 
@@ -339,7 +345,6 @@
 		      opacity: 1
 		    }, 250, 'swing');
 			}
-
 		}
 
 

@@ -37,7 +37,7 @@
 			if (state == 'remove') {
 				
 				if (delete_infowindow!=null) {					
-					if (this.data.catalogue_id == delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
+					if (this.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
 						delete_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id,this.data);
 					}
 				} else {
@@ -50,7 +50,7 @@
 				}
 				
 				if (click_infowindow!=null) {					
-					if (this.data.catalogue_id == click_infowindow.marker_id || !click_infowindow.isVisible()) {
+					if (this.data.catalogue_id != click_infowindow.marker_id || !click_infowindow.isVisible()) {
 						click_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id,this.data);
 					}
 				} else {
@@ -148,13 +148,7 @@
 											break;
 			default: 				color = '#066FB6';
 		}
-		
 
-	  
-		// var circle = new CircleAccuracy(color);
-		// circle.bindTo('map', this);
-		//     circle.bindTo('center', marker, 'position');
-		//     marker.bindTo('distance', circle);
 	
 		var circle = new google.maps.Circle({
 				  map: marker_map,

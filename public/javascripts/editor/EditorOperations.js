@@ -21,7 +21,7 @@ var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false op
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var _markers = [];							// All the markers of the map (Associative array)
-var _information = [];								// Variable needed for adding markers asynchronously
+var _information = [];					// Variable needed for adding markers asynchronously
 
 
 var global_id = 0; 							// Global id for your own markers
@@ -189,10 +189,10 @@ var global_id = 0; 							// Global id for your own markers
 			$('#loader_map').fadeOut(function(ev){
 				$('#mamufas_map').css('background','none');
 				$('div#import_success').fadeIn(function(ev){
-					$(this).delay(2000).animate({height:556, width:808, opacity:0, marginTop:-228, marginLeft:-404}, 300,function(ev){
+					$(this).delay(2000).animate({height:417, width:606, opacity:0, marginTop:-209, marginLeft:-303}, 300,function(ev){
 						$('#mamufas_map').fadeOut();
 					});
-					$(this).children('img').delay(2000).animate({height:232, width:808, marginTop:162}, 300);
+					$(this).children('img').delay(2000).animate({height:174, width:606, marginTop:122}, 300);
 				});		
 			});
 		}
@@ -280,6 +280,7 @@ var global_id = 0; 							// Global id for your own markers
 	      setTimeout("asynAddMarker("+i+","+total+","+ _bounds+","+_saveAction+")", 0);
 	    } else {
 				addSourceToList(_information[total-1].kind);
+				_information = [];
 				calculateMapPoints();
 				resizeBarPoints();
 				hideMamufasMap();
