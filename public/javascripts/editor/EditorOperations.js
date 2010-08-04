@@ -52,23 +52,11 @@ var global_id = 0; 							// Global id for your own markers
 			//actions = new UnredoOperations();								// Un-Re-Do Object
 
 
-			// google.maps.event.addListener(map,"bounds_changed",function(){
-			// 	if (click_infowindow!=null) {
-			// 		click_infowindow.hide();
-			// 	}
-			// 	if (delete_infowindow!=null) {
-			// 		delete_infowindow.hide();
-			// 	}
-			// });
-
-			
 			google.maps.event.addListener(map,"click",function(event){
 				if (state == 'add') {
 					addMarker(event.latLng,null,false);
 				}
 			});
-			
-			
 			
 
 			//if the application comes through an upload file
@@ -198,10 +186,10 @@ var global_id = 0; 							// Global id for your own markers
 				$('div#import_success img').css('margin-top','40px');
 				
 				$('div#import_success').fadeIn(function(ev){
-					$(this).delay(2000).animate({height:417, width:606, opacity:0, marginTop:-209, marginLeft:-303}, 300,function(ev){
+					$(this).delay(1000).animate({height:417, width:606, opacity:0, marginTop:-209, marginLeft:-303}, 300,function(ev){
 						$('#mamufas_map').fadeOut();
 					});
-					$(this).children('img').delay(2000).animate({height:174, width:606, marginTop:122}, 300);
+					$(this).children('img').delay(1000).animate({height:174, width:606, marginTop:122}, 300);
 				});		
 			});
 		}
@@ -269,6 +257,11 @@ var global_id = 0; 							// Global id for your own markers
 
 		}
 		
+		
+		/*========================================================================================================================*/
+		/* Recursive service for adding markers. */
+		/*========================================================================================================================*/
+		
 		function asynAddMarker(i,total,_bounds, _saveAction) {
 			if(i < total){
 				(_information[i].removed)?null:total_points.add(_information[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
@@ -309,23 +302,82 @@ var global_id = 0; 							// Global id for your own markers
 		function addSourceToList(kind) {
 			switch (kind) {
 				case 'gbif': 		if (!$('#GBIF_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a></li>');
+													$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'green\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
 												}
 												break;
 				case 'flickr': 	if (!$('#Flickr_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a></li>');
+													$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'pink\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
 												}
 												break;
 				default: 				if (!$('#our_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a></li>');
+													$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'blue\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
 												}
 			}
 		}
 		
 		
 		
+		/*========================================================================================================================*/
+		/* Open Delete container. */
+		/*========================================================================================================================*/
+		
+		function openDeleteAll(kind) {
+			var position = $('li a.'+kind).offset();
+			$('div.delete_all').css('top',position.top - 58 + 'px');
+			$('div.delete_all').css('right','70px');
+			$('a.delete_all').addClass('active');
+			
+			$('div.delete_all').fadeIn();
+			var type;
+			
+			switch (kind) {
+				case 'green': 	type = 'gbif';
+												break;
+				case 'pink': 		type = 'flickr';
+												break;
+				default: 				type = 'your';
+			}
+			
+			$('div.delete_all a.yes').attr('href','javascript: void deleteAll("' + type + '")');
+			
+			
+		}
 		
 		
+		
+		/*========================================================================================================================*/
+		/* Close Delete container. */
+		/*========================================================================================================================*/
+		
+		function closeDeleteAll() {
+			$('div.delete_all').fadeOut();
+			$('a.delete_all').removeClass('active');
+		}
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Delete all the markers. */
+		/*========================================================================================================================*/
+		
+		function deleteAll(type) {			
+			for (var i in _markers) {
+				if (_markers[i].data.kind == type && _markers[i].data.removed == false) {
+					total_points.deduct(type);
+					_markers[i].data.removed = true;
+					_markers[i].setMap(null);
+				}
+			}
+			closeDeleteAll();
+			
+			resizeBarPoints();
+			calculateMapPoints();
+			calculateSourcePoints(_markers[i].data.kind);
+		}	
+		
+		
+
+
 		
 		/*========================================================================================================================*/
 		/* Calculate number of points in the map, and show in the sources container. */
