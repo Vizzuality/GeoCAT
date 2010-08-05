@@ -1,12 +1,13 @@
 class RlasController < ApplicationController
   
-  
   # This action is to store the id and the specie_name in the editor page
   def editor_params 
+    $rla = ""
     if !params[:id].nil? && !params[:specie].nil?
       @rla = Rla.new
       @rla.specie = params[:specie]
       @rla.data = params[:id]
+      $rla = @rla
       redirect_to :controller => "rlas", :action => "editor"
     else
       redirect_to :controller => "main"
@@ -14,7 +15,8 @@ class RlasController < ApplicationController
   end
   
   def editor
-    if (!$rla.nil?)&&(!$file_content.nil?)     
+    debugger
+    if (!$rla.nil?)||(!$file_content.nil?)     
       @rla = $rla    
       @rla_json = $file_content
     else

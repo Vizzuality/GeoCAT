@@ -5,6 +5,7 @@ class GbifController < ApplicationController
       if params.empty?
         render :json => "{'Status':'Error'}"
       else
+        debugger
         if !params[:q].empty? or !params[:q].nil?
           q = params[:q]
         
@@ -12,9 +13,7 @@ class GbifController < ApplicationController
           # Puma in this case (13191720) 
           # Lepidoptera (13141205)
           
-          
-          
-          q = "13191720"
+          # q = "13191720"
           require 'open-uri'            
           
           open("http://es.mirror.gbif.org/ws/rest/Occurrence/list?georeferencedonly=true&maxresults=200&coordinateissues=false&taxonconceptkey="+ q) {

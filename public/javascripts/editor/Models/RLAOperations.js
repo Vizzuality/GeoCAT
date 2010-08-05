@@ -16,7 +16,7 @@
 
 		function RLA (specie, markers, map_properties, upload_obj) {
 			this.specie_ = specie;
-		
+			this.gbif_id_ = gbif_if; 
 			this.upload_data_ = upload_obj;
 		
 			this.markers_ = markers;
@@ -32,6 +32,7 @@
 		RLA.prototype.download = function() {
 		  var dataset = new Object();
 			dataset.scientificname = this.specie_;
+			dataset.gbif_id = this.gbif_id_;
 			dataset.zoom = this.zoom;
 			dataset.center = this.center;
 			dataset.sources = [];

@@ -9,8 +9,10 @@
 			
 			//Get scientific_name
 			specie = $('a#scientific_name').text();
-
-
+			
+			//Get scientific_id (for searches in GBIF)
+			gbif_id = $('a#gbif_id').text();
+			
 			//hover effect in browse input file
 			$('li span div').hover(function(ev){
 				$(this).find('a.browse').css('background-position','0 -21px');
