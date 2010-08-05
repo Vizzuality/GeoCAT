@@ -1,9 +1,9 @@
 class RlasController < ApplicationController
   
   
+  # This action is to store the id and the specie_name in the editor page
   def editor_params 
     if !params[:id].nil? && !params[:specie].nil?
-      
       @rla = Rla.new
       @rla.specie = params[:specie]
       @rla.data = params[:id]
@@ -86,10 +86,14 @@ class RlasController < ApplicationController
   def get_download_url url
     
   end
-  # TODO Add validates
+
+  # TODO Review this code. The window to save file is never opened.
   def download_rla
- 
-    #@rla_download = params[:rla]
+  
+      
+      # ---- The params with sources isn't coming to save it  
+      
+      # @rla_download = params[:rla]
       
       # if File.exist?('public/data/data_temp.rla')
       #           respond_to do |format|
@@ -130,7 +134,6 @@ class RlasController < ApplicationController
       #render :file => 'app/views/main/index.html'
       render :text => "download RLA"
     end
-    
     
   def make_screenshot
     width, height, bmp = Win32::Screenshot.foreground

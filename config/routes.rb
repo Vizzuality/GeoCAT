@@ -1,6 +1,5 @@
 Rlat::Application.routes.draw do |map|
 
-
   resources :rlas
 
   root :to => "main#index"
@@ -13,10 +12,8 @@ Rlat::Application.routes.draw do |map|
   match 'search/flickr/:q' => 'flickr#search'  
   match 'search/gbif/:q' => 'gbif#search'
   
-  
   match 'download/rla/' => 'rlas#download_rla'  
   match 'upload/rla/' => 'rlas#upload_rla'
-  
   
   
   # The priority is based upon order of creation:
