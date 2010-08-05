@@ -163,7 +163,7 @@
 				var delete_button = document.createElement('a');
 		    delete_button.style.position = "absolute";
 				delete_button.style.left = "24px";
-				delete_button.style.bottom = "42px";
+				delete_button.style.bottom = "29px";
 				delete_button.style.width = "58px";
 				delete_button.style.height = "19px";
 				delete_button.style.cursor = 'pointer';
@@ -185,7 +185,7 @@
 				$(hide_button).addClass('hide_button_');
 		    hide_button.style.position = "absolute";
 				hide_button.style.left = "87px";
-				hide_button.style.bottom = "42px";
+				hide_button.style.bottom = "29px";
 				hide_button.style.width = "58px";
 				hide_button.style.height = "19px";
 				hide_button.style.cursor = 'pointer';

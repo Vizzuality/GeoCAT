@@ -127,7 +127,6 @@ div.hull_container p {font:normal 23px Georgia; color:#666666;}
 div.hull_container p sup {font:normal 13px Georgia; color:#666666;}
 div.hull_container p small {font:normal 11px Arial; color:#666666;}
 div.hull_container p small sup {font:normal 11px Arial; color:#666666;}
-
 div.hull_container p.area {position:absolute; top:22px; left:31px;}
 div.hull_container p.diameter {position:absolute; top:72px; left:31px;}
 div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
@@ -135,7 +134,14 @@ div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
 
 
-div.delete_all {display:none; position:absolute; top:0; right:38px; z-index:100000; background:url(../images/editor/merge_delete_container.png) no-repeat 0 0; width:218px; height:174px;}
+div.delete_all {display:none; position:absolute; top:0; right:38px; z-index:100000; background:url(../images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px;}
+div.delete_all h4 {float:left; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
+div.delete_all p {float:left; padding:0; margin:10px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
+div.delete_all div {float:right; width:100%;}
+div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0;}
+div.delete_all div a.cancel:hover {color:#000000;}
+div.delete_all div a.yes {float:right; margin:10px 0 0 0; width:51px; height:19px; background:url(../images/editor/yes_delete_button.png) no-repeat 0 0;}
+div.delete_all div a.yes:hover {background-position: 0 -19px;}
 
 
 
@@ -152,10 +158,10 @@ div#editor div#tools div.center div.right div.sources a span {float:left; paddin
 div#editor div#tools div.center div.right div.sources a:hover span {background-position:right 0;}
 
 div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:2px; right:18px; background:url(../images/editor/delete_source.png) no-repeat center 0;}
-div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -28px;}
-div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -28px; cursor:pointer;}
+div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -29px;}
+div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -29px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:2px; right:-2px; background:url(../images/editor/refresh_source.png) no-repeat center 0;}
-div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -28px;}
+div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -29px;}
 
 div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url(../images/editor/black_bar_add.png) no-repeat 0 0; text-decoration:underline;}
 div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px;}

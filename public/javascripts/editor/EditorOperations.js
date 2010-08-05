@@ -25,7 +25,7 @@ var _information = [];					// Variable needed for adding markers asynchronously
 
 
 var global_id = 0; 							// Global id for your own markers
-
+var global_zIndex = 1;					// Z-index for the markers
 
 
 
@@ -325,22 +325,23 @@ var global_id = 0; 							// Global id for your own markers
 			var position = $('li a.'+kind).offset();
 			$('div.delete_all').css('top',position.top - 58 + 'px');
 			$('div.delete_all').css('right','70px');
-			$('a.delete_all').addClass('active');
-			
+			$('a.'+ kind).parent().children('a.delete_all').addClass('active');			
 			$('div.delete_all').fadeIn();
+			
 			var type;
 			
 			switch (kind) {
 				case 'green': 	type = 'gbif';
+												$('div.delete_all h4').text('DELETE ALL GBIF POINTS');
 												break;
 				case 'pink': 		type = 'flickr';
+												$('div.delete_all h4').text('DELETE ALL FLICKR POINTS');
 												break;
 				default: 				type = 'your';
+												$('div.delete_all h4').text('DELETE ALL YOUR POINTS');
 			}
-			
+
 			$('div.delete_all a.yes').attr('href','javascript: void deleteAll("' + type + '")');
-			
-			
 		}
 		
 		

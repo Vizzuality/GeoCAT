@@ -62,9 +62,11 @@
 
 		//Marker mouseover event
 		google.maps.event.addListener(marker,"mouseover",function(ev){
+			global_zIndex++;
+			this.setZIndex(global_zIndex);
+			
 			if (state == 'select') {
-				over_marker = true;
-							
+				over_marker = true;	
 				if (click_infowindow != null) {
 					if (!is_dragging && !click_infowindow.isVisible()) {
 						if (over_tooltip!=null) {
