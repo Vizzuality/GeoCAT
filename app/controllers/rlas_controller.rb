@@ -15,7 +15,6 @@ class RlasController < ApplicationController
   end
   
   def editor
-    debugger
     if (!$rla.nil?)||(!$file_content.nil?)     
       @rla = $rla    
       @rla_json = $file_content

@@ -139,7 +139,7 @@ var global_zIndex = 1;					// Z-index for the markers
 							default: 						null;
 						}
 						$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
-						onLoadedSource(element);
+						onLoadedSource(element,result[0].points.length);
 					}
 			);
 		
@@ -150,9 +150,10 @@ var global_zIndex = 1;					// Z-index for the markers
 	  /* Change state loading source to loaded source. */
 		/*========================================================================================================================*/
 	  
-		function onLoadedSource(element) {
+		function onLoadedSource(element, total) {
 	    $(element).find('span p').addClass('loaded');
-	    $(element).find('span a').addClass('enabled');
+			if (total != 0) 
+	    	$(element).find('span a').addClass('enabled');
 	  }
 
 
@@ -302,15 +303,15 @@ var global_zIndex = 1;					// Z-index for the markers
 		function addSourceToList(kind) {
 			switch (kind) {
 				case 'gbif': 		if (!$('#GBIF_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'green\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'green\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
 												}
 												break;
 				case 'flickr': 	if (!$('#Flickr_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'pink\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'pink\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
 												}
 												break;
 				default: 				if (!$('#our_points').length) {
-													$('div.sources ul').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'blue\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'blue\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
 												}
 			}
 		}
@@ -324,7 +325,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		function openDeleteAll(kind) {
 			var position = $('li a.'+kind).offset();
 			$('div.delete_all').css('top',position.top - 58 + 'px');
-			$('div.delete_all').css('right','70px');
+			$('div.delete_all').css('right','60px');
 			$('a.'+ kind).parent().children('a.delete_all').addClass('active');			
 			$('div.delete_all').fadeIn();
 			
@@ -414,37 +415,39 @@ var global_zIndex = 1;					// Z-index for the markers
 		function resizeBarPoints() {
 				
 			if (total_points.get('flickr')!=0) {
-				if ((((202*total_points.get('flickr'))/total_points.total())-217)<(-204)) {
+				if ((((205*total_points.get('flickr'))/total_points.total())-217)<(-204)) {
 					$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position','-204px 0');
 				} else {
-					$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
+					$('div#editor div#tools div.center div.right div.sources a.pink span').css('background-position',((205*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
 				}				
 				$('div#editor div#tools div.center div.right div.sources a.pink span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					if ((((202*total_points.get('flickr'))/total_points.total())-217)<(-204)) {
+					if ((((205*total_points.get('flickr'))/total_points.total())-217)<(-204)) {
 						$(this).css('background-position','-204px 0');
 					} else {
-						$(this).css('background-position',((202*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
+						$(this).css('background-position',((205*total_points.get('flickr'))/total_points.total()) - 217+ 'px 0');
 					}				
 				});
 			} else {
 				$('div.sources ul li a.pink').parent().remove();
 			}
 
+
+
 			if (total_points.get('gbif')!=0) {
-				if ((((202*total_points.get('gbif'))/total_points.total())-217)<(-204)) {
+				if ((((205*total_points.get('gbif'))/total_points.total())-217)<(-204)) {
 					$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position','-204px 0');
 				} else {
-					$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
+					$('div#editor div#tools div.center div.right div.sources a.green span').css('background-position',((205*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
 				}
 				$('div#editor div#tools div.center div.right div.sources a.green span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					if ((((202*total_points.get('gbif'))/total_points.total())-217)<(-204)) {
+					if ((((205*total_points.get('gbif'))/total_points.total())-217)<(-204)) {
 						$(this).css('background-position','-204px 0');
 					} else {
-						$(this).css('background-position',((202*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
+						$(this).css('background-position',((205*total_points.get('gbif'))/total_points.total()) - 217+ 'px 0');
 					}				
 				});
 			} else {
@@ -452,19 +455,20 @@ var global_zIndex = 1;					// Z-index for the markers
 			}
 			
 			
+			
 			if (total_points.get('your')!=0) {
-				if ((((202*total_points.get('your'))/total_points.total())-217)<(-204)) {
+				if ((((205*total_points.get('your'))/total_points.total())-217)<(-204)) {
 					$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position','-204px 0');
 				} else {
-					$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
+					$('div#editor div#tools div.center div.right div.sources a.blue span').css('background-position',((205*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
 				}
 				$('div#editor div#tools div.center div.right div.sources a.blue span').hover(function(ev){
 					$(this).css('background-position','right 0');
 				}, function(ev){
-					if ((((202*total_points.get('your'))/total_points.total())-217)<(-204)) {
+					if ((((205*total_points.get('your'))/total_points.total())-217)<(-204)) {
 						$(this).css('background-position','-204px 0');
 					} else {
-						$(this).css('background-position',((202*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
+						$(this).css('background-position',((205*total_points.get('your'))/total_points.total()) - 217+ 'px 0');
 					}				
 				});
 			} else {
@@ -482,7 +486,7 @@ var global_zIndex = 1;					// Z-index for the markers
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
-			
+			console.log(_markers);
 			var rla = new RLA(specie,_markers,map_inf,null);
 			rla.download();		
 		}
@@ -556,6 +560,7 @@ var global_zIndex = 1;					// Z-index for the markers
 				inf.accuracy = 50;
 				inf.active = true;
 				inf.kind = 'your';
+				inf.description = "Your description!";
 				inf.removed = false;
 				inf.catalogue_id = 'your_' + global_id;
 				inf.collector = 'you!';
@@ -597,7 +602,7 @@ var global_zIndex = 1;					// Z-index for the markers
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
-														_markers[marker_id].setIcon(image);				
+														_markers[marker_id].setIcon(image);
 														break;
 						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/flickr_marker_no_active.png':'images/editor/flickr_marker.png',
 																										new google.maps.Size(25, 25),
@@ -611,7 +616,7 @@ var global_zIndex = 1;					// Z-index for the markers
 																										new google.maps.Point(12, 12));
 														_markers[marker_id].setIcon(image);
 					}
-					
+					_markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);		
 					_markers[marker_id].data.active = !_markers[marker_id].data.active;
 					
 					//If the action doesnt come from the UnredoOperations object

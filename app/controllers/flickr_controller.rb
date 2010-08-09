@@ -26,7 +26,7 @@ class FlickrController < ApplicationController
          @list.each do |photo|
            
            json_only << {:latitude => photo.latitude.to_s, :longitude => photo.longitude.to_s, :accuracy => photo.accuracy, "collector" => "111", "active" => true, "removed" => false,
-             "catalogue_id" => "flickr_" + photo.id, "kind" => "flickr" }
+             "catalogue_id" => "flickr_" + photo.id, "kind" => "flickr", "description" => "description"}
          end
          
          @json_head = [{"id"=>"flickr_id","name"=>"flickr","points"=>json_only, "specie"=> name_specie, "zoom"=>"3"}]

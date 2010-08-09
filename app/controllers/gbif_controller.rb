@@ -5,7 +5,6 @@ class GbifController < ApplicationController
       if params.empty?
         render :json => "{'Status':'Error'}"
       else
-        debugger
         if !params[:q].empty? or !params[:q].nil?
           q = params[:q]
         
@@ -16,7 +15,7 @@ class GbifController < ApplicationController
           # q = "13191720"
           require 'open-uri'            
           
-          open("http://es.mirror.gbif.org/ws/rest/Occurrence/list?georeferencedonly=true&maxresults=200&coordinateissues=false&taxonconceptkey="+ q) {
+          open("http://es.mirror.gbif.org/ws/rest/Occurrence/list?georeferencedonly=true&maxresults=200&coordinateissues=false&scientificname="+ q) {
             |f| @list =  f.read
           }
 
@@ -26,7 +25,7 @@ class GbifController < ApplicationController
           @total_returned = doc.xpath("//gbif:summary")[0].attr('totalReturned').to_i
 
           # TO GET THE TAXONCONCEPKEY
-          @taxonconceptkey = doc.xpath("//gbif:parameter[@name='taxonconceptkey']")[0].attr('value').to_i
+          #@taxonconceptkey = doc.xpath("//gbif:parameter[@name='taxonconceptkey']")[0].attr('value').to_i
                     
           points = []
           
@@ -38,7 +37,7 @@ class GbifController < ApplicationController
             @longitude = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:decimalLongitude")[node].text.to_f
 
             points << {"latitude"=> @latitude,"longitude"=> @longitude,
-              "accuracy"=>"14","collector"=>@gbifKey,"active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @catalogNumber + "","kind"=>"gbif"}
+              "accuracy"=>"5","collector"=>@gbifKey,"active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @catalogNumber + "","kind"=>"gbif","description" => "description"}
           end
                     
           @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]

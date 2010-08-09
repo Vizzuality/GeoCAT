@@ -96,7 +96,11 @@
 				$(longitude).text((this.latlng_.lng()).toFixed(0));
 		
 				if ($(longitude).text().length>2) {
-					num = 4;
+					if ($(longitude).text().length>3) {
+						num = 2;
+					} else {
+						num = 4;
+					}
 				} else {
 					num = 5;
 				}
@@ -109,7 +113,7 @@
 				div.appendChild(longitude);
 
 
-				//Marker accuracy
+				//Marker description
 				var accuracy = document.createElement('p');
 				$(accuracy).addClass('accuracy');
 				accuracy.style.position = "absolute";
@@ -118,7 +122,7 @@
 				accuracy.style.margin = "0";
 				accuracy.style.font = "normal 11px Arial";
 				accuracy.style.color = "#666666";
-				$(accuracy).text(this.inf.accuracy+'km');
+				$(accuracy).text(this.inf.description);
 				div.appendChild(accuracy);
 				
 
@@ -135,7 +139,7 @@
 				div.appendChild(collector);
 
 
-				//Precision
+				//Marker Precision/Accuracy
 				var precision = document.createElement('p');
 				$(precision).addClass('precision');
 		    precision.style.position = "absolute";
@@ -217,25 +221,6 @@
 		    var panes = this.getPanes();
 		    panes.floatPane.appendChild(div);
 		
-				this.moveMaptoOpen();
-		  }
-
-			setTimeout(function(){
-				var pixPosition = me.getProjection().fromLatLngToDivPixel(me.latlng_);
-			  if (pixPosition) {
-				  div.style.width = me.width_ + 'px';
-				  div.style.left = (pixPosition.x + me.offsetHorizontal_) + 'px';
-				  div.style.height = me.height_ + 'px';
-				  div.style.top = (pixPosition.y + me.offsetVertical_ - (($(div).css('opacity') == 1)? 10 : 0)) + 'px';
-			  }
-			
-				if ($(div).css('opacity') == 0) {
-					$(div).animate({
-				    top: '-=' + 10 + 'px',
-				    opacity: 1
-				  }, 250, 'swing');
-				}
-
 				$("div#precision_slider").slider({
 					range: "min",
 					value: me.inf.accuracy,
@@ -247,12 +232,24 @@
 						$(div).find('p.precision').html(ui.value + 'KM');
 					}
 				});
+		
+				this.moveMaptoOpen();
+		  }
 
-			},300);
-		  
-
-			
-			
+			var pixPosition = me.getProjection().fromLatLngToDivPixel(me.latlng_);
+		  if (pixPosition) {
+			  div.style.width = me.width_ + 'px';
+			  div.style.left = (pixPosition.x + me.offsetHorizontal_) + 'px';
+			  div.style.height = me.height_ + 'px';
+			  div.style.top = (pixPosition.y + me.offsetVertical_ - (($(div).css('opacity') == 1)? 10 : 0)) + 'px';
+		  }
+				
+			if ($(div).css('opacity') == 0) {
+				$(div).animate({
+			    top: '-=' + 10 + 'px',
+			    opacity: 1
+			  }, 250, 'swing');
+			}
 		};
 
 		MarkerTooltip.prototype.remove = function() {

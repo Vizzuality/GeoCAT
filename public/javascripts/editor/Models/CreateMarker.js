@@ -163,10 +163,12 @@
 				});
 		
 		marker.set('distance', marker.data.accuracy*1000);
+		marker.set('opacity', 0.3);
 	
 		circle.bindTo('map', marker);
 		circle.bindTo('center', marker, 'position');
 		circle.bindTo('radius', marker, 'distance');
+		circle.bindTo('fillOpacity', marker, 'opacity');
 	
 		return marker;
 	}
