@@ -26,7 +26,7 @@
 				div.style.opacity = "0";
 				div.style.width = '187px';
 				div.style.height = '123px';
-				div.style.background = 'url(images/editor/delete_bkg.png) no-repeat 0 0';
+				div.style.background = 'url(/images/editor/delete_bkg.png) no-repeat 0 0';
 		
 				//Close Infowindow button
 				var cancel_button = document.createElement('a');
@@ -57,7 +57,7 @@
 				delete_button.style.width = '51px';
 				delete_button.style.height = '19px';
 				delete_button.style.cursor = 'pointer';
-				delete_button.style.background = 'url(../images/editor/yes_delete_button.png) no-repeat 0 0';
+				delete_button.style.background = 'url(/images/editor/yes_delete_button.png) no-repeat 0 0';
 				$(delete_button).click(function(ev){
 					me.deleteMarker();
 				});

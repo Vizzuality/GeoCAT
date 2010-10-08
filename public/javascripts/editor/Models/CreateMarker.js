@@ -16,7 +16,7 @@
 	function CreateMarker(latlng, kind, draggable, clickable, item, marker_map) {
 	
 		//Choose marker icon image.
-		var image = new google.maps.MarkerImage('images/editor/'+ kind +'_marker.png',
+		var image = new google.maps.MarkerImage('/images/editor/'+ kind +'_marker.png',
 																						new google.maps.Size(25, 25),
 																						new google.maps.Point(0,0),
 																						new google.maps.Point(12, 12));

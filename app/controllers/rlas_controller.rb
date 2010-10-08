@@ -83,58 +83,11 @@ class RlasController < ApplicationController
     #      return true 
     #  end  
   end
-  
-  def get_download_url url
-    
-  end
 
-  # TODO Review this code. The window to save file is never opened.
-  def download_rla
-  
-      
-      # ---- The params with sources isn't coming to save it  
-      
-      # @rla_download = params[:rla]
-      
-      # if File.exist?('public/data/data_temp.rla')
-      #           respond_to do |format|
-      #             format.rla {
-      #               send_file 'public/data/data_temp.rla',
-      #                 :filename => 'data_temp.rla'
-      #               }
-      #             end
-      #   end      
-             
-      # file = File.open('./public/data/data_temp.rla', 'r')
-      #       file.write(@rla_download)
-      #       file.close
-      #       
-      #       if File.file? file
-      #          send_data(File.read(file), :type=> 'application/rla', :disposition => 'attachement')
-      #        end
-      # file_temp = File.open('./public/data/data_temp.rla', 'w') {
-      #   |f| f.write(@rla_download)
-      # }
-      # File.delete file_temp
-      
-      # send_file 'public/data/data_temp.rla', :disposition => 'attachment', :stream => false
-      
-      # send_file 'public/data/data_temp.rla', :type=>"application/rla", :disposition => 'inline'
-
-      @url = get_download_url 'public/data/data_temp.rla'
-      
-      redirect_to @url
-
-      # Borrar archivo temporal
-      # File.delete file
-
-      # render :nothing => true
-  end
-  
   def upload_rla 
       #render :file => 'app/views/main/index.html'
       render :text => "download RLA"
-    end
+  end
     
   def make_screenshot
     width, height, bmp = Win32::Screenshot.foreground

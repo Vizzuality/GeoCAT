@@ -30,7 +30,7 @@
 				div.style.opacity = "0";
 				div.style.width = '233px';
 				div.style.height = '245px';
-				div.style.background = 'url(images/editor/tooltip_bkg2.png) no-repeat 0 0';
+				div.style.background = 'url(/images/editor/tooltip_bkg2.png) no-repeat 0 0';
 		
 				//Close Infowindow button
 				var close_button = document.createElement('a');
@@ -40,7 +40,7 @@
 				close_button.style.width = "21px";
 				close_button.style.height = "21px";
 				close_button.style.cursor = 'pointer';
-				close_button.style.background = "url(../images/editor/close_infowindow.png) no-repeat 0 0";
+				close_button.style.background = "url(/images/editor/close_infowindow.png) no-repeat 0 0";
 				$(close_button).text('');
 				$(close_button).click(function(ev){
 					me.hide();
@@ -171,7 +171,7 @@
 				delete_button.style.width = "58px";
 				delete_button.style.height = "19px";
 				delete_button.style.cursor = 'pointer';
-				delete_button.style.background = "url(../images/editor/info_delete.png) no-repeat 0 0";
+				delete_button.style.background = "url(/images/editor/info_delete.png) no-repeat 0 0";
 				$(delete_button).text('');
 				$(delete_button).click(function(ev){
 					me.deleteMarker();
@@ -194,9 +194,9 @@
 				hide_button.style.height = "19px";
 				hide_button.style.cursor = 'pointer';
 				if (this.inf.active) {
-					hide_button.style.background = "url(../images/editor/info_hide.png) no-repeat 0 0";
+					hide_button.style.background = "url(/images/editor/info_hide.png) no-repeat 0 0";
 				} else {
-					hide_button.style.background = "url(../images/editor/show_button.png) no-repeat 0 0";
+					hide_button.style.background = "url(/images/editor/show_button.png) no-repeat 0 0";
 				}
 				$(hide_button).text('');
 				$(hide_button).click(function(ev){
@@ -279,9 +279,9 @@
 				num = 5;
 			}
 			if (!this.inf.active) {
-				$(div).find('a.hide_button_').css('background-image','url(../images/editor/show_button.png)');
+				$(div).find('a.hide_button_').css('background-image','url(/images/editor/show_button.png)');
 			} else {
-				$(div).find('a.hide_button_').css('background-image','url(../images/editor/info_hide.png)');
+				$(div).find('a.hide_button_').css('background-image','url(/images/editor/info_hide.png)');
 			}
 
 			$(div).find('p.latitude').html((this.latlng_.lat()).toFixed(0)+'<sup style="color: rgb(102, 102, 102); font: normal normal normal 15px/normal Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');

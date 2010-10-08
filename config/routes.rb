@@ -6,14 +6,14 @@ Rlat::Application.routes.draw do |map|
     
   match 'about' => 'main#about'
   
-  match 'editor' => 'rlas#editor'
-  match 'editor/:id/:specie' => 'rlas#editor_params'
+  #match 'editor' => 'rlas#editor'
+  #match 'editor/:id/:specie' => 'rlas#editor_params'
   
   match 'search/flickr/:q' => 'flickr#search'  
   match 'search/gbif/:q' => 'gbif#search'
   
-  match 'download/rla/' => 'rlas#download_rla'  
-  match 'upload/rla/' => 'rlas#upload_rla'
+  match 'download/rla' => 'file#download'
+  match 'editor' => 'file#upload'
   
   
   # The priority is based upon order of creation:

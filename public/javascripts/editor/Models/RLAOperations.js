@@ -39,15 +39,9 @@
 			this.addMarkers(dataset,this.markers_);		
 		
 			console.log(dataset);
-
-			$.ajax({
-							url: "/download/rla",
-						      type: "POST",
-						      data: ({rla: JSON.stringify(dataset)}),
-						      success: function(result){
-						         console.log(result);
-						      }
-						});
+            $("#rla_input").attr("value",JSON.stringify(dataset));
+            $("#download_form").submit();
+            
 		}
 
 		/*========================================================================================================================*/

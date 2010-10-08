@@ -162,7 +162,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		
 		function showMamufasMap() {
-			$('#mamufas_map').css('background','url(../images/editor/mamufas_bkg.png) repeat 0 0');
+			$('#mamufas_map').css('background','url(/images/editor/mamufas_bkg.png) repeat 0 0');
 			$('#mamufas_map').fadeIn();
 			$('#loader_map').fadeIn();
 		}	
@@ -247,7 +247,7 @@ var global_zIndex = 1;					// Z-index for the markers
 													
 				}
 			
-				var image = new google.maps.MarkerImage('images/editor/' + marker_kind + '_marker.png',
+				var image = new google.maps.MarkerImage('/images/editor/' + marker_kind + '_marker.png',
 					new google.maps.Size(25, 25),
 					new google.maps.Point(0,0),
 					new google.maps.Point(12, 12));
@@ -598,19 +598,19 @@ var global_zIndex = 1;					// Z-index for the markers
 		function makeActive (marker_id, fromAction) {
 
 					switch (_markers[marker_id].data.kind) {
-						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/gbif_marker_no_active.png':'images/editor/gbif_marker.png',
+						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
 														_markers[marker_id].setIcon(image);
 														break;
-						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/flickr_marker_no_active.png':'images/editor/flickr_marker.png',
+						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));
 														_markers[marker_id].setIcon(image);
 														break;
-						default: 				var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'images/editor/your_marker_no_active.png':'images/editor/your_marker.png',
+						default: 				var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
 																										new google.maps.Size(25, 25),
 																										new google.maps.Point(0,0),
 																										new google.maps.Point(12, 12));

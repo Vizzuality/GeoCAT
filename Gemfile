@@ -7,7 +7,7 @@ gem 'rails', '3.0.0.beta4'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
-gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'ruby-debug', :require => 'ruby-debug'
 gem 'awesome_print', :require => 'ap'
 gem 'json', '1.4.3'
 gem 'flickraw', '0.8.2'

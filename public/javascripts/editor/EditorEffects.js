@@ -5,7 +5,7 @@
 		
 		$(document).ready(function() {
 
-			$('body').css('background','url(../images/editor/bkg.jpg) 0 0');
+			$('body').css('background','url(/images/editor/bkg.jpg) 0 0');
 			
 			//Get scientific_name
 			specie = $('a#scientific_name').text();

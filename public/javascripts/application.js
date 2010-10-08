@@ -1,6 +1,12 @@
 
 	$(document).ready(function() {
 
+
+        //register the Upload button action
+    $("#upload_input").change(function(event){
+       $("#upload_form").submit(); 
+    });
+
 		// HOME
 	  var myLatlng = new google.maps.LatLng(20,-3);
 	  var myOptions = {

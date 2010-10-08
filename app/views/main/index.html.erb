@@ -32,14 +32,11 @@
 						<img src="images/home/ajax-loader.gif" class="loader">
 					</form>
 
-					<%= form_for Rla.new, :html => { :class => "upload", :multipart => true } do |r| %>
-						<p>or continue working in a previous report</p>
-
-						<a id="upload_button"></a>
-
-						<%= r.file_field :name %>	
-
-					<% end %>
+          <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
+            <p>or continue working in a previous report</p>
+            <a id="upload_button"></a>
+            <input type="file" name="file" size="30" id="upload_input" />
+          </form>
 				</div>
 			</div>
 		</div>

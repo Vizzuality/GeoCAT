@@ -95,33 +95,33 @@ div#editor div#tools {position:absolute; top:60px; left:20px; bottom:40px; right
 
 div#editor div#tools div.table {position:relative; float:left; width:100%; height:100%;}
 div#editor div#tools div.table div {position:relative;}
-div#editor div#tools div.table div.top-left-tool{position:relative; float:left; width:24px; height:62px; background:url(../images/editor/top-left-tool.png) no-repeat right bottom;}
-div#editor div#tools div.table div.top-repeat-tool{position:absolute; left:24px; right:24px; top:0; height:62px; background:url(../images/editor/top-repeat-tool.png)  0 bottom;}
-div#editor div#tools div.table div.top-right-tool {position:relative; float:right; width:24px; height:62px; background:url(../images/editor/top-right-tool.png) no-repeat left bottom;}
+div#editor div#tools div.table div.top-left-tool{position:relative; float:left; width:24px; height:62px; background:url(/images/editor/top-left-tool.png) no-repeat right bottom;}
+div#editor div#tools div.table div.top-repeat-tool{position:absolute; left:24px; right:24px; top:0; height:62px; background:url(/images/editor/top-repeat-tool.png)  0 bottom;}
+div#editor div#tools div.table div.top-right-tool {position:relative; float:right; width:24px; height:62px; background:url(/images/editor/top-right-tool.png) no-repeat left bottom;}
 div#editor div#tools div.header div.left {float:left; padding:22px 0 0 5px; width:49px; color:white; height:45px;}
 div#editor div#tools div.header div.left h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; text-shadow:0 1px #000000; color:#CCCCCC;}
 div#editor div#tools div.header div.right {float:right; padding:22px 0 0 0; width:220px; color:white; height:45px;}
 div#editor div#tools div.header div.right h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
 
 div#editor div#tools div.table div.center {position:absolute; top:62px; bottom:76px; left:0; right:0;}
-div#editor div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:24px; background:url(../images/editor/left-repeat-tool.png) repeat-y right 0;}
+div#editor div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:24px; background:url(/images/editor/left-repeat-tool.png) repeat-y right 0;}
 div#editor div#tools div.table div.center-tool{position:absolute; top:0; bottom:0; left:24px; right:24px; background:#242628;}
-div#editor div#tools div.table div.right-repeat-tool{position:absolute; top:0; right:0; bottom:0; width:24px; background:url(../images/editor/right-repeat-tool.png) repeat-y left 0;}
+div#editor div#tools div.table div.right-repeat-tool{position:absolute; top:0; right:0; bottom:0; width:24px; background:url(/images/editor/right-repeat-tool.png) repeat-y left 0;}
 div#editor div#tools div.center div.left {float:left; padding:4px 0 0 0; width:52px;}
 div#editor div#tools div.center div.left a {float:left; width:42px; height:42px; margin:5px 0 0 0;}
-div#editor div#tools div.center div.left a.select {background:url(../images/editor/select_button.png) no-repeat 0 0;}
-div#editor div#tools div.center div.left a.add {background:url(../images/editor/add_button.png) no-repeat 0 0;}
-div#editor div#tools div.center div.left a.remove {background:url(../images/editor/remove_button.png) no-repeat 0 0;}
+div#editor div#tools div.center div.left a.select {background:url(/images/editor/select_button.png) no-repeat 0 0;}
+div#editor div#tools div.center div.left a.add {background:url(/images/editor/add_button.png) no-repeat 0 0;}
+div#editor div#tools div.center div.left a.remove {background:url(/images/editor/remove_button.png) no-repeat 0 0;}
 div#editor div#tools div.center div.left a.selected {background-position:0 -42px;}
 div#editor div#tools div.center div.left a:hover {background-position:0 -42px;}
 div#editor div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:1;}
 div#editor div#tools div.center div.right div.algorithms {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-bottom:1px solid #000000;}
 div#editor div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
-div#editor div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:url(../images/editor/orange_bar.png) no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}
+div#editor div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:url(/images/editor/orange_bar.png) no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}
 div#editor div#tools div.center div.right div.algorithms a.first {margin:0;}
 div#editor div#tools div.center div.right div.algorithms a:hover {background-position:0 -24px;}
 
-div.hull_container {display:none; position:absolute; top:0; right:30px; z-index:100000; background:url(../images/editor/convex_hull_bkg.png) no-repeat 0 0; width:280px; height:330px;}
+div.hull_container {display:none; position:absolute; top:0; right:30px; z-index:100000; background:url(/images/editor/convex_hull_bkg.png) no-repeat 0 0; width:280px; height:330px;}
 div.hull_container a {position:absolute; right:15px; top:8px; font:normal 11px Arial; color:#FF9900; text-decoration:underline;}
 div.hull_container a:hover {color:#FF6600;}
 div.hull_container p {font:normal 23px Georgia; color:#666666;}
@@ -135,13 +135,13 @@ div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
 
 
-div.delete_all {display:none; position:absolute; top:0; right:33px; z-index:100000; background:url(../images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px;}
+div.delete_all {display:none; position:absolute; top:0; right:33px; z-index:100000; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px;}
 div.delete_all h4 {float:left; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:10px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
 div.delete_all div {float:right; width:100%;}
 div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0;}
 div.delete_all div a.cancel:hover {color:#000000;}
-div.delete_all div a.yes {float:right; margin:10px 0 0 0; width:51px; height:19px; background:url(../images/editor/yes_delete_button.png) no-repeat 0 0;}
+div.delete_all div a.yes {float:right; margin:10px 0 0 0; width:51px; height:19px; background:url(/images/editor/yes_delete_button.png) no-repeat 0 0;}
 div.delete_all div a.yes:hover {background-position: 0 -19px;}
 
 
@@ -150,19 +150,19 @@ div#editor div#tools div.center div.right div.sources span {float:left; width:10
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#editor div#tools div.center div.right div.sources span p {float:right; font:normal 11px "Futura"; color:#7C7D7E; padding:0 17px 0 0;}
 div#editor div#tools div.center div.right div.sources a {float:left; padding:3px 0 3px 22px; text-decoration:none;}
-div#editor div#tools div.center div.right div.sources a.blue {background:url(../images/editor/left_black_bar_blue.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a.green {background:url(../images/editor/left_black_bar_green.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a.pink {background:url(../images/editor/left_black_bar_pink.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; width:193px; background:url(../images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
+div#editor div#tools div.center div.right div.sources a.blue {background:url(/images/editor/left_black_bar_blue.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a.green {background:url(/images/editor/left_black_bar_green.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a.pink {background:url(/images/editor/left_black_bar_pink.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; width:193px; background:url(/images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources a:hover span {background-position:right 0;}
 
-div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:2px; right:15px; background:url(../images/editor/delete_source.png) no-repeat center 0;}
+div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:2px; right:15px; background:url(/images/editor/delete_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -29px;}
 div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -29px; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:2px; right:-5px; background:url(../images/editor/refresh_source.png) no-repeat center 0;}
+div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:2px; right:-5px; background:url(/images/editor/refresh_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -29px;}
 
-div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url(../images/editor/black_bar_add.png) no-repeat 0 0; text-decoration:underline;}
+div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url(/images/editor/black_bar_add.png) no-repeat 0 0; text-decoration:underline;}
 div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px;}
 div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc; background-position:0 -48px; text-decoration:none;}
 div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
@@ -172,34 +172,34 @@ div#editor div#tools div.center div.right div.sources ul li {float:left; positio
 
 /*add new source*/
 div#editor div#tools div.center div.right div.sources div#add_source_container {position:absolute; width:209px; bottom:22px; right:15px; z-index:100; display:none;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.top {float:left; width:209px; padding:51px 0 0 0; background:url(../images/editor/add_source_top.png) no-repeat 0 top;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources {position:absolute; right:23px; top:23px; background:url(../images/editor/close_source.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.top {float:left; width:209px; padding:51px 0 0 0; background:url(/images/editor/add_source_top.png) no-repeat 0 top;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources {position:absolute; right:23px; top:23px; background:url(/images/editor/close_source.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources:hover {background-position:0 -16px;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.bottom {float:left; width:209px; padding:0 0 25px; background:url(../images/editor/add_source_bottom.png) no-repeat 0 bottom;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle {float:left; width:185px; padding:0 12px; background:url(../images/editor/add_source_repeat.png) repeat-y 0 0;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.bottom {float:left; width:209px; padding:0 0 25px; background:url(/images/editor/add_source_bottom.png) no-repeat 0 bottom;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle {float:left; width:185px; padding:0 12px; background:url(/images/editor/add_source_repeat.png) repeat-y 0 0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul {float:left; width:171px; padding:8px 7px; margin:0; background-image: -moz-linear-gradient(100% 100% 90deg, #F3F3F3, #D4D4D4); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F3F3F3), to(#D4D4D4));}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li {float:left; width:157px; padding:4px 7px;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a {float:left; margin:2px 0 0 0; padding:0 0 0 17px; background:url(../images/editor/checkbox_add_image.png) no-repeat 0 1px; font:normal 13px Arial; color:#898989;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a {float:left; margin:2px 0 0 0; padding:0 0 0 17px; background:url(/images/editor/checkbox_add_image.png) no-repeat 0 1px; font:normal 13px Arial; color:#898989;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a:hover {cursor:pointer; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li span {display:none;}
 
 /*selected*/
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url(../images/editor/checkbox_add_image.png) no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url(/images/editor/checkbox_add_image.png) no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a:hover {cursor:pointer; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span {display:block;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url(../images/editor/loader_source.gif) no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.loaded {background:url(../images/editor/ok_loaded.png) no-repeat 9px 9px #EBF7D6; color:#666666;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.imported {background:url(../images/editor/ok_loaded.png) no-repeat 9px 22px #A9C07C; color:white;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url(/images/editor/loader_source.gif) no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.loaded {background:url(/images/editor/ok_loaded.png) no-repeat 9px 9px #EBF7D6; color:#666666;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.imported {background:url(/images/editor/ok_loaded.png) no-repeat 9px 22px #A9C07C; color:white;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
 
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.browse {float:left; width:63px; height:21px; background:url(../images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.browse {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:2px; top:2px; background:url(../images/editor/delete_button.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:2px; top:2px; background:url(/images/editor/delete_button.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form {display:block; position:absolute; padding:0; margin:0; width:137px; height:21px; z-index:100; overflow:hidden; opacity:0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form input {float:left; width:137px; height:21px;}
 
@@ -218,9 +218,9 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 
 
 div#editor div#tools div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:76px;}
-div#editor div#tools div.table div.bottom-left-tool{position:relative; float:left; width:24px; height:76px; background:url(../images/editor/bottom-left-tool.png) no-repeat right top;}
-div#editor div#tools div.table div.bottom-repeat-tool{position:absolute; bottom:0; left:24px; right:24px; background:url(../images/editor/bottom-repeat-tool.png) repeat left 0; height:76px;}
-div#editor div#tools div.table div.bottom-right-tool{position:relative; float:right; width:24px; height:76px; background:url(../images/editor/bottom-right-tool.png) no-repeat left top;}
+div#editor div#tools div.table div.bottom-left-tool{position:relative; float:left; width:24px; height:76px; background:url(/images/editor/bottom-left-tool.png) no-repeat right top;}
+div#editor div#tools div.table div.bottom-repeat-tool{position:absolute; bottom:0; left:24px; right:24px; background:url(/images/editor/bottom-repeat-tool.png) repeat left 0; height:76px;}
+div#editor div#tools div.table div.bottom-right-tool{position:relative; float:right; width:24px; height:76px; background:url(/images/editor/bottom-right-tool.png) no-repeat left top;}
 
 
 /*2nd layer - map*/
@@ -228,39 +228,39 @@ div#editor div#map_container {position:absolute; min-width:940px; min-height:790
 
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
 div#editor div#map_container div.table div {position:relative;}
-div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url(../images/editor/top-left-map.png) no-repeat right bottom;}
-div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url(../images/editor/top-repeat-map.png)  0 bottom;}
-div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url(../images/editor/top-right-map.png) no-repeat left bottom;}
+div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/top-left-map.png) no-repeat right bottom;}
+div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url(/images/editor/top-repeat-map.png)  0 bottom;}
+div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url(/images/editor/top-right-map.png) no-repeat left bottom;}
 
 div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0;}
-div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url(../images/editor/left-repeat-map.png) repeat-y -6px 0;}
+div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url(/images/editor/left-repeat-map.png) repeat-y -6px 0;}
 div#editor div#map_container div.table div.center-map{position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}
-div#editor div#map_container div.table div.right-repeat-map{position:absolute; top:0; bottom:0; right:0; width:25px; background:url(../images/editor/right-repeat-map.png) repeat-y 10px 0;}
+div#editor div#map_container div.table div.right-repeat-map{position:absolute; top:0; bottom:0; right:0; width:25px; background:url(/images/editor/right-repeat-map.png) repeat-y 10px 0;}
 
 div#editor div#map_container div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:80px;}
-div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:url(../images/editor/bottom-left-map.png) no-repeat right top; margin:0;}
-div#editor div#map_container div.table div.bottom-repeat-map{position:absolute; background:url(../images/editor/bottom-repeat-map.png) repeat left 0; left:25px; right:25px; top:0; height:80px;}
-div#editor div#map_container div.table div.bottom-right-map{position:relative; float:right; width:25px; height:80px; background:url(../images/editor/bottom-right-map.png) no-repeat left top;}
+div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/bottom-left-map.png) no-repeat right top; margin:0;}
+div#editor div#map_container div.table div.bottom-repeat-map{position:absolute; background:url(/images/editor/bottom-repeat-map.png) repeat left 0; left:25px; right:25px; top:0; height:80px;}
+div#editor div#map_container div.table div.bottom-right-map{position:relative; float:right; width:25px; height:80px; background:url(/images/editor/bottom-right-map.png) no-repeat left top;}
 
 div#editor div#map_container div.table div.center-map div#map {position:relative; height:100%; width:100%;}
-div#editor div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url(../images/editor/mamufas_bkg.png) repeat 0 0;}
+div#editor div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url(/images/editor/mamufas_bkg.png) repeat 0 0;}
 div#editor div#map_container div.table div.center-map div#mamufas_map div#loader_map {position:absolute; top:50%; left:50%; margin:-25px 0 0 -25px;/*hack*/ display:none; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
 div#editor div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
 div#editor div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
 div#editor div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
 
-div#editor div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(../images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
+div#editor div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(/images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
 div#editor div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
 
 div#editor div#map_container div.footer div.left {float:left; margin:15px 0 0 5px;}
-div#editor div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(../images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
-div#editor div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(../images/editor/redo_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(/images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
+div#editor div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(/images/editor/redo_button.png) no-repeat 0 0;}
 div#editor div#map_container div.footer div.left a:hover {background-position:0 -32px;}
 
 div#editor div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
-div#editor div#map_container div.footer div.right a.download {float:left; width:118px; height:32px; background:url(../images/editor/download_button.png) no-repeat 0 0;}
-div#editor div#map_container div.footer div.right a.print {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(../images/editor/print_button.png) no-repeat 0 0;}
-div#editor div#map_container div.footer div.right a.save {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(../images/editor/save_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.right a.download {float:left; width:118px; height:32px; background:url(/images/editor/download_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.right a.print {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(/images/editor/print_button.png) no-repeat 0 0;}
+div#editor div#map_container div.footer div.right a.save {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(/images/editor/save_button.png) no-repeat 0 0;}
 div#editor div#map_container div.footer div.right a:hover {background-position:0 -32px;}
 
 
