@@ -64,3 +64,5 @@
 			TotalPointsOperations.prototype.total = function() {
 				return this.gbif + this.flickr + this.your;
 			}
+			
+			

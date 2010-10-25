@@ -39,8 +39,8 @@
 			this.addMarkers(dataset,this.markers_);		
 		
 			console.log(dataset);
-            $("#rla_input").attr("value",JSON.stringify(dataset));
-            $("#download_form").submit();
+      $("#rla_input").attr("value",JSON.stringify(dataset));
+      $("#download_form").submit();
             
 		}
 
