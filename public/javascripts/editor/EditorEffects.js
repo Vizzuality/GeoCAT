@@ -75,5 +75,71 @@
 						}
 				}
 			});
+			
+			
+			//toggle on/off analysis
+			$('a#toggle_analysis').click(function(ev){
+				if ($(this).hasClass('disabled')) {
+					$(this).parent().children().removeClass('disabled');
+					$(this).find('span').stop(true).animate({backgroundPosition: '-1px -25px'}, {duration: 'fast',easing: 'easeOutBounce'});
+					$('div.analysis_data').stop().animate({height: '150px'}, 'fast');
+					$('#analysis_help').attr('src','/images/editor/analysis_help2.png');
+				} else {
+					$(this).addClass('disabled');
+					$(this).parent().children('h3').addClass('disabled');
+					$(this).find('span').stop(true).animate({backgroundPosition: '-28px -25px'}, {duration: 'fast',easing: 'easeOutBounce'});
+					$('div.analysis_data').stop().animate({height: '0'}, 'fast');
+					$('#analysis_help').attr('src','/images/editor/analysis_help.png');
+				}
+			});
+			
+			
+			//choose map type
+			$('ul.map_type_list li').click(function(ev){
+				$('a.select_map_type span').text($(this).text());
+			});
+			
+			
+			//change zoom level
+			$('#zoom ul li').click(function(ev){
+				$('#zoom ul li').removeClass('selected');
+				$(this).addClass('selected');
+			});
+			
+			//change zoom level +
+			$('a.zoom_in').click(function(ev){
+				console.log(map.getZoom());
+				
+				//if (map.getZoom()<17) {
+					map.setZoom(map.getZoom()+1);
+					
+				//}
+				
+				// var li_index = $('#zoom ul li.selected').index();
+				// 				if (li_index>0) {
+				// 					var li_selected = $('#zoom ul li.selected');
+				// 					$('#zoom ul li.selected').removeClass('selected');
+				// 					$(li_selected).prev().addClass('selected');
+				// 					map.setZoom(20-((li_index-1)*2));
+				// 				}
+			});
+			
+			//change zoom level -
+			$('a.zoom_out').click(function(ev){
+				if (map.getZoom()>2) {
+					map.setZoom(map.getZoom()-1);
+					
+				}
+				// var li_index = $('#zoom ul li.selected').index();
+				// 			if (li_index<9) {
+				// 				var li_selected = $('#zoom ul li.selected');
+				// 				$('#zoom ul li.selected').removeClass('selected');
+				// 				$(li_selected).next().addClass('selected');
+				// 				map.setZoom(20-((li_index+1)*2));
+				// 			}
+			});
+			
+			
+			
 
 		});

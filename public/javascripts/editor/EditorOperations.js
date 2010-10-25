@@ -39,9 +39,10 @@ var global_zIndex = 1;					// Z-index for the markers
 		  var myOptions = {
 		    zoom: 2,
 		    center: myLatlng,
-		    mapTypeId: google.maps.MapTypeId.ROADMAP,
-				disableDefaultUI: false,
-				scrollwheel: false
+		    mapTypeId: google.maps.MapTypeId.TERRAIN,
+				disableDefaultUI: true,
+				scrollwheel: false,
+				streetViewControl: false
 		  }
 	
 		  map = new google.maps.Map(document.getElementById("map"), myOptions);

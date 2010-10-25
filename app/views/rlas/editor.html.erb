@@ -8,20 +8,20 @@
 			<a id="scientific_name"><%= (@rla == nil)? 'Puma' : @rla.specie %></a>
 			<a id="gbif_id"><%= (@rla == nil)? '13191720' : @rla.data %></a>
 			<ul class="editor_list">
-				<li class="first"><a href="#">Help</a></li>
+				<li class="first"><a onclick="$('div.help_container').fadeIn()">Help</a></li>
 				<li><a href="#">Close tool</a></li>
 			</ul>
 			
-			<div class="hull_container">
-				<a href="javascript: void closeConvexHull()">close</a>
-				<p class="area">397138<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-				<p class="diameter">1053<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-				<p class="cell_size">103<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-				<p class="number_cells">10</p>
-				<p class="aoo_area">105343<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-				<p class="eoo_rating"></p>
-				<p class="aoo_rating"></p>
-			</div>
+			<!-- <div class="hull_container">
+			       <a href="javascript: void closeConvexHull()">close</a>
+			       <p class="area">397138<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
+			       <p class="diameter">1053<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
+			       <p class="cell_size">103<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
+			       <p class="number_cells">10</p>
+			       <p class="aoo_area">105343<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
+			       <p class="eoo_rating"></p>
+			       <p class="aoo_rating"></p>
+			     </div> -->
 			
 			<div class="delete_all">
 				<h4>DELETE ALL FLICKR POINTS</h4>
@@ -48,16 +48,40 @@
 						<div class="left-repeat-tool"></div>
 						<div class="center-tool">
 							<div class="left">
-								<a href="javascript: void setStatus('select')" class="select selected"></a>
-								<a href="javascript: void setStatus('add')" class="add"></a>
-								<a href="javascript: void setStatus('remove')" class="remove"></a>
+								<a onclick="javascript: void setStatus('select')" class="select selected"></a>
+								<a onclick="javascript: void setStatus('selection')" class="selection"></a>
+								<a onclick="javascript: void setStatus('add')" class="add"></a>
+								<a onclick="javascript: void setStatus('remove')" class="remove"></a>
 							</div>
 							<div class="right">
-								<div class="algorithms">
-									<h3>ANALYSIS ALGORITHMS</h3>
-									<a href="javascript: void openConvexHull()" class="first" id="convex">Convex Hull</a>
-									<a href="#" id="alpha">Alpha Hull</a>
-								</div>
+							  
+							  <div class="analysis">
+							    <div class="inner_analysis">
+  							    <a id="toggle_analysis" class="disabled"><span></span></a>
+  							    <h3 class="disabled">Analysis disabled</h3>
+  							    <div class="analysis_data">
+							        <ul>
+							          <li class="lc">
+							            <label>EOO</label>
+							            <p>324,264 km<sup>2</sup></p>
+							          </li>
+							          <li class="cr">
+							            <label>AOO</label>
+							            <p>324,264 km<sup>2</sup></p>
+							            <p class="change">Cellsize 2km, <a href="#">change</a></p>
+							          </li>
+							        </ul>
+							        <span><a href="#">Download complete report</a></span>
+  							    </div>
+							    </div>
+							  </div>
+							  
+							  
+								<!-- <div class="algorithms">
+								                  <h3>ANALYSIS ALGORITHMS</h3>
+								                  <a href="javascript: void openConvexHull()" class="first" id="convex">Convex Hull</a>
+								                  <a href="#" id="alpha">Alpha Hull</a>
+								                </div> -->
 								<div class="sources">
 									<span><h3>SOURCES</h3><p class="count_points ">NO POINTS</p></span>
 									<ul id="sources_list"></ul>
@@ -142,10 +166,27 @@
 						<div class="top-right-map"></div>
 					</div>
 					<div class="center">
-						<div class="left-repeat-map"></div>
+						<div class="left-repeat-map">
+						   <div id="zoom">
+  						    <a class="zoom_in"></a>
+  						    <ul>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li class="selected"></li>
+  						      <li></li>
+  						    </ul>
+  						    <a class="zoom_out"></a>
+  						  </div>
+						</div>
 						<div class="center-map">
 							<div id="map"></div>
-							<div id="mamufas_map">
+						  <div id="mamufas_map">
 								<div id="loader_map">
 									<img src="/images/editor/map_loader.gif" alt="Map loader" />
 								</div>
@@ -153,29 +194,49 @@
 									<img src="/images/editor/import_done.png" alt="Import done" />
 								</div>
 							</div>
+							<div class="help_container" style="display:none; position:absolute; top:0; left:0; right:0; bottom:0; z-index:1000">
+							  <img src="/images/editor/help_bkg.png" style="float:left; width:100%; height:100%"/>
+							  <img src="/images/editor/do_help.png" style="position:absolute; bottom:1px; left:35px" />
+							  <img src="/images/editor/tool_help.png" style="position:absolute; top:50px; left:0px" />
+							  <img src="/images/editor/download_help.png" style="position:absolute; bottom:1px; right:14px" />
+							  <img src="/images/editor/analysis_help.png" style="position:absolute; top:61px; right:0" id="analysis_help" />
+    					</div>
 						</div>
-						<div class="right-repeat-map"></div>
+						<div class="right-repeat-map">
+					  	<div id="map_type">
+						    <div class="map_type">
+						      <a class="select_map_type"><span>TERRAIN</span></a>
+  						    <ul class="map_type_list">
+  						      <li onclick="map.setMapTypeId(google.maps.MapTypeId.TERRAIN)">TERRAIN</li>
+  						      <li onclick="map.setMapTypeId(google.maps.MapTypeId.ROADMAP)">ROADMAP</li>
+  						      <li onclick="map.setMapTypeId(google.maps.MapTypeId.SATELLITE)">SATELLITE</li>
+  						      <li onclick="map.setMapTypeId(google.maps.MapTypeId.HYBRID)">HYBRID</li>
+  						    </ul>
+						    </div>						    
+						  </div>
+						</div>
 					</div>
+					
 					<div class="footer">
 						<div class="bottom-left-map"></div>
 						<div class="bottom-repeat-map">
 							<div class="left">
-								<a href="javascript: void unDoAction()" class="undo"></a>
-								<a href="javascript: void reDoAction()" class="redo"></a>
+								<a onclick="javascript: void unDoAction()" class="undo"></a>
+								<a onclick="javascript: void reDoAction()" class="redo"></a>
 							</div>
 							<div class="right">
-								<!-- <a href="#" class="save"></a> -->
-								<a href="#" class="print"></a>
-								<a href="javascript: void downloadRLA()" class="download"></a>
+								<a onclick="#" class="export"></a>
+								<a onclick="javascript: void downloadRLA()" class="download"></a>
 							</div>
-
 						</div>
 						<div class="bottom-right-map"></div>
 					</div>	
 				</div>
 			</div>
-
 		</div>
+		
+		
+		
 	<form style="display:none" id="download_form" name="download_form" action="/download/rla" method="post" target="_blank">
 	  <input style="display:none" type="text" name="rla" id="rla_input" />
 	</form>
