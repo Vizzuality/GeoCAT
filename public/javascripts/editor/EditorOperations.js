@@ -15,6 +15,7 @@ var actions;										// UnredoOperations model Object for actions made by the u
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
 var delete_infowindow;					// Delete infowindow object
+var polyline_; 									// Polyline create by the user
 
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
@@ -57,7 +58,34 @@ var global_zIndex = 1;					// Z-index for the markers
 				if (state == 'add') {
 					addMarker(event.latLng,null,false);
 				}
+				if (state == 'selection') {
+					//console.log(event);
+					
+				}
 			});
+			
+			
+			google.maps.event.addListener(map,"dragstart",function(event){
+				if (state == 'selection') {
+					//console.log(event);
+					
+				}
+			});
+			
+			
+			google.maps.event.addListener(map,"drag",function(event){
+				if (state == 'selection') {
+				}
+			});
+			
+			
+			
+			google.maps.event.addListener(map,"dragend",function(event){
+				if (state == 'selection') {
+					//console.log(event);
+				}
+			});
+			
 			
 
 			//if the application comes through an upload file
@@ -79,7 +107,13 @@ var global_zIndex = 1;					// Z-index for the markers
 			$("div.left a.select").removeClass('selected');
 			$("div.left a.add").removeClass('selected');
 			$("div.left a.remove").removeClass('selected');
+			$("div.left a.selection").removeClass('selected');
 
+			if (status=="selection") {
+				map.draggable = false;
+			} else {
+				map.draggable = true;
+			}
 			$("div.left a."+status).addClass('selected');
 			state = status;
 			activeMarkersProperties();
@@ -487,7 +521,6 @@ var global_zIndex = 1;					// Z-index for the markers
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
-			console.log(_markers);
 			var rla = new RLA(specie,_markers,map_inf,null);
 			rla.download();		
 		}

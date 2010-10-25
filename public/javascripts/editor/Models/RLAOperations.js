@@ -18,7 +18,6 @@
 			this.specie_ = specie;
 			//this.gbif_id_ = gbif_if; 
 			this.upload_data_ = upload_obj;
-			console.log(markers);
 			this.markers_ = markers;
 		
 			this.zoom = (map_properties==null)? null : map_properties.zoom;
@@ -38,7 +37,6 @@
 			dataset.sources = [];
 			this.addMarkers(dataset,this.markers_);		
 		
-			console.log(dataset);
       $("#rla_input").attr("value",JSON.stringify(dataset));
       $("#download_form").submit();
             

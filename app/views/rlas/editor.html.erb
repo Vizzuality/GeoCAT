@@ -22,6 +22,8 @@
 			       <p class="eoo_rating"></p>
 			       <p class="aoo_rating"></p>
 			     </div> -->
+			     
+			
 			
 			<div class="delete_all">
 				<h4>DELETE ALL FLICKR POINTS</h4>
@@ -178,8 +180,12 @@
   						      <li></li>
   						      <li></li>
   						      <li></li>
-  						      <li class="selected"></li>
   						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li></li>
+  						      <li class="selected"></li>
   						    </ul>
   						    <a class="zoom_out"></a>
   						  </div>
@@ -194,12 +200,12 @@
 									<img src="/images/editor/import_done.png" alt="Import done" />
 								</div>
 							</div>
-							<div class="help_container" style="display:none; position:absolute; top:0; left:0; right:0; bottom:0; z-index:1000">
-							  <img src="/images/editor/help_bkg.png" style="float:left; width:100%; height:100%"/>
-							  <img src="/images/editor/do_help.png" style="position:absolute; bottom:1px; left:35px" />
-							  <img src="/images/editor/tool_help.png" style="position:absolute; top:50px; left:0px" />
-							  <img src="/images/editor/download_help.png" style="position:absolute; bottom:1px; right:14px" />
-							  <img src="/images/editor/analysis_help.png" style="position:absolute; top:61px; right:0" id="analysis_help" />
+							<div class="help_container" onclick="$('div.help_container').fadeOut()">
+							  <img src="/images/editor/help_bkg.png" class="help"/>
+							  <img src="/images/editor/do_help.png" class="do" />
+							  <img src="/images/editor/tool_help.png" class="tool" />
+							  <img src="/images/editor/download_help.png" class="download" />
+							  <img src="/images/editor/analysis_help.png" id="analysis_help" />
     					</div>
     					<a href="http://www.vizzuality.com" target="_blank" class="vizzuality"><img src="/images/editor/vizzuality.png" alt="Vizzuality" title="Vizzuality" /></a>
 						</div>
