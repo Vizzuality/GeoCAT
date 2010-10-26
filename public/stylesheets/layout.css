@@ -83,13 +83,15 @@ footer div.inner div.right img {float:left; margin:7px 0 0 0;}
 
 /*EDITOR*/
 
-div#wellcome {}
-
+div#wellcome {position:absolute; width:512px; height:109px; top:50%; left:50%; margin:-74px 0 0 -256px; padding:40px 0 0 0; background:url(/images/editor/wellcome_bkg.png); z-index:10000;}
+div#wellcome p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
+div#wellcome p.bottom {font-size:23px; letter-spacing:-1px;}
+div#wellcome p.bottom a {color:#A4D939; text-decoration:underline;}
+div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
 
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
 div#editor a#gbif_id {display:none;}
-
 div#editor ul.editor_list {position:absolute; top:20px; right:50px; width:auto;}
 div#editor ul.editor_list li {float:left;}
 div#editor ul.editor_list li.first {margin:0 20px 0 0;}
@@ -310,6 +312,8 @@ div#map_container div.footer div.left {float:left; margin:15px 0 0 5px;}
 div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(/images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
 div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(/images/editor/redo_button.png) no-repeat 0 0;}
 div#map_container div.footer div.left a:hover {background-position:0 -32px; cursor:pointer;}
+div#map_container div.footer div.left p {opacity:0; float:left; height:32px; padding:0 0 0 5px; margin:0 0 0 10px; background:url(/images/editor/action_left.png) no-repeat 0 0;}
+div#map_container div.footer div.left p span {float:left; padding:7px 11px 7px 6px; height:18px; font:normal 13px Arial; color:#404040; background:url(/images/editor/action_right.png) no-repeat right 0;}
 div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
 div#map_container div.footer div.right a.download {float:left; width:158px; height:32px; background:url(/images/editor/download_button.png) no-repeat 0 0;}
 div#map_container div.footer div.right a.export {float:left; width:84px; margin:0 5px 0 0; height:32px; background:url(/images/editor/export_button.png) no-repeat 0 0;}

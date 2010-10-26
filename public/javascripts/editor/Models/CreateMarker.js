@@ -105,7 +105,9 @@
 	
 		
 		//Marker drag start event
-		google.maps.event.addListener(marker,"dragstart",function(){						
+		google.maps.event.addListener(marker,"dragstart",function(ev){
+			marker.data.init_latlng = ev.latLng;
+									
 			if (click_infowindow!=null) {
 				click_infowindow.hide();
 			}
@@ -134,10 +136,7 @@
 			if (convex_hull.isVisible()) {
 				convex_hull.calculateConvexHull();
 			}
-			var inf = new Object();
-			inf.latitude = ev.latLng.b;
-			inf.longitude = ev.latLng.c;
-			//actions.Do('edit', marker.data.catalogue_id, inf);
+			actions.Do('move', [{catalogue_id: marker.data.catalogue_id, latlng: marker.data.init_latlng}] , [{catalogue_id: marker.data.catalogue_id, latlng: ev.latLng}]);
 		});
 
 

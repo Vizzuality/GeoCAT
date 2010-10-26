@@ -316,7 +316,7 @@
 
 		MarkerTooltip.prototype.makeActive = function() {
 			this.hide();
-			makeActive(this.marker_id,false);
+			makeActive([{marker_id: this.marker_id}],false);
 		}
 
 

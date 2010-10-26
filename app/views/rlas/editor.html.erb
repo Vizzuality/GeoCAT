@@ -22,8 +22,7 @@
 			       <p class="eoo_rating"></p>
 			       <p class="aoo_rating"></p>
 			     </div> -->
-			     
-			
+
 			
 			<div class="delete_all">
 				<h4>DELETE ALL FLICKR POINTS</h4>
@@ -172,26 +171,19 @@
 						   <div id="zoom">
   						    <a class="zoom_in"></a>
   						    <ul>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li></li>
-  						      <li class="selected"></li>
+  						      <li></li><li></li><li></li><li></li><li></li>
+  						      <li></li><li></li><li></li><li></li><li></li>
+  						      <li></li><li></li><li></li><li class="selected"></li>
   						    </ul>
   						    <a class="zoom_out"></a>
   						  </div>
 						</div>
 						<div class="center-map">
 							<div id="map"></div>
+							<div id="wellcome">
+								<p>Hello, start your new assessment</p>
+								<p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Adding some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
+							</div>
 						  <div id="mamufas_map">
 								<div id="loader_map">
 									<img src="/images/editor/map_loader.gif" alt="Map loader" />
@@ -230,6 +222,7 @@
 							<div class="left">
 								<a onclick="javascript: void unDoAction()" class="undo"></a>
 								<a onclick="javascript: void reDoAction()" class="redo"></a>
+								<p id="action_info"><span>Added 8 points</span></p>
 							</div>
 							<div class="right">
 								<a onclick="#" class="export"></a>

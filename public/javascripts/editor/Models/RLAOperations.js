@@ -19,7 +19,6 @@
 			//this.gbif_id_ = gbif_if; 
 			this.upload_data_ = upload_obj;
 			this.markers_ = markers;
-		
 			this.zoom = (map_properties==null)? null : map_properties.zoom;
 			this.center = (map_properties==null)? null : map_properties.center;
 		}
@@ -60,7 +59,7 @@
 					var new_source = new Object();
 					new_source.name = markers[i].data.kind;
 					new_source.points = [];
-					new_source.points.push(markers[i].data.item);
+					new_source.points.push(markers[i].data);
 					obj.sources.push(new_source);
 				}
 			}

@@ -1,6 +1,6 @@
 		
 		/*========================================================================================================================*/
-		/* When the document is loaded. */
+		/* When the document is loaded. Effects with DOM Elements */
 		/*========================================================================================================================*/
 		
 		$(document).ready(function() {
@@ -91,6 +91,14 @@
 					$('div.analysis_data').stop().animate({height: '0'}, 'fast');
 					$('#analysis_help').attr('src','/images/editor/analysis_help.png');
 				}
+			});
+			
+			
+			//Undo-redo action fade when rollout bottom zone
+			$("div.footer").hover(function(ev){
+				//Nothing to do
+			},function(ev){
+				$("#action_info").fadeTo(500,0);
 			});
 			
 			
