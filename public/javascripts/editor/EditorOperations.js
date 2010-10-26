@@ -222,8 +222,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 		function hideMamufasMap(effect) {
 			$('#loader_map').fadeOut(function(ev){
-				$('#mamufas_map').css('background','none');
 				if (effect) {
+					$('#mamufas_map').css('background','none');
 					$('div#import_success').css('width','202px');
 					$('div#import_success').css('height','139px');
 					$('div#import_success').css('margin-top','-70px');
@@ -238,6 +238,8 @@ var global_zIndex = 1;					// Z-index for the markers
 						});
 						$(this).children('img').delay(1000).animate({height:174, width:606, marginTop:122}, 300);
 					});
+				} else {
+					$('#mamufas_map').fadeOut(function(){$('#mamufas_map').css('background','none');});
 				}
 			});
 		}
