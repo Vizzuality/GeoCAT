@@ -110,9 +110,7 @@
 			
 			//change zoom level
 			$('#zoom ul li').click(function(ev){
-				$('#zoom ul li').removeClass('selected');
-				$(this).addClass('selected');
-				var li_index = $('#zoom ul li.selected').index();
+				var li_index = $(this).index();
 				map.setZoom(15-li_index);
 			});
 			
@@ -120,12 +118,6 @@
 			$('a.zoom_in').click(function(ev){
 				if (map.getZoom()<15) {
 					map.setZoom(map.getZoom()+1);
-					var li_index = $('#zoom ul li.selected').index();
-					if (li_index>0) {
-						var li_selected = $('#zoom ul li.selected');
-						$('#zoom ul li.selected').removeClass('selected');
-						$(li_selected).prev().addClass('selected');
-					}
 				}
 			});
 			
@@ -133,12 +125,6 @@
 			$('a.zoom_out').click(function(ev){
 				if (map.getZoom()>2) {
 					map.setZoom(map.getZoom()-1);
-					var li_index = $('#zoom ul li.selected').index();
-					if (li_index<13) {
-						var li_selected = $('#zoom ul li.selected');
-						$('#zoom ul li.selected').removeClass('selected');
-						$(li_selected).next().addClass('selected');
-					}
 				}
 			});
 

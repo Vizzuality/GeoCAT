@@ -1,4 +1,4 @@
-var specie;  /* specie name */
+var specie;  										/*** specie name ***/
 
 var state = 'select';						// State of the map & application
 
@@ -16,6 +16,8 @@ var click_infowindow;						// Gray main infowindow object
 var over_tooltip;								// Tiny over infowindow object
 var delete_infowindow;					// Delete infowindow object
 var polyline_; 									// Polyline create by the user
+var selection_polygon; 					// Selection polygon tool
+var drawing = false;						// Flag to know if user is drawing selection rectangle
 
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
@@ -27,6 +29,7 @@ var _information = [];					// Variable needed for adding markers asynchronously
 
 var global_id = 0; 							// Global id for your own markers
 var global_zIndex = 1;					// Z-index for the markers
+
 
 
 
@@ -54,11 +57,62 @@ var global_zIndex = 1;					// Z-index for the markers
 			actions = new UnredoOperations();								// Un-Re-Do Object
 
 
+
+
+			selection_polygon = new google.maps.Polygon({
+				      strokeColor: "#000000",
+				      strokeOpacity: 1,
+				      strokeWeight: 1,
+				      fillColor: "#FFFFFF",
+				      fillOpacity: 0
+				    });
+
+
+
+
+			//Click map event
 			google.maps.event.addListener(map,"click",function(event){
 				if (state == 'add') {
 					addMarker(event.latLng,null,false);
 				}
+				
+				if (state == "selection") {
+					if (selection_polygon.getPath().b.length==0 || !drawing) {
+						selection_polygon.setOptions({fillOpacity: 0});
+						drawing = true;
+						selection_polygon.setPath([event.latLng,event.latLng,event.latLng,event.latLng]);
+						selection_polygon.setMap(map);
+						google.maps.event.addListener(map,"mousemove",function(event){
+							if (state == "selection") {
+								if (selection_polygon.getPath().b.length!=0) {
+									selection_polygon.setPath([
+										selection_polygon.getPath().b[0],
+										new google.maps.LatLng(selection_polygon.getPath().b[0].b,event.latLng.c),
+										event.latLng,
+										new google.maps.LatLng(event.latLng.b,selection_polygon.getPath().b[0].c),
+										selection_polygon.getPath().b[0]]);
+								}
+							}
+						});
+						google.maps.event.addListener(selection_polygon,'click',function(evt){
+							drawing = false;
+							selection_polygon.setOptions({fillOpacity: 0.40});
+						  google.maps.event.clearListeners(map, 'mousemove');
+							google.maps.event.clearListeners(selection_polygon, 'click');
+						});
+					} else {
+						if (drawing) {
+							drawing = false;
+							selection_polygon.setOptions({fillOpacity: 0.40});
+						  google.maps.event.clearListeners(map, 'mousemove');
+							google.maps.event.clearListeners(selection_polygon, 'click');
+						}
+					}
+				}
 			});
+
+			
+			
 			
 			
 			//Change cursor depending on application state
@@ -73,7 +127,13 @@ var global_zIndex = 1;					// Z-index for the markers
 						default: 					map.setOptions({draggableCursor: "url(/images/editor/default_cursor.png),default"});	
 					}
 			});
+			
+			//Zoom change = Zoom control change
+			google.maps.event.addListener(map,"zoom_changed",function(event){moveZoomControl();});			
 		
+			
+			
+			
 			
 			
 			
@@ -103,6 +163,7 @@ var global_zIndex = 1;					// Z-index for the markers
 
 			//if the application comes through an upload file
 			if ($('#upload_data').text()!='') {
+				$('#wellcome').hide();
 				var upload_string = $('#upload_data').text();
 				var upload_information = JSON.parse(upload_string);
 				//show new mamufas that it covers all the stage?
@@ -110,6 +171,16 @@ var global_zIndex = 1;					// Z-index for the markers
 			}
 
 		});
+	
+	
+	
+	
+	
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+																								/* GENERAL APP STUFF.	 */
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
 	
 	
 	
@@ -121,13 +192,14 @@ var global_zIndex = 1;					// Z-index for the markers
 			$("div.left a.add").removeClass('selected');
 			$("div.left a.remove").removeClass('selected');
 			$("div.left a.selection").removeClass('selected');
-
-			// if (status=="selection") {
-			// 				map.draggable = false;
-			// 			} else {
-			// 				map.draggable = true;
-			// 			}
 			$("div.left a."+status).addClass('selected');
+			
+			//Remove selection tool addons
+			google.maps.event.clearListeners(map, 'mousemove');
+			selection_polygon.setPath([]);
+			selection_polygon.setMap(null);
+
+			
 			state = status;
 			activeMarkersProperties();
 		}
@@ -161,43 +233,11 @@ var global_zIndex = 1;					// Z-index for the markers
 			});
 		}
 	
-	
-	
-	
-		/*========================================================================================================================*/
-		/* Get data from api service thanks to the name (flickr,gbif,...etc). */
-		/*========================================================================================================================*/
-		function callSourceService(kind,element) {
-			var url;
-			switch(kind) {
-				case 'add_flickr': 	url = "/search/flickr/";
-													 	break;
-				case 'add_gbif':  	url= "/search/gbif/";
-														break;
-				default: 						url ="/";
-			}
-		
-			$.getJSON(url + specie.replace(' ','+'),
-					function(result){
-						switch(kind) {
-							case 'add_flickr': 	flickr_founded.push(result[0]);
-																 	break;
-							case 'add_gbif':  	gbif_founded.push(result[0]);
-																	break;
-							default: 						null;
-						}
-						$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
-						onLoadedSource(element,result[0].points.length);
-					}
-			);
-		
-		}
-	
+
 
 		/*========================================================================================================================*/
 	  /* Change state loading source to loaded source. */
 		/*========================================================================================================================*/
-	  
 		function onLoadedSource(element, total) {
 	    $(element).find('span p').addClass('loaded');
 			if (total != 0) 
@@ -208,7 +248,6 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Show loading map stuff. */
 		/*========================================================================================================================*/
-		
 		function showMamufasMap() {
 			$('#mamufas_map').css('background','url(/images/editor/mamufas_bkg.png) repeat 0 0');
 			$('#mamufas_map').fadeIn();
@@ -219,7 +258,6 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Hide loading map stuff with YouTube effect (false if you dont want the effect). */
 		/*========================================================================================================================*/
-		
 		function hideMamufasMap(effect) {
 			$('#loader_map').fadeOut(function(ev){
 				if (effect) {
@@ -250,7 +288,6 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Reset properties of sources window every time you open it. */
 		/*========================================================================================================================*/	
-		
 		function resetSourcesProperties() {
 			flickr_founded = [];
 			gbif_founded = [];
@@ -276,12 +313,9 @@ var global_zIndex = 1;					// Z-index for the markers
 	
 
 
-
-
 		/*========================================================================================================================*/
 		/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). */
 		/*========================================================================================================================*/
-		
 		function addSourceToMap(information,getBound, saveAction) {
 				showMamufasMap();
 				var marker_kind;
@@ -306,47 +340,13 @@ var global_zIndex = 1;					// Z-index for the markers
 					
 					actions.Do('add', null, _information);
 					setTimeout("asynAddMarker("+0+","+total+","+getBound+","+ saveAction+")", 0);
-
 		}
 		
 		
-		/*========================================================================================================================*/
-		/* Recursive service for adding markers. */
-		/*========================================================================================================================*/
-		
-		function asynAddMarker(i,total,_bounds, _saveAction) {
-			if(i < total){
-				(_information[i].removed)?null:total_points.add(_information[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
- 				
-				bounds.extend(new google.maps.LatLng(_information[i].latitude,_information[i].longitude));			
-				var marker = CreateMarker(new google.maps.LatLng(_information[i].latitude,_information[i].longitude), _information[i].kind, true, true, _information[i], (_information[i].removed)?null:map);
- 				_markers[marker.data.catalogue_id] = marker;
-				
-				if (_information[i].active && !_information[i].removed && convex_hull.isVisible()) {
-					convex_hull.addPoint(marker);
-				}
 
-	      i++;
-	      setTimeout("asynAddMarker("+i+","+total+","+ _bounds+","+_saveAction+")", 0);
-	    } else {
-				addSourceToList(_information[total-1].kind);
-				_information = [];
-				calculateMapPoints();
-				resizeBarPoints();
-				hideMamufasMap(true);
-				if (_bounds) {
-	 				map.fitBounds(bounds);
-				}
-	    }
-		}
-		
-		
-		
-		
 		/*========================================================================================================================*/
 		/* Add the source to the list if it doesn't exist. */
 		/*========================================================================================================================*/
-		
 		function addSourceToList(kind) {
 			switch (kind) {
 				case 'gbif': 		if (!$('#GBIF_points').length) {
@@ -368,7 +368,6 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Open Delete container. */
 		/*========================================================================================================================*/
-		
 		function openDeleteAll(kind) {
 			var position = $('li a.'+kind).offset();
 			$('div.delete_all').css('top',position.top - 58 + 'px');
@@ -397,7 +396,6 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Close Delete container. */
 		/*========================================================================================================================*/
-		
 		function closeDeleteAll() {
 			$('div.delete_all').fadeOut();
 			$('a.delete_all').removeClass('active');
@@ -406,43 +404,17 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 		
 		/*========================================================================================================================*/
-		/* Delete all the markers. */
-		/*========================================================================================================================*/
-		
-		function deleteAll(type) {			
-			for (var i in _markers) {
-				if (_markers[i].data.kind == type && _markers[i].data.removed == false) {
-					total_points.deduct(type);
-					_markers[i].data.removed = true;
-					_markers[i].setMap(null);
-				}
-			}
-			closeDeleteAll();
-			
-			resizeBarPoints();
-			calculateMapPoints();
-			calculateSourcePoints(_markers[i].data.kind);
-		}	
-		
-		
-
-
-		
-		/*========================================================================================================================*/
 		/* Calculate number of points in the map, and show in the sources container. */
 		/*========================================================================================================================*/
-		
 		function calculateMapPoints() {
 			$('div.sources span p.count_points').text( total_points.total() + ' POINTS');
 		}
 		
 		
 		
-		
 		/*========================================================================================================================*/
 		/* Calculate number of points for each source. */
 		/*========================================================================================================================*/
-		
 		function calculateSourcePoints(kind) {
 			switch (kind) {
 				case 'gbif': 		$('#GBIF_points span').text('GBIF Points ('+ total_points.get(kind) +')');
@@ -452,13 +424,11 @@ var global_zIndex = 1;					// Z-index for the markers
 				default: 				$('#our_points span').text('Your Points ('+ total_points.get(kind) +')');
 			}
 		}
-		
 
 		
 		/*========================================================================================================================*/
 		/* Create different bars thanks to number of points of each sources. */
 		/*========================================================================================================================*/
-		
 		function resizeBarPoints() {
 				
 			if (total_points.get('flickr')!=0) {
@@ -524,38 +494,95 @@ var global_zIndex = 1;					// Z-index for the markers
 		}
 		
 		
-
 		/*========================================================================================================================*/
-		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
+		/* Place correctly zoom control with map zoom. */
+		/*========================================================================================================================*/
+		function moveZoomControl() {
+			$('#zoom ul li').removeClass('selected');
+			var actual_zoom = map.getZoom();
+			if (actual_zoom<3) {
+				$('#zoom ul li:eq(13)').addClass('selected');
+			} else if (actual_zoom>14) {
+				$('#zoom ul li:eq(0)').addClass('selected');
+			} else {
+				$('#zoom ul li:eq('+(15-actual_zoom)+')').addClass('selected');
+			}
+		}
+		
+
+
+
+		
+		
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+																								/* REQUESTS STUFF.	 */
+		/*========================================================================================================================*/
 		/*========================================================================================================================*/
 		
-		function downloadRLA() {
-			var map_inf = new Object();
-			map_inf.zoom = map.getZoom();
-			map_inf.center = map.getCenter();
-			var rla = new RLA(specie,_markers,map_inf,null);
-			rla.download();		
+		
+		/*========================================================================================================================*/
+		/* Get data from api service thanks to the name (flickr,gbif,...etc). */
+		/*========================================================================================================================*/
+		function callSourceService(kind,element) {
+			var url;
+			switch(kind) {
+				case 'add_flickr': 	url = "/search/flickr/";
+													 	break;
+				case 'add_gbif':  	url= "/search/gbif/";
+														break;
+				default: 						url ="/";
+			}
+		
+			$.getJSON(url + specie.replace(' ','+'),
+					function(result){
+						switch(kind) {
+							case 'add_flickr': 	flickr_founded.push(result[0]);
+																 	break;
+							case 'add_gbif':  	gbif_founded.push(result[0]);
+																	break;
+							default: 						null;
+						}
+						$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
+						onLoadedSource(element,result[0].points.length);
+					}
+			);
 		}
 		
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
 		/*========================================================================================================================*/
-		/* Restore the application thanks to the file you have uploaded. */
+		/*========================================================================================================================*/
+																								/* MARKERS STUFF.	 */
+		/*========================================================================================================================*/
 		/*========================================================================================================================*/
 		
-		function uploadRLA(upload_data) {
-			var rla = new RLA(null,null,null,upload_data);
-			var app_data = rla.upload();
-			for (var i=0; i<app_data.length; i++) {
-				if (i!=0) {
-					addSourceToMap(app_data[i],false,false);
-				} else {
-					map.setCenter(new google.maps.LatLng(0,0));
-					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
-					map.setZoom(parseInt(app_data[0].zoom));				
+	
+		/*========================================================================================================================*/
+		/* Delete all the markers. */
+		/*========================================================================================================================*/
+		function deleteAll(type) {			
+			for (var i in _markers) {
+				if (_markers[i].data.kind == type && _markers[i].data.removed == false) {
+					total_points.deduct(type);
+					_markers[i].data.removed = true;
+					_markers[i].setMap(null);
 				}
-			}				
+			}
+			closeDeleteAll();
+			
+			resizeBarPoints();
+			calculateMapPoints();
+			calculateSourcePoints(_markers[i].data.kind);
 		}
 		
 		
@@ -563,7 +590,6 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Remove one marker from map and the marker information in its data (gbif, flickr or own) as well. */
 		/*========================================================================================================================*/
-		
 		function removeMarker(marker_id) {
 
 			switch (_markers[marker_id].data.kind) {
@@ -591,12 +617,9 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 
 		
-		
-		
 		/*========================================================================================================================*/
 		/* Add new marker to the map. */
 		/*========================================================================================================================*/
-		
 		function addMarker(latlng, item_data , fromAction) {
 
 				global_id++;
@@ -634,11 +657,41 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 		
 		
+		/*========================================================================================================================*/
+		/* Recursive service for adding markers. */
+		/*========================================================================================================================*/
+		function asynAddMarker(i,total,_bounds, _saveAction) {
+			if(i < total){
+				(_information[i].removed)?null:total_points.add(_information[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
+ 				
+				bounds.extend(new google.maps.LatLng(_information[i].latitude,_information[i].longitude));			
+				var marker = CreateMarker(new google.maps.LatLng(_information[i].latitude,_information[i].longitude), _information[i].kind, true, true, _information[i], (_information[i].removed)?null:map);
+ 				_markers[marker.data.catalogue_id] = marker;
+				
+				if (_information[i].active && !_information[i].removed && convex_hull.isVisible()) {
+					convex_hull.addPoint(marker);
+				}
+
+	      i++;
+	      setTimeout("asynAddMarker("+i+","+total+","+ _bounds+","+_saveAction+")", 0);
+	    } else {
+				addSourceToList(_information[total-1].kind);
+				_information = [];
+				calculateMapPoints();
+				resizeBarPoints();
+				hideMamufasMap(true);
+				if (_bounds) {
+	 				map.fitBounds(bounds);
+				}
+	    }
+		}
+		
+		
+		
 		
 		/*========================================================================================================================*/
 		/* Put several (or only one) markers active or not. */
 		/*========================================================================================================================*/
-		
 		function makeActive (markers_id, fromAction) {
 			for (var i=0; i<markers_id.length; i++) {
 				var marker_id = markers_id[i].marker_id;
@@ -706,6 +759,20 @@ var global_zIndex = 1;					// Z-index for the markers
 		}
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+																								/* ALGORITHMS STUFF.	 */
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+		
+		
 
 		/*========================================================================================================================*/
 		/* Open Convex Hull window and show the convex hull polygon.	 */
@@ -733,6 +800,12 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 		
 		
+		
+		
+		
+		
+		
+		
 		/*========================================================================================================================*/
 		/*========================================================================================================================*/
 																								/* UNDO-REDO STUFF.	 */
@@ -740,19 +813,25 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 
 		
-	
+		/*========================================================================================================================*/
+		/* Undo action.	 */
+		/*========================================================================================================================*/
 		function unDoAction() {
 			actions.Undo();
 		}
 		
 		
+		/*========================================================================================================================*/
+		/* Redo action.	 */
+		/*========================================================================================================================*/
 		function reDoAction() {
 			actions.Redo();
 		}
 		
 		
-		
-		
+		/*========================================================================================================================*/
+		/* Remove markers from an action performed.	 */
+		/*========================================================================================================================*/
 		function removeMarkersfromAction(restore_info) {
 			showMamufasMap();
 			_information = restore_info;
@@ -760,6 +839,9 @@ var global_zIndex = 1;					// Z-index for the markers
 		}
 		
 		
+		/*========================================================================================================================*/
+		/* Recursive function for remove markers.	 */
+		/*========================================================================================================================*/
 		function removeMarkersfromActionAsync(count) {
 			if (_information.length>count) {
 				_markers[_information[count].marker_id].data.removed = true;
@@ -780,13 +862,20 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 		
 		
-		
+		/*========================================================================================================================*/
+		/* Add markers from an action performed.	 */
+		/*========================================================================================================================*/		
 		function addMarkersfromAction(restore_info) {
 				showMamufasMap();
 				_information = restore_info;
 				addMarkersfromActionAsync(0);
 		}
 		
+		
+		
+		/*========================================================================================================================*/
+		/* Recursive function for add markers.	 */
+		/*========================================================================================================================*/
 		function addMarkersfromActionAsync(count) {
 			if (_information.length>count) {
 				_markers[_information[count].marker_id].data.removed = false;
@@ -807,7 +896,9 @@ var global_zIndex = 1;					// Z-index for the markers
 		}
 		
 		
-		
+		/*========================================================================================================================*/
+		/* Move marker from previous action performed.	 */
+		/*========================================================================================================================*/
 		function moveMarkerfromAction(marker_id, latlng) {
 			_markers[marker_id].data.longitude = latlng.c;
 			_markers[marker_id].data.latitude = latlng.b;
@@ -816,6 +907,58 @@ var global_zIndex = 1;					// Z-index for the markers
 				convex_hull.calculateConvexHull();
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+																								/* DOWNLOAD/UPLOAD RLA STUFF.	 */
+		/*========================================================================================================================*/
+		/*========================================================================================================================*/
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
+		/*========================================================================================================================*/
+		
+		function downloadRLA() {
+			var map_inf = new Object();
+			map_inf.zoom = map.getZoom();
+			map_inf.center = map.getCenter();
+			var rla = new RLA(specie,_markers,map_inf,null);
+			rla.download();		
+		}
+		
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Restore the application thanks to the file you have uploaded. */
+		/*========================================================================================================================*/
+		
+		function uploadRLA(upload_data) {
+			var rla = new RLA(null,null,null,upload_data);
+			var app_data = rla.upload();
+			for (var i=0; i<app_data.length; i++) {
+				if (i!=0) {
+					addSourceToMap(app_data[i],false,false);
+				} else {
+					map.setCenter(new google.maps.LatLng(0,0));
+					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
+					map.setZoom(parseInt(app_data[0].zoom));				
+				}
+			}				
+		}
+		
 
 		
 		

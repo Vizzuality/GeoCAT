@@ -3,9 +3,6 @@
 	/*  																																																												*/
 	/*				RLA => Class to download and upload .rla files.																																		*/
 	/*						*Params ->	specie: name of the specie.																																				*/
-	/*												flickr: flickr data information.																																	*/
-	/*												gbif: gbif data information.																																			*/
-	/*												own: your own data information.																																		*/
 	/*												markers: whole markers of the map.																																*/
 	/*  											map_properties: zoom and center of the map.																												*/
 	/*												upload_obj: only if you want to make an upload of this file have to be distinct null.							*/	
@@ -16,7 +13,6 @@
 
 		function RLA (specie, markers, map_properties, upload_obj) {
 			this.specie_ = specie;
-			//this.gbif_id_ = gbif_if; 
 			this.upload_data_ = upload_obj;
 			this.markers_ = markers;
 			this.zoom = (map_properties==null)? null : map_properties.zoom;
@@ -30,7 +26,6 @@
 		RLA.prototype.download = function() {
 		  var dataset = new Object();
 			dataset.scientificname = this.specie_;
-			//dataset.gbif_id = this.gbif_id_;
 			dataset.zoom = this.zoom;
 			dataset.center = this.center;
 			dataset.sources = [];
@@ -49,7 +44,7 @@
 				var find = false;
 				for (var j=0; j<obj.sources.length; j++) {
 					if (obj.sources[j].name == markers[i].data.kind) {
-						obj.sources[j].points.push(markers[i].data.item);
+						obj.sources[j].points.push(markers[i].data);
 						find = true;
 						break;
 					}

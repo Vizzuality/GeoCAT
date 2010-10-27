@@ -1,8 +1,12 @@
 
-			/* kind: type of action -> Edit || Remove || Add */
-				/*	Remove: marker_id, data */
-				/*	Add: marker_id, data */
-				/*	Edit:  Marker_id, what, new_value */
+			/*==========================================================================================================================*/
+			/*  																																																												*/
+			/*							UnredoOperations => Class to perform undo-redo actions.																											*/
+			/*																																																													*/
+			/*											(*Kind of acions: ADD, REMOVE, MOVE, VISIBLE, EDIT*)																								*/	
+			/*  																																																												*/
+			/*==========================================================================================================================*/
+
 
 			function UnredoOperations () {
 				this.position = 0;
@@ -11,12 +15,14 @@
 			
 			
 			
+			/*========================================================================================================================*/
+			/* Function so save the performed action in the actions Array. 	*/
+			/*========================================================================================================================*/
 			UnredoOperations.prototype.Do = function(kind,prev_data,new_data) {
 				var obj = new Object();
 				var data_obj;
 				obj.kind = kind;
 				obj.data = [];
-				
 				
 				//add all the points changed
 				if (new_data!=null) {
@@ -30,7 +36,6 @@
 						obj.data.push(data_obj);
 					}
 				}
-
 				
 				//New action, delete next actions made before
 				if (this.position<(this.actions.length-1)) {
@@ -44,7 +49,9 @@
 			
 			
 			
-			
+			/*========================================================================================================================*/
+			/* Redo function. */
+			/*========================================================================================================================*/
 			UnredoOperations.prototype.Redo = function() {
 				if (this.actions.length!=this.position) {
 					switch(this.actions[this.position].kind) {
@@ -75,11 +82,12 @@
 			
 			
 			
-			
+			/*========================================================================================================================*/
+			/* Undo function. */
+			/*========================================================================================================================*/
 			UnredoOperations.prototype.Undo = function() {
 				if (this.position!=0) {
 					this.position--;
-					
 					switch(this.actions[this.position].kind) {
 						case 'remove': 	addMarkersfromAction(this.actions[this.position].data);
 														$('#action_info span').text('Added ' + this.actions[this.position].data.length + ((this.actions[this.position].data.length==1)?' point':' points'));
@@ -107,7 +115,9 @@
 			
 			
 			
-			
+			/*========================================================================================================================*/
+			/* Function to controle via console the re-un-do action objects. */
+			/*========================================================================================================================*/
 			UnredoOperations.prototype.now = function() {
 				console.log('position: ' + this.position);
 				console.log('actions: ');
