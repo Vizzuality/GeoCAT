@@ -14,6 +14,7 @@ var actions;										// UnredoOperations model Object for actions made by the u
 
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
+var over_polygon_tooltip;				// Tiny over polygon object
 var delete_infowindow;					// Delete infowindow object
 var polyline_; 									// Polyline create by the user
 var selection_polygon; 					// Selection polygon tool
@@ -21,6 +22,7 @@ var drawing = false;						// Flag to know if user is drawing selection rectangle
 
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
+var over_polygon = false				// True if cursor is over selection polygon, false opposite
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 var _markers = [];							// All the markers of the map (Associative array)
@@ -60,12 +62,12 @@ var global_zIndex = 1;					// Z-index for the markers
 
 
 			selection_polygon = new google.maps.Polygon({
-				      strokeColor: "#000000",
-				      strokeOpacity: 1,
-				      strokeWeight: 1,
-				      fillColor: "#FFFFFF",
-				      fillOpacity: 0
-				    });
+	      strokeColor: "#000000",
+	      strokeOpacity: 1,
+	      strokeWeight: 1,
+	      fillColor: "#FFFFFF",
+	      fillOpacity: 0
+	    });
 
 
 
@@ -82,6 +84,8 @@ var global_zIndex = 1;					// Z-index for the markers
 						drawing = true;
 						selection_polygon.setPath([event.latLng,event.latLng,event.latLng,event.latLng]);
 						selection_polygon.setMap(map);
+						google.maps.event.clearListeners(selection_polygon, 'mouseover');
+						google.maps.event.clearListeners(selection_polygon, 'mouseout');
 						google.maps.event.addListener(map,"mousemove",function(event){
 							if (state == "selection") {
 								if (selection_polygon.getPath().b.length!=0) {
@@ -99,6 +103,28 @@ var global_zIndex = 1;					// Z-index for the markers
 							selection_polygon.setOptions({fillOpacity: 0.40});
 						  google.maps.event.clearListeners(map, 'mousemove');
 							google.maps.event.clearListeners(selection_polygon, 'click');
+							
+							if (over_polygon_tooltip!=null) {
+								over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
+							} else {
+								over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+							}
+							
+							google.maps.event.addListener(selection_polygon,'mouseover',function(evt){
+								if (over_polygon_tooltip!=null) {
+									over_polygon_tooltip.show();
+								}
+								over_polygon = true;
+							});
+							
+							google.maps.event.addListener(selection_polygon,'mouseout',function(evt){
+								if (over_polygon_tooltip!=null) {
+									over_polygon_tooltip.hide();
+								}
+								over_polygon = false;
+							});
+							
+							
 						});
 					} else {
 						if (drawing) {
@@ -106,6 +132,13 @@ var global_zIndex = 1;					// Z-index for the markers
 							selection_polygon.setOptions({fillOpacity: 0.40});
 						  google.maps.event.clearListeners(map, 'mousemove');
 							google.maps.event.clearListeners(selection_polygon, 'click');
+							over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+							
+							if (over_polygon_tooltip!=null) {
+								over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
+							} else {
+								over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+							}
 						}
 					}
 				}
@@ -131,33 +164,7 @@ var global_zIndex = 1;					// Z-index for the markers
 			//Zoom change = Zoom control change
 			google.maps.event.addListener(map,"zoom_changed",function(event){moveZoomControl();});			
 		
-			
-			
-			
-			
-			
-			
-			
-			// google.maps.event.addListener(map,"dragstart",function(event){
-			// 	if (state == 'selection') {
-			// 		//console.log(event);
-			// 		
-			// 	}
-			// });
-			// 
-			// 
-			// google.maps.event.addListener(map,"drag",function(event){
-			// 	if (state == 'selection') {
-			// 	}
-			// });
-			// 
-			// 
-			// 
-			// google.maps.event.addListener(map,"dragend",function(event){
-			// 	if (state == 'selection') {
-			// 		//console.log(event);
-			// 	}
-			// });
+
 			
 			
 
@@ -196,10 +203,8 @@ var global_zIndex = 1;					// Z-index for the markers
 			
 			//Remove selection tool addons
 			google.maps.event.clearListeners(map, 'mousemove');
-			selection_polygon.setPath([]);
-			selection_polygon.setMap(null);
+			removePolygon();
 
-			
 			state = status;
 			activeMarkersProperties();
 		}
@@ -509,6 +514,21 @@ var global_zIndex = 1;					// Z-index for the markers
 			}
 		}
 		
+		
+		
+		/*========================================================================================================================*/
+		/* Change application to save or unsave (0 -> Unsave , 1 -> Save). */
+		/*========================================================================================================================*/
+		function changeAppToSave(kind) {
+			if (kind==0) {
+				$('div.header h1').removeClass('saved');
+				$('div.header h1 sup').text('(unsaved)');
+			} else {
+				$('div.header h1').addClass('saved');
+				$('div.header h1 sup').text('(saved)');
+			}
+		}
+		
 
 
 
@@ -568,6 +588,55 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 	
 		/*========================================================================================================================*/
+		/* Remove polygon from map. */
+		/*========================================================================================================================*/
+		function removePolygon() {			
+			selection_polygon.setPath([]);
+			selection_polygon.setMap(null);
+		}
+		
+	
+	
+	
+		/*========================================================================================================================*/
+		/* Return markers what contains the selection polygon. */
+		/*========================================================================================================================*/
+		function markersInPolygon() {			
+			var markers_polygon = [];
+			for (var i in _markers) {
+				if (!_markers[i].data.removed && Contains(selection_polygon,_markers[i].getPosition())) {
+					markers_polygon.push(_markers[i].data);
+				}
+			}
+			return markers_polygon;
+		}
+		
+		
+		/*========================================================================================================================*/
+		/* Return true if a marker is into the polygon else false. */
+		/*========================================================================================================================*/
+		var Contains = function(polygon, point) { 
+		  var j=0; 
+		  var oddNodes = false; 
+		  var x = point.lng(); 
+		  var y = point.lat(); 
+		  for (var i=0; i < polygon.getPath().getLength(); i++) { 
+		    j++; 
+		    if (j == polygon.getPath().getLength()) {j = 0;} 
+		    if (((polygon.getPath().getAt(i).lat() < y) && (polygon.getPath().getAt(j).lat() >= y)) || ((polygon.getPath().getAt(j).lat() < y) && (polygon.getPath().getAt(i).lat() >= y))) { 
+		      if ( polygon.getPath().getAt(i).lng() + (y - polygon.getPath().getAt(i).lat()) /  (polygon.getPath().getAt(j).lat()-polygon.getPath().getAt(i).lat()) *  (polygon.getPath().getAt(j).lng() - polygon.getPath().getAt(i).lng())<x ) { 
+		        oddNodes = !oddNodes; 
+		      } 
+		    } 
+		  } 
+		  return oddNodes; 
+		};
+
+	
+	
+	
+	
+		/*========================================================================================================================*/
 		/* Delete all the markers. */
 		/*========================================================================================================================*/
 		function deleteAll(type) {			
@@ -588,31 +657,34 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 
 		/*========================================================================================================================*/
-		/* Remove one marker from map and the marker information in its data (gbif, flickr or own) as well. */
+		/* Remove one or several markers from map and the marker information of its data (gbif, flickr or own) as well. */
 		/*========================================================================================================================*/
-		function removeMarker(marker_id) {
+		function removeMarkers(remove_markers) {
+			
+			for (var i=0; i<remove_markers.length; i++) {
+				var marker_id = remove_markers[i].catalogue_id;
+				switch (_markers[marker_id].data.kind) {
+					case 'gbif': 		total_points.deduct('gbif');
+													break;
+					case 'flickr': 	total_points.deduct('flickr');
+													break;
+					default: 				total_points.deduct('your');
+				}
 
-			switch (_markers[marker_id].data.kind) {
-				case 'gbif': 		total_points.deduct('gbif');
-												break;
-				case 'flickr': 	total_points.deduct('flickr');
-												break;
-				default: 				total_points.deduct('your');
+				_markers[marker_id].data.removed = true;
+				_markers[marker_id].setMap(null);
+
+
+
+				if (convex_hull.isVisible()) {
+					convex_hull.deductPoint(marker_id);
+				}	
+
+				resizeBarPoints();
+				calculateMapPoints();
+				calculateSourcePoints(_markers[marker_id].data.kind);
 			}
-			
-			_markers[marker_id].data.removed = true;
-			_markers[marker_id].setMap(null);
-			
-			actions.Do('remove', null, [_markers[marker_id].data]);
-			
-
-			if (convex_hull.isVisible()) {
-				convex_hull.deductPoint(marker_id);
-			}	
-			
-			resizeBarPoints();
-			calculateMapPoints();
-			calculateSourcePoints(_markers[marker_id].data.kind);
+			actions.Do('remove', null, remove_markers);
 		}
 		
 
@@ -694,7 +766,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function makeActive (markers_id, fromAction) {
 			for (var i=0; i<markers_id.length; i++) {
-				var marker_id = markers_id[i].marker_id;
+				var marker_id = markers_id[i].catalogue_id;
 				switch (_markers[marker_id].data.kind) {
 					case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
 																									new google.maps.Size(25, 25),
@@ -717,10 +789,6 @@ var global_zIndex = 1;					// Z-index for the markers
 				_markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);		
 				_markers[marker_id].data.active = !_markers[marker_id].data.active;
 				
-				//If the action doesnt come from the UnredoOperations object
-				if (!fromAction) {
-					actions.Do('active', null, [{catalogue_id: marker_id, active: _markers[marker_id].data.active}]);
-				}
 				
 				// Add or deduct the marker from _active_markers
 				if (convex_hull.isVisible()) {
@@ -730,6 +798,11 @@ var global_zIndex = 1;					// Z-index for the markers
 						convex_hull.addPoint(_markers[marker_id]);
 					}
 				}
+			}
+			
+			//If the action doesnt come from the UnredoOperations object
+			if (!fromAction) {
+				actions.Do('active', null, markers_id);
 			}
 		}
 		
@@ -818,6 +891,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function unDoAction() {
 			actions.Undo();
+			removePolygon();
 		}
 		
 		
@@ -826,6 +900,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function reDoAction() {
 			actions.Redo();
+			removePolygon();
 		}
 		
 		
@@ -844,8 +919,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function removeMarkersfromActionAsync(count) {
 			if (_information.length>count) {
-				_markers[_information[count].marker_id].data.removed = true;
-				_markers[_information[count].marker_id].setMap(null);
+				_markers[_information[count].catalogue_id].data.removed = true;
+				_markers[_information[count].catalogue_id].setMap(null);
 				total_points.deduct(_information[count].new_.kind);
 				resizeBarPoints();
 				calculateMapPoints();
@@ -878,8 +953,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function addMarkersfromActionAsync(count) {
 			if (_information.length>count) {
-				_markers[_information[count].marker_id].data.removed = false;
-				_markers[_information[count].marker_id].setMap(map);
+				_markers[_information[count].catalogue_id].data.removed = false;
+				_markers[_information[count].catalogue_id].setMap(map);
 				total_points.add(_information[count].new_.kind);
 				addSourceToList(_information[count].new_.kind);
 				resizeBarPoints();
@@ -958,12 +1033,3 @@ var global_zIndex = 1;					// Z-index for the markers
 				}
 			}				
 		}
-		
-
-		
-		
-		
-		
-		
-
-

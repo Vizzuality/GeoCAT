@@ -120,7 +120,7 @@
 
 		DeleteInfowindow.prototype.deleteMarker = function() {
 			this.hide();
-			removeMarker(this.marker_id);
+			removeMarkers([{catalogue_id: this.marker_id}]);
 		}
 
 

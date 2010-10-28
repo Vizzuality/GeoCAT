@@ -19,6 +19,7 @@
 			/* Function so save the performed action in the actions Array. 	*/
 			/*========================================================================================================================*/
 			UnredoOperations.prototype.Do = function(kind,prev_data,new_data) {
+				
 				var obj = new Object();
 				var data_obj;
 				obj.kind = kind;
@@ -28,7 +29,7 @@
 				if (new_data!=null) {
 					for (var i=0; i<new_data.length; i++) {
 						data_obj = new Object();
-						data_obj.marker_id = new_data[i].catalogue_id;
+						data_obj.catalogue_id = new_data[i].catalogue_id;
 						data_obj.new_ = new_data[i];
 						if (prev_data!=null) {
 							data_obj.old_ = prev_data[i];
@@ -45,6 +46,10 @@
 				//Add new action to actions array and change one position
 				this.actions[this.position] = obj;
 				this.position++;
+				
+				//Change application to unsave - new action
+				changeAppToSave(0);
+				
 			}
 			
 			
@@ -61,7 +66,7 @@
 						case 'add': 		addMarkersfromAction(this.actions[this.position].data);
 														$('#action_info span').text('Added ' + this.actions[this.position].data.length + ((this.actions[this.position].data.length==1)?' point':' points'));
 														break;	
-						case 'move': 		moveMarkerfromAction(this.actions[this.position].data[0].marker_id,this.actions[this.position].data[0].new_.latlng);
+						case 'move': 		moveMarkerfromAction(this.actions[this.position].data[0].catalogue_id,this.actions[this.position].data[0].new_.latlng);
 														$('#action_info span').text('Moved point to ('+this.actions[this.position].data[0].new_.latlng.b+','+this.actions[this.position].data[0].new_.latlng.c+')');
 														break;
 						case 'active':  makeActive(this.actions[this.position].data,true);
@@ -74,6 +79,7 @@
 						default: 				null;
 					}
 					this.position++;
+					changeAppToSave(0);
 				}	else {
 					$('#action_info span').text('There are no actions to redo');
 				}
@@ -95,18 +101,19 @@
 						case 'add': 		removeMarkersfromAction(this.actions[this.position].data);
 														$('#action_info span').text('Removed ' + this.actions[this.position].data.length + ((this.actions[this.position].data.length==1)?' point':' points'));
 														break;
-						case 'move': 		moveMarkerfromAction(this.actions[this.position].data[0].marker_id,this.actions[this.position].data[0].old_.latlng);
+						case 'move': 		moveMarkerfromAction(this.actions[this.position].data[0].catalogue_id,this.actions[this.position].data[0].old_.latlng);
 														$('#action_info span').text('Returned point to ('+this.actions[this.position].data[0].old_.latlng.b+','+this.actions[this.position].data[0].old_.latlng.c+')');
 														break;
 						case 'active': 	makeActive(this.actions[this.position].data,true);
 														if (this.actions[this.position].data.length==1) {
-															$('#action_info span').text('The point is '+((!this.actions[this.position].data[0].new_.active)?'active':'no active')+' now');
+															$('#action_info span').text('The point is '+((!this.actions[this.position].data[0].new_.active)?'no active':'active')+' now');
 														} else {
-															$('#action_info span').text(this.actions[this.position].data.length+' points are '+((!this.actions[this.position].data[0].new_.active)?'active':'no active')+' now');
+															$('#action_info span').text(this.actions[this.position].data.length+' points are '+((!this.actions[this.position].data[0].new_.active)?'no active':'active')+' now');
 														}
 														break;			
 						default: 				null;
 					}
+					changeAppToSave(0);
 				} else {
 					$('#action_info span').text('There are no actions to undo');
 				}

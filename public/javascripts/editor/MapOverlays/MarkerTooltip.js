@@ -43,6 +43,7 @@
 				close_button.style.background = "url(/images/editor/close_infowindow.png) no-repeat 0 0";
 				$(close_button).text('');
 				$(close_button).click(function(ev){
+					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 					me.hide();
 				});
 				$(close_button).hover(function(ev){
@@ -174,6 +175,7 @@
 				delete_button.style.background = "url(/images/editor/info_delete.png) no-repeat 0 0";
 				$(delete_button).text('');
 				$(delete_button).click(function(ev){
+					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 					me.deleteMarker();
 				});
 				$(delete_button).hover(function(ev){
@@ -200,6 +202,7 @@
 				}
 				$(hide_button).text('');
 				$(hide_button).click(function(ev){
+					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 					me.makeActive();
 				});
 				$(hide_button).hover(function(ev){
@@ -316,14 +319,14 @@
 
 		MarkerTooltip.prototype.makeActive = function() {
 			this.hide();
-			makeActive([{marker_id: this.marker_id}],false);
+			makeActive([{catalogue_id: this.marker_id}],false);
 		}
 
 
 
 		MarkerTooltip.prototype.deleteMarker = function() {
 			this.hide();
-			removeMarker(this.marker_id);
+			removeMarkers([{catalogue_id: this.marker_id}]);
 		}
 
 

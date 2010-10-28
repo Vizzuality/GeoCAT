@@ -45,6 +45,7 @@
 				button_i.style.background = "url(/images/editor/over_i.png) no-repeat 0 0";
 				button_i.style.cursor = "pointer";
 				$(button_i).click(function(ev){
+					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 					me.showInformation();
 				});
 				$(button_i).hover(function(ev){
@@ -63,6 +64,7 @@
 				button_o.style.background = "url(/images/editor/over_o.png) no-repeat 0 0";
 				button_o.style.cursor = "pointer";
 				$(button_o).click(function(ev){
+					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 					me.makeActive();
 				});
 				$(button_o).hover(function(ev){
@@ -82,6 +84,7 @@
 				button_x.style.background = "url(/images/editor/over_x.png) no-repeat 0 0";
 				button_x.style.cursor = "pointer";
 				$(button_x).click(function(ev){
+					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 					me.deleteMarker();
 				});
 				$(button_x).hover(function(ev){
@@ -132,13 +135,13 @@
 		
 		MarkerOverTooltip.prototype.deleteMarker = function() {
 			this.hide();
-			removeMarker(this.marker_id);
+			removeMarkers([{catalogue_id: this.marker_id}]);
 		}
 		
 		
 		MarkerOverTooltip.prototype.makeActive = function() {
 			this.hide();
-			makeActive([{marker_id: this.marker_id}],false);
+			makeActive([{catalogue_id: this.marker_id}],false);
 		}
 		
 		

@@ -306,8 +306,10 @@ div#map_container div.table div.center-map div#mamufas_map div#loader_map {posit
 div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
-div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(/images/editor/orange_star.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
-div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
+div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(/images/editor/save_stars.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
+div#map_container div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
+div#map_container div.header h1.saved {background-position:0 -29px;}
+div#map_container div.header h1.saved sup {color:#7FAB2D;}
 div#map_container div.footer div.left {float:left; margin:15px 0 0 5px;}
 div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(/images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
 div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(/images/editor/redo_button.png) no-repeat 0 0;}
