@@ -83,11 +83,23 @@ footer div.inner div.right img {float:left; margin:7px 0 0 0;}
 
 /*EDITOR*/
 
-div#wellcome {position:absolute; width:512px; height:109px; top:50%; left:50%; margin:-74px 0 0 -256px; padding:40px 0 0 0; background:url(/images/editor/wellcome_bkg.png); z-index:10000;}
+div#wellcome {position:absolute!important; width:512px; height:109px; top:50%!important; left:50%; margin:-74px 0 0 -256px!important; padding:40px 0 0 0; background:url(/images/editor/wellcome_bkg.png); z-index:101;}
+div#wellcome a.close {position:absolute; right:7px; top:6px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#wellcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
 div#wellcome p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
 div#wellcome p.bottom {font-size:23px; letter-spacing:-1px;}
 div#wellcome p.bottom a {color:#A4D939; text-decoration:underline;}
 div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
+
+div#close_save {display:none; position:absolute!important; width:512px; height:129px; top:50%!important; left:50%; margin:-74px 0 0 -256px!important; padding:20px 0 0 0; background:url(/images/editor/wellcome_bkg.png); z-index:100;}
+div#close_save p {float:left; width:100%; margin:0; padding:0; font:bold 23px Arial; color:white; letter-spacing:-1px; text-align:center; line-height:33px;}
+div#close_save a.close {position:absolute; right:7px; top:6px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#close_save a.close:hover {color:white; text-decoration:none; cursor:pointer;}
+div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 20px; font:normal 15px Arial; color:#CCCCCC; text-decoration:underline;}
+div#close_save p a.cancel:hover {color:white; cursor:pointer;}
+div#close_save p a.download {float:right; width:158px; height:32px; margin:15px 15px 0 0; background:url(/images/editor/download_button.png) no-repeat 0 0;}
+div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
+
 
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
@@ -172,14 +184,14 @@ div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
 
 
-div.delete_all {display:none; position:absolute; top:0; right:33px; z-index:100000; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px;}
+div.delete_all {display:none; position:absolute!important; top:0; right:27px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
 div.delete_all h4 {float:left; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:10px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
-div.delete_all div {float:right; width:100%;}
-div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0;}
-div.delete_all div a.cancel:hover {color:#000000;}
-div.delete_all div a.yes {float:right; margin:10px 0 0 0; width:51px; height:19px; background:url(/images/editor/yes_delete_button.png) no-repeat 0 0;}
-div.delete_all div a.yes:hover {background-position: 0 -19px;}
+div.delete_all div {float:right; width:auto;}
+div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0; padding:0!important;}
+div.delete_all div a.cancel:hover {color:#000000; cursor:pointer;}
+div.delete_all div a.yes {float:right!important; margin:10px 0 0 0; padding:0!important; width:51px; height:19px; background:url(/images/editor/yes_delete_button.png) no-repeat 0 0;}
+div.delete_all div a.yes:hover {background-position: 0 -19px; cursor:pointer;}
 
 
 div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-top:1px solid #454648;}
@@ -200,7 +212,7 @@ div#editor div#tools div.center div.right div.sources a.merge {position:absolute
 div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -29px;}
 
 div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url(/images/editor/black_bar_add.png) no-repeat 0 0; text-decoration:underline;}
-div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px;}
+div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc; background-position:0 -48px; text-decoration:none;}
 div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
 div#editor div#tools div.center div.right div.sources ul {float:left; width:218px; padding:0; margin:0;}

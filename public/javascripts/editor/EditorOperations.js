@@ -79,68 +79,7 @@ var global_zIndex = 1;					// Z-index for the markers
 				}
 				
 				if (state == "selection") {
-					if (selection_polygon.getPath().b.length==0 || !drawing) {
-						selection_polygon.setOptions({fillOpacity: 0});
-						drawing = true;
-						selection_polygon.setPath([event.latLng,event.latLng,event.latLng,event.latLng]);
-						selection_polygon.setMap(map);
-						google.maps.event.clearListeners(selection_polygon, 'mouseover');
-						google.maps.event.clearListeners(selection_polygon, 'mouseout');
-						google.maps.event.addListener(map,"mousemove",function(event){
-							if (state == "selection") {
-								if (selection_polygon.getPath().b.length!=0) {
-									selection_polygon.setPath([
-										selection_polygon.getPath().b[0],
-										new google.maps.LatLng(selection_polygon.getPath().b[0].b,event.latLng.c),
-										event.latLng,
-										new google.maps.LatLng(event.latLng.b,selection_polygon.getPath().b[0].c),
-										selection_polygon.getPath().b[0]]);
-								}
-							}
-						});
-						google.maps.event.addListener(selection_polygon,'click',function(evt){
-							drawing = false;
-							selection_polygon.setOptions({fillOpacity: 0.40});
-						  google.maps.event.clearListeners(map, 'mousemove');
-							google.maps.event.clearListeners(selection_polygon, 'click');
-							
-							if (over_polygon_tooltip!=null) {
-								over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
-							} else {
-								over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
-							}
-							
-							google.maps.event.addListener(selection_polygon,'mouseover',function(evt){
-								if (over_polygon_tooltip!=null) {
-									over_polygon_tooltip.show();
-								}
-								over_polygon = true;
-							});
-							
-							google.maps.event.addListener(selection_polygon,'mouseout',function(evt){
-								if (over_polygon_tooltip!=null) {
-									over_polygon_tooltip.hide();
-								}
-								over_polygon = false;
-							});
-							
-							
-						});
-					} else {
-						if (drawing) {
-							drawing = false;
-							selection_polygon.setOptions({fillOpacity: 0.40});
-						  google.maps.event.clearListeners(map, 'mousemove');
-							google.maps.event.clearListeners(selection_polygon, 'click');
-							over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
-							
-							if (over_polygon_tooltip!=null) {
-								over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
-							} else {
-								over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
-							}
-						}
-					}
+					changeMapSelectionStatus(event.latLng);
 				}
 			});
 
@@ -355,15 +294,15 @@ var global_zIndex = 1;					// Z-index for the markers
 		function addSourceToList(kind) {
 			switch (kind) {
 				case 'gbif': 		if (!$('#GBIF_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'green\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'green\')" class="delete_all"></a><a class="merge active"></a></li>');
 												}
 												break;
 				case 'flickr': 	if (!$('#Flickr_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'pink\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'pink\')" class="delete_all"></a><a class="merge active"></a></li>');
 												}
 												break;
 				default: 				if (!$('#our_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a href="javascript:void openDeleteAll(\'blue\')" class="delete_all"></a><a href="#" class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all"></a><a class="merge active"></a></li>');
 												}
 			}
 		}
@@ -375,8 +314,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function openDeleteAll(kind) {
 			var position = $('li a.'+kind).offset();
-			$('div.delete_all').css('top',position.top - 58 + 'px');
-			$('div.delete_all').css('right','60px');
+			$('div.delete_all').css('top',position.top - 267 + 'px');
 			$('a.'+ kind).parent().children('a.delete_all').addClass('active');			
 			$('div.delete_all').fadeIn();
 			
@@ -393,7 +331,7 @@ var global_zIndex = 1;					// Z-index for the markers
 												$('div.delete_all h4').text('DELETE ALL YOUR POINTS');
 			}
 
-			$('div.delete_all a.yes').attr('href','javascript: void deleteAll("' + type + '")');
+			$('div.delete_all a.yes').attr('onclick','deleteAll("' + type + '")');
 		}
 		
 		
@@ -529,6 +467,32 @@ var global_zIndex = 1;					// Z-index for the markers
 			}
 		}
 		
+		
+		
+		/*========================================================================================================================*/
+		/* Check if you saved your changes before go out the editor. */
+		/*========================================================================================================================*/
+		function closeEditor() {
+			if ($('div.header h1').hasClass('saved')) {
+				window.location.href="/";
+			} else {
+				chooseWindowFirst('close');
+			}
+		}
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Check if you saved your changes before go out the editor. */
+		/*========================================================================================================================*/
+		function chooseWindowFirst(state) {
+			switch (state) {
+				case 'help': $('div#wellcome').hide(); $('div.help_container').fadeIn(); $('div#close_save').hide(); break;
+				case 'close': $('div#wellcome').hide(); $('div.help_container').hide(); $('div#close_save').fadeIn(); break;
+				default: $('div#wellcome').hide(); $('div.help_container').hide(); $('div#close_save').hide();
+			}
+		}
+		
 
 
 
@@ -586,6 +550,75 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/*========================================================================================================================*/
 		
+		
+		/*========================================================================================================================*/
+		/* Change the map to selection status. */
+		/*========================================================================================================================*/
+		function changeMapSelectionStatus(latlng) {			
+			if (selection_polygon.getPath().b.length==0 || !drawing) {
+				selection_polygon.setOptions({fillOpacity: 0});
+				drawing = true;
+				selection_polygon.setPath([latlng,latlng,latlng,latlng]);
+				selection_polygon.setMap(map);
+				google.maps.event.clearListeners(selection_polygon, 'mouseover');
+				google.maps.event.clearListeners(selection_polygon, 'mouseout');
+				google.maps.event.addListener(map,"mousemove",function(event){
+					if (state == "selection") {
+						if (selection_polygon.getPath().b.length!=0) {
+							selection_polygon.setPath([
+								selection_polygon.getPath().b[0],
+								new google.maps.LatLng(selection_polygon.getPath().b[0].b,event.latLng.c),
+								event.latLng,
+								new google.maps.LatLng(event.latLng.b,selection_polygon.getPath().b[0].c),
+								selection_polygon.getPath().b[0]]);
+						}
+					}
+				});
+				google.maps.event.addListener(selection_polygon,'click',function(evt){
+					drawing = false;
+					selection_polygon.setOptions({fillOpacity: 0.40});
+				  google.maps.event.clearListeners(map, 'mousemove');
+					google.maps.event.clearListeners(selection_polygon, 'click');
+					
+					if (over_polygon_tooltip!=null) {
+						over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
+					} else {
+						over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+					}
+					
+					google.maps.event.addListener(selection_polygon,'mouseover',function(evt){
+						if (over_polygon_tooltip!=null) {
+							over_polygon_tooltip.show();
+						}
+						over_polygon = true;
+					});
+					
+					google.maps.event.addListener(selection_polygon,'mouseout',function(evt){
+						if (over_polygon_tooltip!=null) {
+							over_polygon_tooltip.hide();
+						}
+						over_polygon = false;
+					});
+				});
+			} else {
+				if (drawing) {
+					drawing = false;
+					selection_polygon.setOptions({fillOpacity: 0.40});
+				  google.maps.event.clearListeners(map, 'mousemove');
+					google.maps.event.clearListeners(selection_polygon, 'click');
+					over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+					
+					if (over_polygon_tooltip!=null) {
+						over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
+					} else {
+						over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+					}
+				}
+			}
+		}
+		
+				
+		
 	
 		/*========================================================================================================================*/
 		/* Remove polygon from map. */
@@ -595,7 +628,6 @@ var global_zIndex = 1;					// Z-index for the markers
 			selection_polygon.setMap(null);
 		}
 		
-	
 	
 	
 		/*========================================================================================================================*/
@@ -639,16 +671,18 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Delete all the markers. */
 		/*========================================================================================================================*/
-		function deleteAll(type) {			
+		function deleteAll(type) {
+			var remove_markers = [];		
 			for (var i in _markers) {
 				if (_markers[i].data.kind == type && _markers[i].data.removed == false) {
 					total_points.deduct(type);
+					remove_markers.push(_markers[i].data);
 					_markers[i].data.removed = true;
 					_markers[i].setMap(null);
 				}
 			}
 			closeDeleteAll();
-			
+			actions.Do('remove', null, remove_markers);
 			resizeBarPoints();
 			calculateMapPoints();
 			calculateSourcePoints(_markers[i].data.kind);
@@ -660,31 +694,23 @@ var global_zIndex = 1;					// Z-index for the markers
 		/* Remove one or several markers from map and the marker information of its data (gbif, flickr or own) as well. */
 		/*========================================================================================================================*/
 		function removeMarkers(remove_markers) {
-			
-			for (var i=0; i<remove_markers.length; i++) {
-				var marker_id = remove_markers[i].catalogue_id;
-				switch (_markers[marker_id].data.kind) {
-					case 'gbif': 		total_points.deduct('gbif');
-													break;
-					case 'flickr': 	total_points.deduct('flickr');
-													break;
-					default: 				total_points.deduct('your');
+			if (remove_markers.length>0) {
+				for (var i=0; i<remove_markers.length; i++) {
+					var marker_id = remove_markers[i].catalogue_id;
+					total_points.deduct(_markers[marker_id].data.kind);
+					_markers[marker_id].data.removed = true;
+					_markers[marker_id].setMap(null);
+
+					if (convex_hull.isVisible()) {
+						convex_hull.deductPoint(marker_id);
+					}	
+
+					resizeBarPoints();
+					calculateMapPoints();
+					calculateSourcePoints(_markers[marker_id].data.kind);
 				}
-
-				_markers[marker_id].data.removed = true;
-				_markers[marker_id].setMap(null);
-
-
-
-				if (convex_hull.isVisible()) {
-					convex_hull.deductPoint(marker_id);
-				}	
-
-				resizeBarPoints();
-				calculateMapPoints();
-				calculateSourcePoints(_markers[marker_id].data.kind);
+				actions.Do('remove', null, remove_markers);
 			}
-			actions.Do('remove', null, remove_markers);
 		}
 		
 
@@ -765,45 +791,48 @@ var global_zIndex = 1;					// Z-index for the markers
 		/* Put several (or only one) markers active or not. */
 		/*========================================================================================================================*/
 		function makeActive (markers_id, fromAction) {
-			for (var i=0; i<markers_id.length; i++) {
-				var marker_id = markers_id[i].catalogue_id;
-				switch (_markers[marker_id].data.kind) {
-					case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
-																									new google.maps.Size(25, 25),
-																									new google.maps.Point(0,0),
-																									new google.maps.Point(12, 12));
-													_markers[marker_id].setIcon(image);
-													break;
-					case 'flickr': 	var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
-																									new google.maps.Size(25, 25),
-																									new google.maps.Point(0,0),
-																									new google.maps.Point(12, 12));
-													_markers[marker_id].setIcon(image);
-													break;
-					default: 				var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
-																									new google.maps.Size(25, 25),
-																									new google.maps.Point(0,0),
-																									new google.maps.Point(12, 12));
-													_markers[marker_id].setIcon(image);
-				}
-				_markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);		
-				_markers[marker_id].data.active = !_markers[marker_id].data.active;
-				
-				
-				// Add or deduct the marker from _active_markers
-				if (convex_hull.isVisible()) {
-					if (!_markers[marker_id].data.active) {
-						convex_hull.deductPoint(marker_id);
-					} else {
-						convex_hull.addPoint(_markers[marker_id]);
+			if (markers_id.length>0) {
+				for (var i=0; i<markers_id.length; i++) {
+					var marker_id = markers_id[i].catalogue_id;
+					switch (_markers[marker_id].data.kind) {
+						case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
+																										new google.maps.Size(25, 25),
+																										new google.maps.Point(0,0),
+																										new google.maps.Point(12, 12));
+														_markers[marker_id].setIcon(image);
+														break;
+						case 'flickr': 	var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
+																										new google.maps.Size(25, 25),
+																										new google.maps.Point(0,0),
+																										new google.maps.Point(12, 12));
+														_markers[marker_id].setIcon(image);
+														break;
+						default: 				var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
+																										new google.maps.Size(25, 25),
+																										new google.maps.Point(0,0),
+																										new google.maps.Point(12, 12));
+														_markers[marker_id].setIcon(image);
+					}
+					_markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);		
+					_markers[marker_id].data.active = !_markers[marker_id].data.active;
+
+
+					// Add or deduct the marker from _active_markers
+					if (convex_hull.isVisible()) {
+						if (!_markers[marker_id].data.active) {
+							convex_hull.deductPoint(marker_id);
+						} else {
+							convex_hull.addPoint(_markers[marker_id]);
+						}
 					}
 				}
+
+				//If the action doesnt come from the UnredoOperations object
+				if (!fromAction) {
+					actions.Do('active', null, markers_id);
+				}
 			}
-			
-			//If the action doesnt come from the UnredoOperations object
-			if (!fromAction) {
-				actions.Do('active', null, markers_id);
-			}
+
 		}
 		
 		

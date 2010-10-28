@@ -7,8 +7,8 @@
 			<a id="scientific_name"><%= (@rla == nil)? 'Puma' : @rla.specie %></a>
 			<a id="gbif_id"><%= (@rla == nil)? '13191720' : @rla.data %></a>
 			<ul class="editor_list">
-				<li class="first"><a onclick="$('div.help_container').fadeIn()">Help</a></li>
-				<li><a href="#">Close tool</a></li>
+				<li class="first"><a onclick="chooseWindowFirst('help')">Help</a></li>
+				<li><a onclick="closeEditor()">Close tool</a></li>
 			</ul>
 			
 			<!-- <div class="hull_container">
@@ -22,13 +22,6 @@
 			       <p class="aoo_rating"></p>
 			     </div> -->
 
-			
-			<div class="delete_all">
-				<h4>DELETE ALL FLICKR POINTS</h4>
-				<p>Are you sure you want to delete all these points?</p>
-				<div><a href="#" class="yes"></a><a href="javascript: void closeDeleteAll()" class="cancel">cancel</a></div>
-			</div>
-			
 			
 			<div id="tools">
 				<div class="table">
@@ -68,29 +61,39 @@
 							          <li class="cr">
 							            <label>AOO</label>
 							            <p>324,264 km<sup>2</sup></p>
-							            <p class="change">Cellsize 2km, <a href="#">change</a></p>
+							            <p class="change">Cellsize 2km, <a>change</a></p>
 							          </li>
 							        </ul>
-							        <span><a href="#">Download complete report</a></span>
+							        <span><a>Download complete report</a></span>
   							    </div>
 							    </div>
 							  </div>
-							  
+
 							  
 								<!-- <div class="algorithms">
                   <h3>ANALYSIS ALGORITHMS</h3>
                   <a href="javascript: void openConvexHull()" class="first" id="convex">Convex Hull</a>
                   <a href="#" id="alpha">Alpha Hull</a>
                 </div> -->
+                
+                
 								<div class="sources">
+								  
+								  <!-- Delete all window -->
+								  <div class="delete_all">
+            				<h4>DELETE ALL FLICKR POINTS</h4>
+            				<p>Are you sure you want to delete all these points?</p>
+            				<div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
+            			</div>
+								  
 									<span><h3>SOURCES</h3><p class="count_points ">NO POINTS</p></span>
 									<ul id="sources_list"></ul>
 
-									<a href="#" class="add" id="add_source_button">Add new source</a>
+									<a class="add" id="add_source_button">Add new source</a>
 									
 									<div id="add_source_container">
 										<div class="top">
-											<a href="javascript:void closeSources()" id="close_sources"></a>
+											<a onclick="closeSources()" id="close_sources"></a>
 											<div class="bottom">
 												<div class="middle">
 													<ul>
@@ -177,10 +180,24 @@
 						</div>
 						<div class="center-map">
 							<div id="map"></div>
+							
+							<!-- Close without save/download -->
+							<div id="close_save">
+							  <a onclick="$('#close_save').fadeOut()" class="close">X</a>
+								<p>You are going to leave the editor and lose<br/>
+                your changes. Do you want to save them?</p>
+								<p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close and exit</a><a onclick="$('#close_save').fadeOut(); downloadRLA()" class="download"></a>
+								</p>
+							</div>
+							
+							<!-- Wellcome window -->
 							<div id="wellcome">
+							  <a onclick="$('#wellcome').fadeOut()" class="close">X</a>
 								<p>Hello, start your new assessment</p>
 								<p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Adding some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
 							</div>
+							
+							<!-- Mamufas map -->
 						  <div id="mamufas_map">
 								<div id="loader_map">
 									<img src="/images/editor/map_loader.gif" alt="Map loader" />
@@ -189,6 +206,8 @@
 									<img src="/images/editor/import_done.png" alt="Import done" />
 								</div>
 							</div>
+							
+							<!-- Help state -->
 							<div class="help_container" onclick="$('div.help_container').fadeOut()">
 							  <img src="/images/editor/help_bkg.png" class="help"/>
 							  <img src="/images/editor/do_help.png" class="do" />
@@ -196,6 +215,7 @@
 							  <img src="/images/editor/download_help.png" class="download" />
 							  <img src="/images/editor/analysis_help.png" id="analysis_help" />
     					</div>
+    					
     					<a href="http://www.vizzuality.com" target="_blank" class="vizzuality"><img src="/images/editor/vizzuality.png" alt="Vizzuality" title="Vizzuality" /></a>
 						</div>
 						<div class="right-repeat-map">
@@ -219,11 +239,11 @@
 							<div class="left">
 								<a onclick="javascript: void unDoAction()" class="undo"></a>
 								<a onclick="javascript: void reDoAction()" class="redo"></a>
-								<p id="action_info"><span>Added 8 points</span></p>
+								<p id="action_info"><span></span></p>
 							</div>
 							<div class="right">
 								<a onclick="#" class="export"></a>
-								<a onclick="javascript: void downloadRLA()" class="download"></a>
+								<a onclick="downloadRLA()" class="download"></a>
 							</div>
 						</div>
 						<div class="bottom-right-map"></div>
