@@ -11,6 +11,8 @@ var gbif_founded;								// Gbif data founded
 var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
 var convex_hull;								// Convex Hull model Object for calculating the polygon
 var actions;										// UnredoOperations model Object for actions made by the user.
+var merge_object; 											// MergeOperations model Object for recover points from server like GBIF or Flickr 
+
 
 var click_infowindow;						// Gray main infowindow object  
 var over_tooltip;								// Tiny over infowindow object
@@ -20,17 +22,20 @@ var polyline_; 									// Polyline create by the user
 var selection_polygon; 					// Selection polygon tool
 var drawing = false;						// Flag to know if user is drawing selection rectangle
 
+
 var over_marker = false;				// True if cursor is over marker, false opposite
 var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
 var over_polygon = false				// True if cursor is over selection polygon, false opposite
 var is_dragging = false;				// True if user is dragging a marker, false opposite
 
+
 var _markers = [];							// All the markers of the map (Associative array)
 var _information = [];					// Variable needed for adding markers asynchronously
-
+var merge_points = [];					// Merged points array
 
 var global_id = 0; 							// Global id for your own markers
 var global_zIndex = 1;					// Z-index for the markers
+
 
 
 
@@ -59,8 +64,6 @@ var global_zIndex = 1;					// Z-index for the markers
 			actions = new UnredoOperations();								// Un-Re-Do Object
 
 
-
-
 			selection_polygon = new google.maps.Polygon({
 	      strokeColor: "#000000",
 	      strokeOpacity: 1,
@@ -68,7 +71,6 @@ var global_zIndex = 1;					// Z-index for the markers
 	      fillColor: "#FFFFFF",
 	      fillOpacity: 0
 	    });
-
 
 
 
@@ -85,8 +87,6 @@ var global_zIndex = 1;					// Z-index for the markers
 
 			
 			
-			
-			
 			//Change cursor depending on application state
 			google.maps.event.addListener(map,"mouseover",function(event){
 					switch(state) {
@@ -100,11 +100,11 @@ var global_zIndex = 1;					// Z-index for the markers
 					}
 			});
 			
+			
 			//Zoom change = Zoom control change
 			google.maps.event.addListener(map,"zoom_changed",function(event){moveZoomControl();});			
 		
 
-			
 			
 
 			//if the application comes through an upload file
@@ -275,15 +275,15 @@ var global_zIndex = 1;					// Z-index for the markers
 				}
 			
 				var image = new google.maps.MarkerImage('/images/editor/' + marker_kind + '_marker.png',
-					new google.maps.Size(25, 25),
-					new google.maps.Point(0,0),
-					new google.maps.Point(12, 12));
+				new google.maps.Size(25, 25),
+				new google.maps.Point(0,0),
+				new google.maps.Point(12, 12));
 					
-					var total = information.points.length;
-					_information = information.points;
+				var total = information.points.length;
+				_information = information.points;
 					
-					actions.Do('add', null, _information);
-					setTimeout("asynAddMarker("+0+","+total+","+getBound+","+ saveAction+")", 0);
+				actions.Do('add', null, _information);
+				setTimeout("asynAddMarker("+0+","+total+","+getBound+","+ saveAction+")", 0);
 		}
 		
 		
@@ -294,15 +294,15 @@ var global_zIndex = 1;					// Z-index for the markers
 		function addSourceToList(kind) {
 			switch (kind) {
 				case 'gbif': 		if (!$('#GBIF_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'green\')" class="delete_all"></a><a class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'green\')" class="delete_all"></a><a class="merge"></a></li>');
 												}
 												break;
 				case 'flickr': 	if (!$('#Flickr_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'pink\')" class="delete_all"></a><a class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'pink\')" class="delete_all"></a><a class="merge"></a></li>');
 												}
 												break;
 				default: 				if (!$('#our_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all"></a><a class="merge active"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all"></a><a class="merge"></a></li>');
 												}
 			}
 		}
@@ -343,6 +343,72 @@ var global_zIndex = 1;					// Z-index for the markers
 			$('div.delete_all').fadeOut();
 			$('a.delete_all').removeClass('active');
 		}
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Active Merge buttons. */
+		/*========================================================================================================================*/
+		function activeMerge() {
+			if (merge_object.gbif_points.length>0) {
+				$('a#GBIF_points').livequery(function(ev){
+					$(this).parent().find('a.merge').addClass('active');
+					$(this).parent().find('a.merge').click(function(){openMergeContainer("green")});
+				});
+			}
+			if (merge_object.flickr_points.length>0) {
+				$('a#Flickr_points').livequery(function(ev){
+					$(this).parent().find('a.merge').addClass('active');
+					$(this).parent().find('a.merge').click(function(){openMergeContainer("pink")});
+				});
+			}
+		}
+		
+		
+		/*========================================================================================================================*/
+		/* Open Merge container. */
+		/*========================================================================================================================*/
+		function openMergeContainer(kind) {
+			var position = $('li a.'+kind).offset();
+			$('div.merge_container').css('top',position.top - 267 + 'px');
+			var type;
+			
+			switch (kind) {
+				case 'green': 	type = 'gbif';
+												$('div.merge_container h4').text('MERGE NEW GBIF POINTS');
+												if (merge_object.gbif_points.length==1) {
+													$('div.merge_container p').text('There is 1 new point in GBIF');
+												} else {
+													$('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in GBIF');
+												}
+												showPreviewMergePoints('gbif');
+												break;
+				default: 				type = 'flickr';
+												$('div.merge_container h4').text('MERGE NEW FLICKR POINTS');
+												if (merge_object.flickr_points.length==1) {
+													$('div.merge_container p').text('There is 1 new point in Flickr');
+												} else {
+													$('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in Flickr');
+												}
+												showPreviewMergePoints('flickr');
+												break;
+			}
+
+			$('div.delete_all a.yes').attr('onclick','deleteAll("' + type + '")');
+			$('div.merge_container').fadeIn();
+			
+		}
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Close Merge container. */
+		/*========================================================================================================================*/
+		function closeMergeContainer() {
+			$('div.merge_container').fadeOut();
+			//$('a.merge').removeClass('active');
+		}
+		
 		
 		
 		
@@ -552,7 +618,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 		
 		/*========================================================================================================================*/
-		/* Change the map to selection status. */
+		/* Change map to selection status. */
 		/*========================================================================================================================*/
 		function changeMapSelectionStatus(latlng) {			
 			if (selection_polygon.getPath().b.length==0 || !drawing) {
@@ -618,6 +684,54 @@ var global_zIndex = 1;					// Z-index for the markers
 		}
 		
 				
+		
+		/*========================================================================================================================*/
+		/* Preview merge markers in the map. */
+		/*========================================================================================================================*/
+		function showPreviewMergePoints(kind) {			
+
+			asynAddMergePoints = function (count) {
+				try {
+					var marker = CreatePreviewMarker(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude),loop_array[count].kind,map);
+					merge_points.push(marker);
+					_bounds.extend(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude));
+					count++;
+					setTimeout('asyncAddMergePoints('+count+')',0);
+				}
+				catch(e) {}
+			};
+			
+			var loop_array = (kind=="gbif")?merge_object.gbif_points:merge_object.flickr_points;
+			merge_points = new Array();
+			asynAddMergePoints(0);
+		}
+
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Remove preview merge markers. */
+		/*========================================================================================================================*/
+		function removePreviewMergePoints(kind) {			
+
+			asynAddMergePoints = function (count) {
+				try {
+					var marker = CreatePreviewMarker(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude),loop_array[count].kind,map);
+					merge_points.push(marker);
+					_bounds.extend(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude));
+					count++;
+					setTimeout('asyncAddMergePoints('+count+')',0);
+				}
+				catch(e) {}
+			};
+			
+			var loop_array = (kind=="gbif")?merge_object.gbif_points:merge_object.flickr_points;
+			merge_points = new Array();
+			asynAddMergePoints(0);
+		}
+		
+				
+		
 		
 	
 		/*========================================================================================================================*/
@@ -1052,13 +1166,24 @@ var global_zIndex = 1;					// Z-index for the markers
 		function uploadRLA(upload_data) {
 			var rla = new RLA(null,null,null,upload_data);
 			var app_data = rla.upload();
+			var sources = [];
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
+					sources.push(app_data[i].name);
 					addSourceToMap(app_data[i],false,false);
 				} else {
 					map.setCenter(new google.maps.LatLng(0,0));
-					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
+					map.setCenter(new google.maps.LatLng(app_data[0].center.b,app_data[0].center.c));
 					map.setZoom(parseInt(app_data[0].zoom));				
 				}
-			}				
+			}
+			
+			
+			$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
+			changeAppToSave(1);		
+			
+			//Merge points from service
+			merge_object = new MergeOperations(sources);
+			merge_object.checkSources();
+				
 		}

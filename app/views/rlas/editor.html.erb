@@ -79,12 +79,21 @@
                 
 								<div class="sources">
 								  
-								  <!-- Delete all window -->
+								  <!-- Merge window -->
+								  <div class="merge_container">
+            				<h4>MERGE NEW FLICKR POINTS</h4>
+            				<p>There are 2 new points in flickr.</p>
+            				<a class="preview selected">Preview</a>
+            				<div><a class="cancel" onclick="closeMergeContainer()">Cancel</a><a class="merge_button"></a></div>
+            			</div>
+            			
+            			<!-- Delete all window -->
 								  <div class="delete_all">
             				<h4>DELETE ALL FLICKR POINTS</h4>
             				<p>Are you sure you want to delete all these points?</p>
             				<div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
             			</div>
+            			
 								  
 									<span><h3>SOURCES</h3><p class="count_points ">NO POINTS</p></span>
 									<ul id="sources_list"></ul>
@@ -261,6 +270,6 @@
 	
 	
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<%= javascript_include_tag 'jquery-ui-1.8.2.custom.min.js', 'jquery.json-2.2','editor/MapOverlays/MarkerTooltip', 'editor/MapOverlays/MarkerOverTooltip', 'editor/Models/CreateMarker', 'editor/Calculations/chainHull_2D', 'editor/EditorEffects' , 'editor/EditorOperations', 'editor/MapOverlays/DeleteInfowindow', 'editor/Models/RLAOperations', 'editor/Models/TotalPointsOperations' , 'editor/Models/HullOperations', 'editor/Models/UnredoOperations', 'editor/MapOverlays/PolygonOverTooltip' %>
+	<%= javascript_include_tag 'jquery-ui-1.8.2.custom.min.js', 'jquery.json-2.2', 'jquery.livequery.min','editor/MapOverlays/MarkerTooltip', 'editor/MapOverlays/MarkerOverTooltip', 'editor/Models/CreateMarker', 'editor/Calculations/chainHull_2D', 'editor/EditorEffects' , 'editor/EditorOperations', 'editor/MapOverlays/DeleteInfowindow', 'editor/Models/RLAOperations', 'editor/Models/TotalPointsOperations' , 'editor/Models/HullOperations', 'editor/Models/UnredoOperations', 'editor/MapOverlays/PolygonOverTooltip', 'editor/Models/MergeOperations' %>
 	
 	

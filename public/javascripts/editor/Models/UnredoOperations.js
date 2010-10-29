@@ -106,7 +106,7 @@
 														break;
 						case 'active': 	makeActive(this.actions[this.position].data,true);
 														if (this.actions[this.position].data.length==1) {
-															$('#action_info span').text('The point is '+((!this.actions[this.position].data[0].new_.active)?'no active':'active')+' now');
+															$('#action_info span').text('The point is '+((this.actions[this.position].data[0].new_.active)?'no active':'active')+' now');
 														} else {
 															$('#action_info span').text(this.actions[this.position].data.length+' points are '+((!this.actions[this.position].data[0].new_.active)?'no active':'active')+' now');
 														}

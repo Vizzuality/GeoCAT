@@ -71,15 +71,13 @@
 			var result = [];
 		
 			var obj = new Object();
-			obj.name = "map";
-			obj.center = this.upload_data_.rla.center;
-			obj.zoom = this.upload_data_.rla.zoom;
-			obj.specie = this.upload_data_.rla.specie;
-		
+			obj.center = this.upload_data_.center;
+			obj.zoom = this.upload_data_.zoom;
+			obj.specie = this.upload_data_.scientificname;
 			result.push(obj);
 		
-			for (var i=0; i<this.upload_data_.rla.sources.length; i++) {
-				result.push(this.upload_data_.rla.sources[i]);
+			for (var i=0; i<this.upload_data_.sources.length; i++) {
+				result.push(this.upload_data_.sources[i]);
 			}
 			return result;
 		}
