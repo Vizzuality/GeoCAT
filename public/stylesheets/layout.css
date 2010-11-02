@@ -1,3 +1,4 @@
+
 body {background:#EAEAEB; padding:0; margin:0;}
 ul{list-style:none;}
 
@@ -148,21 +149,48 @@ div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {curso
 div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url(/images/editor/analysis_button.png) no-repeat -28px -24px;}
 div#tools div.center div.right div.inner_analysis h3 {float:right; font:bold 15px Arial; color:#999999; text-shadow:0 1px white; padding:3px 0 0 0; margin:0 16px 18px 0;}
 div#tools div.center div.right div.inner_analysis h3.disabled {color:#B7B7B7;}
-div.analysis_data {float:left; width:100%; height:0; overflow:hidden;}
-div.analysis_data ul {float:left; width:190px; margin:5px 0 5px 16px; padding:0;}
-div.analysis_data ul li {float:left; width:190px; background:url(/images/editor/analysis_bkg.png) no-repeat 0 0; padding:2px 0; margin:0 0 10px;}
+div.analysis_data {position:relative; float:left; width:100%; height:0; overflow:hidden;}
+div.analysis_data ul {position:relative; float:left; width:190px; margin:5px 0 5px 16px; padding:0;}
+div.analysis_data ul li {float:left; width:190px; padding:2px 0; margin:0 0 10px;}
 div.analysis_data ul li label {float:left; width:190px; font:bold 11px Arial; color:#999999;}
 div.analysis_data ul li p {float:left; width:190px; font:bold 13px Arial; color:#666666; text-shadow:0 1px white; padding:0; margin:2px 0 0 0;}
-div.analysis_data ul li.lc {background-position:right 0;}
-div.analysis_data ul li.cr {background-position:right -39px;}
+div.analysis_data ul li.lc {background:url(/images/editor/LC.png) no-repeat right 0;}
+div.analysis_data ul li.cr {background:url(/images/editor/CR.png) no-repeat right 0;}
+div.analysis_data ul li.en {background:url(/images/editor/EN.png) no-repeat right 0;}
+div.analysis_data ul li.nt {background:url(/images/editor/NT.png) no-repeat right 0;}
+div.analysis_data ul li.vu {background:url(/images/editor/VU.png) no-repeat right 0;}
 div.analysis_data ul li p.change {float:left; width:100%; margin:2px 0 0; font:normal 11px Arial; color:#999999; text-shadow:none;}
 div.analysis_data ul li p.change a {float:none; text-decoration:underline; color:#FF6600; background:none;}
 div.analysis_data ul li p.change a:hover {color:#FF3300;}
+div.inner_analysis div.cellsize {display:none; position:absolute!important; width:154px; height:170px; margin:0; padding:38px 26px 0 26px; background:url(/images/editor/cellsize_bkg.png) no-repeat 0 0; z-index:1000;}
+div.inner_analysis div.cellsize h4 {float:left; width:100%; font:normal 11px "Futura"; color:#666666; margin:0; padding:0;}
+div.inner_analysis div.cellsize span {float:left; width:100%; margin:20px 0 0 0;}
+div.inner_analysis div.cellsize span label {float:left; width:auto; font:normal 10px Arial; color:#B3B3B3;}
+div.inner_analysis div.cellsize span p {float:right; width:auto; font:normal 10px Arial; color:#F7AC53;}
+div.inner_analysis div.cellsize p {float:left; width:100%; font:normal 11px Arial; color:#666666;}
+div.inner_analysis div.cellsize div.bottom {float:left; width:100%;}
+div.inner_analysis div.cellsize div.bottom a {float:left; width:auto; padding:3px 0 0 0; font:normal 11px Arial; color:#FF6600; text-decoration:underline;}
+div.inner_analysis div.cellsize div.bottom a:hover {color:#FF3300; cursor:pointer;}
+div.inner_analysis div.cellsize div.bottom a.done {float:right; width:54px; height:21px; padding:0; background:url(/images/editor/done_gray.png) no-repeat 0 0;}
+div.inner_analysis div.cellsize div.bottom a.done:hover {background-position:0 -21px;}
+
+/*<div class="cellsize">
+  <h3>CHANGE CELLSIZE</h3>
+  <span><label>SIDE LENGTH</label><p>3KM</p></span>
+  <div class="slider"></div>
+  <p>Determines the minimum cell used during the AOO analysis</p>
+  <div class="bottom">
+    <a>set auto value</a>
+    <a class="done">DONE</a>
+  </div>
+</div>*/
+
+
+
 div.analysis_data span {float:left; width:100%; padding:8px 0; background:url(/images/editor/download_analysis_bkg.png) repeat-x 0 0; border-bottom-left-radius:5px; border-bottom-right-radius:5px; 
 	-moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; text-align:center;}
 div.analysis_data span a {font:bold 13px Arial; color:#333333; text-shadow:0 1px #B7D58D; text-decoration:none; padding:0;}
 div.analysis_data span a:hover {color:#111111;}
-
 
 div#tools div.center div.right div.algorithms {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-bottom:1px solid #000000;}
 div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
@@ -183,7 +211,6 @@ div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
 div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
 
-
 div.delete_all {display:none; position:absolute!important; top:0; right:27px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
 div.delete_all h4 {float:left; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:10px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
@@ -192,7 +219,6 @@ div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoratio
 div.delete_all div a.cancel:hover {color:#000000; cursor:pointer;}
 div.delete_all div a.yes {float:right!important; margin:10px 0 0 0; padding:0!important; width:51px; height:19px; background:url(/images/editor/yes_delete_button.png) no-repeat 0 0;}
 div.delete_all div a.yes:hover {background-position: 0 -19px; cursor:pointer;}
-
 
 div.merge_container {display:none; position:absolute!important; top:0; right:11px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
 div.merge_container h4 {float:left; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
@@ -207,7 +233,6 @@ div.merge_container div a.cancel:hover {color:#000000; cursor:pointer;}
 div.merge_container div a.merge_button {float:right; margin:7px 0 0 0!important; padding:0!important; width:54px!important; height:21px!important; background:url(/images/editor/merge_button.png) no-repeat 0 0!important;}
 div.merge_container div a.merge_button:hover {background-position: 0 -21px!important; cursor:pointer;}
 
-
 div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-top:1px solid #454648;}
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
@@ -218,7 +243,6 @@ div#editor div#tools div.center div.right div.sources a.green {background:url(/i
 div#editor div#tools div.center div.right div.sources a.pink {background:url(/images/editor/left_black_bar_pink.png) no-repeat 0 3px;}
 div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; width:193px; background:url(/images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources a:hover span {background-position:right 0;}
-
 div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:2px; right:15px; background:url(/images/editor/delete_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -29px;}
 div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -29px; cursor:pointer;}
@@ -258,21 +282,17 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
-
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.browse {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:2px; top:2px; background:url(/images/editor/delete_button.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form {display:block; position:absolute; padding:0; margin:0; width:137px; height:21px; z-index:100; overflow:hidden; opacity:0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form input {float:left; width:137px; height:21px;}
-
-
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a {display:none;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete {display:block;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
-
 
 /*added*/
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a {background-position: 0 -30px; color:#c3c3c3;}

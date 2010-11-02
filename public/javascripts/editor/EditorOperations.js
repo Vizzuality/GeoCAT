@@ -11,7 +11,7 @@ var gbif_founded;								// Gbif data founded
 var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
 var convex_hull;								// Convex Hull model Object for calculating the polygon
 var actions;										// UnredoOperations model Object for actions made by the user.
-var merge_object; 											// MergeOperations model Object for recover points from server like GBIF or Flickr 
+var merge_object; 							// MergeOperations model Object for recover points from server like GBIF or Flickr 
 
 
 var click_infowindow;						// Gray main infowindow object  
@@ -995,10 +995,10 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function openConvexHull() {
 			convex_hull.createPolygon(_markers);
-			var position = $('#convex').offset();
-			$('div.hull_container').css('top',position.top + 'px');
-			$('#convex').css('margin-bottom','300px');
-			$('div.hull_container').fadeIn('fast');
+			// var position = $('#convex').offset();
+			// 			$('div.hull_container').css('top',position.top + 'px');
+			// 			$('#convex').css('margin-bottom','300px');
+			// 			$('div.hull_container').fadeIn('fast');
 		}
 		
 		
@@ -1007,8 +1007,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/	
 		function closeConvexHull() {
 			convex_hull.removePolygon();
-			$('#convex').css('margin-bottom','0px');
-			$('div.hull_container').fadeOut('slow');
+			// $('#convex').css('margin-bottom','0px');
+			// 			$('div.hull_container').fadeOut('slow');
 		}
 		
 		

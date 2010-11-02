@@ -10,19 +10,7 @@
 				<li class="first"><a onclick="chooseWindowFirst('help')">Help</a></li>
 				<li><a onclick="closeEditor()">Close tool</a></li>
 			</ul>
-			
-			<!-- <div class="hull_container">
-			       <a href="javascript: void closeConvexHull()">close</a>
-			       <p class="area">397138<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-			       <p class="diameter">1053<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-			       <p class="cell_size">103<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-			       <p class="number_cells">10</p>
-			       <p class="aoo_area">105343<sup>.44</sup> <small>(km<sup>2</sup>)</small></p>
-			       <p class="eoo_rating"></p>
-			       <p class="aoo_rating"></p>
-			     </div> -->
 
-			
 			<div id="tools">
 				<div class="table">
 					<div class="header">
@@ -66,17 +54,19 @@
 							        </ul>
 							        <span><a>Download complete report</a></span>
   							    </div>
+  							    <div class="cellsize">
+					            <h4>CHANGE CELLSIZE</h4>
+					            <span><label>SIDE LENGTH</label><p>3KM</p></span>
+					            <div class="slider"></div>
+					            <p>Determines the minimum cell used during the AOO analysis</p>
+					            <div class="bottom">
+					              <a>set auto value</a>
+					              <a class="done"></a>
+					            </div>
+					          </div>
 							    </div>
 							  </div>
 
-							  
-								<!-- <div class="algorithms">
-                  <h3>ANALYSIS ALGORITHMS</h3>
-                  <a href="javascript: void openConvexHull()" class="first" id="convex">Convex Hull</a>
-                  <a href="#" id="alpha">Alpha Hull</a>
-                </div> -->
-                
-                
 								<div class="sources">
 								  
 								  <!-- Merge window -->
@@ -93,7 +83,6 @@
             				<p>Are you sure you want to delete all these points?</p>
             				<div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
             			</div>
-            			
 								  
 									<span><h3>SOURCES</h3><p class="count_points ">NO POINTS</p></span>
 									<ul id="sources_list"></ul>
@@ -270,6 +259,6 @@
 	
 	
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<%= javascript_include_tag 'jquery-ui-1.8.2.custom.min.js', 'jquery.json-2.2', 'jquery.livequery.min','editor/MapOverlays/MarkerTooltip', 'editor/MapOverlays/MarkerOverTooltip', 'editor/Models/CreateMarker', 'editor/Calculations/chainHull_2D', 'editor/EditorEffects' , 'editor/EditorOperations', 'editor/MapOverlays/DeleteInfowindow', 'editor/Models/RLAOperations', 'editor/Models/TotalPointsOperations' , 'editor/Models/HullOperations', 'editor/Models/UnredoOperations', 'editor/MapOverlays/PolygonOverTooltip', 'editor/Models/MergeOperations' %>
+	<%= javascript_include_tag 'jquery-ui-1.8.2.custom.min.js', 'jquery.json-2.2', 'jquery.livequery.min','editor/MapOverlays/MarkerTooltip', 'editor/MapOverlays/MarkerOverTooltip', 'editor/Models/CreateMarker', 'editor/Calculations/ConvexHull', 'editor/EditorEffects' , 'editor/EditorOperations', 'editor/MapOverlays/DeleteInfowindow', 'editor/Models/RLAOperations', 'editor/Models/TotalPointsOperations' , 'editor/Models/HullOperations', 'editor/Models/UnredoOperations', 'editor/MapOverlays/PolygonOverTooltip', 'editor/Models/MergeOperations', 'editor/Calculations/PolygonArea.js' %>
 	
 	

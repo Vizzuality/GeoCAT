@@ -9,6 +9,8 @@
 			
 			function HullOperations(_map) {
 				this.visible = false;
+				this.earth_radius = 6371000.7900;
+				this.cells = new Array();
 				this.active_markers = [];
 				this.map = _map;
 			}
@@ -20,8 +22,6 @@
 			HullOperations.prototype.createPolygon = function(markers) {
 				this.visible = true;
 				this.createActivePoints(markers);
-				this.calculateConvexHull();
-				this.polygon.setMap(this.map);
 			}
 			
 
@@ -66,7 +66,7 @@
 						this.active_markers.push(all_markers[i]);
 					}
 				}
-				
+				this.calculateConvexHull();
 			}
 
 
@@ -99,11 +99,11 @@
 			/*========================================================================================================================*/
 			HullOperations.prototype.drawHull= function() {
 				var hullPoints = [];
-				chainHull_2D( this.active_markers, this.active_markers.length, hullPoints);
+				
+				chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
 				
 				if (this.polygon != undefined) {
 					this.polygon.setPath(this.markersToPoints(hullPoints));
-					
 				} else {
 				   	this.polygon = new google.maps.Polygon({
 						paths: this.markersToPoints(hullPoints),
@@ -118,10 +118,10 @@
 							addMarker(event.latLng,null,false);
 						}
 					});
+					this.polygon.setMap(this.map);
 				}
 
-				if (!is_dragging) 
-					this.getPolygonArea(this.polygon.getPath().b);
+				this.getPolygonArea(this.polygon.getPath().b);
 			}
 			
 			
@@ -130,20 +130,7 @@
 			/* Get the convex hull polygon area and show the figures in the convex hull window. */
 			/*========================================================================================================================*/
 			HullOperations.prototype.getPolygonArea = function(path) {
-				var points='';
-				for (var i=0; i<path.length; i++) {
-					points+=path[i].c+','+path[i].b+'|';
-				}
-				points=points.slice(0,points.length-1);
-
-				$.getJSON('http://api.geojason.info/v1/ws_geo_length_area.php?format=json&in_srid=4326&out_srid=2264&points='+points+'&callback=?',function(data){
-					if (parseInt(data.total_rows)>0){
-						var length = parseFloat(data.rows[0].row.length);
-						var area = parseFloat(data.rows[0].row.area);
-						var area_length = String((area/10000000).toFixed(2)).length;
-						$('p.area').html((area/10000000).toFixed(0) + '<sup>.'+ String((area/10000000).toFixed(2)).substring(area_length-2) +'</sup> <small>(km<sup>2</sup>)</small>');
-					}
-				});
+				//console.log(calculateArea(path));
 			}
 
 
@@ -170,6 +157,48 @@
 			}
 
 
+
+			/*========================================================================================================================*/
+			/* EOO rating, change image icon in app. */
+			/*========================================================================================================================*/
+			function EOOrating (EOOarea) {
+				var EOOString = "LEAST CONCERN (LC)";
+				if (EOOarea < 100) {
+				  EOOString = "CRITICALLY ENDANGERED (CR)";
+				  }
+				else if (EOOarea < 5000) {
+				  EOOString = "ENDANGERED (EN)";
+				  }
+				else if (EOOarea < 20000) {
+				  EOOString = "VULNERABLE (VU)";
+				  }
+				else if (EOOarea < 45000) {
+				  EOOString = "Possibly NEAR THREATENED (NT)";
+				  }
+				return (EOOString);
+			}
+
+
+
+			/*========================================================================================================================*/
+			/* AOO rating, change image icon in app. */
+			/*========================================================================================================================*/
+			function AOOrating (AOOArea) {
+				var AOOString = "LEAST CONCERN (LC)";
+				if (AOOArea < 10) {
+				  AOOString = "CRITICALLY ENDANGERED (CR)";
+				  }
+				else if (AOOArea < 500) {
+				  AOOString = "ENDANGERED (EN)";
+				  }
+				else if (AOOArea < 2000) {
+				  AOOString = "VULNERABLE (VU)";
+				  }
+				else if (AOOArea < 4500) {
+				  AOOString = "Possibly NEAR THREATENED (NT)";
+				  }
+				return (AOOString);
+			}
 
 
 			
