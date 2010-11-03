@@ -1069,7 +1069,7 @@ var global_zIndex = 1;					// Z-index for the markers
 				calculateMapPoints();
 				calculateSourcePoints(_information[count].new_.kind);
 				if (convex_hull.isVisible()) {
-					convex_hull.addPoint(marker);
+					convex_hull.deductPoint(_information[count].catalogue_id);
 				}
 				count = count+1;
 				setTimeout("removeMarkersfromActionAsync("+count+")",0);
@@ -1104,7 +1104,8 @@ var global_zIndex = 1;					// Z-index for the markers
 				calculateMapPoints();
 				calculateSourcePoints(_information[count].new_.kind);
 				if (convex_hull.isVisible()) {
-					convex_hull.addPoint(marker);
+					console.log('Editor-add-point');
+					convex_hull.addPoint(_markers[_information[count].catalogue_id]);
 				}
 				count = count+1;
 				setTimeout("addMarkersfromActionAsync("+count+")",0);
@@ -1183,7 +1184,7 @@ var global_zIndex = 1;					// Z-index for the markers
 			changeAppToSave(1);		
 			
 			//Merge points from service
-			merge_object = new MergeOperations(sources);
-			merge_object.checkSources();
+			//merge_object = new MergeOperations(sources);
+			//merge_object.checkSources();
 				
 		}

@@ -162,12 +162,14 @@ div.analysis_data ul li.vu {background:url(/images/editor/VU.png) no-repeat righ
 div.analysis_data ul li p.change {float:left; width:100%; margin:2px 0 0; font:normal 11px Arial; color:#999999; text-shadow:none;}
 div.analysis_data ul li p.change a {float:none; text-decoration:underline; color:#FF6600; background:none;}
 div.analysis_data ul li p.change a:hover {color:#FF3300;}
-div.inner_analysis div.cellsize {display:none; position:absolute!important; width:154px; height:170px; margin:0; padding:38px 26px 0 26px; background:url(/images/editor/cellsize_bkg.png) no-repeat 0 0; z-index:1000;}
+div.inner_analysis div.cellsize {display:none; position:absolute!important; width:154px; height:170px; bottom:-150px; left:1px; margin:0; padding:38px 26px 0 26px; background:url(/images/editor/cellsize_bkg.png) no-repeat 0 0; z-index:1000;}
 div.inner_analysis div.cellsize h4 {float:left; width:100%; font:normal 11px "Futura"; color:#666666; margin:0; padding:0;}
-div.inner_analysis div.cellsize span {float:left; width:100%; margin:20px 0 0 0;}
-div.inner_analysis div.cellsize span label {float:left; width:auto; font:normal 10px Arial; color:#B3B3B3;}
-div.inner_analysis div.cellsize span p {float:right; width:auto; font:normal 10px Arial; color:#F7AC53;}
 div.inner_analysis div.cellsize p {float:left; width:100%; font:normal 11px Arial; color:#666666;}
+div.inner_analysis div.cellsize span {float:left; width:100%; margin:20px 0 0 0; }
+div.inner_analysis div.cellsize span label {float:left; width:auto; margin:0; font:normal 10px Arial; color:#B3B3B3;}
+div.inner_analysis div.cellsize span p {float:right; width:auto; margin:0; font:normal 10px Arial; color:#F7AC53;}
+div.inner_analysis div.cellsize div.slider {float:left; width:100%; height:5px; margin:10px 0 0 0;}
+/*div.inner_analysis div.cellsize div.min {float:left; width:100%; height:10px;}*/
 div.inner_analysis div.cellsize div.bottom {float:left; width:100%;}
 div.inner_analysis div.cellsize div.bottom a {float:left; width:auto; padding:3px 0 0 0; font:normal 11px Arial; color:#FF6600; text-decoration:underline;}
 div.inner_analysis div.cellsize div.bottom a:hover {color:#FF3300; cursor:pointer;}

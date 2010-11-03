@@ -1,207 +1,211 @@
 
-			/*==========================================================================================================================*/
-			/*  																																																												*/
-			/*							Hull => Class to create & re-generate Convex Hull Polygon data and google maps polygon included.						*/
-			/*									*Params ->	map: where draws the polygon.																																*/
-			/*  																																																												*/
-			/*==========================================================================================================================*/			
-	
-			
-			function HullOperations(_map) {
-				this.visible = false;
-				this.earth_radius = 6371000.7900;
-				this.cells = new Array();
-				this.active_markers = [];
-				this.map = _map;
-			}
-			
-			
-			/*========================================================================================================================*/
-			/* Create the polygon when the user open convex the hull window. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.createPolygon = function(markers) {
-				this.visible = true;
-				this.createActivePoints(markers);
-			}
-			
+		/*==========================================================================================================================*/
+		/*  																																																												*/
+		/*									Hull => Class to create & re-generate Convex Hull Polygon data and google maps polygon included.				*/
+		/*											*Params ->	map: where draws the polygon.																														*/
+		/*  																																																												*/
+		/*==========================================================================================================================*/			
 
 
-			/*========================================================================================================================*/
-			/* Remove from the map the polygon when the user close the convex hull window. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.removePolygon = function() {
-				this.visible = false;
-				this.active_markers = [];
+		function HullOperations(_map) {
+			this.visible = false;
+			this.active_markers = [];
+			this.map = _map;
+			
+			//Binding events of DOM elements related to HULLOperations
+			$("div.cellsize div.slider").slider({
+				range: "min",
+				value: 5,
+				min: 5,
+				max: 50,
+				slide: function(event, ui) {
+					
+				}
+			});
+		}
+
+
+		/*========================================================================================================================*/
+		/* Create the polygon when the user open convex the hull window. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.createPolygon = function(markers) {
+			this.visible = true;
+			this.createActivePoints(markers);
+			if (this.polygon!=undefined) {
+				this.polygon.setMap(this.map);
+			}
+		}
+
+
+
+		/*========================================================================================================================*/
+		/* Remove from the map the polygon when the user close the convex hull window. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.removePolygon = function() {
+			this.visible = false;
+			this.active_markers = [];
+			if (this.polygon!=undefined) {
 				this.polygon.setMap(null);
 			}
-			
-			
+		}
 
-			/*========================================================================================================================*/
-			/* Function to sort the markers for Convex Hull Operation. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.sortPointX = function(a,b) {return a.position.c - b.position.c;}
-			HullOperations.prototype.sortPointY = function(a,b) {return a.position.b - b.position.b;}
-
-
-
-			/*========================================================================================================================*/
-			/* Calculate operations before draw the polygon. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.calculateConvexHull = function() {
-				this.active_markers.sort(this.sortPointY);
-	    	this.active_markers.sort(this.sortPointX);
-	    	this.drawHull();
-			}
-			
-			
-			
-			/*========================================================================================================================*/
-			/* Filter all the map markers to add only the active ones. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.createActivePoints = function(all_markers) {
-				this.active_markers = [];
-				for (var i in all_markers) {
-					if (all_markers[i].data.active && !all_markers[i].data.removed) {
-						this.active_markers.push(all_markers[i]);
-					}
+		/*========================================================================================================================*/
+		/* Filter all the map markers to add only the active ones. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.createActivePoints = function(all_markers) {
+			this.active_markers = [];
+			for (var i in all_markers) {
+				if (all_markers[i].data.active && !all_markers[i].data.removed) {
+					this.active_markers.push(all_markers[i]);
 				}
+			}
+			if (this.active_markers.length>2) {
 				this.calculateConvexHull();
 			}
+		}
 
 
-			/*========================================================================================================================*/
-			/* Add new point to active markers. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.addPoint = function(marker) {
-				this.active_markers.push(marker);
-				this.calculateConvexHull();
-			}
-			
-			
-			
-			/*========================================================================================================================*/
-			/* Dedeuct one point from active markers. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.deductPoint = function(marker_id) {
-				for (var i=0; i<this.active_markers.length; i++) {
-					if (this.active_markers[i].data.catalogue_id == marker_id) {
-						this.active_markers.splice(i,1);
-						break;
-					}
-				}
-				this.calculateConvexHull();
-			}
-			
-			
-			/*========================================================================================================================*/
-			/* Draw the convex hull polygon. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.drawHull= function() {
-				var hullPoints = [];
-				
-				chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
-				
-				if (this.polygon != undefined) {
-					this.polygon.setPath(this.markersToPoints(hullPoints));
-				} else {
-				   	this.polygon = new google.maps.Polygon({
-						paths: this.markersToPoints(hullPoints),
-			      strokeColor: "#333333",
-			      strokeOpacity: 1,
-			      strokeWeight: 2,
-			      fillColor: "#000000",
-			      fillOpacity: 0.25
-					});
-					google.maps.event.addListener(this.polygon,"click",function(event){
-						if (state == 'add') {
-							addMarker(event.latLng,null,false);
-						}
-					});
+		/*========================================================================================================================*/
+		/* Function to sort the markers for Convex Hull Operation. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.sortPointX = function(a,b) {return a.position.c - b.position.c;}
+		HullOperations.prototype.sortPointY = function(a,b) {return a.position.b - b.position.b;}
+
+
+
+		/*========================================================================================================================*/
+		/* Calculate operations before draw the polygon. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.calculateConvexHull = function() {
+			this.active_markers.sort(this.sortPointY);
+			this.active_markers.sort(this.sortPointX);
+			this.drawHull();
+		}
+
+
+
+		/*========================================================================================================================*/
+		/* Add new point to active markers. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.addPoint = function(marker) {
+			this.active_markers.push(marker);
+			if (this.active_markers.length>2) {
+				if (this.polygon!=undefined) {
 					this.polygon.setMap(this.map);
+					this.calculateConvexHull();
+				} else {
+					this.createPolygon(_markers);
 				}
-
-				this.getPolygonArea(this.polygon.getPath().b);
 			}
-			
-			
-			
-			/*========================================================================================================================*/
-			/* Get the convex hull polygon area and show the figures in the convex hull window. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.getPolygonArea = function(path) {
-				//console.log(calculateArea(path));
-			}
+		}
 
 
 
-			/*========================================================================================================================*/
-			/* Return if the convex hull is visible or not. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.isVisible = function() {
-				return this.visible;
-			}
-
-
-
-
-			/*========================================================================================================================*/
-			/* Transform the google maps markers to points with only latitude and longitude. */
-			/*========================================================================================================================*/
-			HullOperations.prototype.markersToPoints = function(path) {
-				var result = [];
-				for (var i=0; i<path.length; i++) {
-						result.push(new google.maps.LatLng(path[i].position.b,path[i].position.c));
+		/*========================================================================================================================*/
+		/* Deduct one point from active markers. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.deductPoint = function(marker_id) {
+			for (var i=0; i<this.active_markers.length; i++) {
+				if (this.active_markers[i].data.catalogue_id == marker_id) {
+					this.active_markers.splice(i,1);
+					break;
 				}
-				return result;
 			}
-
-
-
-			/*========================================================================================================================*/
-			/* EOO rating, change image icon in app. */
-			/*========================================================================================================================*/
-			function EOOrating (EOOarea) {
-				var EOOString = "LEAST CONCERN (LC)";
-				if (EOOarea < 100) {
-				  EOOString = "CRITICALLY ENDANGERED (CR)";
-				  }
-				else if (EOOarea < 5000) {
-				  EOOString = "ENDANGERED (EN)";
-				  }
-				else if (EOOarea < 20000) {
-				  EOOString = "VULNERABLE (VU)";
-				  }
-				else if (EOOarea < 45000) {
-				  EOOString = "Possibly NEAR THREATENED (NT)";
-				  }
-				return (EOOString);
+			if (this.active_markers.length>2) {
+				this.calculateConvexHull();
+			} else {
+				this.polygon.setMap(null);
 			}
+		}
 
 
-
-			/*========================================================================================================================*/
-			/* AOO rating, change image icon in app. */
-			/*========================================================================================================================*/
-			function AOOrating (AOOArea) {
-				var AOOString = "LEAST CONCERN (LC)";
-				if (AOOArea < 10) {
-				  AOOString = "CRITICALLY ENDANGERED (CR)";
-				  }
-				else if (AOOArea < 500) {
-				  AOOString = "ENDANGERED (EN)";
-				  }
-				else if (AOOArea < 2000) {
-				  AOOString = "VULNERABLE (VU)";
-				  }
-				else if (AOOArea < 4500) {
-				  AOOString = "Possibly NEAR THREATENED (NT)";
-				  }
-				return (AOOString);
+		/*========================================================================================================================*/
+		/* Draw the convex hull polygon. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.drawHull= function() {
+			var hullPoints = [];
+	
+			chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
+	
+			if (this.polygon != undefined) {
+				this.polygon.setPath(this.markersToPoints(hullPoints));
+			} else {
+			   	this.polygon = new google.maps.Polygon({
+					paths: this.markersToPoints(hullPoints),
+		      strokeColor: "#333333",
+		      strokeOpacity: 1,
+		      strokeWeight: 2,
+		      fillColor: "#000000",
+		      fillOpacity: 0.25
+				});
+		
+				google.maps.event.addListener(this.polygon,"click",function(event){
+					if (state == 'add') {
+						addMarker(event.latLng,null,false);
+					}
+				});
+		
 			}
+			this.setAlgorithmData(this.polygon.getPath().b);
+		}
+		
+		
+		/*========================================================================================================================*/
+		/* Transform the google maps markers to points with only latitude and longitude. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.markersToPoints = function(path) {
+			var result = [];
+			for (var i=0; i<path.length; i++) {
+					result.push(new google.maps.LatLng(path[i].position.b,path[i].position.c));
+			}
+			return result;
+		}
 
 
+
+		/*========================================================================================================================*/
+		/* Get the convex hull polygon area and show the figures in the convex hull window. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.setAlgorithmData = function(path) {
+			var obj = getAnalysisData(calculateArea(path), path);
 			
+			$('div.analysis_data ul li:eq(0)').addClass(obj.EOORat);
+			$('div.analysis_data ul li:eq(0) p:eq(0)').html(obj.EOOArea.toFixed(2)+' km<sup>2</sup>');
+			$('div.analysis_data ul li:eq(1)').addClass(obj.AOORat);
+			$('div.analysis_data ul li:eq(1) p:eq(0)').html(obj.AOOArea.toFixed(2)+' km<sup>2</sup>');
+		}
+
+
+
+
+
+		/*========================================================================================================================*/
+		/* Return if the convex hull is visible or not. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.isVisible = function() {
+			return this.visible;
+		}
+		
+		
+		
+		
+		function openCellsizeContainer() {
+			$('div.cellsize').fadeIn();
+		}
+		
+		
+		function closeCellsizeContainer() {
+			
+		}
+
+
+
+
+
+
+
+
+
 
 
 

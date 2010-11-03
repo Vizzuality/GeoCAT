@@ -1,7 +1,7 @@
 
 		function calculateArea(points) {
 			
-			var earthRadiusMeters=6367460.0;
+			var earthRadiusMeters=6378137.0;
 			var metersPerDegree=2.0*Math.PI*earthRadiusMeters/360.0;
 			var degreesPerRadian=180.0/Math.PI;
 			var radiansPerDegree=Math.PI/180.0;
