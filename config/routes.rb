@@ -3,19 +3,19 @@ Rlat::Application.routes.draw do |map|
   resources :rlas
 
   root :to => "main#index"
-    
+
   match 'about' => 'main#about'
-  
+
   #match 'editor' => 'rlas#editor'
   #match 'editor/:id/:specie' => 'rlas#editor_params'
-  
-  match 'search/flickr/:q' => 'flickr#search'  
+
+  match 'search/flickr/:q' => 'flickr#search'
   match 'search/gbif/:q' => 'gbif#search'
-  
+
   match 'download/rla' => 'file#download'
-  match 'editor' => 'file#upload'
-  
-  
+  match 'editor(/:species)' => 'file#upload'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

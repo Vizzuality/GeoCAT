@@ -55,7 +55,7 @@
 					multiple: false,
 					scroll: false
 				}).result(function(event,row){
-					location.href = '/editor/' + row.id + '/' + escape(row.scientificName);
+					location.href = encodeURI('/editor/' + row.scientificName);
 				});
 
 		
