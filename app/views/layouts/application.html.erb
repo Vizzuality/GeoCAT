@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	  <title>RLSAT - Red List Species Assessment Tool</title>
-	  <%= stylesheet_link_tag :all %>
-	  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %>
-	  <%= csrf_meta_tag %>
-	</head>
-	<body>
-		<%= yield %>
-	</body>
+  <head>
+    <title>RLSAT - Red List Species Assessment Tool</title>
+    <%= stylesheet_link_tag :all %>
+    <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" %>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <% flash.each do |name, msg| %>
+      <div id="flash_<%=name%>" class="flash <%=name%>">
+        <%= msg %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
 </html>

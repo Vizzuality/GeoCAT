@@ -1,5 +1,7 @@
 class FileController < ApplicationController
 
+  before_filter :check_upload_params, :only => :upload
+
   def download
 
     json = JSON.parse(params[:rla])
@@ -27,6 +29,14 @@ class FileController < ApplicationController
 
     render :template => 'rlas/editor'
   end
+
+  private
+    def check_upload_params
+      if params[:species].blank? && params[:file].blank?
+        flash[:error] = 'You must provide an species name or upload a previous report.'
+        redirect_to root_url
+      end
+    end
 end
 
 def filename_escape(string)
