@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta4'
+gem 'rails', '~> 3.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,6 +14,7 @@ gem 'flickraw', '0.8.2'
 gem 'awesome_print', :require => 'ap'
 gem 'RedCloth', '4.2.3'
 gem 'nokogiri', '1.4.2'
+gem 'csv-mapper'
 
 # Use unicorn as the web server
 # gem 'unicorn'

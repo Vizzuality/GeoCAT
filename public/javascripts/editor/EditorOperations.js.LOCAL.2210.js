@@ -1,4 +1,3 @@
-
 var specie;  										/*** specie name ***/
 
 var state = 'select';						// State of the map & application
@@ -111,7 +110,10 @@ var global_zIndex = 1;					// Z-index for the markers
 			//if the application comes through an upload file
 			if ($('#upload_data').text()!='') {
 				$('#wellcome').hide();
-				 uploadRLA(upload_information);
+				var upload_string = $('#upload_data').text();
+				var upload_information = JSON.parse(upload_string);
+				//show new mamufas that it covers all the stage?
+				uploadRLA(upload_information);
 			}
 
 		});

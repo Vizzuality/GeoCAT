@@ -64,6 +64,63 @@
 
                 <div class="sources">
 
+<<<<<<< HEAD
+			<div id="tools">
+				<div class="table">
+					<div class="header">
+						<div class="top-left-tool"></div>
+						<div class="top-repeat-tool">
+							<div class="left">
+								<h2>TOOLS</h2>
+							</div>
+							<div class="right">
+								<h2>ANALYSIS AND SOURCES</h2>
+							</div>
+						</div>						
+						<div class="top-right-tool"></div>
+					</div>
+					<div class="center">
+						<div class="left-repeat-tool"></div>
+						<div class="center-tool">
+							<div class="left">
+								<a onclick="javascript: void setStatus('select')" class="select selected"></a>
+								<a onclick="javascript: void setStatus('selection')" class="selection"></a>
+								<a onclick="javascript: void setStatus('add')" class="add"></a>
+								<a onclick="javascript: void setStatus('remove')" class="remove"></a>
+							</div>
+							<div class="right">
+							  
+							  <div class="analysis">
+							    <div class="inner_analysis">
+  							    <a id="toggle_analysis" class="disabled"><span></span></a>
+  							    <h3 class="disabled">Analysis disabled</h3>
+  							    <div class="analysis_data">
+							        <ul>
+							          <li>
+							            <label>EOO</label>
+							            <p>0 km<sup>2</sup></p>
+							          </li>
+							          <li>
+							            <label>AOO</label>
+							            <p>0 km<sup>2</sup></p>
+							            <p class="change">Cellsize 5km, <a onclick="openCellsizeContainer()">change</a></p>
+							          </li>
+							        </ul>
+							        <span><a>Download complete report</a></span>
+  							    </div>
+  							    <div class="cellsize">
+					            <h4>CHANGE CELLSIZE</h4>
+					            <span><label>SIDE LENGTH</label><p>5KM</p></span>
+					            <div class="slider"></div>
+					            <p>Determines the minimum cell used during the AOO analysis</p>
+					            <div class="bottom">
+					              <a onclick='$("div.cellsize div.slider").slider({value:5})'>set auto value</a>
+					              <a class="done" onclick="closeCellsizeContainer()"></a>
+					            </div>
+					          </div>
+							    </div>
+							  </div>
+=======
                   <!-- Merge window -->
                   <div class="merge_container">
                     <h4>MERGE NEW FLICKR POINTS</h4>
@@ -71,6 +128,7 @@
                     <a class="preview selected">Preview</a>
                     <div><a class="cancel" onclick="closeMergeContainer()">Cancel</a><a class="merge_button"></a></div>
                   </div>
+>>>>>>> 16d85e7d86969dd446b2d9ed5497f3e486ee9fa4
 
                   <!-- Delete all window -->
                   <div class="delete_all">
