@@ -1,105 +1,90 @@
 <SCRIPT type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></SCRIPT> 
 <SCRIPT type="text/javascript" src="http://www.google.com/jsapi"></SCRIPT>
-<%= javascript_include_tag "jquery.autocomplete.js" %>
-<%= javascript_include_tag "application.js" %>
+<%= javascript_include_tag "jquery.autocomplete.js", "editor/Calculations/ConvexHull", "application.js" %>
 
-		<div id="map"></div>
-		<div class="opaque"></div>
+    <% flash.each do |name, msg| %>
+      <div id="flash_<%=name%>" class="flash <%=name%>">
+        <p><%= msg %></p>
+      </div>
+    <% end %>
 
-		<div class="layout header">
-			<header>
-				<h2>Red List Species Assessment Tool</h2>
-			</header>
-			<section class="name">
-				<h1>Analysis Tool for Geospatial Red List Species Assessment</h1>
-			</section>
-		</div>
+    <div class="main_layout">
+  		<div id="map"></div>
+  		<div class="opaque"></div>
+
+  		<div class="layout header">
+  			<header>
+  				<h2>Red List Species Assessment Tool</h2>
+  			</header>
+  			<section class="name">
+  				<h1>Analysis Tool for Geospatial Red List Species Assessment</h1>
+  			</section>
+  		</div>
 		
-		<div class="white_band">
-			<div class="inner">
-				<img src="../images/home/arrow_gray.png" class="arrow" />
-				<ul>
-					<li class="selected"><a href="#">How it works</a></li>
-					<li><a href="#">What we propose</a></li>
-				</ul>
-				<span class="main_shadow"></span>
-				<div id="main_container">
-					<label>What species do you want to analyse?</label>
-					<form class="up">
-						<input id="inputSearch" type="text" value="Start typing your desired taxon..." 
-						onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"/>
-						<p>you can try with <a href="#">Luzula Luzuloides</a></p>
-						<img src="images/home/ajax-loader.gif" class="loader">
-					</form>
+  		<div class="white_band">
+  			<div class="inner">
+  				<img src="../images/home/arrow_gray.png" class="arrow" />
+  				<ul>
+  					<li class="selected"><a>How it works</a></li>
+  					<!-- <li><a href="#">What we propose</a></li> -->
+  				</ul>
+  				<span class="main_shadow"></span>
+  				<div id="main_container">
+  					<label>What species do you want to analyse?</label>
+  					<form class="up">
+  						<input id="inputSearch" type="text" value="Start typing your desired taxon..." 
+  						onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"/>
+  						<p>you can try with <a href="/editor/Luzula%20Luzuloides">Luzula Luzuloides</a></p>
+  						<img src="images/home/ajax-loader.gif" class="loader">
+  					</form>
 
-          <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
-            <p>or continue working in a previous report</p>
-            <a id="upload_button"></a>
-            <input type="file" name="file" size="30" id="upload_input" />
-          </form>
-				</div>
-			</div>
-		</div>
+            <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
+              <p>or continue working in a previous report</p>
+              <a id="upload_button"></a>
+              <input type="file" name="file" size="30" id="upload_input" />
+            </form>
+  				</div>
+  			</div>
+  		</div>
 		
-		<div class="layout blocks">
-			<div class="block">
-				<h3>1. Select your desired species or create a report from scratch</h3>
-				<div class="image">
-					<img src="../images/home/image_1.gif" alt="" />
-				</div>
-			</div>
-			<div class="block">
-				<img src="../images/home/arrow_block.png" class="top" />
-				<h3>2. Manage your sources and work through the map</h3>
-				<div class="image">
-					<img src="../images/home/image_2.gif" alt="" />
-				</div>
-			</div>
-			<div class="block last">
-				<img src="../images/home/arrow_block.png" class="bottom" />
-				<h3>3. Download or print your report and start sharing it</h3>
-				<div class="image">
-					<img src="../images/home/image_3.gif" alt="" />
-				</div>
-			</div>
-		</div>
+  		<div class="layout blocks">
+  			<div class="block">
+  				<h3>1. Select your desired species or create a report from scratch</h3>
+  				<div class="image">
+  					<img src="../images/home/image_1.gif" alt="" />
+  				</div>
+  			</div>
+  			<div class="block">
+  				<img src="../images/home/arrow_block.png" class="top" />
+  				<h3>2. Manage your sources and work through the map</h3>
+  				<div class="image">
+  					<img src="../images/home/image_2.gif" alt="" />
+  				</div>
+  			</div>
+  			<div class="block last">
+  				<img src="../images/home/arrow_block.png" class="bottom" />
+  				<h3>3. Download or print your report and start sharing it</h3>
+  				<div class="image">
+  					<img src="../images/home/image_3.gif" alt="" />
+  				</div>
+  			</div>
+  		</div>
 		
-		<footer>
-			<div class="inner">
-				<div class="left">
-					<p>An effort of</p>
-					<a href="http://www.kew.org" target="_blank">
-						<img src="images/home/kew_logo.png" alt="Kew" />
-					</a>
-					<p>All rights reserved. 2010. <a href="#">Legal terms</a> / <a href="#">Contact us</a></p>
-				</div>
-				<div class="right">
-					<p>Developed by</p>
-					<a href="http://www.vizzuality.com" target="_blank">
-						<img src="images/home/vizz_logo.png" alt="Vizzuality" />
-					</a>
-				</div>
-			</div>
-		</footer>
-
-
-	<!--<div id="main_container">
-
- 		<h1>Endangered Species Analysis tool</h1>
-		<label>What species do you want to analyse?</label>
-
-		<form>
-			<input id="inputSearch" type="text" value="Start typing your desired taxon..." 
-			onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"/>
-		</form>
-			
-		<%= form_for Rla.new, :html => { :class => "upload", :multipart => true } do |r| %>
-			<p>or continue working in a previous report</p>
-
-			<a id="upload_button"></a>
-
-			<%= r.file_field :name %>	
-			
-		<% end %>
-	
-</div> -->
+  		<footer>
+  			<div class="inner">
+  				<div class="left">
+  					<p>An effort of</p>
+  					<a href="http://www.kew.org" target="_blank">
+  						<img src="images/home/kew_logo.png" alt="Kew" />
+  					</a>
+  					<p>All rights reserved. 2010. <a href="#">Legal terms</a> / <a href="#">Contact us</a></p>
+  				</div>
+  				<div class="right">
+  					<p>Developed by</p>
+  					<a href="http://www.vizzuality.com" target="_blank">
+  						<img src="images/home/vizz_logo.png" alt="Vizzuality" />
+  					</a>
+  				</div>
+  			</div>
+  		</footer>
+		</div>

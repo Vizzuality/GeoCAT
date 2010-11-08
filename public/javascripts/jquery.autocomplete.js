@@ -373,7 +373,7 @@ $.Autocompleter = function(input, options) {
 					limit: options.max
 				}, extraParams),
 				success: function(data) {
-					var parsed = options.parse && options.parse(data.Resultset.Result) || parse(data.Resultset.Result);
+					var parsed = options.parse && options.parse(data) || parse(data);
 					cache.add(term, parsed);
 					success(term, parsed);
 				}
@@ -590,6 +590,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
 	
 	// Create results
 	function init() {
+		
 		if (!needsInit)
 			return;
 		element = $("<div/>")
@@ -619,6 +620,15 @@ $.Autocompleter.Select = function (options, input, select, config) {
 			element.css("width", options.width);
 			
 		needsInit = false;
+		
+		$(window).resize(function() {
+			var offset = $(input).offset();
+		  element.css({
+				width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).width(),
+				top: offset.top + input.offsetHeight + 3,
+				left: offset.left - 9
+			});
+		});
 	} 
 	
 	function target(event) {

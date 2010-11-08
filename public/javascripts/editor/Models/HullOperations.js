@@ -80,13 +80,13 @@
 		/*========================================================================================================================*/
 		/* Function to sort the markers for Convex Hull Operation. */
 		/*========================================================================================================================*/
-		HullOperations.prototype.sortPointX = function(a,b) {return a.position.c - b.position.c;}
-		HullOperations.prototype.sortPointY = function(a,b) {return a.position.b - b.position.b;}
+		HullOperations.prototype.sortPointX = function(a,b) {return a.getPosition().lng() - b.getPosition().lng();}
+		HullOperations.prototype.sortPointY = function(a,b) {return a.getPosition().lat() - b.getPosition().lat();}
 
 
 
 		/*========================================================================================================================*/
-		/* Calculate operations before draw the polygon. */
+		/* Calculate operations before drawlng() the polygon. */
 		/*========================================================================================================================*/
 		HullOperations.prototype.calculateConvexHull = function() {
 			this.removeAOOPolygons();
@@ -160,6 +160,7 @@
 				});
 		
 			}
+			
 			this.setAlgorithmData(this.polygon.getPath().b, this.cellsize*1000);
 		}
 		
@@ -170,7 +171,7 @@
 		HullOperations.prototype.markersToPoints = function(path) {
 			var result = [];
 			for (var i=0; i<path.length; i++) {
-					result.push(new google.maps.LatLng(path[i].position.b,path[i].position.c));
+					result.push(path[i].getPosition());
 			}
 			return result;
 		}

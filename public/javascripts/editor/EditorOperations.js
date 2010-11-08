@@ -279,9 +279,7 @@ var global_zIndex = 1;					// Z-index for the markers
 					
 				var total = information.points.length;
 				_information = information.points;
-				
-				console.log(_information);
-					
+									
 				actions.Do('add', null, _information);
 				setTimeout("asynAddMarker("+0+","+total+","+getBound+","+ saveAction+")", 0);
 		}
@@ -294,15 +292,15 @@ var global_zIndex = 1;					// Z-index for the markers
 		function addSourceToList(kind) {
 			switch (kind) {
 				case 'gbif': 		if (!$('#GBIF_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'green\')" class="delete_all"></a><a class="merge"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a class="green" id="GBIF_points"><span> GBIF Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'green\')" class="delete_all"></a><a class="merge"></a></li>');
 												}
 												break;
 				case 'flickr': 	if (!$('#Flickr_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'pink\')" class="delete_all"></a><a class="merge"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a class="pink" id="Flickr_points"><span> Flickr Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'pink\')" class="delete_all"></a><a class="merge"></a></li>');
 												}
 												break;
 				default: 				if (!$('#our_points').length) {
-													$('div.sources ul#sources_list').append('<li><a href="#" class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all"></a><a class="merge"></a></li>');
+													$('div.sources ul#sources_list').append('<li><a class="blue" id="our_points"><span> Your Points ('+ total_points.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all"></a><a class="merge"></a></li>');
 												}
 			}
 		}
@@ -633,9 +631,9 @@ var global_zIndex = 1;					// Z-index for the markers
 						if (selection_polygon.getPath().b.length!=0) {
 							selection_polygon.setPath([
 								selection_polygon.getPath().b[0],
-								new google.maps.LatLng(selection_polygon.getPath().b[0].b,event.latLng.c),
+								new google.maps.LatLng(selection_polygon.getPath().b[0].lat(),event.latLng.lng()),
 								event.latLng,
-								new google.maps.LatLng(event.latLng.b,selection_polygon.getPath().b[0].c),
+								new google.maps.LatLng(event.latLng.lat(),selection_polygon.getPath().b[0].lng()),
 								selection_polygon.getPath().b[0]]);
 						}
 					}
@@ -874,7 +872,6 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function asynAddMarker(i,total,_bounds, _saveAction) {
 			if(i < total){
-				console.log(_information[i].removed);
 				(_information[i].removed)?null:total_points.add(_information[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
  				
 				bounds.extend(new google.maps.LatLng(_information[i].latitude,_information[i].longitude));			

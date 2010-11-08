@@ -149,10 +149,10 @@
 			this.hide();
 			if (click_infowindow!=null) {					
 				if (_markers[this.marker_id].data.catalogue_id == click_infowindow.marker_id || !click_infowindow.isVisible()) {
-					click_infowindow.changePosition(new google.maps.LatLng(_markers[this.marker_id].position.b,_markers[this.marker_id].position.c),_markers[this.marker_id].data.catalogue_id,_markers[this.marker_id].data);
+					click_infowindow.changePosition(_markers[this.marker_id].getPosition(),_markers[this.marker_id].data.catalogue_id,_markers[this.marker_id].data);
 				}
 			} else {
-				click_infowindow = new MarkerTooltip(new google.maps.LatLng(_markers[this.marker_id].position.b,_markers[this.marker_id].position.c), _markers[this.marker_id].data.catalogue_id, _markers[this.marker_id].data, map);
+				click_infowindow = new MarkerTooltip(_markers[this.marker_id].getPosition(), _markers[this.marker_id].data.catalogue_id, _markers[this.marker_id].data, map);
 			}
 		}		
 		

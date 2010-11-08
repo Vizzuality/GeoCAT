@@ -51,7 +51,7 @@
 				 	var testtxt = new Array();
 
 				 	for (var idx in points) {
-						var xy = LLtoCylind (points[idx].position.b,points[idx].position.c);
+						var xy = LLtoCylind (points[idx].getPosition().lat(),points[idx].getPosition().lng());
 						LLx = (Math.floor (xy[0]/cellsize)) * cellsize;
 						LLy = (Math.floor (xy[1]/cellsize)) * cellsize;
 						URx = LLx + cellsize;

@@ -155,7 +155,7 @@
           <div class="header">
             <div class="top-left-map"></div>
             <div class="top-repeat-map">
-              <h1 class="specie"><%= (@rla == nil)? 'EMPTY' : '1_'+@rla.specie+'.rdl' %><sup>(unsaved)</sup></h1>
+              <h1 class="specie"><%= @species_name.blank? ? 'Specie not specified' : CGI::unescape(@species_name) %><sup>(unsaved)</sup></h1>
             </div>
             <div class="top-right-map"></div>
           </div>

@@ -81,7 +81,7 @@
 					this.position++;
 					changeAppToSave(0);
 				}	else {
-					$('#action_info span').text('There are no actions to redo');
+					$('#action_info span').text("There aren't more actions to redo");
 				}
 				$('#action_info').stop(true).fadeTo(200,1);
 			}
@@ -115,7 +115,7 @@
 					}
 					changeAppToSave(0);
 				} else {
-					$('#action_info span').text('There are no actions to undo');
+					$('#action_info span').text("There aren't more actions to undo");
 				}
 				$('#action_info').stop(true).fadeTo(200,1);
 			}

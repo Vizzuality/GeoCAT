@@ -39,10 +39,10 @@
 				
 				if (delete_infowindow!=null) {					
 					if (this.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
-						delete_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id,this.data);
+						delete_infowindow.changePosition(this.getPosition(),this.data.catalogue_id,this.data);
 					}
 				} else {
-					delete_infowindow = new DeleteInfowindow(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, this.data, marker_map);
+					delete_infowindow = new DeleteInfowindow(this.getPosition(), this.data.catalogue_id, this.data, marker_map);
 				}				
 				
 			} else {
@@ -52,10 +52,10 @@
 				
 				if (click_infowindow!=null) {					
 					if (this.data.catalogue_id != click_infowindow.marker_id || !click_infowindow.isVisible()) {
-						click_infowindow.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id,this.data);
+						click_infowindow.changePosition(this.getPosition(),this.data.catalogue_id,this.data);
 					}
 				} else {
-					click_infowindow = new MarkerTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, this.data,marker_map);
+					click_infowindow = new MarkerTooltip(this.getPosition(), this.data.catalogue_id, this.data,marker_map);
 				}
 			}
 		});
@@ -71,19 +71,19 @@
 				if (click_infowindow != null) {
 					if (!is_dragging && !click_infowindow.isVisible()) {
 						if (over_tooltip!=null) {
-							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id);
+							over_tooltip.changePosition(this.getPosition(),this.data.catalogue_id);
 							over_tooltip.show();
 						} else {
-							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, marker_map);
+							over_tooltip = new MarkerOverTooltip(this.getPosition(), this.data.catalogue_id, marker_map);
 						}
 					}
 				} else {
 					if (!is_dragging) {
 						if (over_tooltip!=null) {
-							over_tooltip.changePosition(new google.maps.LatLng(this.position.b,this.position.c),this.data.catalogue_id);
+							over_tooltip.changePosition(this.getPosition(),this.data.catalogue_id);
 							over_tooltip.show();
 						} else {
-							over_tooltip = new MarkerOverTooltip(new google.maps.LatLng(this.position.b,this.position.c), this.data.catalogue_id, marker_map);
+							over_tooltip = new MarkerOverTooltip(this.getPosition(), this.data.catalogue_id, marker_map);
 						}
 					}
 				}

@@ -1,6 +1,37 @@
+/*HTML5 CSS Reset*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {margin:0; padding:0; border:0;  font-size:100%; vertical-align:baseline; background:transparent;}
+body {line-height:1;}
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {display:block;}
+nav ul {list-style:none;}
+blockquote, q {quotes:none;}
+blockquote:before, blockquote:after,
+q:before, q:after {content:''; content:none;}
+a {margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;}
+ins {background-color:#ff9; color:#000; text-decoration:none;}
+mark {background-color:#ff9; color:#000; font-style:italic; font-weight:bold;}
+del {text-decoration: line-through;}
+abbr[title], dfn[title] {border-bottom:1px dotted; cursor:help;}
+table {border-collapse:collapse; border-spacing:0;}
+hr {display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0;}
+input, select {vertical-align:middle;}
+
+
 
 body {background:#EAEAEB; padding:0; margin:0;}
 ul{list-style:none;}
+a:hover {cursor:pointer;}
 
 /*fonts*/
 @font-face { font-family: "Futura"; src: url('../fonts/Futura.ttc'); } 
@@ -8,7 +39,10 @@ ul{list-style:none;}
 
 
 /* HOME */
+div.flash {float:left; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666;}
+div.flash p {float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
 
+div.main_layout {position:relative; float:left; width:100%;}
 div#map {position:absolute; right:0; left:0; top:0; height:390px; z-index:0;}
 div.opaque {position:absolute; right:0; left:0; top:0; height:390px; width:100%; background:black; opacity:0.8; z-index:1;}
 
@@ -50,34 +84,39 @@ div.white_band div#main_container form.up img.loader {position:absolute; right:2
 .ac_results li p strong {text-decoration:underline;}
 .ac_results li.ac_over {cursor: pointer; color: #999999;}
 .ac_results li.empty.ac_over {cursor: default; color: black;}
+.ac_results li div.taxonomy {float:left; width:100%; margin:4px 0 0 0;}
+.ac_results li div.taxonomy p {float:left; width:auto; font:normal 13px Arial; color:#999999; padding:0 9px 0 6px; background:url(/images/home/arrow_taxonomy.png) no-repeat right 6px;}
+.ac_results li div.taxonomy p.first {padding:0 9px 0 0;}
+.ac_results li div.taxonomy p.last {padding:0 0 0 6px; background:none;}
 
 div.white_band div#main_container form.upload {position:relative; float:left; margin:35px 0 0 13px; width:408px;}
-div.white_band div#main_container form.upload p {float:left; font:normal 15px "Futura"; color:#858585; letter-spacing:-1px;}
+div.white_band div#main_container form.upload p {float:left; font:normal 15px "Futura"; color:#858585; letter-spacing:-1px; padding:13px 0 0 0;}
 div.white_band div#main_container form.upload input[type="file"]{position:absolute; top:0px; right:0px; width:133px; margin:10px 0 0 0; height:32px; border:none; opacity:0; z-index:100;}
 div.white_band div#main_container form.upload input[type="file"]:hover {cursor:pointer;}
 div.white_band div#main_container form.upload a {position:absolute; top:10px; right:0px; width:133px; height:32px; background:url(../images/home/upload_bkg.png) no-repeat 0 0; }
 div.white_band div#main_container form.upload a:hover {background-position:0 -32px; cursor:pointer;}
 div.white_band span.main_shadow {position:absolute; bottom:15px; right:-8px; width:479px; height:28px; background:url(../images/home/main_shadow.png) no-repeat center center; z-index:20;}
 
-div.layout.blocks {height:350px; padding:25px 0 0 0;}
-div.layout.blocks div.block {position:relative; float:left; width:310px; margin:0 10px 0 0; padding:0; background:url(../images/home/block_bkg.png) no-repeat 31px bottom; height:290px;}
-div.layout.blocks div.block img.top {position:absolute; left:-18px; top:124px; z-index:10;}
-div.layout.blocks div.block img.bottom {position:absolute; left:-18px; bottom:50px; z-index:10;}
+div.layout.blocks {height:320px; padding:25px 0 0 0;}
+div.layout.blocks div.block {position:relative; float:left; width:310px; margin:0 10px 0 0; padding:0; background:url(../images/home/block_bkg.png) no-repeat 31px bottom; height:270px;}
+div.layout.blocks div.block img.top {position:absolute; left:-18px; top:102px; z-index:10;}
+div.layout.blocks div.block img.bottom {position:absolute; left:-18px; bottom:52px; z-index:10;}
 div.layout.blocks div.block.last {margin:0; padding:0;}
 div.layout.blocks div.block h3 {float:left; width:300px; font:bold 17px Arial; color:#333333;}
-div.layout.blocks div.block div.image {float:left; padding:6px; background:white; border:1px solid #CCCCCC; width:288px;}
+div.layout.blocks div.block div.image {float:left; padding:6px; background:white; border:1px solid #CCCCCC; width:288px; margin:12px 0 0 0;}
 div.layout.blocks div.block div.image img {float:left;}
 
 footer {float:left; width:100%; padding:0; margin:0; background:#729900; border-top:1px solid #608800; z-index:100; height:59px;}
 footer div.inner {margin:0 auto; width:950px;}
 footer div.inner div.left {float:left;}
-footer div.inner div.left p {float:left; font:normal 13px Arial; color:#003500; padding:10px 5px 0 0;}
+footer div.inner div.left p {float:left; font:normal 13px Arial; color:#003500; padding:22px 5px 0 0;}
 footer div.inner div.left p a {color:#003500;}
 footer div.inner div.left p a:hover {text-decoration:none;}
 footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 footer div.inner div.right {float:right;}
-footer div.inner div.right p {float:left; font:normal 13px Arial; color:#37671C; padding:10px 5px 0 0;}
+footer div.inner div.right p {float:left; font:normal 13px Arial; color:#37671C; padding:22px 5px 0 0;}
 footer div.inner div.right img {float:left; margin:7px 0 0 0;}
+
 
 
 
@@ -105,7 +144,7 @@ div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
 div#editor a#gbif_id {display:none;}
-div#editor ul.editor_list {position:absolute; top:20px; right:50px; width:auto;}
+div#editor ul.editor_list {position:absolute; top:34px; right:50px; width:auto;}
 div#editor ul.editor_list li {float:left;}
 div#editor ul.editor_list li.first {margin:0 20px 0 0;}
 div#editor ul.editor_list li a {font:normal 13px "Futura"; color:#999999; text-decoration:none;}
@@ -120,9 +159,9 @@ div#tools div.table div.top-left-tool{position:relative; float:left; width:24px;
 div#tools div.table div.top-repeat-tool{position:absolute; left:24px; right:24px; top:0; height:62px; background:url(/images/editor/top-repeat-tool.png)  0 bottom;}
 div#tools div.table div.top-right-tool {position:relative; float:right; width:24px; height:62px; background:url(/images/editor/top-right-tool.png) no-repeat left bottom;}
 div#tools div.header div.left {float:left; padding:22px 0 0 3px; width:50px; color:white; height:40px;}
-div#tools div.header div.left h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; text-shadow:0 1px #000000; color:#CCCCCC;}
+div#tools div.header div.left h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura"; text-shadow:0 1px #000000; color:#CCCCCC;}
 div#tools div.header div.right {float:right; padding:22px 0 0 0; width:220px; color:white; height:45px;}
-div#tools div.header div.right h2 {float:left; padding:0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
+div#tools div.header div.right h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
 
 div#tools div.table div.center {position:absolute; top:62px; bottom:76px; left:0; right:0;}
 div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:14px; background:url(/images/editor/left-repeat-tool.png) repeat-y left 0;}
@@ -143,7 +182,7 @@ div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0;
 
 div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
 div#tools div.center div.right div.inner_analysis {position:relative; float:left; padding:16px 0 0; margin:0 0 0 30px; width:220px; height:auto; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
-	background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2)); }
+	background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2));}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:url(/images/editor/analysis_button.png) no-repeat 0 0; margin:0 0 0 16px;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {cursor:pointer;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url(/images/editor/analysis_button.png) no-repeat -28px -24px;}
@@ -169,16 +208,12 @@ div.inner_analysis div.cellsize span {float:left; width:100%; margin:25px 0 0 0;
 div.inner_analysis div.cellsize span label {float:left; width:auto; margin:0; font:normal 10px Arial; color:#B3B3B3;}
 div.inner_analysis div.cellsize span p {float:right; width:auto; margin:0; font:normal 10px Arial; color:#F7AC53;}
 div.inner_analysis div.cellsize div.slider {float:left; width:100%; height:5px; margin:10px 0 0 0;}
-/*div.inner_analysis div.cellsize div.min {float:left; width:100%; height:10px;}*/
 div.inner_analysis div.cellsize div.bottom {float:left; width:100%; margin:5px 0 0 0;}
 div.inner_analysis div.cellsize div.bottom a {float:left; width:auto; padding:3px 0 0 0; font:normal 11px Arial; color:#FF6600; text-decoration:underline;}
 div.inner_analysis div.cellsize div.bottom a:hover {color:#FF3300; cursor:pointer;}
 div.inner_analysis div.cellsize div.bottom a.done {float:right; width:54px; height:21px; padding:0; background:url(/images/editor/done_gray.png) no-repeat 0 0;}
 div.inner_analysis div.cellsize div.bottom a.done:hover {background-position:0 -21px;}
-
-
-
-div.analysis_data span {float:left; width:100%; padding:8px 0; background:url(/images/editor/download_analysis_bkg.png) repeat-x 0 0; border-bottom-left-radius:5px; border-bottom-right-radius:5px; 
+div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0; background:url(/images/editor/download_analysis_bkg.png) repeat-x 0 0; border-bottom-left-radius:5px; border-bottom-right-radius:5px; 
 	-moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; text-align:center;}
 div.analysis_data span a {font:bold 13px Arial; color:#333333; text-shadow:0 1px #B7D58D; text-decoration:none; padding:0;}
 div.analysis_data span a:hover {color:#111111;}
@@ -224,7 +259,7 @@ div.merge_container div a.cancel:hover {color:#000000; cursor:pointer;}
 div.merge_container div a.merge_button {float:right; margin:7px 0 0 0!important; padding:0!important; width:54px!important; height:21px!important; background:url(/images/editor/merge_button.png) no-repeat 0 0!important;}
 div.merge_container div a.merge_button:hover {background-position: 0 -21px!important; cursor:pointer;}
 
-div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-top:1px solid #454648;}
+div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:15px 0 14px 30px; margin:0; width:230px; border-top:1px solid #454648;}
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#editor div#tools div.center div.right div.sources span p {float:right; font:normal 11px "Futura"; color:#7C7D7E; padding:0 17px 0 0;}
@@ -244,7 +279,7 @@ div#editor div#tools div.center div.right div.sources a.add {float:left; padding
 div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc; background-position:0 -48px; text-decoration:none;}
 div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
-div#editor div#tools div.center div.right div.sources ul {float:left; width:218px; padding:0; margin:0;}
+div#editor div#tools div.center div.right div.sources ul {float:left; width:218px; padding:0; margin:5px 0 0 0;}
 div#editor div#tools div.center div.right div.sources ul li {float:left; position:relative; width:100%;}
 
 
@@ -252,7 +287,7 @@ div#editor div#tools div.center div.right div.sources ul li {float:left; positio
 div#editor div#tools div.center div.right div.sources div#add_source_container {position:absolute; width:209px; bottom:22px; right:15px; z-index:100; display:none;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.top {float:left; width:209px; padding:51px 0 0 0; background:url(/images/editor/add_source_top.png) no-repeat 0 top;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources {position:absolute; right:23px; top:23px; background:url(/images/editor/close_source.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources:hover {background-position:0 -16px;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources:hover {background-position:0 -16px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.bottom {float:left; width:209px; padding:0 0 25px; background:url(/images/editor/add_source_bottom.png) no-repeat 0 bottom;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle {float:left; width:185px; padding:0 12px; background:url(/images/editor/add_source_repeat.png) repeat-y 0 0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul {float:left; width:171px; padding:8px 7px; margin:0; background-image: -moz-linear-gradient(100% 100% 90deg, #F3F3F3, #D4D4D4); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F3F3F3), to(#D4D4D4));}
@@ -343,7 +378,7 @@ div#map_container div.table div.center-map div#mamufas_map div#loader_map {posit
 div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
-div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(/images/editor/save_stars.png) no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC;}
+div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url(/images/editor/save_stars.png) no-repeat 0 0; font:normal 13px "Futura"; color:#CCCCCC;}
 div#map_container div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
 div#map_container div.header h1.saved {background-position:0 -29px;}
 div#map_container div.header h1.saved sup {color:#7FAB2D;}
