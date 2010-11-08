@@ -281,6 +281,8 @@ var global_zIndex = 1;					// Z-index for the markers
 					
 				var total = information.points.length;
 				_information = information.points;
+				
+				console.log(_information);
 					
 				actions.Do('add', null, _information);
 				setTimeout("asynAddMarker("+0+","+total+","+getBound+","+ saveAction+")", 0);
@@ -874,6 +876,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function asynAddMarker(i,total,_bounds, _saveAction) {
 			if(i < total){
+				console.log(_information[i].removed);
 				(_information[i].removed)?null:total_points.add(_information[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
  				
 				bounds.extend(new google.maps.LatLng(_information[i].latitude,_information[i].longitude));			
@@ -1104,7 +1107,6 @@ var global_zIndex = 1;					// Z-index for the markers
 				calculateMapPoints();
 				calculateSourcePoints(_information[count].new_.kind);
 				if (convex_hull.isVisible()) {
-					console.log('Editor-add-point');
 					convex_hull.addPoint(_markers[_information[count].catalogue_id]);
 				}
 				count = count+1;

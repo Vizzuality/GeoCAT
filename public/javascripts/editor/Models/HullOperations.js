@@ -10,18 +10,28 @@
 		function HullOperations(_map) {
 			this.visible = false;
 			this.active_markers = [];
+			this.Cells = [];
 			this.map = _map;
+			this.cellsize = 5;
 			
-			//Binding events of DOM elements related to HULLOperations
+			var me = this;
+			
+			
+			/* Binding events of DOM elements related to HULLOperations  */
+			
+			//Hull convex slider
 			$("div.cellsize div.slider").slider({
 				range: "min",
 				value: 5,
 				min: 5,
 				max: 50,
 				slide: function(event, ui) {
-					
+					me.cellsize = ui.value;
+					me.removeAOOPolygons();
+					me.setAlgorithmValues(ui.value);
 				}
 			});
+			
 		}
 
 
@@ -46,7 +56,9 @@
 			this.active_markers = [];
 			if (this.polygon!=undefined) {
 				this.polygon.setMap(null);
+				this.removeAOOPolygons();
 			}
+			closeCellsizeContainer();
 		}
 
 		/*========================================================================================================================*/
@@ -77,6 +89,7 @@
 		/* Calculate operations before draw the polygon. */
 		/*========================================================================================================================*/
 		HullOperations.prototype.calculateConvexHull = function() {
+			this.removeAOOPolygons();
 			this.active_markers.sort(this.sortPointY);
 			this.active_markers.sort(this.sortPointX);
 			this.drawHull();
@@ -115,6 +128,7 @@
 				this.calculateConvexHull();
 			} else {
 				this.polygon.setMap(null);
+				this.resetAlgorithmValues();
 			}
 		}
 
@@ -130,7 +144,7 @@
 			if (this.polygon != undefined) {
 				this.polygon.setPath(this.markersToPoints(hullPoints));
 			} else {
-			   	this.polygon = new google.maps.Polygon({
+			  this.polygon = new google.maps.Polygon({
 					paths: this.markersToPoints(hullPoints),
 		      strokeColor: "#333333",
 		      strokeOpacity: 1,
@@ -146,7 +160,7 @@
 				});
 		
 			}
-			this.setAlgorithmData(this.polygon.getPath().b);
+			this.setAlgorithmData(this.polygon.getPath().b, this.cellsize*1000);
 		}
 		
 		
@@ -160,21 +174,69 @@
 			}
 			return result;
 		}
+		
+		
+		
+		
+		/*========================================================================================================================*/
+		/* . */
+		/*========================================================================================================================*/
+		HullOperations.prototype.drawAOOPolygons = function(path) {
+				for (var id in this.Cells) {
+					this.Cells[id].setMap(this.map);
+				}
+		}
+		
+		
+		/*========================================================================================================================*/
+		/* . */
+		/*========================================================================================================================*/
+		HullOperations.prototype.removeAOOPolygons = function(path) {
+			for (var id in this.Cells) {
+				this.Cells[id].setMap(null);
+			}
+			this.Cells = new Array();
+		}
+		
 
 
 
 		/*========================================================================================================================*/
 		/* Get the convex hull polygon area and show the figures in the convex hull window. */
 		/*========================================================================================================================*/
-		HullOperations.prototype.setAlgorithmData = function(path) {
-			var obj = getAnalysisData(calculateArea(path), path);
-			
+		HullOperations.prototype.setAlgorithmData = function(path, cellsize) {
+			var obj = getAnalysisData(calculateArea(path), path, this.active_markers, cellsize);
+			this.Cells = obj.Cells;
+			this.drawAOOPolygons();
 			$('div.analysis_data ul li:eq(0)').addClass(obj.EOORat);
 			$('div.analysis_data ul li:eq(0) p:eq(0)').html(obj.EOOArea.toFixed(2)+' km<sup>2</sup>');
 			$('div.analysis_data ul li:eq(1)').addClass(obj.AOORat);
 			$('div.analysis_data ul li:eq(1) p:eq(0)').html(obj.AOOArea.toFixed(2)+' km<sup>2</sup>');
 		}
-
+		
+		
+		/*========================================================================================================================*/
+		/* Set values of the algorithm data. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.setAlgorithmValues = function(value) {
+			$('div.cellsize span p').text(value+'KM');
+			$('div.analysis p.change').html('Cellsize '+value+'km, <a onclick="openCellsizeContainer()">change</a>');
+			if (this.polygon!=undefined && this.polygon.getPath().b.length>2) {
+				this.setAlgorithmData(this.polygon.getPath().b,this.cellsize*1000);
+			}
+		}
+		
+		
+		
+		/*========================================================================================================================*/
+		/* Reset values of the algorithms. */
+		/*========================================================================================================================*/
+		HullOperations.prototype.resetAlgorithmValues = function() {
+			$('div.analysis_data ul li:eq(0)').removeClass();
+			$('div.analysis_data ul li:eq(0) p:eq(0)').html('0 km<sup>2</sup>');
+			$('div.analysis_data ul li:eq(1)').removeClass();
+			$('div.analysis_data ul li:eq(1) p:eq(0)').html('0 km<sup>2</sup>');
+		}
 
 
 
@@ -195,7 +257,7 @@
 		
 		
 		function closeCellsizeContainer() {
-			
+			$('div.cellsize').fadeOut();
 		}
 
 

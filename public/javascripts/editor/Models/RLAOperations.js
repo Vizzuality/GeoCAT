@@ -79,6 +79,7 @@
 			for (var i=0; i<this.upload_data_.sources.length; i++) {
 				result.push(this.upload_data_.sources[i]);
 			}
+			
 			return result;
 		}
 	

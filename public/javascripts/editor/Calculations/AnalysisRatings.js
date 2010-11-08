@@ -1,7 +1,97 @@
 
 
 
-			function getAnalysisData(convex_area, convex_points) {
+			function getAnalysisData(convex_area, convex_points, all_markers, cellsize_) {
+				
+				var earth_radius=6378137.79;
+				var Cells = [];
+				
+				function getUnique (arr) {
+					var o = new Object();
+					var i, e;
+					for (i = 0; e = arr[i]; i++) {o[e] = 1};
+					var a = new Array();
+					for (e in o) {a.push (e)};
+					return a.length;
+				}
+				
+				
+				function LLtoCylind (Lat,Long) {
+					var XY = new Array();
+
+				 	XY[0] = deg_rad(Long) * earth_radius; //x
+				 	XY[1] = Math.sin (deg_rad(Lat)) * earth_radius; //y
+				 	return XY;
+				}
+
+				function CylindtoLL (x,y) {
+					var LatLong = new Array();
+					LatLong[0] = rad_deg(Math.asin (y / earth_radius)); //Lat
+					LatLong[1] = rad_deg(x / earth_radius); // Long
+					return LatLong;
+				}
+
+				function deg_rad(ang) {
+				  return ang * (Math.PI/180.0);
+				}
+
+				function rad_deg(x){
+					return x * (180.0/Math.PI);
+				}
+				
+				
+				
+				/*=======================================*/
+				/* Draw and get AOO data. */
+				/*=======================================*/
+				function DrawAOO (gMap, points, cellsize){
+				 	var LLx, LLy, URx, URy;
+				 	var LLll, URll;
+				 	var Cellpoints = new Array();
+				 	var testtxt = new Array();
+
+				 	for (var idx in points) {
+						var xy = LLtoCylind (points[idx].position.b,points[idx].position.c);
+						LLx = (Math.floor (xy[0]/cellsize)) * cellsize;
+						LLy = (Math.floor (xy[1]/cellsize)) * cellsize;
+						URx = LLx + cellsize;
+						URy = LLy + cellsize;
+						LLll = CylindtoLL(LLx,LLy);
+						URll = CylindtoLL(URx,URy);
+
+						//Draw cell
+						
+						Cellpoints = [
+				        new google.maps.LatLng(LLll[0],LLll[1]),
+				        new google.maps.LatLng(LLll[0],URll[1]),
+				        new google.maps.LatLng(URll[0],URll[1]),
+				        new google.maps.LatLng(URll[0],LLll[1]),
+								new google.maps.LatLng(LLll[0],LLll[1])
+				    ];
+
+						
+						Cells[idx] = new google.maps.Polygon({
+							paths: Cellpoints,
+				      strokeColor: "red",
+				      strokeOpacity: 1,
+				      strokeWeight: 1,
+				      fillColor: "yellow",
+				      fillOpacity: 0
+						});
+						
+						//console.log(Cellpoints);
+						
+						//Cells[idx].setMap(map);
+						//gMap.addOverlay(Cells[idx]);
+						testtxt[idx] = LLx + "," + LLy
+					}
+					testtxt.sort();
+
+					return getUnique(testtxt);
+				}
+				
+				
+				
 				
 				
 				/*=======================================*/
@@ -20,7 +110,6 @@
 					  var d = R * c;
 					  return d;
 				}
-				
 				
 				
 				/*=======================================*/
@@ -92,28 +181,13 @@
 				
 				
 				var EOORat = EOOrating(convex_area);
-				
-				// Get Diameter
-			  //var diameter = getDiameter(convex_points);
-		    //var cellsize = diameter * 100;
-				var cellsize = 200000;
-				
-				// Does AOO
-		    //var AOO = DrawAOO(gMap, newPlacemarkers, cellsize);
-				var AOO = 3;
-		    var AOOArea = (AOO * cellsize * cellsize)/(1000*1000);
+		    var AOO = DrawAOO(null, all_markers, cellsize_);
+		    var AOOArea = (AOO * cellsize_ * cellsize_)/(1000*1000);
 		    var AOOrat = AOOrating(AOOArea);
-			 	// var messagetxt  = "EOO Area (km2): "	+ area.toFixed(2) + "<br />";
-			 	// messagetxt = messagetxt + "Diameter(km): " + diameter.toFixed(2) + "<br />";
-			 	// messagetxt = messagetxt + "Cell size(km): " + (cellsize / 1000).toFixed(2) + "<br />";
-			 	// messagetxt = messagetxt + "Number of cells: " + AOO + "<br />";
-			 	// messagetxt = messagetxt + "AOO Area (km2): " + AooArea.toFixed(2) + "<br />";
-			 	// messagetxt = messagetxt + "EOO Rating: " 	+ EOORat + "<br />";
-			 	// messagetxt = messagetxt + "AOO Rating: " + AOOrat;
-			 	// gMap.openInfoWindowHtml(convexHull.getBounds().getCenter(), (messagetxt));
+
 				
 				
-				return {EOORat: EOORat, EOOArea:convex_area, AOORat: AOOrat, AOOArea: AOOArea};
+				return {EOORat: EOORat, EOOArea:convex_area, AOORat: AOOrat, AOOArea: AOOArea, Cells: Cells};
 			}
 
 			

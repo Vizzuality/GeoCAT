@@ -4,6 +4,12 @@
 		/*========================================================================================================================*/
 		
 		$(document).ready(function() {
+			
+			
+			//If you want to close the window without save
+			window.onbeforeunload = function() {
+			    // return "Save before go";
+			}
 
 			$('body').css('background','url(/images/editor/bkg.jpg) 0 0');
 			

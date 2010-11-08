@@ -69,15 +69,12 @@
 		});
 		
 		$('#rla_name').change(function(){		
-			// console.log(this);
 			validateFile(this);			
 		})
 		
 		
 		function validateFile(upload_field){
 			
-			// console.log(upload_field);
-
 			var correct_ext = /\.rla/;
 			// var correct_ext = /\.rla|\.csv/;
 			
