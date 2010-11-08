@@ -109,7 +109,7 @@ var global_zIndex = 1;					// Z-index for the markers
 			
 
 			//if the application comes through an upload file
-			if ($('#upload_data').text()!='') {
+			if (upload_information!=undefined) {
 				$('#wellcome').hide();
 				 uploadRLA(upload_information);
 			}
@@ -258,7 +258,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). */
 		/*========================================================================================================================*/
-		function addSourceToMap(information,getBound, saveAction) {
+		function addSourceToMap(information, getBound, saveAction) {
+
 				showMamufasMap();
 				var marker_kind;
 				switch (information.name) {
@@ -277,13 +278,44 @@ var global_zIndex = 1;					// Z-index for the markers
 				new google.maps.Point(0,0),
 				new google.maps.Point(12, 12));
 					
-				var total = information.points.length;
-				_information = information.points;
-									
-				actions.Do('add', null, _information);
-				setTimeout("asynAddMarker("+0+","+total+","+getBound+","+ saveAction+")", 0);
+				actions.Do('add', null, information.points);
+				setTimeout(function(){asynAddMarker(0,information.points.length,getBound,saveAction,information.points);},0);
 		}
 		
+		
+		/*=======================================*/
+		/* Recursive service for adding markers. */
+		/*=======================================*/
+		function asynAddMarker(i,total,_bounds, _saveAction, observations) {
+			if(i < total){
+
+				(observations[i].removed)?null:total_points.add(observations[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
+
+				if (total==1) {
+					console.log(total_points.get('gbif'));
+				}
+
+				bounds.extend(new google.maps.LatLng(observations[i].latitude,observations[i].longitude));			
+				var marker = CreateMarker(new google.maps.LatLng(observations[i].latitude,observations[i].longitude), observations[i].kind, true, true, observations[i], (observations[i].removed)?null:map);
+ 				_markers[marker.data.catalogue_id] = marker;
+
+				if (observations[i].active && !observations[i].removed && convex_hull.isVisible()) {
+					convex_hull.addPoint(marker);
+				}
+
+	      i++;
+				setTimeout(function(){asynAddMarker(i,total,_bounds,_saveAction,observations);},0);
+	    } else {
+				addSourceToList(observations[total-1].kind);
+				calculateMapPoints();
+				calculateSourcePoints(observations[total-1].kind);
+				resizeBarPoints();
+				hideMamufasMap(true);
+				if (_bounds) {
+	 				map.fitBounds(bounds);
+				}
+	    }
+		}
 		
 
 		/*========================================================================================================================*/
@@ -328,8 +360,9 @@ var global_zIndex = 1;					// Z-index for the markers
 				default: 				type = 'your';
 												$('div.delete_all h4').text('DELETE ALL YOUR POINTS');
 			}
-
-			$('div.delete_all a.yes').attr('onclick','deleteAll("' + type + '")');
+			
+			$('div.delete_all div a.yes').unbind('click');
+			$('div.delete_all div a.yes').bind('click',function(){deleteAll(type)});
 		}
 		
 		
@@ -369,6 +402,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		function openMergeContainer(kind) {
 			var position = $('li a.'+kind).offset();
 			$('div.merge_container').css('top',position.top - 267 + 'px');
+			$('div.merge_container a.merge_button').unbind('click');
+			
 			var type;
 			
 			switch (kind) {
@@ -379,20 +414,20 @@ var global_zIndex = 1;					// Z-index for the markers
 												} else {
 													$('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in GBIF');
 												}
-												showPreviewMergePoints('gbif');
+												$('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.gbif_points, kind:'gbif'},true,true); closeMergeContainer()});
+												
 												break;
 				default: 				type = 'flickr';
 												$('div.merge_container h4').text('MERGE NEW FLICKR POINTS');
 												if (merge_object.flickr_points.length==1) {
 													$('div.merge_container p').text('There is 1 new point in Flickr');
 												} else {
-													$('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in Flickr');
+													$('div.merge_container p').text('There are '+merge_object.flickr_points.length+' new points in Flickr');
 												}
-												showPreviewMergePoints('flickr');
+												$('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,true); closeMergeContainer()});
 												break;
 			}
 
-			$('div.delete_all a.yes').attr('onclick','deleteAll("' + type + '")');
 			$('div.merge_container').fadeIn();
 			
 		}
@@ -404,7 +439,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function closeMergeContainer() {
 			$('div.merge_container').fadeOut();
-			//$('a.merge').removeClass('active');
+			$('a.merge').unbind('click');
+			$('a.merge').removeClass('active');
 		}
 		
 		
@@ -551,9 +587,9 @@ var global_zIndex = 1;					// Z-index for the markers
 		/*========================================================================================================================*/
 		function chooseWindowFirst(state) {
 			switch (state) {
-				case 'help': $('div#wellcome').hide(); $('div.help_container').fadeIn(); $('div#close_save').hide(); break;
-				case 'close': $('div#wellcome').hide(); $('div.help_container').hide(); $('div#close_save').fadeIn(); break;
-				default: $('div#wellcome').hide(); $('div.help_container').hide(); $('div#close_save').hide();
+				case 'help': $('div#wellcome').hide(); $('ul.editor_list li:eq(1)').removeClass('selected'); $('ul.editor_list li:eq(0)').addClass('selected'); $('div.help_container').fadeIn(); $('div#close_save').hide(); break;
+				case 'close': $('div#wellcome').hide(); $('ul.editor_list li:eq(0)').removeClass('selected'); $('ul.editor_list li:eq(1)').addClass('selected'); $('div.help_container').hide(); $('div#close_save').fadeIn(); break;
+				default: $('div#wellcome').fadeOut(); $('div.help_container').fadeOut(); $('ul.editor_list li').removeClass('selected'); $('div#close_save').fadeOut();
 			}
 		}
 		
@@ -683,51 +719,8 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 				
 		
-		/*========================================================================================================================*/
-		/* Preview merge markers in the map. */
-		/*========================================================================================================================*/
-		function showPreviewMergePoints(kind) {			
 
-			asynAddMergePoints = function (count) {
-				try {
-					var marker = CreatePreviewMarker(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude),loop_array[count].kind,map);
-					merge_points.push(marker);
-					_bounds.extend(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude));
-					count++;
-					setTimeout('asyncAddMergePoints('+count+')',0);
-				}
-				catch(e) {}
-			};
-			
-			var loop_array = (kind=="gbif")?merge_object.gbif_points:merge_object.flickr_points;
-			merge_points = new Array();
-			asynAddMergePoints(0);
-		}
 
-		
-		
-		
-		/*========================================================================================================================*/
-		/* Remove preview merge markers. */
-		/*========================================================================================================================*/
-		function removePreviewMergePoints(kind) {			
-
-			asynAddMergePoints = function (count) {
-				try {
-					var marker = CreatePreviewMarker(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude),loop_array[count].kind,map);
-					merge_points.push(marker);
-					_bounds.extend(new google.maps.LatLng(loop_array[count].latitude,loop_array[count].longitude));
-					count++;
-					setTimeout('asyncAddMergePoints('+count+')',0);
-				}
-				catch(e) {}
-			};
-			
-			var loop_array = (kind=="gbif")?merge_object.gbif_points:merge_object.flickr_points;
-			merge_points = new Array();
-			asynAddMergePoints(0);
-		}
-		
 				
 		
 		
@@ -867,34 +860,7 @@ var global_zIndex = 1;					// Z-index for the markers
 		
 		
 		
-		/*========================================================================================================================*/
-		/* Recursive service for adding markers. */
-		/*========================================================================================================================*/
-		function asynAddMarker(i,total,_bounds, _saveAction) {
-			if(i < total){
-				(_information[i].removed)?null:total_points.add(_information[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
- 				
-				bounds.extend(new google.maps.LatLng(_information[i].latitude,_information[i].longitude));			
-				var marker = CreateMarker(new google.maps.LatLng(_information[i].latitude,_information[i].longitude), _information[i].kind, true, true, _information[i], (_information[i].removed)?null:map);
- 				_markers[marker.data.catalogue_id] = marker;
-				
-				if (_information[i].active && !_information[i].removed && convex_hull.isVisible()) {
-					convex_hull.addPoint(marker);
-				}
 
-	      i++;
-	      setTimeout("asynAddMarker("+i+","+total+","+ _bounds+","+_saveAction+")", 0);
-	    } else {
-				addSourceToList(_information[total-1].kind);
-				_information = [];
-				calculateMapPoints();
-				resizeBarPoints();
-				hideMamufasMap(true);
-				if (_bounds) {
-	 				map.fitBounds(bounds);
-				}
-	    }
-		}
 		
 		
 		
@@ -1170,18 +1136,20 @@ var global_zIndex = 1;					// Z-index for the markers
 					sources.push(app_data[i].name);
 					addSourceToMap(app_data[i],false,false);
 				} else {
-					map.setCenter(new google.maps.LatLng(0,0));
-					map.setCenter(new google.maps.LatLng(app_data[0].center.b,app_data[0].center.c));
+					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
 					map.setZoom(parseInt(app_data[0].zoom));				
 				}
 			}
+			
+			
+			//if there is own points, get last number id for the global_id  (avoid conflicts with ids!!!)
 			
 			
 			$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
 			changeAppToSave(1);		
 			
 			//Merge points from service
-			//merge_object = new MergeOperations(sources);
-			//merge_object.checkSources();
+			merge_object = new MergeOperations(sources);
+			setTimeout(function(){merge_object.checkSources();},1000);
 				
 		}

@@ -67,7 +67,7 @@
 														$('#action_info span').text('Added ' + this.actions[this.position].data.length + ((this.actions[this.position].data.length==1)?' point':' points'));
 														break;	
 						case 'move': 		moveMarkerfromAction(this.actions[this.position].data[0].catalogue_id,this.actions[this.position].data[0].new_.latlng);
-														$('#action_info span').text('Moved point to ('+this.actions[this.position].data[0].new_.latlng.b+','+this.actions[this.position].data[0].new_.latlng.c+')');
+														$('#action_info span').text('Moved point to ('+this.actions[this.position].data[0].new_.latlng.lat()+','+this.actions[this.position].data[0].new_.latlng.lng()+')');
 														break;
 						case 'active':  makeActive(this.actions[this.position].data,true);
 														if (this.actions[this.position].data.length==1) {
@@ -102,7 +102,7 @@
 														$('#action_info span').text('Removed ' + this.actions[this.position].data.length + ((this.actions[this.position].data.length==1)?' point':' points'));
 														break;
 						case 'move': 		moveMarkerfromAction(this.actions[this.position].data[0].catalogue_id,this.actions[this.position].data[0].old_.latlng);
-														$('#action_info span').text('Returned point to ('+this.actions[this.position].data[0].old_.latlng.b+','+this.actions[this.position].data[0].old_.latlng.c+')');
+														$('#action_info span').text('Returned point to ('+this.actions[this.position].data[0].old_.latlng.lat()+','+this.actions[this.position].data[0].old_.latlng.lng()+')');
 														break;
 						case 'active': 	makeActive(this.actions[this.position].data,true);
 														if (this.actions[this.position].data.length==1) {

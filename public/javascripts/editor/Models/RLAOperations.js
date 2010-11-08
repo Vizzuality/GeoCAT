@@ -27,7 +27,9 @@
 		  var dataset = new Object();
 			dataset.scientificname = this.specie_;
 			dataset.zoom = this.zoom;
-			dataset.center = this.center;
+			dataset.center = new Object();
+			dataset.center.latitude = this.center.lat();
+			dataset.center.longitude = this.center.lng();
 			dataset.sources = [];
 			this.addMarkers(dataset,this.markers_);		
 		
@@ -69,7 +71,7 @@
 			
 			//loop object and give all the parameters.
 			var result = [];
-		
+								
 			var obj = new Object();
 			obj.center = this.upload_data_.center;
 			obj.zoom = this.upload_data_.zoom;

@@ -172,25 +172,3 @@
 	
 		return marker;
 	}
-	
-	
-	
-	
-	/* Preview marker */
-	
-	function CreatePreviewMarker(latlng, kind, marker_map) {
-	
-		//Choose marker icon image.
-		var image = new google.maps.MarkerImage('/images/editor/'+ kind +'_preview_marker.png',
-																						new google.maps.Size(15, 15),
-																						new google.maps.Point(0,0),
-																						new google.maps.Point(7, 7));
-	
-		var marker = new google.maps.Marker({position: latlng, draggable: false, clickable: false, map: marker_map, icon: image});
-	
-
-		return marker;
-	}
-	
-	
-	

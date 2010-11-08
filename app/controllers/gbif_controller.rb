@@ -15,7 +15,7 @@ class GbifController < ApplicationController
           # q = "13191720"
           require 'open-uri'            
           
-          open("http://es.mirror.gbif.org/ws/rest/Occurrence/list?georeferencedonly=true&maxresults=200&coordinateissues=false&scientificname="+ q) {
+          open("http://de.mirror.gbif.org/ws/rest/Occurrence/list?georeferencedonly=true&maxresults=200&coordinateissues=false&scientificname="+ q) {
             |f| @list =  f.read
           }
 

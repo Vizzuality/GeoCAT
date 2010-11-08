@@ -41,8 +41,8 @@ class RlatData
       self.scientificname = csv.first.scientificname
       self.zoom           = csv.first.zoom
       self.center         = {
-        :b => csv.first.center_latitude,
-        :c => csv.first.center_longitude
+        "latitude" => csv.first.center_latitude,
+        "longitude" => csv.first.center_longitude
       }
       self.sources        = [{
         'name'   => 'csv',

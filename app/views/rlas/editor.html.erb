@@ -47,7 +47,7 @@
                           <p class="change">Cellsize 2km, <a onclick="openCellsizeContainer()">change</a></p>
                         </li>
                       </ul>
-                      <span><a>Download complete report</a></span>
+                      <span><a>Print complete report</a></span>
                     </div>
                     <div class="cellsize">
                       <h4>CHANGE CELLSIZE</h4>
@@ -68,7 +68,6 @@
                   <div class="merge_container">
                     <h4>MERGE NEW FLICKR POINTS</h4>
                     <p>There are 2 new points in flickr.</p>
-                    <a class="preview selected">Preview</a>
                     <div><a class="cancel" onclick="closeMergeContainer()">Cancel</a><a class="merge_button"></a></div>
                   </div>
 
@@ -176,10 +175,10 @@
 
               <!-- Close without save/download -->
               <div id="close_save">
-                <a onclick="$('#close_save').fadeOut()" class="close">X</a>
+                <a onclick="chooseWindowFirst()" class="close">X</a>
                 <p>You are going to leave the editor and lose<br/>
                 your changes. Do you want to save them?</p>
-                <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close and exit</a><a onclick="$('#close_save').fadeOut(); downloadRLA()" class="download"></a>
+                <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$('#close_save').fadeOut(); downloadRLA()" class="download"></a>
                 </p>
               </div>
 
@@ -201,12 +200,12 @@
               </div>
 
               <!-- Help state -->
-              <div class="help_container" onclick="$('div.help_container').fadeOut()">
+              <div class="help_container" onclick="chooseWindowFirst()">
                 <img src="/images/editor/help_bkg.png" class="help"/>
-                <img src="/images/editor/do_help.png" class="do" />
-                <img src="/images/editor/tool_help.png" class="tool" />
-                <img src="/images/editor/download_help.png" class="download" />
-                <img src="/images/editor/analysis_help.png" id="analysis_help" />
+                <span class="do"></span>
+                <span class="tool"></span>
+                <span class="download"></span>
+                <span id="analysis_help"></span>
               </div>
 
               <a href="http://www.vizzuality.com" target="_blank" class="vizzuality"><img src="/images/editor/vizzuality.png" alt="Vizzuality" title="Vizzuality" /></a>
