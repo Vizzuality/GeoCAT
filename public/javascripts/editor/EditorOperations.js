@@ -31,9 +31,6 @@ var is_dragging = false;				// True if user is dragging a marker, false opposite
 
 
 var _markers = [];							// All the markers of the map (Associative array)
-var _information = [];					// Variable needed for adding markers asynchronously
-var merge_points = [];					// Merged points array
-
 var global_id = 0; 							// Global id for your own markers
 var global_zIndex = 1;					// Z-index for the markers
 
