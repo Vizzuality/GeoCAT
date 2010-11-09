@@ -19,6 +19,27 @@
 			
 			/* Binding events of DOM elements related to HULLOperations  */
 			
+			//toggle on/off analysis
+			$('a#toggle_analysis').click(function(ev){
+				if ($(this).hasClass('disabled')) {
+					openConvexHull();
+					$(this).parent().children().removeClass('disabled');
+					$(this).parent().children('h3').text('Analysis enabled');
+					$(this).find('span').stop(true).animate({backgroundPosition: '-1px -25px'}, {duration: 'fast',easing: 'easeOutBounce'});
+					$('div.analysis_data').stop().animate({height: '150px'}, 'fast',function(ev){$(this).css('overflow','auto');});
+					$('#analysis_help').css('background','url(/images/editor/analysis_help2.png) no-repeat -2px 0');
+				} else {
+					closeConvexHull();
+					$(this).addClass('disabled');
+					$(this).parent().children('h3').addClass('disabled');
+					$(this).parent().children('h3').text('Analysis disabled');
+					$(this).find('span').stop(true).animate({backgroundPosition: '-28px -25px'}, {duration: 'fast',easing: 'easeOutBounce'});
+					$('div.analysis_data').stop().animate({height: '0'}, 'fast',function(ev){$(this).css('overflow','auto');});
+					$('#analysis_help').css('background','url(/images/editor/analysis_help.png) no-repeat 0 0');
+				}
+			});
+			
+			
 			//Hull convex slider
 			$("div.cellsize div.slider").slider({
 				range: "min",

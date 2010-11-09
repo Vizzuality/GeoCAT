@@ -259,5 +259,31 @@
       upload_information = <%= @rlat_json.html_safe %>;
     <% end %>
   </script>
-  <%= javascript_include_tag 'jquery-ui-1.8.2.custom.min.js', 'jquery.json-2.2', 'jquery.livequery.min','editor/MapOverlays/MarkerTooltip', 'editor/MapOverlays/MarkerOverTooltip', 'editor/Models/CreateMarker', 'editor/Calculations/ConvexHull', 'editor/EditorEffects' , 'editor/EditorOperations', 'editor/MapOverlays/DeleteInfowindow', 'editor/Models/RLAOperations', 'editor/Models/TotalPointsOperations' , 'editor/Models/HullOperations', 'editor/Models/UnredoOperations', 'editor/MapOverlays/PolygonOverTooltip', 'editor/Models/MergeOperations', 'editor/Calculations/PolygonArea.js', 'editor/Calculations/AnalysisRatings.js' %>
+
+	
+	
+
+
+  <%= javascript_include_tag 	'plugins/jquery-ui-1.8.2.custom.min.js', 
+															'plugins/jquery.json-2.2', 
+															'plugins/jquery.livequery.min' 
+	%>
+
+  <%= javascript_include_tag	'editor/Models/SourcesOperations',
+ 															'editor/Models/MapOperations',
+															'editor/MapOverlays/MarkerTooltip', 
+															'editor/MapOverlays/MarkerOverTooltip', 
+															'editor/Models/CreateMarker', 
+															'editor/Calculations/ConvexHull', 
+															'editor/MapOverlays/DeleteInfowindow', 
+															'editor/Models/RLAOperations', 
+															'editor/Models/TotalPointsOperations' , 
+															'editor/Models/HullOperations', 
+															'editor/Models/UnredoOperations', 
+															'editor/MapOverlays/PolygonOverTooltip', 
+															'editor/Models/MergeOperations', 
+															'editor/Calculations/PolygonArea.js', 
+															'editor/Calculations/AnalysisRatings.js',
+															'editor/EditorOperations'
+	%>
 

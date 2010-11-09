@@ -1,6 +1,3 @@
-<SCRIPT type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></SCRIPT> 
-<SCRIPT type="text/javascript" src="http://www.google.com/jsapi"></SCRIPT>
-<%= javascript_include_tag "jquery.autocomplete.js", "editor/Calculations/ConvexHull", "application.js" %>
 
     <% flash.each do |name, msg| %>
       <div id="flash_<%=name%>" class="flash <%=name%>">
@@ -88,3 +85,12 @@
   			</div>
   		</footer>
 		</div>
+		
+		
+		
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+		<%= javascript_include_tag "plugins/jquery.autocomplete.js", "editor/Calculations/ConvexHull", "home/application.js" %>
+		
+		
+		

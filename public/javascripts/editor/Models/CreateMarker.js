@@ -36,7 +36,6 @@
 		//Marker click event
 		google.maps.event.addListener(marker,"click",function(ev){
 			if (state == 'remove') {
-				
 				if (delete_infowindow!=null) {					
 					if (this.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
 						delete_infowindow.changePosition(this.getPosition(),this.data.catalogue_id,this.data);
@@ -44,12 +43,10 @@
 				} else {
 					delete_infowindow = new DeleteInfowindow(this.getPosition(), this.data.catalogue_id, this.data, marker_map);
 				}				
-				
 			} else {
 				if (over_tooltip!=null) {
 					over_tooltip.hide();
 				}
-				
 				if (click_infowindow!=null) {					
 					if (this.data.catalogue_id != click_infowindow.marker_id || !click_infowindow.isVisible()) {
 						click_infowindow.changePosition(this.getPosition(),this.data.catalogue_id,this.data);
@@ -65,7 +62,6 @@
 		google.maps.event.addListener(marker,"mouseover",function(ev){
 			global_zIndex++;
 			this.setZIndex(global_zIndex);
-			
 			if (state == 'select') {
 				over_marker = true;	
 				if (click_infowindow != null) {
