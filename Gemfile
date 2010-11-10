@@ -30,7 +30,8 @@ gem 'csv-mapper'
 # gem 'nokogiri', '1.4.1'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 
-
+gem 'capistrano'
+gem 'capistrano-ext'
 
 # Bundle gems for certain environments:
 # gem 'rspec', :group => :test
