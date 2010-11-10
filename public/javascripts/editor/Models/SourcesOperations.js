@@ -8,6 +8,13 @@
 
 
 
+		var flickr_founded;							// Flickr data founded
+		var gbif_founded;								// Gbif data founded
+
+
+
+
+
 		function startSources() {
 			
 			
@@ -51,9 +58,7 @@
 			});
 			
 			//open add sources container
-			$("#add_source_button").click(function(ev){
-				ev.stopPropagation();
-				ev.preventDefault();
+			$("#add_source_button").click(function(){
 				if (!$('#add_source_container').is(':visible')) {
 					openSources();
 				} else {
@@ -62,9 +67,7 @@
 			});
 			
 			//add source effects
-			$("#add_source_container ul li a.checkbox").click(function(ev){
-				ev.stopPropagation();
-				ev.preventDefault();
+			$("#add_source_container ul li a.checkbox").click(function(){
 				if (!$(this).parent().hasClass('selected') && !$(this).parent().hasClass('added')) {
 					removeSelectedSources();
 					$(this).parent().addClass('selected');
@@ -76,9 +79,7 @@
 			
 			
 			//import data
-			$("a.import_data").click(function(ev){
-				ev.stopPropagation();
-				ev.preventDefault();
+			$("a.import_data").click(function(){
 				if ($(this).hasClass('enabled')) {
 						$("#add_source_container").fadeOut();
 						$("#add_source_button").removeClass('open');
@@ -183,8 +184,8 @@
 			/* Open Delete container. */
 			/*========================================================================================================================*/
 			function openDeleteAll(kind) {
-				var position = $('li a.'+kind).position();
-				$('div.delete_all').css('top',position.top - 28 + 'px');
+				var position = $('li a.'+kind).offset();
+				$('div.delete_all').css('top',position.top - 268 + 'px');
 				$('a.'+ kind).parent().children('a.delete_all').addClass('active');			
 				$('div.delete_all').fadeIn();
 
@@ -240,8 +241,8 @@
 			/* Open Merge container. */
 			/*========================================================================================================================*/
 			function openMergeContainer(kind) {
-				var position = $('li a.'+kind).position();
-				$('div.merge_container').css('top',position.top  - 28 + 'px');
+				var position = $('li a.'+kind).offset();
+				$('div.merge_container').css('top',position.top  - 268 + 'px');
 				$('div.merge_container a.merge_button').unbind('click');
 
 				var type;
@@ -282,4 +283,36 @@
 				$('a.merge').unbind('click');
 				$('a.merge').removeClass('active');
 			}
+			
+
+
+			/*========================================================================================================================*/
+			/* Get data from api service thanks to the name (flickr,gbif,...etc). */
+			/*========================================================================================================================*/
+			function callSourceService(kind,element) {
+				var url;
+				switch(kind) {
+					case 'add_flickr': 	url = "/search/flickr/";
+														 	break;
+					case 'add_gbif':  	url= "/search/gbif/";
+															break;
+					default: 						url ="/";
+				}
+
+				$.getJSON(url + specie.replace(' ','+'),
+						function(result){
+							switch(kind) {
+								case 'add_flickr': 	flickr_founded.push(result[0]);
+																	 	break;
+								case 'add_gbif':  	gbif_founded.push(result[0]);
+																		break;
+								default: 						null;
+							}
+							$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
+							onLoadedSource(element,result[0].points.length);
+						}
+				);
+			}
+			
+			
 			

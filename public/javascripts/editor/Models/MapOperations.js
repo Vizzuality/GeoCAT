@@ -197,18 +197,13 @@
 					/*=======================================*/
 					function asynAddMarker(i,total,_bounds, _saveAction, observations) {
 						if(i < total){
-
 							(observations[i].removed)?null:total_points.add(observations[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
-
-
 							bounds.extend(new google.maps.LatLng(observations[i].latitude,observations[i].longitude));			
 							var marker = CreateMarker(new google.maps.LatLng(observations[i].latitude,observations[i].longitude), observations[i].kind, true, true, observations[i], (observations[i].removed)?null:map);
 			 				_markers[marker.data.catalogue_id] = marker;
-
 							if (observations[i].active && !observations[i].removed && convex_hull.isVisible()) {
 								convex_hull.addPoint(marker);
 							}
-
 				      i++;
 							setTimeout(function(){asynAddMarker(i,total,_bounds,_saveAction,observations);},0);
 				    } else {
@@ -255,6 +250,9 @@
 					/*========================================================================================================================*/
 					function changeMapSelectionStatus(latlng) {			
 						if (selection_polygon.getPath().b.length==0 || !drawing) {
+							if (over_polygon_tooltip!=undefined) {
+								over_polygon_tooltip.hide();
+							}
 							selection_polygon.setOptions({fillOpacity: 0});
 							drawing = true;
 							selection_polygon.setPath([latlng,latlng,latlng,latlng]);
@@ -305,13 +303,14 @@
 								selection_polygon.setOptions({fillOpacity: 0.40});
 							  google.maps.event.clearListeners(map, 'mousemove');
 								google.maps.event.clearListeners(selection_polygon, 'click');
-								over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
 
 								if (over_polygon_tooltip!=null) {
 									over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
 								} else {
 									over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
 								}
+
+								
 							}
 						}
 					}
@@ -376,6 +375,7 @@
 					/* Delete all the markers. */
 					/*========================================================================================================================*/
 					function deleteAll(type) {
+						
 						var remove_markers = [];		
 						for (var i in _markers) {
 							if (_markers[i].data.kind == type && _markers[i].data.removed == false) {
@@ -391,25 +391,39 @@
 
 
 
+
+
 					/*========================================================================================================================*/
 					/* Remove one or several markers from map and the marker information of its data (gbif, flickr or own) as well. */
 					/*========================================================================================================================*/
 					function removeMarkers(remove_markers) {
-						if (remove_markers.length>0) {
-							for (var i=0; i<remove_markers.length; i++) {
-								var marker_id = remove_markers[i].catalogue_id;
+						
+						function asynRemoveMarker(i,total, observations) {
+							if(i < total){
+								var marker_id = observations[i].catalogue_id;
 								total_points.deduct(_markers[marker_id].data.kind);
 								_markers[marker_id].data.removed = true;
 								_markers[marker_id].setMap(null);
 
 								if (convex_hull.isVisible()) {
 									convex_hull.deductPoint(marker_id);
-								}	
+								}
+					      i++;
+								setTimeout(function(){asynRemoveMarker(i,total,observations);},0);
+					    } else {
+								hideMamufasMap(false);
+					    }
+						}
 
-							}
+						
+						if (remove_markers.length>0) {
+							showMamufasMap(true);
+							setTimeout(function(){asynRemoveMarker(0,remove_markers.length,remove_markers);},0);
 							actions.Do('remove', null, remove_markers);
 						}
 					}
+					
+
 
 
 
@@ -421,7 +435,7 @@
 							global_id++;
 							if (item_data == null) {
 								var inf = new Object();
-								inf.accuracy = 50;
+								inf.accuracy = 15;
 								inf.active = true;
 								inf.kind = 'your';
 								inf.description = "Your description!";
@@ -526,6 +540,27 @@
 							}
 						}		
 					}
+					
+					
+					
+					/*========================================================================================================================*/
+					/* Set status of the application. */
+					/*========================================================================================================================*/
+					function setStatus(status) {
+						$("div.left a.select").removeClass('selected');
+						$("div.left a.add").removeClass('selected');
+						$("div.left a.remove").removeClass('selected');
+						$("div.left a.selection").removeClass('selected');
+						$("div.left a."+status).addClass('selected');
+
+						//Remove selection tool addons
+						google.maps.event.clearListeners(map, 'mousemove');
+						removePolygon();
+
+						state = status;
+						activeMarkersProperties();
+					}
+					
 					
 					
 				

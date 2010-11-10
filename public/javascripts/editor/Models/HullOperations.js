@@ -51,9 +51,9 @@
 			//Hull convex slider
 			$("div.cellsize div.slider").slider({
 				range: "min",
-				value: 5,
-				min: 5,
-				max: 50,
+				value: 7,
+				min: 1,
+				max: 17,
 				slide: function(event, ui) {
 					me.cellsize = ui.value;
 					me.removeAOOPolygons();
@@ -149,7 +149,6 @@
 				if (this.polygon!=undefined) {
 					this.polygon.setMap(this.map);
 					this.calculateConvexHull(false);
-					this.removeAOOPolygons();
 				} else {
 					this.createPolygon(_markers);
 				}
@@ -173,7 +172,6 @@
 			} else {
 				this.polygon.setMap(null);
 				this.resetAlgorithmValues();
-				this.removeAOOPolygons();
 			}
 		}
 
@@ -273,7 +271,7 @@
 		/*========================================================================================================================*/
 		HullOperations.prototype.setAlgorithmValues = function(value) {
 			$('div.cellsize span p').text(value+'KM');
-			$('div.analysis p.change').html('Cellsize '+value+'km, <a class="change">change</a>');
+			$('div.analysis p.change').html('Cell size '+value+'km, <a class="change">change</a>');
 			if (this.polygon!=undefined && this.polygon.getPath().b.length>2) {
 				this.setAlgorithmData(this.polygon.getPath().b,this.cellsize*1000);
 			}

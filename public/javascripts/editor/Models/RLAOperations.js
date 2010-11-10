@@ -88,18 +88,8 @@
 			return result;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
 		/*===============================================================================================================*/
 		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
 		/*===============================================================================================================*/
@@ -126,16 +116,25 @@
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					sources.push(app_data[i].name);
+					
+					//Get last id from "your points"
+					if (app_data[i].name=='your') {
+						console.log(app_data[i]);
+						var obs_data = app_data[i].l
+						// length-1
+						// 						splice
+						// 						[1]
+						// 						global_id = 
+					}
+					
+					
 					addSourceToMap(app_data[i],false,false);
 				} else {
 					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
 					map.setZoom(parseInt(app_data[0].zoom));				
 				}
 			}
-			
-			
-			//if there is own points, get last number id for the global_id  (avoid conflicts with ids!!!)
-			
+
 			
 			$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
 			changeApplicationTo(2);

@@ -78,7 +78,8 @@
 					      strokeWeight: 1,
 					      fillColor: "red",
 					      fillOpacity: 0.1,
-								data: {count:0}
+								data: {count:0},
+								clickable: false
 							});
 						} else {
 							Cells[array_index].data.count++;

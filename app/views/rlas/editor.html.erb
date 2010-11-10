@@ -1,8 +1,8 @@
     <div id="editor">
       <a id="scientific_name"><%= @species_name.blank? ? 'Puma' : @species_name %></a>
       <ul class="editor_list">
-        <li class="first"><a onclick="chooseWindowFirst('help')">Help</a></li>
-        <li><a onclick="closeEditor()">Close tool</a></li>
+        <li class="first"><a onclick="changeApplicationTo(3)">Help</a></li>
+        <li><a onclick="changeApplicationTo(5)">Close tool</a></li>
       </ul>
 
       <div id="tools">
@@ -43,13 +43,13 @@
                         <li>
                           <label>AOO</label>
                           <p>0 km<sup>2</sup></p>
-                          <p class="change">Cellsize 5km, <a class="change">change</a></p>
+                          <p class="change">Cell size 5km, <a class="change">change</a></p>
                         </li>
                       </ul>
                       <span><a>Print complete report</a></span>
                     </div>
                     <div class="cellsize">
-                      <h4>CHANGE CELLSIZE</h4>
+                      <h4>CHANGE CELL SIZE</h4>
                       <span><label>SIDE LENGTH</label><p>5KM</p></span>
                       <div class="slider"></div>
                       <p>Determines the minimum cell used during the AOO analysis</p>
@@ -172,7 +172,7 @@
 
               <!-- Close without save/download -->
               <div id="close_save">
-                <a onclick="chooseWindowFirst()" class="close">X</a>
+                <a onclick="changeApplicationTo()" class="close">X</a>
                 <p>You are going to leave the editor and lose<br/>
                 your changes. Do you want to save them?</p>
                 <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$('#close_save').fadeOut(); downloadRLA()" class="download"></a>
@@ -197,7 +197,7 @@
               </div>
 
               <!-- Help state -->
-              <div class="help_container" onclick="chooseWindowFirst()">
+              <div class="help_container" onclick="changeApplicationTo()">
                 <img src="/images/editor/help_bkg.png" class="help"/>
                 <span class="do"></span>
                 <span class="tool"></span>
