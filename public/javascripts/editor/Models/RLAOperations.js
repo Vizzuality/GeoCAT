@@ -123,6 +123,12 @@
 				if (sources_length==count) {
 					$('body').unbind('hideMamufas');
 					hideMamufasMap(true);
+					$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
+					changeApplicationTo(2);
+
+					//Merge points from service
+					merge_object = new MergeOperations(sources);
+					setTimeout(function(){merge_object.checkSources();},1000);
 				}
 			});
 			
@@ -144,14 +150,6 @@
 				}
 			}
 
-			
-			$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
-			changeApplicationTo(2);
-			
-			//Merge points from service
-			merge_object = new MergeOperations(sources);
-			setTimeout(function(){merge_object.checkSources();},1000);
-				
 		}
 		
 		
