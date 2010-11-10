@@ -4,8 +4,21 @@
 	var markers = [];
 	var elevator;
 	var polygon;
+	var specie_type;
 
 	$(document).ready(function() {
+
+		$('#inputSearch').focusin(function(){
+			if ($(this).attr('value')=='Start typing your desired taxon...') {
+				$(this).attr('value','');
+			}
+		});
+		
+		$('#inputSearch').focusout(function(){
+			if ($(this).attr('value')=='') {
+				$(this).attr('value','Start typing your desired taxon...');
+			}
+		});
 
     //register the Upload button action
     $("#upload_input").change(function(event){
@@ -27,7 +40,6 @@
 
 	  map = new google.maps.Map(document.getElementById("map"), myOptions);
 		google.maps.event.addListener(map,"tilesloaded",function(event){generateObservations()});
-	
 		elevator = new google.maps.ElevationService();
 	
 	
@@ -36,7 +48,8 @@
       latlng = new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
     } else {
     	var zoom = 9;
-      latlng = new google.maps.LatLng(51.5001524, -0.1262362);       
+      latlng = new google.maps.LatLng(51.5001524, -0.1262362);   
+ 			//latlng = new google.maps.LatLng(38.998374945552115, 1.4179229736328125);   //Eivissa
     }
 		
 		map.setCenter(latlng);
@@ -121,14 +134,31 @@
 	    elevator.getElevationForLocations(positionalRequest, function(results, status) {
 	      if (status == google.maps.ElevationStatus.OK) {
 	        if (results[0]) {
-						if (results[0].elevation>0) {
+						
+						// Marine species or terrain species --> 0 marine 1 terrain
+						if (markers.length==0) {
+							if (results[0].elevation>0) {specie_type = 1} else {specie_type = 0}
 							var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 							var marker = new google.maps.Marker({position: point, map: map, icon: image});
 							markers.push(marker);
 							setTimeout('generateObservations()',1000);
 						} else {
-							setTimeout('generateObservations()',0);
+							if (specie_type==1 && results[0].elevation>0) {
+								var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+								var marker = new google.maps.Marker({position: point, map: map, icon: image});
+								markers.push(marker);
+								setTimeout('generateObservations()',1000);
+							} else if (specie_type==0 && results[0].elevation<0) {
+									var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+									var marker = new google.maps.Marker({position: point, map: map, icon: image});
+									markers.push(marker);
+									setTimeout('generateObservations()',1000);
+							} else {
+								setTimeout('generateObservations()',0);
+							}
 						}
+						
+						
 	        } else {
 	          setTimeout('generateObservations()',0);
 	        }
@@ -184,5 +214,14 @@
 	
 	function sortPointX(a,b) {return a.getPosition().lng() - b.getPosition().lng();}
 	function sortPointY(a,b) {return a.getPosition().lat() - b.getPosition().lat();}
+	
+	
+	
+	function goEditor() {
+		var specie_name = $('#inputSearch').attr('value');
+		if (specie_name.length>0) {
+			window.location.href = "/editor/"+$('#inputSearch').attr('value');
+		}
+	}
 	
 	

@@ -1,6 +1,5 @@
     <div id="editor">
       <a id="scientific_name"><%= @species_name.blank? ? 'Puma' : @species_name %></a>
-      <a id="gbif_id"><%= @rla.blank? ? '13191720' : @rla.data %></a>
       <ul class="editor_list">
         <li class="first"><a onclick="chooseWindowFirst('help')">Help</a></li>
         <li><a onclick="closeEditor()">Close tool</a></li>
@@ -106,7 +105,7 @@
                             <li>
                               <a id="add_csv" class="checkbox">Import .CSV</a>
                               <span>
-                                <div>
+                                <div class="inner">
                                   <a href="#" class="browse"></a>
                                   <p>Select a file...</p>
                                   <a href="#" class="delete"></a>
@@ -120,13 +119,11 @@
                             <li>
                               <a id="add_rla" class="checkbox">Import .RLA</a>
                               <span>
-                                <div>
-                                  <a href="#" class="browse"></a>
-                                  <p>Select a file...</p>
+                                <div class="inner">
+                                  <!-- <a href="#" class="browse"></a>
+                                  <p>Select a file...</p> -->
                                   <a href="#" class="delete"></a>
-                                  <form>
-                                    <input type="file" />
-                                  </form>
+                                  <div id="uploader_RLA"><noscript></noscript></div>
                                 </div>
                                 <a class="import_data">upload and merge</a>
                               </span>
@@ -266,7 +263,8 @@
 
   <%= javascript_include_tag 	'plugins/jquery-ui-1.8.2.custom.min.js', 
 															'plugins/jquery.json-2.2', 
-															'plugins/jquery.livequery.min' 
+															'plugins/jquery.livequery.min' ,
+															'plugins/fileuploader'
 	%>
 
   <%= javascript_include_tag	'editor/Models/SourcesOperations',
@@ -284,6 +282,6 @@
 															'editor/Models/MergeOperations', 
 															'editor/Calculations/PolygonArea.js', 
 															'editor/Calculations/AnalysisRatings.js',
-															'editor/EditorOperations'
+															'editor/AppController'
 	%>
 

@@ -13,6 +13,7 @@
 				this.actions = new Array();
 				var me = this;
 				
+				
 				/* Binding events of DOM elements related to UnredoOperations  */
 				
 				//Undo-redo action fade when rollout bottom zone

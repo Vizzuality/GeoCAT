@@ -310,8 +310,8 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.browse {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.inner {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.inner a.browse {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:2px; top:2px; background:url(/images/editor/delete_button.png) no-repeat 0 0; width:16px; height:16px; padding:0; margin:0;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form {display:block; position:absolute; padding:0; margin:0; width:137px; height:21px; z-index:100; overflow:hidden; opacity:0;}
@@ -321,6 +321,24 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
+/*jquery uploader*/
+div#uploader_RLA .qq-uploader {clear:both; position:relative; width:100%; padding:0; margin:0; background:none;}
+div#uploader_RLA .qq-upload-button {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block; text-indent:-9999px;}
+div#uploader_RLA .qq-upload-button-hover {background-position:0 -21px;}
+div#uploader_RLA .qq-upload-button-focus {outline:none;}
+div#uploader_RLA .qq-upload-drop-area {position:absolute; top:0; left:0; width:100%; height:100%; min-height:70px; z-index:2; background:#FF9797; text-align:center; }
+div#uploader_RLA .qq-upload-drop-area span {display:block; position:absolute; top:50%; width:100%; margin:-8px 0 0 0; font-size:16px;}
+div#uploader_RLA .qq-upload-drop-area-active {background:#FF7171;}
+div#uploader_RLA .qq-upload-list {float:right; padding:5px 6px 5px 6px!important; margin:0!important; width:auto!important; background:none!important; -moz-border-radius:0px; -webkit-border-radius:0px; font:normal 11px Arial; color:#999999;}
+div#uploader_RLA .qq-upload-list li {float:left; width:auto!important; margin:0!important; padding:0!important; line-height:15px; font:normal 11px Arial; color:#999999;}
+div#uploader_RLA .qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {margin-right: 7px;}
+div#uploader_RLA .qq-upload-file {}
+div#uploader_RLA .qq-upload-spinner {display:inline-block; background: url("loading.gif"); width:15px; height:15px; vertical-align:text-bottom;}
+div#uploader_RLA .qq-upload-size,.qq-upload-cancel {font-size:11px;}
+div#uploader_RLA .qq-upload-failed-text {display:none;}
+div#uploader_RLA .qq-upload-fail .qq-upload-failed-text {display:inline;}
+/*end jquery uploader*/
+
 
 /*added*/
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a {background-position: 0 -30px; color:#c3c3c3;}

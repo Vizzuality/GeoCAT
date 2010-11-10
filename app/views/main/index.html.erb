@@ -28,13 +28,11 @@
   				<span class="main_shadow"></span>
   				<div id="main_container">
   					<label>What species do you want to analyse?</label>
-  					<form class="up">
-  						<input id="inputSearch" type="text" value="Start typing your desired taxon..." 
-  						onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;"/>
+  					<form class="up" action="javascript: void goEditor()">
+  						<input id="inputSearch" type="text" />
   						<p>you can try with <a href="/editor/Luzula%20Luzuloides">Luzula Luzuloides</a></p>
   						<img src="images/home/ajax-loader.gif" class="loader">
   					</form>
-
             <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
               <p>or continue working in a previous report</p>
               <a id="upload_button"></a>

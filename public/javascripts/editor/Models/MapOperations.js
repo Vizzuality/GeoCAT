@@ -1,4 +1,101 @@
 
+			/*==========================================================================================================================*/
+			/*  																																																												*/
+			/*				MapOperations => Class to create and interact with the map.																												*/
+			/*  																																																												*/
+			/*==========================================================================================================================*/
+
+			
+			var map;												// Map object
+			var bounds;											// LatLngBounds object to visualize the map correctly
+			
+			var _markers = [];							// All the markers of the map (Associative array)
+			var global_id = 0; 							// Global id for your own markers
+			var global_zIndex = 1;					// Z-index for the markers
+			
+			
+			// Control vars for map objects
+			var click_infowindow;						// Gray main infowindow object  
+			var over_tooltip;								// Tiny over infowindow object
+			var over_polygon_tooltip;				// Tiny over polygon object
+			var delete_infowindow;					// Delete infowindow object
+			var polyline_; 									// Polyline create by the user
+			var selection_polygon; 					// Selection polygon tool
+			var drawing = false;						// Flag to know if user is drawing selection rectangle
+
+
+			var over_marker = false;				// True if cursor is over marker, false opposite
+			var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
+			var over_polygon = false				// True if cursor is over selection polygon, false opposite
+			var is_dragging = false;				// True if user is dragging a marker, false opposite
+			
+
+
+			function createMap() {
+				
+				//initialize map
+			  var myOptions = {
+			    zoom: 2,
+			    center: new google.maps.LatLng(30,0),
+			    mapTypeId: google.maps.MapTypeId.TERRAIN,
+					disableDefaultUI: true,
+					scrollwheel: false,
+					streetViewControl: false
+			  }
+
+			  map = new google.maps.Map(document.getElementById("map"), myOptions);
+				bounds = new google.maps.LatLngBounds();
+
+				total_points = new TotalPointsOperations();  		// TotalPoints Object
+				convex_hull = new HullOperations(map);					// Convex Hull Object
+				actions = new UnredoOperations();								// Un-Re-Do Object
+
+
+				selection_polygon = new google.maps.Polygon({
+		      strokeColor: "#000000",
+		      strokeOpacity: 1,
+		      strokeWeight: 1,
+		      fillColor: "#FFFFFF",
+		      fillOpacity: 0
+		    });
+
+				
+				// google.maps.event.addListener(map,"tilesloaded",function(event){
+				// 					google.maps.event.removeListener("tilesloaded");
+				// 				});
+
+				//Click map event
+				google.maps.event.addListener(map,"click",function(event){
+					if (state == 'add') {
+						addMarker(event.latLng,null,false);
+					}
+
+					if (state == "selection") {
+						changeMapSelectionStatus(event.latLng);
+					}
+				});
+
+
+
+				//Change cursor depending on application state
+				google.maps.event.addListener(map,"mouseover",function(event){
+						switch(state) {
+							case 'add': 			map.setOptions({draggableCursor: "url(/images/editor/add_cursor.png),default"});	
+																break;
+							case 'selection': map.setOptions({draggableCursor: "url(/images/editor/selection_cursor.png),default"});	
+																break;											
+							case 'remove': 		map.setOptions({draggableCursor: "url(/images/editor/remove_cursor.png),default"});	
+																break;						
+							default: 					map.setOptions({draggableCursor: "url(/images/editor/default_cursor.png),default"});	
+						}
+				});
+
+
+				//Zoom change = Zoom control change
+				google.maps.event.addListener(map,"zoom_changed",function(event){moveZoomControl();});
+			}
+
+
 			//choose map type
 			$('ul.map_type_list li').click(function(ev){
 				$('a.select_map_type span').text($(this).text());

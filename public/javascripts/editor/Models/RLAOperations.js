@@ -20,6 +20,7 @@
 		}
 
 
+
 		/*========================================================================================================================*/
 		/* Download all the data thanks to a .rla file. */
 		/*========================================================================================================================*/
@@ -37,6 +38,8 @@
       $("#download_form").submit();
       changeAppToSave(1);  
 		}
+
+
 
 		/*========================================================================================================================*/
 		/* Create the object for download later as a .rla file. */
@@ -84,6 +87,70 @@
 			
 			return result;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*===============================================================================================================*/
+		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
+		/*===============================================================================================================*/
+		
+		function downloadRLA() {
+			var map_inf = new Object();
+			map_inf.zoom = map.getZoom();
+			map_inf.center = map.getCenter();
+			var rla = new RLA(specie,_markers,map_inf,null);
+			rla.download();		
+		}
+		
+		
+		
+		
+		/*===============================================================*/
+		/* Restore the application thanks to the file you have uploaded. */
+		/*===============================================================*/
+		
+		function uploadRLA(upload_data) {
+			var rla = new RLA(null,null,null,upload_data);
+			var app_data = rla.upload();
+			var sources = [];
+			for (var i=0; i<app_data.length; i++) {
+				if (i!=0) {
+					sources.push(app_data[i].name);
+					addSourceToMap(app_data[i],false,false);
+				} else {
+					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
+					map.setZoom(parseInt(app_data[0].zoom));				
+				}
+			}
+			
+			
+			//if there is own points, get last number id for the global_id  (avoid conflicts with ids!!!)
+			
+			
+			$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
+			changeAppToSave(1);		
+			
+			//Merge points from service
+			merge_object = new MergeOperations(sources);
+			setTimeout(function(){merge_object.checkSources();},1000);
+				
+		}
+		
+		
+		
+		
+		
+		
 	
 	
 	
