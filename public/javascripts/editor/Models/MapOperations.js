@@ -200,9 +200,6 @@
 
 							(observations[i].removed)?null:total_points.add(observations[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
 
-							if (total==1) {
-								console.log(total_points.get('gbif'));
-							}
 
 							bounds.extend(new google.maps.LatLng(observations[i].latitude,observations[i].longitude));			
 							var marker = CreateMarker(new google.maps.LatLng(observations[i].latitude,observations[i].longitude), observations[i].kind, true, true, observations[i], (observations[i].removed)?null:map);

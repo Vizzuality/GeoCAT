@@ -36,7 +36,7 @@
 		
       $("#rla_input").attr("value",JSON.stringify(dataset));
       $("#download_form").submit();
-      changeAppToSave(1);  
+			changeApplicationTo(2);
 		}
 
 
@@ -138,7 +138,7 @@
 			
 			
 			$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
-			changeAppToSave(1);		
+			changeApplicationTo(2);
 			
 			//Merge points from service
 			merge_object = new MergeOperations(sources);

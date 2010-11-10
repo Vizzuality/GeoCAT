@@ -60,7 +60,6 @@
 						URll = CylindtoLL(URx,URy);
 
 						//Draw cell
-						
 						Cellpoints = [
 				        new google.maps.LatLng(LLll[0],LLll[1]),
 				        new google.maps.LatLng(LLll[0],URll[1]),
@@ -68,21 +67,25 @@
 				        new google.maps.LatLng(URll[0],LLll[1]),
 								new google.maps.LatLng(LLll[0],LLll[1])
 				    ];
+				
+						var array_index = LLll[0] + LLll[1] + LLll[0] + URll[1];
+						
+						if (Cells[array_index] == undefined) {
+							Cells[array_index] = new google.maps.Polygon({
+								paths: Cellpoints,
+					      strokeColor: "red",
+					      strokeOpacity: 1,
+					      strokeWeight: 1,
+					      fillColor: "red",
+					      fillOpacity: 0.1,
+								data: {count:0}
+							});
+						} else {
+							Cells[array_index].data.count++;
+							var count = Cells[array_index].data.count;
+							Cells[array_index].setOptions({fillOpacity: count/100});
+						}
 
-						
-						Cells[idx] = new google.maps.Polygon({
-							paths: Cellpoints,
-				      strokeColor: "red",
-				      strokeOpacity: 1,
-				      strokeWeight: 1,
-				      fillColor: "yellow",
-				      fillOpacity: 0
-						});
-						
-						//console.log(Cellpoints);
-						
-						//Cells[idx].setMap(map);
-						//gMap.addOverlay(Cells[idx]);
 						testtxt[idx] = LLx + "," + LLy
 					}
 					testtxt.sort();
@@ -185,7 +188,6 @@
 		    var AOOArea = (AOO * cellsize_ * cellsize_)/(1000*1000);
 		    var AOOrat = AOOrating(AOOArea);
 
-				
 				
 				return {EOORat: EOORat, EOOArea:convex_area, AOORat: AOOrat, AOOArea: AOOArea, Cells: Cells};
 			}

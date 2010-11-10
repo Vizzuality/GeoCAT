@@ -22,6 +22,14 @@
 			//toggle on/off analysis
 			$('a#toggle_analysis').click(function(ev){
 				if ($(this).hasClass('disabled')) {
+					$('body').bind('getBounds',function(ev){
+						var bounds = new google.maps.LatLngBounds();
+						for (var i in ev.points) {
+							bounds.extend(ev.points[i]);
+						}
+						map.fitBounds(bounds);
+						$('body').unbind('getBounds');
+					});
 					openConvexHull();
 					$(this).parent().children().removeClass('disabled');
 					$(this).parent().children('h3').text('Analysis enabled');
@@ -53,6 +61,20 @@
 				}
 			});
 			
+			
+			$('a.default').click(function(ev){
+				$("div.cellsize div.slider").slider({value:5});
+				me.cellsize = 5;
+				me.removeAOOPolygons();
+				me.setAlgorithmValues(5);
+			});
+			
+			
+			//Close Cellsize
+			$("div.cellsize a.done").click(function(){$('div.cellsize').fadeOut();});
+			
+			//Open Cellsize
+			$("p.change a.change").livequery('click',function(){$('div.cellsize').fadeIn();});
 		}
 
 
@@ -69,9 +91,9 @@
 
 
 
-		/*========================================================================================================================*/
-		/* Remove from the map the polygon when the user close the convex hull window. */
-		/*========================================================================================================================*/
+		/*==============================================================================*/
+		/* Remove from the map the polygon when the user close the convex hull window.  */
+		/*==============================================================================*/
 		HullOperations.prototype.removePolygon = function() {
 			this.visible = false;
 			this.active_markers = [];
@@ -79,12 +101,12 @@
 				this.polygon.setMap(null);
 				this.removeAOOPolygons();
 			}
-			closeCellsizeContainer();
+			$('div.cellsize').fadeOut();
 		}
 
-		/*========================================================================================================================*/
-		/* Filter all the map markers to add only the active ones. */
-		/*========================================================================================================================*/
+		/*==============================================================================*/
+		/* Filter all the map markers to add only the active ones. 											*/
+		/*==============================================================================*/
 		HullOperations.prototype.createActivePoints = function(all_markers) {
 			this.active_markers = [];
 			for (var i in all_markers) {
@@ -93,40 +115,41 @@
 				}
 			}
 			if (this.active_markers.length>2) {
-				this.calculateConvexHull();
+				this.calculateConvexHull(false);
 			}
 		}
 
 
-		/*========================================================================================================================*/
+		/*==============================================================================*/
 		/* Function to sort the markers for Convex Hull Operation. */
-		/*========================================================================================================================*/
+		/*==============================================================================*/
 		HullOperations.prototype.sortPointX = function(a,b) {return a.getPosition().lng() - b.getPosition().lng();}
 		HullOperations.prototype.sortPointY = function(a,b) {return a.getPosition().lat() - b.getPosition().lat();}
 
 
 
-		/*========================================================================================================================*/
-		/* Calculate operations before drawlng() the polygon. */
-		/*========================================================================================================================*/
-		HullOperations.prototype.calculateConvexHull = function() {
+		/*==============================================================================*/
+		/* Calculate operations before drawlng() the polygon. 													*/
+		/*==============================================================================*/
+		HullOperations.prototype.calculateConvexHull = function(dragging) {
 			this.removeAOOPolygons();
 			this.active_markers.sort(this.sortPointY);
 			this.active_markers.sort(this.sortPointX);
-			this.drawHull();
+			this.drawHull(dragging);
 		}
 
 
 
-		/*========================================================================================================================*/
+		/*==============================================================================*/
 		/* Add new point to active markers. */
-		/*========================================================================================================================*/
+		/*==============================================================================*/
 		HullOperations.prototype.addPoint = function(marker) {
 			this.active_markers.push(marker);
 			if (this.active_markers.length>2) {
 				if (this.polygon!=undefined) {
 					this.polygon.setMap(this.map);
-					this.calculateConvexHull();
+					this.calculateConvexHull(false);
+					this.removeAOOPolygons();
 				} else {
 					this.createPolygon(_markers);
 				}
@@ -146,10 +169,11 @@
 				}
 			}
 			if (this.active_markers.length>2) {
-				this.calculateConvexHull();
+				this.calculateConvexHull(false);
 			} else {
 				this.polygon.setMap(null);
 				this.resetAlgorithmValues();
+				this.removeAOOPolygons();
 			}
 		}
 
@@ -157,13 +181,17 @@
 		/*========================================================================================================================*/
 		/* Draw the convex hull polygon. */
 		/*========================================================================================================================*/
-		HullOperations.prototype.drawHull= function() {
+		HullOperations.prototype.drawHull= function(dragging) {
 			var hullPoints = [];
 	
 			chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
-	
+			var points = this.markersToPoints(hullPoints);
+			var event = jQuery.Event("getBounds");
+			event.points = points;
+			$("body").trigger(event);
+			
 			if (this.polygon != undefined) {
-				this.polygon.setPath(this.markersToPoints(hullPoints));
+				this.polygon.setPath(points);
 			} else {
 			  this.polygon = new google.maps.Polygon({
 					paths: this.markersToPoints(hullPoints),
@@ -171,7 +199,8 @@
 		      strokeOpacity: 1,
 		      strokeWeight: 2,
 		      fillColor: "#000000",
-		      fillOpacity: 0.25
+		      fillOpacity: 0.25,
+					clickable: false
 				});
 		
 				google.maps.event.addListener(this.polygon,"click",function(event){
@@ -182,7 +211,9 @@
 		
 			}
 			
-			this.setAlgorithmData(this.polygon.getPath().b, this.cellsize*1000);
+			if (!dragging) {
+				this.setAlgorithmData(this.polygon.getPath().b, this.cellsize*1000);
+			}
 		}
 		
 		
@@ -242,7 +273,7 @@
 		/*========================================================================================================================*/
 		HullOperations.prototype.setAlgorithmValues = function(value) {
 			$('div.cellsize span p').text(value+'KM');
-			$('div.analysis p.change').html('Cellsize '+value+'km, <a onclick="openCellsizeContainer()">change</a>');
+			$('div.analysis p.change').html('Cellsize '+value+'km, <a class="change">change</a>');
 			if (this.polygon!=undefined && this.polygon.getPath().b.length>2) {
 				this.setAlgorithmData(this.polygon.getPath().b,this.cellsize*1000);
 			}
@@ -269,18 +300,6 @@
 		HullOperations.prototype.isVisible = function() {
 			return this.visible;
 		}
-		
-		
-		
-		
-		function openCellsizeContainer() {
-			$('div.cellsize').fadeIn();
-		}
-		
-		
-		function closeCellsizeContainer() {
-			$('div.cellsize').fadeOut();
-		}
 
 
 
@@ -298,21 +317,3 @@
 		function closeConvexHull() {
 			convex_hull.removePolygon();
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

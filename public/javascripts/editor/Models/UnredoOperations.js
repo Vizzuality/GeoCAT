@@ -23,16 +23,10 @@
 				});
 				
 				// Undo action.
-				$('a.undo').click(function(){
-					me.Undo();
-					changeApplicationTo(0);
-				});
+				$('a.undo').click(function(){me.Undo();});
 
 				// Redo action.
-				$('a.redo').click(function() {
-					me.Redo();
-					changeApplicationTo(0);
-				});
+				$('a.redo').click(function() {me.Redo();});
 
 			}
 			
@@ -71,7 +65,7 @@
 				this.position++;
 
 				//Change application to unsave - new action
-				changeAppToSave(0);
+				changeApplicationTo(1);
 			}
 
 
@@ -93,7 +87,7 @@
 						case 'add': 		this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;	
-						case 'move': 		this.moveMarkers(actions_data[0].catalogue_id,actions_data[0].new_.latlng);
+						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].new_.latlng);
 														$('#action_info span').text('Moved point to ('+actions_data[0].new_.latlng.lat()+','+actions_data[0].new_.latlng.lng()+')');
 														break;
 						case 'active':  makeActive(actions_data,true);
@@ -106,7 +100,7 @@
 						default: 				null;
 					}
 					this.position++;
-					changeAppToSave(0);
+					changeApplicationTo(1);
 				}	else {
 					$('#action_info span').text("There aren't more actions to redo");
 				}
@@ -145,7 +139,7 @@
 														break;			
 						default: 				null;
 					}
-					changeAppToSave(0);
+					changeApplicationTo(1);
 				} else {
 					$('#action_info span').text("There aren't more actions to undo");
 				}
@@ -192,7 +186,7 @@
 				_markers[marker_id].data.latitude = latlng.b;
 				_markers[marker_id].setPosition(latlng);
 				if (convex_hull.isVisible()) {
-					convex_hull.calculateConvexHull();
+					convex_hull.calculateConvexHull(false);
 				}
 			}
 			

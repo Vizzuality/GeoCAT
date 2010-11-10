@@ -121,9 +121,13 @@ var merge_object; 							// MergeOperations model Object for recover points from
 				case 0: //Un-do-re-do operation -> Remove selection polygon 
 								removePolygon();
 								break;
-				case 1: //Change app to save
+				case 1: //Change app to unsaved
+								$('div.header h1').removeClass('saved');
+								$('div.header h1 sup').text('(unsaved)');
 								break;
-				case 2: //Change app to unsaved
+				case 2: //Change app to saved
+								$('div.header h1').removeClass('saved');
+								$('div.header h1 sup').text('(unsaved)');
 								break;
 			}
 		}

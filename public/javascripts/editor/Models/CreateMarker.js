@@ -113,7 +113,7 @@
 			this.data.longitude = ev.latLng.c;
 			this.data.latitude = ev.latLng.b;
 			if (convex_hull.isVisible()) {
-				convex_hull.calculateConvexHull();
+				convex_hull.calculateConvexHull(true);
 			}
 		});
 
@@ -124,7 +124,7 @@
 			this.data.longitude = ev.latLng.c;
 			this.data.latitude = ev.latLng.b;
 			if (convex_hull.isVisible()) {
-				convex_hull.calculateConvexHull();
+				convex_hull.calculateConvexHull(false);
 			}
 			actions.Do('move', [{catalogue_id: marker.data.catalogue_id, latlng: marker.data.init_latlng}] , [{catalogue_id: marker.data.catalogue_id, latlng: ev.latLng}]);
 		});
@@ -142,14 +142,15 @@
 
 	
 		var circle = new google.maps.Circle({
-				  map: marker_map,
-				  radius: item.accuracy*1000,
-				  strokeColor: color,
-					strokeOpacity: 0.3,
-					strokeWeight: 1,
-					fillOpacity: 0.3,
-					fillColor: color
-				});
+			map: marker_map,
+			radius: item.accuracy*1000,
+			strokeColor: color,
+			strokeOpacity: 0.3,
+			strokeWeight: 1,
+			fillOpacity: 0.3,
+			fillColor: color,
+			clickable: false
+		});
 		
 		marker.set('distance', marker.data.accuracy*1000);
 		marker.set('opacity', 0.3);
