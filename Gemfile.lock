@@ -33,6 +33,14 @@ GEM
       activesupport (~> 3.0.0)
     awesome_print (0.2.1)
     builder (2.1.2)
+    capistrano (2.5.19)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.0.0)
+    capistrano-ext (1.2.1)
+      capistrano (>= 1.0.0)
     columnize (0.3.2)
     csv-mapper (0.5.1)
       fastercsv
@@ -41,6 +49,7 @@ GEM
     fastercsv (1.5.3)
     flickraw (0.8.2)
       json (>= 1.1.1)
+    highline (1.6.1)
     i18n (0.4.2)
     json (1.4.3)
     linecache (0.43)
@@ -50,6 +59,13 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.0.23)
+    net-ssh-gateway (1.0.1)
+      net-ssh (>= 1.99.1)
     nokogiri (1.4.2)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -88,6 +104,8 @@ PLATFORMS
 DEPENDENCIES
   RedCloth (= 4.2.3)
   awesome_print
+  capistrano
+  capistrano-ext
   csv-mapper
   flickraw (= 0.8.2)
   json (= 1.4.3)

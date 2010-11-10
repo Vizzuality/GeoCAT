@@ -24,7 +24,7 @@ set :user,  'ubuntu'
 
 set :deploy_to, "/home/ubuntu/www/#{application}"
 
-after  "deploy:update_code", :run_migrations, :symlinks, :asset_packages, :set_staging_flag
+after  "deploy:update_code", :run_migrations, :symlinks, :set_staging_flag
 after "deploy:update", "deploy:cleanup"
 
 desc "Restart Application"
