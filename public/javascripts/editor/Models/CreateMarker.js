@@ -142,7 +142,7 @@
 
 	
 		var circle = new google.maps.Circle({
-			map: marker_map,
+			.getPosition().lng()map: marker_map,
 			radius: item.accuracy*1000,
 			strokeColor: color,
 			strokeOpacity: 0.3,
