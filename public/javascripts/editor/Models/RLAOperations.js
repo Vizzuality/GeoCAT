@@ -113,22 +113,31 @@
 			var rla = new RLA(null,null,null,upload_data);
 			var app_data = rla.upload();
 			var sources = [];
+			
+			//Trick for showing loader while uploading observations;
+			var sources_length = app_data.length-1;
+			var count = 0;
+			
+			$('body').bind('hideMamufas', function(ev){
+				count++;
+				if (sources_length==count) {
+					$('body').unbind('hideMamufas');
+					hideMamufasMap(true);
+				}
+			});
+			
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					sources.push(app_data[i].name);
 					
 					//Get last id from "your points"
 					if (app_data[i].name=='your') {
-						console.log(app_data[i]);
-						var obs_data = app_data[i].l
-						// length-1
-						// 						splice
-						// 						[1]
-						// 						global_id = 
+						var obs_data = app_data[i].points[app_data[i].points.length-1].catalogue_id.split('_');
+						global_id = parseInt(obs_data[1]);
 					}
 					
-					
-					addSourceToMap(app_data[i],false,false);
+					addSourceToMap(app_data[i],false,true);
+					showMamufasMap();
 				} else {
 					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
 					map.setZoom(parseInt(app_data[0].zoom));				

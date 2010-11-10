@@ -60,8 +60,8 @@ var merge_object; 							// MergeOperations model Object for recover points from
 									$('div.header h1 sup').text('(unsaved)');
 									break;
 				case 2: 	//Change app to saved
-									$('div.header h1').removeClass('saved');
-									$('div.header h1 sup').text('(unsaved)');
+									$('div.header h1').addClass('saved');
+									$('div.header h1 sup').text('(saved)');
 									break;
 				case 3: 	// Change app to help state
 									$('div#wellcome').hide();

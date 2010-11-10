@@ -85,10 +85,10 @@
 						$("#add_source_button").removeClass('open');
 						switch($(this).parent().parent().find('a.checkbox').attr('id')) {
 							case 'add_flickr': 	flickr_data = flickr_founded[0];
-																	addSourceToMap(flickr_data,true,true);
+																	addSourceToMap(flickr_data,true,false);
 																 	break;
 							case 'add_gbif':  	gbif_data = gbif_founded[0];
-																	addSourceToMap(gbif_data,true,true);
+																	addSourceToMap(gbif_data,true,false);
 																	break;
 							default: 						null;
 						}
@@ -255,7 +255,7 @@
 													} else {
 														$('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in GBIF');
 													}
-													$('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.gbif_points, kind:'gbif'},true,true); closeMergeContainer()});
+													$('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.gbif_points, kind:'gbif'},true,false); closeMergeContainer()});
 
 													break;
 					default: 				type = 'flickr';
@@ -265,7 +265,7 @@
 													} else {
 														$('div.merge_container p').text('There are '+merge_object.flickr_points.length+' new points in Flickr');
 													}
-													$('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,true); closeMergeContainer()});
+													$('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,false); closeMergeContainer()});
 													break;
 				}
 

@@ -167,7 +167,7 @@
 					/*========================================================================================================================*/
 					/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). */
 					/*========================================================================================================================*/
-					function addSourceToMap(information, getBound, saveAction) {
+					function addSourceToMap(information, getBound, uploadAction) {
 
 							showMamufasMap();
 							var marker_kind;
@@ -188,14 +188,14 @@
 							new google.maps.Point(12, 12));
 
 							actions.Do('add', null, information.points);
-							setTimeout(function(){asynAddMarker(0,information.points.length,getBound,saveAction,information.points);},0);
+							setTimeout(function(){asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);},0);
 					}
 
 
 					/*=======================================*/
 					/* Recursive service for adding markers. */
 					/*=======================================*/
-					function asynAddMarker(i,total,_bounds, _saveAction, observations) {
+					function asynAddMarker(i,total,_bounds, uploadAction, observations) {
 						if(i < total){
 							(observations[i].removed)?null:total_points.add(observations[i].kind); //Add new point to total_point in each class (gbif, flickr or your points)
 							bounds.extend(new google.maps.LatLng(observations[i].latitude,observations[i].longitude));			
@@ -205,9 +205,13 @@
 								convex_hull.addPoint(marker);
 							}
 				      i++;
-							setTimeout(function(){asynAddMarker(i,total,_bounds,_saveAction,observations);},0);
+							setTimeout(function(){asynAddMarker(i,total,_bounds,uploadAction,observations);},0);
 				    } else {
-							hideMamufasMap(true);
+							if (uploadAction) {
+								$('body').trigger('hideMamufas');
+							} else {
+								hideMamufasMap(true);
+							}
 							if (_bounds) {
 				 				map.fitBounds(bounds);
 							}

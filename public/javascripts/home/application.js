@@ -141,18 +141,18 @@
 							var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 							var marker = new google.maps.Marker({position: point, map: map, icon: image});
 							markers.push(marker);
-							setTimeout('generateObservations()',1000);
+							setTimeout('generateObservations()',300);
 						} else {
 							if (specie_type==1 && results[0].elevation>0) {
 								var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 								var marker = new google.maps.Marker({position: point, map: map, icon: image});
 								markers.push(marker);
-								setTimeout('generateObservations()',1000);
+								setTimeout('generateObservations()',300);
 							} else if (specie_type==0 && results[0].elevation<0) {
 									var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 									var marker = new google.maps.Marker({position: point, map: map, icon: image});
 									markers.push(marker);
-									setTimeout('generateObservations()',1000);
+									setTimeout('generateObservations()',300);
 							} else {
 								setTimeout('generateObservations()',0);
 							}
@@ -166,7 +166,7 @@
 	        var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 					var marker = new google.maps.Marker({position: point, map: map, icon: image});
 					markers.push(marker);
-					setTimeout('generateObservations()',1000);
+					setTimeout('generateObservations()',300);
 	      }
 	    });
 		} else {
