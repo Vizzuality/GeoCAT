@@ -1,0 +1,36 @@
+embed_assets: on
+javascript_compressor: closure
+
+javascripts:
+  main:
+    - public/javascripts/plugins/jquery.min.js
+    - public/javascripts/plugins/jquery.autocomplete.js
+    - public/javascripts/editor/Calculations/ConvexHull.js
+    - public/javascripts/home/application.js
+  editor:
+    - public/javascripts/plugins/jquery.min.js
+    - public/javascripts/plugins/jquery-ui-1.8.2.custom.min.js
+    - public/javascripts/plugins/jquery.json-2.2.js
+    - public/javascripts/plugins/jquery.livequery.min.js
+    - public/javascripts/plugins/fileuploader.js
+    - public/javascripts/editor/Models/SourcesOperations.js
+    - public/javascripts/editor/Models/MapOperations.js
+    - public/javascripts/editor/MapOverlays/MarkerTooltip.js
+    - public/javascripts/editor/MapOverlays/MarkerOverTooltip.js
+    - public/javascripts/editor/Models/CreateMarker.js
+    - public/javascripts/editor/Calculations/ConvexHull.js
+    - public/javascripts/editor/MapOverlays/DeleteInfowindow.js
+    - public/javascripts/editor/Models/RLAOperations.js
+    - public/javascripts/editor/Models/TotalPointsOperations.js
+    - public/javascripts/editor/Models/HullOperations.js
+    - public/javascripts/editor/Models/UnredoOperations.js
+    - public/javascripts/editor/MapOverlays/PolygonOverTooltip.js
+    - public/javascripts/editor/Models/MergeOperations.js
+    - public/javascripts/editor/Calculations/PolygonArea.js
+    - public/javascripts/editor/Calculations/AnalysisRatings.js
+    - public/javascripts/editor/AppController.js
+
+stylesheets:
+  base:
+    - public/stylesheets/layout.css
+    - public/stylesheets/jquery-ui-1.8.2.custom.css

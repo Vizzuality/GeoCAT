@@ -1,287 +1,259 @@
-    <div id="editor">
-      <a id="scientific_name"><%= @species_name.blank? ? 'Puma' : @species_name %></a>
-      <ul class="editor_list">
-        <li class="first"><a onclick="changeApplicationTo(3)">Help</a></li>
-        <li><a onclick="changeApplicationTo(5)">Close tool</a></li>
-      </ul>
+  <% content_for :js do %>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" charset="utf-8">
+      var upload_information;
+      <% if @rlat_json %>
+        upload_information = <%= @rlat_json.html_safe %>;
+      <% end %>
+    </script>
+    <%= include_javascripts :editor %>
+  <% end -%>
 
-      <div id="tools">
-        <div class="table">
-          <div class="header">
-            <div class="top-left-tool"></div>
-            <div class="top-repeat-tool">
-              <div class="left">
-                <h2>TOOLS</h2>
-              </div>
-              <div class="right">
-                <h2>ANALYSIS AND SOURCES</h2>
-              </div>
+  <div id="editor">
+    <a id="scientific_name"><%= @species_name.blank? ? 'Puma' : @species_name %></a>
+    <ul class="editor_list">
+      <li class="first"><a onclick="changeApplicationTo(3)">Help</a></li>
+      <li><a onclick="changeApplicationTo(5)">Close tool</a></li>
+    </ul>
+
+    <div id="tools">
+      <div class="table">
+        <div class="header">
+          <div class="top-left-tool"></div>
+          <div class="top-repeat-tool">
+            <div class="left">
+              <h2>TOOLS</h2>
             </div>
-            <div class="top-right-tool"></div>
-          </div>
-          <div class="center">
-            <div class="left-repeat-tool"></div>
-            <div class="center-tool">
-              <div class="left">
-                <a onclick="javascript: void setStatus('select')" class="select selected"></a>
-                <a onclick="javascript: void setStatus('selection')" class="selection"></a>
-                <a onclick="javascript: void setStatus('add')" class="add"></a>
-                <a onclick="javascript: void setStatus('remove')" class="remove"></a>
-              </div>
-              <div class="right">
-
-                <div class="analysis">
-                  <div class="inner_analysis">
-                    <a id="toggle_analysis" class="disabled"><span></span></a>
-                    <h3 class="disabled">Analysis disabled</h3>
-                    <div class="analysis_data">
-                      <ul>
-                        <li>
-                          <label>EOO</label>
-                          <p>0 km<sup>2</sup></p>
-                        </li>
-                        <li>
-                          <label>AOO</label>
-                          <p>0 km<sup>2</sup></p>
-                          <p class="change">Cell size 5km, <a class="change">change</a></p>
-                        </li>
-                      </ul>
-                      <span><a>Print complete report</a></span>
-                    </div>
-                    <div class="cellsize">
-                      <h4>CHANGE CELL SIZE</h4>
-                      <span><label>SIDE LENGTH</label><p>5KM</p></span>
-                      <div class="slider"></div>
-                      <p>Determines the minimum cell used during the AOO analysis</p>
-                      <div class="bottom">
-                        <a class="default">set default value</a>
-                        <a class="done">DONE</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="sources">
-
-                  <!-- Merge window -->
-                  <div class="merge_container">
-                    <h4>MERGE NEW FLICKR POINTS</h4>
-                    <p>There are 2 new points in flickr.</p>
-                    <div><a class="cancel" onclick="closeMergeContainer()">Cancel</a><a class="merge_button"></a></div>
-                  </div>
-
-                  <!-- Delete all window -->
-                  <div class="delete_all">
-                    <h4>DELETE ALL FLICKR POINTS</h4>
-                    <p>Are you sure you want to delete all these points?</p>
-                    <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
-                  </div>
-
-                  <span><h3>SOURCES</h3><p class="count_points ">NO POINTS</p></span>
-                  <ul id="sources_list"></ul>
-
-                  <a class="add" id="add_source_button">Add new source</a>
-
-                  <div id="add_source_container">
-                    <div class="top">
-                      <a onclick="closeSources()" id="close_sources"></a>
-                      <div class="bottom">
-                        <div class="middle">
-                          <ul>
-                            <li>
-                              <a id="add_flickr" class="checkbox">Add points from Flickr</a>
-                              <span>
-                                <p>Loading</p>
-                                <a class="import_data">import</a>
-                              </span>
-                            </li>
-                            <li>
-                              <a id="add_gbif" class="checkbox">Add points from GBIF</a>
-                              <span>
-                                <p>Loading</p>
-                                <a class="import_data">import</a>
-                              </span>
-                            </li>
-                            <li>
-                              <a id="add_csv" class="checkbox">Import .CSV</a>
-                              <span>
-                                <div class="inner">
-                                  <a href="#" class="browse"></a>
-                                  <p>Select a file...</p>
-                                  <a href="#" class="delete"></a>
-                                  <form>
-                                    <input type="file" />
-                                  </form>
-                                </div>
-                                <a class="import_data">upload and merge</a>
-                              </span>
-                            </li>
-                            <li>
-                              <a id="add_rla" class="checkbox">Import .RLA</a>
-                              <span>
-                                <div class="inner">
-                                  <!-- <a href="#" class="browse"></a>
-                                  <p>Select a file...</p> -->
-                                  <a href="#" class="delete"></a>
-                                  <div id="uploader_RLA"><noscript></noscript></div>
-                                </div>
-                                <a class="import_data">upload and merge</a>
-                              </span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="right">
+              <h2>ANALYSIS AND SOURCES</h2>
             </div>
-            <div class="right-repeat-tool"></div>
           </div>
-          <div class="footer">
-            <div class="bottom-left-tool"></div>
-            <div class="bottom-repeat-tool"></div>
-            <div class="bottom-right-tool"></div>
-          </div>
+          <div class="top-right-tool"></div>
         </div>
-      </div>
-
-      <div id="map_container">
-        <div class="table">
-          <div class="header">
-            <div class="top-left-map"></div>
-            <div class="top-repeat-map">
-              <h1 class="specie"><%= @species_name.blank? ? 'Specie not specified' : CGI::unescape(@species_name) %><sup>(unsaved)</sup></h1>
+        <div class="center">
+          <div class="left-repeat-tool"></div>
+          <div class="center-tool">
+            <div class="left">
+              <a onclick="javascript: void setStatus('select')" class="select selected"></a>
+              <a onclick="javascript: void setStatus('selection')" class="selection"></a>
+              <a onclick="javascript: void setStatus('add')" class="add"></a>
+              <a onclick="javascript: void setStatus('remove')" class="remove"></a>
             </div>
-            <div class="top-right-map"></div>
+            <div class="right">
+
+              <div class="analysis">
+                <div class="inner_analysis">
+                  <a id="toggle_analysis" class="disabled"><span></span></a>
+                  <h3 class="disabled">Analysis disabled</h3>
+                  <div class="analysis_data">
+                    <ul>
+                      <li>
+                        <label>EOO</label>
+                        <p>0 km<sup>2</sup></p>
+                      </li>
+                      <li>
+                        <label>AOO</label>
+                        <p>0 km<sup>2</sup></p>
+                        <p class="change">Cell size 5km, <a class="change">change</a></p>
+                      </li>
+                    </ul>
+                    <span><a>Print complete report</a></span>
+                  </div>
+                  <div class="cellsize">
+                    <h4>CHANGE CELL SIZE</h4>
+                    <span><label>SIDE LENGTH</label><p>5KM</p></span>
+                    <div class="slider"></div>
+                    <p>Determines the minimum cell used during the AOO analysis</p>
+                    <div class="bottom">
+                      <a class="default">set default value</a>
+                      <a class="done">DONE</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sources">
+
+                <!-- Merge window -->
+                <div class="merge_container">
+                  <h4>MERGE NEW FLICKR POINTS</h4>
+                  <p>There are 2 new points in flickr.</p>
+                  <div><a class="cancel" onclick="closeMergeContainer()">Cancel</a><a class="merge_button"></a></div>
+                </div>
+
+                <!-- Delete all window -->
+                <div class="delete_all">
+                  <h4>DELETE ALL FLICKR POINTS</h4>
+                  <p>Are you sure you want to delete all these points?</p>
+                  <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
+                </div>
+
+                <span><h3>SOURCES</h3><p class="count_points ">NO POINTS</p></span>
+                <ul id="sources_list"></ul>
+
+                <a class="add" id="add_source_button">Add new source</a>
+
+                <div id="add_source_container">
+                  <div class="top">
+                    <a onclick="closeSources()" id="close_sources"></a>
+                    <div class="bottom">
+                      <div class="middle">
+                        <ul>
+                          <li>
+                            <a id="add_flickr" class="checkbox">Add points from Flickr</a>
+                            <span>
+                              <p>Loading</p>
+                              <a class="import_data">import</a>
+                            </span>
+                          </li>
+                          <li>
+                            <a id="add_gbif" class="checkbox">Add points from GBIF</a>
+                            <span>
+                              <p>Loading</p>
+                              <a class="import_data">import</a>
+                            </span>
+                          </li>
+                          <li>
+                            <a id="add_csv" class="checkbox">Import .CSV</a>
+                            <span>
+                              <div class="inner">
+                                <a href="#" class="browse"></a>
+                                <p>Select a file...</p>
+                                <a href="#" class="delete"></a>
+                                <form>
+                                  <input type="file" />
+                                </form>
+                              </div>
+                              <a class="import_data">upload and merge</a>
+                            </span>
+                          </li>
+                          <li>
+                            <a id="add_rla" class="checkbox">Import .RLA</a>
+                            <span>
+                              <div class="inner">
+                                <!-- <a href="#" class="browse"></a>
+                                <p>Select a file...</p> -->
+                                <a href="#" class="delete"></a>
+                                <div id="uploader_RLA"><noscript></noscript></div>
+                              </div>
+                              <a class="import_data">upload and merge</a>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="center">
-            <div class="left-repeat-map">
-               <div id="zoom">
-                  <a class="zoom_in"></a>
-                  <ul>
-                    <li></li><li></li><li></li><li></li><li></li>
-                    <li></li><li></li><li></li><li></li><li></li>
-                    <li></li><li></li><li></li><li class="selected"></li>
-                  </ul>
-                  <a class="zoom_out"></a>
-                </div>
-            </div>
-            <div class="center-map">
-              <div id="map"></div>
-
-              <!-- Close without save/download -->
-              <div id="close_save">
-                <a onclick="changeApplicationTo()" class="close">X</a>
-                <p>You are going to leave the editor and lose<br/>
-                your changes. Do you want to save them?</p>
-                <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$('#close_save').fadeOut(); downloadRLA()" class="download"></a>
-                </p>
-              </div>
-
-              <!-- Wellcome window -->
-              <div id="wellcome">
-                <a onclick="$('#wellcome').fadeOut()" class="close">X</a>
-                <p>Hello, start your new assessment</p>
-                <p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Adding some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
-              </div>
-
-              <!-- Mamufas map -->
-              <div id="mamufas_map">
-                <div id="loader_map">
-                  <img src="/images/editor/map_loader.gif" alt="Map loader" />
-                </div>
-                <div id="import_success">
-                  <img src="/images/editor/import_done.png" alt="Import done" />
-                </div>
-              </div>
-
-              <!-- Help state -->
-              <div class="help_container" onclick="changeApplicationTo()">
-                <img src="/images/editor/help_bkg.png" class="help"/>
-                <span class="do"></span>
-                <span class="tool"></span>
-                <span class="download"></span>
-                <span id="analysis_help"></span>
-              </div>
-
-              <a href="http://www.vizzuality.com" target="_blank" class="vizzuality"><img src="/images/editor/vizzuality.png" alt="Vizzuality" title="Vizzuality" /></a>
-            </div>
-            <div class="right-repeat-map">
-              <div id="map_type">
-                <div class="map_type">
-                  <a class="select_map_type"><span>TERRAIN</span></a>
-                  <ul class="map_type_list">
-                    <li onclick="map.setMapTypeId(google.maps.MapTypeId.TERRAIN)">TERRAIN</li>
-                    <li onclick="map.setMapTypeId(google.maps.MapTypeId.ROADMAP)">ROADMAP</li>
-                    <li onclick="map.setMapTypeId(google.maps.MapTypeId.SATELLITE)">SATELLITE</li>
-                    <li onclick="map.setMapTypeId(google.maps.MapTypeId.HYBRID)">HYBRID</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="footer">
-            <div class="bottom-left-map"></div>
-            <div class="bottom-repeat-map">
-              <div class="left">
-                <a class="undo"></a>
-                <a class="redo"></a>
-                <p id="action_info"><span></span></p>
-              </div>
-              <div class="right">
-                <a onclick="#" class="export"></a>
-                <a onclick="downloadRLA()" class="download"></a>
-              </div>
-            </div>
-            <div class="bottom-right-map"></div>
-          </div>
+          <div class="right-repeat-tool"></div>
+        </div>
+        <div class="footer">
+          <div class="bottom-left-tool"></div>
+          <div class="bottom-repeat-tool"></div>
+          <div class="bottom-right-tool"></div>
         </div>
       </div>
     </div>
 
+    <div id="map_container">
+      <div class="table">
+        <div class="header">
+          <div class="top-left-map"></div>
+          <div class="top-repeat-map">
+            <h1 class="specie"><%= @species_name.blank? ? 'Specie not specified' : CGI::unescape(@species_name) %><sup>(unsaved)</sup></h1>
+          </div>
+          <div class="top-right-map"></div>
+        </div>
+        <div class="center">
+          <div class="left-repeat-map">
+             <div id="zoom">
+                <a class="zoom_in"></a>
+                <ul>
+                  <li></li><li></li><li></li><li></li><li></li>
+                  <li></li><li></li><li></li><li></li><li></li>
+                  <li></li><li></li><li></li><li class="selected"></li>
+                </ul>
+                <a class="zoom_out"></a>
+              </div>
+          </div>
+          <div class="center-map">
+            <div id="map"></div>
 
+            <!-- Close without save/download -->
+            <div id="close_save">
+              <a onclick="changeApplicationTo()" class="close">X</a>
+              <p>You are going to leave the editor and lose<br/>
+              your changes. Do you want to save them?</p>
+              <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$('#close_save').fadeOut(); downloadRLA()" class="download"></a>
+              </p>
+            </div>
+
+            <!-- Wellcome window -->
+            <div id="wellcome">
+              <a onclick="$('#wellcome').fadeOut()" class="close">X</a>
+              <p>Hello, start your new assessment</p>
+              <p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Adding some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
+            </div>
+
+            <!-- Mamufas map -->
+            <div id="mamufas_map">
+              <div id="loader_map">
+                <%= image_tag 'editor/map_loader.gif', :alt => 'Map loader' %>
+              </div>
+              <div id="import_success">
+                <%= image_tag 'editor/import_done.png', :alt => 'Import done' %>
+              </div>
+            </div>
+
+            <!-- Help state -->
+            <div class="help_container" onclick="changeApplicationTo()">
+              <%= image_tag 'editor/help_bkg.png', :class => 'help' %>
+              <span class="do"></span>
+              <span class="tool"></span>
+              <span class="download"></span>
+              <span id="analysis_help"></span>
+            </div>
+
+            <a href="http://www.vizzuality.com" target="_blank" class="vizzuality">
+              <%= image_tag 'editor/vizzuality.png', :alt => 'Vizzuality', :title => 'Vizzuality' %>
+            </a>
+          </div>
+          <div class="right-repeat-map">
+            <div id="map_type">
+              <div class="map_type">
+                <a class="select_map_type"><span>TERRAIN</span></a>
+                <ul class="map_type_list">
+                  <li onclick="map.setMapTypeId(google.maps.MapTypeId.TERRAIN)">TERRAIN</li>
+                  <li onclick="map.setMapTypeId(google.maps.MapTypeId.ROADMAP)">ROADMAP</li>
+                  <li onclick="map.setMapTypeId(google.maps.MapTypeId.SATELLITE)">SATELLITE</li>
+                  <li onclick="map.setMapTypeId(google.maps.MapTypeId.HYBRID)">HYBRID</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="bottom-left-map"></div>
+          <div class="bottom-repeat-map">
+            <div class="left">
+              <a class="undo"></a>
+              <a class="redo"></a>
+              <p id="action_info"><span></span></p>
+            </div>
+            <div class="right">
+              <a onclick="#" class="export"></a>
+              <a onclick="downloadRLA()" class="download"></a>
+            </div>
+          </div>
+          <div class="bottom-right-map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <form style="display:none" id="download_form" name="download_form" action="/download/rla" method="post" target="_blank">
     <input style="display:none" type="text" name="rla" id="rla_input" />
   </form>
-
-
-
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-  <script type="text/javascript" charset="utf-8">
-    var upload_information;
-    <% if @rlat_json %>
-      upload_information = <%= @rlat_json.html_safe %>;
-    <% end %>
-  </script>
-
-	
-	
-
-
-  <%= javascript_include_tag 	'plugins/jquery-ui-1.8.2.custom.min.js', 
-															'plugins/jquery.json-2.2', 
-															'plugins/jquery.livequery.min' ,
-															'plugins/fileuploader'
-	%>
-
-  <%= javascript_include_tag	'editor/Models/SourcesOperations',
- 															'editor/Models/MapOperations',
-															'editor/MapOverlays/MarkerTooltip', 
-															'editor/MapOverlays/MarkerOverTooltip', 
-															'editor/Models/CreateMarker', 
-															'editor/Calculations/ConvexHull', 
-															'editor/MapOverlays/DeleteInfowindow', 
-															'editor/Models/RLAOperations', 
-															'editor/Models/TotalPointsOperations' , 
-															'editor/Models/HullOperations', 
-															'editor/Models/UnredoOperations', 
-															'editor/MapOverlays/PolygonOverTooltip', 
-															'editor/Models/MergeOperations', 
-															'editor/Calculations/PolygonArea.js', 
-															'editor/Calculations/AnalysisRatings.js',
-															'editor/AppController'
-	%>
-

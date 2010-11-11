@@ -253,7 +253,7 @@ $.Autocompleter = function(input, options) {
 		if ( currentValue.length >= options.minChars) {
 			//$input.addClass(options.loadingClass);
 			$("img.loader").show();
-			//$input.css('background', "white url('../images/indicator.gif') 97% center no-repeat");
+			//$input.css('background', "white url('/images/indicator.gif') 97% center no-repeat");
 			if (!options.matchCase)
 				currentValue = currentValue.toLowerCase();
 			request(currentValue, receiveData, hideResultsNow);
