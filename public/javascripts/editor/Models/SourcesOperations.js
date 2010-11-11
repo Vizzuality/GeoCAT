@@ -29,7 +29,7 @@
 						  console.log(responseJSON);
 							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
 								$('#uploader').parent().parent().find('a.import_data').addClass('enabled');
-								
+//								$('#uploader').parent().parent().find('a.import_data').click();
 							} else {
 								//If scientific names are different or there are errors
 							}
@@ -162,8 +162,7 @@
 					$(this).find('span p').removeClass('loaded');
 					$(this).find('span a').removeClass('enabled');
 					$(this).find('div').removeClass('selected');
-					$(this).find('div p').text('Select a file');
-					$(this).find('div form input').attr('value','');
+					$(this).find('span p').text('Loading...');
 				});
 
 				resetUploader();

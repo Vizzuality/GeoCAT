@@ -20,13 +20,7 @@
 			    // return "Save before go";
 			}
 			
-			// Trick to hide wellcome window if user clicks off this container
-			$('body').click(function(event) {
-			    if (!$(event.target).closest('#wellcome').length) {
-			        $('#wellcome').fadeOut();
-							$('body').unbind('click');
-			    };
-			});
+			
 			
 			// Trick for the background
 			$('body').css('background','url(/images/editor/bkg.jpg) 0 0');
@@ -39,8 +33,37 @@
 
 			//if the application comes through an upload file
 			if (upload_information.success) {
-				$('#wellcome').hide();
 				 uploadRLA(upload_information);
+			} else if (specie=='') {
+				
+				$('#start_one input').focusout(function(ev){
+					if ($(this).attr('value')=='') {
+						$(this).attr('value','Insert your value specie name here');
+					}
+				});
+				$('#start_one input').focusin(function(ev){
+					if ($(this).attr('value')=='Insert your value specie name here') {
+						$(this).attr('value','');
+					}
+				});
+				
+				//if the application doesn't have a specie selected
+				$('#start_one_mamufas').show();
+				$('#start_one_mamufas').click(function(event) {
+			    if (!$(event.target).closest('#start_one').length) {
+		        $('#start_one').css('background-position','0 -223px');
+			      $('#start_one input').focus();
+			    };
+				});
+			} else {
+				$('#wellcome').show();
+				// Trick to hide wellcome window if user clicks off this container
+				$('body').click(function(event) {
+				    if (!$(event.target).closest('#wellcome').length) {
+				        $('#wellcome').fadeOut();
+								$('body').unbind('click');
+				    };
+				});
 			}
 		});
 	
@@ -99,5 +122,20 @@
 									$('div#close_save').fadeOut();
 									$('div#wellcome').fadeOut();
 									$('ul.editor_list li').removeClass('selected');
+			}
+		}
+		
+		
+		
+		/* ===== START WITH NEW SPECIE ===== */
+		
+		function startNewSpecie() {
+			if ($('#start_one input').attr('value')!='Insert your value specie name here' && $('#start_one input').attr('value')!='') {
+				specie = $('#start_one input').attr('value');
+				$('h1').html(specie+'<sup>(unsaved)</sup>');
+				$('#start_one_mamufas').fadeOut();
+			} else {
+				$('#start_one input').focus();
+				$('#start_one').css('background-position','0 -223px');
 			}
 		}

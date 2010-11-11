@@ -1,3 +1,4 @@
+
     <% content_for :js do %>
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
       <script type="text/javascript" charset="utf-8">
@@ -8,9 +9,21 @@
       </script>
       <%= include_javascripts :editor %>
     <% end -%>
-
-   <div id="editor">
-      <a id="scientific_name"><%= @species_name.blank? ? 'Puma' : @species_name %></a>
+    
+    
+    <div id="start_one_mamufas">
+      <div id="start_one">
+        <p>Hello, start your new assessment for</p>
+        <form action="javascript:void startNewSpecie()">
+          <input type="text" value="Insert your value specie name here" />
+          <a onclick="startNewSpecie()">continue</a>
+        </form>
+      </div>
+    </div>
+    
+    
+    <div id="editor">
+      <a id="scientific_name"><%= @species_name %></a>
       <ul class="editor_list">
         <li class="first"><a onclick="changeApplicationTo(3)">Help</a></li>
         <li><a onclick="changeApplicationTo(5)">Close tool</a></li>
@@ -102,14 +115,14 @@
                             <li>
                               <a id="add_flickr" class="checkbox">Add points from Flickr</a>
                               <span>
-                                <p>Loading</p>
+                                <p>Loading...</p>
                                 <a class="import_data">import</a>
                               </span>
                             </li>
                             <li>
                               <a id="add_gbif" class="checkbox">Add points from GBIF</a>
                               <span>
-                                <p>Loading</p>
+                                <p>Loading...</p>
                                 <a class="import_data">import</a>
                               </span>
                             </li>
@@ -178,8 +191,8 @@
               <!-- Wellcome window -->
               <div id="wellcome">
                 <a onclick="$('#wellcome').fadeOut()" class="close">X</a>
-                <p>Hello, start your new assessment</p>
-                <p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Adding some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
+                <p>Hello, start your new assessment for<br/><%= @species_name %></p>
+                <p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Add some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
               </div>
 
               <!-- Mamufas map -->
