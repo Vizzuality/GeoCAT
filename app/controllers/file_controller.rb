@@ -17,22 +17,32 @@ class FileController < ApplicationController
   def upload
     @species_name = params[:species] if params[:species].present?
 
-    if params[:file]
-      rlat_data = RlatData.new(params[:file])
-
-      if rlat_data.valid?
-        @rlat_json = rlat_data.to_json
-      else
-        @rlat_json = rlat_data.errors.to_json
-      end
+    rlat = case
+    when params[:file]
+      RlatData.new(params[:file])
+    when params[:qqfile]
+      RlatData.new(request.body)
+    else
+      RlatData.new
     end
+
+    @rlat_json = {
+      :data => rlat,
+      :errors => rlat.valid? ? nil : rlat.errors,
+      :success => true # Valum's file upload requires this param
+    }.to_json
+
+    # HACK! HACK! HACK!
+    # Since valums file upload lib doesn't send a valid http-accept header,
+    # we cannot use respond_to
+    render :json => @rlat_json and return if params[:qqfile] && request.xhr?
 
     render :template => 'rlas/editor'
   end
 
   private
     def check_upload_params
-      if params[:species].blank? && params[:file].blank?
+      if params[:species].blank? && params[:file].blank? && params[:qqfile].blank?
         flash[:error] = 'You must provide an species name or upload a previous report.'
         redirect_to root_url
       end

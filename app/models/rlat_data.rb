@@ -9,7 +9,7 @@ class RlatData
   validates_presence_of :sources
   validate :sources_must_have_all_required_fields
 
-  def initialize(file)
+  def initialize(file = nil)
     return if file.blank?
 
     begin
