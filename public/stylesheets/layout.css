@@ -132,7 +132,7 @@ div#start_one a {float:left; margin:15px 0 0 200px; text-decoration:underline; f
 div#start_one a:hover {color:#6F9326;}
 
 div#wellcome {position:absolute!important; display:none; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:101;}
-div#wellcome a.close {position:absolute; right:7px; top:6px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#wellcome a.close {position:absolute; right:24px; top:23px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#wellcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
 div#wellcome p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
 div#wellcome p.bottom {margin:10px 0 0 0; font-size:23px; letter-spacing:-1px;}
@@ -141,7 +141,7 @@ div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
 
 div#close_save {display:none; position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:100;}
 div#close_save p {float:left; width:100%; margin:0; padding:0; font:bold 23px Arial; color:white; letter-spacing:-1px; text-align:center; line-height:33px;}
-div#close_save a.close {position:absolute; right:7px; top:6px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#close_save a.close {position:absolute; right:24px; top:23px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#close_save a.close:hover {color:white; text-decoration:none; cursor:pointer;}
 div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 40px; font:normal 15px Arial; color:#CCCCCC; text-decoration:underline;}
 div#close_save p a.cancel:hover {color:white; cursor:pointer;}
@@ -433,3 +433,31 @@ div.help_container span.do {position:absolute; width:320px; height:89px; bottom:
 div.help_container span.tool {position:absolute; width:240px; height:180px; top:50px; left:0px; background:url(/images/editor/tool_help.png) no-repeat 0 0;}
 div.help_container span.download {position:absolute; width:270px; height:94px; bottom:1px; right:25px; background:url(/images/editor/download_help.png) no-repeat 0 0;}
 div.help_container span#analysis_help {position:absolute; width:232px; height:245px; top:61px; right:0; background:url(/images/editor/analysis_help.png) no-repeat 0 0;}
+
+
+
+/*HTML5 && 404*/
+div#other {position:absolute; top:0; left:0; right:0; min-height:800px; width:100%; height:100%; background:url(/images/editor/bkg.jpg) repeat 0 0;}
+div#other div.content {position:absolute; width:400px; height:270px; top:50%; left:50%; margin:-185px 0 0 -200px;}
+div#other div.content2 {position:absolute; width:450px; height:125px; top:50%; left:50%; margin:-90px 0 0 -225px;}
+div#other div h1 {float:left; width:100%; font:normal 15px Arial; color:white;}
+div#other div h2 {float:left; margin:15px 0 0 0; width:100%; font:bold 23px Arial; color:#FF3300; letter-spacing:-1px;}
+div#other div p {float:left; margin:15px 0 0 0; width:100%; font:normal 17px Arial; color:white;}
+div#other div div {float:left; width:100%; margin:15px 0 0 0;}
+div#other div div a {float:left; width:84px; height:87px; margin:0 20px 0 0;}
+div#other div div a.ie9 {background:url(/images/html5/ie9.jpg) no-repeat 0 0;}
+div#other div div a.safari {background:url(/images/html5/safari.jpg) no-repeat 0 0;}
+div#other div div a.firefox {background:url(/images/html5/firefox.jpg) no-repeat 0 0;}
+div#other div div a.chrome {background:url(/images/html5/chrome.jpg) no-repeat 0 0; margin:0;}
+div#other div div a:hover {background-position:0 -87px;}
+div#other div form input {width:120px; position:absolute; bottom:5; right:0; opacity:0;}
+div#other div form input:hover {cursor:pointer;}
+div#other div a {color:#729900; font:normal 17px Arial; text-decoration:underline;}
+div#other div a:hover {color:#557200;}
+div#other div.footer {position:absolute; bottom:0; left:0; right:0; background:#729900; border-top:1px solid #608800; z-index:100; height:59px;}
+div#other div.footer div.inner {margin:0 auto; width:440px;}
+div#other div.footer div.inner div.left {float:left; width:100%;}
+div#other div.footer div.inner div.left p {float:left; width:auto; font:normal 13px Arial; color:#003500; padding:22px 5px 0 0;}
+div#other div.footer div.inner div.left p a {color:#003500;}
+div#other div.footer div.inner div.left p a:hover {text-decoration:none;}
+div#other div.footer div.inner div.left img {float:left; margin:12px 0 0 0;}
