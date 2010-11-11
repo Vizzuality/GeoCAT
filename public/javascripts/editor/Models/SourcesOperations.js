@@ -23,7 +23,7 @@
 			// Jquery uploader file RLA
 			var uploader = new qq.FileUploader({
 			    element: $('#uploader_RLA')[0],
-			    action: '/server/upload',
+			    action: '/editor',
 					allowedExtensions: [],        
 					onSubmit: function(id, fileName){
 						$('.qq-upload-button').hide();
@@ -31,7 +31,9 @@
 						$('#uploader_RLA').parent().find('a.delete').show();
 					},
 					onProgress: function(id, fileName, loaded, total){},
-					onComplete: function(id, fileName, responseJSON){},
+					onComplete: function(id, fileName, responseJSON){
+					  console.debug(responseJSON);
+					},
 					onCancel: function(id, fileName){},
 
 					messages: {
