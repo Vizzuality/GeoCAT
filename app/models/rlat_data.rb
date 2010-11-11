@@ -23,6 +23,19 @@ class RlatData
     end
   end
 
+  def to_json
+    {
+      :success => valid?,
+      :data => {
+        :scientificname => scientificname,
+        :zoom => zoom,
+        :center => center,
+        :sources => sources
+      },
+      :errors => errors
+    }.to_json
+  end
+
   private
     def process_as_json(file)
       json = JSON.parse(file.read)

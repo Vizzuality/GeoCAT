@@ -26,17 +26,13 @@ class FileController < ApplicationController
       RlatData.new
     end
 
-    @rlat_json = {
-      :data => rlat,
-      :errors => rlat.valid? ? nil : rlat.errors,
-      :success => true # Valum's file upload requires this param
-    }.to_json
-
     # HACK! HACK! HACK!
     # Since valums file upload lib doesn't send a valid http-accept header,
     # we cannot use respond_to
-    render :json => @rlat_json and return if params[:qqfile] && request.xhr?
 
+    render :json => rlat.to_json and return if params[:qqfile] && request.xhr?
+
+    @rlat_json = rlat.to_json
     render :template => 'rlas/editor'
   end
 
