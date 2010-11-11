@@ -38,11 +38,10 @@
 			startSources();
 
 			//if the application comes through an upload file
-			if (upload_information!=undefined) {
+			if (upload_information.success) {
 				$('#wellcome').hide();
 				 uploadRLA(upload_information);
 			}
-
 		});
 	
 	
@@ -69,6 +68,11 @@
 									$('ul.editor_list li:eq(0)').addClass('selected');
 									$('div.help_container').fadeIn();
 									$('div#close_save').hide();
+									$(document).keydown(function (e) {
+										if (e.keyCode == 27) { // ESC
+											changeApplicationTo();
+										}
+									});
 									break;
 				case 4: 	// Change app to close state
 									$('div#wellcome').hide();
@@ -76,6 +80,11 @@
 									$('ul.editor_list li:eq(1)').addClass('selected');
 									$('div.help_container').hide();
 									$('div#close_save').fadeIn();
+									$(document).keydown(function (e) {
+										if (e.keyCode == 27) { // ESC
+											changeApplicationTo();
+										}
+									});
 									break;
 				case 5: 	// Change app to close state
 									if ($('div.header h1').hasClass('saved')) {
@@ -85,6 +94,7 @@
 									}
 									break;
 				default: 	// Default state for app
+									$(document).unbind('keydown');
 									$('div.help_container').fadeOut();
 									$('div#close_save').fadeOut();
 									$('div#wellcome').fadeOut();

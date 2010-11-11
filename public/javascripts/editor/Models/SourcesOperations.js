@@ -16,20 +16,25 @@
 
 				// Jquery uploader file RLA
 				var uploader = new qq.FileUploader({
-				    element: $('#uploader_RLA')[0],
+				    element: $('#uploader')[0],
 				    action: '/editor',
 						allowedExtensions: [],        
 						onSubmit: function(id, fileName){
 							$('.qq-upload-button').hide();
-							$('div#uploader_RLA .qq-upload-list li:eq(0)').remove();
-							$('#uploader_RLA').parent().find('a.delete').show();
+							$('#uploader .qq-upload-list li:eq(0)').remove();
+							$('#uploader').parent().find('a.delete').show();
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON){
-						  console.debug(responseJSON);
+						  console.log(responseJSON);
+							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
+								$('#uploader').parent().parent().find('a.import_data').addClass('enabled');
+								
+							} else {
+								//If scientific names are different or there are errors
+							}
 						},
 						onCancel: function(id, fileName){},
-
 						messages: {
 						    // error messages, see qq.FileUploaderBasic for content            
 						},
@@ -39,14 +44,8 @@
 
 
 				//change file input value
-				$('li span div form input').change(function(ev){
-					$(this).parent().parent().parent().find('a.import_data').addClass('enabled');
-					$(this).parent().parent().addClass('selected');
-					if ($(this).val().length>15) {
-						$(this).parent().parent().find('p').text($(this).val().substr(0,12)+'...');
-					} else {
-						$(this).parent().parent().find('p').text($(this).val());
-					}
+				$('span div.inner a.delete').click(function(ev){
+					resetUploader();
 				});
 			
 				//open add sources container
@@ -96,6 +95,7 @@
 			function closeSources() {
 				$("#add_source_container").fadeOut();
 				$('#add_source_button').removeClass('open');
+				$(document).unbind('keydown');
 			}
 
 
@@ -105,6 +105,12 @@
 			/*============================================================================*/
 			function openSources() {
 				resetSourcesProperties();
+				// bind ESC keydown events
+				$(document).keydown(function (e) {
+					if (e.keyCode == 27) { // ESC
+						closeSources();
+					}
+				});
 				$("#add_source_container").fadeIn();
 				$('#add_source_button').addClass('open');
 			}
@@ -132,6 +138,16 @@
 		  }
 
 
+			/*============================================================================*/
+			/* Reset properties of uploader.															 								*/
+			/*============================================================================*/	
+			function resetUploader() {
+				$('.qq-upload-button').show();
+				$('.qq-upload-list li').remove();
+				$('.qq-upload-list').append('<li>Select a file</li>');
+				$('span div.inner a.delete').hide();
+			}
+
 
 			/*============================================================================*/
 			/* Reset properties of sources window every time you open it. 								*/
@@ -150,6 +166,8 @@
 					$(this).find('div form input').attr('value','');
 				});
 
+				resetUploader();
+				
 				if (total_points.get('flickr')>0) {
 					$('#add_flickr').parent().addClass('added');
 				}

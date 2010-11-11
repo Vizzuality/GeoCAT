@@ -73,3 +73,9 @@
 					);
 				}
 			}
+			
+			
+			
+			
+			// addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,false);
+			
