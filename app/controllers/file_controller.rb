@@ -9,7 +9,7 @@ class FileController < ApplicationController
     file_name = filename_escape(json["scientificname"])
 
     headers["Content-Type"]        = "text/rlat"
-    headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rlat\"";
+    headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rla\"";
 
     render :text => params[:rla]
   end
