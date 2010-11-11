@@ -1,160 +1,141 @@
 
 
-		/*==========================================================================================================================*/
-		/*  																																																												*/
-		/*				SourceOperations => Class to interact with the editor sources, like GBIF or Flickr																*/
-		/*  																																																												*/
-		/*==========================================================================================================================*/
+			/*==========================================================================================================================*/
+			/*  																																																												*/
+			/*				SourceOperations => Class to interact with the editor sources, like GBIF or Flickr																*/
+			/*  																																																												*/
+			/*==========================================================================================================================*/
 
 
 
-		var flickr_founded;							// Flickr data founded
-		var gbif_founded;								// Gbif data founded
+			var flickr_founded;							// Flickr data founded
+			var gbif_founded;								// Gbif data founded
 
 
-
-
-
-		function startSources() {
-			
-			
-			
-			
-			// Jquery uploader file RLA
-			var uploader = new qq.FileUploader({
-			    element: $('#uploader_RLA')[0],
-			    action: '/server/upload',
-					allowedExtensions: [],        
-					onSubmit: function(id, fileName){
-						$('.qq-upload-button').hide();
-						$('div#uploader_RLA .qq-upload-list li:eq(0)').remove();
-						$('#uploader_RLA').parent().find('a.delete').show();
-					},
-					onProgress: function(id, fileName, loaded, total){},
-					onComplete: function(id, fileName, responseJSON){},
-					onCancel: function(id, fileName){},
-
-					messages: {
-					    // error messages, see qq.FileUploaderBasic for content            
-					},
-					showMessage: function(message){ alert(message); }
-			});
+			function startSources() {
 			
 
-			
-			/* Binding events of DOM elements related to SourcesOperations  */
+				/* Binding events of DOM elements related to SourcesOperations  */
 
-			
-			
-			//change file input value
-			$('li span div form input').change(function(ev){
-				$(this).parent().parent().parent().find('a.import_data').addClass('enabled');
-				$(this).parent().parent().addClass('selected');
-				if ($(this).val().length>15) {
-					$(this).parent().parent().find('p').text($(this).val().substr(0,12)+'...');
-				} else {
-					$(this).parent().parent().find('p').text($(this).val());
-				}
-			});
-			
-			//open add sources container
-			$("#add_source_button").click(function(){
-				if (!$('#add_source_container').is(':visible')) {
-					openSources();
-				} else {
-					closeSources();
-				}
-			});
-			
-			//add source effects
-			$("#add_source_container ul li a.checkbox").click(function(){
-				if (!$(this).parent().hasClass('selected') && !$(this).parent().hasClass('added')) {
-					removeSelectedSources();
-					$(this).parent().addClass('selected');
-					if (!$(this).parent().find('span p').hasClass('loaded')) {
-						callSourceService($(this).attr('id'),$(this).parent());
+				// Jquery uploader file RLA
+				var uploader = new qq.FileUploader({
+				    element: $('#uploader_RLA')[0],
+				    action: '/server/upload',
+						allowedExtensions: [],        
+						onSubmit: function(id, fileName){
+							$('.qq-upload-button').hide();
+							$('div#uploader_RLA .qq-upload-list li:eq(0)').remove();
+							$('#uploader_RLA').parent().find('a.delete').show();
+						},
+						onProgress: function(id, fileName, loaded, total){},
+						onComplete: function(id, fileName, responseJSON){},
+						onCancel: function(id, fileName){},
+
+						messages: {
+						    // error messages, see qq.FileUploaderBasic for content            
+						},
+						showMessage: function(message){ alert(message); }
+				});
+
+
+				//change file input value
+				$('li span div form input').change(function(ev){
+					$(this).parent().parent().parent().find('a.import_data').addClass('enabled');
+					$(this).parent().parent().addClass('selected');
+					if ($(this).val().length>15) {
+						$(this).parent().parent().find('p').text($(this).val().substr(0,12)+'...');
+					} else {
+						$(this).parent().parent().find('p').text($(this).val());
 					}
-				}
-			});
+				});
 			
+				//open add sources container
+				$("#add_source_button").click(function(){
+					if (!$('#add_source_container').is(':visible')) {
+						openSources();
+					} else {
+						closeSources();
+					}
+				});
 			
-			//import data
-			$("a.import_data").click(function(){
-				if ($(this).hasClass('enabled')) {
-						$("#add_source_container").fadeOut();
-						$("#add_source_button").removeClass('open');
-						switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-							case 'add_flickr': 	flickr_data = flickr_founded[0];
-																	addSourceToMap(flickr_data,true,false);
-																 	break;
-							case 'add_gbif':  	gbif_data = gbif_founded[0];
-																	addSourceToMap(gbif_data,true,false);
-																	break;
-							default: 						null;
+				//add source effects
+				$("#add_source_container ul li a.checkbox").click(function(){
+					if (!$(this).parent().hasClass('selected') && !$(this).parent().hasClass('added')) {
+						removeSelectedSources();
+						$(this).parent().addClass('selected');
+						if (!$(this).parent().find('span p').hasClass('loaded')) {
+							callSourceService($(this).attr('id'),$(this).parent());
 						}
-				}
-			});
+					}
+				});
 			
-		}
-		
-		
+				//import data
+				$("a.import_data").click(function(){
+					if ($(this).hasClass('enabled')) {
+							$("#add_source_container").fadeOut();
+							$("#add_source_button").removeClass('open');
+							switch($(this).parent().parent().find('a.checkbox').attr('id')) {
+								case 'add_flickr': 	flickr_data = flickr_founded[0];
+																		addSourceToMap(flickr_data,true,false);
+																	 	break;
+								case 'add_gbif':  	gbif_data = gbif_founded[0];
+																		addSourceToMap(gbif_data,true,false);
+																		break;
+								default: 						null;
+							}
+					}
+				});
+			
+			}
 
-		
 
 
-		
+			/*============================================================================*/
+			/* Close sources window. 																											*/
+			/*============================================================================*/
+			function closeSources() {
+				$("#add_source_container").fadeOut();
+				$('#add_source_button').removeClass('open');
+			}
 
-		
-
-		
-		
-		
 
 
+			/*============================================================================*/
+			/* Open sources window. 																											*/
+			/*============================================================================*/
+			function openSources() {
+				resetSourcesProperties();
+				$("#add_source_container").fadeIn();
+				$('#add_source_button').addClass('open');
+			}
 
-		/*========================================================================================================================*/
-		/* Close sources window. */
-		/*========================================================================================================================*/
-		function closeSources() {
-			$("#add_source_container").fadeOut();
-			$('#add_source_button').removeClass('open');
-		}
+
+
+			/*============================================================================*/
+			/* Remove selected class in -> add source window. 														*/
+			/*============================================================================*/
+			function removeSelectedSources() {
+				$("#add_source_container ul li").each(function(i,item){
+					$(this).removeClass('selected');
+				});
+			}
 	
 
-		/*========================================================================================================================*/
-		/* Open sources window. */
-		/*========================================================================================================================*/
-		function openSources() {
-			resetSourcesProperties();
-			$("#add_source_container").fadeIn();
-			$('#add_source_button').addClass('open');
-		}
-	
 
-		/*========================================================================================================================*/
-		/* Remove selected class in -> add source window. */
-		/*========================================================================================================================*/
-		function removeSelectedSources() {
-			$("#add_source_container ul li").each(function(i,item){
-				$(this).removeClass('selected');
-			});
-		}
-	
+			/*============================================================================*/
+		  /* Change state loading source to loaded source. 															*/
+			/*============================================================================*/
+			function onLoadedSource(element, total) {
+		    $(element).find('span p').addClass('loaded');
+				if (total != 0) 
+		    	$(element).find('span a').addClass('enabled');
+		  }
 
 
-		/*========================================================================================================================*/
-	  /* Change state loading source to loaded source. */
-		/*========================================================================================================================*/
-		function onLoadedSource(element, total) {
-	    $(element).find('span p').addClass('loaded');
-			if (total != 0) 
-	    	$(element).find('span a').addClass('enabled');
-	  }
-	
-	
-			/*========================================================================================================================*/
-			/* Reset properties of sources window every time you open it. */
-			/*========================================================================================================================*/	
+
+			/*============================================================================*/
+			/* Reset properties of sources window every time you open it. 								*/
+			/*============================================================================*/	
 			function resetSourcesProperties() {
 				flickr_founded = [];
 				gbif_founded = [];
@@ -177,12 +158,12 @@
 					$('#add_gbif').parent().addClass('added');
 				}
 			}
-			
-			
-			
-			/*========================================================================================================================*/
-			/* Open Delete container. */
-			/*========================================================================================================================*/
+
+
+
+			/*============================================================================*/
+			/* Open Delete container. 																										*/
+			/*============================================================================*/
 			function openDeleteAll(kind) {
 				var position = $('li a.'+kind).offset();
 				$('div.delete_all').css('top',position.top - 268 + 'px');
@@ -208,9 +189,9 @@
 
 
 
-			/*========================================================================================================================*/
-			/* Close Delete container. */
-			/*========================================================================================================================*/
+			/*============================================================================*/
+			/* Close Delete container.	 																									*/
+			/*============================================================================*/
 			function closeDeleteAll() {
 				$('div.delete_all').fadeOut();
 				$('a.delete_all').removeClass('active');
@@ -218,9 +199,9 @@
 
 
 
-			/*========================================================================================================================*/
-			/* Active Merge buttons. */
-			/*========================================================================================================================*/
+			/*============================================================================*/
+			/* Active Merge buttons. 																											*/
+			/*============================================================================*/
 			function activeMerge() {
 				if (merge_object.gbif_points.length>0) {
 					$('a#GBIF_points').livequery(function(ev){
@@ -237,9 +218,10 @@
 			}
 
 
-			/*========================================================================================================================*/
-			/* Open Merge container. */
-			/*========================================================================================================================*/
+
+			/*============================================================================*/
+			/* Open Merge container. 																											*/
+			/*============================================================================*/
 			function openMergeContainer(kind) {
 				var position = $('li a.'+kind).offset();
 				$('div.merge_container').css('top',position.top  - 268 + 'px');
@@ -275,9 +257,9 @@
 
 
 
-			/*========================================================================================================================*/
-			/* Close Merge container. */
-			/*========================================================================================================================*/
+			/*============================================================================*/
+			/* Close Merge container. 																										*/
+			/*============================================================================*/
 			function closeMergeContainer() {
 				$('div.merge_container').fadeOut();
 				$('a.merge').unbind('click');
@@ -286,9 +268,10 @@
 			
 
 
-			/*========================================================================================================================*/
-			/* Get data from api service thanks to the name (flickr,gbif,...etc). */
-			/*========================================================================================================================*/
+
+			/*============================================================================*/
+			/* Get data from api service thanks to the name (flickr,gbif,...etc). 				*/
+			/*============================================================================*/
 			function callSourceService(kind,element) {
 				var url;
 				switch(kind) {

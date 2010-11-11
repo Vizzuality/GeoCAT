@@ -134,22 +134,31 @@
 	    elevator.getElevationForLocations(positionalRequest, function(results, status) {
 	      if (status == google.maps.ElevationStatus.OK) {
 	        if (results[0]) {
+						var random = Math.random();
+						
+						if (random<0.33) {
+							var image = '/images/editor/gbif_marker.png';
+						} else if (random>0.32&&random<0.66) {
+							var image = '/images/editor/flickr_marker.png';
+						} else {
+							var image = '/images/editor/your_marker.png';
+						}
 						
 						// Marine species or terrain species --> 0 marine 1 terrain
 						if (markers.length==0) {
 							if (results[0].elevation>0) {specie_type = 1} else {specie_type = 0}
-							var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+							var image = new google.maps.MarkerImage(image,new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 							var marker = new google.maps.Marker({position: point, map: map, icon: image});
 							markers.push(marker);
 							setTimeout('generateObservations()',300);
 						} else {
 							if (specie_type==1 && results[0].elevation>0) {
-								var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+								var image = new google.maps.MarkerImage(image,new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 								var marker = new google.maps.Marker({position: point, map: map, icon: image});
 								markers.push(marker);
 								setTimeout('generateObservations()',300);
 							} else if (specie_type==0 && results[0].elevation<0) {
-									var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+									var image = new google.maps.MarkerImage(image,new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 									var marker = new google.maps.Marker({position: point, map: map, icon: image});
 									markers.push(marker);
 									setTimeout('generateObservations()',300);

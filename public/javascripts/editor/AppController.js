@@ -1,16 +1,17 @@
 
-var specie;  										/*** specie name ***/
-var state = 'select';						// State of the map & application
+		var specie;  										/*** specie name ***/
+		var state = 'select';						// State of the map & application
 
-var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
-var convex_hull;								// Convex Hull model Object for calculating the polygon
-var actions;										// UnredoOperations model Object for actions made by the user.
-var merge_object; 							// MergeOperations model Object for recover points from server like GBIF or Flickr
+		var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
+		var convex_hull;								// Convex Hull model Object for calculating the polygon
+		var actions;										// UnredoOperations model Object for actions made by the user.
+		var merge_object; 							// MergeOperations model Object for recover points from server like GBIF or Flickr
 
 
-		/*========================================================================================================================*/
-		/* When the document is loaded. */
-		/*========================================================================================================================*/
+
+		/*============================================================================*/
+		/* DOM loaded.									 																							*/
+		/*============================================================================*/
 		$(document).ready(function() {
 			
 			
@@ -26,7 +27,6 @@ var merge_object; 							// MergeOperations model Object for recover points from
 							$('body').unbind('click');
 			    };
 			});
-			
 			
 			// Trick for the background
 			$('body').css('background','url(/images/editor/bkg.jpg) 0 0');
@@ -48,12 +48,12 @@ var merge_object; 							// MergeOperations model Object for recover points from
 	
 
 		
-		/* APLICATION STATE FUNCTION */
+		/* ===== APLICATION STATE FUNCTION ===== */
 		
 		function changeApplicationTo(type) {
 			switch (type) {
 				case 0: //Un-do-re-do operation -> Remove selection polygon 
-									removePolygon();
+									removeSelectionPolygon();
 									break;
 				case 1: 	//Change app to unsaved
 									$('div.header h1').removeClass('saved');
