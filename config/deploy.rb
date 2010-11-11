@@ -54,6 +54,6 @@ task :asset_packages, :roles => [:app] do
  run <<-CMD
    export RAILS_ENV=production &&
    cd #{release_path} &&
-   jammit config/assets.yml
+   bundle exec jammit config/assets.yml
  CMD
 end
