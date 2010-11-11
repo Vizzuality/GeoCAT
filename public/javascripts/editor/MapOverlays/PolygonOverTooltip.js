@@ -35,7 +35,7 @@ PolygonOverTooltip.prototype.draw = function() {
     $(inner_div).addClass('inner_tooltip');
     inner_div.style.border = "none";
     inner_div.style.position = "relative";
-    inner_div.style.float = "left";
+    inner_div.style['float'] = "left";
     inner_div.style.padding = "0 0 0 10px";
 		inner_div.style.height = '22px';
 		inner_div.style.background = 'url(/images/editor/left_polygon_tooltip.png) no-repeat left 0';
@@ -44,7 +44,7 @@ PolygonOverTooltip.prototype.draw = function() {
 		var inner_div2 = document.createElement('div');
     inner_div2.style.border = "none";
     inner_div2.style.position = "relative";
-    inner_div2.style.float = "left";
+    inner_div2.style['float'] = "left";
     inner_div2.style.padding = "0 40px 0 0";
 		inner_div2.style.height = '22px';
 		inner_div2.style.background = 'url(/images/editor/right_polygon_tooltip.png) no-repeat right 0';
@@ -85,7 +85,7 @@ PolygonOverTooltip.prototype.draw = function() {
 
 		var button_x = document.createElement('a');
     button_x.style.position = "absolute";
-		button_x.style.float = "left";
+		button_x.style['float'] = "left";
 		button_x.style.right = "4px";
 		button_x.style.top = "4px";
 		button_x.style.width = "14px";

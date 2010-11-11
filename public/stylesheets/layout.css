@@ -8,7 +8,7 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {margin:0; padding:0; border:0;  font-size:100%; vertical-align:baseline; background:transparent;}
 body {line-height:1;}
@@ -34,7 +34,7 @@ ul{list-style:none;}
 a:hover {cursor:pointer;}
 
 /*fonts*/
-@font-face { font-family: "Futura"; src: url('../fonts/Futura.ttc'); } 
+@font-face { font-family: "Futura"; src: url('../fonts/Futura.ttc'); }
 
 
 
@@ -62,18 +62,18 @@ div.white_band div.inner ul li a {float:left; font:bold 15px Arial; color:#72990
 div.white_band div.inner ul li a:hover {color:#333333;}
 div.white_band div.inner ul li.selected a {color:#333333;}
 
-div.white_band div#main_container {position:absolute; bottom:30px; right:0; padding:30px 15px; width:434px; height:187px; background:url(../images/home/main_bkg.png) no-repeat 0 0; z-index:100;}
+div.white_band div#main_container {position:absolute; bottom:30px; right:0; padding:30px 15px; width:434px; height:187px; background:url(/images/home/main_bkg.png) no-repeat 0 0; z-index:100;}
 div.white_band div#main_container label {float:left; padding:0 0 5px 15px; width:100%; font:normal 19px "Futura"; color:#BFBFBF;}
 div.white_band div#main_container form.up {position:relative; float:left; margin:0; padding:10px 12px; background:url(/images/home/form_bkg.png) no-repeat 200px 200px;}
-div.white_band div#main_container form.up input[type="text"] {float:left; width:378px; -webkit-border-radius:5px; -moz-border-radius:5px; background:url(../images/home/text_input_bkg.png) repeat-x 0 0 white; height:38px; border:none; font:normal 15px Arial; color:#999999; padding:0 15px; z-index:10000000;}
+div.white_band div#main_container form.up input[type="text"] {float:left; width:378px; -webkit-border-radius:5px; -moz-border-radius:5px; background:url(/images/home/text_input_bkg.png) repeat-x 0 0 white; height:38px; border:none; font:normal 15px Arial; color:#999999; padding:0 15px; z-index:10000000;}
 div.white_band div#main_container form.up input[type="text"]:focus {outline:none;}
 div.white_band div#main_container form.up p {float:right; padding:6px 0 0 0; margin:0; font:normal 13px Arial; color:#C3C3C3;}
 div.white_band div#main_container form.up p a {color:#6F972F;}
 div.white_band div#main_container form.up p a:hover {text-decoration:none;}
 div.white_band div#main_container form.up img.loader {position:absolute; right:24px; top:22px; display:none;}
 /*autocomplete css*/
-.ac_results {padding:0 10px 50px 10px; border: 1px solid #CCCCCC; border-top:none; background: url(../images/home/search_bkg.png) repeat 0 0; overflow: hidden; z-index: 99999; -moz-border-radius-bottomleft: 5px;  -moz-border-radius-bottomright: 5px;  -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;}
-.ac_results_small{ border: 1px solid #00334E; border-top:none;} 
+.ac_results {padding:0 10px 50px 10px; border: 1px solid #CCCCCC; border-top:none; background: url(/images/home/search_bkg.png) repeat 0 0; overflow: hidden; z-index: 99999; -moz-border-radius-bottomleft: 5px;  -moz-border-radius-bottomright: 5px;  -webkit-border-bottom-left-radius: 5px; -webkit-border-bottom-right-radius: 5px;}
+.ac_results_small{ border: 1px solid #00334E; border-top:none;}
 .ac_results ul {width: 100%; list-style-position: outside; list-style: none; padding: 0; border:none; margin: 0;}
 .ac_results li {margin: 0px; padding: 12px 5px; display: block; overflow: hidden; border-bottom:1px solid #343434; color:white;}
 .ac_results li.empty {position:absolute; border-top:1px solid #CCCCCC; width:427px; padding:13px 0 0 0; left:-3px; height:41px; bottom:-8px; font:normal 15px "Futura"; color:#1E2606; text-shadow:#94AB50 0 1px; text-align:center; background:url(../images/home/last_bkg.png) no-repeat 3px -7px;}
@@ -93,12 +93,12 @@ div.white_band div#main_container form.upload {position:relative; float:left; ma
 div.white_band div#main_container form.upload p {float:left; font:normal 15px "Futura"; color:#858585; letter-spacing:-1px; padding:13px 0 0 0;}
 div.white_band div#main_container form.upload input[type="file"]{position:absolute; top:0px; right:0px; width:133px; margin:10px 0 0 0; height:32px; border:none; opacity:0; z-index:100;}
 div.white_band div#main_container form.upload input[type="file"]:hover {cursor:pointer;}
-div.white_band div#main_container form.upload a {position:absolute; top:10px; right:0px; width:133px; height:32px; background:url(../images/home/upload_bkg.png) no-repeat 0 0; }
+div.white_band div#main_container form.upload a {position:absolute; top:10px; right:0px; width:133px; height:32px; background:url(/images/home/upload_bkg.png) no-repeat 0 0; }
 div.white_band div#main_container form.upload a:hover {background-position:0 -32px; cursor:pointer;}
-div.white_band span.main_shadow {position:absolute; bottom:15px; right:-8px; width:479px; height:28px; background:url(../images/home/main_shadow.png) no-repeat center center; z-index:20;}
+div.white_band span.main_shadow {position:absolute; bottom:15px; right:-8px; width:479px; height:28px; background:url(/images/home/main_shadow.png) no-repeat center center; z-index:20;}
 
 div.layout.blocks {height:320px; padding:25px 0 0 0;}
-div.layout.blocks div.block {position:relative; float:left; width:310px; margin:0 10px 0 0; padding:0; background:url(../images/home/block_bkg.png) no-repeat 31px bottom; height:270px;}
+div.layout.blocks div.block {position:relative; float:left; width:310px; margin:0 10px 0 0; padding:0; background:url(/images/home/block_bkg.png) no-repeat 31px bottom; height:270px;}
 div.layout.blocks div.block img.top {position:absolute; left:-18px; top:102px; z-index:10;}
 div.layout.blocks div.block img.bottom {position:absolute; left:-18px; bottom:52px; z-index:10;}
 div.layout.blocks div.block.last {margin:0; padding:0;}
@@ -193,7 +193,7 @@ div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0;
 
 div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
 div#tools div.center div.right div.inner_analysis {position:relative; float:left; padding:16px 0 0; margin:0 0 0 30px; width:220px; height:auto; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
-	background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2));}
+  background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2));}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:url(/images/editor/analysis_button.png) no-repeat 0 0; margin:0 0 0 16px;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {cursor:pointer;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url(/images/editor/analysis_button.png) no-repeat -28px -24px;}
@@ -224,8 +224,8 @@ div.inner_analysis div.cellsize div.bottom a {float:left; width:auto; padding:3p
 div.inner_analysis div.cellsize div.bottom a:hover {color:#FF3300; cursor:pointer;}
 div.inner_analysis div.cellsize div.bottom a.done {float:right; width:54px; height:21px; padding:0; background:url(/images/editor/done_gray.png) no-repeat 0 0; text-indent:-9999px;}
 div.inner_analysis div.cellsize div.bottom a.done:hover {background-position:0 -21px;}
-div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0; background:url(/images/editor/download_analysis_bkg.png) repeat-x 0 0; border-bottom-left-radius:5px; border-bottom-right-radius:5px; 
-	-moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; text-align:center;}
+div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0; background:url(/images/editor/download_analysis_bkg.png) repeat-x 0 0; border-bottom-left-radius:5px; border-bottom-right-radius:5px;
+  -moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; text-align:center;}
 div.analysis_data span a {font:bold 13px Arial; color:#333333; text-shadow:0 1px #B7D58D; text-decoration:none; padding:0;}
 div.analysis_data span a:hover {color:#111111;}
 
@@ -397,8 +397,8 @@ div#map_type a:hover {cursor:pointer;}
 div#map_type div:hover a {background-position:right -48px;}
 div#map_type div:hover a span {background-position:left -24px;}
 div#map_type div:hover ul {display:block;}
-div#map_type ul {float:left; width:100%; margin:0; padding:4px 0 7px 0; background:url(/images/editor/map_type_bkg.png) repeat 0 0; display:none; border-top:1px solid #CCCCCC; 
-	border-bottom-left-radius:5px; border-bottom-right-radius:5px; -moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; }
+div#map_type ul {float:left; width:100%; margin:0; padding:4px 0 7px 0; background:url(/images/editor/map_type_bkg.png) repeat 0 0; display:none; border-top:1px solid #CCCCCC;
+  border-bottom-left-radius:5px; border-bottom-right-radius:5px; -moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; }
 div#map_type ul li {float:left; width:100%; font:bold 11px Arial; color:white; text-shadow:0 1px black; margin:4px 0 2px 10px; text-align:left;}
 div#map_type ul li:hover {cursor:pointer;}
 
