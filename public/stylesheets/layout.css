@@ -76,14 +76,14 @@ div.white_band div#main_container form.up img.loader {position:absolute; right:2
 .ac_results_small{ border: 1px solid #00334E; border-top:none;} 
 .ac_results ul {width: 100%; list-style-position: outside; list-style: none; padding: 0; border:none; margin: 0;}
 .ac_results li {margin: 0px; padding: 12px 5px; display: block; overflow: hidden; border-bottom:1px solid #343434; color:white;}
-.ac_results li.empty {position:absolute; border-top:1px solid #CCCCCC; width:427px; padding:13px 0 0 0; left:-3px; height:41px; bottom:-8px; font:normal 15px "Futura"; color:black; text-shadow:#CCCCCC 0 1px; text-align:center; background:url(../images/home/last_bkg.png) no-repeat 3px -7px;}
-.ac_results li.empty a {text-decoration:underline; color:black;}
-.ac_results li.empty a:hover {text-decoration:none;}
+.ac_results li.empty {position:absolute; border-top:1px solid #CCCCCC; width:427px; padding:13px 0 0 0; left:-3px; height:41px; bottom:-8px; font:normal 15px "Futura"; color:#1E2606; text-shadow:#94AB50 0 1px; text-align:center; background:url(../images/home/last_bkg.png) no-repeat 3px -7px;}
+.ac_results li.empty a {text-decoration:underline; color:#1E2606;}
+.ac_results li.empty a:hover {text-decoration:underline; color:black;}
 .ac_results li.last {border-bottom:none;}
 .ac_results li p {margin:0; padding:0;}
 .ac_results li p strong {text-decoration:underline;}
-.ac_results li.ac_over {cursor: pointer; color: #999999;}
-.ac_results li.empty.ac_over {cursor: default; color: black;}
+.ac_results li.ac_over {cursor: pointer; color:#91C43F;}
+.ac_results li.empty.ac_over {cursor: default; color:#1E2606;}
 .ac_results li div.taxonomy {float:left; width:100%; margin:4px 0 0 0;}
 .ac_results li div.taxonomy p {float:left; width:auto; font:normal 13px Arial; color:#999999; padding:0 9px 0 6px; background:url(/images/home/arrow_taxonomy.png) no-repeat right 6px;}
 .ac_results li div.taxonomy p.first {padding:0 9px 0 0;}
@@ -123,22 +123,31 @@ footer div.inner div.right img {float:left; margin:7px 0 0 0;}
 
 /*EDITOR*/
 
-div#wellcome {position:absolute!important; width:512px; height:109px; top:50%!important; left:50%; margin:-74px 0 0 -256px!important; padding:40px 0 0 0; background:url(/images/editor/wellcome_bkg.png); z-index:101;}
+div#start_one_mamufas {position:absolute; display:none; top:0; left:0; bottom:0; right:0; background:url(/images/editor/transparent_bkg.png) no-repeat 0 0; z-index:100000;}
+div#start_one {position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-95px 0 0 -340px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:101;}
+div#start_one p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
+div#start_one input {float:left; width:418px; height:24px; margin:10px 0 0 36px; padding:6px 10px; background:url(/images/editor/start_text_input.png) no-repeat 0 0; border:none; font:italic 17px Arial; color:#999999;}
+div#start_one input:focus {outline:none;}
+div#start_one a {float:left; margin:15px 0 0 200px; text-decoration:underline; font:bold 23px Arial; color:#A4D939;}
+div#start_one a:hover {color:#6F9326;}
+
+div#wellcome {position:absolute!important; display:none; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:101;}
 div#wellcome a.close {position:absolute; right:7px; top:6px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#wellcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
 div#wellcome p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
-div#wellcome p.bottom {font-size:23px; letter-spacing:-1px;}
+div#wellcome p.bottom {margin:10px 0 0 0; font-size:23px; letter-spacing:-1px;}
 div#wellcome p.bottom a {color:#A4D939; text-decoration:underline;}
 div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
 
-div#close_save {display:none; position:absolute!important; width:512px; height:129px; top:50%!important; left:50%; margin:-74px 0 0 -256px!important; padding:20px 0 0 0; background:url(/images/editor/wellcome_bkg.png); z-index:100;}
+div#close_save {display:none; position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:100;}
 div#close_save p {float:left; width:100%; margin:0; padding:0; font:bold 23px Arial; color:white; letter-spacing:-1px; text-align:center; line-height:33px;}
 div#close_save a.close {position:absolute; right:7px; top:6px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#close_save a.close:hover {color:white; text-decoration:none; cursor:pointer;}
-div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 20px; font:normal 15px Arial; color:#CCCCCC; text-decoration:underline;}
+div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 40px; font:normal 15px Arial; color:#CCCCCC; text-decoration:underline;}
 div#close_save p a.cancel:hover {color:white; cursor:pointer;}
-div#close_save p a.download {float:right; width:158px; height:32px; margin:15px 15px 0 0; background:url(/images/editor/download_button.png) no-repeat 0 0;}
+div#close_save p a.download {float:right; width:158px; height:32px; margin:15px 35px 0 0; background:url(/images/editor/download_button.png) no-repeat 0 0;}
 div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
+
 
 
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}

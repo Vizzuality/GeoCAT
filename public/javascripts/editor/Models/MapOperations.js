@@ -74,7 +74,6 @@
 					if (state == 'add') {
 						addMarker(event.latLng,null,false);
 					}
-
 					if (state == "selection") {
 						changeMapSelectionStatus(event.latLng);
 					}
@@ -203,8 +202,9 @@
 			    }
 				}
 				
-
-				showMamufasMap();
+				if (information.points.length>20) {
+					showMamufasMap();
+				}
 				var marker_kind;
 				switch (information.name) {
 					case 'gbif': 		marker_kind = 'Gbif';
@@ -400,7 +400,9 @@
 
 				
 				if (remove_markers.length>0) {
-					showMamufasMap(true);
+					if (remove_markers.length>20) {
+						showMamufasMap();
+					}
 					setTimeout(function(){asynRemoveMarker(0,remove_markers.length,remove_markers);},0);
 					actions.Do('remove', null, remove_markers);
 				}

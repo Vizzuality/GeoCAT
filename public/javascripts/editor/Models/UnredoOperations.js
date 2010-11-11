@@ -170,7 +170,9 @@
 						}
 					}
 
-					showMamufasMap();
+					if (restore_info.length>20) {
+						showMamufasMap();
+					}
 					AsynRestoreMarkers(0, restore_info);
 			}
 			
@@ -216,6 +218,8 @@
 					}
 				}
 				
-				showMamufasMap();
+				if (restore_info.length>20) {
+					showMamufasMap();
+				}
 				AsynRemoveMarkers(0, restore_info);
 			}
