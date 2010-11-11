@@ -100,12 +100,11 @@
 		
 		function validateFile(upload_field){
 			var correct_ext = /\.rla/;
-			// var correct_ext = /\.rla|\.csv/;
 			var filename = upload_field.value;
 
       /* Validation of filetype */
       if (filename.search(correct_ext) == -1) {
-          alert("ERROR - Formato no válido");
+          //alert("ERROR - Formato no válido");
           upload_field.form.reset();
           return false;
       }
