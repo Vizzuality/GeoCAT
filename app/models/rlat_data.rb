@@ -2,12 +2,13 @@ class RlatData
   include ActiveModel::Validations
 
   attr_accessor :scientificname, :zoom, :center, :sources
+  attr_writer :warnings
 
   validates_presence_of :scientificname
   validates_presence_of :zoom
   validates_presence_of :center
   validates_presence_of :sources
-  validate :sources_must_have_all_required_fields
+  validate :sources_must_be_valid
 
   def initialize(file = nil)
     return if file.blank?
@@ -23,6 +24,11 @@ class RlatData
     end
   end
 
+  def warnings
+    @warnings = [] unless @warnings
+    @warnings
+  end
+
   def to_json
     {
       :success => valid?,
@@ -32,7 +38,8 @@ class RlatData
         :center => center,
         :sources => sources
       },
-      :errors => errors
+      :errors => errors,
+      :warnings => warnings
     }.to_json
   end
 
@@ -74,7 +81,7 @@ class RlatData
       end
     end
 
-    def sources_must_have_all_required_fields
+    def sources_must_be_valid
       if self.sources.present?
         self.sources.each do |source|
           errors.add(:sources, 'are not valid') and return if source['name'].blank? || source['points'].blank?
@@ -88,6 +95,11 @@ class RlatData
                point['catalogue_id'].blank?
                 errors.add(:sources, 'are not valid') and return
             end
+          end
+          removed_dupes = Hash[source['points'].map{|x| [x['catalogue_id'], x]}].values
+          if source['points'].length > removed_dupes.length
+            source['points'] = removed_dupes
+            warnings.push([:sources, "#{source['name']} source has duplicated catalogue_id's"])
           end
         end
       end
