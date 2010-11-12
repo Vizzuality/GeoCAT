@@ -88,7 +88,7 @@
 					      strokeOpacity: 1,
 					      strokeWeight: 1,
 					      fillColor: "red",
-					      fillOpacity: 0.1,
+					      fillOpacity: 0.01,
 								data: {count:0},
 								clickable: false
 							});

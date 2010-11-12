@@ -96,7 +96,7 @@
 					} else {
 					  me.beforeValue = me.cellsize;
 				    me.cellsize = 0;
-    				$('div.analysis p.change').html('Cell size in auto value, <a class="change">change</a>');
+    				$('div.analysis p.change').html('Cell size in IUCN value, <a class="change">change</a>');
 						$(this).addClass('selected');
 						$("div.cellsize div.slider").slider('disable');
 						$('.ui-widget-header').css('background','#999999');
