@@ -119,6 +119,7 @@
 	
 	
 	function generateObservations() {
+	  
 		if (markers.length<10) {
 			var bounds = map.getBounds();
 		  var southWest = bounds.getSouthWest();
@@ -133,46 +134,30 @@
 	    elevator.getElevationForLocations(positionalRequest, function(results, status) {
 	      if (status == google.maps.ElevationStatus.OK) {
 	        if (results[0]) {
-						var random = Math.random();
-						
-						if (random<0.33) {
-							var image = '/images/editor/gbif_marker.png';
-						} else if (random>0.32&&random<0.66) {
-							var image = '/images/editor/flickr_marker.png';
-						} else {
-							var image = '/images/editor/your_marker.png';
-						}
-						
 						// Marine species or terrain species --> 0 marine 1 terrain
 						if (markers.length==0) {
 							if (results[0].elevation>0) {specie_type = 1} else {specie_type = 0}
-							var image = new google.maps.MarkerImage(image,new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-							var marker = new google.maps.Marker({position: point, map: map, icon: image});
+							var marker = new HomeMarker(point, map);
 							markers.push(marker);
 							setTimeout('generateObservations()',300);
 						} else {
 							if (specie_type==1 && results[0].elevation>0) {
-								var image = new google.maps.MarkerImage(image,new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-								var marker = new google.maps.Marker({position: point, map: map, icon: image});
+  							var marker = new HomeMarker(point, map);
 								markers.push(marker);
 								setTimeout('generateObservations()',300);
 							} else if (specie_type==0 && results[0].elevation<0) {
-									var image = new google.maps.MarkerImage(image,new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-									var marker = new google.maps.Marker({position: point, map: map, icon: image});
-									markers.push(marker);
-									setTimeout('generateObservations()',300);
+  							var marker = new HomeMarker(point, map);
+								markers.push(marker);
+								  setTimeout('generateObservations()',300);
 							} else {
 								setTimeout('generateObservations()',0);
 							}
 						}
-						
-						
 	        } else {
 	          setTimeout('generateObservations()',0);
 	        }
 	      } else {
-	        var image = new google.maps.MarkerImage('/images/editor/'+ ((Math.random()<0.5)?'flickr':'gbif') +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-					var marker = new google.maps.Marker({position: point, map: map, icon: image});
+					var marker = new HomeMarker(point, map);
 					markers.push(marker);
 					setTimeout('generateObservations()',300);
 	      }
@@ -189,20 +174,30 @@
 			  polygon = new google.maps.Polygon({
 					paths: markersToPoints(hullPoints),
 		      strokeColor: "#333333",
-		      strokeOpacity: 1,
+		      strokeOpacity: 0.01,
 		      strokeWeight: 2,
 		      fillColor: "#000000",
-		      fillOpacity: 0.25
+		      fillOpacity: 0.01
 				});
 				polygon.setMap(map);
 			}
 			
+			var opacity_count = 0.5;
+			var interval = setInterval(function(){
+			  polygon.setOptions({fillOpacity: (0.006*opacity_count)});
+			  polygon.setOptions({strokeOpacity: (0.01*opacity_count)});
+			  opacity_count = opacity_count + 0.5;
+			},100);
+			
 			
 			setTimeout(function(){
+			  clearInterval(interval);
 				for (var i=0; i<markers.length; i++) {
 					markers[i].setMap(null);
 				}
 				polygon.setPath([]);
+				polygon.setOptions({fillOpacity: (0.01)});
+			  polygon.setOptions({strokeOpacity: (0.01)});
 				markers = [];
 				generateObservations();
 			},10000);
@@ -215,13 +210,13 @@
 	function markersToPoints(path) {
 		var result = [];
 		for (var i=0; i<path.length; i++) {
-				result.push(path[i].getPosition());
+				result.push(path[i].latlng_);
 		}
 		return result;
 	}
 	
-	function sortPointX(a,b) {return a.getPosition().lng() - b.getPosition().lng();}
-	function sortPointY(a,b) {return a.getPosition().lat() - b.getPosition().lat();}
+	function sortPointX(a,b) {return a.latlng_.lng() - b.latlng_.lng();}
+	function sortPointY(a,b) {return a.latlng_.lat() - b.latlng_.lat();}
 	
 	
 	

@@ -4,7 +4,8 @@ javascripts:
   main:
     - public/javascripts/plugins/jquery.min.js
     - public/javascripts/plugins/jquery.autocomplete.js
-    - public/javascripts/editor/Calculations/ConvexHull.js
+    - public/javascripts/home/HomeMarker.js
+    - public/javascripts/home/HomeConvexHull.js
     - public/javascripts/home/application.js
   editor:
     - public/javascripts/plugins/jquery.min.js
