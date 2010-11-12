@@ -9,8 +9,8 @@
       </script>
       <%= include_javascripts :editor %>
     <% end -%>
-    
-    
+
+
     <div id="start_one_mamufas">
       <div id="start_one">
         <p>Hello, start your new assessment for</p>
@@ -20,8 +20,8 @@
         </form>
       </div>
     </div>
-    
-    
+
+
     <div id="editor">
       <a id="scientific_name"><%= @species_name %></a>
       <ul class="editor_list">
@@ -191,7 +191,7 @@
               <!-- Wellcome window -->
               <div id="wellcome">
                 <a onclick="$('#wellcome').fadeOut()" class="close">X</a>
-                <p>Hello, start your new assessment for<br/><%=  CGI::unescape(@species_name) %></p>
+                <p>Hello, start your new assessment for<br/><%=  CGI::unescape(@species_name || '') %></p>
                 <p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Add some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
               </div>
 
