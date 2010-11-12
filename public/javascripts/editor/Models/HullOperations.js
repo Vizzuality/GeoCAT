@@ -12,8 +12,8 @@
 				this.active_markers = [];
 				this.Cells = [];
 				this.map = _map;
-				this.cellsize = 5;
-			
+				this.cellsize = 0.002*(Math.pow(2,11));
+
 				var me = this;
 			
 			
@@ -51,22 +51,24 @@
 				//Hull convex slider
 				$("div.cellsize div.slider").slider({
 					range: "min",
-					value: 7,
+					value: 11,
 					min: 1,
-					max: 17,
+					max: 21,
 					slide: function(event, ui) {
-						me.cellsize = ui.value;
+						me.cellsize = 0.002*(Math.pow(2,ui.value-1));
 						me.removeAOOPolygons();
-						me.setAlgorithmValues(ui.value);
+						me.setAlgorithmValues(me.cellsize);
 					}
 				});
 			
 				//Choose default value 
 				$('a.default').click(function(ev){
-					$("div.cellsize div.slider").slider({value:5});
-					me.cellsize = 5;
-					me.removeAOOPolygons();
-					me.setAlgorithmValues(5);
+				  if (!$(this).hasClass('disabled')) {
+				    $("div.cellsize div.slider").slider({value:11});
+  					me.cellsize = 0.002*(Math.pow(2,10));
+  					me.removeAOOPolygons();
+  					me.setAlgorithmValues(me.cellsize);
+				  }
 				});
 			
 			
@@ -75,6 +77,38 @@
 			
 				//Open Cellsize
 				$("p.change a.change").livequery('click',function(){$('div.cellsize').fadeIn();});
+				
+				
+				
+				$('#auto_value').click(function(){
+				  if ($(this).hasClass('selected')) {
+				    me.cellsize = me.beforeValue;
+						$(this).removeClass('selected');
+    				$('div.analysis p.change').html('Cell size '+me.beforeValue+'KM , <a class="change">change</a>');
+						$("div.cellsize div.slider").slider('enable');
+						$('.ui-widget-header').css('background','#F6A828');
+						$('div.cellsize span p').css('color','#F7AC53');
+						$('a.default').removeClass('disabled');
+						me.removeAOOPolygons();
+						if (me.polygon!=undefined && me.polygon.getPath().b.length>2) {
+    					me.setAlgorithmData(me.polygon.getPath().b,me.cellsize*1000);
+    				}
+					} else {
+					  me.beforeValue = me.cellsize;
+				    me.cellsize = 0;
+    				$('div.analysis p.change').html('Cell size in IUCN value, <a class="change">change</a>');
+						$(this).addClass('selected');
+						$("div.cellsize div.slider").slider('disable');
+						$('.ui-widget-header').css('background','#999999');
+						$('div.cellsize span p').css('color','#666666');
+						$('a.default').addClass('disabled');
+						me.removeAOOPolygons();
+						if (me.polygon!=undefined && me.polygon.getPath().b.length>2) {
+    					me.setAlgorithmData(me.polygon.getPath().b,me.cellsize);
+    				}
+					}
+				});
+				
 			}
 
 

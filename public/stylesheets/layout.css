@@ -152,8 +152,8 @@ div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
 div#editor a#gbif_id {display:none;}
-div#editor ul.editor_list {position:absolute; top:34px; right:50px; width:auto;}
-div#editor ul.editor_list li {float:left;}
+div#editor ul.editor_list {position:absolute; top:34px; right:50px; width:1241px;}
+div#editor ul.editor_list li {float:right;}
 div#editor ul.editor_list li.first {margin:0 20px 0 0;}
 div#editor ul.editor_list li a {font:normal 13px "Futura"; color:#999999; text-decoration:none;}
 div#editor ul.editor_list li a:hover {font:normal 13px "Futura"; color:#dddddd; cursor:pointer;}
@@ -161,7 +161,7 @@ div#editor ul.editor_list li.selected a {color:#dddddd;}
 div#editor ul.editor_list li.selected a:hover {cursor:default;}
 
 /*1st layer - tools*/
-div#tools {position:absolute; top:60px; left:20px; bottom:40px; right:20px; min-height:720px; min-width:1240px;}
+div#tools {position:absolute; top:60px; left:20px; bottom:40px; right:20px; min-height:620px; min-width:1241px;}
 
 div#tools div.table {position:relative; float:left; width:100%; height:100%;}
 div#tools div.table div {position:relative;}
@@ -214,14 +214,18 @@ div.analysis_data ul li p.change a {float:none; text-decoration:underline; color
 div.analysis_data ul li p.change a:hover {color:#FF3300; cursor:pointer;}
 div.inner_analysis div.cellsize {display:none; position:absolute!important; width:154px; height:170px; bottom:-150px; left:1px; margin:0; padding:38px 26px 0 26px; background:url(/images/editor/cellsize_bkg.png) no-repeat 0 0; z-index:1000;}
 div.inner_analysis div.cellsize h4 {float:left; width:100%; font:normal 11px "Futura"; color:#666666; margin:0; padding:0;}
-div.inner_analysis div.cellsize p {float:left; margin:15px 0 0 0; width:100%; font:normal 11px Arial; color:#666666;}
-div.inner_analysis div.cellsize span {float:left; width:100%; margin:25px 0 0 0; }
+div.inner_analysis div.cellsize a#auto_value {float:left; font:normal 13px Arial; text-decoration:none; color:#999999; margin:18px 0 0 0!important; padding:0 0 0 18px!important; background:url(/images/editor/checkbox.png) no-repeat 0 1px!important;}
+div.inner_analysis div.cellsize a#auto_value.selected {background-position:0 -26px!important; color:#333333;}
+div.inner_analysis div.cellsize p {float:left; margin:13px 0 0 0; width:100%; font:normal 11px Arial; color:#666666;}
+div.inner_analysis div.cellsize span {float:left; width:100%; margin:17px 0 0 0; }
 div.inner_analysis div.cellsize span label {float:left; width:auto; margin:0; font:normal 10px Arial; color:#B3B3B3;}
 div.inner_analysis div.cellsize span p {float:right; width:auto; margin:0; font:normal 10px Arial; color:#F7AC53;}
-div.inner_analysis div.cellsize div.slider {float:left; width:100%; height:5px; margin:10px 0 0 0;}
-div.inner_analysis div.cellsize div.bottom {float:left; width:100%; margin:15px 0 0 0;}
+div.inner_analysis div.cellsize div.slider {float:left; width:100%; height:5px; margin:6px 0 0 0;}
+div.inner_analysis div.cellsize div.bottom {float:left; width:100%; margin:8px 0 0 0;}
 div.inner_analysis div.cellsize div.bottom a {float:left; width:auto; padding:3px 0 0 0; font:normal 11px Arial; color:#FF6600; text-decoration:underline;}
 div.inner_analysis div.cellsize div.bottom a:hover {color:#FF3300; cursor:pointer;}
+div.inner_analysis div.cellsize div.bottom a.disabled {color:#666666;}
+div.inner_analysis div.cellsize div.bottom a.disabled:hover {color:#666666; cursor:default;}
 div.inner_analysis div.cellsize div.bottom a.done {float:right; width:54px; height:21px; padding:0; background:url(/images/editor/done_gray.png) no-repeat 0 0; text-indent:-9999px;}
 div.inner_analysis div.cellsize div.bottom a.done:hover {background-position:0 -21px;}
 div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0; background:url(/images/editor/download_analysis_bkg.png) repeat-x 0 0; border-bottom-left-radius:5px; border-bottom-right-radius:5px;
@@ -260,8 +264,6 @@ div.delete_all div a.yes:hover {background-position: 0 -19px; cursor:pointer;}
 div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:0; right:11px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0;}
 div.merge_container h4 {float:left; margin:12px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.merge_container p {float:left; padding:0; margin:25px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
-div.merge_container a.preview {float:right; font:normal 13px Arial; text-decoration:none; color:#666666; margin:7px 10px 0 0; padding:0 0 0 18px!important; background:url(/images/editor/preview_bkg.png) no-repeat 0 0!important;}
-div.merge_container a.preview.selected {background-position:0 -25px!important;}
 div.merge_container a.preview:hover {color:#333333; cursor:pointer;}
 div.merge_container div {float:right; margin:18px 0 0 0;}
 div.merge_container div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:12px 15px 0 0; padding:0!important;}
@@ -361,7 +363,7 @@ div#editor div#tools div.table div.bottom-right-tool{position:relative; float:ri
 
 
 /*2nd layer - map*/
-div#editor div#map_container {position:absolute; min-width:940px; min-height:790px; top:10px; bottom:20px; left:83px; right:260px; z-index:100;}
+div#editor div#map_container {position:absolute; min-width:940px; min-height:690px; top:10px; bottom:20px; left:83px; right:260px; z-index:100;}
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
 div#editor div#map_container div.table div {position:relative;}
 div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/top-left-map.png) no-repeat right bottom;}
@@ -412,7 +414,7 @@ div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0
 div#map_container div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
 div#map_container div.header h1.saved {background-position:0 -29px;}
 div#map_container div.header h1.saved sup {color:#7FAB2D;}
-div#map_container div.footer div.left {float:left; margin:15px 0 0 5px;}
+div#map_container div.footer div.left {float:left; margin:15px 0 0 5px; width:400px;}
 div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(/images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
 div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(/images/editor/redo_button.png) no-repeat 0 0;}
 div#map_container div.footer div.left a:hover {background-position:0 -32px; cursor:pointer;}

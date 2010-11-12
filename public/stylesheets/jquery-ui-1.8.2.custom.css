@@ -54,7 +54,7 @@
 .ui-widget-content a { color: #333333; }
 .ui-widget-content a:hover { cursor:pointer;}
 .ui-widget-content a:focus { outline:none;}
-.ui-widget-header { border: 1px solid #e78f08; background: #f6a828 url(/images/jquery-ui/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+.ui-widget-header { border: 1px solid #e78f08; background: #f6a828 url(/images/jquery-ui/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; -webkit-border-radius:15px!important;}
 .ui-widget-header a { color: #ffffff; }
 
 /* Interaction states
