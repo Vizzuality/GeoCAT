@@ -114,21 +114,21 @@
                           <ul>
                             <li>
                               <a id="add_flickr" class="checkbox">Add points from Flickr</a>
-                              <span>
+                              <span class="normal">
                                 <p>Loading...</p>
                                 <a class="import_data">import</a>
                               </span>
                             </li>
                             <li>
                               <a id="add_gbif" class="checkbox">Add points from GBIF</a>
-                              <span>
+                              <span class="normal">
                                 <p>Loading...</p>
                                 <a class="import_data">import</a>
                               </span>
                             </li>
                             <li>
                               <a id="add_rla" class="checkbox">Import .RLA or .CSV</a>
-                              <span>
+                              <span class="import">
                                 <div class="inner">
                                   <a class="delete"></a>
                                   <div id="uploader"><noscript></noscript></div>
@@ -240,8 +240,8 @@
                 <p id="action_info"><span></span></p>
               </div>
               <div class="right">
-                <a onclick="#" class="export"></a>
-                <a onclick="downloadRLA()" class="download"></a>
+                <a onclick="downloadRLA(kml)" class="export"></a>
+                <a onclick="downloadRLA(rla)" class="download"></a>
               </div>
             </div>
             <div class="bottom-right-map"></div>
@@ -254,5 +254,7 @@
 
   <form style="display:none" id="download_form" name="download_form" action="/download/rla" method="post" target="_blank">
     <input style="display:none" type="text" name="rla" id="rla_input" />
+    <input style="display:none" type="text" name="format" id="format_input" />
+    <input style="display:none" type="text" name="analysis" id="analysis_input" />
   </form>
 

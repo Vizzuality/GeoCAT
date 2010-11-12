@@ -13,6 +13,7 @@
 			function MergeOperations(sources) {
 				this.gbif_points = [];
 				this.flickr_points = [];
+				this.your_points = [];
 				this.sources = sources;
 			}
 
@@ -76,6 +77,57 @@
 			
 			
 			
+			/*============================================================================*/
+			/*  Import .RLA or .CSV file occurences.																			*/
+			/*============================================================================*/
+			MergeOperations.prototype.importPoints = function(sources) {
+        var me = this;
+				
+        showMamufasMap();
+				
+        function asynCheckPoints(count,sources_) {
+          if (sources_[count]!=undefined) {
+            for (var i=0; i<sources_[count].points.length; i++) {
+              var catalogue_id = sources_[count].points[i].catalogue_id;
+              if (_markers[catalogue_id]==undefined && _markers[catalogue_id]==null) {
+               if (sources_[count].name=="gbif") {
+                 me.gbif_points.push(sources_[count].points[i]);
+               } else if (sources_[count].name=="flickr") {
+                 me.flickr_points.push(sources_[count].points[i]);
+               } else {
+                 me.your_points.push(sources_[count].points[i]);
+               }
+             }
+            }
+            count++;
+            setTimeout(function(){asynCheckPoints(count,sources_);},0);
+          } else {
+            sources_length = sources_.length;
+            sources_count=0;
+            $('body').bind('hideMamufas', function(ev){
+      				sources_count++;
+      				if (sources_length==sources_count) {
+      					$('body').unbind('hideMamufas');
+      					hideMamufasMap(true);
+      				}
+      			});
+            if (me.gbif_points.length>0) {
+        			addSourceToMap({points:me.gbif_points},false,true);
+            }
+            if (me.flickr_points.length>0) {
+        			addSourceToMap({points:me.flickr_points},false,true);
+            }
+            if (me.your_points.length>0) {
+        			addSourceToMap({points:me.your_points},false,true);
+            }
+            
+            
+          }
+
+        }
+        asynCheckPoints(0,sources);
+			}
+
 			
-			// addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,false);
+			
 			

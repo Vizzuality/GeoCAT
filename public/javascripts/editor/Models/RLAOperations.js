@@ -24,7 +24,7 @@
 		/*========================================================================================================================*/
 		/* Download all the data thanks to a .rla file. */
 		/*========================================================================================================================*/
-		RLA.prototype.download = function() {
+		RLA.prototype.download = function(format) {
 		  var dataset = new Object();
 			dataset.scientificname = this.specie_;
 			dataset.zoom = this.zoom;
@@ -32,8 +32,10 @@
 			dataset.center.latitude = this.center.lat();
 			dataset.center.longitude = this.center.lng();
 			dataset.sources = [];
-			this.addMarkers(dataset,this.markers_);		
+			this.addMarkers(dataset,this.markers_);
 		
+		  $("#analysis_input").attr("value",'');
+		  $("#format_input").attr("value",format);
       $("#rla_input").attr("value",JSON.stringify(dataset));
       $("#download_form").submit();
 			changeApplicationTo(2);
@@ -94,12 +96,12 @@
 		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
 		/*===============================================================================================================*/
 		
-		function downloadRLA() {
+		function downloadRLA(format) {
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
 			var rla = new RLA(specie,_markers,map_inf,null);
-			rla.download();		
+			rla.download(format);		
 		}
 		
 		
@@ -149,7 +151,6 @@
 					map.setZoom(parseInt(app_data[0].zoom));				
 				}
 			}
-
 		}
 		
 		

@@ -12,7 +12,7 @@
 				this.active_markers = [];
 				this.Cells = [];
 				this.map = _map;
-				this.cellsize = 0.002*(Math.pow(2,11));
+				this.cellsize = 0.002*(Math.pow(2,10));
 
 				var me = this;
 			
@@ -73,10 +73,19 @@
 			
 			
 				//Close Cellsize
-				$("div.cellsize a.done").click(function(){$('div.cellsize').fadeOut();});
+				$("div.cellsize a.done").click(function(){
+				  $('div.cellsize').fadeOut();
+				});
 			
 				//Open Cellsize
-				$("p.change a.change").livequery('click',function(){$('div.cellsize').fadeIn();});
+				$("p.change a.change").livequery('click',function(){
+				  $('div.cellsize').fadeIn();
+				  $(document).keydown(function (e) {
+						if (e.keyCode == 27) { // ESC
+							$('div.cellsize').fadeOut();
+						}
+					});
+				});
 				
 				
 				

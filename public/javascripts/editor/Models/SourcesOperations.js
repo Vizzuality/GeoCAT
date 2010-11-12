@@ -26,12 +26,17 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON){
-						  console.log(responseJSON);
+						  //console.log(responseJSON);
 							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
-								$('#uploader').parent().parent().find('a.import_data').addClass('enabled');
-//								$('#uploader').parent().parent().find('a.import_data').click();
+								$('span.import a.import_data').addClass('enabled');
+								merge_object = new MergeOperations([]);
+								$('span.import a.import_data').click(function(ev){
+								  closeSources();
+								  merge_object.importPoints(responseJSON.data.sources);
+								});
 							} else {
 								//If scientific names are different or there are errors
+								
 							}
 						},
 						onCancel: function(id, fileName){},
@@ -69,7 +74,7 @@
 				});
 			
 				//import data
-				$("a.import_data").click(function(){
+				$("span.normal a.import_data").click(function(){
 					if ($(this).hasClass('enabled')) {
 							$("#add_source_container").fadeOut();
 							$("#add_source_button").removeClass('open');
