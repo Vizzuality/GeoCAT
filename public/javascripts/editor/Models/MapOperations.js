@@ -19,7 +19,6 @@
 			var over_tooltip;								// Tiny over infowindow object
 			var over_polygon_tooltip;				// Tiny over polygon object
 			var delete_infowindow;					// Delete infowindow object
-			var polyline_; 									// Polyline create by the user
 			var selection_polygon; 					// Selection polygon tool
 			var drawing = false;						// Flag to know if user is drawing selection rectangle
 

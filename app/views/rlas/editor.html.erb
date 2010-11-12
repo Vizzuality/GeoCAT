@@ -73,12 +73,12 @@
                     </div>
                     <div class="cellsize">
                       <h4>CHANGE CELL SIZE</h4>
-                      <a id="auto_value">Use IUCN value</a>
+                      <a id="auto_value">Use auto value</a>
                       <span><label>SIDE LENGTH</label><p>2.048KM</p></span>
                       <div class="slider"></div>
                       <p>Determines the minimum cell used during the AOO analysis</p>
                       <div class="bottom">
-                        <a class="default">set default value</a>
+                        <a class="default">set IUCN value</a>
                         <a class="done">DONE</a>
                       </div>
                     </div>
@@ -127,7 +127,7 @@
                               </span>
                             </li>
                             <li>
-                              <a id="add_rla" class="checkbox">Import .RLA or .CSV</a>
+                              <a id="add_rla" class="checkbox import_file">Import .RLA or .CSV</a>
                               <span class="import">
                                 <div class="inner">
                                   <a class="delete"></a>
@@ -184,7 +184,7 @@
                 <a onclick="changeApplicationTo()" class="close">X</a>
                 <p>You are going to leave the editor and lose<br/>
                 your changes. Do you want to save them?</p>
-                <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$('#close_save').fadeOut(); downloadRLA()" class="download"></a>
+                <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$('#close_save').fadeOut(); downloadRLA('rla')" class="download"></a>
                 </p>
               </div>
 
@@ -240,8 +240,8 @@
                 <p id="action_info"><span></span></p>
               </div>
               <div class="right">
-                <a onclick="downloadRLA(kml)" class="export"></a>
-                <a onclick="downloadRLA(rla)" class="download"></a>
+                <a onclick="downloadRLA('kml')" class="export"></a>
+                <a onclick="downloadRLA('rla')" class="download"></a>
               </div>
             </div>
             <div class="bottom-right-map"></div>

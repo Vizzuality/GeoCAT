@@ -26,7 +26,6 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON){
-						  //console.log(responseJSON);
 							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
 								$('span.import a.import_data').addClass('enabled');
 								merge_object = new MergeOperations([]);
@@ -36,13 +35,11 @@
 								});
 							} else {
 								//If scientific names are different or there are errors
-								
+								//TODO show ERRORS
 							}
 						},
 						onCancel: function(id, fileName){},
-						messages: {
-						    // error messages, see qq.FileUploaderBasic for content            
-						},
+						messages: {},
 						showMessage: function(message){ alert(message); }
 				});
 
@@ -67,7 +64,7 @@
 					if (!$(this).parent().hasClass('selected') && !$(this).parent().hasClass('added')) {
 						removeSelectedSources();
 						$(this).parent().addClass('selected');
-						if (!$(this).parent().find('span p').hasClass('loaded')) {
+						if (!$(this).parent().find('span p').hasClass('loaded') && !$(this).hasClass('import_file')) {
 							callSourceService($(this).attr('id'),$(this).parent());
 						}
 					}

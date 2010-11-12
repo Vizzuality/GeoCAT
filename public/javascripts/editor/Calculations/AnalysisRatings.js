@@ -21,8 +21,6 @@
 
 				 	XY[0] = deg_rad(Long) * earth_radius; //x
 				 	XY[1] = Math.sin (deg_rad(Lat)) * earth_radius; //y
-          console.log('ll');
-          console.log(deg_rad(Long) * earth_radius);
 				 	return XY;
 				}
 
@@ -30,8 +28,6 @@
 					var LatLong = new Array();
 					LatLong[0] = rad_deg(Math.asin (y / earth_radius)); //Lat
 					LatLong[1] = rad_deg(x / earth_radius); // Long
-					console.log('cy');
-					console.log(y);
 					return LatLong;
 				}
 
@@ -54,7 +50,6 @@
 				 	var Cellpoints = new Array();
 				 	var testtxt = new Array();
 
-          console.log(points);
 				 	for (var idx in points) {
 						var xy = LLtoCylind (points[idx].getPosition().lat(),points[idx].getPosition().lng());
 						LLx = (Math.floor (xy[0]/cellsize)) * cellsize;
@@ -65,10 +60,6 @@
 						URll = CylindtoLL(URx,URy);
 
             
-            console.log(LLll[0]);
-            console.log(LLll[1]);
-            console.log(URll[0]);
-            console.log(URll[1]);
               
 						//Draw cell
 						Cellpoints = [
@@ -89,7 +80,7 @@
 					      strokeWeight: 1,
 					      fillColor: "red",
 					      fillOpacity: 0.01,
-								data: {count:0},
+								data: {count:1},
 								clickable: false
 							});
 						} else {

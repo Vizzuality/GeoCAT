@@ -33,8 +33,38 @@
 			dataset.center.longitude = this.center.lng();
 			dataset.sources = [];
 			this.addMarkers(dataset,this.markers_);
+			
+			var analysis = new Object();
+			// Send analysis if it is visible
+			if (convex_hull.isVisible()) {
+			  analysis.cellsize = convex_hull.cellsize;
+			  analysis.EOO = new Object();
+			  analysis.EOO.status = convex_hull.EOOkind;
+			  analysis.EOO.result = convex_hull.EOO;
+			  analysis.EOO.convex_hull = [];
+			  for (var i=0; i<convex_hull.polygon.getPath().b.length; i++) {
+			    var point = convex_hull.polygon.getPath().b[i];
+			    analysis.EOO.convex_hull.push({latitude:point.lat(), longitude:point.lng()});
+			  }
+			  
+			  
+			  analysis.AOO = new Object();
+			  analysis.AOO.status = convex_hull.AOOkind;
+			  analysis.AOO.result = convex_hull.AOO;
+			  analysis.AOO.grids = [];
+			  
+			  for (var id in convex_hull.Cells) {
+  			  var path_points = [];
+  			  for (var i=0; i<convex_hull.Cells[id].getPath().b.length; i++) {
+  			    var point = convex_hull.Cells[id].getPath().b[i];
+  			    path_points.push({latitude:point.lat(), longitude:point.lng()});
+  			  }
+			    analysis.AOO.grids.push(path_points);
+				}
+			}
+			
 		
-		  $("#analysis_input").attr("value",'');
+		  $("#analysis_input").attr("value",JSON.stringify(analysis));
 		  $("#format_input").attr("value",format);
       $("#rla_input").attr("value",JSON.stringify(dataset));
       $("#download_form").submit();

@@ -307,6 +307,11 @@
 			HullOperations.prototype.setAlgorithmData = function(path, cellsize) {
 				var obj = getAnalysisData(calculateArea(path), path, this.active_markers, cellsize);
 				this.Cells = obj.Cells;
+				this.EOO = obj.EOOArea.toFixed(2);
+				this.AOO = obj.AOORat;
+				this.AOOkind = obj.AOOArea.toFixed(2);
+				this.EOOkind = obj.EOORat;
+				
 				this.drawAOOPolygons();
 				$('div.analysis_data ul li:eq(0)').addClass(obj.EOORat);
 				$('div.analysis_data ul li:eq(0) p:eq(0)').html(obj.EOOArea.toFixed(2)+' km<sup>2</sup>');
