@@ -34,7 +34,7 @@
 						$(this).parent().children().removeClass('disabled');
 						$(this).parent().children('h3').text('Analysis enabled');
 						$(this).find('span').stop(true).animate({backgroundPosition: '-1px -25px'}, 100);
-						$('div.analysis_data').stop().animate({height: '150px'}, 'fast',function(ev){$(this).css('overflow','auto');});
+						$('div.analysis_data').stop().animate({height: '144px'}, 'fast',function(ev){$(this).css('overflow','auto');});
 						$('#analysis_help').css('background','url(/images/editor/analysis_help2.png) no-repeat -2px 0');
 					} else {
 						closeConvexHull();

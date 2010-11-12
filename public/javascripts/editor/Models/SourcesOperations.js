@@ -183,8 +183,12 @@
 			/*============================================================================*/
 			function openDeleteAll(kind) {
 				var position = $('li a.'+kind).offset();
-				$('div.delete_all').css('top',position.top - 268 + 'px');
-				$('a.'+ kind).parent().children('a.delete_all').addClass('active');			
+				if (convex_hull.isVisible()) {
+  				$('div.delete_all').css('top',position.top - 412 + 'px');
+				} else {
+  				$('div.delete_all').css('top',position.top - 268 + 'px');
+				}
+				$('a.'+ kind).parent().children('a.delete_all').addClass('active');
 				$('div.delete_all').fadeIn();
 
 				var type;
@@ -241,7 +245,11 @@
 			/*============================================================================*/
 			function openMergeContainer(kind) {
 				var position = $('li a.'+kind).offset();
-				$('div.merge_container').css('top',position.top  - 268 + 'px');
+				if (convex_hull.isVisible()) {
+  				$('div.merge_container').css('top',position.top - 412 + 'px');
+				} else {
+  				$('div.merge_container').css('top',position.top - 268 + 'px');
+				}
 				$('div.merge_container a.merge_button').unbind('click');
 
 				var type;
@@ -308,7 +316,7 @@
 																		break;
 								default: 						null;
 							}
-							$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " point" : " points") + ' founded');
+							$(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " occ" : " occs") + ' founded');
 							onLoadedSource(element,result[0].points.length);
 						}
 				);

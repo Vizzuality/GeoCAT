@@ -149,7 +149,6 @@ div#close_save p a.download {float:right; width:158px; height:32px; margin:15px 
 div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
 
 
-
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
 div#editor a#gbif_id {display:none;}
@@ -199,18 +198,19 @@ div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {curso
 div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url(/images/editor/analysis_button.png) no-repeat -28px -24px;}
 div#tools div.center div.right div.inner_analysis h3 {float:right; font:bold 15px Arial; color:#999999; text-shadow:0 1px white; padding:3px 0 0 0; margin:0 16px 18px 0;}
 div#tools div.center div.right div.inner_analysis h3.disabled {color:#B7B7B7;}
-div.analysis_data {position:relative; float:left; width:100%; height:0; overflow:hidden;}
-div.analysis_data ul {position:relative; float:left; width:190px; margin:5px 0 5px 16px; padding:0;}
+div.analysis_data {position:relative; float:left; width:100%; height:0; overflow:hidden!important;}
+div.analysis_data ul {position:relative; float:left; width:190px; height:100px; margin:5px 0 5px 16px; padding:0;}
 div.analysis_data ul li {float:left; width:190px; padding:2px 0; margin:0 0 10px;}
-div.analysis_data ul li label {float:left; width:190px; font:bold 11px Arial; color:#999999;}
-div.analysis_data ul li p {float:left; width:190px; font:bold 13px Arial; color:#666666; text-shadow:0 1px white; padding:0; margin:2px 0 0 0;}
+div.analysis_data ul li label {float:left; width:190px; font:bold 11px Arial; color:#999999; line-height:11px;}
+div.analysis_data ul li p {float:left; width:190px; font:bold 13px Arial; color:#666666; text-shadow:0 1px white; padding:0; margin:2px 0 0 0; line-height:13px;}
+div.analysis_data ul li p sup {line-height:8px;}
 div.analysis_data ul li.lc {background:url(/images/editor/LC.png) no-repeat right 0;}
 div.analysis_data ul li.cr {background:url(/images/editor/CR.png) no-repeat right 0;}
 div.analysis_data ul li.en {background:url(/images/editor/EN.png) no-repeat right 0;}
 div.analysis_data ul li.nt {background:url(/images/editor/NT.png) no-repeat right 0;}
 div.analysis_data ul li.vu {background:url(/images/editor/VU.png) no-repeat right 0;}
-div.analysis_data ul li p.change {float:left; width:100%; margin:2px 0 0; font:normal 11px Arial; color:#999999; text-shadow:none;}
-div.analysis_data ul li p.change a {float:none; text-decoration:underline; color:#FF6600; background:none;}
+div.analysis_data ul li p.change {float:left; width:100%; margin:2px 0 0; font:normal 11px Arial; color:#999999; text-shadow:none; line-height:11px;}
+div.analysis_data ul li p.change a {float:none; text-decoration:underline; color:#FF6600; background:none; line-height:11px;}
 div.analysis_data ul li p.change a:hover {color:#FF3300; cursor:pointer;}
 div.inner_analysis div.cellsize {display:none; position:absolute!important; width:154px; height:170px; bottom:-150px; left:1px; margin:0; padding:38px 26px 0 26px; background:url(/images/editor/cellsize_bkg.png) no-repeat 0 0; z-index:1000;}
 div.inner_analysis div.cellsize h4 {float:left; width:100%; font:normal 11px "Futura"; color:#666666; margin:0; padding:0;}
@@ -440,19 +440,19 @@ div.help_container span#analysis_help {position:absolute; width:232px; height:24
 div#other {position:absolute; top:0; left:0; right:0; min-height:800px; width:100%; height:100%; background:url(/images/editor/bkg.jpg) repeat 0 0;}
 div#other div.content {position:absolute; width:400px; height:270px; top:50%; left:50%; margin:-185px 0 0 -200px;}
 div#other div.content2 {position:absolute; width:450px; height:125px; top:50%; left:50%; margin:-90px 0 0 -225px;}
-div#other div h1 {float:left; width:100%; font:normal 15px Arial; color:white;}
-div#other div h2 {float:left; margin:15px 0 0 0; width:100%; font:bold 23px Arial; color:#FF3300; letter-spacing:-1px;}
-div#other div p {float:left; margin:15px 0 0 0; width:100%; font:normal 17px Arial; color:white;}
-div#other div div {float:left; width:100%; margin:15px 0 0 0;}
-div#other div div a {float:left; width:84px; height:87px; margin:0 20px 0 0;}
-div#other div div a.ie9 {background:url(/images/html5/ie9.jpg) no-repeat 0 0;}
-div#other div div a.safari {background:url(/images/html5/safari.jpg) no-repeat 0 0;}
-div#other div div a.firefox {background:url(/images/html5/firefox.jpg) no-repeat 0 0;}
-div#other div div a.chrome {background:url(/images/html5/chrome.jpg) no-repeat 0 0; margin:0;}
-div#other div div a:hover {background-position:0 -87px;}
+div#other div.content2 h1, div#other div.content h1 {float:left; width:100%; font:normal 15px Arial; color:white;}
+div#other div.content2 h2, div#other div.content h2 {float:left; margin:15px 0 0 0; width:100%; font:bold 23px Arial; color:#FF3300; letter-spacing:-1px;}
+div#other div.content2 p,div#other div.content p {float:left; margin:15px 0 0 0; width:100%; font:normal 17px Arial; color:white;}
+div#other div span {float:left; width:100%; margin:15px 0 0 0;}
+div#other div span a {float:left; width:84px; height:87px; margin:0 20px 0 0;}
+div#other div span a.ie9 {background:url(/images/html5/ie9.jpg) no-repeat 0 0;}
+div#other div span a.safari {background:url(/images/html5/safari.jpg) no-repeat 0 0;}
+div#other div span a.firefox {background:url(/images/html5/firefox.jpg) no-repeat 0 0;}
+div#other div span a.chrome {background:url(/images/html5/chrome.jpg) no-repeat 0 0; margin:0;}
+div#other div span a:hover {background-position:0 -87px;}
 div#other div form input {width:120px; position:absolute; bottom:5; right:0; opacity:0;}
 div#other div form input:hover {cursor:pointer;}
-div#other div a {color:#729900; font:normal 17px Arial; text-decoration:underline;}
+div#other div.content2 a, div#other div.content a {color:#729900; font:normal 17px Arial; text-decoration:underline;}
 div#other div a:hover {color:#557200;}
 div#other div.footer {position:absolute; bottom:0; left:0; right:0; background:#729900; border-top:1px solid #608800; z-index:100; height:59px;}
 div#other div.footer div.inner {margin:0 auto; width:440px;}

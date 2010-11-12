@@ -182,16 +182,19 @@
 				polygon.setMap(map);
 			}
 			
-			var opacity_count = 0.5;
+			var opacity_count = 1;
 			var interval = setInterval(function(){
-			  polygon.setOptions({fillOpacity: (0.006*opacity_count)});
-			  polygon.setOptions({strokeOpacity: (0.01*opacity_count)});
-			  opacity_count = opacity_count + 0.5;
-			},100);
+			  if (opacity_count>70) {
+			    clearInterval(interval);
+			  } else {
+			    polygon.setOptions({fillOpacity: (0.002*opacity_count)});
+  			  polygon.setOptions({strokeOpacity: (0.01*opacity_count)});
+  			  opacity_count++;
+			  }
+			},50);
 			
 			
 			setTimeout(function(){
-			  clearInterval(interval);
 				for (var i=0; i<markers.length; i++) {
 					markers[i].setMap(null);
 				}
