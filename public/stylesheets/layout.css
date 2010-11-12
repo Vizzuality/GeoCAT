@@ -151,8 +151,7 @@ div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
 
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
-div#editor a#gbif_id {display:none;}
-div#editor ul.editor_list {position:absolute; top:34px; right:50px; width:1241px;}
+div#editor ul.editor_list {position:absolute; top:34px; right:50px;}
 div#editor ul.editor_list li {float:right;}
 div#editor ul.editor_list li.first {margin:0 20px 0 0;}
 div#editor ul.editor_list li a {font:normal 13px "Futura"; color:#999999; text-decoration:none;}
@@ -161,7 +160,7 @@ div#editor ul.editor_list li.selected a {color:#dddddd;}
 div#editor ul.editor_list li.selected a:hover {cursor:default;}
 
 /*1st layer - tools*/
-div#tools {position:absolute; top:60px; left:20px; bottom:40px; right:20px; min-height:620px; min-width:1241px;}
+div#tools {position:absolute; top:60px; left:20px; bottom:40px; right:20px; min-height:510px; min-width:1140px;}
 
 div#tools div.table {position:relative; float:left; width:100%; height:100%;}
 div#tools div.table div {position:relative;}
@@ -363,7 +362,7 @@ div#editor div#tools div.table div.bottom-right-tool{position:relative; float:ri
 
 
 /*2nd layer - map*/
-div#editor div#map_container {position:absolute; min-width:940px; min-height:690px; top:10px; bottom:20px; left:83px; right:260px; z-index:100;}
+div#editor div#map_container {position:absolute; min-width:840px; min-height:580px; top:10px; bottom:20px; left:83px; right:260px; z-index:100;}
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
 div#editor div#map_container div.table div {position:relative;}
 div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/top-left-map.png) no-repeat right bottom;}
