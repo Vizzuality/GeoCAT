@@ -1,11 +1,10 @@
 
 
-    function GapsOverlay(latlng, marker_id, opt, map) {
+    function GapsOverlay(latlng, info, map) {
       this.latlng_ = latlng;
-    	this.inf = opt;
-    	this.marker_id = marker_id;
-      this.offsetVertical_ = -110;
-      this.offsetHorizontal_ = -94;
+    	this.inf = info;
+      this.offsetVertical_ = 0;
+      this.offsetHorizontal_ = -390;
       this.height_ = 533;
       this.width_ = 381;
       this.setMap(map);
@@ -26,47 +25,9 @@
     		div.style.opacity = "0";
     		div.style.width = '187px';
     		div.style.height = '123px';
-    		div.style.background = 'url(/images/editor/delete_bkg.png) no-repeat 0 0';
+    		div.style.background = 'url(/images/editor/gaps_bkg.png) no-repeat 0 0';
 
-    		//Close Infowindow button
-    		var cancel_button = document.createElement('a');
-        cancel_button.style.position = "absolute";
-    		cancel_button.style.right = "83px";
-    		cancel_button.style.bottom = "32px";
-    		cancel_button.style.cursor = 'pointer';
-    		cancel_button.style.font = 'normal 11px Arial';
-    		cancel_button.style.textDecoration = 'underline';
-    		cancel_button.style.color = '#333333';
-    		$(cancel_button).text('cancel');
-    		$(cancel_button).click(function(ev){
-    			me.hide();
-    		});
-    		$(cancel_button).hover(function(ev){
-    			$(cancel_button).css('color','#000000');
-    		},function(ev){
-    			$(cancel_button).css('color','#333333');
-    		});
-    		div.appendChild(cancel_button);
-
-
-    		//Delete Infowindow button
-    		var delete_button = document.createElement('a');
-        delete_button.style.position = "absolute";
-    		delete_button.style.right = "20px";
-    		delete_button.style.bottom = "28px";
-    		delete_button.style.width = '51px';
-    		delete_button.style.height = '19px';
-    		delete_button.style.cursor = 'pointer';
-    		delete_button.style.background = 'url(/images/editor/yes_delete_button.png) no-repeat 0 0';
-    		$(delete_button).click(function(ev){
-    			me.deleteMarker();
-    		});
-    		$(delete_button).hover(function(ev){
-    			$(delete_button).css('background-position','0 -19px');
-    		},function(ev){
-    			$(delete_button).css('background-position','0 0');
-    		});
-    		div.appendChild(delete_button);
+    		
 
 
         var panes = this.getPanes();
@@ -82,10 +43,10 @@
     	  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";
       }
 
-    	$(div).animate({
-        top: '-=' + 10 + 'px',
-        opacity: 1
-      }, 250, 'swing');
+      // $(div).animate({
+      //         top: '-=' + 10 + 'px',
+      //         opacity: 1
+      //       }, 250, 'swing');
 
     };
 

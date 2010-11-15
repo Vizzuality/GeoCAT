@@ -108,13 +108,13 @@
 			var result = [];
 								
 			var obj = new Object();
-			obj.center = this.upload_data_.center;
-			obj.zoom = this.upload_data_.zoom;
-			obj.specie = this.upload_data_.scientificname;
+			obj.center = this.upload_data_.data.center;
+			obj.zoom = this.upload_data_.data.zoom;
+			obj.specie = this.upload_data_.data.scientificname;
 			result.push(obj);
-		
-			for (var i=0; i<this.upload_data_.sources.length; i++) {
-				result.push(this.upload_data_.sources[i]);
+		  
+			for (var i=0; i<this.upload_data_.data.sources.length; i++) {
+				result.push(this.upload_data_.data.sources[i]);
 			}
 			
 			return result;
@@ -173,10 +173,11 @@
 						var obs_data = app_data[i].points[app_data[i].points.length-1].catalogue_id.split('_');
 						global_id = parseInt(obs_data[1]);
 					}
-					
+					console.log(app_data[i]);
 					addSourceToMap(app_data[i],false,true);
 					showMamufasMap();
 				} else {
+				  
 					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
 					map.setZoom(parseInt(app_data[0].zoom));				
 				}
