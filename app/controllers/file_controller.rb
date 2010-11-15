@@ -13,7 +13,6 @@ class FileController < ApplicationController
     case format.downcase
     when 'rla'
       file_name = filename_escape(@rla['scientificname'])
-
       headers["Content-Type"]        = "text/rla"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rla\""
 
