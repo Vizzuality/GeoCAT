@@ -22,7 +22,7 @@
 			var delete_infowindow;					// Delete infowindow object
 			var selection_polygon; 					// Selection polygon tool
 			var drawing = false;						// Flag to know if user is drawing selection rectangle
-
+      var edit_metadata;              // Metadata window
 
 			var over_marker = false;				// True if cursor is over marker, false opposite
 			var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
@@ -51,6 +51,7 @@
 				total_points = new TotalPointsOperations();  		// TotalPoints Object
 				convex_hull = new HullOperations(map);					// Convex Hull Object
 				actions = new UnredoOperations();								// Un-Re-Do Object
+        edit_metadata = new GapsOverlay(new google.maps.LatLng(0,0), null, map);
 
 
 				selection_polygon = new google.maps.Polygon({
@@ -125,16 +126,22 @@
 				
 				//focusin/out search location effect
 				$('#search_location_input').focusin(function(ev){
-					if ($(this).attr('value')=='Search places, countries, cities,...') {
+					if ($(this).attr('value')=='Kew gardens') {
 						$(this).attr('value','');
 					}
 				});
 				$('#search_location_input').focusout(function(ev){
 					if ($(this).attr('value')=='') {
-						$(this).attr('value','Search places, countries, cities,...');
+						$(this).attr('value','Kew gardens');
 					}
 				});
 				
+				
+				$('div.search_place').hover(function(ev){
+					$(this).stop(ev).fadeTo(0,1);
+				},function(ev){
+					$(this).stop(ev).fadeTo(0,0.5);
+				});
 				
 			}
 
@@ -433,12 +440,29 @@
 						inf.accuracy = 15;
 						inf.active = true;
 						inf.kind = 'your';
-						inf.description = "Your description!";
+						inf.description = "";
 						inf.removed = false;
 						inf.catalogue_id = 'your_' + global_id;
-						inf.collector = 'you!';
 						inf.latitude = latlng.lat();
 						inf.longitude = latlng.lng();
+						
+						inf.collection_code = '';
+						inf.institution_code = '';
+						inf.catalog_numer = '';
+						inf.basis_record = '';
+						inf.collector = '';
+						inf.date_collected = '';
+						inf.country = '';
+						inf.state = '';
+						inf.county = '';
+						inf.altitude = '';
+						inf.locality = '';
+						inf.precission = '';
+						inf.identifier = '';
+						inf.gbif_notes = '';
+						inf.url = '';
+
+						
 						var marker = CreateMarker(latlng, 'your', false, false, inf, map);
 					} else {
 						var marker = CreateMarker(latlng, 'your', false, false, item_data, map);

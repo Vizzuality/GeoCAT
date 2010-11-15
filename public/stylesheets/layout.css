@@ -223,8 +223,8 @@ div.inner_analysis div.cellsize div.slider {float:left; width:100%; height:5px; 
 div.inner_analysis div.cellsize div.bottom {float:left; width:100%; margin:8px 0 0 0;}
 div.inner_analysis div.cellsize div.bottom a {float:left; width:auto; padding:3px 0 0 0; font:normal 11px Arial; color:#FF6600; text-decoration:underline;}
 div.inner_analysis div.cellsize div.bottom a:hover {color:#FF3300; cursor:pointer;}
-div.inner_analysis div.cellsize div.bottom a.disabled {color:#666666;}
-div.inner_analysis div.cellsize div.bottom a.disabled:hover {color:#666666; cursor:default;}
+div.inner_analysis div.cellsize div.bottom a.disabled {color:#999999;}
+div.inner_analysis div.cellsize div.bottom a.disabled:hover {color:#999999; cursor:default;}
 div.inner_analysis div.cellsize div.bottom a.done {float:right; width:54px; height:21px; padding:0; background:url(/images/editor/done_gray.png) no-repeat 0 0; text-indent:-9999px;}
 div.inner_analysis div.cellsize div.bottom a.done:hover {background-position:0 -21px;}
 div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0; background:url(/images/editor/download_analysis_bkg.png) repeat-x 0 0; border-bottom-left-radius:5px; border-bottom-right-radius:5px;
@@ -389,12 +389,13 @@ div#zoom ul li {float:left; width:28px; height:10px; background:url(/images/edit
 div#zoom ul li:hover {background-position:0 -10px; cursor:pointer;}
 div#zoom ul li.selected {background-position:0 -10px; cursor:default;}
 
-div#editor div#map_container div.table div.center-map div.search_place {position:absolute; top:18px; right:15px!important; width:342px!important; height:30px; background:url(/images/editor/search_bkg.png) no-repeat 0 0;}
-div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:3px; width:200px; height:16px; padding:4px 7px; background:url(/images/editor/search_input_bkg.png) no-repeat 0 0; border:0;
-  font:normal 13px Arial; color:#666666;}
+div#editor div#map_container div.table div.center-map div.search_place {position:absolute; opacity:0.5; top:21px; right:110px!important; width:180px!important; height:30px; background:url(/images/editor/search_bkg.png) no-repeat 0 0;}
+div#editor div#map_container div.table div.center-map div.search_place p {float:left; width:auto; margin:4px 0 0 5px; font:normal 13px Arial; color:white;}
+div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:0 0 3px 6px; width:110px; height:auto; padding:4px 0; background:url(/images/editor/search_input_bkg.png) no-repeat 0 18px; border:0;
+  font:normal 13px Arial; color:white;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"]:focus {outline:none;}
-div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:22px; height:22px; margin:4px 0 0; background:url(/images/editor/len_bkg.png);}
-div#editor div#map_container div.table div.center-map div.search_place input[type="submit"]:hover {cursor:pointer; background-position:0 -22px;}
+div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:13px; height:13px; margin:4px 0 0 10px; background:url(/images/editor/len_bkg.png);}
+div#editor div#map_container div.table div.center-map div.search_place input[type="submit"]:hover {cursor:pointer;}
 div#map_type {position:absolute; right:33px; top:21px; height:auto; opacity:0.5; margin:0!important; padding:0;}
 div#map_type:hover {opacity:1;}
 div#map_type div.map_type {float:right; position:relative; width:auto;}
@@ -431,10 +432,41 @@ div#map_container div.footer div.right a.export {float:left; width:110px; margin
 div#map_container div.footer div.right a:hover {background-position:0 -32px; cursor:pointer;}
 
 
+/*Metadata*/
+div.metadata {width:326px!important; height:515px!important; padding:22px 22px 0 33px!important; margin:0;}
+div.metadata a.close {position:absolute; right:1px; top:1px; width:21px; height:21px; cursor:pointer; background:url(/images/editor/close_infowindow.png) no-repeat 0 0;}
+div.metadata h3 {float:left; margin:0 0 11px 0; font:bold 11px Arial; color:#666666;}
+div.metadata div span label {float:left; margin:0 0 2px 2px; font:normal 10px Arial; color:#888888;}
+div.metadata div.three_gaps {float:left; width:100%; margin:7px 0 0 0;}
+div.metadata div.three_gaps span {float:left; width:102px; margin:0 10px 0 0;}
+div.metadata div.three_gaps span input {float:left; width:90px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_short.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
+div.metadata div.three_gaps span input:focus {outline:none;}
+div.metadata div.two_gaps {float:left; width:100%; margin:7px 0 0 0;}
+div.metadata div.two_gaps span {float:left; width:214px; margin:0 10px 0 0;}
+div.metadata div.two_gaps span input {float:left; width:202px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_medium.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
+div.metadata div.two_gaps span input:focus {outline:none;}
+div.metadata div.two_gaps span.short {width:102px; margin:0;}
+div.metadata div.two_gaps span.short input {float:left; width:90px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_short.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
+div.metadata div.one_gap {float:left; width:100%; margin:7px 0 0 0;}
+div.metadata div.one_gap span {float:left; width:100%;}
+div.metadata div.one_gap span input {float:left; width:314px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_long.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
+div.metadata div.one_gap span input:focus {outline:none;}
+div.metadata div span input.disabled {color:#999999;}
+div.metadata div span.last {margin:0;}
+div.metadata div.slider {float:left!important; margin:0 0 0 3px!important; width:320px; height:5px;}
+div.metadata div.slider_top {float:left!important; width:326px!important; margin:7px 0 0 0;}
+div.metadata div.slider_top label {float:left; margin:0 0 2px 2px; font:normal 10px Arial; color:#888888;}
+div.metadata div.slider_top p {float:right; width:auto; font:normal 10px Arial; color:#F99600;}
+div.metadata span.bottom {float:left; width:326px!important; margin:20px 0 0 0;}
+div.metadata span.bottom a.cancel {float:left; width:auto; font:normal 11px Arial; color:#333333; text-decoration:underline;}
+div.metadata span.bottom a.cancel:hover {color:black;}
+div.metadata span.bottom a.save {float:right; width:89px; height:19px; background:url(/images/editor/save_changes_metadata.png) no-repeat 0 0; text-indent:-9999px;}
+div.metadata span.bottom a.save:hover {background-position:0 -19px;}
+
 
 /*HELP*/
 
-div.help_container {display:none; position:absolute!important; top:0; left:0; right:0; bottom:0; z-index:1000}
+div.help_container {display:none; position:absolute!important; top:0; left:0; right:0; bottom:-1px; z-index:1000}
 div.help_container img.help {float:left; width:100%; height:100%;}
 div.help_container span.do {position:absolute; width:320px; height:89px; bottom:1px!important; left:35px; background:url(/images/editor/do_help.png) no-repeat 0 0;}
 div.help_container span.tool {position:absolute; width:240px; height:180px; top:50px; left:0px; background:url(/images/editor/tool_help.png) no-repeat 0 0;}

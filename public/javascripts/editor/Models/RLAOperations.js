@@ -86,6 +86,7 @@
 				var find = false;
 				for (var j=0; j<obj.sources.length; j++) {
 					if (obj.sources[j].name == markers[i].data.kind) {
+  					delete markers[i].data.init_latlng;
 						obj.sources[j].points.push(markers[i].data);
 						find = true;
 						break;
@@ -96,6 +97,7 @@
 					var new_source = new Object();
 					new_source.name = markers[i].data.kind;
 					new_source.points = [];
+					delete markers[i].data.init_latlng;
 					new_source.points.push(markers[i].data);
 					obj.sources.push(new_source);
 				}

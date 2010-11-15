@@ -161,8 +161,6 @@
 				precision_slider.style.height = '5px';
 				precision_slider.style.width = '190px';
 				div.appendChild(precision_slider);
-
-
 		
 				//Buttons
 				var delete_button = document.createElement('a');
@@ -219,6 +217,37 @@
 						event.cancelBubble=true;
 					}; 
 			  });
+			  
+			  
+			  var edit_button = document.createElement('a');
+		    edit_button.style.position = "absolute";
+				edit_button.style.right = "0px";
+				edit_button.style.bottom = "29px";
+				edit_button.style.width = "58px";
+				edit_button.style.height = "19px";
+				edit_button.style.cursor = 'pointer';
+				edit_button.style.background = "url(/images/editor/edit_button.png) no-repeat 0 0";
+				$(edit_button).text('');
+				$(edit_button).click(function(ev){
+					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
+					me.editData();
+				});
+				$(edit_button).hover(function(ev){
+					$(edit_button).css('background-position','0 -19px');
+				},function(ev){
+					$(edit_button).css('background-position','0 0');
+				});
+				div.appendChild(edit_button);
+
+				google.maps.event.addDomListener(div,'mousedown',function(ev){ 
+			    try{
+						ev.stopPropagation();
+					}catch(e){
+						event.cancelBubble=true;
+					}; 
+			  });
+			  
+			  
 				
 				
 		    var panes = this.getPanes();
@@ -355,6 +384,12 @@
 		    }, 250, 'swing');
 				
 			}
+		}
+		
+		
+		MarkerTooltip.prototype.editData = function() {
+		  this.hide();
+		  edit_metadata.changePosition(this.latlng_,this.marker_id,this.inf);
 		}
 
 

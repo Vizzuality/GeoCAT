@@ -88,8 +88,11 @@
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;	
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].new_.latlng);
-														$('#action_info span').text('Moved point to ('+actions_data[0].new_.latlng.lat()+','+actions_data[0].new_.latlng.lng()+')');
+														$('#action_info span').text('Moved point to ('+actions_data[0].new_.latlng.lat().toFixed(2)+','+actions_data[0].new_.latlng.lng().toFixed(2)+')');
 														break;
+  					case 'edit': 		_markers[actions_data[0].catalogue_id].data = actions_data[0].new_.info;
+  													$('#action_info span').text('Edition restored');
+  													break;
 						case 'active':  makeActive(actions_data,true);
 														if (actions_count==1) {
 															$('#action_info span').text('The point is '+((actions_data[0].new_.active)?'active':'no active')+' now');
@@ -115,10 +118,13 @@
 			UnredoOperations.prototype.Undo = function() {
 				if (this.position!=0) {
 					this.position--;
-
+          
 					var actions_data = this.actions[this.position].data;
 					var actions_count = this.actions[this.position].data.length;
 					var actions_kind = this.actions[this.position].kind;
+					
+					console.log(actions_data);
+          
 
 					switch(actions_kind) {
 						case 'remove': 	this.restoreMarkers(actions_data);
@@ -130,6 +136,9 @@
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].old_.latlng);
 														$('#action_info span').text('Returned point to ('+actions_data[0].old_.latlng.lat().toFixed(2)+','+actions_data[0].old_.latlng.lng().toFixed(2)+')');
 														break;
+            case 'edit': 		_markers[actions_data[0].catalogue_id].data =  actions_data[0].old_.info;
+  													$('#action_info span').text('Edition undone');	
+  													break;		
 						case 'active': 	makeActive(actions_data,true);
 														if (actions_count==1) {
 															$('#action_info span').text('The point is '+((actions_data[0].new_.active)?'no active':'active')+' now');
