@@ -1,7 +1,7 @@
 class RlatData
   include ActiveModel::Validations
 
-  attr_accessor :scientificname, :zoom, :center, :sources
+  attr_accessor :scientificname, :zoom, :center, :analysis, :sources
   attr_writer :warnings
 
   validates_presence_of :scientificname
@@ -36,6 +36,7 @@ class RlatData
         :scientificname => scientificname,
         :zoom => zoom,
         :center => center,
+        :analysis => analysis
         :sources => sources
       },
       :errors => errors,
@@ -50,6 +51,7 @@ class RlatData
       self.scientificname = json['scientificname']
       self.zoom           = json['zoom']
       self.center         = json['center']
+      self.analysis        = json['analysis']
       self.sources        = json['sources']
     end
 
