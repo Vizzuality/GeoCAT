@@ -389,9 +389,15 @@ div#zoom ul li {float:left; width:28px; height:10px; background:url(/images/edit
 div#zoom ul li:hover {background-position:0 -10px; cursor:pointer;}
 div#zoom ul li.selected {background-position:0 -10px; cursor:default;}
 
-div#map_type {position:absolute; right:35px; top:23px; z-index:100; width:auto; height:auto; opacity:0.5;}
+div#editor div#map_container div.table div.center-map div.search_place {position:absolute; top:18px; right:15px!important; width:342px!important; height:30px; background:url(/images/editor/search_bkg.png) no-repeat 0 0;}
+div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:3px; width:200px; height:16px; padding:4px 7px; background:url(/images/editor/search_input_bkg.png) no-repeat 0 0; border:0;
+  font:normal 13px Arial; color:#666666;}
+div#editor div#map_container div.table div.center-map div.search_place input[type="text"]:focus {outline:none;}
+div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:22px; height:22px; margin:4px 0 0; background:url(/images/editor/len_bkg.png);}
+div#editor div#map_container div.table div.center-map div.search_place input[type="submit"]:hover {cursor:pointer; background-position:0 -22px;}
+div#map_type {position:absolute; right:33px; top:21px; height:auto; opacity:0.5; margin:0!important; padding:0;}
 div#map_type:hover {opacity:1;}
-div#map_type div {float:right; position:relative;}
+div#map_type div.map_type {float:right; position:relative; width:auto;}
 div#map_type a {position:relative; float:right; width:auto; padding:0 24px 0 0; height:24px; background:url(/images/editor/map_type_right.png) no-repeat right 0; border:none;}
 div#map_type a span {float:right; padding:6px 1px 5px 10px; height:13px; font:bold 11px Arial; color:white; text-shadow:0 1px black; background:url(/images/editor/map_type_left.png) no-repeat left 0;}
 div#map_type a:hover {cursor:pointer;}

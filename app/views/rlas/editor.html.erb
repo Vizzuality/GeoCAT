@@ -69,7 +69,7 @@
                           <p class="change">Cell size 2.048km, <a class="change">change</a></p>
                         </li>
                       </ul>
-                      <span><a>Print complete report</a></span>
+                      <span><a onclick="downloadRLA('print')">Print complete report</a></span>
                     </div>
                     <div class="cellsize">
                       <h4>CHANGE CELL SIZE</h4>
@@ -178,13 +178,14 @@
             </div>
             <div class="center-map">
               <div id="map"></div>
-
+              
               <div class="search_place">
                 <form action="searchPlace()">
                   <input type="text" value="Search places, countries, cities,..." />
-                  <input type="submit" value="Search" />
+                  <input type="submit" value="" />
                 </form>
               </div>
+
 
               <!-- Close without save/download -->
               <div id="close_save">
