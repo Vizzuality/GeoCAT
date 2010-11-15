@@ -36,7 +36,7 @@ class RlatData
         :scientificname => scientificname,
         :zoom => zoom,
         :center => center,
-        :analysis => analysis
+        :analysis => analysis,
         :sources => sources
       },
       :errors => errors,

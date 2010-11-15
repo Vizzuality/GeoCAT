@@ -113,7 +113,6 @@
 						$('a.default').addClass('disabled');
 						me.removeAOOPolygons();
 						if (me.polygon!=undefined && me.polygon.getPath().b.length>2) {
-						  console.log(me.polygon.getPath());
     					me.setAlgorithmData(me.polygon.getPath().b,me.cellsize);
     				}
 					}

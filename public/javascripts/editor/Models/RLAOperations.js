@@ -37,6 +37,8 @@
 			var analysis = new Object();
 			// Send analysis if it is visible
 			if (convex_hull.isVisible()) {
+			  dataset.analysis = new Object();
+			  analysis.cellsize_type = (convex_hull.cellsize==0)?'auto':'user_defined';
 			  analysis.cellsize = convex_hull.cellsize;
 			  analysis.EOO = new Object();
 			  analysis.EOO.status = convex_hull.EOOkind;
@@ -61,10 +63,10 @@
   			  }
 			    analysis.AOO.grids.push(path_points);
 				}
+				dataset.analysis = analysis;
 			}
 			
 		
-		  $("#analysis_input").attr("value",JSON.stringify(analysis));
 		  $("#format_input").attr("value",format);
       $("#rla_input").attr("value",JSON.stringify(dataset));
       $("#download_form").submit();
@@ -111,6 +113,17 @@
 			obj.center = this.upload_data_.data.center;
 			obj.zoom = this.upload_data_.data.zoom;
 			obj.specie = this.upload_data_.data.scientificname;
+			
+			//If there is analysis
+			if (this.upload_data_.data.analysis!=undefined) {
+			  $('a#toggle_analysis').trigger('click');
+			  if (this.upload_data_.data.analysis.cellsize_type=='auto') {
+			    $('#auto_value').trigger('click');
+			  } else {
+			    $("div.cellsize div.slider").slider({value:(this.upload_data_.data.cellsize)});
+			  }
+			}
+			
 			result.push(obj);
 		  
 			for (var i=0; i<this.upload_data_.data.sources.length; i++) {
@@ -167,13 +180,11 @@
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					sources.push(app_data[i].name);
-					
 					//Get last id from "your points"
 					if (app_data[i].name=='your') {
 						var obs_data = app_data[i].points[app_data[i].points.length-1].catalogue_id.split('_');
 						global_id = parseInt(obs_data[1]);
 					}
-					console.log(app_data[i]);
 					addSourceToMap(app_data[i],false,true);
 					showMamufasMap();
 				} else {
