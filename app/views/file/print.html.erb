@@ -1,0 +1,17 @@
+<%= @rla['scientificname'] %>
+<br><br><br>
+<h2>Sources:</h2>
+<%= "Flickr: #{@flickr_points.select{|p| p['active']}.length} of #{@flickr_points.length} records used" if @flickr_points.present? %><br>
+<%= "GBIF: #{@gbif_points.select{|p| p['active']}.length} of #{@gbif_points.length} records used" if @gbif_points.present? %><br>
+<%= "User data: #{@your_points.select{|p| p['active']}.length} of #{@your_points.length} records used" if @your_points.present? %><br>
+<br><br>
+
+<h1>MAP</h1>
+<img src="http://maps.google.com/maps/api/staticmap?center=<%= @rla['center']['latitude']%>,<%= @rla['center']['longitude']%>&zoom=<%= @rla['zoom']%>&size=640x640&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
+<br><br>
+
+Number of collections used: <%= @collections.length %> collections with <%= @localities.length %> localities
+<br>
+<%= "EOO: #{@analysis['EOO']['result']}km2 - #{@RED_LIST_CATEGORIES[@analysis['EOO']['status'].upcase]} (#{@analysis['EOO']['status'].upcase})" if @analysis['EOO'] %><br />
+<%= "AOO: Cell width (based on EOO) #{@analysis['AOO']['cellsize']} Km: AOO number of cells #{@analysis['AOO']['grids'].length}. AOO #{@analysis['AOO']['status']} Km2 - #{@RED_LIST_CATEGORIES[@analysis['AOO']['result'].upcase]} (#{@analysis['AOO']['result'].upcase})" if @analysis['AOO'] %><br />
+Subpopulation - 7

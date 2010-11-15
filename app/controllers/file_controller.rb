@@ -6,6 +6,18 @@ class FileController < ApplicationController
           },
           :redirect_to => {:controller => 'main', :action => 'index'}
 
+  @@RED_LIST_CATEGORIES = {
+    'EX' => 'Extinct',
+    'EW' => 'Extinct in the Wild',
+    'CR' => 'Critically Endangered',
+    'EN' => 'Endangered',
+    'VU' => 'Vulnerable',
+    'NT' => 'Near Threatened',
+    'LC' => 'Least Concern',
+    'DD' => 'Data Deficient',
+    'NE' => 'Not Evaluated'
+  }
+
   def download
     format = params[:format]
     @rla = JSON.parse(params[:rla])
@@ -13,7 +25,7 @@ class FileController < ApplicationController
     case format.downcase
     when 'rla'
       file_name = filename_escape(@rla['scientificname'])
-      headers["Content-Type"]        = "text/rla"
+      headers["Content-Type"]        = "application/vizzuality-rlat.rla+xml"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rla\""
 
       render :text => params[:rla]
@@ -26,6 +38,26 @@ class FileController < ApplicationController
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.kml\""
 
       render :action => :kml
+    when 'print'
+      @RED_LIST_CATEGORIES = @@RED_LIST_CATEGORIES
+
+      @analysis = @rla["analysis"]
+
+      @flickr_points, @gbif_points, @your_points = []
+      if @rla['sources']
+        @flickr_points = @rla['sources'].select{|s| s['name'] == 'flickr'}.map{|s| s['points']}.flatten
+        @gbif_points   = @rla['sources'].select{|s| s['name'] == 'gbif'}.map{|s| s['points']}.flatten
+        @your_points   = @rla['sources'].select{|s| s['name'] == 'your'}.map{|s| s['points']}.flatten
+
+        @flickr_coords = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+        @gbif_coords   = @gbif_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+        @your_coords   = @your_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+      end
+      all_sources  = @flickr_points || [] + @gbif_points || [] + @your_points || []
+      @collections = all_sources.select{|c| c['collectionCode']}
+      @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq
+
+      render :action => :print
     end
   end
 
