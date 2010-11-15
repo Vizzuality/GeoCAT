@@ -45,8 +45,8 @@
 			  analysis.EOO.status = convex_hull.EOOkind;
 			  analysis.EOO.result = convex_hull.EOO;
 			  analysis.EOO.convex_hull = [];
-			  for (var i=0; i<convex_hull.polygon.getPath().b.length; i++) {
-			    var point = convex_hull.polygon.getPath().b[i];
+			  for (var i=0; i<convex_hull.polygon.getPath().getLength(); i++) {
+			    var point = convex_hull.polygon.getPath().getAt(i);
 			    analysis.EOO.convex_hull.push({latitude:point.lat(), longitude:point.lng()});
 			  }
 			  
@@ -56,10 +56,12 @@
 			  analysis.AOO.result = convex_hull.AOO;
 			  analysis.AOO.grids = [];
 			  
+			  
 			  for (var id in convex_hull.Cells) {
+  			  
   			  var path_points = [];
-  			  for (var i=0; i<convex_hull.Cells[id].getPath().b.length; i++) {
-  			    var point = convex_hull.Cells[id].getPath().b[i];
+  			  for (var i=0; i<convex_hull.Cells[id].getPath().getLength(); i++) {
+  			    var point = convex_hull.Cells[id].getPath().getAt(i);
   			    path_points.push({latitude:point.lat(), longitude:point.lng()});
   			  }
 			    analysis.AOO.grids.push(path_points);
@@ -118,13 +120,14 @@
 			//If there is analysis
 			if (this.upload_data_.data.analysis!=undefined) {
 			  $('a#toggle_analysis').trigger('click');
+			  $('body').unbind('getBounds');
 			  if (this.upload_data_.data.analysis.cellsize_type=='auto') {
 			    $('#auto_value').trigger('click');
 			  } else {
-			    // $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.cellsize_step);
-			    //           convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.cellsize_step));
-			    //           convex_hull.removeAOOPolygons();
-			    //           convex_hull.setAlgorithmValues(convex_hull.cellsize);
+			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.cellsize_step);
+			    convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.cellsize_step-1));
+			    convex_hull.removeAOOPolygons();
+			    convex_hull.setAlgorithmValues(convex_hull.cellsize);
 			  }
 			}
 			

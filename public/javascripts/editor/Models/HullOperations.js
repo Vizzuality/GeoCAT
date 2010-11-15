@@ -99,8 +99,8 @@
 						$('div.cellsize span p').css('color','#F7AC53');
 						$('a.default').removeClass('disabled');
 						me.removeAOOPolygons();
-						if (me.polygon!=undefined && me.polygon.getPath().b.length>2) {
-    					me.setAlgorithmData(me.polygon.getPath().b,me.cellsize*1000);
+						if (me.polygon!=undefined && me.polygon.getPath().getLength()>2) {
+    					me.setAlgorithmData(me.polygon.getPath().getArray(),me.cellsize*1000);
     				}
 					} else {
 					  me.beforeValue = me.cellsize;
@@ -112,8 +112,8 @@
 						$('div.cellsize span p').css('color','#666666');
 						$('a.default').addClass('disabled');
 						me.removeAOOPolygons();
-						if (me.polygon!=undefined && me.polygon.getPath().b.length>2) {
-    					me.setAlgorithmData(me.polygon.getPath().b,me.cellsize);
+						if (me.polygon!=undefined && me.polygon.getPath().getLength()>2) {
+    					me.setAlgorithmData(me.polygon.getPath().getArray(),me.cellsize);
     				}
 					}
 				});
@@ -260,7 +260,7 @@
 				}
 			
 				if (!dragging) {
-					this.setAlgorithmData(this.polygon.getPath().b, this.cellsize*1000);
+					this.setAlgorithmData(this.polygon.getPath().getArray(), this.cellsize*1000);
 				}
 			}
 		
@@ -329,8 +329,8 @@
 			HullOperations.prototype.setAlgorithmValues = function(value) {
 				$('div.cellsize span p').text(value+'KM');
 				$('div.analysis p.change').html('Cell size '+value+'km, <a class="change">change</a>');
-				if (this.polygon!=undefined && this.polygon.getPath().b.length>2) {
-					this.setAlgorithmData(this.polygon.getPath().b,this.cellsize*1000);
+				if (this.polygon!=undefined && this.polygon.getPath().getLength()>2) {
+					this.setAlgorithmData(this.polygon.getPath().getArray(),this.cellsize*1000);
 				}
 			}
 		

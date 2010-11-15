@@ -19,7 +19,7 @@ class RlatData
       begin
         process_as_csv file
       rescue
-        errors.add(:file, 'are not valid')
+        errors.add(:file, ' JSON is not valid')
       end
     end
   end

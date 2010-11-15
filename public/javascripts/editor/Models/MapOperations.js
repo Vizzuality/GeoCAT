@@ -240,7 +240,7 @@
 			/* Change map to selection status. 																						*/
 			/*============================================================================*/
 			function changeMapSelectionStatus(latlng) {			
-				if (selection_polygon.getPath().b.length==0 || !drawing) {
+				if (selection_polygon.getPath().getLength()==0 || !drawing) {
 					if (over_polygon_tooltip!=undefined) {
 						over_polygon_tooltip.hide();
 					}
@@ -252,13 +252,13 @@
 					google.maps.event.clearListeners(selection_polygon, 'mouseout');
 					google.maps.event.addListener(map,"mousemove",function(event){
 						if (state == "selection") {
-							if (selection_polygon.getPath().b.length!=0) {
+							if (selection_polygon.getPath().getLength()!=0) {
 								selection_polygon.setPath([
-									selection_polygon.getPath().b[0],
-									new google.maps.LatLng(selection_polygon.getPath().b[0].lat(),event.latLng.lng()),
+									selection_polygon.getPath().getAt(0),
+									new google.maps.LatLng(selection_polygon.getPath().getAt(0).lat(),event.latLng.lng()),
 									event.latLng,
-									new google.maps.LatLng(event.latLng.lat(),selection_polygon.getPath().b[0].lng()),
-									selection_polygon.getPath().b[0]]);
+									new google.maps.LatLng(event.latLng.lat(),selection_polygon.getPath().getAt(0).lng()),
+									selection_polygon.getPath().getAt(0)]);
 							}
 						}
 					});
@@ -269,9 +269,9 @@
 						google.maps.event.clearListeners(selection_polygon, 'click');
 
 						if (over_polygon_tooltip!=null) {
-							over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
+							over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().getAt(1));
 						} else {
-							over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+							over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().getAt(1), markersInPolygon(), map);
 						}
 
 						google.maps.event.addListener(selection_polygon,'mouseover',function(evt){
@@ -296,9 +296,9 @@
 						google.maps.event.clearListeners(selection_polygon, 'click');
 
 						if (over_polygon_tooltip!=null) {
-							over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().b[1]);
+							over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().getAt(1));
 						} else {
-							over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().b[1], markersInPolygon(), map);
+							over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().getAt(1), markersInPolygon(), map);
 						}
 					}
 				}

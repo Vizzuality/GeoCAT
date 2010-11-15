@@ -110,8 +110,8 @@
 
 				//Marker drag event
 				google.maps.event.addListener(marker,"drag",function(ev){						
-					this.data.longitude = ev.latLng.c;
-					this.data.latitude = ev.latLng.b;
+					this.data.longitude = ev.latLng.lng();
+					this.data.latitude = ev.latLng.lat();
 					if (convex_hull.isVisible()) {
 						convex_hull.calculateConvexHull(true);
 					}
@@ -121,8 +121,8 @@
 				//Marker drag end event
 				google.maps.event.addListener(marker,"dragend",function(ev){
 					is_dragging = false;
-					this.data.longitude = ev.latLng.c;
-					this.data.latitude = ev.latLng.b;
+					this.data.longitude = ev.latLng.lng();
+					this.data.latitude = ev.latLng.lat();
 					if (convex_hull.isVisible()) {
 						convex_hull.calculateConvexHull(false);
 					}

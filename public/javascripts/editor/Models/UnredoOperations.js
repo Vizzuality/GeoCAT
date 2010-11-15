@@ -184,8 +184,8 @@
 			/* Move marker from previous action performed.													*/
 			/*======================================================================*/
 			UnredoOperations.prototype.moveMarker = function(marker_id, latlng) {
-				_markers[marker_id].data.longitude = latlng.c;
-				_markers[marker_id].data.latitude = latlng.b;
+				_markers[marker_id].data.longitude = latlng.lng();
+				_markers[marker_id].data.latitude = latlng.lat();
 				_markers[marker_id].setPosition(latlng);
 				if (convex_hull.isVisible()) {
 					convex_hull.calculateConvexHull(false);

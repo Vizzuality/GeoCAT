@@ -31,7 +31,6 @@
 			createMap();
 			startSources();
 
-		  console.log(upload_information);
 
 
 			//if the application comes through an upload file
