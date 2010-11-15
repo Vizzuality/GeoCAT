@@ -25,9 +25,34 @@ class FileController < ApplicationController
       headers["Content-Type"]        = "application/vnd.google-earth.kml+xml"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.kml\""
 
-      render :action => :kml    
+      render :action => :kml
     when 'print'
-      
+      @RED_LIST_CATEGORIES = {
+        'EX' => 'Extinct',
+        'EW' => 'Extinct in the Wild',
+        'CR' => 'Critically Endangered',
+        'EN' => 'Endangered',
+        'VU' => 'Vulnerable',
+        'NT' => 'Near Threatened',
+        'LC' => 'Least Concern',
+        'DD' => 'Data Deficient',
+        'NE' => 'Not Evaluated'
+      }
+      @analysis = @rla["analysis"]
+
+      @flickr_points, @gbif_points, @your_points = []
+      if @rla['sources']
+        @flickr_points = @rla['sources'].select{|s| s['name'] == 'flickr'}.first['points'] if @rla['sources'].select{|s| s['name'] == 'flickr'}.present?
+        @gbif_points   = @rla['sources'].select{|s| s['name'] == 'gbif'}.first['points'] if @rla['sources'].select{|s| s['name'] == 'gbif'}.present?
+        @your_points   = @rla['sources'].select{|s| s['name'] == 'yours'}.first['points'] if @rla['sources'].select{|s| s['name'] == 'yours'}.present?
+        @flickr_coords = @flickr_points.map{|c| "#{c['latitude']}|#{c['longitude']}"}.join('|')
+        @gbif_coords   = @flickr_points.map{|c| "#{c['latitude']}|#{c['longitude']}"}.join('|')
+        @your_coords   = @flickr_points.map{|c| "#{c['latitude']}|#{c['longitude']}"}.join('|')
+      end
+      all_sources  = @flickr_points || [] + @gbif_points || [] + @your_points || []
+      @collections = all_sources.select{|c| c['collectionCode']}
+      @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq
+
       render :action => :print
     end
   end
