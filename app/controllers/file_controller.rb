@@ -47,11 +47,11 @@ class FileController < ApplicationController
       if @rla['sources']
         @flickr_points = @rla['sources'].select{|s| s['name'] == 'flickr'}.map{|s| s['points']}.flatten
         @gbif_points   = @rla['sources'].select{|s| s['name'] == 'gbif'}.map{|s| s['points']}.flatten
-        @your_points   = @rla['sources'].select{|s| s['name'] == 'yours'}.map{|s| s['points']}.flatten
+        @your_points   = @rla['sources'].select{|s| s['name'] == 'your'}.map{|s| s['points']}.flatten
 
         @flickr_coords = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
-        @gbif_coords   = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
-        @your_coords   = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+        @gbif_coords   = @gbif_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+        @your_coords   = @your_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
       end
       all_sources  = @flickr_points || [] + @gbif_points || [] + @your_points || []
       @collections = all_sources.select{|c| c['collectionCode']}
