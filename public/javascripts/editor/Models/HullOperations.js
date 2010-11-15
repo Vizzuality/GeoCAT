@@ -217,6 +217,7 @@
 				if (this.active_markers.length>2) {
 					this.calculateConvexHull(false);
 				} else {
+				  this.removeAOOPolygons();
 					this.polygon.setMap(null);
 					this.resetAlgorithmValues();
 				}
