@@ -192,7 +192,7 @@
 					addSourceToMap(app_data[i],false,true);
 					showMamufasMap();
 				} else {
-				  
+				  specie = app_data[0].specie;
 					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
 					map.setZoom(parseInt(app_data[0].zoom));				
 				}
