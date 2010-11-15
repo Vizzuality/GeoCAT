@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+  <name>RLAT.kml</name>
+  <Style id="sn_gbif_marker0">
+    <IconStyle>
+      <scale>0.6</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/gbif_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sh_flickr_marker0">
+    <IconStyle>
+      <scale>0.709091</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/flickr_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <StyleMap id="msn_flickr_marker">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_flickr_marker0</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_flickr_marker</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sn_ylw-pushpin1">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <StyleMap id="msn_ylw-pushpin1">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin5</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin2</styleUrl>
+    </Pair>
+  </StyleMap>
+  <StyleMap id="msn_ylw-pushpin">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sn_gbif_marker">
+    <IconStyle>
+      <scale>0.6</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/gbif_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sh_ylw-pushpin3">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <StyleMap id="msn_flickr_marker0">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_flickr_marker</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_flickr_marker0</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sh_your_marker0">
+    <IconStyle>
+      <scale>0.709091</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/your_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sn_flickr_marker0">
+    <IconStyle>
+      <scale>0.6</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/flickr_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sh_ylw-pushpin1">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sh_ylw-pushpin5">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sn_your_marker">
+    <IconStyle>
+      <scale>0.6</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/your_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <StyleMap id="msn_ylw-pushpin3">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin3</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin4</styleUrl>
+    </Pair>
+  </StyleMap>
+  <StyleMap id="msn_gbif_marker0">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_gbif_marker0</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_gbif_marker</styleUrl>
+    </Pair>
+  </StyleMap>
+  <StyleMap id="msn_your_marker0">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_your_marker</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_your_marker</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sh_gbif_marker0">
+    <IconStyle>
+      <scale>0.709091</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/gbif_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <StyleMap id="msn_ylw-pushpin5">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin6</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin0</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sh_gbif_marker1">
+    <IconStyle>
+      <scale>0.709091</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/gbif_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sn_gbif_marker1">
+    <IconStyle>
+      <scale>0.6</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/gbif_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sh_ylw-pushpin6">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sn_ylw-pushpin4">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sn_ylw-pushpin">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sh_your_marker">
+    <IconStyle>
+      <scale>0.709091</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/your_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sn_ylw-pushpin3">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sn_ylw-pushpin0">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sh_gbif_marker">
+    <IconStyle>
+      <scale>0.709091</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/gbif_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sh_ylw-pushpin0">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>66ff5918</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sn_flickr_marker">
+    <IconStyle>
+      <scale>0.6</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/flickr_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <StyleMap id="msn_your_marker">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_your_marker0</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_your_marker0</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sh_flickr_marker">
+    <IconStyle>
+      <scale>0.709091</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/flickr_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sn_ylw-pushpin6">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>66ff5918</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sh_ylw-pushpin">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sn_ylw-pushpin5">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <Style id="sn_ylw-pushpin2">
+    <IconStyle>
+      <scale>1.1</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <StyleMap id="msn_ylw-pushpin4">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin0</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin5</styleUrl>
+    </Pair>
+  </StyleMap>
+  <StyleMap id="msn_ylw-pushpin6">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin1</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin3</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sn_your_marker0">
+    <IconStyle>
+      <scale>0.6</scale>
+      <Icon>
+        <href><%= "#{request.protocol}#{request.host_with_port}" %>/images/editor/your_marker.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  <Style id="sh_ylw-pushpin4">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <StyleMap id="msn_ylw-pushpin2">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin2</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin1</styleUrl>
+    </Pair>
+  </StyleMap>
+  <StyleMap id="msn_gbif_marker1">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_gbif_marker</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_gbif_marker0</styleUrl>
+    </Pair>
+  </StyleMap>
+  <StyleMap id="msn_gbif_marker">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_gbif_marker1</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_gbif_marker1</styleUrl>
+    </Pair>
+  </StyleMap>
+  <Style id="sh_ylw-pushpin2">
+    <IconStyle>
+      <scale>1.3</scale>
+      <Icon>
+        <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+      </Icon>
+      <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+    </IconStyle>
+    <LineStyle>
+      <color>ff161616</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>661b2dff</color>
+    </PolyStyle>
+  </Style>
+  <StyleMap id="msn_ylw-pushpin0">
+    <Pair>
+      <key>normal</key>
+      <styleUrl>#sn_ylw-pushpin4</styleUrl>
+    </Pair>
+    <Pair>
+      <key>highlight</key>
+      <styleUrl>#sh_ylw-pushpin6</styleUrl>
+    </Pair>
+  </StyleMap>
+  <% if @rla.present? %>
+    <Folder>
+      <name>RLAT: <%= @rla['scientificname'] %></name>
+      <description>RLAT analysis performed for <%= @rla['scientificname'] %> using <%= "#{request.protocol}#{request.host_with_port}" %></description>
+      <Folder>
+        <name>occurrences</name>
+        <% if @rla['sources'].present? %>
+          <% @rla['sources'].each do |source| %>
+            <% if source && source['points'].present? %>
+              <% source['points'].each do |point| %>
+                <Placemark>
+                  <name><%= @rla['scientificname'] %></name>
+                  <description>
+                    basisOfRecord: ???
+                    catalogNumber: <%= point['catalogue_id'] %>
+                    collectionCode: ???
+                    collector: ???
+                    country: ???
+                    institutionCode: ???
+                    stateProvince: ???
+                    county: ???
+                    dateCollected: ???
+                    locality: ???
+                    gbifNotes: ???
+                    url: ???
+                    Coordinate precission: ???
+                    Identifier: ???
+                    Altitude: ???
+                  </description>
+                  <LookAt>
+                    <longitude><%= point['longitude'] %></longitude>
+                    <latitude><%= point['latitude'] %></latitude>
+                    <altitude>0</altitude>
+                    <heading></heading>
+                    <tilt>0</tilt>
+                    <range></range>
+                    <altitudeMode>relativeToGround</altitudeMode>
+                    <gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+                  </LookAt>
+                  <styleUrl>#msn_<%= point['kind'] %>_marker</styleUrl>
+                  <Point>
+                    <coordinates><%= point['longitude'] %>,<%= point['latitude'] %>,0</coordinates>
+                  </Point>
+                </Placemark>
+              <%- end -%>
+            <%- end -%>
+          <%- end -%>
+        <%- end -%>
+      </Folder>
+    <% end %>
+    <% if @analysis.present? %>
+      <% if @analysis['AOO'].present? %>
+        <Folder>
+          <name>AOO - <%= @analysis['AOO']['status'] %>Km2</name>
+          <Placemark>
+            <name>@</name>
+            <styleUrl>#msn_ylw-pushpin6</styleUrl>
+            <% if @analysis['AOO']['grids'].present? %>
+              <% @analysis['AOO']['grids'].each do |polygon| %>
+                <Polygon>
+                  <tessellate>1</tessellate>
+                  <outerBoundaryIs>
+                    <LinearRing>
+                      <coordinates>
+                        <% polygon.each do |coords| %>
+                          <%= "#{coords['longitude']},#{coords['latitude']},0 " %>
+                        <%- end -%>
+                      </coordinates>
+                    </LinearRing>
+                  </outerBoundaryIs>
+                </Polygon>
+              <%- end -%>
+            <%- end -%>
+          </Placemark>
+        </Folder>
+      <%- end -%>
+      <% if @analysis['EOO'].present? %>
+        <Folder>
+          <name>EOO - <%= @analysis['EOO']['result'] %>Km2</name>
+          <Placemark>
+            <name>EOO: <%= @analysis['EOO']['result'] %>Km2</name>
+            <styleUrl>#msn_ylw-pushpin5</styleUrl>
+            <Polygon>
+              <tessellate>1</tessellate>
+              <outerBoundaryIs>
+                <LinearRing>
+                  <coordinates>
+                    <% @analysis['EOO']['convex_hull'].each do |coords| %>
+                      <%= "#{coords['longitude']},#{coords['latitude']},0 " %>
+                    <%- end -%>
+                  </coordinates>
+                </LinearRing>
+              </outerBoundaryIs>
+            </Polygon>
+          </Placemark>
+        </Folder>
+      <%- end -%>
+      <% if @analysis['AOO'].present? && @analysis['EOO'].present?%>
+        <ScreenOverlay id="khScreenOverlay756">
+          <name>RLAT Analsysis result</name>
+          <description>EOO: <%= "#{@analysis['EOO']['result']} Km2 #{@analysis['EOO']['status'].upcase}" %>, AOO: <%= "#{@analysis['AOO']['status']} Km2 #{@analysis['AOO']['result'].upcase}" %></description>
+          <Icon>
+            <href>http://chart.apis.google.com/chart?chst=d_text_outline&amp;chf=bg,s,EFEFEF&amp;chma=130,130,130,130&amp;chld=0A0A0A|16|l|FFFFFF|b|Result|EOO: <%= "#{@analysis['EOO']['result']} Km2 #{@analysis['EOO']['status'].upcase}" %>|AOO: <%= "#{@analysis['AOO']['status']} Km2 #{@analysis['AOO']['result'].upcase}" %></href>
+          </Icon>
+          <overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+          <screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+          <rotationXY x="0.5" y="0.5" xunits="fraction" yunits="fraction"/>
+          <size x="0" y="0" xunits="pixels" yunits="pixels"/>
+        </ScreenOverlay>
+      <%- end -%>
+    <%- end -%>
+  </Folder>
+</Document>
+</kml>

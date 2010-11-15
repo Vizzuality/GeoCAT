@@ -12,7 +12,7 @@ Rlat::Application.routes.draw do |map|
   match 'search/flickr/:q' => 'flickr#search'
   match 'search/gbif/:q' => 'gbif#search'
 
-  match 'download/rla' => 'file#download'
+  match 'download' => 'file#download'
   match 'editor(/:species)' => 'file#upload'
 
   match '*a', :to => 'main#render_404'

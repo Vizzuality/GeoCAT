@@ -1,15 +1,33 @@
 class FileController < ApplicationController
+  verify  :only => :download,
+          :params => [:format, :rla],
+          :flash => {
+            :error => 'There were a problem downloading the file'
+          },
+          :redirect_to => {:controller => 'main', :action => 'index'}
 
   def download
+    format = params[:format]
+    @rla = JSON.parse(params[:rla])
 
-    json = JSON.parse(params[:rla])
+    case format.downcase
+    when 'rla'
+      file_name = filename_escape(@rla['scientificname'])
 
-    file_name = filename_escape(json["scientificname"])
+      headers["Content-Type"]        = "text/rla"
+      headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rla\""
 
-    headers["Content-Type"]        = "text/rlat"
-    headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rla\"";
+      render :text => params[:rla]
+    when 'kml'
+      file_name = filename_escape(@rla['scientificname'])
 
-    render :text => params[:rla]
+      @analysis = JSON.parse(params[:analysis]) unless params[:analysis].blank?
+
+      headers["Content-Type"]        = "application/vnd.google-earth.kml+xml"
+      headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.kml\""
+
+      render :action => :kml
+    end
   end
 
   def upload
