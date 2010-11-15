@@ -57,7 +57,9 @@
 
 			var areaMeters2=PlanarPolygonAreaMeters2(points);
 			if(areaMeters2>1000000.0) areaMeters2=SphericalPolygonAreaMeters2(points);
-		  return areaMeters2/metersPerKm/metersPerKm;
+      // return areaMeters2/metersPerKm/metersPerKm;
+      return areaMeters2/1000000;
+		  
 		}
 		
 		

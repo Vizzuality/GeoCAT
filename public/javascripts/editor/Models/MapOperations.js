@@ -45,29 +45,24 @@
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
 				bounds = new google.maps.LatLngBounds();
 
+				google.maps.event.clearListeners(map, 'tilesloaded');
+				total_points = new TotalPointsOperations();  		// TotalPoints Object
+				convex_hull = new HullOperations(map);					// Convex Hull Object
+				actions = new UnredoOperations();								// Un-Re-Do Object
+
+
+				selection_polygon = new google.maps.Polygon({
+		      strokeColor: "#000000",
+		      strokeOpacity: 1,
+		      strokeWeight: 1,
+		      fillColor: "#FFFFFF",
+		      fillOpacity: 0
+		    });
 				
 				
 
 				/*========================MAP EVENTS==========================*/
 				
-				//After tiles loaded first time we start creating application objects
-				google.maps.event.addListener(map,"tilesloaded",function(event){
-					google.maps.event.clearListeners(map, 'tilesloaded');
-					total_points = new TotalPointsOperations();  		// TotalPoints Object
-					convex_hull = new HullOperations(map);					// Convex Hull Object
-					actions = new UnredoOperations();								// Un-Re-Do Object
-
-
-					selection_polygon = new google.maps.Polygon({
-			      strokeColor: "#000000",
-			      strokeOpacity: 1,
-			      strokeWeight: 1,
-			      fillColor: "#FFFFFF",
-			      fillOpacity: 0
-			    });
-				});
-
-
 				//Click map event
 				google.maps.event.addListener(map,"click",function(event){
 					if (state == 'add') {
@@ -217,8 +212,7 @@
 				}
 
 				var image = new google.maps.MarkerImage('/images/editor/' + marker_kind + '_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-
-				actions.Do('add', null, information.points);
+				actions.Do('add', null,information.points);
 				setTimeout(function(){asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);},0);
 			}
 
