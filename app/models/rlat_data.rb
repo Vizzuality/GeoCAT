@@ -91,9 +91,6 @@ class RlatData
             if point['kind'].blank?        ||
                point['latitude'].blank?    ||
                point['longitude'].blank?   ||
-               point['collector'].blank?   ||
-               point['accuracy'].blank?    ||
-               point['description'].blank? ||
                point['catalogue_id'].blank?
                 errors.add(:sources, 'are not valid') and return
             end
