@@ -21,7 +21,7 @@ class FileController < ApplicationController
     when 'kml'
       file_name = filename_escape(@rla['scientificname'])
 
-      @analysis = JSON.parse(params[:analysis]) unless params[:analysis].blank?
+      @analysis = @rla["analysis"]
 
       headers["Content-Type"]        = "application/vnd.google-earth.kml+xml"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.kml\""
