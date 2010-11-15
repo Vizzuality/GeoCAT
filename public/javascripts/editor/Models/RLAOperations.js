@@ -40,6 +40,7 @@
 			  dataset.analysis = new Object();
 			  analysis.cellsize_type = (convex_hull.cellsize==0)?'auto':'user_defined';
 			  analysis.cellsize = convex_hull.cellsize;
+			  analysis.cellsize_step = $("div.cellsize div.slider").slider('value');
 			  analysis.EOO = new Object();
 			  analysis.EOO.status = convex_hull.EOOkind;
 			  analysis.EOO.result = convex_hull.EOO;
@@ -120,7 +121,10 @@
 			  if (this.upload_data_.data.analysis.cellsize_type=='auto') {
 			    $('#auto_value').trigger('click');
 			  } else {
-			    $("div.cellsize div.slider").slider({value:(this.upload_data_.data.cellsize)});
+			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.cellsize_step);
+			    convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.cellsize_step));
+					convex_hull.removeAOOPolygons();
+					convex_hull.setAlgorithmValues(convex_hull.cellsize);
 			  }
 			}
 			
