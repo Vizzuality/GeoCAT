@@ -128,7 +128,7 @@
 														$('#action_info span').text('Removed ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].old_.latlng);
-														$('#action_info span').text('Returned point to ('+actions_data[0].old_.latlng.lat()+','+actions_data[0].old_.latlng.lng()+')');
+														$('#action_info span').text('Returned point to ('+actions_data[0].old_.latlng.lat().toFixed(2)+','+actions_data[0].old_.latlng.lng().toFixed(2)+')');
 														break;
 						case 'active': 	makeActive(actions_data,true);
 														if (actions_count==1) {
