@@ -8,6 +8,7 @@
 			
 			var map;												// Map object
 			var bounds;											// LatLngBounds object to visualize the map correctly
+			var geocoder;                   // Geocoder application
 			
 			var _markers = [];							// All the markers of the map (Associative array)
 			var global_id = 0; 							// Global id for your own markers
@@ -44,6 +45,7 @@
 
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
 				bounds = new google.maps.LatLngBounds();
+        geocoder = new google.maps.Geocoder();
 
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				total_points = new TotalPointsOperations();  		// TotalPoints Object
@@ -120,6 +122,20 @@
 						map.setZoom(map.getZoom()-1);
 					}
 				});
+				
+				//focusin/out search location effect
+				$('#search_location_input').focusin(function(ev){
+					if ($(this).attr('value')=='Search places, countries, cities,...') {
+						$(this).attr('value','');
+					}
+				});
+				$('#search_location_input').focusout(function(ev){
+					if ($(this).attr('value')=='') {
+						$(this).attr('value','Search places, countries, cities,...');
+					}
+				});
+				
+				
 			}
 
 
@@ -534,3 +550,22 @@
 				state = status;
 				activeMarkersProperties();
 			}
+			
+			
+			
+			/*============================================================================*/
+			/* Search box.                     																						*/
+			/*============================================================================*/
+			function searchPlace() {
+			  var address = $("#search_location_input").attr('value');
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.fitBounds(results[0].geometry.bounds);
+          } else {
+            //alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+			}
+			
+			
