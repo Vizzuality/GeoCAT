@@ -19,16 +19,19 @@
 			    return Math.abs(a/2.0);
 			}
 
-			function SphericalPolygonAreaMeters2(points) {
+			function SphericalPolygonAreaMeters2(Points) {
 			    var totalAngle=0.0;
-			    for(i=0;i<points.length;++i)
-			        {var j=(i+1)%points.length;
-			        var k=(i+2)%points.length;
-			        totalAngle+=Angle(points[i],points[j],points[k]);}
-			    var planarTotalAngle=(points.length-2)*180.0;
+
+			    Points.pop();
+
+			    for(i=0;i<Points.length;++i)
+			        {var j=(i+1)%Points.length;
+			        var k=(i+2)%Points.length;
+			        totalAngle+=Angle(Points[i],Points[j],Points[k]);}
+			    var planarTotalAngle=(Points.length-2)*180.0;
 			    var sphericalExcess=totalAngle-planarTotalAngle;
 			    if(sphericalExcess>420.0)
-			        {totalAngle=points.length*360.0-totalAngle;
+			        {totalAngle=Points.length*360.0-totalAngle;
 			        sphericalExcess=totalAngle-planarTotalAngle;}
 			    else if(sphericalExcess>300.0&&sphericalExcess<420.0)
 			        {sphericalExcess=Math.abs(360.0-sphericalExcess);}
