@@ -413,7 +413,7 @@ div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0
 div#map_container div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
 div#map_container div.header h1.saved {background-position:0 -29px;}
 div#map_container div.header h1.saved sup {color:#7FAB2D;}
-div#map_container div.footer div.left {float:left; margin:15px 0 0 5px; width:400px;}
+div#map_container div.footer div.left {float:left; margin:15px 0 0 5px; width:60%;}
 div#map_container div.footer div.left a.undo {float:left; width:42px; height:32px; background:url(/images/editor/undo_button.png) no-repeat 0 0; margin:0 5px 0 0;}
 div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(/images/editor/redo_button.png) no-repeat 0 0;}
 div#map_container div.footer div.left a:hover {background-position:0 -32px; cursor:pointer;}
