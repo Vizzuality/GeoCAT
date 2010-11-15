@@ -31,6 +31,9 @@
 			createMap();
 			startSources();
 
+		  console.log(upload_information);
+
+
 			//if the application comes through an upload file
 			if (upload_information.success) {
 				uploadRLA(upload_information);

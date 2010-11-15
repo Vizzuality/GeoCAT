@@ -121,10 +121,10 @@
 			  if (this.upload_data_.data.analysis.cellsize_type=='auto') {
 			    $('#auto_value').trigger('click');
 			  } else {
-			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.cellsize_step);
-			    convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.cellsize_step));
-					convex_hull.removeAOOPolygons();
-					convex_hull.setAlgorithmValues(convex_hull.cellsize);
+			    // $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.cellsize_step);
+			    //           convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.cellsize_step));
+			    //           convex_hull.removeAOOPolygons();
+			    //           convex_hull.setAlgorithmValues(convex_hull.cellsize);
 			  }
 			}
 			
