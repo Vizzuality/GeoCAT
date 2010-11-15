@@ -105,7 +105,7 @@
 					} else {
 					  me.beforeValue = me.cellsize;
 				    me.cellsize = 0;
-    				$('div.analysis p.change').html('Cell size in IUCN value, <a class="change">change</a>');
+    				$('div.analysis p.change').html('Cell size in auto value, <a class="change">change</a>');
 						$(this).addClass('selected');
 						$("div.cellsize div.slider").slider('disable');
 						$('.ui-widget-header').css('background','#999999');
@@ -113,6 +113,7 @@
 						$('a.default').addClass('disabled');
 						me.removeAOOPolygons();
 						if (me.polygon!=undefined && me.polygon.getPath().b.length>2) {
+						  console.log(me.polygon.getPath());
     					me.setAlgorithmData(me.polygon.getPath().b,me.cellsize);
     				}
 					}
@@ -217,6 +218,7 @@
 				if (this.active_markers.length>2) {
 					this.calculateConvexHull(false);
 				} else {
+				  this.polygon.setPath([]);
 				  this.removeAOOPolygons();
 					this.polygon.setMap(null);
 					this.resetAlgorithmValues();
