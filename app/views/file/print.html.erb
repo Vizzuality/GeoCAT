@@ -12,6 +12,6 @@
 
 Number of collections used: <%= @collections.length %> collections with <%= @localities.length %> localities
 <br>
-<%= "EOO: #{@analysis['EOO']['result']}km2 - #{@RED_LIST_CATEGORIES[@analysis['EOO']['status'].upcase]} (#{@analysis['EOO']['status'].upcase})" if @analysis['EOO'] %>
-<%= "AOO: Cell width (based on EOO) #{@analysis['AOO']['cellsize']} Km: AOO number of cells #{@analysis['AOO']['grids'].length}. AOO #{@analysis['AOO']['status']} Km2 - #{@RED_LIST_CATEGORIES[@analysis['AOO']['status'].upcase]} (#{@analysis['AOO']['status'].upcase})" %>
+<%= "EOO: #{@analysis['EOO']['result']}km2 - #{@RED_LIST_CATEGORIES[@analysis['EOO']['status'].upcase]} (#{@analysis['EOO']['status'].upcase})" if @analysis['EOO'] %><br />
+<%= "AOO: Cell width (based on EOO) #{@analysis['AOO']['cellsize']} Km: AOO number of cells #{@analysis['AOO']['grids'].length}. AOO #{@analysis['AOO']['status']} Km2 - #{@RED_LIST_CATEGORIES[@analysis['AOO']['result'].upcase]} (#{@analysis['AOO']['result'].upcase})" if @analysis['AOO'] %><br />
 Subpopulation - 7

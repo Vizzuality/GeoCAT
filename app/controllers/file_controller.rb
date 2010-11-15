@@ -6,6 +6,18 @@ class FileController < ApplicationController
           },
           :redirect_to => {:controller => 'main', :action => 'index'}
 
+  @@RED_LIST_CATEGORIES = {
+    'EX' => 'Extinct',
+    'EW' => 'Extinct in the Wild',
+    'CR' => 'Critically Endangered',
+    'EN' => 'Endangered',
+    'VU' => 'Vulnerable',
+    'NT' => 'Near Threatened',
+    'LC' => 'Least Concern',
+    'DD' => 'Data Deficient',
+    'NE' => 'Not Evaluated'
+  }
+
   def download
     format = params[:format]
     @rla = JSON.parse(params[:rla])
@@ -27,27 +39,19 @@ class FileController < ApplicationController
 
       render :action => :kml
     when 'print'
-      @RED_LIST_CATEGORIES = {
-        'EX' => 'Extinct',
-        'EW' => 'Extinct in the Wild',
-        'CR' => 'Critically Endangered',
-        'EN' => 'Endangered',
-        'VU' => 'Vulnerable',
-        'NT' => 'Near Threatened',
-        'LC' => 'Least Concern',
-        'DD' => 'Data Deficient',
-        'NE' => 'Not Evaluated'
-      }
+      @RED_LIST_CATEGORIES = @@RED_LIST_CATEGORIES
+
       @analysis = @rla["analysis"]
 
       @flickr_points, @gbif_points, @your_points = []
       if @rla['sources']
-        @flickr_points = @rla['sources'].select{|s| s['name'] == 'flickr'}.first['points'] if @rla['sources'].select{|s| s['name'] == 'flickr'}.present?
-        @gbif_points   = @rla['sources'].select{|s| s['name'] == 'gbif'}.first['points'] if @rla['sources'].select{|s| s['name'] == 'gbif'}.present?
-        @your_points   = @rla['sources'].select{|s| s['name'] == 'yours'}.first['points'] if @rla['sources'].select{|s| s['name'] == 'yours'}.present?
-        @flickr_coords = @flickr_points.map{|c| "#{c['latitude']}|#{c['longitude']}"}.join('|')
-        @gbif_coords   = @flickr_points.map{|c| "#{c['latitude']}|#{c['longitude']}"}.join('|')
-        @your_coords   = @flickr_points.map{|c| "#{c['latitude']}|#{c['longitude']}"}.join('|')
+        @flickr_points = @rla['sources'].select{|s| s['name'] == 'flickr'}.map{|s| s['points']}.flatten
+        @gbif_points   = @rla['sources'].select{|s| s['name'] == 'gbif'}.map{|s| s['points']}.flatten
+        @your_points   = @rla['sources'].select{|s| s['name'] == 'yours'}.map{|s| s['points']}.flatten
+
+        @flickr_coords = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+        @gbif_coords   = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+        @your_coords   = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
       end
       all_sources  = @flickr_points || [] + @gbif_points || [] + @your_points || []
       @collections = all_sources.select{|c| c['collectionCode']}
