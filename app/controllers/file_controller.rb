@@ -13,7 +13,7 @@ class FileController < ApplicationController
     case format.downcase
     when 'rla'
       file_name = filename_escape(@rla['scientificname'])
-      headers["Content-Type"]        = "text/rla"
+      headers["Content-Type"]        = "application/vizzuality-rlat.rla+xml"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rla\""
 
       render :text => params[:rla]
@@ -25,7 +25,10 @@ class FileController < ApplicationController
       headers["Content-Type"]        = "application/vnd.google-earth.kml+xml"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.kml\""
 
-      render :action => :kml
+      render :action => :kml    
+    when 'print'
+      
+      render :action => :print
     end
   end
 
