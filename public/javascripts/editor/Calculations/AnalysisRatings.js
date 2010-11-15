@@ -161,7 +161,7 @@
 					  }
 					else if (EOOarea < 45000) {
 					  EOOString = "nt";
-					  }
+					}
 					return (EOOString);
 				}
 

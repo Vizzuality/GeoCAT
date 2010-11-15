@@ -315,6 +315,8 @@
 				this.EOOkind = obj.EOORat;
 				
 				this.drawAOOPolygons();
+				$('div.analysis_data ul li:eq(0)').removeClass();
+				$('div.analysis_data ul li:eq(1)').removeClass();
 				$('div.analysis_data ul li:eq(0)').addClass(obj.EOORat);
 				$('div.analysis_data ul li:eq(0) p:eq(0)').html(obj.EOOArea.toFixed(2)+' km<sup>2</sup>');
 				$('div.analysis_data ul li:eq(1)').addClass(obj.AOORat);
