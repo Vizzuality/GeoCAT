@@ -22,16 +22,15 @@
 			function SphericalPolygonAreaMeters2(Points) {
 			    var totalAngle=0.0;
 
-			    Points.pop();
-
-			    for(i=0;i<Points.length;++i)
-			        {var j=(i+1)%Points.length;
-			        var k=(i+2)%Points.length;
+          var points_length = Points.length-1;
+			    for(i=0;i<points_length;++i)
+			        {var j=(i+1)%points_length;
+			        var k=(i+2)%points_length;
 			        totalAngle+=Angle(Points[i],Points[j],Points[k]);}
-			    var planarTotalAngle=(Points.length-2)*180.0;
+			    var planarTotalAngle=(points_length-2)*180.0;
 			    var sphericalExcess=totalAngle-planarTotalAngle;
 			    if(sphericalExcess>420.0)
-			        {totalAngle=Points.length*360.0-totalAngle;
+			        {totalAngle=points_length*360.0-totalAngle;
 			        sphericalExcess=totalAngle-planarTotalAngle;}
 			    else if(sphericalExcess>300.0&&sphericalExcess<420.0)
 			        {sphericalExcess=Math.abs(360.0-sphericalExcess);}
