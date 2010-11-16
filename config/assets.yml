@@ -35,3 +35,5 @@ stylesheets:
   base:
     - public/stylesheets/layout.css
     - public/stylesheets/jquery-ui-1.8.2.custom.css
+  print:
+    - public/stylesheets/print.css
