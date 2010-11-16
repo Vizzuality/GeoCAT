@@ -8,9 +8,15 @@
   <div class="map">
     <img src="http://maps.google.com/maps/api/staticmap?center=<%= @rla['center']['latitude']%>,<%= @rla['center']['longitude']%>&zoom=<%= @rla['zoom']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
     <ul>
-      <li class="flickr"><%= "#{@flickr_points.select{|p| p['active']}.length} of #{@flickr_points.length} flickr records" if @flickr_points.present? %></li>
-      <li class="gbif"><%= "#{@gbif_points.select{|p| p['active']}.length} of #{@gbif_points.length} gbif records" if @gbif_points.present? %></li>
-      <li class="userdata"><%= "#{@your_points.select{|p| p['active']}.length} of #{@your_points.length} user data records" if @your_points.present? %></li>
+      <% if @flickr_points.present? %>
+      <li class="flickr"><%= "#{@flickr_points.select{|p| p['active']}.length} of #{@flickr_points.length} flickr records" %></li>
+      <%- end -%>
+      <% if @gbif_points.present? %>
+      <li class="gbif"><%= "#{@gbif_points.select{|p| p['active']}.length} of #{@gbif_points.length} gbif records" %></li>
+      <%- end -%>
+      <% if @your_points.present? %>
+      <li class="userdata"><%= "#{@your_points.select{|p| p['active']}.length} of #{@your_points.length} user data records" %></li>
+      <%- end -%>
     </ul>
   </div>
 

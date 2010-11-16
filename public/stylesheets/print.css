@@ -54,7 +54,6 @@ div#printed_report span.title.time{
 }
 
 div#printed_report div.map{
-  background-color: #484848;
   margin: 35px 0;
   border: 1px solid #484848;
   width: 700px;
@@ -70,31 +69,29 @@ div#printed_report div.map img{
 div#printed_report div.map ul{
   list-style-type: none;
   padding: 10px 0;
+  position: relative;
 }
 
 div#printed_report div.map ul li{
   display: inline;
   font-size: 13px;
-  font-weight: bold;
-  color: white;
+  color: #333333;
   margin: 0;
-  padding: 0 25px;
-  background-color: transparent;
-  background-attachment: scroll;
-  background-position: 10px center;
-  background-repeat: no-repeat;
+  padding: 0 128px 0 10px;
+}
+
+div#printed_report div.map ul li:last-child{
+  padding-right: 0;
 }
 
 div#printed_report div.map ul li.flickr{
-  background-image: url(/images/print/flickr_legend.png);
+  color: #FF3366;
 }
 div#printed_report div.map ul li.gbif{
-  padding: 0 84px;
-  background-position: 70px center;
-  background-image: url(/images/print/gbif_legend.png);
+  color: #99CC00;
 }
 div#printed_report div.map ul li.userdata{
-  background-image: url(/images/print/userdata_legend.png);
+  color: #0099FF;
 }
 
 div#printed_report div.EOO span,
