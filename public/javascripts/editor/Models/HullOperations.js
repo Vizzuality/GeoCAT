@@ -60,6 +60,7 @@
 						me.setAlgorithmValues(me.cellsize);
 					}
 				});
+				
 			
 				//Choose default value 
 				$('a.default').click(function(ev){
@@ -109,7 +110,7 @@
 						$(this).addClass('selected');
 						$("div.cellsize div.slider").slider('disable');
 						$('.ui-widget-header').css('background','#999999');
-						$('div.cellsize span p').css('color','#666666');
+						$('div.cellsize span p').css('color','#999999');
 						$('a.default').addClass('disabled');
 						me.removeAOOPolygons();
 						if (me.polygon!=undefined && me.polygon.getPath().getLength()>2) {
