@@ -47,6 +47,8 @@
 						} else {
 							click_infowindow = new MarkerTooltip(this.getPosition(), this.data.catalogue_id, this.data,marker_map);
 						}
+						if (edit_metadata!=undefined)
+              edit_metadata.hide();
 					}
 				});
 		

@@ -163,7 +163,22 @@
         || ($('#metadata_altitude').attr('value')!=this.inf.altitude) || ($('#metadata_locality').attr('value')!=this.inf.locality) || ($('#metadata_precission').attr('value')!=this.inf.precission)
         || ($('#metadata_identifier').attr('value')!=this.inf.identifier) || ($('#metadata_gbif').attr('value')!=this.inf.gbif_notes) || ($('#metadata_url').attr('value')!=this.inf.url)) {
         
-          var old_data = this.inf;
+          var old_data = new Object();
+          old_data.collection_code = this.inf.collection_code; 
+    			old_data.institution_code = this.inf.institution_code;
+    			old_data.catalog_numer = this.inf.catalog_numer;
+    			old_data.basis_record = this.inf.basis_record;
+    			old_data.collector = this.inf.collector;
+    			old_data.date_collected = this.inf.date_collected;
+    			old_data.country = this.inf.country;
+    			old_data.state = this.inf.state;
+    			old_data.county = this.inf.county;
+    			old_data.altitude = this.inf.altitude;
+    			old_data.locality = this.inf.locality;
+    			old_data.precission = this.inf.precission;
+    			old_data.identifier = this.inf.identifier;
+    			old_data.gbif_notes = this.inf.gbif_notes;
+    			old_data.url = this.inf.url;
           
         	this.inf.collection_code = $('#metadata_collection').attr('value'); 
     			this.inf.institution_code = $('#metadata_institution').attr('value');
@@ -188,6 +203,7 @@
         
       }
     }
+    
 
 
 

@@ -90,7 +90,7 @@
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].new_.latlng);
 														$('#action_info span').text('Moved point to ('+actions_data[0].new_.latlng.lat().toFixed(2)+','+actions_data[0].new_.latlng.lng().toFixed(2)+')');
 														break;
-  					case 'edit': 		_markers[actions_data[0].catalogue_id].data = actions_data[0].new_.info;
+  					case 'edit': 	  this.changeData(actions_data[0].catalogue_id,actions_data[0].new_.info);
   													$('#action_info span').text('Edition restored');
   													break;
 						case 'active':  makeActive(actions_data,true);
@@ -123,7 +123,6 @@
 					var actions_count = this.actions[this.position].data.length;
 					var actions_kind = this.actions[this.position].kind;
 					
-					console.log(actions_data);
           
 
 					switch(actions_kind) {
@@ -136,7 +135,7 @@
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].old_.latlng);
 														$('#action_info span').text('Returned point to ('+actions_data[0].old_.latlng.lat().toFixed(2)+','+actions_data[0].old_.latlng.lng().toFixed(2)+')');
 														break;
-            case 'edit': 		_markers[actions_data[0].catalogue_id].data =  actions_data[0].old_.info;
+            case 'edit': 		this.changeData(actions_data[0].catalogue_id,actions_data[0].old_.info);
   													$('#action_info span').text('Edition undone');	
   													break;		
 						case 'active': 	makeActive(actions_data,true);
@@ -160,29 +159,31 @@
 			/* Add markers from an action performed.																*/
 			/*======================================================================*/
 			UnredoOperations.prototype.restoreMarkers = function(restore_info) {
+			  
+			  this.hideAllOverlays();
 
-					// Recursive function for add markers.
-					function AsynRestoreMarkers(count, observations_data) {
-						if (observations_data.length>count) {
-							_markers[observations_data[count].catalogue_id].data.removed = false;
-							_markers[observations_data[count].catalogue_id].setMap(map);
-							total_points.add(observations_data[count].new_.kind);
-							if (convex_hull.isVisible()) {
-								convex_hull.addPoint(_markers[observations_data[count].catalogue_id]);
-							}
-							count = count+1;
-							setTimeout(function(){
-								AsynRestoreMarkers(count, observations_data);
-							},0);
-						} else {
-							hideMamufasMap(false);
+				// Recursive function for add markers.
+				function AsynRestoreMarkers(count, observations_data) {
+					if (observations_data.length>count) {
+						_markers[observations_data[count].catalogue_id].data.removed = false;
+						_markers[observations_data[count].catalogue_id].setMap(map);
+						total_points.add(observations_data[count].new_.kind);
+						if (convex_hull.isVisible()) {
+							convex_hull.addPoint(_markers[observations_data[count].catalogue_id]);
 						}
+						count = count+1;
+						setTimeout(function(){
+							AsynRestoreMarkers(count, observations_data);
+						},0);
+					} else {
+						hideMamufasMap(false);
 					}
+				}
 
-					if (restore_info.length>20) {
-						showMamufasMap();
-					}
-					AsynRestoreMarkers(0, restore_info);
+				if (restore_info.length>20) {
+					showMamufasMap();
+				}
+				AsynRestoreMarkers(0, restore_info);
 			}
 			
 			
@@ -193,6 +194,9 @@
 			/* Move marker from previous action performed.													*/
 			/*======================================================================*/
 			UnredoOperations.prototype.moveMarker = function(marker_id, latlng) {
+			  
+			  this.hideAllOverlays();
+			  
 				_markers[marker_id].data.longitude = latlng.lng();
 				_markers[marker_id].data.latitude = latlng.lat();
 				_markers[marker_id].setPosition(latlng);
@@ -203,11 +207,39 @@
 			
 			
 			
+			/*======================================================================*/
+			/* Change occurence data.                     .													*/
+			/*======================================================================*/
+			UnredoOperations.prototype.changeData = function(marker_id, data_) {
+				_markers[marker_id].data = data_;
+				this.hideAllOverlays();
+			}
+			
+			
+			
+			
+			/*======================================================================*/
+			/* Hide all overlays.                     .													*/
+			/*======================================================================*/
+			UnredoOperations.prototype.hideAllOverlays = function(marker_id, data_) {
+			  if (click_infowindow!=undefined)
+			    click_infowindow.hide();
+  			if (delete_infowindow!=undefined)
+  			  delete_infowindow.hide();
+        if (edit_metadata!=undefined)
+          edit_metadata.hide();
+			}
+			
+			
+			
+			
 			
 			/*======================================================================*/
 			/* Remove markers from an action performed.															*/
 			/*======================================================================*/
 			UnredoOperations.prototype.removeMarkers = function(restore_info) {
+				
+				this.hideAllOverlays();
 				
 				// Recursive function for remove markers.
 				function AsynRemoveMarkers(count, observations_data) {
