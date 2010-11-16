@@ -26,7 +26,7 @@
 		/*========================================================================================================================*/
 		RLA.prototype.download = function(format) {
 		  var dataset = new Object();
-			dataset.scientificname = this.specie_;
+			dataset.scientificname = unescape(this.specie_);
 			dataset.zoom = this.zoom;
 			dataset.center = new Object();
 			dataset.center.latitude = this.center.lat();
@@ -86,6 +86,13 @@
 				var find = false;
 				for (var j=0; j<obj.sources.length; j++) {
 					if (obj.sources[j].name == markers[i].data.kind) {
+					  
+					  for (var prop in markers[i].data) {
+  					  if (markers[i].data[prop]=='') {
+      					delete markers[i].data[prop];
+  					  }
+            }
+					  
   					delete markers[i].data.init_latlng;
 						obj.sources[j].points.push(markers[i].data);
 						find = true;
@@ -97,6 +104,13 @@
 					var new_source = new Object();
 					new_source.name = markers[i].data.kind;
 					new_source.points = [];
+					
+					for (var prop in markers[i].data) {
+					  if (markers[i].data[prop]=='') {
+    					delete markers[i].data[prop];
+					  }
+          }
+					
 					delete markers[i].data.init_latlng;
 					new_source.points.push(markers[i].data);
 					obj.sources.push(new_source);
