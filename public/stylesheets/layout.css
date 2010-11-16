@@ -368,6 +368,8 @@ div#editor div#map_container div.table div {position:relative;}
 div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/top-left-map.png) no-repeat right bottom;}
 div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url(/images/editor/top-repeat-map.png)  0 bottom;}
 div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url(/images/editor/top-right-map.png) no-repeat left bottom;}
+div#editor div#map_container div.table div.top-right-map span#beta{position:absolute; top:11px; right:11px; width:80px; height:80px; background:url(/images/editor/beta_version.png) no-repeat 0 0; z-index:1000;}
+
 div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0;}
 div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url(/images/editor/left-repeat-map.png) repeat-y -6px 0;}
 div#editor div#map_container div.table div.center-map {position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}

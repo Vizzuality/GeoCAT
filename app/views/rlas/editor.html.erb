@@ -162,7 +162,9 @@
             <div class="top-repeat-map">
               <h1 class="specie"><%= @species_name.blank? ? 'Specie not specified' : CGI::unescape(@species_name) %><sup>(unsaved)</sup></h1>
             </div>
-            <div class="top-right-map"></div>
+            <div class="top-right-map">
+              <span id="beta"></span>
+            </div>
           </div>
           <div class="center">
             <div class="left-repeat-map">

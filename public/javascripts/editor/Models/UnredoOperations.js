@@ -81,10 +81,16 @@
 					var actions_kind = this.actions[this.position].kind;
 
 					switch(actions_kind) {
-						case 'remove': 	this.removeMarkers(actions_data);
+						case 'remove': 	if (actions_count>20 && convex_hull.isVisible()) {
+                              $('a#toggle_analysis').trigger('click');
+						                }
+						                this.removeMarkers(actions_data);
 														$('#action_info span').text('Removed ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;
-						case 'add': 		this.restoreMarkers(actions_data);
+						case 'add': 		if (actions_count>20 && convex_hull.isVisible()) {
+                              $('a#toggle_analysis').trigger('click');
+						                }
+						                this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;	
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].new_.latlng);
@@ -126,10 +132,16 @@
           
 
 					switch(actions_kind) {
-						case 'remove': 	this.restoreMarkers(actions_data);
+						case 'remove': 	if (actions_count>20 && convex_hull.isVisible()) {
+                              $('a#toggle_analysis').trigger('click');
+						                }
+						                this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;
-						case 'add': 		this.removeMarkers(actions_data);
+						case 'add': 		if (actions_count>20 && convex_hull.isVisible()) {
+                              $('a#toggle_analysis').trigger('click');
+						                }
+						                this.removeMarkers(actions_data);
 														$('#action_info span').text('Removed ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].old_.latlng);

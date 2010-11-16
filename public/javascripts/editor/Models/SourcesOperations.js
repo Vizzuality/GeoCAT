@@ -76,10 +76,16 @@
 							$("#add_source_container").fadeOut();
 							$("#add_source_button").removeClass('open');
 							switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-								case 'add_flickr': 	flickr_data = flickr_founded[0];
+								case 'add_flickr': 	if (convex_hull.isVisible()) {
+                                      $('a#toggle_analysis').trigger('click');
+                                    }
+								                    flickr_data = flickr_founded[0];
 																		addSourceToMap(flickr_data,true,false);
 																	 	break;
-								case 'add_gbif':  	gbif_data = gbif_founded[0];
+								case 'add_gbif':  	if (convex_hull.isVisible()) {
+                                      $('a#toggle_analysis').trigger('click');
+                                    }
+								                    gbif_data = gbif_founded[0];
 																		addSourceToMap(gbif_data,true,false);
 																		break;
 								default: 						null;
