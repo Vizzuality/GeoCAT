@@ -1,0 +1,152 @@
+/*HTML5 CSS Reset*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {margin:0; padding:0; border:0;  font-size:100%; vertical-align:baseline; background:transparent;}
+body {line-height:1;}
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {display:block;}
+nav ul {list-style:none;}
+blockquote, q {quotes:none;}
+blockquote:before, blockquote:after,
+q:before, q:after {content:''; content:none;}
+a {margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent;}
+ins {background-color:#ff9; color:#000; text-decoration:none;}
+mark {background-color:#ff9; color:#000; font-style:italic; font-weight:bold;}
+del {text-decoration: line-through;}
+abbr[title], dfn[title] {border-bottom:1px dotted; cursor:help;}
+table {border-collapse:collapse; border-spacing:0;}
+hr {display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0;}
+input, select {vertical-align:middle;}
+
+/* PRINTED REPORT*/
+body{
+  background-color: white;
+}
+
+div#printed_report{
+  font-family: Arial;
+  margin: 0 auto;
+  width: 800px;
+}
+div#printed_report h1,
+div#printed_report h2{
+  font-size: 25px;
+  font-weight: bold;
+}
+
+div#printed_report h1.title{
+  text-transform: capitalize;
+  margin: 7px 0;
+}
+
+div#printed_report span.title.time{
+  font-size: 15px;
+  color: #999999;
+}
+
+div#printed_report div.map{
+  background-color: #484848;
+  margin: 35px 0;
+  border: 1px solid #484848;
+  width: 700px;
+  height: 526px;
+}
+
+div#printed_report div.map img{
+  width: 700px;
+  height: 490px;
+  display: block;
+}
+
+div#printed_report div.map ul{
+  list-style-type: none;
+  padding: 10px 0;
+}
+
+div#printed_report div.map ul li{
+  display: inline;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0 25px;
+  background-color: transparent;
+  background-attachment: scroll;
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+
+div#printed_report div.map ul li.flickr{
+  background-image: url(/images/print/flickr_legend.png);
+}
+div#printed_report div.map ul li.gbif{
+  padding: 0 84px;
+  background-position: 70px center;
+  background-image: url(/images/print/gbif_legend.png);
+}
+div#printed_report div.map ul li.userdata{
+  background-image: url(/images/print/userdata_legend.png);
+}
+
+div#printed_report div.EOO span,
+div#printed_report div.AOO span,
+div#printed_report div.cellsize span{
+  font-size: 13px;
+  font-weight: bold;
+  color: #999999;
+  line-height: 40px;
+}
+
+div#printed_report div.EOO h2,
+div#printed_report div.AOO h2{
+  color: #666666;
+}
+
+div#printed_report div.EOO p,
+div#printed_report div.AOO p{
+  color: #666666;
+  font-size: 17px;
+}
+div#printed_report div.AOO_cellsize{
+  overflow: hidden;
+}
+div#printed_report div.AOO{
+  float: left;
+}
+div#printed_report div.cellsize{
+  float: right;
+  margin-right: 100px;
+}
+
+div#printed_report div.cellsize h3{
+  font-weight: bold;
+  font-size: 17px;
+  color: #666666;
+}
+
+div#printed_report div.cellsize p{
+  font-size: 13px;
+  color: #666666;
+}
+
+div#printed_report hr{
+  border-color: #979797;
+  border-width: 1px;
+  width: 700px;
+  margin: 25px 0;
+}
+
+div#printed_report p.summary{
+  font-size: 13px;
+  font-weight: bold;
+  margin: 5px 0;
+}

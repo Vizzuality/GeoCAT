@@ -1,17 +1,43 @@
-<%= @rla['scientificname'] %>
-<br><br><br>
-<h2>Sources:</h2>
-<%= "Flickr: #{@flickr_points.select{|p| p['active']}.length} of #{@flickr_points.length} records used" if @flickr_points.present? %><br>
-<%= "GBIF: #{@gbif_points.select{|p| p['active']}.length} of #{@gbif_points.length} records used" if @gbif_points.present? %><br>
-<%= "User data: #{@your_points.select{|p| p['active']}.length} of #{@your_points.length} records used" if @your_points.present? %><br>
-<br><br>
+<% content_for :css do %>
+    <%= include_stylesheets :print, :media => 'all' %>
+<%- end -%>
+<div id="printed_report">
+  <h1 class="title"><%= @rla['scientificname'] %></h1>
+  <span class="title time">Published <%= Time.now.strftime('%d/%m/%Y') %></span>
 
-<h1>MAP</h1>
-<img src="http://maps.google.com/maps/api/staticmap?center=<%= @rla['center']['latitude']%>,<%= @rla['center']['longitude']%>&zoom=<%= @rla['zoom']%>&size=640x640&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
-<br><br>
+  <div class="map">
+    <img src="http://maps.google.com/maps/api/staticmap?center=<%= @rla['center']['latitude']%>,<%= @rla['center']['longitude']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
+    <ul>
+      <li class="flickr"><%= "#{@flickr_points.select{|p| p['active']}.length} of #{@flickr_points.length} flickr records" if @flickr_points.present? %></li>
+      <li class="gbif"><%= "#{@gbif_points.select{|p| p['active']}.length} of #{@gbif_points.length} gbif records" if @gbif_points.present? %></li>
+      <li class="userdata"><%= "#{@your_points.select{|p| p['active']}.length} of #{@your_points.length} user data records" if @your_points.present? %></li>
+    </ul>
+  </div>
 
-Number of collections used: <%= @collections.length %> collections with <%= @localities.length %> localities
-<br>
-<%= "EOO: #{@analysis['EOO']['result']}km2 - #{@RED_LIST_CATEGORIES[@analysis['EOO']['status'].upcase]} (#{@analysis['EOO']['status'].upcase})" if @analysis['EOO'] %><br />
-<%= "AOO: Cell width (based on EOO) #{@analysis['AOO']['cellsize']} Km: AOO number of cells #{@analysis['AOO']['grids'].length}. AOO #{@analysis['AOO']['status']} Km2 - #{@RED_LIST_CATEGORIES[@analysis['AOO']['result'].upcase]} (#{@analysis['AOO']['result'].upcase})" if @analysis['AOO'] %><br />
-Subpopulation - 7
+  <% if @analysis['EOO'] %>
+  <div class="EOO">
+    <span>EOO</span>
+    <h2><%= "#{@RED_LIST_CATEGORIES[@analysis['EOO']['status'].upcase]} (#{@analysis['EOO']['status'].upcase})" %></h2>
+    <p><%= "#{@analysis['EOO']['result']}km2" %></p>
+    <hr>
+  </div>
+  <% end %>
+  <% if @analysis['AOO'] %>
+  <div class="AOO_cellsize">
+    <div class="AOO">
+      <span>AOO</span>
+      <h2><%= "#{@RED_LIST_CATEGORIES[@analysis['AOO']['result'].upcase]} (#{@analysis['AOO']['result'].upcase})" %></h2>
+      <p><%= "#{@analysis['AOO']['status']} Km2" %></p>
+    </div>
+    <div class="cellsize">
+      <span>AOO Cell width (based on EOO)</span>
+      <h3><%= "#{@analysis['cellsize']}Km" %></h3>
+      <p><%= "#{@analysis['AOO']['grids'].length} AOO cells" %></p>
+    </div>
+  </div>
+  <hr>
+  <% end %>
+
+  <p class="summary">Used <%= @collections.length %> collections with <%= @localities.length %> localities</p>
+  <p class="summary">Report generated on <%= Time.now.strftime('%d/%m/%Y') %></p>
+</div>
