@@ -126,13 +126,13 @@
 				
 				//focusin/out search location effect
 				$('#search_location_input').focusin(function(ev){
-					if ($(this).attr('value')=='Kew gardens') {
+					if ($(this).attr('value')=='Kew gardens, London') {
 						$(this).attr('value','');
 					}
 				});
 				$('#search_location_input').focusout(function(ev){
 					if ($(this).attr('value')=='') {
-						$(this).attr('value','Kew gardens');
+						$(this).attr('value','Kew gardens, London');
 					}
 				});
 				
