@@ -53,7 +53,8 @@ class FileController < ApplicationController
         @gbif_coords   = @gbif_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
         @your_coords   = @your_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
       end
-      all_sources  = @flickr_points || [] + @gbif_points || [] + @your_points || []
+
+      all_sources  = @flickr_points + @gbif_points + @your_points
       @collections = all_sources.select{|c| c['collectionCode']}
       @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq
 
