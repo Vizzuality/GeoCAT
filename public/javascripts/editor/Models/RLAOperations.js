@@ -26,7 +26,7 @@
 		/*========================================================================================================================*/
 		RLA.prototype.download = function(format) {
 		  var dataset = new Object();
-			dataset.scientificname = this.specie_;
+			dataset.scientificname = unescape(this.specie_);
 			dataset.zoom = this.zoom;
 			dataset.center = new Object();
 			dataset.center.latitude = this.center.lat();
