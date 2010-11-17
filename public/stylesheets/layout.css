@@ -109,14 +109,14 @@ div.layout.blocks div.block div.image img {float:left;}
 
 footer {float:left; width:100%; padding:0; margin:0; background:#729900; border-top:1px solid #608800; z-index:100; height:59px;}
 footer div.inner {margin:0 auto; width:950px;}
-footer div.inner div.left {float:left;}
-footer div.inner div.left p {float:left; font:normal 13px Arial; color:#003500; padding:22px 5px 0 0;}
+footer div.inner div.left {float:left; width:500px;}
+footer div.inner div.left p {float:left; width:auto; font:normal 13px Arial; color:#003500; padding:22px 5px 0 0;}
 footer div.inner div.left p a {color:#003500;}
 footer div.inner div.left p a:hover {text-decoration:none;}
 footer div.inner div.left img {float:left; margin:12px 0 0 0;}
-footer div.inner div.right {float:right;}
-footer div.inner div.right p {float:left; font:normal 13px Arial; color:#37671C; padding:22px 5px 0 0;}
-footer div.inner div.right img {float:left; margin:7px 0 0 0;}
+footer div.inner div.right {float:right; width:200px!important;}
+footer div.inner div.right p {float:left; width:auto; font:normal 13px Arial; color:#37671C; padding:22px 5px 0 0;}
+footer div.inner div.right img {float:left; margin:7px 0 0 0; width:auto;}
 
 
 
