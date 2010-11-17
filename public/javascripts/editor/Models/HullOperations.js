@@ -37,6 +37,7 @@
 						$('div.analysis_data').stop().animate({height: '144px'}, 'fast',function(ev){$(this).css('overflow','auto');});
 						$('#analysis_help').css('background','url(/images/editor/analysis_help2.png) no-repeat -2px 0');
 					} else {
+					  $('body').unbind('click');
 						closeConvexHull();
 						$(this).addClass('disabled');
 						$(this).parent().children('h3').addClass('disabled');
@@ -75,17 +76,27 @@
 			
 				//Close Cellsize
 				$("div.cellsize a.done").click(function(){
+				  $('body').unbind('click');
 				  $('div.cellsize').fadeOut();
 				});
 			
 				//Open Cellsize
-				$("p.change a.change").livequery('click',function(){
+				$("p.change a.change").livequery('click',function(ev){
+				  ev.stopPropagation();
+				  ev.preventDefault();
+				  $('body').click(function(event) {
+  				  if (!$(event.target).closest('div.cellsize').length) {
+  				    $('div.cellsize').fadeOut();
+  						$('body').unbind('click');
+  				  };
+  				});
 				  $('div.cellsize').fadeIn();
 				  $(document).keydown(function (e) {
 						if (e.keyCode == 27) { // ESC
 							$('div.cellsize').fadeOut();
 						}
 					});
+					
 				});
 				
 				

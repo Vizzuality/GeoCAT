@@ -13,15 +13,7 @@
 		/* DOM loaded.									 																							*/
 		/*============================================================================*/
 		$(document).ready(function() {
-			
-			
-			//If you want to close the window without save
-			window.onbeforeunload = function() {
-			    // return "Save before go";
-			}
-			
-			
-			
+
 			// Trick for the background
 			$('body').css('background','url(/images/editor/bkg.jpg) 0 0');
 			
@@ -30,7 +22,6 @@
 
 			createMap();
 			startSources();
-
 
 
 			//if the application comes through an upload file

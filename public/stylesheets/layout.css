@@ -63,6 +63,7 @@ div.white_band div.inner ul li a:hover {color:#333333;}
 div.white_band div.inner ul li.selected a {color:#333333;}
 
 div.white_band div#main_container {position:absolute; bottom:30px; right:0; padding:30px 15px; width:434px; height:187px; background:url(/images/home/main_bkg.png) no-repeat 0 0; z-index:100;}
+div.white_band div#main_container span#beta{position:absolute; top:-4px; right:-4px; width:80px; height:80px; background:url(/images/editor/beta_version.png) no-repeat 0 0; z-index:1000;}
 div.white_band div#main_container label {float:left; padding:0 0 5px 15px; width:100%; font:normal 19px "Futura"; color:#BFBFBF;}
 div.white_band div#main_container form.up {position:relative; float:left; margin:0; padding:10px 12px; background:url(/images/home/form_bkg.png) no-repeat 200px 200px;}
 div.white_band div#main_container form.up input[type="text"] {float:left; width:378px; -webkit-border-radius:5px; -moz-border-radius:5px; background:url(/images/home/text_input_bkg.png) repeat-x 0 0 white; height:38px; border:none; font:normal 15px Arial; color:#999999; padding:0 15px; z-index:10000000;}
