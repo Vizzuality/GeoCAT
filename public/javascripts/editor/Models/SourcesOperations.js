@@ -34,8 +34,27 @@
 								  merge_object.importPoints(responseJSON.data.sources);
 								});
 							} else {
-								//If scientific names are different or there are errors
-								//TODO show ERRORS
+							  if (responseJSON.format!="csv") {
+							    $('span.import').parent().addClass('error');
+							    $('span.import a.delete').hide();
+							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
+							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('color','white');
+							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('background','url(/images/editor/fail.png) no-repeat 0 1px');
+							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('padding','0 0 0 14px');
+							    $('span.import a.retry').addClass('enabled');
+							    $('span.import a.retry').show();
+							    $('span.import a.retry').click(function(ev){
+  								  closeSources();
+							    });
+							    
+							    $('span.import a.import_data').addClass('enabled');
+							    $('span.import a.import_data').text('retry');
+							    $('span.import a.import_data').click(function(ev){
+  								  resetUploader();
+							    });
+							  }  else {
+							    //TODO with CSV files
+							  }
 							}
 						},
 						onCancel: function(id, fileName){},
@@ -150,6 +169,16 @@
 			/* Reset properties of uploader.															 								*/
 			/*============================================================================*/	
 			function resetUploader() {
+			  $('span.import').parent().removeClass('error');
+		    $('span.import a.delete').hide();
+		    $('span.import a.retry').removeClass('enabled');
+		    $('span.import a.retry').hide();
+		    $('span.import a.retry').unbind('click');
+		    
+		    $('span.import a.import_data').removeClass('enabled');
+		    $('span.import a.import_data').text('merge');
+		    $('span.import a.import_data').unbind('click');
+			  
 				$('.qq-upload-button').show();
 				$('.qq-upload-list li').remove();
 				$('.qq-upload-list').append('<li>Select a file</li>');

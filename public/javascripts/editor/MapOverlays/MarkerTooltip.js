@@ -149,7 +149,7 @@
 				precision.style.margin = "0";
 				precision.style.font = "bold 10px Arial";
 				precision.style.color = "#F4A939";
-				$(precision).text(this.inf.accuracy+'KM');
+				$(precision).text(this.inf.coordinateUncertaintyInMeters+'KM');
 				div.appendChild(precision);
 				
 				var precision_slider = document.createElement('div');
@@ -255,12 +255,12 @@
 		
 				$("div#precision_slider").slider({
 					range: "min",
-					value: me.inf.accuracy,
+					value: me.inf.coordinateUncertaintyInMeters,
 					min: 1,
 					max: 50,
 					slide: function(event, ui) {
 						_markers[me.marker_id].set('distance',ui.value*1000);
-						_markers[me.marker_id].data.accuracy = ui.value;
+						_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value;
 						$(div).find('p.precision').html(ui.value + 'KM');
 					}
 				});
@@ -329,10 +329,10 @@
 			}	
 	
 			$(div).find('p.longitude').html((this.latlng_.lng()).toFixed(0)+'<sup style="color: rgb(102, 102, 102); font: normal normal normal 15px/normal Georgia; ">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
-			$(div).find('p.accuracy').text(this.inf.accuracy+'km aprox.');
+			$(div).find('p.accuracy').text(this.inf.coordinateUncertaintyInMeters+'km aprox.');
 			$(div).find('p.collector').text(this.inf.collector);
-			$(div).find('p.precision').text(this.inf.accuracy+'KM');
-			$("div#precision_slider").slider({value: this.inf.accuracy});
+			$(div).find('p.precision').text(this.inf.coordinateUncertaintyInMeters+'KM');
+			$("div#precision_slider").slider({value: this.inf.coordinateUncertaintyInMeters});
 				
 			this.moveMaptoOpen();	
 			

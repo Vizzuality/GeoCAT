@@ -145,7 +145,7 @@
 	
 				var circle = new google.maps.Circle({
 					map: marker_map,
-					radius: item.accuracy*1000,
+					radius: item.coordinateUncertaintyInMeters*1000,
 					strokeColor: color,
 					strokeOpacity: 0.3,
 					strokeWeight: 1,
@@ -154,7 +154,7 @@
 					clickable: false
 				});
 		
-				marker.set('distance', marker.data.accuracy*1000);
+				marker.set('distance', marker.data.coordinateUncertaintyInMeters*1000);
 				marker.set('opacity', 0.3);
 	
 				circle.bindTo('map', marker);

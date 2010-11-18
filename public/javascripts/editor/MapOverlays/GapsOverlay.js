@@ -69,7 +69,7 @@
 					max: 50,
 					slide: function(event, ui) {
 					  _markers[me.marker_id].set('distance',ui.value*1000);
-  					_markers[me.marker_id].data.accuracy = ui.value;
+  					_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value;
   					$(div).find('div.slider_top p').html(ui.value + 'KM');
 					}
 				});
@@ -120,27 +120,27 @@
     	var div = this.div_;
     	this.inf = opt;
 
-      $("div.metadata div.slider").slider('value',this.inf.accuracy);
-      $(div).find('div.slider_top p').html(this.inf.accuracy + 'KM');
+      $("div.metadata div.slider").slider('value',this.inf.coordinateUncertaintyInMeters);
+      $(div).find('div.slider_top p').html(this.inf.coordinateUncertaintyInMeters + 'KM');
 			
     	
     	$('#metadata_latitude').attr('value',this.latlng_.lat().toFixed(2));
     	$('#metadata_longitude').attr('value',this.latlng_.lng().toFixed(2)); 
-    	(this.inf.collection_code!=undefined)?$('#metadata_collection').attr('value',this.inf.collection_code):''; 
-			(this.inf.institution_code!=undefined)?$('#metadata_institution').attr('value',this.inf.institution_code):'';
-			(this.inf.catalog_numer!=undefined)?$('#metadata_catalog').attr('value',this.inf.catalog_numer):'';
-			(this.inf.basis_record!=undefined)?$('#metadata_basis').attr('value',this.inf.basis_record):'';
-			(this.inf.collector!=undefined)?$('#metadata_collector').attr('value',this.inf.collector):'';
-			(this.inf.date_collected!=undefined)?$('#metadata_date').attr('value',this.inf.date_collected):'';
+    	(this.inf.collectionCode!=undefined)?$('#metadata_collection').attr('value',this.inf.collectionCode):''; 
+			(this.inf.institutionCode!=undefined)?$('#metadata_institution').attr('value',this.inf.institutionCode):'';
+			(this.inf.catalogNumber!=undefined)?$('#metadata_catalog').attr('value',this.inf.catalogNumber):'';
+			(this.inf.basisOfRecord!=undefined)?$('#metadata_basis').attr('value',this.inf.basisOfRecord):'';
+			(this.inf.recordedBy!=undefined)?$('#metadata_collector').attr('value',this.inf.recordedBy):'';
+			(this.inf.eventDate!=undefined)?$('#metadata_date').attr('value',this.inf.eventDate):'';
 			(this.inf.country!=undefined)?$('#metadata_country').attr('value',this.inf.country):'';
-			(this.inf.state!=undefined)?$('#metadata_state').attr('value',this.inf.state):'';
+			(this.inf.stateProvince!=undefined)?$('#metadata_state').attr('value',this.inf.stateProvince):'';
 			(this.inf.county!=undefined)?$('#metadata_county').attr('value',this.inf.county):'';
-			(this.inf.altitude!=undefined)?$('#metadata_altitude').attr('value',this.inf.altitude):'';
+			(this.inf.verbatimElevation!=undefined)?$('#metadata_altitude').attr('value',this.inf.verbatimElevation):'';
 			(this.inf.locality!=undefined)?$('#metadata_locality').attr('value',this.inf.locality):'';
-			(this.inf.precission!=undefined)?$('#metadata_precission').attr('value',this.inf.precission):'';
-			(this.inf.identifier!=undefined)?$('#metadata_identifier').attr('value',this.inf.identifier):'';
-			(this.inf.gbif_notes!=undefined)?$('#metadata_gbif').attr('value',this.inf.gbif_notes):'';
-			(this.inf.url!=undefined)?$('#metadata_url').attr('value',this.inf.url):'';
+			(this.inf.coordinateUncertaintyText!=undefined)?$('#metadata_precission').attr('value',this.inf.coordinateUncertaintyText):'';
+			(this.inf.identifiedBy!=undefined)?$('#metadata_identifier').attr('value',this.inf.identifiedBy):'';
+			(this.inf.occurrenceRemarks!=undefined)?$('#metadata_gbif').attr('value',this.inf.occurrenceRemarks):'';
+			(this.inf.occurrenceDetails!=undefined)?$('#metadata_url').attr('value',this.inf.occurrenceDetails):'';
 
     	
       this.moveMaptoOpen();
@@ -157,44 +157,44 @@
     
     GapsOverlay.prototype.save = function() {
       
-      if (($('#metadata_collection').attr('value')!=this.inf.collection_code) || ($('#metadata_institution').attr('value')!=this.inf.institution_code) || ($('#metadata_catalog').attr('value')!=this.inf.catalog_numer)
-        || ($('#metadata_basis').attr('value')!=this.inf.basis_record) || ($('#metadata_collector').attr('value')!=this.inf.collector) || ($('#metadata_date').attr('value')!=this.inf.date_collected)
-        || ($('#metadata_country').attr('value')!=this.inf.country) || ($('#metadata_state').attr('value')!=this.inf.state) || ($('#metadata_county').attr('value')!=this.inf.county)
-        || ($('#metadata_altitude').attr('value')!=this.inf.altitude) || ($('#metadata_locality').attr('value')!=this.inf.locality) || ($('#metadata_precission').attr('value')!=this.inf.precission)
-        || ($('#metadata_identifier').attr('value')!=this.inf.identifier) || ($('#metadata_gbif').attr('value')!=this.inf.gbif_notes) || ($('#metadata_url').attr('value')!=this.inf.url)) {
+      if (($('#metadata_collection').attr('value')!=this.inf.collectionCode) || ($('#metadata_institution').attr('value')!=this.inf.institutionCode) || ($('#metadata_catalog').attr('value')!=this.inf.catalogNumber)
+        || ($('#metadata_basis').attr('value')!=this.inf.basisOfRecord) || ($('#metadata_collector').attr('value')!=this.inf.recordedBy) || ($('#metadata_date').attr('value')!=this.inf.eventDate)
+        || ($('#metadata_country').attr('value')!=this.inf.country) || ($('#metadata_state').attr('value')!=this.inf.stateProvince) || ($('#metadata_county').attr('value')!=this.inf.county)
+        || ($('#metadata_altitude').attr('value')!=this.inf.verbatimElevation) || ($('#metadata_locality').attr('value')!=this.inf.locality) || ($('#metadata_precission').attr('value')!=this.inf.coordinateUncertaintyText)
+        || ($('#metadata_identifier').attr('value')!=this.inf.identifiedBy) || ($('#metadata_gbif').attr('value')!=this.inf.occurrenceRemarks) || ($('#metadata_url').attr('value')!=this.inf.occurrenceDetails)) {
         
           var old_data = new Object();
-          old_data.collection_code = this.inf.collection_code; 
-    			old_data.institution_code = this.inf.institution_code;
-    			old_data.catalog_numer = this.inf.catalog_numer;
-    			old_data.basis_record = this.inf.basis_record;
-    			old_data.collector = this.inf.collector;
-    			old_data.date_collected = this.inf.date_collected;
+          old_data.collectionCode = this.inf.collectionCode; 
+    			old_data.institutionCode = this.inf.institutionCode;
+    			old_data.catalogNumber = this.inf.catalogNumber;
+    			old_data.basisOfRecord = this.inf.basisOfRecord;
+    			old_data.recordedBy = this.inf.recordedBy;
+    			old_data.eventDate = this.inf.eventDate;
     			old_data.country = this.inf.country;
-    			old_data.state = this.inf.state;
+    			old_data.stateProvince = this.inf.stateProvince;
     			old_data.county = this.inf.county;
-    			old_data.altitude = this.inf.altitude;
+    			old_data.verbatimElevation = this.inf.verbatimElevation;
     			old_data.locality = this.inf.locality;
-    			old_data.precission = this.inf.precission;
-    			old_data.identifier = this.inf.identifier;
-    			old_data.gbif_notes = this.inf.gbif_notes;
-    			old_data.url = this.inf.url;
+    			old_data.coordinateUncertaintyText = this.inf.coordinateUncertaintyText;
+    			old_data.identifiedBy = this.inf.identifiedBy;
+    			old_data.occurrenceRemarks = this.inf.occurrenceRemarks;
+    			old_data.occurrenceDetails = this.inf.occurrenceDetails;
           
-        	this.inf.collection_code = $('#metadata_collection').attr('value'); 
-    			this.inf.institution_code = $('#metadata_institution').attr('value');
-    			this.inf.catalog_numer = $('#metadata_catalog').attr('value');
-    			this.inf.basis_record = $('#metadata_basis').attr('value');
-    			this.inf.collector = $('#metadata_collector').attr('value');
-    			this.inf.date_collected = $('#metadata_date').attr('value');
+        	this.inf.collectionCode = $('#metadata_collection').attr('value'); 
+    			this.inf.institutionCode = $('#metadata_institution').attr('value');
+    			this.inf.catalogNumber = $('#metadata_catalog').attr('value');
+    			this.inf.basisOfRecord = $('#metadata_basis').attr('value');
+    			this.inf.recordedBy = $('#metadata_collector').attr('value');
+    			this.inf.eventDate = $('#metadata_date').attr('value');
     			this.inf.country = $('#metadata_country').attr('value');
-    			this.inf.state = $('#metadata_state').attr('value');
+    			this.inf.stateProvince = $('#metadata_state').attr('value');
     			this.inf.county = $('#metadata_county').attr('value');
-    			this.inf.altitude = $('#metadata_altitude').attr('value');
+    			this.inf.verbatimElevation = $('#metadata_altitude').attr('value');
     			this.inf.locality = $('#metadata_locality').attr('value');
-    			this.inf.precission = $('#metadata_precission').attr('value');
-    			this.inf.identifier = $('#metadata_identifier').attr('value');
-    			this.inf.gbif_notes = $('#metadata_gbif').attr('value');
-    			this.inf.url = $('#metadata_url').attr('value');
+    			this.inf.coordinateUncertaintyText = $('#metadata_precission').attr('value');
+    			this.inf.identifiedBy = $('#metadata_identifier').attr('value');
+    			this.inf.occurrenceRemarks = $('#metadata_gbif').attr('value');
+    			this.inf.occurrenceDetails = $('#metadata_url').attr('value');
           
           _markers[this.marker_id].data = this.inf;
           this.hide();

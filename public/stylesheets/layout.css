@@ -317,10 +317,10 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url(/images/editor/loader_source.gif) no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.loaded {background:url(/images/editor/ok_loaded.png) no-repeat 9px 9px #EBF7D6; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.imported {background:url(/images/editor/ok_loaded.png) no-repeat 9px 22px #A9C07C; color:white;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.retry {float:left; margin:0 0 0 7px; display:none;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a {float:right; background:none; width:auto; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.retry {float:left; margin:3px 0 0 5px; width:auto; display:none; color:#333333;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {float:right; background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.inner {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.inner a.browse {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block;}
@@ -334,6 +334,13 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
+
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected.error {background:#F9C6C7;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected.error span div.inner {background:#F87174;}
+
+
+
+
 /*jquery uploader*/
 div#uploader .qq-uploader {position:relative; width:100%; padding:0; margin:0; background:none;}
 div#uploader .qq-upload-button {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block; text-indent:-9999px;}

@@ -79,7 +79,7 @@ class RlatData
           'latitude'     => file.latitude,
           'longitude'    => file.longitude,
           'collector'    => file.collector,
-          'accuracy'     => file.accuracy,
+          'accuracy'     => file.coordinateUncertaintyInMeters,
           'description'  => file.description,
           'catalogue_id' => file.catalogue_id
         })
