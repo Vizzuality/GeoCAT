@@ -17,7 +17,7 @@ class GbifController < ApplicationController
 
           gbif_url = URI.escape(
             "http://de.mirror.gbif.org/ws" +
-            "/rest/Occurrence/list?georeferencedonly=true" +
+            "/rest/Occurrence/list?georeferencedonly=true&format=darwin" +
             "&maxresults=200&coordinateissues=false&scientificname=#{q}"
           )
           open(gbif_url) {|f| @list =  f.read }
@@ -33,14 +33,47 @@ class GbifController < ApplicationController
           points = []
 
           (0..@total_returned - 1).each do |node|
-
-            @catalogNumber = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:catalogNumber")[node].text
-            @gbifKey = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence")[node].attr('gbifKey')
-            @latitude = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:decimalLatitude")[node].text.to_f
-            @longitude = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:decimalLongitude")[node].text.to_f
+            
+            @institutionCode          = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:institutionCode")[node].try(:text)
+            @collectionCode           = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:collectionCode")[node].try(:text)
+            @catalogNumber            = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:catalogNumber")[node].try(:text)
+            @basisOfRecord            = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:basisOfRecordString")[node].try(:text)
+            @recordedBy               = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:collector")[node].try(:text)
+            @eventDate                = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:earliestDateCollected")[node].try(:text)
+            @country                  = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:country")[node].try(:text)
+            @stateProvince            = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:stateProvince")[node].try(:text)
+            @county                   = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:county")[node].try(:text)
+            @verbatimElevation        = ""
+            @locality                 = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:locality")[node].try(:text)
+            @coordinateUncertaintyInMeters = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:coordinateUncertaintyInMeters")[node].try(:text)
+            @identifiedBy             = ""
+            @occurrenceRemarks        = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:gbifNotes")[node].try(:text)
+            @occurrenceDetails        = ""
+            
+            
+            @gbifKey                  = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence")[node].attr('gbifKey')
+            @latitude                 = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:decimalLatitude")[node].text.to_f
+            @longitude                = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence/to:decimalLongitude")[node].text.to_f
+            
+            
 
             points << {"latitude"=> @latitude,"longitude"=> @longitude,
-              "accuracy"=>"5","collector"=>@gbifKey,"active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @catalogNumber + "","kind"=>"gbif","description" => "description"}
+              "institutionCode"=>@institutionCode,
+              "collectionCode"=>@collectionCode,
+              "catalogNumber"=>@catalogNumber,
+              "basisOfRecord"=>@basisOfRecord,
+              "recordedBy"=>@recordedBy,
+              "eventDate" =>@eventDate,
+              "country"=>@country,
+              "stateProvince"=>@stateProvince,
+              "county"=>@county,
+              "verbatimElevation"=>@verbatimElevation,
+              "locality"=>@locality,
+              "coordinateUncertaintyInMeters"=>@coordinateUncertaintyInMeters,
+              "identifiedBy"=>@identifiedBy,
+              "occurrenceRemarks"=>@occurrenceRemarks,
+              "occurrenceDetails"=>@occurrenceDetails,
+              "accuracy"=>"15","collector"=>@gbifKey,"active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @catalogNumber + "","kind"=>"gbif","description" => "description"}
           end
 
           @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]
