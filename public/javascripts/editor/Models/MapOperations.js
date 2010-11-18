@@ -437,7 +437,7 @@
 					
 					if (item_data == null) {
 						var inf = new Object();
-						inf.accuracy = 15;
+						inf.coordinateUncertaintyInMeters = 15;
 						inf.active = true;
 						inf.kind = 'your';
 						inf.description = "";
@@ -445,24 +445,6 @@
 						inf.catalogue_id = 'your_' + global_id;
 						inf.latitude = latlng.lat();
 						inf.longitude = latlng.lng();
-						
-						inf.collection_code = '';
-						inf.institution_code = '';
-						inf.catalog_numer = '';
-						inf.basis_record = '';
-						inf.collector = '';
-						inf.date_collected = '';
-						inf.country = '';
-						inf.state = '';
-						inf.county = '';
-						inf.altitude = '';
-						inf.locality = '';
-						inf.precission = '';
-						inf.identifier = '';
-						inf.gbif_notes = '';
-						inf.url = '';
-
-						
 						var marker = CreateMarker(latlng, 'your', false, false, inf, map);
 					} else {
 						var marker = CreateMarker(latlng, 'your', false, false, item_data, map);

@@ -73,7 +73,7 @@ class GbifController < ApplicationController
               "identifiedBy"=>@identifiedBy,
               "occurrenceRemarks"=>@occurrenceRemarks,
               "occurrenceDetails"=>@occurrenceDetails,
-              "accuracy"=>"15","collector"=>@gbifKey,"active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @catalogNumber + "","kind"=>"gbif","description" => "description"}
+              "coordinateUncertaintyInMeters"=>"15","collector"=>@gbifKey,"active"=>true,"removed"=>false,"catalogue_id"=>"gbif_" + @catalogNumber + "","kind"=>"gbif","description" => "description"}
           end
 
           @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]
