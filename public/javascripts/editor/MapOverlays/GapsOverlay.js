@@ -83,6 +83,14 @@
   					event.cancelBubble=true;
   				}; 
   		  });
+  		  
+  		  google.maps.event.addDomListener(div,'dblclick',function(ev){ 
+  		    try{
+  					ev.stopPropagation();
+  				}catch(e){
+  					event.cancelBubble=true;
+  				}; 
+  		  });
       }
       
 

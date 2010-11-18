@@ -446,7 +446,7 @@ div#map_container div.footer div.right a:hover {background-position:0 -32px; cur
 div.metadata {width:326px!important; height:515px!important; padding:22px 22px 0 33px!important; margin:0;}
 div.metadata a.close {position:absolute; right:1px; top:1px; width:21px; height:21px; cursor:pointer; background:url(/images/editor/close_infowindow.png) no-repeat 0 0;}
 div.metadata h3 {float:left; margin:0 0 11px 0; font:bold 11px Arial; color:#666666;}
-div.metadata div span label {float:left; margin:0 0 2px 2px; font:normal 10px Arial; color:#888888;}
+div.metadata div span label {float:left; margin:0 0 2px 2px; font:normal 10px Arial; color:#888888; line-height:11px;}
 div.metadata div.three_gaps {float:left; width:100%; margin:7px 0 0 0;}
 div.metadata div.three_gaps span {float:left; width:102px; margin:0 10px 0 0;}
 div.metadata div.three_gaps span input {float:left; width:90px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_short.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
