@@ -35,6 +35,7 @@
 			this.addMarkers(dataset,this.markers_);
 			
 			var analysis = new Object();
+			
 			// Send analysis if it is visible
 			if (convex_hull.isVisible()) {
 			  dataset.analysis = new Object();
@@ -50,12 +51,10 @@
 			    analysis.EOO.convex_hull.push({latitude:point.lat(), longitude:point.lng()});
 			  }
 			  
-			  
 			  analysis.AOO = new Object();
 			  analysis.AOO.status = convex_hull.AOOkind;
 			  analysis.AOO.result = convex_hull.AOO;
 			  analysis.AOO.grids = [];
-			  
 			  
 			  for (var id in convex_hull.Cells) {
   			  
@@ -88,7 +87,7 @@
 					if (obj.sources[j].name == markers[i].data.kind) {
 					  
 					  for (var prop in markers[i].data) {
-  					  if (markers[i].data[prop]=='') {
+  					  if (markers[i].data[prop]=='' || markers[i].data[prop]==null) {
       					delete markers[i].data[prop];
   					  }
             }
@@ -106,7 +105,7 @@
 					new_source.points = [];
 					
 					for (var prop in markers[i].data) {
-					  if (markers[i].data[prop]=='') {
+					  if (markers[i].data[prop]=='' || markers[i].data[prop]==null) {
     					delete markers[i].data[prop];
 					  }
           }
