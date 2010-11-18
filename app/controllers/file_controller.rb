@@ -1,10 +1,5 @@
 class FileController < ApplicationController
-  verify  :only => :download,
-          :params => [:format, :rla],
-          :flash => {
-            :error => 'There were a problem downloading the file'
-          },
-          :redirect_to => {:controller => 'main', :action => 'index'}
+  before_filter :verify_download_params, :only => :download
 
   @@RED_LIST_CATEGORIES = {
     'EX' => 'Extinct',
@@ -83,6 +78,14 @@ class FileController < ApplicationController
     @rlat_json = rlat.to_json
     render :template => 'rlas/editor'
   end
+
+  private
+    def verify_download_params
+      if params[:format].blank? && params[:rla]
+        flash[:error] = 'There were a problem downloading the file'
+        redirect_to :controller => 'main', :action => 'index'
+      end
+    end
 
 end
 

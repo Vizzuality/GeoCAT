@@ -4,9 +4,6 @@ class RlatData
   attr_accessor :scientificname, :zoom, :center, :analysis, :format, :sources
   attr_writer :warnings
 
-  validates_presence_of :scientificname
-  validates_presence_of :zoom
-  validates_presence_of :center
   validates_presence_of :sources
   validate :sources_must_be_valid
 
@@ -19,7 +16,7 @@ class RlatData
       begin
         process_as_csv file
       rescue
-        errors.add(:file, ' JSON is not valid')
+        errors.add(:file, ' ƒile is not valid')
       end
     end
   end
@@ -61,42 +58,44 @@ class RlatData
       csv = CsvMapper.import(file.path) do
         read_attributes_from_file
       end
+      return if csv.blank?
 
-      self.scientificname = csv.first.scientificname
-      self.zoom           = csv.first.zoom
+      self.scientificname = csv.first.scientificname if csv.first.respond_to?(:scientificname)
+      self.zoom           = csv.first.zoom if csv.first.respond_to?(:zoom)
       self.format         = 'csv'
       self.center         = {
-        "latitude" => csv.first.center_latitude,
-        "longitude" => csv.first.center_longitude
+        "latitude"  => csv.first.respond_to?(:center_latitude) ? csv.first.center_latitude : nil,
+        "longitude" => csv.first.respond_to?(:center_longitude) ? csv.first.center_longitude : nil
       }
       self.sources        = [{
         'name'   => 'csv',
         'points' => []
       }]
-      csv.each do |file|
+      csv.each do |row|
         self.sources.first['points'].push({
-          'kind'         => file.kind,
-          'latitude'     => file.latitude,
-          'longitude'    => file.longitude,
-          'collector'    => file.collector,
-          'accuracy'     => file.coordinateUncertaintyInMeters,
-          'description'  => file.description,
-          'catalogue_id' => file.catalogue_id
+          'kind'         => 'your',
+          'latitude'     => row.respond_to?(:latitude) ? row.latitude : nil,
+          'longitude'    => row.respond_to?(:longitude) ? row.longitude : nil,
+          'collector'    => row.respond_to?(:collectioncode) ? row.collectioncode : nil,
+          'accuracy'     => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil,
+          'catalogue_id' => row.respond_to?(:catalognumber) ? row.catalognumber : nil
         })
       end
     end
 
     def sources_must_be_valid
+      invalid_points = []
       if self.sources.present?
         self.sources.each do |source|
           errors.add(:sources, 'are not valid') and return if source['name'].blank? || source['points'].blank?
           source['points'].each do |point|
-            if point['kind'].blank?        ||
-               point['latitude'].blank?    ||
-               point['longitude'].blank?   ||
-               point['catalogue_id'].blank?
-                errors.add(:sources, 'are not valid') and return
+            if point['latitude'].blank? || point['longitude'].blank?
+               invalid_points.push(point)
             end
+          end
+          if invalid_points.present?
+            source['points'] = source['points'] - invalid_points
+            warnings.push(:sources, "#{invalid_points.length} records were not imported because they were missing mandatory fields.")
           end
           removed_dupes = Hash[source['points'].map{|x| [x['catalogue_id'], x]}].values
           if source['points'].length > removed_dupes.length
