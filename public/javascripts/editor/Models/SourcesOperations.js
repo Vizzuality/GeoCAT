@@ -26,7 +26,6 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON){
-							console.log(responseJSON);
 							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
 								$('span.import a.import_data').addClass('enabled');
 								merge_object = new MergeOperations([]);
@@ -38,7 +37,7 @@
 							  if (responseJSON.format!="csv") {
 							    $('span.import').parent().addClass('error');
 							    $('span.import a.delete').hide();
-							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('Error Uploading');
+							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
 							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('color','white');
 							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('background','url(/images/editor/fail.png) no-repeat 0 1px');
 							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('padding','0 0 0 14px');
