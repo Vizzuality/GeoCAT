@@ -1,7 +1,7 @@
 class RlatData
   include ActiveModel::Validations
 
-  attr_accessor :scientificname, :zoom, :center, :analysis, :sources
+  attr_accessor :scientificname, :zoom, :center, :analysis, :format, :sources
   attr_writer :warnings
 
   validates_presence_of :scientificname
@@ -32,6 +32,7 @@ class RlatData
   def to_json
     {
       :success => valid?,
+      :format => format,
       :data => {
         :scientificname => scientificname,
         :zoom => zoom,
@@ -50,8 +51,9 @@ class RlatData
 
       self.scientificname = json['scientificname']
       self.zoom           = json['zoom']
+      self.format         = 'rla'
       self.center         = json['center']
-      self.analysis        = json['analysis']
+      self.analysis       = json['analysis']
       self.sources        = json['sources']
     end
 
@@ -62,6 +64,7 @@ class RlatData
 
       self.scientificname = csv.first.scientificname
       self.zoom           = csv.first.zoom
+      self.format         = 'csv'
       self.center         = {
         "latitude" => csv.first.center_latitude,
         "longitude" => csv.first.center_longitude
