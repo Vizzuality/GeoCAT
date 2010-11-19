@@ -1,5 +1,6 @@
 class FileController < ApplicationController
   before_filter :verify_download_params, :only => :download
+  before_filter :verify_upload_extension, :only => :upload
 
   @@RED_LIST_CATEGORIES = {
     'EX' => 'Extinct',
@@ -87,6 +88,13 @@ class FileController < ApplicationController
       end
     end
 
+    def verify_upload_extension
+      file_path = params[:file].original_filename if params[:file] && params[:file].respond_to?(:original_filename)
+      if file_path.blank? || (not file_path.match(/^.*\.rla$/))
+        flash[:error] = 'Invalid file type. You must provide a valid RLA file.'
+        redirect_to :controller => 'main', :action => 'index'
+      end
+    end
 end
 
 def filename_escape(string)
