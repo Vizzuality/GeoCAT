@@ -16,7 +16,7 @@ class RlatData
       begin
         process_as_csv file
       rescue
-        errors.add(:file, ' ƒile is not valid')
+        errors.add(:file, 'file is not valid')
       end
     end
   end
@@ -55,7 +55,10 @@ class RlatData
     end
 
     def process_as_csv(file)
-      csv = CsvMapper.import(file.path) do
+      options = {}
+      options[:type] = :io and file.rewind if file.is_a?(StringIO)
+
+      csv = CsvMapper.import(file.path || file, options) do
         read_attributes_from_file
       end
       return if csv.blank?
