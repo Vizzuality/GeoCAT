@@ -19,14 +19,28 @@ class FlickrController < ApplicationController
         FlickRaw.shared_secret="35b1704d1c3e1e6d"
         
         frob = flickr.auth.getFrob
-        @list = flickr.photos.search(:tags=>name_specie,:extras=>'geo,tags', :has_geo=>'1', :per_page => '50')
+        @list = flickr.photos.search(:text=>name_specie,:extras=>'geo,tags,owner_name,machine_tags,description', :has_geo=>'1', :per_page => '50')
 
         # Filtering the json answer
          json_only = []
          @list.each do |photo|
-           
-           json_only << {:latitude => photo.latitude.to_s, :longitude => photo.longitude.to_s, :coordinateUncertaintyInMeters => photo.accuracy, "collector" => "111", "active" => true, "removed" => false,
-             "catalogue_id" => "flickr_" + photo.id, "kind" => "flickr", "description" => "description"}
+           # info = flickr.photos.getInfo(:photo_id => photo.id)
+           # username = info.owner.realname
+           # if (!username)
+           #   username = info.owner.username
+           # end
+                
+           json_only << {:latitude => photo.latitude.to_s, 
+                        :longitude => photo.longitude.to_s, 
+                        :coordinateUncertaintyInMeters => photo.accuracy, 
+                        "occurrenceDetails"=>FlickRaw.url_photopage(photo),
+                        "collector" => photo.ownername, 
+                        "active" => true, 
+                        "removed" => false,
+                        "catalogue_id" => "flickr_" + photo.id, 
+                        "kind" => "flickr", 
+                        "description" => photo.title + " / " + photo.description
+                        }
          end
          
          @json_head = [{"id"=>"flickr_id","name"=>"flickr","points"=>json_only, "specie"=> name_specie, "zoom"=>"3"}]
