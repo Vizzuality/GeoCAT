@@ -76,6 +76,8 @@ class FileController < ApplicationController
 
     render :json => rlat.to_json and return if params[:qqfile] && request.xhr?
 
+    invalid_rla_file and return if params[:file] && (not rlat.valid?)
+
     @rlat_json = rlat.to_json
     render :template => 'rlas/editor'
   end
@@ -90,10 +92,12 @@ class FileController < ApplicationController
 
     def verify_upload_extension
       file_path = params[:file].original_filename if params[:file] && params[:file].respond_to?(:original_filename)
-      if file_path && (not file_path.match(/^.*\.rla$/))
-        flash[:error] = 'Invalid file type. You must provide a valid RLA file.'
-        redirect_to :controller => 'main', :action => 'index'
-      end
+      invalid_rla_file if file_path && (not file_path.match(/^.*\.rla$/))
+    end
+
+    def invalid_rla_file
+      flash[:error] = 'Invalid file type. You must provide a valid RLA file.'
+      redirect_to :controller => 'main', :action => 'index'
     end
 end
 
