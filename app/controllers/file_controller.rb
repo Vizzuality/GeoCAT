@@ -90,7 +90,7 @@ class FileController < ApplicationController
 
     def verify_upload_extension
       file_path = params[:file].original_filename if params[:file] && params[:file].respond_to?(:original_filename)
-      if file_path.blank? || (not file_path.match(/^.*\.rla$/))
+      if file_path && (not file_path.match(/^.*\.rla$/))
         flash[:error] = 'Invalid file type. You must provide a valid RLA file.'
         redirect_to :controller => 'main', :action => 'index'
       end
