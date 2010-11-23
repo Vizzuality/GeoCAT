@@ -10,7 +10,7 @@ class GbifController < ApplicationController
       
       require 'open-uri'
       
-      gbif_mirrors = %w(data.gbif.org es.mirror.gbif.org de.mirror.gbif.org)
+      gbif_mirrors = %w(de.mirror.gbif.org us.mirror.gbif.org es.mirror.gbif.org data.gbif.org)
       
       gbif_mirrors.each do |mirror|
         begin
@@ -19,7 +19,6 @@ class GbifController < ApplicationController
             "/rest/Occurrence/list?georeferencedonly=true&format=darwin" +
             "&maxresults=200&coordinateissues=false&scientificname=#{q}"
           )
-          puts "trying #{gbif_url}"
           open(gbif_url) {|f| @list =  f.read }
           break
         rescue Exception=>e
@@ -29,7 +28,6 @@ class GbifController < ApplicationController
       doc = Nokogiri::XML(@list)
       
       points = []
-
       doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence").each do |node|
                     
         @institutionCode          = node.xpath("to:institutionCode").text
@@ -53,28 +51,26 @@ class GbifController < ApplicationController
         @latitude                 = node.xpath("to:decimalLatitude").text.to_f
         @longitude                = node.xpath("to:decimalLongitude").text.to_f
         
-        if (@institutionCode =="LSUMZ" and @collectionCode=="Mammals" and @catalogNumber=="4115")
-          points << {"latitude"=> @latitude,"longitude"=> @longitude,
-            "institutionCode"=>@institutionCode,
-            "collectionCode"=>@collectionCode,
-            "catalogNumber"=>@catalogNumber,
-            "basisOfRecord"=>@basisOfRecord,
-            "recordedBy"=>@recordedBy,
-            "eventDate" =>@eventDate,
-            "country"=>@country,
-            "stateProvince"=>@stateProvince,
-            "county"=>@county,
-            "verbatimElevation"=>@verbatimElevation,
-            "locality"=>@locality,
-            "coordinateUncertaintyInMeters"=>@coordinateUncertaintyInMeters,
-            "identifiedBy"=>@identifiedBy,
-            "occurrenceRemarks"=>@occurrenceRemarks,
-            "occurrenceDetails"=>@occurrenceDetails,
-            "coordinateUncertaintyInMeters"=>"15","collector"=>@gbifKey,"active"=>true,"removed"=>false,
-            "catalogue_id"=>"gbif_#{@institutionCode}-#{@collectionCode}-#{@catalogNumber}",
-            "kind"=>"gbif",
-            "description" => ""}
-        end
+        points << {"latitude"=> @latitude,"longitude"=> @longitude,
+          "institutionCode"=>@institutionCode,
+          "collectionCode"=>@collectionCode,
+          "catalogNumber"=>@catalogNumber,
+          "basisOfRecord"=>@basisOfRecord,
+          "recordedBy"=>@recordedBy,
+          "eventDate" =>@eventDate,
+          "country"=>@country,
+          "stateProvince"=>@stateProvince,
+          "county"=>@county,
+          "verbatimElevation"=>@verbatimElevation,
+          "locality"=>@locality,
+          "coordinateUncertaintyInMeters"=>@coordinateUncertaintyInMeters,
+          "identifiedBy"=>@identifiedBy,
+          "occurrenceRemarks"=>@occurrenceRemarks,
+          "occurrenceDetails"=>@occurrenceDetails,
+          "coordinateUncertaintyInMeters"=>"15","collector"=>@gbifKey,"active"=>true,"removed"=>false,
+          "catalogue_id"=>"gbif_#{@institutionCode}-#{@collectionCode}-#{@catalogNumber}",
+          "kind"=>"gbif",
+          "description" => ""}
       end
 
       @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]
