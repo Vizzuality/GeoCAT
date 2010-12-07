@@ -26,33 +26,23 @@ abbr[title], dfn[title] {border-bottom:1px dotted; cursor:help;}
 table {border-collapse:collapse; border-spacing:0;}
 hr {display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0;}
 input, select {vertical-align:middle;}
-
-
-
 body {background:#EAEAEB; padding:0; margin:0;}
 ul{list-style:none;}
 a:hover {cursor:pointer;}
-
 /*fonts*/
 @font-face { font-family: "Futura"; src: url('../fonts/Futura.ttc'); }
-
-
-
 /* HOME */
 div.flash {float:left; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666;}
 div.flash p {float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
-
 div.main_layout {position:relative; float:left; width:100%;}
 div#map {position:absolute; right:0; left:0; top:0; height:390px; z-index:0;}
 div.opaque {position:absolute; right:0; left:0; top:0; height:390px; width:100%; background:black; opacity:0.8; z-index:1;}
-
 div.layout {position:relative; margin:0 auto; width:950px; z-index:100;}
 div.layout.header {height:390px;}
 div.layout header {float:left; padding:37px 0 130px 0; width:100%;}
 div.layout header h2 {float:left; font:normal 15px Arial; color:white; padding:0; margin:0;}
 div.layout section.name {float:left; padding:0; margin:0;}
 div.layout section.name h1 {float:left; width:450px; font:bold 47px Arial; color:white; text-shadow:0 3px black; letter-spacing:-2px; padding:0; margin:0;}
-
 div.white_band {position:relative; width:100%; background:#F5F5F5; border-bottom:1px solid #CCCCCC; height:61px;}
 div.white_band div.inner {position:relative; margin:0 auto; width:950px; height:61px;}
 div.white_band div.inner img.arrow {position:absolute; bottom:-1px; left:36px;}
@@ -61,7 +51,6 @@ div.white_band div.inner ul li {float:left; width:auto; padding:18px 28px 0 0; m
 div.white_band div.inner ul li a {float:left; font:bold 15px Arial; color:#729900; text-decoration:none;}
 div.white_band div.inner ul li a:hover {color:#333333;}
 div.white_band div.inner ul li.selected a {color:#333333;}
-
 div.white_band div#main_container {position:absolute; bottom:30px; right:0; padding:30px 15px; width:434px; height:187px; background:url(/images/home/main_bkg.png) no-repeat 0 0; z-index:100;}
 div.white_band div#main_container span#beta{position:absolute; top:-4px; right:-4px; width:80px; height:80px; background:url(/images/editor/beta_version.png) no-repeat 0 0; z-index:1000;}
 div.white_band div#main_container label {float:left; padding:0 0 5px 15px; width:100%; font:normal 19px "Futura"; color:#BFBFBF;}
@@ -89,7 +78,6 @@ div.white_band div#main_container form.up img.loader {position:absolute; right:2
 .ac_results li div.taxonomy p {float:left; width:auto; font:normal 13px Arial; color:#999999; padding:0 9px 0 6px; background:url(/images/home/arrow_taxonomy.png) no-repeat right 6px;}
 .ac_results li div.taxonomy p.first {padding:0 9px 0 0;}
 .ac_results li div.taxonomy p.last {padding:0 0 0 6px; background:none;}
-
 div.white_band div#main_container form.upload {position:relative; float:left; margin:35px 0 0 13px; width:408px;}
 div.white_band div#main_container form.upload p {float:left; font:normal 15px "Futura"; color:#858585; letter-spacing:-1px; padding:13px 0 0 0;}
 div.white_band div#main_container form.upload input[type="file"]{position:absolute; top:0px; right:0px; width:133px; margin:10px 0 0 0; height:32px; border:none; opacity:0; z-index:100;}
@@ -97,7 +85,6 @@ div.white_band div#main_container form.upload input[type="file"]:hover {cursor:p
 div.white_band div#main_container form.upload a {position:absolute; top:10px; right:0px; width:133px; height:32px; background:url(/images/home/upload_bkg.png) no-repeat 0 0; }
 div.white_band div#main_container form.upload a:hover {background-position:0 -32px; cursor:pointer;}
 div.white_band span.main_shadow {position:absolute; bottom:15px; right:-8px; width:479px; height:28px; background:url(/images/home/main_shadow.png) no-repeat center center; z-index:20;}
-
 div.layout.blocks {height:320px; padding:25px 0 0 0;}
 div.layout.blocks div.block {position:relative; float:left; width:310px; margin:0 10px 0 0; padding:0; background:url(/images/home/block_bkg.png) no-repeat 31px bottom; height:270px;}
 div.layout.blocks div.block img.top {position:absolute; left:-18px; top:102px; z-index:10;}
@@ -106,7 +93,6 @@ div.layout.blocks div.block.last {margin:0; padding:0;}
 div.layout.blocks div.block h3 {float:left; width:300px; font:bold 17px Arial; color:#333333;}
 div.layout.blocks div.block div.image {float:left; padding:6px; background:white; border:1px solid #CCCCCC; width:288px; margin:12px 0 0 0;}
 div.layout.blocks div.block div.image img {float:left;}
-
 footer {float:left; width:100%; padding:0; margin:0; background:#729900; border-top:1px solid #608800; z-index:100; height:59px;}
 footer div.inner {margin:0 auto; width:950px;}
 footer div.inner div.left {float:left; width:500px;}
@@ -117,13 +103,7 @@ footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 footer div.inner div.right {float:right; width:160px;}
 footer div.inner div.right p {float:right; width:auto; font:normal 13px Arial; color:#37671C; padding:22px 5px 0 0;}
 footer div.inner div.right img {float:right; margin:7px 0 0 0; width:auto;}
-
-
-
-
-
 /*EDITOR*/
-
 div#start_one_mamufas {position:absolute; display:none; top:0; left:0; bottom:0; right:0; background:url(/images/editor/transparent_bkg.png) no-repeat 0 0; z-index:100000;}
 div#start_one {position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-95px 0 0 -340px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:101;}
 div#start_one p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
@@ -131,7 +111,6 @@ div#start_one input {float:left; width:418px; height:24px; margin:10px 0 0 36px;
 div#start_one input:focus {outline:none;}
 div#start_one a {float:left; margin:15px 0 0 200px; text-decoration:underline; font:bold 23px Arial; color:#A4D939;}
 div#start_one a:hover {color:#6F9326;}
-
 div#wellcome {position:absolute!important; display:none; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:101;}
 div#wellcome a.close {position:absolute; right:24px; top:23px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#wellcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
@@ -139,7 +118,6 @@ div#wellcome p {float:left; width:100%; margin:0; padding:0; font:bold 27px Aria
 div#wellcome p.bottom {margin:10px 0 0 0; font-size:23px; letter-spacing:-1px;}
 div#wellcome p.bottom a {color:#A4D939; text-decoration:underline;}
 div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
-
 div#close_save {display:none; position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:100;}
 div#close_save p {float:left; width:100%; margin:0; padding:0; font:bold 23px Arial; color:white; letter-spacing:-1px; text-align:center; line-height:33px;}
 div#close_save a.close {position:absolute; right:24px; top:23px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
@@ -148,8 +126,6 @@ div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 40px; font:no
 div#close_save p a.cancel:hover {color:white; cursor:pointer;}
 div#close_save p a.download {float:right; width:158px; height:32px; margin:15px 35px 0 0; background:url(/images/editor/download_button.png) no-repeat 0 0;}
 div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
-
-
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
 div#editor ul.editor_list {position:absolute; top:34px; right:50px;}
@@ -159,10 +135,8 @@ div#editor ul.editor_list li a {font:normal 13px "Futura"; color:#999999; text-d
 div#editor ul.editor_list li a:hover {font:normal 13px "Futura"; color:#dddddd; cursor:pointer;}
 div#editor ul.editor_list li.selected a {color:#dddddd;}
 div#editor ul.editor_list li.selected a:hover {cursor:default;}
-
 /*1st layer - tools*/
 div#tools {position:absolute; top:60px; left:20px; bottom:40px; right:20px; min-height:510px; min-width:1143px;}
-
 div#tools div.table {position:relative; float:left; width:100%; height:100%;}
 div#tools div.table div {position:relative;}
 div#tools div.table div.top-left-tool{position:relative; float:left; width:24px; height:62px; background:url(/images/editor/top-left-tool.png) no-repeat right bottom;}
@@ -172,7 +146,6 @@ div#tools div.header div.left {float:left; padding:22px 0 0 3px; width:50px; col
 div#tools div.header div.left h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura"; text-shadow:0 1px #000000; color:#CCCCCC;}
 div#tools div.header div.right {float:right; padding:22px 0 0 0; width:220px; color:white; height:45px;}
 div#tools div.header div.right h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
-
 div#tools div.table div.center {position:absolute; top:62px; bottom:76px; left:0; right:0;}
 div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:14px; background:url(/images/editor/left-repeat-tool.png) repeat-y left 0;}
 div#tools div.table div.center-tool {position:absolute; top:0; bottom:0; left:14px; right:24px; background:#242628;}
@@ -189,7 +162,6 @@ div#tools div.center div.left a:hover {background-position:0 -50px; cursor:point
 div#tools div.center div.left a.selected {background-position:0 -50px;}
 div#tools div.center div.left a.selected:hover {cursor:default;}
 div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:1;}
-
 div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
 div#tools div.center div.right div.inner_analysis {position:relative; float:left; padding:16px 0 0; margin:0 0 0 30px; width:220px; height:auto; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
   background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2));}
@@ -232,13 +204,11 @@ div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0;
   -moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; text-align:center;}
 div.analysis_data span a {font:bold 13px Arial; color:#333333; text-shadow:0 1px #B7D58D; text-decoration:none; padding:0;}
 div.analysis_data span a:hover {color:#111111;}
-
 div#tools div.center div.right div.algorithms {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-bottom:1px solid #000000;}
 div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:url(/images/editor/orange_bar.png) no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}
 div#tools div.center div.right div.algorithms a.first {margin:0;}
 div#tools div.center div.right div.algorithms a:hover {background-position:0 -24px;}
-
 div.hull_container {display:none; position:absolute; top:0; right:30px; z-index:100000; background:url(/images/editor/convex_hull_bkg.png) no-repeat 0 0; width:280px; height:330px;}
 div.hull_container a {position:absolute; right:15px; top:8px; font:normal 11px Arial; color:#FF9900; text-decoration:underline;}
 div.hull_container a:hover {color:#FF6600;}
@@ -251,7 +221,6 @@ div.hull_container p.diameter {position:absolute; top:72px; left:31px;}
 div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
 div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
-
 div.delete_all {display:none; position:absolute!important; top:0; right:27px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
 div.delete_all h4 {float:left; margin:13px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:23px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
@@ -260,7 +229,6 @@ div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoratio
 div.delete_all div a.cancel:hover {color:#000000; cursor:pointer;}
 div.delete_all div a.yes {float:right!important; margin:10px 0 0 0; padding:0!important; width:51px; height:19px; background:url(/images/editor/yes_delete_button.png) no-repeat 0 0;}
 div.delete_all div a.yes:hover {background-position: 0 -19px; cursor:pointer;}
-
 div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:0; right:11px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0;}
 div.merge_container h4 {float:left; margin:12px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.merge_container p {float:left; padding:0; margin:25px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
@@ -270,7 +238,6 @@ div.merge_container div a.cancel {float:right; font:normal 11px Arial; text-deco
 div.merge_container div a.cancel:hover {color:#000000; cursor:pointer;}
 div.merge_container div a.merge_button {float:right; margin:7px 0 0 0!important; padding:0!important; width:54px!important; height:21px!important; background:url(/images/editor/merge_button.png) no-repeat 0 0!important;}
 div.merge_container div a.merge_button:hover {background-position: 0 -21px!important; cursor:pointer;}
-
 div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:12px 0 14px 30px; margin:0; width:230px; border-top:1px solid #454648;}
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
@@ -294,8 +261,6 @@ div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc;
 div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
 div#editor div#tools div.center div.right div.sources ul {float:left; width:218px; padding:0; margin:5px 0 0 0;}
 div#editor div#tools div.center div.right div.sources ul li {float:left; position:relative; width:100%;}
-
-
 /*add new source*/
 div#editor div#tools div.center div.right div.sources div#add_source_container {position:absolute; width:209px; bottom:22px; right:15px; z-index:100; display:none;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.top {float:left; width:209px; padding:51px 0 0 0; background:url(/images/editor/add_source_top.png) no-repeat 0 top;}
@@ -308,7 +273,6 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a {float:left; margin:2px 0 0 0; padding:0 0 0 17px; background:url(/images/editor/checkbox_add_image.png) no-repeat 0 1px; font:normal 13px Arial; color:#898989;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a:hover {cursor:pointer; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li span {display:none;}
-
 /*selected*/
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url(/images/editor/checkbox_add_image.png) no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
@@ -334,13 +298,8 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
-
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected.error {background:#F9C6C7;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected.error span div.inner {background:#F87174;}
-
-
-
-
 /*jquery uploader*/
 div#uploader .qq-uploader {position:relative; width:100%; padding:0; margin:0; background:none;}
 div#uploader .qq-upload-button {float:left; width:63px; height:21px; background:url(/images/editor/browse.png) no-repeat 0 0; padding:0; margin:0; display:block; text-indent:-9999px;}
@@ -357,8 +316,6 @@ div#uploader .qq-upload-size,.qq-upload-cancel {display:none!important;}
 div#uploader .qq-upload-failed-text {display:none!important;}
 div#uploader .qq-upload-fail .qq-upload-failed-text {display:none!important;}
 /*end jquery uploader*/
-
-
 /*added*/
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a {background-position: 0 -30px; color:#c3c3c3;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a:hover {cursor:default; color:#c3c3c3;}
@@ -367,8 +324,6 @@ div#editor div#tools div.table div.footer {position:absolute; bottom:0; left:0; 
 div#editor div#tools div.table div.bottom-left-tool{position:relative; float:left; width:24px; height:76px; background:url(/images/editor/bottom-left-tool.png) no-repeat right top;}
 div#editor div#tools div.table div.bottom-repeat-tool{position:absolute; bottom:0; left:24px; right:24px; background:url(/images/editor/bottom-repeat-tool.png) repeat left 0; height:76px;}
 div#editor div#tools div.table div.bottom-right-tool{position:relative; float:right; width:24px; height:76px; background:url(/images/editor/bottom-right-tool.png) no-repeat left top;}
-
-
 /*2nd layer - map*/
 div#editor div#map_container {position:absolute; min-width:840px; min-height:580px; top:10px; bottom:20px; left:83px; right:260px; z-index:100;}
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
@@ -377,7 +332,6 @@ div#editor div#map_container div.table div.top-left-map{position:relative; float
 div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url(/images/editor/top-repeat-map.png)  0 bottom;}
 div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url(/images/editor/top-right-map.png) no-repeat left bottom;}
 div#editor div#map_container div.table div.top-right-map span#beta{position:absolute; top:11px; right:11px; width:80px; height:80px; background:url(/images/editor/beta_version.png) no-repeat 0 0; z-index:1000;}
-
 div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0;}
 div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url(/images/editor/left-repeat-map.png) repeat-y -6px 0;}
 div#editor div#map_container div.table div.center-map {position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}
@@ -387,7 +341,6 @@ div#editor div#map_container div.table div.footer {position:absolute; bottom:0; 
 div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/bottom-left-map.png) no-repeat right top; margin:0;}
 div#editor div#map_container div.table div.bottom-repeat-map{position:absolute; background:url(/images/editor/bottom-repeat-map.png) repeat left 0; left:25px; right:25px; top:0; height:80px;}
 div#editor div#map_container div.table div.bottom-right-map{position:relative; float:right; width:25px; height:80px; background:url(/images/editor/bottom-right-map.png) no-repeat left top;}
-
 div#zoom {position:absolute; top:21px; left:32px; width:28px; height:auto; z-index:100; opacity:0.5;}
 div#zoom:hover {opacity:1;}
 div#zoom a {float:left; width:28px; height:30px;}
@@ -398,8 +351,7 @@ div#zoom ul {float:left; width:28px; padding:0 0 1px 0; margin:0;}
 div#zoom ul li {float:left; width:28px; height:10px; background:url(/images/editor/zoom_level.png) no-repeat 0 0; margin:1px 0 0 0;}
 div#zoom ul li:hover {background-position:0 -10px; cursor:pointer;}
 div#zoom ul li.selected {background-position:0 -10px; cursor:default;}
-
-div#editor div#map_container div.table div.center-map div.search_place {position:absolute; opacity:0.5; top:21px; right:110px!important; width:180px!important; height:30px; background:url(/images/editor/search_bkg.png) no-repeat 0 0;}
+div#editor div#map_container div.table div.center-map div.search_place {position:absolute; opacity:0.5; top:21px; right:120px!important; width:180px!important; height:30px; background:url(/images/editor/search_bkg.png) no-repeat 0 0;}
 div#editor div#map_container div.table div.center-map div.search_place p {float:left; width:auto; margin:4px 0 0 5px; font:normal 13px Arial; color:white;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:0 0 3px 6px; width:110px; height:auto; padding:4px 0; background:url(/images/editor/search_input_bkg.png) no-repeat 0 18px; border:0;
   font:normal 13px Arial; color:white;}
@@ -419,7 +371,6 @@ div#map_type ul {float:left; width:100%; margin:0; padding:4px 0 7px 0; backgrou
   border-bottom-left-radius:5px; border-bottom-right-radius:5px; -moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; }
 div#map_type ul li {float:left; width:100%; font:bold 11px Arial; color:white; text-shadow:0 1px black; margin:4px 0 2px 10px; text-align:left;}
 div#map_type ul li:hover {cursor:pointer;}
-
 div#map_container div.table div.center-map div#map {position:absolute; z-index:1; top:0; left:0; height:100%; width:100%;}
 div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url(/images/editor/mamufas_bkg.png) repeat 0 0;}
 div#map_container div.table div.center-map div#mamufas_map div#loader_map {position:absolute; top:50%; left:50%; margin:-25px 0 0 -25px;/*hack*/ display:none; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
@@ -440,8 +391,6 @@ div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
 div#map_container div.footer div.right a.download {float:left; width:158px; height:32px; background:url(/images/editor/download_button.png) no-repeat 0 0;}
 div#map_container div.footer div.right a.export {float:left; width:110px; margin:0 5px 0 0; height:32px; background:url(/images/editor/export_button.png) no-repeat 0 0;}
 div#map_container div.footer div.right a:hover {background-position:0 -32px; cursor:pointer;}
-
-
 /*Metadata*/
 div.metadata {width:326px!important; height:515px!important; padding:22px 22px 0 33px!important; margin:0;}
 div.metadata a.close {position:absolute; right:1px; top:1px; width:21px; height:21px; cursor:pointer; background:url(/images/editor/close_infowindow.png) no-repeat 0 0;}
@@ -472,19 +421,13 @@ div.metadata span.bottom a.cancel {float:left; width:auto; font:normal 11px Aria
 div.metadata span.bottom a.cancel:hover {color:black;}
 div.metadata span.bottom a.save {float:right; width:89px; height:19px; background:url(/images/editor/save_changes_metadata.png) no-repeat 0 0; text-indent:-9999px;}
 div.metadata span.bottom a.save:hover {background-position:0 -19px;}
-
-
 /*HELP*/
-
 div.help_container {display:none; position:absolute!important; top:0; left:0; right:0; bottom:-1px; z-index:1000}
 div.help_container img.help {float:left; width:100%; height:100%;}
 div.help_container span.do {position:absolute; width:320px; height:89px; bottom:1px!important; left:35px; background:url(/images/editor/do_help.png) no-repeat 0 0;}
 div.help_container span.tool {position:absolute; width:240px; height:180px; top:50px; left:0px; background:url(/images/editor/tool_help.png) no-repeat 0 0;}
 div.help_container span.download {position:absolute; width:270px; height:94px; bottom:1px; right:25px; background:url(/images/editor/download_help.png) no-repeat 0 0;}
 div.help_container span#analysis_help {position:absolute; width:232px; height:245px; top:61px; right:0; background:url(/images/editor/analysis_help.png) no-repeat 0 0;}
-
-
-
 /*HTML5 && 404*/
 div#other {position:absolute; top:0; left:0; right:0; min-height:800px; width:100%; height:100%; background:url(/images/editor/bkg.jpg) repeat 0 0;}
 div#other div.content {position:absolute; width:400px; height:270px; top:50%; left:50%; margin:-185px 0 0 -200px;}

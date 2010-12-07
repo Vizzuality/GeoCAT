@@ -198,7 +198,7 @@
 		    var AOOrat = AOOrating(AOOArea);
 
 				
-				return {EOORat: EOORat, EOOArea:convex_area, AOORat: AOOrat, AOOArea: AOOArea, Cells: Cells};
+				return {EOORat: EOORat, EOOArea:convex_area, AOORat: AOOrat, AOOArea: AOOArea, Cells: Cells, cellsize: cellsize_};
 			}
 
 			

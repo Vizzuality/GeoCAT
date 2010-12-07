@@ -134,21 +134,21 @@
     	
     	$('#metadata_latitude').attr('value',this.latlng_.lat().toFixed(2));
     	$('#metadata_longitude').attr('value',this.latlng_.lng().toFixed(2)); 
-    	(this.inf.collectionCode!=undefined)?$('#metadata_collection').attr('value',this.inf.collectionCode):''; 
-			(this.inf.institutionCode!=undefined)?$('#metadata_institution').attr('value',this.inf.institutionCode):'';
-			(this.inf.catalogNumber!=undefined)?$('#metadata_catalog').attr('value',this.inf.catalogNumber):'';
-			(this.inf.basisOfRecord!=undefined)?$('#metadata_basis').attr('value',this.inf.basisOfRecord):'';
-			(this.inf.recordedBy!=undefined)?$('#metadata_collector').attr('value',this.inf.recordedBy):'';
-			(this.inf.eventDate!=undefined)?$('#metadata_date').attr('value',this.inf.eventDate):'';
-			(this.inf.country!=undefined)?$('#metadata_country').attr('value',this.inf.country):'';
-			(this.inf.stateProvince!=undefined)?$('#metadata_state').attr('value',this.inf.stateProvince):'';
-			(this.inf.county!=undefined)?$('#metadata_county').attr('value',this.inf.county):'';
-			(this.inf.verbatimElevation!=undefined)?$('#metadata_altitude').attr('value',this.inf.verbatimElevation):'';
-			(this.inf.locality!=undefined)?$('#metadata_locality').attr('value',this.inf.locality):'';
-			(this.inf.coordinateUncertaintyText!=undefined)?$('#metadata_precission').attr('value',this.inf.coordinateUncertaintyText):'';
-			(this.inf.identifiedBy!=undefined)?$('#metadata_identifier').attr('value',this.inf.identifiedBy):'';
-			(this.inf.occurrenceRemarks!=undefined)?$('#metadata_gbif').attr('value',this.inf.occurrenceRemarks):'';
-			(this.inf.occurrenceDetails!=undefined)?$('#metadata_url').attr('value',this.inf.occurrenceDetails):'';
+    	(this.inf.collectionCode!=undefined)?$('#metadata_collection').attr('value',this.inf.collectionCode):$('#metadata_collection').attr('value',''); 
+			(this.inf.institutionCode!=undefined)?$('#metadata_institution').attr('value',this.inf.institutionCode):$('#metadata_institution').attr('value','');
+			(this.inf.catalogNumber!=undefined)?$('#metadata_catalog').attr('value',this.inf.catalogNumber):$('#metadata_catalog').attr('value','');
+			(this.inf.basisOfRecord!=undefined)?$('#metadata_basis').attr('value',this.inf.basisOfRecord):$('#metadata_basis').attr('value','');
+			(this.inf.recordedBy!=undefined)?$('#metadata_collector').attr('value',this.inf.recordedBy):$('#metadata_collector').attr('value','');
+			(this.inf.eventDate!=undefined)?$('#metadata_date').attr('value',this.inf.eventDate):$('#metadata_date').attr('value','');
+			(this.inf.country!=undefined)?$('#metadata_country').attr('value',this.inf.country):$('#metadata_country').attr('value','');
+			(this.inf.stateProvince!=undefined)?$('#metadata_state').attr('value',this.inf.stateProvince):$('#metadata_state').attr('value','');
+			(this.inf.county!=undefined)?$('#metadata_county').attr('value',this.inf.county):$('#metadata_county').attr('value','');
+			(this.inf.verbatimElevation!=undefined)?$('#metadata_altitude').attr('value',this.inf.verbatimElevation):$('#metadata_altitude').attr('value','');
+			(this.inf.locality!=undefined)?$('#metadata_locality').attr('value',this.inf.locality):$('#metadata_locality').attr('value','');
+			(this.inf.coordinateUncertaintyText!=undefined)?$('#metadata_precission').attr('value',this.inf.coordinateUncertaintyText):$('#metadata_precission').attr('value','');
+			(this.inf.identifiedBy!=undefined)?$('#metadata_identifier').attr('value',this.inf.identifiedBy):$('#metadata_identifier').attr('value','');
+			(this.inf.occurrenceRemarks!=undefined)?$('#metadata_gbif').attr('value',this.inf.occurrenceRemarks):$('#metadata_gbif').attr('value','');
+			(this.inf.occurrenceDetails!=undefined)?$('#metadata_url').attr('value',this.inf.occurrenceDetails):$('#metadata_url').attr('value','');
 
     	
       this.moveMaptoOpen();

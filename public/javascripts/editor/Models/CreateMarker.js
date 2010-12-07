@@ -23,7 +23,7 @@
 																								new google.maps.Point(12, 12));
 	
 	
-				var marker = new google.maps.Marker({position: latlng, draggable: draggable, clickable: clickable, map: marker_map, icon: image, data: item});
+				var marker = new google.maps.Marker({position: latlng, draggable: draggable, raiseOnDrag:false, clickable: clickable, map: marker_map, icon: image, data: item});
 	
 	
 				//Marker click event

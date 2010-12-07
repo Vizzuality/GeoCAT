@@ -67,7 +67,7 @@
 				$('a.default').click(function(ev){
 				  if (!$(this).hasClass('disabled')) {
 				    $("div.cellsize div.slider").slider({value:11});
-  					me.cellsize = 0.002*(Math.pow(2,10));
+  					me.cellsize = 2.0;
   					me.removeAOOPolygons();
   					me.setAlgorithmValues(me.cellsize);
 				  }
@@ -244,17 +244,20 @@
 			HullOperations.prototype.drawHull= function(dragging) {
 				var hullPoints = [];
 	
-				chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
-				var points = this.markersToPoints(hullPoints);
+				//chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
+				
+				hullPoints = getConvexHullPoints(this.active_markers);
+				
+				//var points = this.markersToPoints(hullPoints);
 				var event = jQuery.Event("getBounds");
-				event.points = points;
+				event.points = hullPoints;
 				$("body").trigger(event);
 			
 				if (this.polygon != undefined) {
-					this.polygon.setPath(points);
+					this.polygon.setPath(hullPoints);
 				} else {
 				  this.polygon = new google.maps.Polygon({
-						paths: this.markersToPoints(hullPoints),
+						paths: hullPoints,
 			      strokeColor: "#333333",
 			      strokeOpacity: 1,
 			      strokeWeight: 2,
@@ -326,6 +329,11 @@
 				this.AOOkind = obj.AOOArea.toFixed(2);
 				this.EOOkind = obj.EOORat;
 				
+				
+				if ($('#auto_value').hasClass('selected')) {
+					$('div.analysis p.change').html('Auto value ('+obj.cellsize.toFixed(2)+'KM), <a class="change">change</a>');
+				}
+				
 				this.drawAOOPolygons();
 				$('div.analysis_data ul li:eq(0)').removeClass();
 				$('div.analysis_data ul li:eq(1)').removeClass();
@@ -368,9 +376,6 @@
 			HullOperations.prototype.isVisible = function() {
 				return this.visible;
 			}
-
-
-
 
 
 
