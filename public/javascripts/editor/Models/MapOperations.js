@@ -386,9 +386,7 @@
 						_markers[i].data.removed = true;
 						_markers[i].setMap(null);
 					}
-					if (convex_hull.isVisible()) {
-						convex_hull.deductPoint(_markers[i].data.catalogue_id);
-					}
+					convex_hull.deductPoint(_markers[i].data.catalogue_id);
 				}
 				closeDeleteAll();
 				actions.Do('remove', null, remove_markers);

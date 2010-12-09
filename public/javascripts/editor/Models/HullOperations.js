@@ -229,10 +229,13 @@
 				if (this.active_markers.length>2) {
 					this.calculateConvexHull(false);
 				} else {
-				  this.polygon.setPath([]);
-				  this.removeAOOPolygons();
-					this.polygon.setMap(null);
-					this.resetAlgorithmValues();
+				  if (this.polygon!=undefined) {
+				    this.polygon.setPath([]);
+  				  this.removeAOOPolygons();
+  					this.polygon.setMap(null);
+  					this.resetAlgorithmValues();
+				  } 
+
 				}
 			}
 
