@@ -89,15 +89,23 @@
           if (sources_[count]!=undefined) {
             for (var i=0; i<sources_[count].points.length; i++) {
               var catalogue_id = sources_[count].points[i].catalogue_id;
-              if (_markers[catalogue_id]==undefined && _markers[catalogue_id]==null) {
-               if (sources_[count].name=="gbif") {
-                 me.gbif_points.push(sources_[count].points[i]);
-               } else if (sources_[count].name=="flickr") {
-                 me.flickr_points.push(sources_[count].points[i]);
-               } else {
-                 me.your_points.push(sources_[count].points[i]);
-               }
-             }
+              if (catalogue_id==null || catalogue_id==undefined) {
+                global_id++;
+                if (sources_[count].points[i].coordinateUncertaintyInMeters == null || sources_[count].points[i].coordinateUncertaintyInMeters == undefined) 
+                  sources_[count].points[i].coordinateUncertaintyInMeters = 15;
+                sources_[count].points[i].catalogue_id = 'your_'+global_id;
+                me.your_points.push(sources_[count].points[i]);
+              } else {
+                if (_markers[catalogue_id]==undefined && _markers[catalogue_id]==null) {
+                 if (sources_[count].name=="gbif") {
+                   me.gbif_points.push(sources_[count].points[i]);
+                 } else if (sources_[count].name=="flickr") {
+                   me.flickr_points.push(sources_[count].points[i]);
+                 } else {
+                   me.your_points.push(sources_[count].points[i]);
+                 }
+                }
+              }
             }
             count++;
             setTimeout(function(){asynCheckPoints(count,sources_);},0);
@@ -118,12 +126,13 @@
         			addSourceToMap({points:me.flickr_points},false,true);
             }
             if (me.your_points.length>0) {
-        			addSourceToMap({points:me.your_points},false,true);
+              addSourceToMap({points:me.your_points},false,true);
             }
-            
-            
+            if (me.gbif_points.length==0 && me.flickr_points.length==0 && me.your_points.length==0) {
+    					$('body').unbind('hideMamufas');
+    					hideMamufasMap(false);
+            }
           }
-
         }
         asynCheckPoints(0,sources);
 			}

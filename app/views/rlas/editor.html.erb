@@ -188,7 +188,17 @@
                   <input type="submit" value="" />
                 </form>
               </div>
-
+              
+              <!-- CSV error window -->
+              <div id="csv_error">
+                <a onclick="changeApplicationTo()" class="close">X</a>
+                <h3>There are errors in your uploaded csv file</h3>
+                <ul></ul>
+                <span>
+                  <a onclick="changeApplicationTo()" class="cancel">Cancel</a>
+                  <a class="continue">continue</a>
+                </span>
+              </div>
 
               <!-- Close without save/download -->
               <div id="close_save">

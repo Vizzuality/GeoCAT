@@ -26,7 +26,6 @@
 
 			//if the application comes through an upload file
 			if (upload_information.success) {
-			  console.log(upload_information);
 				uploadRLA(upload_information);
 			} else if (specie=='') {
 				
@@ -85,6 +84,7 @@
 									$('ul.editor_list li:eq(0)').addClass('selected');
 									$('div.help_container').fadeIn();
 									$('div#close_save').hide();
+									$('div#csv_error').fadeOut();
 									$(document).keydown(function (e) {
 										if (e.keyCode == 27) { // ESC
 											changeApplicationTo();
@@ -102,20 +102,31 @@
 											changeApplicationTo();
 										}
 									});
+									$('div#csv_error').fadeOut();
 									break;
 				case 5: 	// Change app to close state
+				          $('div#csv_error').fadeOut();
 									if ($('div.header h1').hasClass('saved')) {
 										window.location.href="/";
 									} else {
 										changeApplicationTo(4);
 									}
 									break;
+    		case 6: 	// Change app to csv import
+    							$('div.help_container').fadeOut();
+									$('div#close_save').fadeOut();
+									$('div#wellcome').fadeOut();
+									$('ul.editor_list li').removeClass('selected');
+    		          $('div#csv_error').fadeIn();
+    							break;				
+									
 				default: 	// Default state for app
 									$(document).unbind('keydown');
 									$('div.help_container').fadeOut();
 									$('div#close_save').fadeOut();
 									$('div#wellcome').fadeOut();
 									$('ul.editor_list li').removeClass('selected');
+									$('div#csv_error').fadeOut();
 			}
 		}
 		

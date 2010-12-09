@@ -421,6 +421,20 @@ div.metadata span.bottom a.cancel {float:left; width:auto; font:normal 11px Aria
 div.metadata span.bottom a.cancel:hover {color:black;}
 div.metadata span.bottom a.save {float:right; width:89px; height:19px; background:url(/images/editor/save_changes_metadata.png) no-repeat 0 0; text-indent:-9999px;}
 div.metadata span.bottom a.save:hover {background-position:0 -19px;}
+/*CSV Error*/
+div#csv_error {position:absolute!important; display:none; width:462px; height:311px; top:50%!important; left:50%; margin:-175px 0 0 -251px!important; padding:20px; background:url(/images/editor/csv_error_bkg.png) no-repeat 0 0; z-index:101;}
+div#csv_error a.close {position:absolute; right:14px; top:14px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#csv_error a.close:hover {color:white;}
+div#csv_error h3 {float:left; width:100%; font:bold 19px Arial; color:white;}
+div#csv_error ul {float:left; width:446px; height:105px; margin:125px 0 0 14px;}
+div#csv_error ul li {float:left; padding:10px 0 10px 35px; font:normal 15px Arial;}
+div#csv_error ul li.warning {background:url('/images/editor/warning_csv.png') no-repeat 0 7px; color:#929292;}
+div#csv_error ul li.error {background:url('/images/editor/error_csv.png') no-repeat 0 7px; color:#C7C7C7;}
+div#csv_error span {float:left; width:440px; margin:34px 0 0 10px; height:auto;}
+div#csv_error span a.continue {float:right; width:94px; height:26px; text-indent:-9999px; background:url('/images/editor/continue_button.png') no-repeat 0 0;}
+div#csv_error span a.continue:hover {background-position:0 -26px;}
+div#csv_error span a.cancel {float:left; padding:5px 0 0 0; font:normal 15px Arial; color:white; text-decoration:underline;}
+div#csv_error span a.cancel:hover {cursor:pointer;}
 /*HELP*/
 div.help_container {display:none; position:absolute!important; top:0; left:0; right:0; bottom:-1px; z-index:1000}
 div.help_container img.help {float:left; width:100%; height:100%;}

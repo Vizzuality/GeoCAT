@@ -246,7 +246,7 @@
 	
 				//chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
 				
-				hullPoints = getConvexHullPoints(this.active_markers);
+				hullPoints = getConvexHullPoints(this.markersToPoints(this.active_markers));
 				
 				//var points = this.markersToPoints(hullPoints);
 				var event = jQuery.Event("getBounds");

@@ -26,7 +26,6 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON) {
-						  console.log(responseJSON);
 							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
 								$('span.import a.import_data').addClass('enabled');
 								merge_object = new MergeOperations([]);
@@ -35,7 +34,7 @@
 								  merge_object.importPoints(responseJSON.data.sources);
 								});
 							} else {
-							  if (responseJSON.format!="csv") {
+							  if (responseJSON.format=="rla") {
 							    $('span.import').parent().addClass('error');
 							    $('span.import a.delete').hide();
 							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
@@ -47,14 +46,46 @@
 							    $('span.import a.retry').click(function(ev){
   								  closeSources();
 							    });
-							    
 							    $('span.import a.import_data').addClass('enabled');
 							    $('span.import a.import_data').text('retry');
 							    $('span.import a.import_data').click(function(ev){
   								  resetUploader();
 							    });
-							  }  else {
-							    //TODO with CSV files
+							  } else {
+                  if (responseJSON.success && responseJSON.warnings.length==0) {
+                    $('span.import a.import_data').addClass('enabled');
+    								merge_object = new MergeOperations([]);
+    								$('span.import a.import_data').click(function(ev){
+    								  closeSources();
+    								  merge_object.importPoints(responseJSON.data.sources);
+    								});
+                  } else {
+                    closeSources();
+                    $('div#csv_error ul li').remove();
+                    var errors_size = 0;
+                    $.each(responseJSON.errors,function(index,element){
+                      errors_size++;
+                      $('div#csv_error ul').append('<li class="error">'+element.capitalize()+'</li>');
+                    });
+                    for (var i=0; i<responseJSON.warnings.length; i++) {
+                      $('div#csv_error ul').append('<li class="warning">'+responseJSON.warnings[i][1].capitalize()+'</li>');
+                    }
+                    
+                    if (errors_size>0) {
+                      $('div#csv_error h3').text('There are errors in your uploaded csv file');
+                      $('div#csv_error span a.continue').hide();
+                    } else {
+                      merge_object = new MergeOperations([]);
+                      $('div#csv_error span a.continue').unbind('click');
+      								$('div#csv_error span a.continue').click(function(ev){
+      								  $('div#csv_error').fadeOut();
+      								  merge_object.importPoints(responseJSON.data.sources);
+      								});
+                      $('div#csv_error h3').text('There are warnings in your uploaded csv file');
+                      $('div#csv_error span a.continue').show();
+                    }
+                    changeApplicationTo(6);
+                  }
 							  }
 							}
 						},
@@ -105,7 +136,6 @@
 								case 'add_gbif':  	if (convex_hull.isVisible()) {
                                       $('a#toggle_analysis').trigger('click');
                                     }
-                                    console.log(gbif_founded[0]);
 								                    gbif_data = gbif_founded[0];
 																		addSourceToMap(gbif_data,true,false);
 																		break;
@@ -361,5 +391,15 @@
 				);
 			}
 			
+
+			/*============================================================================*/
+			/* Capitalize strings.                                                 				*/
+			/*============================================================================*/
+			String.prototype.capitalize = function() {
+          return this.charAt(0).toUpperCase() + this.slice(1);
+      }
+			
+			
+
 			
 			

@@ -80,7 +80,7 @@ class RlatData
           'latitude'     => row.respond_to?(:latitude) ? row.latitude : nil,
           'longitude'    => row.respond_to?(:longitude) ? row.longitude : nil,
           'collector'    => row.respond_to?(:collectioncode) ? row.collectioncode : nil,
-          'accuracy'     => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil,
+          'coordinateUncertaintyInMeters'     => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil,
           'catalogue_id' => row.respond_to?(:catalognumber) ? row.catalognumber : nil
         })
       end

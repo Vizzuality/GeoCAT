@@ -201,9 +201,8 @@
 					  var info_data = new Object();
 					  $.extend(info_data, observations[i]);
 						(info_data.removed)?null:total_points.add(info_data.kind); //Add new point to total_point in each class (gbif, flickr or your points)
-						
-						bounds.extend(new google.maps.LatLng(info_data.latitude,info_data.longitude));		
-						var marker = CreateMarker(new google.maps.LatLng(info_data.latitude,info_data.longitude), info_data.kind, true, true, info_data, (info_data.removed)?null:map);
+						bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));		
+						var marker = CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.kind, true, true, info_data, (info_data.removed)?null:map);
 		 				_markers[marker.data.catalogue_id] = marker;
 						if (info_data.active && !info_data.removed && convex_hull.isVisible()) {
 							convex_hull.addPoint(marker);
@@ -236,7 +235,6 @@
 					default: 				marker_kind = 'Your';
 
 				}
-        console.log(information.points[199]);
 				var image = new google.maps.MarkerImage('/images/editor/' + marker_kind + '_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
 				actions.Do('add', null,information.points);
 				setTimeout(function(){asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);},0);
