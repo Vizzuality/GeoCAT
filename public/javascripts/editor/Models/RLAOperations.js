@@ -181,6 +181,7 @@
 			var app_data = rla.upload();
 			var sources = [];
 			
+			console.log(upload_data);
 			//Trick for showing loader while uploading observations;
 			var sources_length = app_data.length-1;
 			var count = 0;

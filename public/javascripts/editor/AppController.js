@@ -26,6 +26,7 @@
 
 			//if the application comes through an upload file
 			if (upload_information.success) {
+			  console.log(upload_information);
 				uploadRLA(upload_information);
 			} else if (specie=='') {
 				

@@ -25,7 +25,8 @@
 							$('#uploader').parent().find('a.delete').show();
 						},
 						onProgress: function(id, fileName, loaded, total){},
-						onComplete: function(id, fileName, responseJSON){
+						onComplete: function(id, fileName, responseJSON) {
+						  console.log(responseJSON);
 							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
 								$('span.import a.import_data').addClass('enabled');
 								merge_object = new MergeOperations([]);
@@ -104,6 +105,7 @@
 								case 'add_gbif':  	if (convex_hull.isVisible()) {
                                       $('a#toggle_analysis').trigger('click');
                                     }
+                                    console.log(gbif_founded[0]);
 								                    gbif_data = gbif_founded[0];
 																		addSourceToMap(gbif_data,true,false);
 																		break;
