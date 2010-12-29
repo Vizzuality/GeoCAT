@@ -111,13 +111,22 @@ div#start_one input {float:left; width:418px; height:24px; margin:10px 0 0 36px;
 div#start_one input:focus {outline:none;}
 div#start_one a {float:left; margin:15px 0 0 200px; text-decoration:underline; font:bold 23px Arial; color:#A4D939;}
 div#start_one a:hover {color:#6F9326;}
-div#wellcome {position:absolute!important; display:none; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:101;}
-div#wellcome a.close {position:absolute; right:24px; top:23px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#wellcome {position:absolute!important; display:none; width:463px; height:187px; top:50%!important; left:50%; margin:-110px 0 0 -272px!important; padding:17px 40px; background:url(/images/editor/start_new_bkg.png) no-repeat 0 0; z-index:101;}
+div#wellcome a.close {position:absolute; right:18px; top:18px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#wellcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
-div#wellcome p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
+div#wellcome p {float:left; width:100%; margin:10px 0 0 0; padding:0; font:bold 21px Arial; color:white; letter-spacing:-1px; text-align:left; line-height:33px;}
 div#wellcome p.bottom {margin:10px 0 0 0; font-size:23px; letter-spacing:-1px;}
 div#wellcome p.bottom a {color:#A4D939; text-decoration:underline;}
 div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
+div#wellcome div.blocks {float:left; width:423px; height:63px; margin:18px 0 0 0; padding:17px 20px 20px 20px;}
+div#wellcome div.blocks div.block {float:left; width:118px; margin:0 33px 0 0;}
+div#wellcome div.blocks div.block.last {margin:0;}
+div#wellcome div.blocks div.block label {float:left; width:100%; color:#999999; font:normal 13px Arial; text-align:center;}
+div#wellcome div.blocks div.block a {float:left; width:118px; height:26px; margin:10px 0 0 0; text-indent:-9999px;}
+div#wellcome div.blocks div.block a.import_data {background:url('/images/editor/import_data.png') no-repeat 0 0;}
+div#wellcome div.blocks div.block a.upload_data {background:url('/images/editor/upload_data.png') no-repeat 0 0;}
+div#wellcome div.blocks div.block a.add_points {background:url('/images/editor/add_points.png') no-repeat 0 0;}
+div#wellcome div.blocks div.block a:hover {background-position:0 -26px; cursor:pointer;}
 div#close_save {display:none; position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url(/images/editor/modal_bkg.png) no-repeat 0 0; z-index:100;}
 div#close_save p {float:left; width:100%; margin:0; padding:0; font:bold 23px Arial; color:white; letter-spacing:-1px; text-align:center; line-height:33px;}
 div#close_save a.close {position:absolute; right:24px; top:23px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
@@ -136,7 +145,7 @@ div#editor ul.editor_list li a:hover {font:normal 13px "Futura"; color:#dddddd; 
 div#editor ul.editor_list li.selected a {color:#dddddd;}
 div#editor ul.editor_list li.selected a:hover {cursor:default;}
 /*1st layer - tools*/
-div#tools {position:absolute; top:60px; left:20px; bottom:40px; right:20px; min-height:510px; min-width:1143px;}
+div#tools {position:absolute; top:60px; left:20px; bottom:100px; right:20px; min-height:510px; min-width:1143px;}
 div#tools div.table {position:relative; float:left; width:100%; height:100%;}
 div#tools div.table div {position:relative;}
 div#tools div.table div.top-left-tool{position:relative; float:left; width:24px; height:62px; background:url(/images/editor/top-left-tool.png) no-repeat right bottom;}
@@ -325,7 +334,7 @@ div#editor div#tools div.table div.bottom-left-tool{position:relative; float:lef
 div#editor div#tools div.table div.bottom-repeat-tool{position:absolute; bottom:0; left:24px; right:24px; background:url(/images/editor/bottom-repeat-tool.png) repeat left 0; height:76px;}
 div#editor div#tools div.table div.bottom-right-tool{position:relative; float:right; width:24px; height:76px; background:url(/images/editor/bottom-right-tool.png) no-repeat left top;}
 /*2nd layer - map*/
-div#editor div#map_container {position:absolute; min-width:840px; min-height:580px; top:10px; bottom:20px; left:83px; right:260px; z-index:100;}
+div#editor div#map_container {position:absolute; min-width:840px; min-height:580px; top:10px; bottom:70px; left:83px; right:260px; z-index:100;}
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
 div#editor div#map_container div.table div {position:relative;}
 div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/top-left-map.png) no-repeat right bottom;}
@@ -467,3 +476,15 @@ div#other div.footer div.inner div.left p {float:left; width:auto; font:normal 1
 div#other div.footer div.inner div.left p a {color:#003500;}
 div#other div.footer div.inner div.left p a:hover {text-decoration:none;}
 div#other div.footer div.inner div.left img {float:left; margin:12px 0 0 0;}
+/*FOOTER EDITOR*/
+footer.app_footer {position:absolute; left:0; bottom:5px; width:100%; min-width:1183px; height:59px; padding:0; margin:0; background:none; border:none; z-index:0;}
+footer.app_footer div.inner {margin:0 auto; width:100%; }
+footer.app_footer div.inner div.left {position:absolute; left:100px; width:600px; z-index:1;}
+footer.app_footer div.inner div.left p {float:left; width:auto; font:normal 13px Arial; color:#000000; padding:22px 5px 0 0;}
+footer.app_footer div.inner div.left p a {color:#000000;}
+footer.app_footer div.inner div.left p a.feedback {color:#FFCC00;}
+footer.app_footer div.inner div.left p a:hover {text-decoration:none;}
+footer.app_footer div.inner div.left img {float:left; margin:12px 0 0 0;}
+footer.app_footer div.inner div.right {position:absolute; right:40px; width:160px; z-index:1;}
+footer.app_footer div.inner div.right p {float:right; width:auto; font:normal 13px Arial; color:#0B0B0C; padding:22px 5px 0 0;}
+footer.app_footer div.inner div.right img {float:right; margin:7px 0 0 0; width:auto;}

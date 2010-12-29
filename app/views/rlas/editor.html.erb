@@ -184,7 +184,7 @@
               <div class="search_place">
                 <p>go to</p>
                 <form action="javascript: void searchPlace()">
-                  <input type="text" id="search_location_input" value="Kew gardens, London" />
+                  <input type="text" id="search_location_input" value="" />
                   <input type="submit" value="" />
                 </form>
               </div>
@@ -212,8 +212,25 @@
               <!-- Wellcome window -->
               <div id="wellcome">
                 <a onclick="$('#wellcome').fadeOut()" class="close">X</a>
-                <p>Hello, start your new assessment for<br/><%=  CGI::unescape(@species_name || '') %></p>
-                <p class="bottom"><a onclick="$('div.center-tool div.left a.add').trigger('click');$('#wellcome').fadeOut();">Add some points</a> or <a onclick="$('div.center-tool div.right a.add').trigger('click');$('#wellcome').fadeOut();">importing a source</a></p>
+                <p>Start your new assessment by...</p>
+                
+                <div class="blocks">
+                  <div class="block">
+                    <label>Import data from<br/>
+                    online source</label>
+                    <a class="import_data" onclick="$('div.center-tool div.right a.add').trigger('click');">Import data</a>
+                  </div>
+                  <div class="block">
+                    <label>Upload your existing<br/>
+                    data (CSV, RLAT)</label>
+                    <a class="upload_data" onclick="$('div.center-tool div.right a.add').trigger('click');">Upload data</a>
+                  </div>
+                  <div class="block last">
+                    <label>Add / Edit points<br/>
+                    just in the map</label>
+                    <a class="add_points" onclick="$('div.center-tool div.left a.add').trigger('click');">Add points</a>
+                  </div>
+                </div>
               </div>
 
               <!-- Mamufas map -->
@@ -269,7 +286,28 @@
           </div>
         </div>
       </div>
+      
+      
+      <footer class="app_footer">
+        <div class="inner">
+          <div class="left">
+            <p>An effort of</p>
+            <a href="http://www.kew.org" target="_blank">
+              <%= image_tag 'home/kew_logo.png', :alt => 'Kew' %>
+            </a>
+            <p>All rights reserved. 2010. <a href="#">Legal terms</a> / <a href="#">Contact us</a> / <a href="#" class="feedback">feedback</a></p>
+          </div>
+          <div class="right">
+            <a href="http://www.vizzuality.com" target="_blank">
+              <%= image_tag 'editor/vizzuality_black.png', :alt => 'Vizzuality' %>
+            </a>
+            <p>Developed by</p>
+          </div>
+        </div>
+      </footer>
     </div>
+    
+
 
 
 
