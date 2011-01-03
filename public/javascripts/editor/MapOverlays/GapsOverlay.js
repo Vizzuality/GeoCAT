@@ -37,7 +37,7 @@
     		  '<div class="two_gaps"><span><label>IDENTIFIER</label><input id="metadata_identifier" /></span></div>'+
     		  '<div class="one_gap"><span><label>GBIF NOTES</label><input id="metadata_gbif" /></span></div>'+
     		  '<div class="one_gap"><span><label>URL</label><input id="metadata_url" /></span></div>'+
-    		  '<div class="slider_top"><label>PRECISSION</label><p>3KM</p></div>'+
+    		  '<div class="slider_top"><label>PRECISION</label><p>3KM</p></div>'+
     		  '<div class="slider"></div>'+
     		  '<span class="bottom"><a class="cancel">Cancel</a><a class="save">SAVE CHANGES</a></span>'
     		);

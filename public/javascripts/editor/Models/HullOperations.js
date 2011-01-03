@@ -105,7 +105,7 @@
 				  if ($(this).hasClass('selected')) {
 				    me.cellsize = me.beforeValue;
 						$(this).removeClass('selected');
-    				$('div.analysis p.change').html('Cell size '+me.beforeValue+'KM , <a class="change">change</a>');
+    				$('div.analysis p.change').html('Cell size '+me.beforeValue+' KM , <a class="change">change</a>');
 						$("div.cellsize div.slider").slider('enable');
 						$('.ui-widget-header').css('background','#F6A828');
 						$('div.cellsize span p').css('color','#F7AC53');
@@ -325,7 +325,7 @@
 			/* Get the convex hull polygon area and show the figures. 										*/
 			/*============================================================================*/
 			HullOperations.prototype.setAlgorithmData = function(path, cellsize) {
-				var obj = getAnalysisData(calculateArea(path), path, this.active_markers, cellsize);
+				var obj = getAnalysisData(calculateArea(unique(path)), path, this.active_markers, cellsize);
 				this.Cells = obj.Cells;
 				this.EOO = obj.EOOArea.toFixed(2);
 				this.AOO = obj.AOORat;
@@ -353,7 +353,7 @@
 			/*============================================================================*/
 			HullOperations.prototype.setAlgorithmValues = function(value) {
 				$('div.cellsize span p').text(value+'KM');
-				$('div.analysis p.change').html('Cell size '+value+'km, <a class="change">change</a>');
+				$('div.analysis p.change').html('Cell size '+value+' km, <a class="change">change</a>');
 				if (this.polygon!=undefined && this.polygon.getPath().getLength()>2) {
 					this.setAlgorithmData(this.polygon.getPath().getArray(),this.cellsize*1000);
 				}
@@ -396,3 +396,20 @@
 			function closeConvexHull() {
 				convex_hull.removePolygon();
 			}
+			
+			
+			/*============================================================================*/
+			/* Unique points in array.*/
+			/*============================================================================*/
+			function unique(a) {
+         var r = new Array();
+         o:for(var i = 0, n = a.length; i < n; i++)
+         {
+            for(var x = 0, y = r.length; x < y; x++)
+            {
+               if(r[x]==a[i]) continue o;
+            }
+            r[r.length] = a[i];
+         }
+         return r;
+      }

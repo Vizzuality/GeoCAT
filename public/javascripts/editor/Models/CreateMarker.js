@@ -107,6 +107,10 @@
 						is_dragging = true;
 						over_tooltip.hide();
 					}
+					if (edit_metadata!=null) {
+						is_dragging = true;
+						edit_metadata.hide();
+					}
 				});
 		
 

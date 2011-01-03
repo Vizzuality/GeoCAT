@@ -685,7 +685,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
 			var li = $("<li/>").html( options.highlight(formatted, term) ).addClass(i == max-1 ? "last" : "").appendTo(list)[0];
 			$.data(li, "ac_data", data[i]);
 		}
-			var li = $("<li class='empty'>can’t find your desired species? <a onclick='window.location.href=\"/editor\"'>Start a new one</a></li>").appendTo(list)[0];
+			var li = $("<li class='empty'>can’t find your desired taxa? <a onclick='window.location.href=\"/editor\"'>Start a new one</a></li>").appendTo(list)[0];
 		
 		listItems = list.find("li");
 		if ( options.selectFirst ) {
