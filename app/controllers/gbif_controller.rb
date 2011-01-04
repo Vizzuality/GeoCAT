@@ -19,7 +19,6 @@ class GbifController < ApplicationController
             "/rest/Occurrence/list?georeferencedonly=true&format=darwin" +
             "&maxresults=200&coordinateissues=false&scientificname=#{q}"
           )
-          puts gbif_url
           open(gbif_url) {|f| @list =  f.read }
           break
         rescue Exception=>e
