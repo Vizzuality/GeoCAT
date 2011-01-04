@@ -184,7 +184,7 @@
 														}
 														break;
 						default: 				if (!$('#our_points').length) {
-															$('div.sources ul#sources_list').append('<li><a class="blue" id="our_points"><span> Your Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all"></a><a class="merge"></a></li>');
+															$('div.sources ul#sources_list').append('<li><a class="blue" id="our_points"><span> Your Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all your_points_change"></a></li>');
 														}
 					}
 				}

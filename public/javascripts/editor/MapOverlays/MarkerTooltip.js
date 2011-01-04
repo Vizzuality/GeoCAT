@@ -123,7 +123,11 @@
 				accuracy.style.margin = "0";
 				accuracy.style.font = "normal 11px Arial";
 				accuracy.style.color = "#666666";
-				$(accuracy).text(this.inf.description);
+				if (this.inf.occurrenceRemarks.length>36) {
+  				$(accuracy).text(this.inf.occurrenceRemarks.substr(0,33)+'...');
+				} else {
+  				$(accuracy).text(this.inf.occurrenceRemarks);
+				}
 				div.appendChild(accuracy);
 				
 
@@ -136,7 +140,11 @@
 				collector.style.margin = "0";
 				collector.style.font = "normal 11px Arial";
 				collector.style.color = "#666666";
-				$(collector).text(this.inf.collector);
+				if (this.inf.collector.length>36) {
+  				$(collector).text(this.inf.collector.substr(0,33)+'...');
+				} else {
+  				$(collector).text(this.inf.collector);
+				}
 				div.appendChild(collector);
 
 

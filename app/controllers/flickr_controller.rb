@@ -39,7 +39,7 @@ class FlickrController < ApplicationController
                         "removed" => false,
                         "catalogue_id" => "flickr_" + photo.id, 
                         "kind" => "flickr", 
-                        "description" => photo.title + " / " + photo.description
+                        "occurrenceRemarks" => photo.title + " / " + photo.description
                         }
          end
          

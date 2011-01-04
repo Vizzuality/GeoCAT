@@ -67,7 +67,6 @@
 				}
 				dataset.analysis = analysis;
 			}
-			
 		
 		  $("#format_input").attr("value",format);
       $("#rla_input").attr("value",JSON.stringify(dataset));
@@ -85,9 +84,9 @@
 				var find = false;
 				for (var j=0; j<obj.sources.length; j++) {
 					if (obj.sources[j].name == markers[i].data.kind) {
-					  
+            
 					  for (var prop in markers[i].data) {
-  					  if (markers[i].data[prop]=='' || markers[i].data[prop]==null) {
+  					  if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0) {
       					delete markers[i].data[prop];
   					  }
             }
@@ -105,9 +104,9 @@
 					new_source.points = [];
 					
 					for (var prop in markers[i].data) {
-					  if (markers[i].data[prop]=='' || markers[i].data[prop]==null) {
-    					delete markers[i].data[prop];
-					  }
+            if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0) {
+              delete markers[i].data[prop];
+            }
           }
 					
 					delete markers[i].data.init_latlng;

@@ -35,7 +35,7 @@
     		  '<div class="three_gaps"><span><label>COUNTRY</label><input id="metadata_country" /></span><span><label>STATE/PROVINCE</label><input id="metadata_state" /></span><span class="last"><label>COUNTY</label><input id="metadata_county" /></span></div>' +
     		  '<div class="three_gaps"><span><label>ALTITUDE</label><input id="metadata_altitude" /></span><span><label>LOCALITY</label><input id="metadata_locality" /></span><span class="last"><label>PRECISSION</label><input id="metadata_precission" /></span></div>' +
     		  '<div class="two_gaps"><span><label>IDENTIFIER</label><input id="metadata_identifier" /></span></div>'+
-    		  '<div class="one_gap"><span><label>GBIF NOTES</label><input id="metadata_gbif" /></span></div>'+
+    		  '<div class="one_gap"><span><label>NOTES</label><input id="metadata_gbif" /></span></div>'+
     		  '<div class="one_gap"><span><label>URL</label><input id="metadata_url" /></span></div>'+
     		  '<div class="slider_top"><label>PRECISION</label><p>3KM</p></div>'+
     		  '<div class="slider"></div>'+
@@ -138,7 +138,7 @@
 			(this.inf.institutionCode!=undefined)?$('#metadata_institution').attr('value',this.inf.institutionCode):$('#metadata_institution').attr('value','');
 			(this.inf.catalogNumber!=undefined)?$('#metadata_catalog').attr('value',this.inf.catalogNumber):$('#metadata_catalog').attr('value','');
 			(this.inf.basisOfRecord!=undefined)?$('#metadata_basis').attr('value',this.inf.basisOfRecord):$('#metadata_basis').attr('value','');
-			(this.inf.recordedBy!=undefined)?$('#metadata_collector').attr('value',this.inf.recordedBy):$('#metadata_collector').attr('value','');
+			(this.inf.collector!=undefined)?$('#metadata_collector').attr('value',this.inf.collector):$('#metadata_collector').attr('value','');
 			(this.inf.eventDate!=undefined)?$('#metadata_date').attr('value',this.inf.eventDate):$('#metadata_date').attr('value','');
 			(this.inf.country!=undefined)?$('#metadata_country').attr('value',this.inf.country):$('#metadata_country').attr('value','');
 			(this.inf.stateProvince!=undefined)?$('#metadata_state').attr('value',this.inf.stateProvince):$('#metadata_state').attr('value','');
@@ -166,7 +166,7 @@
     GapsOverlay.prototype.save = function() {
       
       if (($('#metadata_collection').attr('value')!=this.inf.collectionCode) || ($('#metadata_institution').attr('value')!=this.inf.institutionCode) || ($('#metadata_catalog').attr('value')!=this.inf.catalogNumber)
-        || ($('#metadata_basis').attr('value')!=this.inf.basisOfRecord) || ($('#metadata_collector').attr('value')!=this.inf.recordedBy) || ($('#metadata_date').attr('value')!=this.inf.eventDate)
+        || ($('#metadata_basis').attr('value')!=this.inf.basisOfRecord) || ($('#metadata_collector').attr('value')!=this.inf.collector) || ($('#metadata_date').attr('value')!=this.inf.eventDate)
         || ($('#metadata_country').attr('value')!=this.inf.country) || ($('#metadata_state').attr('value')!=this.inf.stateProvince) || ($('#metadata_county').attr('value')!=this.inf.county)
         || ($('#metadata_altitude').attr('value')!=this.inf.verbatimElevation) || ($('#metadata_locality').attr('value')!=this.inf.locality) || ($('#metadata_precission').attr('value')!=this.inf.coordinateUncertaintyText)
         || ($('#metadata_identifier').attr('value')!=this.inf.identifiedBy) || ($('#metadata_gbif').attr('value')!=this.inf.occurrenceRemarks) || ($('#metadata_url').attr('value')!=this.inf.occurrenceDetails)) {
@@ -176,7 +176,7 @@
     			old_data.institutionCode = this.inf.institutionCode;
     			old_data.catalogNumber = this.inf.catalogNumber;
     			old_data.basisOfRecord = this.inf.basisOfRecord;
-    			old_data.recordedBy = this.inf.recordedBy;
+    			old_data.collector = this.inf.collector;
     			old_data.eventDate = this.inf.eventDate;
     			old_data.country = this.inf.country;
     			old_data.stateProvince = this.inf.stateProvince;
@@ -192,7 +192,7 @@
     			this.inf.institutionCode = $('#metadata_institution').attr('value');
     			this.inf.catalogNumber = $('#metadata_catalog').attr('value');
     			this.inf.basisOfRecord = $('#metadata_basis').attr('value');
-    			this.inf.recordedBy = $('#metadata_collector').attr('value');
+    			this.inf.collector = $('#metadata_collector').attr('value');
     			this.inf.eventDate = $('#metadata_date').attr('value');
     			this.inf.country = $('#metadata_country').attr('value');
     			this.inf.stateProvince = $('#metadata_state').attr('value');

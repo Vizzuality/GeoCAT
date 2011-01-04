@@ -19,6 +19,7 @@ class GbifController < ApplicationController
             "/rest/Occurrence/list?georeferencedonly=true&format=darwin" +
             "&maxresults=200&coordinateissues=false&scientificname=#{q}"
           )
+          puts gbif_url
           open(gbif_url) {|f| @list =  f.read }
           break
         rescue Exception=>e
@@ -39,15 +40,13 @@ class GbifController < ApplicationController
         @country                  = node.xpath("to:country").text
         @stateProvince            = node.xpath("to:stateProvince").text
         @county                   = node.xpath("to:county").text
-        @verbatimElevation        = ""
+        @verbatimElevation        = node.xpath("to:maximumElevationInMeters").text
         @locality                 = node.xpath("to:locality").text
         @coordinateUncertaintyInMeters = node.xpath("to:coordinateUncertaintyInMeters").text
         @identifiedBy             = ""
         @occurrenceRemarks        = node.xpath("to:gbifNotes").text
-        @occurrenceDetails        = ""
-        
-        
-        @gbifKey                  = node.xpath("to:gbifNotes").attr('gbifKey')
+        @gbifKey                  = node.attr('gbifKey')
+        @occurrenceDetails        = "http://data.gbif.org/occurrences/" + @gbifKey
         @latitude                 = node.xpath("to:decimalLatitude").text.to_f
         @longitude                = node.xpath("to:decimalLongitude").text.to_f
         
@@ -67,10 +66,12 @@ class GbifController < ApplicationController
           "identifiedBy"=>@identifiedBy,
           "occurrenceRemarks"=>@occurrenceRemarks,
           "occurrenceDetails"=>@occurrenceDetails,
-          "coordinateUncertaintyInMeters"=>"15","collector"=>@gbifKey,"active"=>true,"removed"=>false,
+          "coordinateUncertaintyInMeters"=>"15",
+          "collector"=>@recordedBy,
+          "active"=>true,
+          "removed"=>false,
           "catalogue_id"=>"gbif_#{@institutionCode}-#{@collectionCode}-#{@catalogNumber}",
-          "kind"=>"gbif",
-          "description" => ""}
+          "kind"=>"gbif"}
       end
 
       @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]

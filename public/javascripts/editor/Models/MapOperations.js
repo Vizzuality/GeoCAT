@@ -200,10 +200,27 @@
 					if(i < total){
 					  var info_data = new Object();
 					  $.extend(info_data, observations[i]);
-						(info_data.removed)?null:total_points.add(info_data.kind); //Add new point to total_point in each class (gbif, flickr or your points)
+						(info_data.removed)?null:total_points.add(info_data.kind);
 						bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));		
 						var marker = CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.kind, true, true, info_data, (info_data.removed)?null:map);
 		 				_markers[marker.data.catalogue_id] = marker;
+		 				
+		 				if (!info_data.active) {
+		 				  var marker_id = marker.data.catalogue_id;
+  						switch (_markers[marker_id].data.kind) {
+  							case 'gbif': 		var image = new google.maps.MarkerImage('/images/editor/gbif_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+  															_markers[marker_id].setIcon(image);
+  															break;
+  							case 'flickr': 	var image = new google.maps.MarkerImage('/images/editor/flickr_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+  															_markers[marker_id].setIcon(image);
+  															break;
+  							default: 				var image = new google.maps.MarkerImage('/images/editor/your_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+  															_markers[marker_id].setIcon(image);
+  						}
+  						_markers[marker_id].set('opacity',0.1);		
+		 				}
+		 				
+		 				
 						if (info_data.active && !info_data.removed && convex_hull.isVisible()) {
 							convex_hull.addPoint(marker);
 						}
@@ -378,9 +395,9 @@
 			/* Delete all the markers. 																										*/
 			/*============================================================================*/
 			function deleteAll(type) {
-				var remove_markers = [];		
-				for (var i in _markers) {
-					if (_markers[i].data.kind == type && _markers[i].data.removed == false) {
+				var remove_markers = [];
+				for (var i in _markers) {				  
+					if (_markers[i].data.kind == type && _markers[i].data.removed == false) {    				
 						total_points.deduct(type);
 						remove_markers.push(_markers[i].data);
 						_markers[i].data.removed = true;
@@ -406,9 +423,7 @@
 						_markers[marker_id].data.removed = true;
 						_markers[marker_id].setMap(null);
 
-						if (convex_hull.isVisible()) {
-							convex_hull.deductPoint(marker_id);
-						}
+						convex_hull.deductPoint(marker_id);
 			      i++;
 						setTimeout(function(){asynRemoveMarker(i,total,observations);},0);
 			    } else {
@@ -436,14 +451,17 @@
 
 					global_id++;
 					global_zIndex++;
+					var date = new Date();
 					
 					if (item_data == null) {
 						var inf = new Object();
 						inf.coordinateUncertaintyInMeters = 15;
 						inf.active = true;
 						inf.kind = 'your';
-						inf.description = "";
 						inf.removed = false;
+						inf.collector = "You";
+						inf.eventDate = (date.getMonth()+1)+"/"+ date.getDate() +"/"+ date.getFullYear();
+						inf.occurrenceRemarks = "Point added by you."
 						inf.catalogue_id = 'your_' + global_id;
 						inf.latitude = latlng.lat();
 						inf.longitude = latlng.lng();

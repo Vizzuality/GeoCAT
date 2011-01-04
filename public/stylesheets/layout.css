@@ -30,7 +30,7 @@ body {background:#EAEAEB; padding:0; margin:0;}
 ul{list-style:none;}
 a:hover {cursor:pointer;}
 /*fonts*/
-@font-face { font-family: "Futura"; src: url('../fonts/Futura.ttc'); }
+@font-face { font-family: "Futura"; src: url('/fonts/Futura.ttc'); }
 /* HOME */
 div.flash {float:left; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666;}
 div.flash p {float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
@@ -170,7 +170,7 @@ div#tools div.center div.left a.remove {background:url(/images/editor/remove_poi
 div#tools div.center div.left a:hover {background-position:0 -50px; cursor:pointer;}
 div#tools div.center div.left a.selected {background-position:0 -50px;}
 div#tools div.center div.left a.selected:hover {cursor:default;}
-div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:1;}
+div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:10;}
 div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
 div#tools div.center div.right div.inner_analysis {position:relative; float:left; padding:16px 0 0; margin:0 0 0 30px; width:220px; height:auto; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
   background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2));}
@@ -260,6 +260,7 @@ div#editor div#tools div.center div.right div.sources a:hover span {background-p
 div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:2px; right:15px; background:url(/images/editor/delete_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -29px;}
 div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -29px; cursor:pointer;}
+div#editor div#tools div.center div.right div.sources a.delete_all.your_points_change {right:-4px;}
 div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:2px; right:-5px; background:url(/images/editor/refresh_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.merge:hover {cursor:default;}
 div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -29px;}
@@ -477,7 +478,7 @@ div#other div.footer div.inner div.left p a {color:#003500;}
 div#other div.footer div.inner div.left p a:hover {text-decoration:none;}
 div#other div.footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 /*FOOTER EDITOR*/
-footer.app_footer {position:absolute; left:0; bottom:5px; width:100%; min-width:1183px; height:59px; padding:0; margin:0; background:none; border:none; z-index:0;}
+footer.app_footer {position:absolute; left:0; bottom:5px; width:100%; min-width:1183px; height:59px; padding:0; margin:0; background:none; border:none; z-index:1;}
 footer.app_footer div.inner {margin:0 auto; width:100%; }
 footer.app_footer div.inner div.left {position:absolute; left:100px; width:600px; z-index:1;}
 footer.app_footer div.inner div.left p {float:left; width:auto; font:normal 13px Arial; color:#000000; padding:22px 5px 0 0;}

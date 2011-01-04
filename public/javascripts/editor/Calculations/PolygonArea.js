@@ -1,8 +1,6 @@
 
 		function calculateArea(points) {
-			
-			console.log(points);
-			
+		  
 			var earthRadiusMeters=6378137.0;
 			var metersPerDegree=2.0*Math.PI*earthRadiusMeters/360.0;
 			var degreesPerRadian=180.0/Math.PI;
@@ -60,8 +58,9 @@
 			}
 
 			var areaMeters2=PlanarPolygonAreaMeters2(points);
-			if(areaMeters2>1000000.0) areaMeters2=SphericalPolygonAreaMeters2(points);
-      // return areaMeters2/metersPerKm/metersPerKm;
+			
+			if(areaMeters2>1000000.0 && points.length>3) 
+			  areaMeters2=SphericalPolygonAreaMeters2(points);
+
       return areaMeters2/1000000;
-		  
 		}
