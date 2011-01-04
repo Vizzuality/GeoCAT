@@ -70,7 +70,7 @@
   					me.cellsize = 2.0;
   					me.removeAOOPolygons();
   					me.setAlgorithmValues(me.cellsize);
-  					$('div.analysis p.change').html('AOO based on IUCN default cell width (2 km), <a class="change">change</a>');
+  					$('div.analysis p.change').html('AOO based on IUCN default<br/>cell width (2 km), <a class="change">change</a>');
 				  }
 				});
 			
@@ -106,7 +106,7 @@
 				  if ($(this).hasClass('selected')) {
 				    me.cellsize = me.beforeValue;
 						$(this).removeClass('selected');
-    				$('div.analysis p.change').html('AOO based on user defined cell width ('+me.beforeValue+'km), <a class="change">change</a>');
+    				$('div.analysis p.change').html('AOO based on user defined<br/>cell width ('+me.beforeValue+'km), <a class="change">change</a>');
 						$("div.cellsize div.slider").slider('enable');
 						$('.ui-widget-header').css('background','#F6A828');
 						$('div.cellsize span p').css('color','#F7AC53');
@@ -118,7 +118,7 @@
 					} else {
 					  me.beforeValue = me.cellsize;
 				    me.cellsize = 0;
-    				$('div.analysis p.change').html('AOO based on auto-value cell width (km), <a class="change">change</a>');
+    				$('div.analysis p.change').html('AOO based on auto-value<br/>cell width (km), <a class="change">change</a>');
 						$(this).addClass('selected');
 						$("div.cellsize div.slider").slider('disable');
 						$('.ui-widget-header').css('background','#999999');
@@ -335,7 +335,7 @@
 				
 				
 				if ($('#auto_value').hasClass('selected')) {
-				  $('div.analysis p.change').html('AOO based on auto-value cell width (km), <a class="change">change</a>');
+				  $('div.analysis p.change').html('AOO based on auto-value<br/>cell width (km), <a class="change">change</a>');
 				}
 				
 				this.drawAOOPolygons();
@@ -354,7 +354,7 @@
 			/*============================================================================*/
 			HullOperations.prototype.setAlgorithmValues = function(value) {
 				$('div.cellsize span p').text(value+'KM');
-				$('div.analysis p.change').html('AOO based on user defined cell width '+value+' km, <a class="change">change</a>');
+				$('div.analysis p.change').html('AOO based on user defined<br/>cell width ('+value+' km), <a class="change">change</a>');
 				if (this.polygon!=undefined && this.polygon.getPath().getLength()>2) {
 					this.setAlgorithmData(this.polygon.getPath().getArray(),this.cellsize*1000);
 				}
