@@ -26,7 +26,7 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON) {
-							if (responseJSON.success && (responseJSON.data.scientificname.toLowerCase()==specie.toLowerCase())) {
+							if (responseJSON.success) {
 								$('span.import a.import_data').addClass('enabled');
 								merge_object = new MergeOperations([]);
 								$('span.import a.import_data').click(function(ev){
@@ -70,6 +70,7 @@
                     for (var i=0; i<responseJSON.warnings.length; i++) {
                       $('div#csv_error ul').append('<li class="warning">'+responseJSON.warnings[i][1].capitalize()+'</li>');
                     }
+                    
                     
                     if (errors_size>0) {
                       $('div#csv_error h3').text('There are errors in your uploaded csv file');

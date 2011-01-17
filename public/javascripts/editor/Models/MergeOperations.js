@@ -91,8 +91,10 @@
               var catalogue_id = sources_[count].points[i].catalogue_id;
               if (catalogue_id==null || catalogue_id==undefined) {
                 global_id++;
-                if (sources_[count].points[i].coordinateUncertaintyInMeters == null || sources_[count].points[i].coordinateUncertaintyInMeters == undefined) 
+                if (sources_[count].points[i].coordinateUncertaintyInMeters == null || sources_[count].points[i].coordinateUncertaintyInMeters == undefined){
                   sources_[count].points[i].coordinateUncertaintyInMeters = 15;
+                  sources_[count].points[i].active = true;  
+                }
                 sources_[count].points[i].catalogue_id = 'your_'+global_id;
                 me.your_points.push(sources_[count].points[i]);
               } else {
