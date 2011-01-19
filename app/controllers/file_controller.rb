@@ -81,7 +81,7 @@ class FileController < ApplicationController
 
     render :json => rlat.to_json and return if params[:qqfile] && request.xhr?
 
-    invalid_rla_file and return if params[:file] && (not rlat.valid?)
+    invalid_rla_file and return if params[:file] && rlat.invalid?
 
     @rlat_json = rlat.to_json
     render :template => 'rlas/editor'
@@ -104,10 +104,11 @@ class FileController < ApplicationController
       flash[:error] = 'Invalid file type. You must provide a valid RLA file.'
       redirect_to :controller => 'main', :action => 'index'
     end
+
+    def filename_escape(string)
+      string.gsub(/([^ a-zA-Z0-9_.-]+)/n) do
+        '%' + $1.unpack('H2' * $1.size).join('%').upcase
+      end.tr(' ', '_')
+    end
 end
 
-def filename_escape(string)
-  string.gsub(/([^ a-zA-Z0-9_.-]+)/n) do
-    '%' + $1.unpack('H2' * $1.size).join('%').upcase
-  end.tr(' ', '_')
-end

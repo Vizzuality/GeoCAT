@@ -67,7 +67,7 @@ class RlatData
       self.zoom           = csv.first.zoom if csv.first.respond_to?(:zoom)
       self.format         = 'csv'
       self.center         = {
-        "latitude"  => csv.first.respond_to?(:center_latitude) ? csv.first.center_latitude : nil,
+        "latitude"  => csv.first.respond_to?(:center_latitude)  ? csv.first.center_latitude  : nil,
         "longitude" => csv.first.respond_to?(:center_longitude) ? csv.first.center_longitude : nil
       }
       self.sources        = [{
@@ -76,12 +76,12 @@ class RlatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'kind'         => 'your',
-          'latitude'     => row.respond_to?(:latitude) ? row.latitude : nil,
-          'longitude'    => row.respond_to?(:longitude) ? row.longitude : nil,
-          'collector'    => row.respond_to?(:collectioncode) ? row.collectioncode : nil,
+          'kind'                              => 'your',
+          'latitude'                          => row.respond_to?(:latitude)                      ? row.latitude                      : nil,
+          'longitude'                         => row.respond_to?(:longitude)                     ? row.longitude                     : nil,
+          'collector'                         => row.respond_to?(:collectioncode)                ? row.collectioncode                : nil,
           'coordinateUncertaintyInMeters'     => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil,
-          'catalogue_id' => row.respond_to?(:catalognumber) ? row.catalognumber : nil
+          'catalogue_id'                      => row.respond_to?(:catalognumber)                 ? row.catalognumber                 : nil
         })
       end
     end
@@ -90,7 +90,7 @@ class RlatData
       invalid_points = []
       if self.sources.present?
         self.sources.each do |source|
-          errors.add(:sources, 'are not valid') and return if source['name'].blank? || source['points'].blank?
+          errors.add(:sources, 'you must provide a source name') and return if source['name'].blank?
           source['points'].each do |point|
             if point['latitude'].blank? || point['longitude'].blank?
                invalid_points.push(point)
@@ -98,7 +98,11 @@ class RlatData
           end
           if invalid_points.present?
             source['points'] = source['points'] - invalid_points
-            warnings.push(:sources, "#{invalid_points.length} records were not imported because they were missing mandatory fields.")
+            if source['points'].blank?
+              errors.add(:sources, 'you must provide at least one point with valid latitude and longitude fields')
+            else
+              warnings.push(:sources, "#{invalid_points.length} records were not imported because they were missing mandatory fields.")
+            end
           end
           removed_dupes = Hash[source['points'].map{|x| [x['catalogue_id'], x]}].values
           if source['points'].length > removed_dupes.length
