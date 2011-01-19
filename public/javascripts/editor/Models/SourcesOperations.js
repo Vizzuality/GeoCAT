@@ -122,6 +122,7 @@
                       $('div#csv_error span a.continue').show();
                     }
                   }
+                  removeSelectedSources();
                   changeApplicationTo(6);
                 }
 							}
