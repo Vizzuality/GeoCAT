@@ -189,6 +189,22 @@
                 </form>
               </div>
               
+              <!-- Export window -->
+              <div id="export_window">
+                <a onclick="changeApplicationTo()" class="close">X</a>
+                <h3>Download the species data</h3>
+                <div class="blocks">
+                  <div class="block">
+                    <p>Plain text, comma separated values</p>
+                    <a onclick="downloadRLA('kml')" class="export">Download KML</a>
+                  </div>
+                  <div class="block last">
+                    <p>Structured XML file for geographic data</p>
+                    <a onclick="downloadRLA('csv')" class="export">Download CSV</a>
+                  </div>
+                </div>
+              </div>
+              
               <!-- CSV error window -->
               <div id="csv_error">
                 <a onclick="changeApplicationTo()" class="close">X</a>
@@ -278,7 +294,7 @@
                 <p id="action_info"><span></span></p>
               </div>
               <div class="right">
-                <a onclick="downloadRLA('kml')" class="export"></a>
+                <a onclick="changeApplicationTo(7)" class="export"></a>
                 <a onclick="downloadRLA('rla')" class="download"></a>
               </div>
             </div>

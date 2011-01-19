@@ -284,7 +284,7 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a:hover {cursor:pointer; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li span {display:none;}
 /*selected*/
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url(/images/editor/checkbox_add_image.png) no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a:hover {cursor:pointer; color:#666666;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span {display:block;}
@@ -361,14 +361,14 @@ div#zoom ul {float:left; width:28px; padding:0 0 1px 0; margin:0;}
 div#zoom ul li {float:left; width:28px; height:10px; background:url(/images/editor/zoom_level.png) no-repeat 0 0; margin:1px 0 0 0;}
 div#zoom ul li:hover {background-position:0 -10px; cursor:pointer;}
 div#zoom ul li.selected {background-position:0 -10px; cursor:default;}
-div#editor div#map_container div.table div.center-map div.search_place {position:absolute; opacity:0.5; top:21px; right:120px!important; width:180px!important; height:30px; background:url(/images/editor/search_bkg.png) no-repeat 0 0;}
+div#editor div#map_container div.table div.center-map div.search_place {position:absolute; opacity:0.5; top:21px; right:120px!important; width:180px!important; height:30px; background:url(/images/editor/search_bkg.png) no-repeat 0 0; z-index:10;}
 div#editor div#map_container div.table div.center-map div.search_place p {float:left; width:auto; margin:4px 0 0 5px; font:normal 13px Arial; color:white;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:0 0 3px 6px; width:110px; height:auto; padding:4px 0; background:url(/images/editor/search_input_bkg.png) no-repeat 0 18px; border:0;
   font:normal 13px Arial; color:white;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"]:focus {outline:none;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:13px; height:13px; margin:4px 0 0 10px; background:url(/images/editor/len_bkg.png);}
 div#editor div#map_container div.table div.center-map div.search_place input[type="submit"]:hover {cursor:pointer;}
-div#map_type {position:absolute; right:33px; top:21px; height:auto; opacity:0.5; margin:0!important; padding:0;}
+div#map_type {position:absolute; right:33px; top:21px; height:auto; opacity:0.5; margin:0!important; padding:0; z-index:10;}
 div#map_type:hover {opacity:1;}
 div#map_type div.map_type {float:right; position:relative; width:auto;}
 div#map_type a {position:relative; float:right; width:auto; padding:0 24px 0 0; height:24px; background:url(/images/editor/map_type_right.png) no-repeat right 0; border:none;}
@@ -399,7 +399,7 @@ div#map_container div.footer div.left p {opacity:0; float:left; height:32px; pad
 div#map_container div.footer div.left p span {float:left; padding:7px 11px 7px 6px; height:18px; font:normal 13px Arial; color:#404040; background:url(/images/editor/action_right.png) no-repeat right 0;}
 div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
 div#map_container div.footer div.right a.download {float:left; width:158px; height:32px; background:url(/images/editor/download_button.png) no-repeat 0 0;}
-div#map_container div.footer div.right a.export {float:left; width:110px; margin:0 5px 0 0; height:32px; background:url(/images/editor/export_button.png) no-repeat 0 0;}
+div#map_container div.footer div.right a.export {float:left; width:115px; margin:0 5px 0 0; height:32px; background:url(/images/editor/export_button.png) no-repeat 0 0;}
 div#map_container div.footer div.right a:hover {background-position:0 -32px; cursor:pointer;}
 /*Metadata*/
 div.metadata {width:326px!important; height:515px!important; padding:22px 22px 0 33px!important; margin:0;}
@@ -429,8 +429,23 @@ div.metadata div.slider_top p {float:right; width:auto; font:normal 10px Arial; 
 div.metadata span.bottom {float:left; width:326px!important; margin:20px 0 0 0;}
 div.metadata span.bottom a.cancel {float:left; width:auto; font:normal 11px Arial; color:#333333; text-decoration:underline;}
 div.metadata span.bottom a.cancel:hover {color:black;}
-div.metadata span.bottom a.save {float:right; width:89px; height:19px; background:url(/images/editor/save_changes_metadata.png) no-repeat 0 0; text-indent:-9999px;}
+div.metadata span.bottom a.save {float:right; width:89px; height:19px; background:url('/images/editor/save_changes_metadata.png') no-repeat 0 0; text-indent:-9999px;}
 div.metadata span.bottom a.save:hover {background-position:0 -19px;}
+
+/*EXPORT WINDOW*/
+div#export_window {position:absolute!important; display:none; width:320px; height:159px; padding:31px; top:50%!important; left:50%; margin:-110px 0 0 -191px!important; background: rgba(0,0,0, 0.8); z-index:10;
+  border-radius:10px; -webkit-border-radius: 10px; -moz-border-radius: 10px;}
+div#export_window a.close {position:absolute; right:14px; top:14px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#export_window h3 {font:bold 21px Arial; color:white; letter-spacing:-1px;}
+div#export_window div.blocks {float:left; width:276px; height:73px; margin:25px 0 0 0; padding:15px 20px; background: rgba(0,0,0, 0.5); z-index:10;
+  border-radius:10px; -webkit-border-radius: 10px; -moz-border-radius: 10px;}
+div#export_window div.block {float:left; width:125px; margin:0 25px 0 0;}
+div#export_window div.block.last {margin:0;}
+div#export_window div.block p {text-align:center; font:normal 13px Arial; color:#999999;}
+div#export_window div.block a.export {float:left; width:125px; height:13px; padding:6px 0 7px 0; margin:12px 0 0 0; background:url('/images/editor/export_to_button.png') no-repeat 0 0; text-align:center; font:bold 13px Arial; color:#4D6719; text-shadow:0 1px #B1D47E; text-transform:uppercase;}
+div#export_window div.block a.export:hover {background-position:0 -26px;}
+
+
 /*CSV Error*/
 div#csv_error {position:absolute!important; display:none; width:462px; height:311px; top:50%!important; left:50%; margin:-175px 0 0 -251px!important; padding:20px; background:url(/images/editor/csv_error_bkg.png) no-repeat 0 0; z-index:101;}
 div#csv_error a.close {position:absolute; right:14px; top:14px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}

@@ -85,6 +85,7 @@
 									$('div.help_container').fadeIn();
 									$('div#close_save').hide();
 									$('div#csv_error').fadeOut();
+    		          $('div#export_window').fadeOut();
 									$(document).keydown(function (e) {
 										if (e.keyCode == 27) { // ESC
 											changeApplicationTo();
@@ -97,6 +98,7 @@
 									$('ul.editor_list li:eq(1)').addClass('selected');
 									$('div.help_container').hide();
 									$('div#close_save').fadeIn();
+    		          $('div#export_window').fadeOut();
 									$(document).keydown(function (e) {
 										if (e.keyCode == 27) { // ESC
 											changeApplicationTo();
@@ -118,7 +120,16 @@
 									$('div#wellcome').fadeOut();
 									$('ul.editor_list li').removeClass('selected');
     		          $('div#csv_error').fadeIn();
-    							break;				
+    		          $('div#export_window').fadeOut();
+    							break;  							
+    		case 7: 	// Change app to export window
+    							$('div.help_container').fadeOut();
+									$('div#close_save').fadeOut();
+									$('div#wellcome').fadeOut();
+									$('ul.editor_list li').removeClass('selected');
+    		          $('div#csv_error').fadeOut();
+    		          $('div#export_window').fadeIn();
+    							break;					
 									
 				default: 	// Default state for app
 									$(document).unbind('keydown');
@@ -127,6 +138,8 @@
 									$('div#wellcome').fadeOut();
 									$('ul.editor_list li').removeClass('selected');
 									$('div#csv_error').fadeOut();
+    		          $('div#export_window').fadeOut();
+									$('div.search_place').fadeIn();
 			}
 		}
 		
