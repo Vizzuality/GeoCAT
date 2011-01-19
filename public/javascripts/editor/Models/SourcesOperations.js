@@ -26,13 +26,43 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON) {
+						  
 							if (responseJSON.success) {
-								$('span.import a.import_data').addClass('enabled');
-								merge_object = new MergeOperations([]);
-								$('span.import a.import_data').click(function(ev){
-								  closeSources();
-								  merge_object.importPoints(responseJSON.data.sources);
-								});
+							  if (responseJSON.warnings.length==0) {
+							    $('span.import a.import_data').addClass('enabled');
+  								merge_object = new MergeOperations([]);
+  								$('span.import a.import_data').click(function(ev){
+  								  closeSources();
+  								  merge_object.importPoints(responseJSON.data.sources);
+  								});
+							  } else {
+							    console.debug(responseJSON.warnings);
+							    closeSources();
+                  $('div#csv_error ul li').remove();
+                  var errors_size = 0;
+                  $.each(responseJSON.errors,function(index,element){
+                    errors_size++;
+                    $('div#csv_error ul').append('<li class="error">'+element.capitalize()+'</li>');
+                  });
+                  for (var i=0; i<responseJSON.warnings.length; i++) {
+                    $('div#csv_error ul').append('<li class="warning">'+responseJSON.warnings[i][1].capitalize()+'</li>');
+                  }
+                  if (errors_size>0) {
+                    $('div#csv_error h3').text('There are errors in your uploaded csv file');
+                    $('div#csv_error span a.continue').hide();
+                  } else {
+                    merge_object = new MergeOperations([]);
+                    $('div#csv_error span a.continue').unbind('click');
+    								$('div#csv_error span a.continue').click(function(ev){
+    								  $('div#csv_error').fadeOut();
+    								  merge_object.importPoints(responseJSON.data.sources);
+    								});
+                    $('div#csv_error h3').text('There are warnings in your uploaded csv file');
+                    $('div#csv_error span a.continue').show();
+                  }
+                  changeApplicationTo(6);
+							  }
+
 							} else {
 							  if (responseJSON.format=="rla") {
 							    $('span.import').parent().addClass('error');
@@ -60,7 +90,7 @@
     								  merge_object.importPoints(responseJSON.data.sources);
     								});
                   } else {
-                    closeSources();
+  							    closeSources();
                     $('div#csv_error ul li').remove();
                     var errors_size = 0;
                     $.each(responseJSON.errors,function(index,element){
@@ -70,8 +100,6 @@
                     for (var i=0; i<responseJSON.warnings.length; i++) {
                       $('div#csv_error ul').append('<li class="warning">'+responseJSON.warnings[i][1].capitalize()+'</li>');
                     }
-                    
-                    
                     if (errors_size>0) {
                       $('div#csv_error h3').text('There are errors in your uploaded csv file');
                       $('div#csv_error span a.continue').hide();
@@ -85,8 +113,8 @@
                       $('div#csv_error h3').text('There are warnings in your uploaded csv file');
                       $('div#csv_error span a.continue').show();
                     }
-                    changeApplicationTo(6);
                   }
+                  changeApplicationTo(6);
 							  }
 							}
 						},
