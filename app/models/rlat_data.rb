@@ -22,7 +22,7 @@ class RlatData
   end
 
   def warnings
-    @warnings = [] unless @warnings
+    @warnings = {} unless @warnings
     @warnings
   end
 
@@ -87,10 +87,12 @@ class RlatData
     end
 
     def sources_must_be_valid
-      invalid_points = []
+      invalid_points   = []
+      sources_errors   = []
+      sources_warnings = []
       if self.sources.present?
         self.sources.each do |source|
-          errors.add(:sources, 'you must provide a source name') and return if source['name'].blank?
+          sources_errors << 'you must provide a source name' if source['name'].blank?
           source['points'].each do |point|
             if point['latitude'].blank? || point['longitude'].blank?
                invalid_points.push(point)
@@ -99,17 +101,19 @@ class RlatData
           if invalid_points.present?
             source['points'] = source['points'] - invalid_points
             if source['points'].blank?
-              errors.add(:sources, 'you must provide at least one point with valid latitude and longitude fields')
+              sources_errors << 'you must provide at least one point with valid latitude and longitude fields'
             else
-              warnings.push(:sources, "#{invalid_points.length} records were not imported because they were missing mandatory fields.")
+              sources_warnings << "#{invalid_points.length} records were not imported because they were missing mandatory fields."
             end
           end
           removed_dupes = Hash[source['points'].map{|x| [x['catalogue_id'], x]}].values
           if source['points'].length > removed_dupes.length
             source['points'] = removed_dupes
-            warnings.push([:sources, "#{source['name']} source has duplicated catalogue_id's"])
+            sources_warnings << "#{source['name']} source has duplicated catalogue_id's"
           end
         end
+        warnings[:sources] = sources_warnings if sources_warnings.present?
+        errors.add(:sources, sources_errors) if sources_errors.present?
       end
     end
 
