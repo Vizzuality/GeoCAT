@@ -418,6 +418,8 @@ div.metadata div.two_gaps span.short {width:102px; margin:0;}
 div.metadata div.two_gaps span.short input {float:left; width:90px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_short.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
 div.metadata div.one_gap {float:left; width:100%; margin:7px 0 0 0;}
 div.metadata div.one_gap span {float:left; width:100%;}
+div.metadata div.one_gap span a {float:right; font:normal 11px Arial; color:#999999; text-decoration:none;}
+div.metadata div.one_gap span a:hover {color:#333333;}
 div.metadata div.one_gap span input {float:left; width:314px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_long.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
 div.metadata div.one_gap span input:focus {outline:none;}
 div.metadata div span input.disabled {color:#999999;}

@@ -28,6 +28,7 @@
     		$(div).append(
     		  '<a class="close"></a>'+
     		  '<h3>EDITING METADATA</h3>'+
+    		  '<form action="">'+
     		  '<div class="three_gaps"><span><label>LATITUDE</label><input id="metadata_latitude" disabled="true" style="color:#dddddd" value=""/></span><span class="last"><label>LONGITUDE</label><input id="metadata_longitude" disabled="true" style="color:#dddddd"/></span></div>'+
     		  '<div class="three_gaps"><span><label>COLLECTION CODE</label><input id="metadata_collection" /></span><span><label>INSTITUTION CODE</label><input id="metadata_institution" /></span><span class="last"><label>CATALOG NUMBER</label><input id="metadata_catalog" /></span></div>'+
     		  '<div class="two_gaps"><span><label>BASIS OF RECORD</label><input id="metadata_basis" /></span></div>'+
@@ -36,10 +37,11 @@
     		  '<div class="three_gaps"><span><label>ALTITUDE</label><input id="metadata_altitude" /></span><span><label>LOCALITY</label><input id="metadata_locality" /></span><span class="last"><label>PRECISSION</label><input id="metadata_precission" /></span></div>' +
     		  '<div class="two_gaps"><span><label>IDENTIFIER</label><input id="metadata_identifier" /></span></div>'+
     		  '<div class="one_gap"><span><label>NOTES</label><input id="metadata_gbif" /></span></div>'+
-    		  '<div class="one_gap"><span><label>URL</label><input id="metadata_url" /></span></div>'+
+    		  '<div class="one_gap"><span><label>URL</label><a class="goGBIF" href="#" target="_blank">Visit URL</a><input id="metadata_url" /></span></div>'+
     		  '<div class="slider_top"><label>PRECISION</label><p>3KM</p></div>'+
     		  '<div class="slider"></div>'+
-    		  '<span class="bottom"><a class="cancel">Cancel</a><a class="save">SAVE CHANGES</a></span>'
+    		  '<span class="bottom"><a class="cancel">Cancel</a><a class="save">SAVE CHANGES</a></span>'+
+    		  '</form>'
     		);
 
         var panes = this.getPanes();
@@ -56,6 +58,13 @@
           me.save();
         });
         
+        
+        $(div).find('a.goGBIF').click(function(ev){
+          ev.stopPropagation();
+          ev.preventDefault();
+          me.goGBIF();
+        });
+  
         
         $(div).find('a.close, a.cancel').click(function(){
           me.hide();
@@ -220,6 +229,13 @@
         $(this.div_).fadeOut();
       }
     }
+    
+    GapsOverlay.prototype.goGBIF = function(ev) {
+      if ($('#metadata_url').attr('value')!='') {
+        window.open($('#metadata_url').attr('value'));
+      }
+    }
+    
 
 
     GapsOverlay.prototype.show = function() {
