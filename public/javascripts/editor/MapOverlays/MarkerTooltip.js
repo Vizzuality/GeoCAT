@@ -324,7 +324,7 @@
 				$(div).find('a.hide_button_').css('background-image','url(/images/editor/info_hide.png)');
 			}
 
-			$(div).find('p.latitude').html((this.latlng_.lat()).toFixed(0)+'<sup style="color: rgb(102, 102, 102); font: normal normal normal 15px/normal Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');
+			$(div).find('p.latitude').html((this.latlng_.lat()).toFixed(0)+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');
 	
 			if ((this.latlng_.lng()).toFixed(0).length>2) {
 				if ((this.latlng_.lng()).toFixed(0).length>3) {
@@ -335,10 +335,19 @@
 			} else {
 				num = 5;
 			}	
-	
-			$(div).find('p.longitude').html((this.latlng_.lng()).toFixed(0)+'<sup style="color: rgb(102, 102, 102); font: normal normal normal 15px/normal Georgia; ">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
-			$(div).find('p.description').text(this.inf.occurrenceRemarks);
-			$(div).find('p.collector').text(this.inf.collector);
+
+			$(div).find('p.longitude').html((this.latlng_.lng()).toFixed(0)+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia;">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
+			if (this.inf.occurrenceRemarks.length>36) {
+  			$(div).find('p.description').text(this.inf.occurrenceRemarks.substr(0,33)+'...');
+			} else {
+  			$(div).find('p.description').text(this.inf.occurrenceRemarks);
+			}
+			
+			if (this.inf.collector.length>36) {
+  			$(div).find('p.collector').text(this.inf.collector.substr(0,33)+'...');
+			} else {
+  			$(div).find('p.collector').text(this.inf.collector);
+			}
 			$(div).find('p.precision').text(this.inf.coordinateUncertaintyInMeters+'KM');
 			$("div#precision_slider").slider({value: this.inf.coordinateUncertaintyInMeters});
 				
