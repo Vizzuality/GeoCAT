@@ -11,7 +11,7 @@ class RlatData
     return if file.blank?
 
     begin
-      process_as_json file
+      process_as_hash file
     rescue JSON::ParserError => e
       begin
         process_as_csv file
@@ -42,16 +42,53 @@ class RlatData
     }.to_json
   end
 
-  private
-    def process_as_json(file)
-      json = JSON.parse(file.read)
+  def to_csv
+    return '' unless self.valid?
 
-      self.scientificname = json['scientificname']
-      self.zoom           = json['zoom']
+    data = []
+    sources.each do |source|
+      data += source['points'].collect do |point|
+        {
+          'name'                          => source['name'],
+          'scientificname'                => scientificname,
+          'zoom'                          => zoom,
+          'center_latitude'               => center['latitude'],
+          'center_longitude'              => center['longitude'],
+          'latitude'                      => point['latitude'],
+          'longitude'                     => point['longitude'],
+          'collectioncode'                => point['collector'],
+          'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
+          'catalogue_id'                  => point['catalogue_id']
+        }
+      end
+    end
+
+    columns = data.first.keys.sort
+
+    output = FasterCSV.generate do |csv|
+      csv << columns
+      data.each do |row|
+        csv << columns.collect { |column| row[column] }
+      end
+    end
+    output
+  end
+
+  private
+    def process_as_hash(data)
+
+      hash = if data.is_a? Hash
+        data
+      else
+        JSON.parse(data.read)
+      end
+
+      self.scientificname = hash['scientificname']
+      self.zoom           = hash['zoom']
       self.format         = 'rla'
-      self.center         = json['center']
-      self.analysis       = json['analysis']
-      self.sources        = json['sources']
+      self.center         = hash['center']
+      self.analysis       = hash['analysis']
+      self.sources        = hash['sources']
     end
 
     def process_as_csv(file)
@@ -81,7 +118,7 @@ class RlatData
           'longitude'                         => row.respond_to?(:longitude)                     ? row.longitude                     : nil,
           'collector'                         => row.respond_to?(:collectioncode)                ? row.collectioncode                : nil,
           'coordinateUncertaintyInMeters'     => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil,
-          'catalogue_id'                      => row.respond_to?(:catalognumber)                 ? row.catalognumber                 : nil
+          'catalogue_id'                      => row.respond_to?(:catalogue_id)                  ? row.catalogue_id                  : nil
         })
       end
     end

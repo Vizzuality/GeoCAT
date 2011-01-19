@@ -60,6 +60,13 @@ class FileController < ApplicationController
       @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq
 
       render :action => :print
+    when 'csv'
+      file_name = filename_escape(@rla['scientificname'])
+      @rla = RlatData.new(@rla)
+
+      send_data @rla.to_csv,
+        :type => 'text/csv; charset=iso-8859-1; header=present',
+        :disposition => "attachment; filename=#{file_name}.csv"
     end
   end
 
