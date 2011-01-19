@@ -241,6 +241,7 @@
 				if (information.points.length>20) {
 					showMamufasMap();
 				}
+
 				var marker_kind;
 				switch (information.name) {
 					case 'gbif': 		marker_kind = 'Gbif';

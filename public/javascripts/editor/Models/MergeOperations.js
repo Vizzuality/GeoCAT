@@ -82,7 +82,6 @@
 			/*============================================================================*/
 			MergeOperations.prototype.importPoints = function(sources) {
         var me = this;
-				
         showMamufasMap();
 				
         function asynCheckPoints(count,sources_) {
@@ -91,31 +90,43 @@
               var catalogue_id = sources_[count].points[i].catalogue_id;
               if (catalogue_id==null || catalogue_id==undefined) {
                 global_id++;
-                if (sources_[count].points[i].coordinateUncertaintyInMeters == null || sources_[count].points[i].coordinateUncertaintyInMeters == undefined){
-                  sources_[count].points[i].coordinateUncertaintyInMeters = 15;
-                  sources_[count].points[i].active = true;
-                  sources_[count].points[i].removed = false;
-                  (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
-                  (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
-                }
+                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15;
+                (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
+                (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
+                (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
                 sources_[count].points[i].catalogue_id = 'your_'+global_id;
                 me.your_points.push(sources_[count].points[i]);
               } else {
-                if (_markers[catalogue_id]==undefined && _markers[catalogue_id]==null) {
-                 if (sources_[count].name=="gbif") {
+                
+                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15;
+                (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
+                (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
+                (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
+                
+                 if (sources_[count].points[i].kind=="gbif" && _markers[catalogue_id]==undefined) {
                    me.gbif_points.push(sources_[count].points[i]);
-                 } else if (sources_[count].name=="flickr") {
+                 } else if (sources_[count].points[i].kind=="flickr" && _markers[catalogue_id]==undefined) {
                    me.flickr_points.push(sources_[count].points[i]);
                  } else {
-                   me.your_points.push(sources_[count].points[i]);
+                   if (_markers[catalogue_id]==undefined) {
+                     me.your_points.push(sources_[count].points[i]);
+                   }
                  }
-                }
               }
             }
             count++;
             setTimeout(function(){asynCheckPoints(count,sources_);},0);
           } else {
-            sources_length = sources_.length;
+            sources_length = 0;
+            if (me.gbif_points.length>0) {
+        			sources_length++;
+            }
+            if (me.flickr_points.length>0) {
+        			sources_length++;
+            }
+            if (me.your_points.length>0) {
+              sources_length++;
+            }
             sources_count=0;
             $('body').bind('hideMamufas', function(ev){
       				sources_count++;

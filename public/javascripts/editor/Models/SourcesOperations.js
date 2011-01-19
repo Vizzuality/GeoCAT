@@ -28,7 +28,7 @@
 						onComplete: function(id, fileName, responseJSON) {
 						  
 							if (responseJSON.success) {
-							  if (responseJSON.warnings.length==0) {
+							  if (responseJSON.warnings.length==undefined) {
 							    $('span.import a.import_data').addClass('enabled');
   								merge_object = new MergeOperations([]);
   								$('span.import a.import_data').click(function(ev){
@@ -83,7 +83,7 @@
                   $('span.import a.import_data').text('retry');
                   $('span.import a.import_data').click(function(ev){resetUploader();});
                 } else {
-                  if (responseJSON.warnings.length==0) {
+                  if (responseJSON.warnings.length==undefined) {
                     $('span.import a.import_data').addClass('enabled');
                     merge_object = new MergeOperations([]);
                     $('span.import a.import_data').click(function(ev){
