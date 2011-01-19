@@ -36,17 +36,22 @@
   								  merge_object.importPoints(responseJSON.data.sources);
   								});
 							  } else {
-							    console.debug(responseJSON.warnings);
 							    closeSources();
                   $('div#csv_error ul li').remove();
                   var errors_size = 0;
                   $.each(responseJSON.errors,function(index,element){
-                    errors_size++;
-                    $('div#csv_error ul').append('<li class="error">'+element.capitalize()+'</li>');
+                    for (var i=0; i<element.length;i++) {
+                      errors_size++;
+                      $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
+                    }
                   });
-                  for (var i=0; i<responseJSON.warnings.length; i++) {
-                    $('div#csv_error ul').append('<li class="warning">'+responseJSON.warnings[i][1].capitalize()+'</li>');
-                  }
+                  
+                  $.each(responseJSON.warnings,function(index,element){
+                    for (var i=0; i<element.length;i++) {
+                      $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
+                    }
+                  });
+
                   if (errors_size>0) {
                     $('div#csv_error h3').text('There are errors in your uploaded csv file');
                     $('div#csv_error span a.continue').hide();
@@ -64,58 +69,61 @@
 							  }
 
 							} else {
-							  if (responseJSON.format=="rla") {
-							    $('span.import').parent().addClass('error');
-							    $('span.import a.delete').hide();
-							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
-							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('color','white');
-							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('background','url(/images/editor/fail.png) no-repeat 0 1px');
-							    $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('padding','0 0 0 14px');
-							    $('span.import a.retry').addClass('enabled');
-							    $('span.import a.retry').show();
-							    $('span.import a.retry').click(function(ev){
-  								  closeSources();
-							    });
-							    $('span.import a.import_data').addClass('enabled');
-							    $('span.import a.import_data').text('retry');
-							    $('span.import a.import_data').click(function(ev){
-  								  resetUploader();
-							    });
-							  } else {
-                  if (responseJSON.success && responseJSON.warnings.length==0) {
+                if (responseJSON.format=="rla") {
+                  $('span.import').parent().addClass('error');
+                  $('span.import a.delete').hide();
+                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
+                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('color','white');
+                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('background','url(/images/editor/fail.png) no-repeat 0 1px');
+                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('padding','0 0 0 14px');
+                  $('span.import a.retry').addClass('enabled');
+                  $('span.import a.retry').show();
+                  $('span.import a.retry').click(function(ev){closeSources();});
+                  $('span.import a.import_data').addClass('enabled');
+                  $('span.import a.import_data').text('retry');
+                  $('span.import a.import_data').click(function(ev){resetUploader();});
+                } else {
+                  if (responseJSON.warnings.length==0) {
                     $('span.import a.import_data').addClass('enabled');
-    								merge_object = new MergeOperations([]);
-    								$('span.import a.import_data').click(function(ev){
-    								  closeSources();
-    								  merge_object.importPoints(responseJSON.data.sources);
-    								});
+                    merge_object = new MergeOperations([]);
+                    $('span.import a.import_data').click(function(ev){
+                      closeSources();
+                      merge_object.importPoints(responseJSON.data.sources);
+                    });
                   } else {
-  							    closeSources();
+                    closeSources();
                     $('div#csv_error ul li').remove();
                     var errors_size = 0;
+                    
                     $.each(responseJSON.errors,function(index,element){
-                      errors_size++;
-                      $('div#csv_error ul').append('<li class="error">'+element.capitalize()+'</li>');
+                      for (var i=0; i<element.length;i++) {
+                        errors_size++;
+                        $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
+                      }
                     });
-                    for (var i=0; i<responseJSON.warnings.length; i++) {
-                      $('div#csv_error ul').append('<li class="warning">'+responseJSON.warnings[i][1].capitalize()+'</li>');
-                    }
+                    
+                    $.each(responseJSON.warnings,function(index,element){
+                      for (var i=0; i<element.length;i++) {
+                        $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
+                      }
+                    });
+
                     if (errors_size>0) {
                       $('div#csv_error h3').text('There are errors in your uploaded csv file');
                       $('div#csv_error span a.continue').hide();
                     } else {
                       merge_object = new MergeOperations([]);
                       $('div#csv_error span a.continue').unbind('click');
-      								$('div#csv_error span a.continue').click(function(ev){
-      								  $('div#csv_error').fadeOut();
-      								  merge_object.importPoints(responseJSON.data.sources);
-      								});
+                     $('div#csv_error span a.continue').click(function(ev){
+                       $('div#csv_error').fadeOut();
+                       merge_object.importPoints(responseJSON.data.sources);
+                     });
                       $('div#csv_error h3').text('There are warnings in your uploaded csv file');
                       $('div#csv_error span a.continue').show();
                     }
                   }
                   changeApplicationTo(6);
-							  }
+                }
 							}
 						},
 						onCancel: function(id, fileName){},

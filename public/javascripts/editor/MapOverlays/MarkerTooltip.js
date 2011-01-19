@@ -115,20 +115,20 @@
 
 
 				//Marker description
-				var accuracy = document.createElement('p');
-				$(accuracy).addClass('accuracy');
-				accuracy.style.position = "absolute";
-				accuracy.style.left = "24px";
-				accuracy.style.top = "97px";
-				accuracy.style.margin = "0";
-				accuracy.style.font = "normal 11px Arial";
-				accuracy.style.color = "#666666";
+				var description = document.createElement('p');
+				$(description).addClass('description');
+				description.style.position = "absolute";
+				description.style.left = "24px";
+				description.style.top = "97px";
+				description.style.margin = "0";
+				description.style.font = "normal 11px Arial";
+				description.style.color = "#666666";
 				if (this.inf.occurrenceRemarks.length>36) {
-  				$(accuracy).text(this.inf.occurrenceRemarks.substr(0,33)+'...');
+  				$(description).text(this.inf.occurrenceRemarks.substr(0,33)+'...');
 				} else {
-  				$(accuracy).text(this.inf.occurrenceRemarks);
+  				$(description).text(this.inf.occurrenceRemarks);
 				}
-				div.appendChild(accuracy);
+				div.appendChild(description);
 				
 
 				//Marker collector
@@ -337,7 +337,7 @@
 			}	
 	
 			$(div).find('p.longitude').html((this.latlng_.lng()).toFixed(0)+'<sup style="color: rgb(102, 102, 102); font: normal normal normal 15px/normal Georgia; ">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
-			$(div).find('p.accuracy').text(this.inf.coordinateUncertaintyInMeters+'km aprox.');
+			$(div).find('p.description').text(this.inf.occurrenceRemarks);
 			$(div).find('p.collector').text(this.inf.collector);
 			$(div).find('p.precision').text(this.inf.coordinateUncertaintyInMeters+'KM');
 			$("div#precision_slider").slider({value: this.inf.coordinateUncertaintyInMeters});

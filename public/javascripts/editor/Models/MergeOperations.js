@@ -93,7 +93,10 @@
                 global_id++;
                 if (sources_[count].points[i].coordinateUncertaintyInMeters == null || sources_[count].points[i].coordinateUncertaintyInMeters == undefined){
                   sources_[count].points[i].coordinateUncertaintyInMeters = 15;
-                  sources_[count].points[i].active = true;  
+                  sources_[count].points[i].active = true;
+                  sources_[count].points[i].removed = false;
+                  (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
+                  (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
                 }
                 sources_[count].points[i].catalogue_id = 'your_'+global_id;
                 me.your_points.push(sources_[count].points[i]);
