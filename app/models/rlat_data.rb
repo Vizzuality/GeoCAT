@@ -113,7 +113,7 @@ class RlatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'kind'                              => 'your',
+          'kind'                              => row.respond_to?(:name)                          ? row.name                          : 'your',
           'latitude'                          => row.respond_to?(:latitude)                      ? row.latitude                      : nil,
           'longitude'                         => row.respond_to?(:longitude)                     ? row.longitude                     : nil,
           'collector'                         => row.respond_to?(:collectioncode)                ? row.collectioncode                : nil,
