@@ -4,7 +4,6 @@ class RlatData
   attr_accessor :scientificname, :zoom, :center, :analysis, :format, :sources
   attr_writer :warnings
 
-  validates_presence_of :sources
   validate :sources_must_be_valid
 
   def initialize(file = nil)
@@ -76,7 +75,6 @@ class RlatData
 
   private
     def process_as_hash(data)
-
       hash = if data.is_a? Hash
         data
       else
@@ -149,9 +147,11 @@ class RlatData
             sources_warnings << "#{source['name']} source has duplicated catalogue_id's"
           end
         end
-        warnings[:sources] = sources_warnings if sources_warnings.present?
-        errors.add(:sources, sources_errors) if sources_errors.present?
+      else
+        sources_errors << 'you must provide at least one point with valid latitude and longitude fields'
       end
+      warnings[:sources] = sources_warnings if sources_warnings.present?
+      errors.add(:sources, sources_errors) if sources_errors.present?
     end
 
 end

@@ -108,7 +108,7 @@ class FileController < ApplicationController
     end
 
     def invalid_rla_file
-      flash[:error] = 'Invalid file type. You must provide a valid RLA file.'
+      flash[:error] = 'Invalid file. You must provide a valid RLA file.'
       redirect_to :controller => 'main', :action => 'index'
     end
 
