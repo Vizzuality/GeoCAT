@@ -28,6 +28,11 @@ class FileController < ApplicationController
     when 'kml'
       file_name = filename_escape(@rla['scientificname'])
 
+      # Removes 'removed' points from each datasource
+      @rla['sources'].each do |source|
+        source['points'].reject!{|point| point['removed']}
+      end
+
       @analysis = @rla["analysis"]
 
       headers["Content-Type"]        = "application/vnd.google-earth.kml+xml"
