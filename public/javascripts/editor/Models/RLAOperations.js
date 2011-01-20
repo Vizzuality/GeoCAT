@@ -111,8 +111,10 @@
               delete markers[i].data[prop];
             }
           }
-					
+          
 					delete markers[i].data.init_latlng;
+          (markers[i].data.kind!='your')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
+
 					new_source.points.push(markers[i].data);
 					obj.sources.push(new_source);
 				}
