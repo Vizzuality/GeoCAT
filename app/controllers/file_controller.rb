@@ -18,6 +18,11 @@ class FileController < ApplicationController
     format = params[:format]
     @rla = JSON.parse(params[:rla])
 
+    # Removes 'removed' points from each datasource
+    @rla['sources'].each do |source|
+      source['points'].reject!{|point| point['removed']}
+    end
+
     case format.downcase
     when 'rla'
       file_name = filename_escape(@rla['scientificname'])
@@ -27,11 +32,6 @@ class FileController < ApplicationController
       render :text => params[:rla]
     when 'kml'
       file_name = filename_escape(@rla['scientificname'])
-
-      # Removes 'removed' points from each datasource
-      @rla['sources'].each do |source|
-        source['points'].reject!{|point| point['removed']}
-      end
 
       @analysis = @rla["analysis"]
 
