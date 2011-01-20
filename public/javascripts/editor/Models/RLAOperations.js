@@ -92,6 +92,9 @@
             }
 					  
   					delete markers[i].data.init_latlng;
+
+  					(markers[i].data.kind!='your')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
+  					
 						obj.sources[j].points.push(markers[i].data);
 						find = true;
 						break;

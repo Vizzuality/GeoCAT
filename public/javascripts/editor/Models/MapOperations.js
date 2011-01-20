@@ -460,9 +460,9 @@
 						inf.active = true;
 						inf.kind = 'your';
 						inf.removed = false;
-						inf.collector = "You";
+						inf.collector = "";
 						inf.eventDate = (date.getMonth()+1)+"/"+ date.getDate() +"/"+ date.getFullYear();
-						inf.occurrenceRemarks = "Point added by you."
+						inf.occurrenceRemarks = ""
 						inf.catalogue_id = 'your_' + global_id;
 						inf.latitude = latlng.lat();
 						inf.longitude = latlng.lng();

@@ -90,25 +90,30 @@
               var catalogue_id = sources_[count].points[i].catalogue_id;
               if (catalogue_id==null || catalogue_id==undefined) {
                 global_id++;
+                sources_[count].points[i].removed=false;
                 (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15;
                 (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
                 (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
                 (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
                 sources_[count].points[i].catalogue_id = 'your_'+global_id;
+                (sources_[count].points[i].kind!=undefined)?null:sources_[count].points[i].kind='your';
                 me.your_points.push(sources_[count].points[i]);
               } else {
-                
+                sources_[count].points[i].removed=false;
                 (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15;
                 (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
                 (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
                 (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
                 
-                 if (sources_[count].points[i].kind=="gbif" && _markers[catalogue_id]==undefined) {
+                 if (sources_[count].points[i].recordSource=="gbif" && _markers[catalogue_id]==undefined) {
+                   sources_[count].points[i].kind='gbif';
                    me.gbif_points.push(sources_[count].points[i]);
-                 } else if (sources_[count].points[i].kind=="flickr" && _markers[catalogue_id]==undefined) {
+                 } else if (sources_[count].points[i].recordSource=="flickr" && _markers[catalogue_id]==undefined) {
+                   sources_[count].points[i].kind='flickr';
                    me.flickr_points.push(sources_[count].points[i]);
                  } else {
                    if (_markers[catalogue_id]==undefined) {
+                     sources_[count].points[i].kind='your';
                      me.your_points.push(sources_[count].points[i]);
                    }
                  }

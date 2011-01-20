@@ -26,7 +26,7 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON) {
-						  
+						  						  
 							if (responseJSON.success) {
 							  if (responseJSON.warnings.length==undefined) {
 							    $('span.import a.import_data').addClass('enabled');
@@ -69,7 +69,7 @@
 							  }
 
 							} else {
-                if (responseJSON.format=="rla") {
+                if (responseJSON.format=="rla" || responseJSON.format==null) {
                   $('span.import').parent().addClass('error');
                   $('span.import a.delete').hide();
                   $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');

@@ -24,7 +24,7 @@
   <div class="EOO">
     <span>EOO</span>
     <h2><%= "#{@RED_LIST_CATEGORIES[@analysis['EOO']['status'].upcase]} (#{@analysis['EOO']['status'].upcase})" %></h2>
-    <p><%= "#{@analysis['EOO']['result']}km2" %></p>
+    <p><%= "#{@analysis['EOO']['result']}" %> km<sup>2</sup></p>
     <hr>
   </div>
   <% end %>
@@ -33,11 +33,11 @@
     <div class="AOO">
       <span>AOO</span>
       <h2><%= "#{@RED_LIST_CATEGORIES[@analysis['AOO']['result'].upcase]} (#{@analysis['AOO']['result'].upcase})" %></h2>
-      <p><%= "#{@analysis['AOO']['status']} Km2" %></p>
+      <p><%= "#{@analysis['AOO']['status']}" %> km<sup>2</sup></p>
     </div>
     <div class="cellsize">
       <span>AOO Cell width (based on EOO)</span>
-      <h3><%= "#{@analysis['cellsize']}Km" %></h3>
+      <h3><%= "#{@analysis['cellsize']}" %> km<sup>2</sup></h3>
       <p><%= "#{@analysis['AOO']['grids'].length} AOO cells" %></p>
     </div>
   </div>
