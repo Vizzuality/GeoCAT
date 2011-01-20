@@ -50,14 +50,26 @@ class RlatData
         {
           'name'                          => source['name'],
           'scientificname'                => scientificname,
-          'zoom'                          => zoom,
-          'center_latitude'               => center['latitude'],
-          'center_longitude'              => center['longitude'],
           'latitude'                      => point['latitude'],
           'longitude'                     => point['longitude'],
-          'collectioncode'                => point['collector'],
+          'collector'                     => point['collector'],
           'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
-          'catalogue_id'                  => point['catalogue_id']
+          'catalogue_id'                  => point['catalogue_id'],
+          'collectionCode'                => point['collectionCode'],
+          'institutionCode'               => point['institutionCode'],
+          'catalogNumber'                 => point['catalogNumber'],
+          'basisOfRecord'                 => point['basisOfRecord'],
+          'collector'                     => point['collector'],
+          'eventDate'                     => point['eventDate'],
+          'country'                       => point['country'],
+          'stateProvince'                 => point['stateProvince'],
+          'county'                        => point['county'],
+          'verbatimElevation'             => point['verbatimElevation'],
+          'locality'                      => point['locality'],
+          'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
+          'identifiedBy'                  => point['identifiedBy'],
+          'occurrenceRemarks'             => point['occurrenceRemarks'],
+          'occurrenceDetails'             => point['occurrenceDetails']
         }
       end
     end
