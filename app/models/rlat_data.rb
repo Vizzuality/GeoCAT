@@ -59,7 +59,6 @@ class RlatData
           'institutionCode'               => point['institutionCode'],
           'catalogNumber'                 => point['catalogNumber'],
           'basisOfRecord'                 => point['basisOfRecord'],
-          'collector'                     => point['collector'],
           'eventDate'                     => point['eventDate'],
           'country'                       => point['country'],
           'stateProvince'                 => point['stateProvince'],
@@ -123,12 +122,26 @@ class RlatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'kind'                              => row.respond_to?(:name)                          ? row.name                          : 'your',
-          'latitude'                          => row.respond_to?(:latitude)                      ? row.latitude                      : nil,
-          'longitude'                         => row.respond_to?(:longitude)                     ? row.longitude                     : nil,
-          'collector'                         => row.respond_to?(:collectioncode)                ? row.collectioncode                : nil,
-          'coordinateUncertaintyInMeters'     => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil,
-          'catalogue_id'                      => row.respond_to?(:catalogue_id)                  ? row.catalogue_id                  : nil
+          'kind'                          => row.respond_to?(:name)                                       ? row.name                                       : 'your',
+          'latitude'                      => row.respond_to?(:latitude)                                   ? row.latitude                                   : nil,
+          'longitude'                     => row.respond_to?(:longitude)                                  ? row.longitude                                  : nil,
+          'collector'                     => row.respond_to?(:collector)                                  ? row.collectioncode                             : nil,
+          'coordinateUncertaintyInMeters' => row.respond_to?(:coordinateuncertaintyinmeters)              ? row.coordinateuncertaintyinmeters              : nil,
+          'catalogue_id'                  => row.respond_to?(:catalogue_id)                               ? row.catalogue_id                               : nil,
+          'collectionCode'                => row.respond_to?(:collectioncode)                             ? row.collectioncode                             : nil,
+          'institutionCode'               => row.respond_to?(:institutioncode)                            ? row.institutioncode                            : nil,
+          'catalogNumber'                 => row.respond_to?(:catalognumber)                              ? row.catalognumber                              : nil,
+          'basisOfRecord'                 => row.respond_to?(:basisofrecord)                              ? row.basisofrecord                              : nil,
+          'eventDate'                     => row.respond_to?(:eventdate)                                  ? row.eventdate                                  : nil,
+          'country'                       => row.respond_to?(:country)                                    ? row.country                                    : nil,
+          'stateProvince'                 => row.respond_to?(:stateprovince)                              ? row.stateprovince                              : nil,
+          'county'                        => row.respond_to?(:county)                                     ? row.county                                     : nil,
+          'verbatimElevation'             => row.respond_to?(:verbatimelevation)                          ? row.verbatimelevation                          : nil,
+          'locality'                      => row.respond_to?(:locality)                                   ? row.locality                                   : nil,
+          'coordinateUncertaintyText'     => row.respond_to?(:coordinateuncertaintytext)                  ? row.coordinateuncertaintytext                  : nil,
+          'identifiedBy'                  => row.respond_to?(:identifiedby)                               ? row.identifiedby                               : nil,
+          'occurrenceRemarks'             => row.respond_to?(:occurrenceremarks)                          ? row.occurrenceremarks                          : nil,
+          'occurrenceDetails'             => row.respond_to?(:occurrencedetails)                          ? row.occurrencedetails                          : nil
         })
       end
     end
