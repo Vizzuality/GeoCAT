@@ -48,7 +48,7 @@ class RlatData
     sources.each do |source|
       data += source['points'].collect do |point|
         {
-          'recordSource'                  => source['recordSource'],
+          'recordSource'                  => point['recordSource'],
           'scientificname'                => scientificname,
           'latitude'                      => point['latitude'],
           'longitude'                     => point['longitude'],
@@ -152,7 +152,7 @@ class RlatData
       sources_warnings = []
       if self.sources.present?
         self.sources.each do |source|
-          sources_errors << 'you must provide a source name' if source['recordSource'].blank?
+          sources_errors << 'you must provide a source name' if source['points'].select{|p| p['recordSource'].blank?}.present?
           source['points'].each do |point|
             if point['latitude'].blank? || point['longitude'].blank?
                invalid_points.push(point)
