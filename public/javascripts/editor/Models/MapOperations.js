@@ -396,18 +396,36 @@
 			/* Delete all the markers. 																										*/
 			/*============================================================================*/
 			function deleteAll(type) {
+
 				var remove_markers = [];
-				for (var i in _markers) {				  
-					if (_markers[i].data.kind == type && _markers[i].data.removed == false) {    				
-						total_points.deduct(type);
-						remove_markers.push(_markers[i].data);
-						_markers[i].data.removed = true;
-						_markers[i].setMap(null);
-					}
-					convex_hull.deductPoint(_markers[i].data.catalogue_id);
-				}
 				closeDeleteAll();
-				actions.Do('remove', null, remove_markers);
+				
+				var markersCopy = $.extend(true,{},_markers);
+				showMamufasMap();
+			  
+			  function asynRemoveMarker(type) {
+          for (var i in markersCopy) { 
+           if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {           
+             total_points.deduct(type);
+             remove_markers.push(_markers[i].data);
+             _markers[i].data.removed = true;
+             _markers[i].setMap(null);
+             convex_hull.deductPoint(_markers[i].data.catalogue_id);
+           }
+           delete markersCopy[i];
+           break;
+          }
+          
+          if (i==undefined) {
+            actions.Do('remove', null, remove_markers);
+            hideMamufasMap(false);
+            delete markersCopy;
+          } else {
+            asynRemoveMarker(type);
+          }
+				}
+        
+				asynRemoveMarker(type);
 			}
 
 
