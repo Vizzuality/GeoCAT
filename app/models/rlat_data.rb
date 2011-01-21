@@ -101,10 +101,12 @@ class RlatData
     end
 
     def process_as_csv(file)
-      options = {}
-      options[:type] = :io and file.rewind if file.is_a?(StringIO)
+      buffer = file
 
-      csv = CsvMapper.import(file.path || file, options) do
+      file.rewind if file.respond_to?(:rewind)
+      buffer = StringIO.new(file.read) if file.respond_to?(:read)
+
+      csv = CsvMapper.import(buffer, {:type => :io}) do
         read_attributes_from_file
       end
       return if csv.blank?
