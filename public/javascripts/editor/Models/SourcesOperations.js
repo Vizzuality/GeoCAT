@@ -26,6 +26,9 @@
 						},
 						onProgress: function(id, fileName, loaded, total){},
 						onComplete: function(id, fileName, responseJSON) {
+						  					
+						  console.debug(responseJSON);					
+						  					
 						  						  
 							if (responseJSON.success) {
 							  if (responseJSON.warnings.length==undefined) {

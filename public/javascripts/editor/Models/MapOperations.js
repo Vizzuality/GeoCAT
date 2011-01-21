@@ -424,7 +424,6 @@
             asynRemoveMarker(type);
           }
 				}
-        
 				asynRemoveMarker(type);
 			}
 
