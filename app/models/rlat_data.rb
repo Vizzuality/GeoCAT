@@ -14,7 +14,7 @@ class RlatData
     rescue JSON::ParserError => e
       begin
         process_as_csv file
-      rescue
+      rescue Exception => ex
         errors.add(:file, 'file is not valid')
       end
     end
@@ -103,7 +103,7 @@ class RlatData
     def process_as_csv(file)
       buffer = file
 
-      file.rewind if file.respond_to?(:rewind)
+      buffer.rewind if buffer.respond_to?(:rewind)
       buffer = StringIO.new(file.read) if file.respond_to?(:read)
 
       csv = CsvMapper.import(buffer, {:type => :io}) do
@@ -168,9 +168,9 @@ class RlatData
               sources_warnings << "#{invalid_points.length} records were not imported because they were missing mandatory fields."
             end
           end
-          removed_dupes = Hash[source['points'].map{|x| [x['catalogue_id'], x]}].values
+          removed_dupes = Hash[source['points'].select{|x| x['catalogue_id'].present?}.map{|x| [x['catalogue_id'], x]}].values
           if source['points'].length > removed_dupes.length
-            source['points'] = removed_dupes
+            source['points'] = source['points'] - removed_dupes
             sources_warnings << "#{source['recordSource']} source has duplicated catalogue_id's"
           end
         end
