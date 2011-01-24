@@ -64,7 +64,7 @@
 				latitude.style.lineHeight = "29px";
 				latitude.style.font = "normal 29px Georgia";
 				latitude.style.color = "#666666";
-				$(latitude).text((this.latlng_.lat()).toFixed(0));
+				$(latitude).text(Math.floor(this.latlng_.lat()));
 		
 				if ($(latitude).text().length>2) {
 					if ($(latitude).text().length>3) {
@@ -94,7 +94,7 @@
 				longitude.style.lineHeight = "29px";
 				longitude.style.font = "normal 29px Georgia";
 				longitude.style.color = "#666666";
-				$(longitude).text((this.latlng_.lng()).toFixed(0));
+				$(longitude).text(Math.floor(this.latlng_.lat()));
 		
 				if ($(longitude).text().length>2) {
 					if ($(longitude).text().length>3) {

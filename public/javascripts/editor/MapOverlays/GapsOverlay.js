@@ -141,8 +141,8 @@
       $(div).find('div.slider_top p').html(this.inf.coordinateUncertaintyInMeters + 'KM');
 			
     	
-    	$('#metadata_latitude').attr('value',this.latlng_.lat().toFixed(2));
-    	$('#metadata_longitude').attr('value',this.latlng_.lng().toFixed(2)); 
+    	$('#metadata_latitude').attr('value',this.latlng_.lat());
+    	$('#metadata_longitude').attr('value',this.latlng_.lng()); 
     	(this.inf.collectionCode!=undefined)?$('#metadata_collection').attr('value',unescape(this.inf.collectionCode)):$('#metadata_collection').attr('value',''); 
 			(this.inf.institutionCode!=undefined)?$('#metadata_institution').attr('value',unescape(this.inf.institutionCode)):$('#metadata_institution').attr('value','');
 			(this.inf.catalogNumber!=undefined)?$('#metadata_catalog').attr('value',unescape(this.inf.catalogNumber)):$('#metadata_catalog').attr('value','');
