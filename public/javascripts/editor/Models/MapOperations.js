@@ -607,7 +607,7 @@
             map.setCenter(results[0].geometry.location);
             map.fitBounds(results[0].geometry.bounds);
           } else {
-            $("span.search_not_found").stop().fadeIn().delay(2000).fadeOut()  ;
+            $("span.search_not_found").stop().fadeIn().delay(2000).fadeOut();
           }
         });
 			}
