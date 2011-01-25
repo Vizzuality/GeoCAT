@@ -304,7 +304,7 @@
 							}
 						}
 					});
-					google.maps.event.addListener(selection_polygon,'click',function(evt){
+					google.maps.event.addListener(selection_polygon,'click',function(){
 						drawing = false;
 						selection_polygon.setOptions({fillOpacity: 0.40});
 					  google.maps.event.clearListeners(map, 'mousemove');
@@ -316,14 +316,14 @@
 							over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().getAt(1), markersInPolygon(), map);
 						}
 
-						google.maps.event.addListener(selection_polygon,'mouseover',function(evt){
+						google.maps.event.addListener(selection_polygon,'mouseover',function(){
 							if (over_polygon_tooltip!=null) {
 								over_polygon_tooltip.show();
 							}
 							over_polygon = true;
 						});
 
-						google.maps.event.addListener(selection_polygon,'mouseout',function(evt){
+						google.maps.event.addListener(selection_polygon,'mouseout',function(){
 							if (over_polygon_tooltip!=null) {
 								over_polygon_tooltip.hide();
 							}
@@ -336,6 +336,19 @@
 						selection_polygon.setOptions({fillOpacity: 0.40});
 					  google.maps.event.clearListeners(map, 'mousemove');
 						google.maps.event.clearListeners(selection_polygon, 'click');
+						google.maps.event.addListener(selection_polygon,'mouseover',function(){
+							if (over_polygon_tooltip!=null) {
+								over_polygon_tooltip.show();
+							}
+							over_polygon = true;
+						});
+
+						google.maps.event.addListener(selection_polygon,'mouseout',function(){
+							if (over_polygon_tooltip!=null) {
+								over_polygon_tooltip.hide();
+							}
+							over_polygon = false;
+						});
 
 						if (over_polygon_tooltip!=null) {
 							over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().getAt(1));
@@ -549,8 +562,66 @@
 						actions.Do('active', null, markers_id);
 					}
 				}
-
 			}
+			
+			
+			
+			/*============================================================================*/
+			/* Put all (or only one) markers active or not. */
+			/*============================================================================*/
+			function hideAll (kind) {
+			  
+			  var hide_markers = [];
+				closeDeleteAll();
+				
+				var markersCopy = $.extend(true,{},_markers);
+				showMamufasMap();
+			  
+			  function asynHideMarker(type) {
+          for (var i in markersCopy) { 
+           if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {
+             
+            var marker_id = markersCopy[i].data.catalogue_id;
+            switch (type) {
+              case 'gbif':    var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
+                                                      new google.maps.Size(25, 25),
+                                                      new google.maps.Point(0,0),
+                                                      new google.maps.Point(12, 12));
+                              _markers[marker_id].setIcon(image);
+                              break;
+              case 'flickr':  var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
+                                                      new google.maps.Size(25, 25),
+                                                      new google.maps.Point(0,0),
+                                                      new google.maps.Point(12, 12));
+                              _markers[marker_id].setIcon(image);
+                              break;
+              default:        var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
+                                                      new google.maps.Size(25, 25),
+                                                      new google.maps.Point(0,0),
+                                                      new google.maps.Point(12, 12));
+                              _markers[marker_id].setIcon(image);
+            }
+            _markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);   
+            _markers[marker_id].data.active = !_markers[marker_id].data.active;
+             
+             
+             hide_markers.push(_markers[i].data);
+             convex_hull.deductPoint(_markers[i].data.catalogue_id);
+           }
+           delete markersCopy[i];
+           break;
+          }
+          
+          if (i==undefined) {
+            actions.Do('active', null, hide_markers);            
+            hideMamufasMap(false);
+            delete markersCopy;
+          } else {
+            asynHideMarker(type);
+          }
+				}
+				asynHideMarker(kind);
+			}			
 
 
 

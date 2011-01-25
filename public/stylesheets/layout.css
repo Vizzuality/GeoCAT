@@ -252,9 +252,9 @@ div#editor div#tools div.center div.right div.sources span {float:left; width:10
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#editor div#tools div.center div.right div.sources span p {float:right; font:normal 11px "Futura"; color:#7C7D7E; padding:0 17px 0 0;}
 div#editor div#tools div.center div.right div.sources a {float:left; padding:3px 0 3px 22px; text-decoration:none;}
-div#editor div#tools div.center div.right div.sources a.blue {background:url(/images/editor/left_black_bar_blue.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a.green {background:url(/images/editor/left_black_bar_green.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a.pink {background:url(/images/editor/left_black_bar_pink.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a.blue {background:url(/images/editor/comon_list_left.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a.green {background:url(/images/editor/comon_list_left.png) no-repeat 0 3px;}
+div#editor div#tools div.center div.right div.sources a.pink {background:url(/images/editor/comon_list_left.png) no-repeat 0 3px;}
 div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; width:193px; background:url(/images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources a:hover span {background-position:right 0;}
 div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:2px; right:15px; background:url(/images/editor/delete_source.png) no-repeat center 0;}
@@ -269,6 +269,12 @@ div#editor div#tools div.center div.right div.sources a.add {float:left; padding
 div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc; background-position:0 -48px; text-decoration:none;}
 div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
+div#editor div#tools div.center div.right div.sources a.flickr_hide {position:absolute; left:7px; top:10px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_flickr.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources a.gbif_hide {position:absolute; left:7px; top:10px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_gbif.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources a.your_hide {position:absolute; left:7px; top:10px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_your.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources a.flickr_hide.hide {background-position: 0 -11px;}
+div#editor div#tools div.center div.right div.sources a.gbif_hide.hide {background-position: 0 -11px;}
+div#editor div#tools div.center div.right div.sources a.your_hide.hide {background-position: 0 -11px;}
 div#editor div#tools div.center div.right div.sources ul {float:left; width:218px; padding:0; margin:5px 0 0 0;}
 div#editor div#tools div.center div.right div.sources ul li {float:left; position:relative; width:100%;}
 /*add new source*/
@@ -278,7 +284,7 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.center div.right div.sources div#add_source_container div.top a#close_sources:hover {background-position:0 -16px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.bottom {float:left; width:209px; padding:0 0 25px; background:url(/images/editor/add_source_bottom.png) no-repeat 0 bottom;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle {float:left; width:185px; padding:0 12px; background:url(/images/editor/add_source_repeat.png) repeat-y 0 0;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul {float:left; width:171px; padding:8px 7px; margin:0; background-image: -moz-linear-gradient(100% 100% 90deg, #F3F3F3, #D4D4D4); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F3F3F3), to(#D4D4D4));}
+div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul {float:left; width:171px; padding:8px 7px; margin:0; background-image:-moz-linear-gradient(center bottom,rgb(212,212,212) 61%,rgb(243,243,243) 100%); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F3F3F3), to(#D4D4D4));}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li {float:left; width:157px; padding:4px 7px;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a {float:left; margin:2px 0 0 0; padding:0 0 0 17px; background:url(/images/editor/checkbox_add_image.png) no-repeat 0 1px; font:normal 13px Arial; color:#898989;}
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li a:hover {cursor:pointer; color:#666666;}
@@ -345,7 +351,7 @@ div#editor div#map_container div.table div.top-right-map span#beta{position:abso
 div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0;}
 div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url(/images/editor/left-repeat-map.png) repeat-y -6px 0;}
 div#editor div#map_container div.table div.center-map {position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}
-div#editor div#map_container div.table div.center-map a.vizzuality {position:absolute; bottom:5px; left:75px; z-index:100;}
+div#editor div#map_container div.table div.center-map a.vizzuality {position:absolute; bottom:2px; left:75px; z-index:100;}
 div#editor div#map_container div.table div.right-repeat-map{position:absolute; top:0; bottom:0; right:0; width:25px; background:url(/images/editor/right-repeat-map.png) repeat-y 10px 0;}
 div#editor div#map_container div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:80px;}
 div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/bottom-left-map.png) no-repeat right top; margin:0;}
@@ -405,12 +411,15 @@ div#map_container div.footer div.right a.export {float:left; width:115px; margin
 div#map_container div.footer div.right a:hover {background-position:0 -32px; cursor:pointer;}
 /*Metadata*/
 div.metadata {width:326px!important; height:515px!important; padding:22px 22px 0 33px!important; margin:0;}
+div.metadata span.error_latlng {position:absolute; display:none; width:206px; height:74px; top:5px; background:url('/images/editor/error_latlng.png') no-repeat 0 0; z-index:100;}
+div.metadata span.error_latlng p {margin:23px 0 0 50px; font:normal 13px Arial; color:#333333;}
 div.metadata a.close {position:absolute; right:1px; top:1px; width:21px; height:21px; cursor:pointer; background:url(/images/editor/close_infowindow.png) no-repeat 0 0;}
 div.metadata h3 {float:left; margin:0 0 11px 0; font:bold 11px Arial; color:#666666;}
 div.metadata div span label {float:left; margin:0 0 2px 2px; font:normal 10px Arial; color:#888888; line-height:11px;}
 div.metadata div.three_gaps {float:left; width:100%; margin:7px 0 0 0;}
 div.metadata div.three_gaps span {float:left; width:102px; margin:0 10px 0 0;}
 div.metadata div.three_gaps span input {float:left; width:90px; height:18px; padding:3px 6px; border:none; background:url(/images/editor/metadata_input_short.png) no-repeat 0 0; font:normal 11px Arial; color:#666666;}
+div.metadata div.three_gaps span input.error {background-position:0 -24px;}
 div.metadata div.three_gaps span input:focus {outline:none;}
 div.metadata div.two_gaps {float:left; width:100%; margin:7px 0 0 0;}
 div.metadata div.two_gaps span {float:left; width:214px; margin:0 10px 0 0;}

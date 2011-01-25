@@ -64,8 +64,15 @@
 				latitude.style.lineHeight = "29px";
 				latitude.style.font = "normal 29px Georgia";
 				latitude.style.color = "#666666";
-				$(latitude).text(Math.floor(this.latlng_.lat()));
-		
+				
+				if (Math.floor(this.latlng_.lat())<0) {
+				  var au_lat = Math.floor(this.latlng_.lat())+1;
+				} else {
+				  var au_lat = Math.floor(this.latlng_.lat());
+				}
+				
+				$(latitude).text(au_lat);
+				
 				if ($(latitude).text().length>2) {
 					if ($(latitude).text().length>3) {
 						num = 2;
@@ -94,7 +101,14 @@
 				longitude.style.lineHeight = "29px";
 				longitude.style.font = "normal 29px Georgia";
 				longitude.style.color = "#666666";
-				$(longitude).text(Math.floor(this.latlng_.lng()));
+				
+				if (Math.floor(this.latlng_.lng())<0) {
+				  var au_lng = Math.floor(this.latlng_.lng())+1;
+				} else {
+				  var au_lng = Math.floor(this.latlng_.lng());
+				}
+				
+				$(longitude).text(au_lng);
 		
 				if ($(longitude).text().length>2) {
 					if ($(longitude).text().length>3) {
@@ -329,8 +343,14 @@
 			} else {
 				$(div).find('a.hide_button_').css('background-image','url(/images/editor/info_hide.png)');
 			}
+			
+			if (Math.floor(this.latlng_.lat())<0) {
+			  var au_lat = Math.floor(this.latlng_.lat())+1;
+			} else {
+			  var au_lat = Math.floor(this.latlng_.lat());
+			}
 
-			$(div).find('p.latitude').html(Math.floor(this.latlng_.lat())+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');
+			$(div).find('p.latitude').html(au_lat+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');
 	
 			if ((this.latlng_.lng()).toFixed(0).length>2) {
 				if ((this.latlng_.lng()).toFixed(0).length>3) {
@@ -340,9 +360,15 @@
 				}
 			} else {
 				num = 5;
-			}	
+			}
+			
+			if (Math.floor(this.latlng_.lng())<0) {
+			  var au_lng = Math.floor(this.latlng_.lng())+1;
+			} else {
+			  var au_lng = Math.floor(this.latlng_.lng());
+			}
 
-			$(div).find('p.longitude').html(Math.floor(this.latlng_.lng())+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia;">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
+			$(div).find('p.longitude').html(au_lng+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia;">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
 			if (this.inf.occurrenceRemarks.length>36) {
   			$(div).find('p.description').text(this.inf.occurrenceRemarks.substr(0,33)+'...');
 			} else {

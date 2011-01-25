@@ -129,6 +129,7 @@
 					is_dragging = false;
 					this.data.longitude = ev.latLng.lng();
 					this.data.latitude = ev.latLng.lat();
+					this.data.changed = true;
 					if (convex_hull.isVisible()) {
 						convex_hull.calculateConvexHull(false);
 					}

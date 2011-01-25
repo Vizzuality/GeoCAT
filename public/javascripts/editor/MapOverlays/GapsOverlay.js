@@ -29,6 +29,7 @@
     		  '<a class="close"></a>'+
     		  '<h3>EDITING METADATA</h3>'+
     		  '<form action="">'+
+    		  '<span class="error_latlng"><p>You need a valid lat/lng</p></span>'+
     		  '<div class="three_gaps"><span><label>LATITUDE</label><input id="metadata_latitude" value=""/></span><span class="last"><label>LONGITUDE</label><input id="metadata_longitude" /></span></div>'+
     		  '<div class="three_gaps"><span><label>COLLECTION CODE</label><input id="metadata_collection" /></span><span><label>INSTITUTION CODE</label><input id="metadata_institution" /></span><span class="last"><label>CATALOG NUMBER</label><input id="metadata_catalog" /></span></div>'+
     		  '<div class="two_gaps"><span><label>BASIS OF RECORD</label><input id="metadata_basis" /></span></div>'+
@@ -181,50 +182,75 @@
     
     GapsOverlay.prototype.save = function() {
       
-      if (($('#metadata_collection').attr('value')!=unescape(this.inf.collectionCode)) || ($('#metadata_institution').attr('value')!=unescape(this.inf.institutionCode)) || ($('#metadata_catalog').attr('value')!=unescape(this.inf.catalogNumber))
-        || ($('#metadata_basis').attr('value')!=unescape(this.inf.basisOfRecord)) || ($('#metadata_collector').attr('value')!=unescape(this.inf.collector)) || ($('#metadata_date').attr('value')!=unescape(this.inf.eventDate))
-        || ($('#metadata_country').attr('value')!=unescape(this.inf.country)) || ($('#metadata_state').attr('value')!=unescape(this.inf.stateProvince)) || ($('#metadata_county').attr('value')!=unescape(this.inf.county))
-        || ($('#metadata_altitude').attr('value')!=unescape(this.inf.verbatimElevation)) || ($('#metadata_locality').attr('value')!=unescape(this.inf.locality)) || ($('#metadata_precission').attr('value')!=unescape(this.inf.coordinateUncertaintyText))
-        || ($('#metadata_identifier').attr('value')!=unescape(this.inf.identifiedBy)) || ($('#metadata_gbif').attr('value')!=unescape(this.inf.occurrenceRemarks)) || ($('#metadata_url').attr('value')!=unescape(this.inf.occurrenceDetails))) {
+      if ((!isNaN($('#metadata_latitude').attr('value'))) && (!isNaN($('#metadata_longitude').attr('value'))) && ($('#metadata_longitude').attr('value')!='') && ($('#metadata_latitude').attr('value'))!='') {
+        if (($('#metadata_collection').attr('value')!=unescape(this.inf.collectionCode)) || ($('#metadata_institution').attr('value')!=unescape(this.inf.institutionCode)) || ($('#metadata_catalog').attr('value')!=unescape(this.inf.catalogNumber))
+          || ($('#metadata_basis').attr('value')!=unescape(this.inf.basisOfRecord)) || ($('#metadata_collector').attr('value')!=unescape(this.inf.collector)) || ($('#metadata_date').attr('value')!=unescape(this.inf.eventDate))
+          || ($('#metadata_country').attr('value')!=unescape(this.inf.country)) || ($('#metadata_state').attr('value')!=unescape(this.inf.stateProvince)) || ($('#metadata_county').attr('value')!=unescape(this.inf.county))
+          || ($('#metadata_altitude').attr('value')!=unescape(this.inf.verbatimElevation)) || ($('#metadata_locality').attr('value')!=unescape(this.inf.locality)) || ($('#metadata_precission').attr('value')!=unescape(this.inf.coordinateUncertaintyText))
+          || ($('#metadata_identifier').attr('value')!=unescape(this.inf.identifiedBy)) || ($('#metadata_gbif').attr('value')!=unescape(this.inf.occurrenceRemarks)) || ($('#metadata_url').attr('value')!=unescape(this.inf.occurrenceDetails)) || ($('#metadata_latitude').attr('value')!=unescape(this.inf.latitude)) || ($('#metadata_longitude').attr('value')!=unescape(this.inf.longitude))) {
         
-          var old_data = new Object();
-          old_data.collectionCode = unescape(this.inf.collectionCode); 
-    			old_data.institutionCode = unescape(this.inf.institutionCode);
-    			old_data.catalogNumber = unescape(this.inf.catalogNumber);
-    			old_data.basisOfRecord = unescape(this.inf.basisOfRecord);
-    			old_data.collector = unescape(this.inf.collector);
-    			old_data.eventDate = unescape(this.inf.eventDate);
-    			old_data.country = unescape(this.inf.country);
-    			old_data.stateProvince = unescape(this.inf.stateProvince);
-    			old_data.county = unescape(this.inf.county);
-    			old_data.verbatimElevation = unescape(this.inf.verbatimElevation);
-    			old_data.locality = unescape(this.inf.locality);
-    			old_data.coordinateUncertaintyText = unescape(this.inf.coordinateUncertaintyText);
-    			old_data.identifiedBy = unescape(this.inf.identifiedBy);
-    			old_data.occurrenceRemarks = unescape(this.inf.occurrenceRemarks);
-    			old_data.occurrenceDetails = unescape(this.inf.occurrenceDetails);
+            var old_data = new Object();
+            old_data.changed = (this.inf.changed!=undefined)?false:this.inf.changed; 
+            old_data.collectionCode = (this.inf.collectionCode!=undefined)?unescape(this.inf.collectionCode):''; 
+      			old_data.institutionCode = (this.inf.institutionCode!=undefined)?unescape(this.inf.institutionCode):'';
+      			old_data.catalogNumber = (this.inf.catalogNumber!=undefined)?unescape(this.inf.catalogNumber):'';
+      			old_data.basisOfRecord = (this.inf.basisOfRecord!=undefined)?unescape(this.inf.basisOfRecord):'';
+      			old_data.collector = (this.inf.collector!=undefined)?unescape(this.inf.collector):'';
+      			old_data.eventDate = (this.inf.eventDate!=undefined)?unescape(this.inf.eventDate):'';
+      			old_data.country = (this.inf.country!=undefined)?unescape(this.inf.country):'';
+      			old_data.stateProvince = (this.inf.stateProvince!=undefined)?unescape(this.inf.stateProvince):'';
+      			old_data.county = (this.inf.county!=undefined)?unescape(this.inf.county):'';
+      			old_data.verbatimElevation = (this.inf.verbatimElevation!=undefined)?unescape(this.inf.verbatimElevation):'';
+      			old_data.locality = (this.inf.locality!=undefined)?unescape(this.inf.locality):'';
+      			old_data.coordinateUncertaintyText = (this.inf.coordinateUncertaintyText!=undefined)?unescape(this.inf.coordinateUncertaintyText):'';
+      			old_data.identifiedBy = (this.inf.identifiedBy!=undefined)?unescape(this.inf.identifiedBy):'';
+      			old_data.occurrenceRemarks = (this.inf.occurrenceRemarks!=undefined)?unescape(this.inf.occurrenceRemarks):'';
+      			old_data.occurrenceDetails = (this.inf.occurrenceDetails!=undefined)?unescape(this.inf.occurrenceDetails):'';
+      			old_data.latitude = this.inf.latitude;
+      			old_data.longitude = this.inf.longitude;
+    			
           
-        	this.inf.collectionCode = $('#metadata_collection').attr('value'); 
-    			this.inf.institutionCode = $('#metadata_institution').attr('value');
-    			this.inf.catalogNumber = $('#metadata_catalog').attr('value');
-    			this.inf.basisOfRecord = $('#metadata_basis').attr('value');
-    			this.inf.collector = $('#metadata_collector').attr('value');
-    			this.inf.eventDate = $('#metadata_date').attr('value');
-    			this.inf.country = $('#metadata_country').attr('value');
-    			this.inf.stateProvince = $('#metadata_state').attr('value');
-    			this.inf.county = $('#metadata_county').attr('value');
-    			this.inf.verbatimElevation = $('#metadata_altitude').attr('value');
-    			this.inf.locality = $('#metadata_locality').attr('value');
-    			this.inf.coordinateUncertaintyText = $('#metadata_precission').attr('value');
-    			this.inf.identifiedBy = $('#metadata_identifier').attr('value');
-    			this.inf.occurrenceRemarks = $('#metadata_gbif').attr('value');
-    			this.inf.occurrenceDetails = $('#metadata_url').attr('value');
+            this.inf.changed = true;
+          	this.inf.collectionCode = $('#metadata_collection').attr('value'); 
+      			this.inf.institutionCode = $('#metadata_institution').attr('value');
+      			this.inf.catalogNumber = $('#metadata_catalog').attr('value');
+      			this.inf.basisOfRecord = $('#metadata_basis').attr('value');
+      			this.inf.collector = $('#metadata_collector').attr('value');
+      			this.inf.eventDate = $('#metadata_date').attr('value');
+      			this.inf.country = $('#metadata_country').attr('value');
+      			this.inf.stateProvince = $('#metadata_state').attr('value');
+      			this.inf.county = $('#metadata_county').attr('value');
+      			this.inf.verbatimElevation = $('#metadata_altitude').attr('value');
+      			this.inf.locality = $('#metadata_locality').attr('value');
+      			this.inf.coordinateUncertaintyText = $('#metadata_precission').attr('value');
+      			this.inf.identifiedBy = $('#metadata_identifier').attr('value');
+      			this.inf.occurrenceRemarks = $('#metadata_gbif').attr('value');
+      			this.inf.occurrenceDetails = $('#metadata_url').attr('value');
+      			this.inf.latitude = $('#metadata_latitude').attr('value');
+      			this.inf.longitude = $('#metadata_longitude').attr('value');
+    			
           
-          _markers[this.marker_id].data = this.inf;
-          this.hide();
+            _markers[this.marker_id].data = this.inf;
+            _markers[this.marker_id].setPosition(new google.maps.LatLng(this.inf.latitude,this.inf.longitude));
+            this.hide();
           
-          actions.Do('edit',[{catalogue_id:this.marker_id,info:old_data}],[{catalogue_id:this.marker_id,info:this.inf}]);
+            actions.Do('edit',[{catalogue_id:this.marker_id,info:old_data}],[{catalogue_id:this.marker_id,info:this.inf}]);
+        }
+      } else {
+        if (($('#metadata_longitude').attr('value')=='') || (isNaN($('#metadata_longitude').attr('value')))) {
+          $('#metadata_longitude').addClass('error');
+          $('span.error_latlng').css('left','94px');
+        } else {
+          $('#metadata_longitude').removeClass('error');
+        }
         
+        if (($('#metadata_latitude').attr('value')=='') || (isNaN($('#metadata_latitude').attr('value')))) {
+          $('#metadata_latitude').addClass('error');
+          $('span.error_latlng').css('left','-14px');
+        } else {
+          $('#metadata_latitude').removeClass('error');
+        }
+        $('span.error_latlng').fadeIn().delay(2000).fadeOut();
       }
     }
     
@@ -234,6 +260,8 @@
     GapsOverlay.prototype.hide = function() {
       if (this.div_) {
         $(this.div_).fadeOut();
+        $('#metadata_longitude').removeClass('error');
+        $('#metadata_latitude').removeClass('error');
       }
     }
     

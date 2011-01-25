@@ -122,13 +122,15 @@
 
 
 		MarkerOverTooltip.prototype.changePosition = function(latlng,marker_id) {
-			this.marker_id = marker_id;
-			this.latlng_ = latlng;
-			var div = this.div_;
-		  var pixPosition = this.getProjection().fromLatLngToDivPixel(latlng);
-		  if (pixPosition) {
-			  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
-			  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";
+			if (this.div_) {
+  			this.marker_id = marker_id;
+  			this.latlng_ = latlng;
+  			var div = this.div_;
+  		  var pixPosition = this.getProjection().fromLatLngToDivPixel(latlng);
+  		  if (pixPosition) {
+  			  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
+  			  div.style.top = (pixPosition.y + this.offsetVertical_) + "px";
+  		  }
 		  }
 		}
 		

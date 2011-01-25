@@ -223,6 +223,7 @@
 			/* Change occurence data.                     .													*/
 			/*======================================================================*/
 			UnredoOperations.prototype.changeData = function(marker_id, data_) {
+				_markers[marker_id].setPosition(new google.maps.LatLng(data_.latitude, data_.longitude));
 				_markers[marker_id].data = data_;
 				this.hideAllOverlays();
 			}

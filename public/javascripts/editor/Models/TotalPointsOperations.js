@@ -176,15 +176,15 @@
 				TotalPointsOperations.prototype.addSourceToList = function(kind) {
 					switch (kind) {
 						case 'gbif': 		if (!$('#GBIF_points').length) {
-															$('div.sources ul#sources_list').append('<li><a class="green" id="GBIF_points"><span> GBIF Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'green\')" class="delete_all"></a><a class="merge"></a></li>');
+															$('div.sources ul#sources_list').append('<li><a class="green" id="GBIF_points"><span> GBIF Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'green\')" class="delete_all"></a><a class="merge"></a><a class="gbif_hide" onclick="hideAll(\'gbif\')"></a></li>');
 														}
 														break;
 						case 'flickr': 	if (!$('#Flickr_points').length) {
-															$('div.sources ul#sources_list').append('<li><a class="pink" id="Flickr_points"><span> Flickr Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'pink\')" class="delete_all"></a><a class="merge"></a></li>');
+															$('div.sources ul#sources_list').append('<li><a class="pink" id="Flickr_points"><span> Flickr Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'pink\')" class="delete_all"></a><a class="merge"></a><a class="flickr_hide" onclick="hideAll(\'flickr\')"></a></li>');
 														}
 														break;
 						default: 				if (!$('#our_points').length) {
-															$('div.sources ul#sources_list').append('<li><a class="blue" id="our_points"><span> Your Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all your_points_change"></a></li>');
+															$('div.sources ul#sources_list').append('<li><a class="blue" id="our_points"><span> Your Points ('+ this.get(kind) +')</span></a><a onclick="openDeleteAll(\'blue\')" class="delete_all your_points_change"></a><a class="your_hide" onclick="hideAll(\'your\')"></a></li>');
 														}
 					}
 				}
