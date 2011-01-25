@@ -30,7 +30,7 @@
 				div.style.opacity = "0";
 				div.style.width = '233px';
 				div.style.height = '245px';
-				div.style.background = 'url(/images/editor/tooltip_bkg2.png) no-repeat 0 0';
+				div.style.background = 'url(/images/editor/tooltip_bkg3.png) no-repeat 0 0';
 		
 				//Close Infowindow button
 				var close_button = document.createElement('a');
@@ -94,7 +94,7 @@
 				longitude.style.lineHeight = "29px";
 				longitude.style.font = "normal 29px Georgia";
 				longitude.style.color = "#666666";
-				$(longitude).text(Math.floor(this.latlng_.lat()));
+				$(longitude).text(Math.floor(this.latlng_.lng()));
 		
 				if ($(longitude).text().length>2) {
 					if ($(longitude).text().length>3) {
@@ -147,8 +147,14 @@
 				}
 				div.appendChild(collector);
 
-
+        
 				//Marker Precision/Accuracy
+				if (this.inf.coordinateUncertaintyInMeters<1000 || this.inf.coordinateUncertaintyInMeters==null) {
+          var km_value = 1000;
+        } else {
+          var km_value = this.inf.coordinateUncertaintyInMeters/1000;
+        }
+        
 				var precision = document.createElement('p');
 				$(precision).addClass('precision');
 		    precision.style.position = "absolute";
@@ -157,7 +163,7 @@
 				precision.style.margin = "0";
 				precision.style.font = "bold 10px Arial";
 				precision.style.color = "#F4A939";
-				$(precision).text(this.inf.coordinateUncertaintyInMeters+'KM');
+				$(precision).text(km_value+'KM');
 				div.appendChild(precision);
 				
 				var precision_slider = document.createElement('div');
@@ -263,12 +269,12 @@
 		
 				$("div#precision_slider").slider({
 					range: "min",
-					value: me.inf.coordinateUncertaintyInMeters,
+					value: km_value,
 					min: 1,
 					max: 50,
 					slide: function(event, ui) {
-						_markers[me.marker_id].set('distance',ui.value*1000);
-						_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value;
+						_markers[me.marker_id].set('distance',ui.value);
+						_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
 						$(div).find('p.precision').html(ui.value + 'KM');
 					}
 				});
@@ -324,7 +330,7 @@
 				$(div).find('a.hide_button_').css('background-image','url(/images/editor/info_hide.png)');
 			}
 
-			$(div).find('p.latitude').html((this.latlng_.lat()).toFixed(0)+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');
+			$(div).find('p.latitude').html(Math.floor(this.latlng_.lat())+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia; ">'+String(Math.abs((this.latlng_.lat() % 1.0).toFixed(num))).substring(1)+'</sup>');
 	
 			if ((this.latlng_.lng()).toFixed(0).length>2) {
 				if ((this.latlng_.lng()).toFixed(0).length>3) {
@@ -336,7 +342,7 @@
 				num = 5;
 			}	
 
-			$(div).find('p.longitude').html((this.latlng_.lng()).toFixed(0)+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia;">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
+			$(div).find('p.longitude').html(Math.floor(this.latlng_.lng())+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia;">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
 			if (this.inf.occurrenceRemarks.length>36) {
   			$(div).find('p.description').text(this.inf.occurrenceRemarks.substr(0,33)+'...');
 			} else {
@@ -348,8 +354,8 @@
 			} else {
   			$(div).find('p.collector').text(this.inf.collector);
 			}
-			$(div).find('p.precision').text(this.inf.coordinateUncertaintyInMeters+'KM');
-			$("div#precision_slider").slider({value: this.inf.coordinateUncertaintyInMeters});
+			$(div).find('p.precision').text((this.inf.coordinateUncertaintyInMeters/1000)+'KM');
+			$("div#precision_slider").slider({value: (this.inf.coordinateUncertaintyInMeters/1000)});
 				
 			this.moveMaptoOpen();	
 			

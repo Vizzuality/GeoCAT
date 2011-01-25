@@ -2,7 +2,7 @@
     <%= include_stylesheets :print, :media => 'all' %>
 <%- end -%>
 <div id="printed_report">
-  <h1 class="title"><%= @rla['scientificname'] %></h1>
+  <h1 class="title"><%= @rla['scientificname'].downcase %></h1>
   <span class="title time">Published <%= Time.now.strftime('%d/%m/%Y %H:%M') %></span>
 
   <div class="map">
@@ -37,7 +37,7 @@
     </div>
     <div class="cellsize">
       <span>AOO Cell width (based on EOO)</span>
-      <h3><%= "#{@analysis['cellsize']}" %> km<sup>2</sup></h3>
+      <h3><%= "#{@analysis['cellsize']}" %> km</h3>
       <p><%= "#{@analysis['AOO']['grids'].length} AOO cells" %></p>
     </div>
   </div>

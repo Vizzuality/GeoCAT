@@ -44,7 +44,6 @@ div#printed_report h2{
 }
 
 div#printed_report h1.title{
-  text-transform: capitalize;
   margin: 7px 0;
 }
 

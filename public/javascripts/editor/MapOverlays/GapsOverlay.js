@@ -29,7 +29,7 @@
     		  '<a class="close"></a>'+
     		  '<h3>EDITING METADATA</h3>'+
     		  '<form action="">'+
-    		  '<div class="three_gaps"><span><label>LATITUDE</label><input id="metadata_latitude" disabled="true" style="color:#dddddd" value=""/></span><span class="last"><label>LONGITUDE</label><input id="metadata_longitude" disabled="true" style="color:#dddddd"/></span></div>'+
+    		  '<div class="three_gaps"><span><label>LATITUDE</label><input id="metadata_latitude" value=""/></span><span class="last"><label>LONGITUDE</label><input id="metadata_longitude" /></span></div>'+
     		  '<div class="three_gaps"><span><label>COLLECTION CODE</label><input id="metadata_collection" /></span><span><label>INSTITUTION CODE</label><input id="metadata_institution" /></span><span class="last"><label>CATALOG NUMBER</label><input id="metadata_catalog" /></span></div>'+
     		  '<div class="two_gaps"><span><label>BASIS OF RECORD</label><input id="metadata_basis" /></span></div>'+
     		  '<div class="two_gaps"><span><label>COLLECTOR</label><input id="metadata_collector" /></span><span class="short last"><label>DATE COLLECTED</label><input id="metadata_date" /></span></div>'+
@@ -78,7 +78,7 @@
 					max: 50,
 					slide: function(event, ui) {
 					  _markers[me.marker_id].set('distance',ui.value*1000);
-  					_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value;
+  					_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
   					$(div).find('div.slider_top p').html(ui.value + 'KM');
 					}
 				});
@@ -137,8 +137,15 @@
     	var div = this.div_;
     	this.inf = opt;
 
-      $("div.metadata div.slider").slider('value',this.inf.coordinateUncertaintyInMeters);
-      $(div).find('div.slider_top p').html(this.inf.coordinateUncertaintyInMeters + 'KM');
+      //Value
+      if (this.inf.coordinateUncertaintyInMeters<1000 || this.inf.coordinateUncertaintyInMeters==null) {
+        var km_value = 1000;
+      } else {
+        var km_value = this.inf.coordinateUncertaintyInMeters/1000;
+      }
+      
+      $("div.metadata div.slider").slider('value',km_value);
+      $(div).find('div.slider_top p').html(km_value + 'KM');
 			
     	
     	$('#metadata_latitude').attr('value',this.latlng_.lat());

@@ -32,7 +32,7 @@ class FlickrController < ApplicationController
                 
            json_only << {:latitude => photo.latitude.to_s, 
                         :longitude => photo.longitude.to_s, 
-                        :coordinateUncertaintyInMeters => photo.accuracy, 
+                        :coordinateUncertaintyInMeters => 15000, 
                         "occurrenceDetails"=>FlickRaw.url_photopage(photo),
                         "collector" => photo.ownername, 
                         "active" => true, 

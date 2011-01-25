@@ -41,7 +41,7 @@ class GbifController < ApplicationController
         @county                   = node.xpath("to:county").text
         @verbatimElevation        = node.xpath("to:maximumElevationInMeters").text
         @locality                 = node.xpath("to:locality").text
-        @coordinateUncertaintyInMeters = node.xpath("to:coordinateUncertaintyInMeters").text
+        @coordinateUncertaintyInMeters = (node.xpath("to:coordinateUncertaintyInMeters").text)
         @identifiedBy             = ""
         @occurrenceRemarks        = node.xpath("to:gbifNotes").text
         @gbifKey                  = node.attr('gbifKey')
@@ -61,11 +61,10 @@ class GbifController < ApplicationController
           "county"                        => @county,
           "verbatimElevation"             => @verbatimElevation,
           "locality"                      => @locality,
-          "coordinateUncertaintyInMeters" => @coordinateUncertaintyInMeters,
+          "coordinateUncertaintyInMeters" => 15000,
           "identifiedBy"                  => @identifiedBy,
           "occurrenceRemarks"             => @occurrenceRemarks,
           "occurrenceDetails"             => @occurrenceDetails,
-          "coordinateUncertaintyInMeters" => "15",
           "collector"                     => @recordedBy,
           "active"                        => true,
           "removed"                       => false,

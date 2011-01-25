@@ -26,9 +26,6 @@
             },
             onProgress: function(id, fileName, loaded, total){},
             onComplete: function(id, fileName, responseJSON) {
-              
-              console.log(responseJSON);
-              
               if (responseJSON.success) {
                 if (responseJSON.warnings.length==undefined) {
                   $('span.import a.import_data').addClass('enabled');

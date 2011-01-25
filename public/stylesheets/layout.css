@@ -368,11 +368,13 @@ div#editor div#map_container div.table div.center-map div.search_place input[typ
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"]:focus {outline:none;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:13px; height:13px; margin:4px 0 0 10px; background:url(/images/editor/len_bkg.png);}
 div#editor div#map_container div.table div.center-map div.search_place input[type="submit"]:hover {cursor:pointer;}
+div#editor div#map_container div.table div.center-map span.search_not_found {position:absolute; display:none; right:120px; top:30px; width:206px; height:84px; background:url('/images/editor/search_not_found_bkg.png') no-repeat 0 0; z-index:1000;}
+div#editor div#map_container div.table div.center-map span.search_not_found p {float:left; width:137px; margin:33px 0 0 55px; font:normal 13px Arial; color:#333333;}
 div#map_type {position:absolute; right:33px; top:21px; height:auto; opacity:0.5; margin:0!important; padding:0; z-index:10;}
 div#map_type:hover {opacity:1;}
 div#map_type div.map_type {float:right; position:relative; width:auto;}
 div#map_type a {position:relative; float:right; width:auto; padding:0 24px 0 0; height:24px; background:url(/images/editor/map_type_right.png) no-repeat right 0; border:none;}
-div#map_type a span {float:right; padding:6px 1px 5px 10px; height:13px; font:bold 11px Arial; color:white; text-shadow:0 1px black; background:url(/images/editor/map_type_left.png) no-repeat left 0;}
+div#map_type a span {float:right; padding:6px 1px 5px 10px; height:13px; font:bold 11px Arial; color:white; text-shadow:0 1px black; background:url('/images/editor/map_type_left.png') no-repeat left 0;}
 div#map_type a:hover {cursor:pointer;}
 div#map_type div:hover a {background-position:right -48px;}
 div#map_type div:hover a span {background-position:left -24px;}

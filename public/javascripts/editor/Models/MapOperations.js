@@ -396,7 +396,7 @@
 			/* Delete all the markers. 																										*/
 			/*============================================================================*/
 			function deleteAll(type) {
-
+        closeMapWindows();
 				var remove_markers = [];
 				closeDeleteAll();
 				
@@ -433,7 +433,7 @@
 			/* Remove markers from map and the marker information. 												*/
 			/*============================================================================*/
 			function removeMarkers(remove_markers) {
-				
+				closeMapWindows();
 				function asynRemoveMarker(i,total, observations) {
 					if(i < total){
 						var marker_id = observations[i].catalogue_id;
@@ -473,12 +473,12 @@
 					
 					if (item_data == null) {
 						var inf = new Object();
-						inf.coordinateUncertaintyInMeters = 15;
+						inf.coordinateUncertaintyInMeters = 15000;
 						inf.active = true;
 						inf.kind = 'your';
 						inf.removed = false;
 						inf.collector = "";
-						inf.eventDate = (date.getMonth()+1)+"/"+ date.getDate() +"/"+ date.getFullYear();
+						inf.eventDate = date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate();
 						inf.occurrenceRemarks = ""
 						inf.catalogue_id = 'your_' + global_id;
 						inf.latitude = latlng.lat();
@@ -607,9 +607,20 @@
             map.setCenter(results[0].geometry.location);
             map.fitBounds(results[0].geometry.bounds);
           } else {
-            //alert("Geocode was not successful for the following reason: " + status);
+            $("span.search_not_found").stop().fadeIn().delay(2000).fadeOut()  ;
           }
         });
+			}
+			
+			
+			
+			/*============================================================================*/
+			/* Close all floating map windows.                     												*/
+			/*============================================================================*/
+			function closeMapWindows() {
+			  if (click_infowindow!=undefined) click_infowindow.hide();
+  			if (delete_infowindow!=undefined) delete_infowindow.hide();
+        if (edit_metadata!=undefined) edit_metadata.hide();
 			}
 			
 			

@@ -91,7 +91,7 @@
               if (catalogue_id==null || catalogue_id==undefined) {
                 global_id++;
                 sources_[count].points[i].removed=false;
-                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15;
+                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15000;
                 (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
                 (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
                 (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
@@ -100,7 +100,7 @@
                 me.your_points.push(sources_[count].points[i]);
               } else {
                 sources_[count].points[i].removed=false;
-                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15;
+                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15000;
                 (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
                 (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
                 (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
