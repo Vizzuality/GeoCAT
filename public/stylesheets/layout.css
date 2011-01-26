@@ -233,7 +233,7 @@ div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
 div.delete_all {display:none; position:absolute!important; top:0; right:14px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
 div.delete_all h4 {float:left; margin:13px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:23px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
-div.delete_all div {float:right; width:100px;}
+div.delete_all div {float:right; width:100px; margin:10px 0 0 0;}
 div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0; padding:3px 0 0 0!important;}
 div.delete_all div a.cancel:hover {color:#000000; cursor:pointer;}
 div.delete_all div a.yes {float:right!important; margin:10px 0 0 0; padding:0!important; width:51px; height:19px; background:url(/images/editor/yes_delete_button.png) no-repeat 0 0;}
