@@ -1,5 +1,8 @@
   function getConvexHullPoints(points) {
-
+        
+    
+    points = getPointCheck(points);
+        
   	var maxX, minX;
   	var maxPt, minPt;
   	for (var idx in points) {
@@ -15,6 +18,8 @@
   	}
   	minPt = new google.maps.LatLng(minPt[0],minPt[1],true);
   	maxPt = new google.maps.LatLng(maxPt[0],maxPt[1],true);
+
+  	
   	var allBaseLines = new Array();
   	var ch = [].concat(buildConvexHull([minPt, maxPt], points), buildConvexHull([maxPt, minPt], points))
   	var points = new Array();
@@ -63,4 +68,43 @@
   		Vx = bl[0][1] - bl[1][1];
   		return (Vx * (cpt[0] - bl[0][0]) + Vy * (cpt[1] -bl[0][1]))
   	}
+  	
+  	function getPointCheck(points_){
+    	var MeanLng;
+    	var maxPt, minPt;
+    	var totalNeg = 0;
+    	var totalPos = 0;
+    	var NoNeg = 0;
+    	var NoPos = 0;
+    	var newPoints = new Array();
+    	
+
+    	for (var idx in points_) {
+    		var long = points_[idx].lng();
+    		if (long >= 0){
+    			totalPos = totalPos + long;
+    			NoPos = NoPos + 1;
+    		  newPoints[idx] = new google.maps.LatLng(points_[idx].lat(),points_[idx].lng());
+    		} else {
+    		  totalNeg = totalNeg + long
+    		  NoNeg = NoNeg + 1;
+    		  newPoints[idx] = new google.maps.LatLng(points_[idx].lat(),points_[idx].lng() + 360,true);
+    		}
+    	}
+
+    	var meanPos = totalPos / NoPos;
+    	var meanNeg = totalNeg / NoNeg;
+    	var disPos = meanPos - meanNeg;
+    	var disNeg = (180 - meanPos) + (180 + meanNeg);
+    	
+    	if (disPos > 180) {
+        return (newPoints.sort(sortpoints));
+      } else {
+    	  return (points_.sort(sortpoints));
+    	}
+    }
+    function sortpoints(p1, p2){
+    	return (p1.lng() - p2.lng());
+    }
   }
+  

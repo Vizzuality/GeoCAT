@@ -251,18 +251,23 @@
 			/* Draw the convex hull polygon. 																							*/
 			/*============================================================================*/
 			HullOperations.prototype.drawHull= function(dragging) {
-				var hullPoints = [];
+				var hullPoints, unwrappedHullPoints = [];
 				hullPoints = getConvexHullPoints(this.markersToPoints(this.active_markers));
+				
+				$.each(hullPoints,function(index,element){
+				  unwrappedHullPoints.push(new google.maps.LatLng(element.lat(),element.lng(),false));
+				});
+				
 				
 				var event = jQuery.Event("getBounds");
 				event.points = hullPoints;
 				$("body").trigger(event);
 			
 				if (this.polygon != undefined) {
-					this.polygon.setPath(hullPoints);
+					this.polygon.setPath(unwrappedHullPoints);
 				} else {
 				  this.polygon = new google.maps.Polygon({
-						paths: hullPoints,
+						paths: unwrappedHullPoints,
 			      strokeColor: "#333333",
 			      strokeOpacity: 1,
 			      strokeWeight: 2,
