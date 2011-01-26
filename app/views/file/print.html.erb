@@ -7,6 +7,12 @@
 
   <div class="map">
     <img src="http://maps.google.com/maps/api/staticmap?center=<%= @rla['center']['latitude']%>,<%= @rla['center']['longitude']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
+    <div class="warning">
+      <img src="/images/print/in_development.png" alt="In Development" />
+      <p>
+        In Development
+      </p>
+    </div>
     <ul>
       <% if @flickr_points.present? %>
       <li class="flickr"><%= "#{@flickr_points.select{|p| p['active']}.length} of #{@flickr_points.length} flickr records" %></li>
@@ -36,8 +42,8 @@
       <p><%= "#{@analysis['AOO']['status']}" %> km<sup>2</sup></p>
     </div>
     <div class="cellsize">
-      <span>AOO Cell width (based on EOO)</span>
-      <h3><%= "#{@analysis['cellsize']}" %> km</h3>
+      <span>AOO Cell width (based on <%= @analysis['cellsize_type'] %>)</span>
+      <h3><%= @analysis['cellsize'] %> km</h3>
       <p><%= "#{@analysis['AOO']['grids'].length} AOO cells" %></p>
     </div>
   </div>
