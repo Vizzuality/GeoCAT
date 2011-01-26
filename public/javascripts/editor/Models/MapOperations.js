@@ -434,7 +434,7 @@
             hideMamufasMap(false);
             delete markersCopy;
           } else {
-            asynRemoveMarker(type);
+            setTimeout(function(){asynRemoveMarker(type)},0);
           }
 				}
 				asynRemoveMarker(type);
@@ -617,22 +617,21 @@
              
             hide_markers.push(_markers[i].data);
             if (active_) {
-              //console.log(i);
-              convex_hull.addPoint(i);
+              convex_hull.addPoint(_markers[i]);
             } else {
               convex_hull.deductPoint(i);
             }
            }
-           delete markersCopy[marker_id];
+           delete markersCopy[i];
            break;
           }
           
-          if (marker_id==undefined) {
+          if (i==undefined) {
             actions.Do('active', null, hide_markers);            
             hideMamufasMap(false);
             delete markersCopy;
           } else {
-            asynHideMarker(type,active_);
+            setTimeout(function(){asynHideMarker(type,active_)},0);
           }
 				}
 			}			

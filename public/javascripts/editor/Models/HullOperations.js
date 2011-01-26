@@ -12,20 +12,19 @@
 				this.active_markers = [];
 				this.Cells = [];
 				this.map = _map;
-				this.cellsize = 0.002*(Math.pow(2,10));
+				this.cellsize = 1;
 				this.cellsize_type = "user defined";
+				this.hullValues = [0.001, 0.0025, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1];
 
 				var me = this;
-			  
 			
 				/* Binding events of DOM elements related to HULLOperations  */
 			
 				//toggle on/off analysis
 				$('a#toggle_analysis').click(function(ev){
 				  
-				  
-				  
 					if ($(this).hasClass('disabled')) {
+					  closeSources();
 						$('body').bind('getBounds',function(ev){
 							var bounds = new google.maps.LatLngBounds();
 							for (var i in ev.points) {
@@ -56,11 +55,11 @@
 				//Hull convex slider
 				$("div.cellsize div.slider").slider({
 					range: "min",
-					value: 11,
+					value: 10,
 					min: 1,
-					max: 21,
+					max: 10,
 					slide: function(event, ui) {
-						me.cellsize = 0.002*(Math.pow(2,ui.value-1));
+						me.cellsize = me.hullValues[ui.value-1];
 						me.removeAOOPolygons();
 						me.setAlgorithmValues(me.cellsize);
 					}
@@ -333,9 +332,9 @@
 			  
 				var obj = getAnalysisData(area, path, this.active_markers, cellsize, this.cellsize_type);
 				this.Cells = obj.Cells;
-				this.EOO = obj.EOOArea.toFixed(2);
+				this.EOO = obj.EOOArea.toFixed(5);
 				this.AOO = obj.AOORat;
-				this.AOOkind = obj.AOOArea.toFixed(2);
+				this.AOOkind = obj.AOOArea.toFixed(5);
 				this.EOOkind = obj.EOORat;
 				
 				if ($('#auto_value').hasClass('selected')) {
@@ -349,7 +348,7 @@
 				$('div.analysis_data ul li:eq(0)').addClass(obj.EOORat);
 				$('div.analysis_data ul li:eq(0) p:eq(0)').html(obj.EOOArea.toFixed(2)+' km<sup>2</sup>');
 				$('div.analysis_data ul li:eq(1)').addClass(obj.AOORat);
-				$('div.analysis_data ul li:eq(1) p:eq(0)').html(obj.AOOArea.toFixed(2)+' km<sup>2</sup>');
+				$('div.analysis_data ul li:eq(1) p:eq(0)').html(((obj.AOOArea<1)?obj.AOOArea.toFixed(4):obj.AOOArea.toFixed(2))+' km<sup>2</sup>');
 			}
 		
 		

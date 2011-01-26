@@ -147,10 +147,9 @@
 					default: 				color = '#066FB6';
 				}
 
-	
 				var circle = new google.maps.Circle({
 					map: marker_map,
-					radius: item.coordinateUncertaintyInMeters,
+					radius: parseInt(item.coordinateUncertaintyInMeters),
 					strokeColor: color,
 					strokeOpacity: 0.3,
 					strokeWeight: 1,
@@ -158,8 +157,8 @@
 					fillColor: color,
 					clickable: false
 				});
-		
-				marker.set('distance', marker.data.coordinateUncertaintyInMeters);
+
+				marker.set('distance', parseInt(marker.data.coordinateUncertaintyInMeters));
 				marker.set('opacity', 0.3);
 	
 				circle.bindTo('map', marker);

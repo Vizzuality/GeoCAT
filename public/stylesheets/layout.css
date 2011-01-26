@@ -351,7 +351,7 @@ div#editor div#map_container div.table div.top-right-map span#beta{position:abso
 div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0;}
 div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url(/images/editor/left-repeat-map.png) repeat-y -6px 0;}
 div#editor div#map_container div.table div.center-map {position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}
-div#editor div#map_container div.table div.center-map a.vizzuality {position:absolute; bottom:2px; left:75px; z-index:100;}
+div#editor div#map_container div.table div.center-map a.vizzuality {position:absolute; bottom:3px; left:75px; z-index:100;}
 div#editor div#map_container div.table div.right-repeat-map{position:absolute; top:0; bottom:0; right:0; width:25px; background:url(/images/editor/right-repeat-map.png) repeat-y 10px 0;}
 div#editor div#map_container div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:80px;}
 div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:url(/images/editor/bottom-left-map.png) no-repeat right top; margin:0;}
