@@ -13,14 +13,18 @@
 				this.Cells = [];
 				this.map = _map;
 				this.cellsize = 0.002*(Math.pow(2,10));
+				this.cellsize_type = "user defined";
 
 				var me = this;
-			
+			  
 			
 				/* Binding events of DOM elements related to HULLOperations  */
 			
 				//toggle on/off analysis
 				$('a#toggle_analysis').click(function(ev){
+				  
+				  
+				  
 					if ($(this).hasClass('disabled')) {
 						$('body').bind('getBounds',function(ev){
 							var bounds = new google.maps.LatLngBounds();
