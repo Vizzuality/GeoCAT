@@ -1,7 +1,7 @@
 
 
 
-			function getAnalysisData(convex_area, convex_points, all_markers, cellsize_) {
+			function getAnalysisData(convex_area, convex_points, all_markers, cellsize_, cellsize_type) {
 				
 				var earth_radius=6378137.79;
 				var Cells = [];
@@ -186,11 +186,10 @@
 				}
 				
 				// Get Diameter
-				if (cellsize_==0) {
+				if (cellsize_type=="auto-value") {
 				  var diameter = getDiameter(convex_points);
     		  cellsize_ = diameter * 100;
         }
-
 				
 				var EOORat = EOOrating(convex_area);
 		    var AOO = DrawAOO(null, all_markers, cellsize_);

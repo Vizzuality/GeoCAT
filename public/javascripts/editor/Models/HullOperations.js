@@ -68,6 +68,7 @@
 				  if (!$(this).hasClass('disabled')) {
 				    $("div.cellsize div.slider").slider({value:11});
   					me.cellsize = 2.0;
+  					me.cellsize_type = "IUCN default";
   					me.removeAOOPolygons();
   					me.setAlgorithmValues(me.cellsize);
   					$('div.analysis p.change').html('AOO based on IUCN default<br/>cell width (2 km), <a class="change">change</a>');
@@ -106,6 +107,7 @@
 				  if ($(this).hasClass('selected')) {
 				    me.cellsize = me.beforeValue;
 						$(this).removeClass('selected');
+						me.cellsize_type = "user defined";
     				$('div.analysis p.change').html('AOO based on user defined<br/>cell width ('+me.beforeValue+'km), <a class="change">change</a>');
 						$("div.cellsize div.slider").slider('enable');
 						$('.ui-widget-header').css('background','#F6A828');
@@ -117,7 +119,8 @@
     				}
 					} else {
 					  me.beforeValue = me.cellsize;
-				    me.cellsize = 0;
+					  me.cellsize = 0;
+				    me.cellsize_type = "auto-value";
     				$('div.analysis p.change').html('AOO based on auto-value<br/>cell width (km), <a class="change">change</a>');
 						$(this).addClass('selected');
 						$("div.cellsize div.slider").slider('disable');
@@ -236,7 +239,6 @@
   					this.polygon.setMap(null);
   					this.resetAlgorithmValues();
 				  } 
-
 				}
 			}
 
@@ -247,12 +249,8 @@
 			/*============================================================================*/
 			HullOperations.prototype.drawHull= function(dragging) {
 				var hullPoints = [];
-	
-				//chainHull_2D(this.active_markers, this.active_markers.length, hullPoints);
-				
 				hullPoints = getConvexHullPoints(this.markersToPoints(this.active_markers));
 				
-				//var points = this.markersToPoints(hullPoints);
 				var event = jQuery.Event("getBounds");
 				event.points = hullPoints;
 				$("body").trigger(event);
@@ -326,16 +324,19 @@
 			/* Get the convex hull polygon area and show the figures. 										*/
 			/*============================================================================*/
 			HullOperations.prototype.setAlgorithmData = function(path, cellsize) {
-				var obj = getAnalysisData(calculateArea(unique(path)), path, this.active_markers, cellsize);
+			  
+			  var area = google.maps.geometry.spherical.computeArea(path)/1000000;
+			  
+				var obj = getAnalysisData(area, path, this.active_markers, cellsize, this.cellsize_type);
 				this.Cells = obj.Cells;
 				this.EOO = obj.EOOArea.toFixed(2);
 				this.AOO = obj.AOORat;
 				this.AOOkind = obj.AOOArea.toFixed(2);
 				this.EOOkind = obj.EOORat;
 				
-				
 				if ($('#auto_value').hasClass('selected')) {
-				  $('div.analysis p.change').html('AOO based on auto-value<br/>cell width (km), <a class="change">change</a>');
+				  this.cellsize = (obj.cellsize/1000).toFixed(3);
+				  $('div.analysis p.change').html('AOO based on auto-value<br/>cell width ('+this.cellsize+' km), <a class="change">change</a>');
 				}
 				
 				this.drawAOOPolygons();

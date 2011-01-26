@@ -522,6 +522,16 @@
 			/*============================================================================*/
 			function makeActive (markers_id, fromAction) {
 				if (markers_id.length>0) {
+				  
+				  var kind = _markers[markers_id[0].catalogue_id].data.kind;
+          if (markers_id.length==total_points.get(kind)) {
+             if ($('a.'+kind+'_hide').hasClass('hide')) {
+               $('a.'+kind+'_hide').removeClass('hide');
+             } else {
+               $('a.'+kind+'_hide').addClass('hide');
+             }
+          }
+				  
 					for (var i=0; i<markers_id.length; i++) {
 						var marker_id = markers_id[i].catalogue_id;
 						switch (_markers[marker_id].data.kind) {
@@ -548,12 +558,10 @@
 
 
 						// Add or deduct the marker from _active_markers
-						if (convex_hull.isVisible()) {
-							if (!_markers[marker_id].data.active) {
-								convex_hull.deductPoint(marker_id);
-							} else {
-								convex_hull.addPoint(_markers[marker_id]);
-							}
+						if (!_markers[marker_id].data.active) {
+							convex_hull.deductPoint(marker_id);
+						} else {
+							convex_hull.addPoint(_markers[marker_id]);
 						}
 					}
 
@@ -570,57 +578,63 @@
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
 			function hideAll (kind) {
+			  var active_;
+			  
+			  switch (kind) {
+		      case 'gbif':  (($('a.gbif_hide').hasClass('hide'))?active_ = true:active_ = false);
+		                    (($('a.gbif_hide').hasClass('hide'))?$('a.gbif_hide').removeClass('hide'):$('a.gbif_hide').addClass('hide'))
+		                    break;
+  	      case 'flickr':  (($('a.flickr_hide').hasClass('hide'))?active_ = true:active_ = false);
+  	                      (($('a.flickr_hide').hasClass('hide'))?$('a.flickr_hide').removeClass('hide'):$('a.flickr_hide').addClass('hide'));
+  	                      break;
+  	      default:      (($('a.your_hide').hasClass('hide'))?active_ = true:active_ = false);
+  	                    (($('a.your_hide').hasClass('hide'))?$('a.your_hide').removeClass('hide'):$('a.your_hide').addClass('hide'))            
+			  }
 			  
 			  var hide_markers = [];
 				closeDeleteAll();
 				
 				var markersCopy = $.extend(true,{},_markers);
 				showMamufasMap();
-			  
-			  function asynHideMarker(type) {
-          for (var i in markersCopy) { 
+				
+  			asynHideMarker(kind,active_);
+				
+			  function asynHideMarker(type,active_) {
+          for (var i in markersCopy) {
            if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {
-             
-            var marker_id = markersCopy[i].data.catalogue_id;
             switch (type) {
-              case 'gbif':    var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
-                                                      new google.maps.Size(25, 25),
-                                                      new google.maps.Point(0,0),
-                                                      new google.maps.Point(12, 12));
-                              _markers[marker_id].setIcon(image);
+              case 'gbif':    var image = new google.maps.MarkerImage((!active_)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+                              _markers[i].setIcon(image);
                               break;
-              case 'flickr':  var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
-                                                      new google.maps.Size(25, 25),
-                                                      new google.maps.Point(0,0),
-                                                      new google.maps.Point(12, 12));
-                              _markers[marker_id].setIcon(image);
+              case 'flickr':  var image = new google.maps.MarkerImage((!active_)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+                              _markers[i].setIcon(image);
                               break;
-              default:        var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
-                                                      new google.maps.Size(25, 25),
-                                                      new google.maps.Point(0,0),
-                                                      new google.maps.Point(12, 12));
-                              _markers[marker_id].setIcon(image);
+              default:        var image = new google.maps.MarkerImage((!active_)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+                              _markers[i].setIcon(image);
             }
-            _markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);   
-            _markers[marker_id].data.active = !_markers[marker_id].data.active;
+            _markers[i].set('opacity',(active_)? 0.3 : 0.1);   
+            _markers[i].data.active = active_;
              
-             
-             hide_markers.push(_markers[i].data);
-             convex_hull.deductPoint(_markers[i].data.catalogue_id);
+            hide_markers.push(_markers[i].data);
+            if (active_) {
+              //console.log(i);
+              convex_hull.addPoint(i);
+            } else {
+              convex_hull.deductPoint(i);
+            }
            }
-           delete markersCopy[i];
+           delete markersCopy[marker_id];
            break;
           }
           
-          if (i==undefined) {
+          if (marker_id==undefined) {
             actions.Do('active', null, hide_markers);            
             hideMamufasMap(false);
             delete markersCopy;
           } else {
-            asynHideMarker(type);
+            asynHideMarker(type,active_);
           }
 				}
-				asynHideMarker(kind);
 			}			
 
 

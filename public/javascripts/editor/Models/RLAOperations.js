@@ -39,7 +39,7 @@
 			// Send analysis if it is visible
 			if (convex_hull.isVisible()) {
 			  dataset.analysis = new Object();
-			  analysis.cellsize_type = (convex_hull.cellsize==0)?'auto':'user_defined';
+			  analysis.cellsize_type = convex_hull.cellsize_type;
 			  analysis.cellsize = convex_hull.cellsize;
 			  analysis.cellsize_step = $("div.cellsize div.slider").slider('value');
 			  analysis.EOO = new Object();
