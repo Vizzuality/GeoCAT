@@ -27,29 +27,29 @@ class GbifController < ApplicationController
 
       doc = Nokogiri::XML(@list)
 
-      points = []
-      doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence").each do |node|
+      points = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence").map do |node|
+        @institutionCode               = node.xpath("to:institutionCode").text
+        @collectionCode                = node.xpath("to:collectionCode").text
+        @catalogNumber                 = node.xpath("to:catalogNumber").text
+        @basisOfRecord                 = node.xpath("to:basisOfRecordString").text
+        @recordedBy                    = node.xpath("to:collector").text
+        @eventDate                     = node.xpath("to:earliestDateCollected").text
+        @country                       = node.xpath("to:country").text
+        @stateProvince                 = node.xpath("to:stateProvince").text
+        @county                        = node.xpath("to:county").text
+        @verbatimElevation             = node.xpath("to:maximumElevationInMeters").text
+        @locality                      = node.xpath("to:locality").text
+        @coordinateUncertaintyInMeters = node.xpath("to:coordinateUncertaintyInMeters").text
+        @identifiedBy                  = ""
+        @occurrenceRemarks             = node.xpath("to:gbifNotes").text
+        @gbifKey                       = node.attr('gbifKey')
+        @occurrenceDetails             = "http://data.gbif.org/occurrences/#{@gbifKey}"
+        @latitude                      = node.xpath("to:decimalLatitude").text.to_f
+        @longitude                     = node.xpath("to:decimalLongitude").text.to_f
 
-        @institutionCode          = node.xpath("to:institutionCode").text
-        @collectionCode           = node.xpath("to:collectionCode").text
-        @catalogNumber            = node.xpath("to:catalogNumber").text
-        @basisOfRecord            = node.xpath("to:basisOfRecordString").text
-        @recordedBy               = node.xpath("to:collector").text
-        @eventDate                = node.xpath("to:earliestDateCollected").text
-        @country                  = node.xpath("to:country").text
-        @stateProvince            = node.xpath("to:stateProvince").text
-        @county                   = node.xpath("to:county").text
-        @verbatimElevation        = node.xpath("to:maximumElevationInMeters").text
-        @locality                 = node.xpath("to:locality").text
-        @coordinateUncertaintyInMeters = (node.xpath("to:coordinateUncertaintyInMeters").text)
-        @identifiedBy             = ""
-        @occurrenceRemarks        = node.xpath("to:gbifNotes").text
-        @gbifKey                  = node.attr('gbifKey')
-        @occurrenceDetails        = "http://data.gbif.org/occurrences/" + @gbifKey
-        @latitude                 = node.xpath("to:decimalLatitude").text.to_f
-        @longitude                = node.xpath("to:decimalLongitude").text.to_f
-
-        points << {"latitude"             => @latitude,"longitude"=> @longitude,
+        {
+          "latitude"                      => @latitude,
+          "longitude"                     => @longitude,
           "institutionCode"               => @institutionCode,
           "collectionCode"                => @collectionCode,
           "catalogNumber"                 => @catalogNumber,
@@ -69,7 +69,8 @@ class GbifController < ApplicationController
           "active"                        => true,
           "removed"                       => false,
           "catalogue_id"                  => "gbif_#{@institutionCode}-#{@collectionCode}-#{@catalogNumber}",
-          "kind"                          => "gbif"}
+          "kind"                          => "gbif"
+        }
       end
       @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]
 
