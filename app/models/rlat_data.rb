@@ -52,6 +52,7 @@ class RlatData
           'scientificname'                => scientificname,
           'latitude'                      => point['latitude'],
           'longitude'                     => point['longitude'],
+          'changed'                       => point['changed'],
           'collector'                     => point['collector'],
           'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
           'catalogue_id'                  => point['catalogue_id'],
