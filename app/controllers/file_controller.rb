@@ -56,8 +56,9 @@ class FileController < ApplicationController
       end
 
       all_sources  = @flickr_points + @gbif_points + @your_points
-      @collections = all_sources.select{|c| c['collectionCode']}
-      @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq
+      @collections = all_sources.select{|c| c['collectionCode']}.length
+      @collections += 1 if @your_points.present?
+      @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq.length
 
       render :action => :print
     when 'csv'
