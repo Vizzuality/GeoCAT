@@ -57,6 +57,27 @@ div#printed_report div.map{
   border: 1px solid #484848;
   width: 700px;
   height: 526px;
+  position: relative;
+}
+
+div#printed_report div.map div.warning{
+  color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+div#printed_report div.map div.warning img{
+
+}
+
+div#printed_report div.map div.warning p{
+  font-size: 4em;
+  line-height: 526px;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 div#printed_report div.map img{
@@ -68,7 +89,6 @@ div#printed_report div.map img{
 div#printed_report div.map ul{
   list-style-type: none;
   padding: 10px 0;
-  position: relative;
 }
 
 div#printed_report div.map ul li{
