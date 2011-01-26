@@ -230,15 +230,15 @@ div.hull_container p.diameter {position:absolute; top:72px; left:31px;}
 div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
 div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
-div.delete_all {display:none; position:absolute!important; top:0; right:27px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
+div.delete_all {display:none; position:absolute!important; top:0; right:14px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
 div.delete_all h4 {float:left; margin:13px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:23px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
-div.delete_all div {float:right; width:auto;}
-div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0; padding:0!important;}
+div.delete_all div {float:right; width:100px;}
+div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0; padding:3px 0 0 0!important;}
 div.delete_all div a.cancel:hover {color:#000000; cursor:pointer;}
 div.delete_all div a.yes {float:right!important; margin:10px 0 0 0; padding:0!important; width:51px; height:19px; background:url(/images/editor/yes_delete_button.png) no-repeat 0 0;}
 div.delete_all div a.yes:hover {background-position: 0 -19px; cursor:pointer;}
-div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:0; right:11px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0;}
+div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:22px; right:11px; z-index:10; background:url(/images/editor/merge_delete_container.png) no-repeat 0 0;}
 div.merge_container h4 {float:left; margin:12px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.merge_container p {float:left; padding:0; margin:25px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
 div.merge_container a.preview:hover {color:#333333; cursor:pointer;}
@@ -251,17 +251,17 @@ div#editor div#tools div.center div.right div.sources {position:relative; float:
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#editor div#tools div.center div.right div.sources span p {float:right; font:normal 11px "Futura"; color:#7C7D7E; padding:0 17px 0 0;}
-div#editor div#tools div.center div.right div.sources a {float:left; padding:3px 0 3px 22px; text-decoration:none;}
-div#editor div#tools div.center div.right div.sources a.blue {background:url(/images/editor/comon_list_left.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a.green {background:url(/images/editor/comon_list_left.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a.pink {background:url(/images/editor/comon_list_left.png) no-repeat 0 3px;}
-div#editor div#tools div.center div.right div.sources a span {float:left; padding:5px 6px 3px 0; width:193px; background:url(/images/editor/right_black_bar.png) no-repeat right 0; height:16px; font:normal 13px Arial; color:#999999;}
+div#editor div#tools div.center div.right div.sources a {float:left; margin:0; padding:1px 0 3px 22px; text-decoration:none;}
+div#editor div#tools div.center div.right div.sources a.blue {background:url(/images/editor/comon_list_left.png) no-repeat 0 1px;}
+div#editor div#tools div.center div.right div.sources a.green {background:url(/images/editor/comon_list_left.png) no-repeat 0 1px;}
+div#editor div#tools div.center div.right div.sources a.pink {background:url(/images/editor/comon_list_left.png) no-repeat 0 1px;}
+div#editor div#tools div.center div.right div.sources a span {float:left; height:16px; width:193px; padding:5px 6px 3px 0; background:url(/images/editor/right_black_bar.png) no-repeat right 0; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div.center div.right div.sources a:hover span {background-position:right 0;}
-div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:2px; right:15px; background:url(/images/editor/delete_source.png) no-repeat center 0;}
+div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:0px; right:-5px; background:url(/images/editor/delete_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -29px;}
 div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -29px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources a.delete_all.your_points_change {right:-4px;}
-div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:2px; right:-5px; background:url(/images/editor/refresh_source.png) no-repeat center 0;}
+div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:0px; right:15px; background:url(/images/editor/refresh_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.merge:hover {cursor:default;}
 div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -29px;}
 div#editor div#tools div.center div.right div.sources a.merge.active:hover {background-position:center -29px; cursor:pointer;}
@@ -269,9 +269,9 @@ div#editor div#tools div.center div.right div.sources a.add {float:left; padding
 div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px; cursor:pointer;}
 div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc; background-position:0 -48px; text-decoration:none;}
 div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
-div#editor div#tools div.center div.right div.sources a.flickr_hide {position:absolute; left:7px; top:10px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_flickr.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources a.gbif_hide {position:absolute; left:7px; top:10px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_gbif.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources a.your_hide {position:absolute; left:7px; top:10px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_your.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources a.flickr_hide {position:absolute; left:7px; top:8px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_flickr.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources a.gbif_hide {position:absolute; left:7px; top:8px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_gbif.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources a.your_hide {position:absolute; left:7px; top:8px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_your.png') no-repeat 0 0;}
 div#editor div#tools div.center div.right div.sources a.flickr_hide.hide {background-position: 0 -11px;}
 div#editor div#tools div.center div.right div.sources a.gbif_hide.hide {background-position: 0 -11px;}
 div#editor div#tools div.center div.right div.sources a.your_hide.hide {background-position: 0 -11px;}
@@ -404,7 +404,7 @@ div#map_container div.footer div.left a.undo {float:left; width:42px; height:32p
 div#map_container div.footer div.left a.redo {float:left; width:42px; height:32px; background:url(/images/editor/redo_button.png) no-repeat 0 0;}
 div#map_container div.footer div.left a:hover {background-position:0 -32px; cursor:pointer;}
 div#map_container div.footer div.left p {opacity:0; float:left; height:32px; padding:0 0 0 5px; margin:0 0 0 10px; background:url(/images/editor/action_left.png) no-repeat 0 0;}
-div#map_container div.footer div.left p span {float:left; padding:7px 11px 7px 6px; height:18px; font:normal 13px Arial; color:#404040; background:url(/images/editor/action_right.png) no-repeat right 0;}
+div#map_container div.footer div.left p span {float:left; padding:7px 11px 7px 6px; height:18px; font:normal 13px Arial; color:#cccccc; background:url(/images/editor/action_right.png) no-repeat right 0;}
 div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
 div#map_container div.footer div.right a.download {float:left; width:158px; height:32px; background:url(/images/editor/download_button.png) no-repeat 0 0;}
 div#map_container div.footer div.right a.export {float:left; width:115px; margin:0 5px 0 0; height:32px; background:url(/images/editor/export_button.png) no-repeat 0 0;}

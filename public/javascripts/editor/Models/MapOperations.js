@@ -616,10 +616,12 @@
             _markers[i].data.active = active_;
              
             hide_markers.push(_markers[i].data);
-            if (active_) {
-              convex_hull.addPoint(_markers[i]);
-            } else {
-              convex_hull.deductPoint(i);
+            if (convex_hull.isVisible()) {
+              if (active_) {
+                convex_hull.addPoint(_markers[i]);
+              } else {
+                convex_hull.deductPoint(i);
+              }
             }
            }
            delete markersCopy[i];
