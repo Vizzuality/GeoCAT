@@ -260,7 +260,7 @@ div#editor div#tools div.center div.right div.sources a:hover span {background-p
 div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:0px; right:-5px; background:url(/images/editor/delete_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -29px;}
 div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -29px; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources a.delete_all.your_points_change {right:-4px;}
+div#editor div#tools div.center div.right div.sources a.delete_all.your_points_change {right:-5px;}
 div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:0px; right:15px; background:url(/images/editor/refresh_source.png) no-repeat center 0;}
 div#editor div#tools div.center div.right div.sources a.merge:hover {cursor:default;}
 div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -29px;}
