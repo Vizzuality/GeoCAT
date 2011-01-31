@@ -14,7 +14,6 @@
 				this.map = _map;
 				this.cellsize = 1;
 				this.cellsize_type = "user defined";
-				this.hullValues = [0.001, 0.0025, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1];
 
 				var me = this;
 			
@@ -55,11 +54,11 @@
 				//Hull convex slider
 				$("div.cellsize div.slider").slider({
 					range: "min",
-					value: 10,
+					value: 5,
 					min: 1,
-					max: 10,
+					max: 50,
 					slide: function(event, ui) {
-						me.cellsize = me.hullValues[ui.value-1];
+						me.cellsize = ui.value;
 						me.removeAOOPolygons();
 						me.setAlgorithmValues(me.cellsize);
 					}
@@ -69,8 +68,8 @@
 				//Choose default value 
 				$('a.default').click(function(ev){
 				  if (!$(this).hasClass('disabled')) {
-				    $("div.cellsize div.slider").slider({value:11});
-  					me.cellsize = 2.0;
+				    $("div.cellsize div.slider").slider({value:2});
+  					me.cellsize = 2;
   					me.cellsize_type = "IUCN default";
   					me.removeAOOPolygons();
   					me.setAlgorithmValues(me.cellsize);
@@ -136,7 +135,6 @@
     				}
 					}
 				});
-				
 			}
 
 
