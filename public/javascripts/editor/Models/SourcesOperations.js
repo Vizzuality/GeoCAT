@@ -24,8 +24,13 @@
               $('#uploader .qq-upload-list li:eq(0)').remove();
               $('#uploader').parent().find('a.delete').show();
             },
-            onProgress: function(id, fileName, loaded, total){},
+            onProgress: function(id, fileName, loaded, total){
+              $('#uploader').parent().find('a.delete').hide();
+              $('span.qq-upload-file').text('Uploading...');
+            },
             onComplete: function(id, fileName, responseJSON) {
+              $('#uploader').parent().find('a.delete').show();
+              $('span.qq-upload-file').text(fileName);
               if (responseJSON.success) {
                 if (responseJSON.warnings.length==undefined) {
                   $('span.import a.import_data').addClass('enabled');
