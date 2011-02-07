@@ -28,7 +28,7 @@
 			var over_mini_tooltip = false; 	// True if cursor is over mini tooltip, false opposite
 			var over_polygon = false				// True if cursor is over selection polygon, false opposite
 			var is_dragging = false;				// True if user is dragging a marker, false opposite
-			
+			var say_polygon_tooltip = false; 	// True if cursor is over polygon tooltip, false opposite
 
 
 			function createMap() {
@@ -323,12 +323,12 @@
 							over_polygon = true;
 						});
 
-						google.maps.event.addListener(selection_polygon,'mouseout',function(){
-							if (over_polygon_tooltip!=null) {
-								over_polygon_tooltip.hide();
-							}
-							over_polygon = false;
-						});
+            google.maps.event.addListener(selection_polygon,'mouseout',function(){
+             if (over_polygon_tooltip!=null && !say_polygon_tooltip) {
+               over_polygon_tooltip.hide();
+             }
+             over_polygon = false;
+            });
 					});
 				} else {
 					if (drawing) {
@@ -344,7 +344,7 @@
 						});
 
 						google.maps.event.addListener(selection_polygon,'mouseout',function(){
-							if (over_polygon_tooltip!=null) {
+							if (over_polygon_tooltip!=null && !say_polygon_tooltip) {
 								over_polygon_tooltip.hide();
 							}
 							over_polygon = false;

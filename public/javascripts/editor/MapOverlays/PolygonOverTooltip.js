@@ -23,9 +23,13 @@ PolygonOverTooltip.prototype.draw = function() {
 		div.style.height = '22px';
 		div.style.width ="auto";
 
-		$(div).hover(function(){
+		$(div).hover(function(ev){
+		  ev.stopPropagation();
+		  ev.preventDefault();
+      say_polygon_tooltip = true;
 			me.show();
-		}, function(){
+		}, function(ev){
+      say_polygon_tooltip = false;
 			if (!over_polygon)
 				me.hide();
 		});
