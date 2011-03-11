@@ -161,14 +161,14 @@ div#tools div.table div.center-tool {position:absolute; top:0; bottom:0; left:14
 div#tools div.table div.right-repeat-tool {position:absolute; top:0; right:0; bottom:0; width:24px; background:url('/images/editor/right-repeat-tool.png') repeat-y left 0;}
 div#tools div.center div.left {float:left; width:62px; padding:0; margin:0;}
 div#tools div.center div.left a {float:left; width:62px; height:50px; margin:0;}
-div#tools div.center div.left a.select {background:url('/images/editor/select.jpg') no-repeat 0 -1px; height:49px;}
+div#tools div.center div.left a.select {background:url('/images/editor/tool_buttons.png') no-repeat 0 -1px; height:49px;}
 div#tools div.center div.left a.select:hover {background-position:0 -51px; cursor:pointer;}
 div#tools div.center div.left a.select.selected {background-position:0 -51px;}
-div#tools div.center div.left a.selection {background:url('/images/editor/selection.jpg') no-repeat 0 0;}
-div#tools div.center div.left a.add {background:url('/images/editor/add_point.jpg') no-repeat 0 0;}
-div#tools div.center div.left a.remove {background:url('/images/editor/remove_point.jpg') no-repeat 0 0;}
-div#tools div.center div.left a.layer {background:url('/images/editor/add_layer.jpg') no-repeat 0 0;}
-div#tools div.center div.left a:hover {background-position:0 -50px; cursor:pointer;}
+div#tools div.center div.left a.selection {background:url('/images/editor/tool_buttons.png') no-repeat -62px 0;}
+div#tools div.center div.left a.add {background:url('/images/editor/tool_buttons.png') no-repeat -124px 0;}
+div#tools div.center div.left a.remove {background:url('/images/editor/tool_buttons.png') no-repeat -186px 0;}
+div#tools div.center div.left a.layer {background:url('/images/editor/tool_buttons.png') no-repeat -248px 0;}
+div#tools div.center div.left a:hover {background-position-y:-50px; cursor:pointer;}
 div#tools div.center div.left a.selected {background-position:0 -50px;}
 div#tools div.center div.left a.selected:hover {cursor:default;}
 div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:10;}
@@ -408,9 +408,10 @@ div#map_container div.footer div.left a.redo:hover {background-position:-44px -3
 div#map_container div.footer div.left p {opacity:0; float:left; height:32px; padding:0 0 0 5px; margin:0 0 0 10px; background:url('/images/editor/action_left.png') no-repeat 0 0;}
 div#map_container div.footer div.left p span {float:left; padding:7px 11px 7px 6px; height:18px; font:normal 13px Arial; color:#cccccc; background:url('/images/editor/action_right.png') no-repeat right 0;}
 div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
-div#map_container div.footer div.right a.download {float:left; width:158px; height:32px; background:url('/images/editor/download_button.png') no-repeat 0 0;}
-div#map_container div.footer div.right a.export {float:left; width:115px; margin:0 5px 0 0; height:32px; background:url('/images/editor/export_button.png') no-repeat 0 0;}
-div#map_container div.footer div.right a:hover {background-position:0 -32px; cursor:pointer;}
+div#map_container div.footer div.right a.download {float:left; width:158px; height:33px; background:url('/images/editor/download_button.png') no-repeat 0 0;}
+div#map_container div.footer div.right a.download:hover {background-position:0 -33px; cursor:pointer;}
+div#map_container div.footer div.right a.export {float:left; width:115px; margin:0 5px 0 0; height:35px; background:url('/images/editor/export_button.png') no-repeat 0 0;}
+div#map_container div.footer div.right a.export:hover {background-position:0 -35px; cursor:pointer;}
 /*Metadata*/
 div.metadata {width:326px!important; height:515px!important; padding:22px 22px 0 33px!important; margin:0;}
 div.metadata span.error_latlng {position:absolute; display:none; width:206px; height:74px; top:5px; background:url('/images/editor/error_latlng.png') no-repeat 0 0; z-index:100;}

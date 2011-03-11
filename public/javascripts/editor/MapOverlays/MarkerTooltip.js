@@ -30,7 +30,7 @@
 				div.style.opacity = "0";
 				div.style.width = '233px';
 				div.style.height = '245px';
-				div.style.background = 'url(/images/editor/tooltip_bkg3.png) no-repeat 0 0';
+				div.style.background = 'url(/images/editor/tooltip_bkg.png) no-repeat 0 0';
 		
 				//Close Infowindow button
 				var close_button = document.createElement('a');
