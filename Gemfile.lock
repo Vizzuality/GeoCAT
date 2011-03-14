@@ -41,7 +41,6 @@ GEM
       net-ssh-gateway (>= 1.0.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    closure-compiler (0.3.3)
     columnize (0.3.2)
     csv-mapper (0.5.1)
       fastercsv
@@ -52,9 +51,6 @@ GEM
       json (>= 1.1.1)
     highline (1.6.1)
     i18n (0.4.2)
-    jammit (0.5.4)
-      closure-compiler (>= 0.1.0)
-      yui-compressor (>= 0.9.1)
     json (1.4.3)
     linecache (0.43)
     mail (2.2.9)
@@ -101,7 +97,6 @@ GEM
     treetop (1.4.8)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
-    yui-compressor (0.9.1)
 
 PLATFORMS
   ruby
@@ -113,7 +108,6 @@ DEPENDENCIES
   capistrano-ext
   csv-mapper
   flickraw (= 0.8.2)
-  jammit
   json (= 1.4.3)
   nokogiri (= 1.4.2)
   rails (~> 3.0.0)

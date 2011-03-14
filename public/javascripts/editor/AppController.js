@@ -52,10 +52,10 @@
 				$('#wellcome').show();
 				// Trick to hide wellcome window if user clicks off this container
 				$('body').click(function(event) {
-				    if (!$(event.target).closest('#wellcome').length) {
-				        $('#wellcome').fadeOut();
-								$('body').unbind('click');
-				    };
+			    if (!$(event.target).closest('#wellcome').length) {
+			        $('#wellcome').fadeOut();
+							$('body').unbind('click');
+			    };
 				});
 			}
 		});
@@ -140,20 +140,5 @@
 									$('div#csv_error').fadeOut();
     		          $('div#export_window').fadeOut();
 									$('div.search_place').fadeIn();
-			}
-		}
-		
-		
-		
-		/* ===== START WITH NEW SPECIE ===== */
-		
-		function startNewSpecie() {
-			if ($('#start_one input').attr('value')!='Insert your value specie name here' && $('#start_one input').attr('value')!='') {
-				specie = $('#start_one input').attr('value');
-				$('h1').html(specie+'<sup>(unsaved)</sup>');
-				$('#start_one_mamufas').fadeOut();
-			} else {
-				$('#start_one input').focus();
-				$('#start_one').css('background-position','0 -223px');
 			}
 		}

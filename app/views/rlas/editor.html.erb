@@ -1,5 +1,6 @@
 
     <% content_for :js do %>
+
       <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false"></script>
       <script type="text/javascript" charset="utf-8">
         var upload_information;
@@ -7,19 +8,8 @@
           upload_information = <%= @rlat_json.html_safe %>;
         <% end %>
       </script>
-      <%= include_javascripts :editor %>
     <% end -%>
 
-
-    <div id="start_one_mamufas">
-      <div id="start_one">
-        <p>Hello, insert taxon name here</p>
-        <form action="javascript:void startNewSpecie()">
-          <input type="text" value="Insert your value specie name here" />
-          <a onclick="startNewSpecie()">continue</a>
-        </form>
-      </div>
-    </div>
 
 
     <div id="editor">
@@ -102,47 +92,8 @@
                     <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
                   </div>
 
-                  <span><h3>SOURCES</h3><p class="count_points ">NO POINTS</p></span>
+                  <span><h3>NO OCCS IN YOUR ASESSMENT</h3></span>
                   <ul id="sources_list"></ul>
-
-                  <a class="add" id="add_source_button">Add new source</a>
-
-                  <div id="add_source_container">
-                    <div class="top">
-                      <a onclick="closeSources()" id="close_sources"></a>
-                      <div class="bottom">
-                        <div class="middle">
-                          <ul>
-                            <li>
-                              <a id="add_flickr" class="checkbox">Add points from Flickr</a>
-                              <span class="normal">
-                                <p>Loading...</p>
-                                <a class="import_data">import</a>
-                              </span>
-                            </li>
-                            <li>
-                              <a id="add_gbif" class="checkbox">Add points from GBIF</a>
-                              <span class="normal">
-                                <p>Loading...</p>
-                                <a class="import_data">import</a>
-                              </span>
-                            </li>
-                            <li>
-                              <a id="add_rla" class="checkbox import_file">Import .RLA or .CSV</a>
-                              <span class="import">
-                                <div class="inner">
-                                  <a class="delete"></a>
-                                  <div id="uploader"><noscript></noscript></div>
-                                </div>
-                                <a class="retry">cancel and close</a>
-                                <a class="import_data">merge</a>
-                              </span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -150,7 +101,45 @@
           </div>
           <div class="footer">
             <div class="bottom-left-tool"></div>
-            <div class="bottom-repeat-tool"></div>
+            <div class="bottom-repeat-tool">
+              <a class="add_source" id="add_source_button">Add sources</a>
+              <div id="add_source_container">
+                <div class="top">
+                  <a onclick="closeSources()" id="close_sources"></a>
+                  <div class="bottom">
+                    <div class="middle">
+                      <ul>
+                        <li>
+                          <a id="add_flickr" class="checkbox">Add points from Flickr</a>
+                          <span class="normal">
+                            <p>Loading...</p>
+                            <a class="import_data">import</a>
+                          </span>
+                        </li>
+                        <li>
+                          <a id="add_gbif" class="checkbox">Add points from GBIF</a>
+                          <span class="normal">
+                            <p>Loading...</p>
+                            <a class="import_data">import</a>
+                          </span>
+                        </li>
+                        <li>
+                          <a id="add_rla" class="checkbox import_file">Import .RLA or .CSV</a>
+                          <span class="import">
+                            <div class="inner">
+                              <a class="delete"></a>
+                              <div id="uploader"><noscript></noscript></div>
+                            </div>
+                            <a class="retry">cancel and close</a>
+                            <a class="import_data">merge</a>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="bottom-right-tool"></div>
           </div>
         </div>
@@ -181,100 +170,6 @@
             </div>
             <div class="center-map">
               <div id="map"></div>
-
-              <div class="search_place">
-                <p>go to</p>
-                <form action="javascript: void searchPlace()">
-                  <input type="text" id="search_location_input" value="" />
-                  <input type="submit" value="" />
-                </form>
-              </div>
-              
-              <!-- Search not found -->
-              <span class="search_not_found">
-                <p>Ops! It looks like your location doesn’t exists</p>
-              </span>
-              
-
-              <!-- Export window -->
-              <div id="export_window">
-                <a onclick="changeApplicationTo()" class="close">X</a>
-                <h3>Download the species data</h3>
-                <div class="blocks">
-                  <div class="block">
-                    <p>Plain text, comma separated values</p>
-                    <a onclick="downloadRLA('csv');changeApplicationTo()" class="export">Download CSV</a>
-                  </div>
-                  <div class="block last">
-                    <p>Structured XML file for geographic data</p>
-                    <a onclick="downloadRLA('kml');changeApplicationTo()" class="export">Download KML</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- CSV error window -->
-              <div id="csv_error">
-                <a onclick="changeApplicationTo()" class="close">X</a>
-                <h3>There are errors in your uploaded csv file</h3>
-                <ul></ul>
-                <span>
-                  <a onclick="changeApplicationTo()" class="cancel">Cancel</a>
-                  <a class="continue">continue</a>
-                </span>
-              </div>
-
-              <!-- Close without save/download -->
-              <div id="close_save">
-                <a onclick="changeApplicationTo()" class="close">X</a>
-                <p>You are going to leave the editor and lose<br/>
-                your changes. Do you want to save them?</p>
-                <p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$('#close_save').fadeOut(); downloadRLA('rla')" class="download"></a>
-                </p>
-              </div>
-
-              <!-- Wellcome window -->
-              <div id="wellcome">
-                <a onclick="$('#wellcome').fadeOut()" class="close">X</a>
-                <p>Start your new assessment by...</p>
-
-                <div class="blocks">
-                  <div class="block">
-                    <label>Import data from<br/>
-                    online source</label>
-                    <a class="import_data" onclick="$('div.center-tool div.right a.add').trigger('click');">Import data</a>
-                  </div>
-                  <div class="block">
-                    <label>Upload your existing<br/>
-                    data (CSV, RLAT)</label>
-                    <a class="upload_data" onclick="$('div.center-tool div.right a.add').trigger('click');">Upload data</a>
-                  </div>
-                  <div class="block last">
-                    <label>Add / Edit points<br/>
-                    just in the map</label>
-                    <a class="add_points" onclick="$('div.center-tool div.left a.add').trigger('click');">Add points</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Mamufas map -->
-              <div id="mamufas_map">
-                <div id="loader_map">
-                  <img src="/images/editor/map_loader.gif" alt="Map loader" />
-                </div>
-                <div id="import_success">
-                  <img src="/images/editor/import_done.png" alt="Import done" />
-                </div>
-              </div>
-
-              <!-- Help state -->
-              <div class="help_container" onclick="changeApplicationTo()">
-                <img src="/images/editor/help_bkg.png" class="help"/>
-                <span class="do"></span>
-                <span class="tool"></span>
-                <span class="download"></span>
-                <span id="analysis_help"></span>
-              </div>
-
               <a href="http://www.vizzuality.com" target="_blank" class="vizzuality"><img src="/images/editor/vizzuality.png" alt="Vizzuality" title="Vizzuality" /></a>
             </div>
             <div class="right-repeat-map">
@@ -329,6 +224,7 @@
         </div>
       </footer>
     </div>
+
 
 
   <form style="display:none" id="download_form" name="download_form" action="/download" method="post" target="_blank">
