@@ -153,6 +153,7 @@ PolygonOverTooltip.prototype.draw = function() {
 
 
 	PolygonOverTooltip.prototype.makeActive = function() {
+	  this.hide();
 		makeActive(this.markers,false);
 	}
 

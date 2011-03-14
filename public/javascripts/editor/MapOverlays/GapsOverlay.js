@@ -19,7 +19,7 @@
 
       var div = this.div_;
       if (!div) {
-        div = this.div_ = document.createElement('DIV');
+        div = this.div_ = document.createElement('div');
         $(div).addClass('metadata');
         div.style.position = "absolute";
         div.style.display = "none";
@@ -127,6 +127,12 @@
 
     GapsOverlay.prototype.getPosition = function() {
      return this.latlng_;
+    };
+
+
+
+    GapsOverlay.prototype.transformCoordinates = function(point) {
+      return this.getProjection().fromContainerPixelToLatLng(point);
     };
 
 

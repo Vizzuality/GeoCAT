@@ -169,7 +169,7 @@ div#tools div.center div.left a.add {background:url('/images/editor/tool_buttons
 div#tools div.center div.left a.remove {background:url('/images/editor/tool_buttons.png') no-repeat -186px 0;}
 div#tools div.center div.left a.layer {background:url('/images/editor/tool_buttons.png') no-repeat -248px 0;}
 div#tools div.center div.left a:hover {background-position-y:-50px; cursor:pointer;}
-div#tools div.center div.left a.selected {background-position:0 -50px;}
+div#tools div.center div.left a.selected {background-position-y:-50px;}
 div#tools div.center div.left a.selected:hover {cursor:default;}
 div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:10;}
 div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
@@ -462,6 +462,43 @@ div#export_window div.block.last {margin:0;}
 div#export_window div.block p {text-align:center; font:normal 13px Arial; color:#999999;}
 div#export_window div.block a.export {float:left; width:125px; height:13px; padding:6px 0 7px 0; margin:12px 0 0 0; background:url('/images/editor/export_to_button.png') no-repeat 0 0; text-align:center; font:bold 13px Arial; color:#4D6719; text-shadow:0 1px #B1D47E; text-transform:uppercase;}
 div#export_window div.block a.export:hover {background-position:0 -26px;}
+
+
+div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:205px; height:224px; padding:25px 25px 25px 37px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
+div#layer_window h3 {font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
+div#layer_window ul {display:inline-block; width:100%; height:150px; margin:18px 0 0 0; overflow-x:visible; overflow-y:scroll;}
+div#layer_window ul li {width:189px; background:url('/images/editor/layer_list_separator.png') repeat-x 0 bottom;}
+
+/*'<div class="layer_window">' +
+  '<h3>LAYERS OVERLAY</h3>' +
+  '<ul>' +
+    '<li>' +
+      '<h4>Carbon Layer</h4>' +
+      '<p>by UNEP-WCMC - 2009</p>' +
+      '<a class="" onclick="">ADD</a>' +
+    '</li>' +
+    '<li>' +
+      '<h4>Carbon Layer</h4>' +
+      '<p>by UNEP-WCMC - 2009</p>' +
+      '<a class="" onclick="">ADD</a>' +
+    '</li>' +
+    '<li>' +
+      '<h4>Carbon Layer</h4>' +
+      '<p>by UNEP-WCMC - 2009</p>' +
+      '<a class="" onclick="">ADD</a>' +
+    '</li>' +
+    '<li>' +
+      '<h4>Carbon Layer</h4>' +
+      '<p>by UNEP-WCMC - 2009</p>' +
+      '<a class="" onclick="">ADD</a>' +
+    '</li>' +
+  '</ul>' +
+  '<form action="javascript:void alert(\'jamon\');">' +
+    '<input type="text" value="Add source from URL..." />' +
+    '<input type="submit" value="Import" />' +
+  '</form>' +
+'</div>'
+*/
 
 /*CSV Error*/
 div#csv_error {position:absolute!important; display:none; width:462px; height:311px; top:50%!important; left:50%; margin:-175px 0 0 -251px!important; padding:20px; background:url('/images/editor/csv_error_bkg.png') no-repeat 0 0; z-index:101;}

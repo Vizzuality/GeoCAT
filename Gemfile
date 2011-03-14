@@ -11,6 +11,8 @@ gem 'flickraw', '0.8.2'
 gem 'RedCloth', '4.2.3'
 gem 'nokogiri', '1.4.2'
 gem 'csv-mapper'
+gem 'htmlentities'
+
 
 gem 'capistrano'
 gem 'capistrano-ext'

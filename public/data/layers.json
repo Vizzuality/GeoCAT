@@ -1,0 +1,17 @@
+{
+  "layers":[
+    {
+      "url":"http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml",
+      "name":"Example 1",
+      "source":"Own",
+      "opacity":1,
+      "type": "kml"
+    },
+    {
+      "url":"http://maps0.eol.org/php/map/getEolTile.php?tile=x_y_z_13140803",
+      "name":"EOL",
+      "source":"EOL.org",
+      "opacity":1,
+      "type": "xyz"
+    }]
+}

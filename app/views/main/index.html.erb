@@ -1,8 +1,6 @@
-<% content_for :js do %>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <%= include_javascripts :main %>
-<% end -%>
+  <% content_for :js do %>
+    <%= headjs_include_tag "plugins/jquery.min", "plugins/jquery.autocomplete", "http://www.google.com/jsapi", "http://maps.google.com/maps/api/js?sensor=true&callback=initApplication", "home/HomeConvexHull", "home/application.js" %>
+  <% end -%>
 
     <% flash.each do |name, msg| %>
       <div id="flash_<%=name%>" class="flash <%=name%>">

@@ -92,7 +92,39 @@
           '<span class="tool"></span>' +
           '<span class="download"></span>' +
           '<span id="analysis_help"></span>' +
+        '</div>'+
+        
+        
+        '<!-- Layers window -->' +
+        '<div id="layer_window">' +
+          '<h3>LAYERS OVERLAY</h3>' +
+          '<ul>' +
+            '<li>' +
+              '<h4>Carbon Layer</h4>' +
+              '<p>by UNEP-WCMC - 2009</p>' +
+              '<a class="" onclick="">ADD</a>' +
+            '</li>' +
+            '<li>' +
+              '<h4>Carbon Layer</h4>' +
+              '<p>by UNEP-WCMC - 2009</p>' +
+              '<a class="" onclick="">ADD</a>' +
+            '</li>' +
+            '<li>' +
+              '<h4>Carbon Layer</h4>' +
+              '<p>by UNEP-WCMC - 2009</p>' +
+              '<a class="" onclick="">ADD</a>' +
+            '</li>' +
+            '<li>' +
+              '<h4>Carbon Layer</h4>' +
+              '<p>by UNEP-WCMC - 2009</p>' +
+              '<a class="" onclick="">ADD</a>' +
+            '</li>' +
+          '</ul>' +
+          '<form action="javascript:void alert(\'jamon\');">' +
+            '<input type="text" value="Add source from URL..." />' +
+            '<input type="submit" value="Import" />' +
+          '</form>' +
         '</div>'
-      });
+        );
     });
     

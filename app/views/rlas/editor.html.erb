@@ -1,14 +1,17 @@
-
     <% content_for :js do %>
-
-      <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false"></script>
+      <%= headjs_include_tag "plugins/jquery.min","plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader", 
+      "editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/RLAOperations", 
+      "editor/Models/TotalPointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Models/MergeOperations", "editor/Calculations/AnalysisRatings", 
+      "editor/MapOverlays/MapElements" %>
+      
+      
       <script type="text/javascript" charset="utf-8">
         var upload_information;
         <% if @rlat_json %>
           upload_information = <%= @rlat_json.html_safe %>;
         <% end %>
       </script>
-    <% end -%>
+    <% end %>  
 
 
 
@@ -77,21 +80,18 @@
                 </div>
 
                 <div class="sources">
-
                   <!-- Merge window -->
                   <div class="merge_container">
                     <h4>MERGE NEW FLICKR POINTS</h4>
                     <p>There are 2 new points in flickr.</p>
                     <div><a class="cancel" onclick="closeMergeContainer()">Cancel</a><a class="merge_button"></a></div>
                   </div>
-
                   <!-- Delete all window -->
                   <div class="delete_all">
                     <h4>DELETE ALL FLICKR POINTS</h4>
                     <p>Are you sure you want to delete all these points?</p>
                     <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
                   </div>
-
                   <span><h3>NO OCCS IN YOUR ASESSMENT</h3></span>
                   <ul id="sources_list"></ul>
                 </div>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>GeoCAT</title>
     <link rel="shortcut icon" href="/favicon.ico" >
-    
+    <%= stylesheet_link_tag('layout','jquery-ui-1.8.2.custom') %>
     <%= yield :css %>
+    <%= javascript_include_tag "/javascripts/plugins/head.load.min.js" %>
     <%= yield :js %>
     <%= csrf_meta_tag %>
   </head>

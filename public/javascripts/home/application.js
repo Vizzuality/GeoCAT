@@ -6,8 +6,14 @@
 	var polygon;
 	var specie_type;
 
-	$(document).ready(function() {
+	function initApplication() {
 
+    var body = document.getElementsByTagName('body').item(0);
+    script = document.createElement('script');
+    script.src = '/javascripts/home/HomeMarker.js';
+    script.type = 'text/javascript';
+    body.appendChild(script);
+    
 		$('#inputSearch').focusin(function(){
 			if ($(this).attr('value')=='Start typing your desired taxon...') {
 				$(this).attr('value','');
@@ -113,7 +119,7 @@
 	    // return true;
 		}
 
-	});
+	}
 	
 	
 	

@@ -12,53 +12,45 @@
 		/*============================================================================*/
 		/* DOM loaded.									 																							*/
 		/*============================================================================*/
-		$(document).ready(function() {
-
-			// Trick for the background
-			$('body').css('background','url(/images/editor/bkg.jpg) 0 0');
-			
-			//Get scientific_name
-			specie = $('a#scientific_name').text();
-
-			createMap();
-			startSources();
-
-
-			//if the application comes through an upload file
-			if (upload_information.success) {
-				uploadRLA(upload_information);
-			} else if (specie=='') {
-				
-				$('#start_one input').focusout(function(ev){
-					if ($(this).attr('value')=='') {
-						$(this).attr('value','Insert your value specie name here');
-					}
-				});
-				$('#start_one input').focusin(function(ev){
-					if ($(this).attr('value')=='Insert your value specie name here') {
-						$(this).attr('value','');
-					}
-				});
-				
-				//if the application doesn't have a specie selected
-				$('#start_one_mamufas').show();
-				$('#start_one_mamufas').click(function(event) {
-			    if (!$(event.target).closest('#start_one').length) {
-		        $('#start_one').css('background-position','0 -223px');
-			      $('#start_one input').focus();
-			    };
-				});
-			} else {
-				$('#wellcome').show();
-				// Trick to hide wellcome window if user clicks off this container
-				$('body').click(function(event) {
-			    if (!$(event.target).closest('#wellcome').length) {
-			        $('#wellcome').fadeOut();
-							$('body').unbind('click');
-			    };
-				});
-			}
+		
+		head.ready(function(){
+		  head.js("http://maps.google.com/maps/api/js?libraries=geometry&sensor=false&callback=initApplication");
 		});
+		
+		function initApplication() {		  	
+		  
+			//Add Markers and so on
+			head.js("/javascripts/editor/MapOverlays/GapsOverlay.js",
+			        "/javascripts/editor/MapOverlays/MarkerOverTooltip.js",
+			        "/javascripts/editor/MapOverlays/MarkerTooltip.js",
+			        "/javascripts/editor/MapOverlays/PolygonOverTooltip.js",
+			        "/javascripts/editor/MapOverlays/DeleteInfowindow.js",
+			        "/javascripts/editor/Models/CreateMarker.js",
+			      function(){
+			        $('body').css('background','url(/images/editor/bkg.jpg) 0 0');
+
+        			//Get scientific_name
+        			specie = $('a#scientific_name').text();
+
+        			createMap();
+        			startSources();
+
+
+        			//if the application comes through an upload file
+        			if (upload_information.success) {
+        				uploadRLA(upload_information);
+        			} else {
+        				$('#wellcome').show();
+        				// Trick to hide wellcome window if user clicks off this container
+        				$('body').click(function(event) {
+        			    if (!$(event.target).closest('#wellcome').length) {
+        			        $('#wellcome').fadeOut();
+        							$('body').unbind('click');
+        			    };
+        				});
+        			}
+			      });
+		}
 	
 	
 
