@@ -24,14 +24,14 @@ class FileController < ApplicationController
     end
 
     case format.downcase
-    when 'rla'
-      file_name = filename_escape(@rla['scientificname'])
-      headers["Content-Type"]        = "application/vizzuality-rlat.rla+xml"
-      headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.rla\""
+    when 'geocat'
+      file_name = filename_escape(@rla['reportName'])
+      headers["Content-Type"]        = "application/vizzuality-geocat.geocat+xml"
+      headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.geocat\""
 
       render :text => params[:rla]
     when 'kml'
-      file_name = filename_escape(@rla['scientificname'])
+      file_name = filename_escape(@rla['reportName'])
 
       @analysis = @rla["analysis"]
 
@@ -44,25 +44,25 @@ class FileController < ApplicationController
 
       @analysis = @rla["analysis"]
 
-      @flickr_points, @gbif_points, @your_points = []
+      @flickr_points, @gbif_points, @user_points = []
       if @rla['sources']
-        @flickr_points = @rla['sources'].select{|s| s['name'] == 'flickr'}.map{|s| s['points']}.flatten
-        @gbif_points   = @rla['sources'].select{|s| s['name'] == 'gbif'}.map{|s| s['points']}.flatten
-        @your_points   = @rla['sources'].select{|s| s['name'] == 'your'}.map{|s| s['points']}.flatten
+        @flickr_points = @rla['sources'].select{|s| s['type'] == 'flickr'}.map{|s| s['points']}.flatten
+        @gbif_points   = @rla['sources'].select{|s| s['type'] == 'gbif'}.map{|s| s['points']}.flatten
+        @user_points   = @rla['sources'].select{|s| s['type'] == 'user'}.map{|s| s['points']}.flatten
 
         @flickr_coords = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
         @gbif_coords   = @gbif_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
-        @your_coords   = @your_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
+        @user_coords   = @user_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
       end
 
-      all_sources  = @flickr_points + @gbif_points + @your_points
+      all_sources  = @flickr_points + @gbif_points + @user_points
       @collections = all_sources.select{|c| c['collectionCode']}.length
-      @collections += 1 if @your_points.present?
+      @collections += 1 if @user_points.present?
       @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq.length
 
       render :action => :print
     when 'csv'
-      file_name = filename_escape(@rla['scientificname'])
+      file_name = filename_escape(@rla['reportName'])
       @rla = RlatData.new(@rla)
 
       send_data @rla.to_csv,
@@ -105,11 +105,11 @@ class FileController < ApplicationController
 
     def verify_upload_extension
       file_path = params[:file].original_filename if params[:file] && params[:file].respond_to?(:original_filename)
-      invalid_rla_file if file_path && (not file_path.match(/^.*\.rla$/))
+      invalid_rla_file if file_path && (not file_path.match(/^.*\.geocat$/))
     end
 
     def invalid_rla_file
-      flash[:error] = 'Invalid file. You must provide a valid RLA file.'
+      flash[:error] = 'Invalid file. You must provide a valid GeoCAT file.'
       redirect_to :controller => 'main', :action => 'index'
     end
 

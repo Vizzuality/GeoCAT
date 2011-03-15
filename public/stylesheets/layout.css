@@ -62,15 +62,15 @@ section.main div.info div.block p a {color:#729A27;}
 section.main div.info div.block p a:hover {color:#435B16;}
 section.main div.info div.block ul {width:100%;}
 section.main div.info div.block ul li {padding:0 0 15px 35px; background:url('/images/home/ol.jpg') no-repeat 0 0;}
-section.main div.info div.block ul li.two {background-position-y:-67px;}
-section.main div.info div.block ul li.three {background-position-y:-134px;}
+section.main div.info div.block ul li.two {background-position:0 -67px;}
+section.main div.info div.block ul li.three {background-position:0 -134px;}
 section.main div.info div.block span.logos {display:inline-block; width:100%; margin:23px 0 0 0;}
 section.main div.info div.block span.logos a.iucn {float:left; width:45px; height:42px;  background:url('/images/home/iucn.jpg') no-repeat 0 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.iucn:hover {background-position-y:-42px;}
+section.main div.info div.block span.logos a.iucn:hover {background-position:0 -42px;}
 section.main div.info div.block span.logos a.vibrant {float:left; width:95px; height:40px; margin:0 0 0 15px; background:url('/images/home/vibrant.jpg') no-repeat 0 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.vibrant:hover {background-position-y:-40px;}
+section.main div.info div.block span.logos a.vibrant:hover {background-position:0 -40px;}
 section.main div.info div.block span.logos a.kew {float:left; width:58px; height:28px; margin:8px 0 0 18px; background:url('/images/home/kew.jpg') no-repeat 0 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.kew:hover {background-position-y:-28px;}
+section.main div.info div.block span.logos a.kew:hover {background-position:0 -28px;}
 
 
 
@@ -144,16 +144,22 @@ div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bott
 div#tools div.table div.center-tool {position:absolute; top:0; bottom:0; left:14px; right:24px; background:#242628;}
 div#tools div.table div.right-repeat-tool {position:absolute; top:0; right:0; bottom:0; width:24px; background:url('/images/editor/right-repeat-tool.png') repeat-y left 0;}
 div#tools div.center div.left {float:left; width:62px; padding:0; margin:0;}
-div#tools div.center div.left a {float:left; width:62px; height:50px; margin:0;}
+div#tools div.center div.left a {float:left; width:62px!important; height:50px!important; margin:0; padding:0;}
 div#tools div.center div.left a.select {background:url('/images/editor/tool_buttons.png') no-repeat 0 -1px; height:49px;}
 div#tools div.center div.left a.select:hover {background-position:0 -51px; cursor:pointer;}
 div#tools div.center div.left a.select.selected {background-position:0 -51px;}
 div#tools div.center div.left a.selection {background:url('/images/editor/tool_buttons.png') no-repeat -62px 0;}
+div#tools div.center div.left a.selection:hover {background-position:-62px -51px; cursor:pointer;}
+div#tools div.center div.left a.selection.selected {background-position:-62px -51px;}
 div#tools div.center div.left a.add {background:url('/images/editor/tool_buttons.png') no-repeat -124px 0;}
+div#tools div.center div.left a.add:hover {background-position:-124px -51px; cursor:pointer;}
+div#tools div.center div.left a.add.selected {background-position:-124px -51px;}
 div#tools div.center div.left a.remove {background:url('/images/editor/tool_buttons.png') no-repeat -186px 0;}
+div#tools div.center div.left a.remove:hover {background-position:-186px -51px; cursor:pointer;}
+div#tools div.center div.left a.remove.selected {background-position:-186px -51px;}
 div#tools div.center div.left a.layer {background:url('/images/editor/tool_buttons.png') no-repeat -248px 0;}
-div#tools div.center div.left a:hover {background-position-y:-50px; cursor:pointer;}
-div#tools div.center div.left a.selected {background-position-y:-50px;}
+div#tools div.center div.left a.layer:hover {background-position:-248px -51px; cursor:pointer;}
+div#tools div.center div.left a.layer.selected {background-position:-248px -51px;}
 div#tools div.center div.left a.selected:hover {cursor:default;}
 div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:10;}
 div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
@@ -232,7 +238,7 @@ div.merge_container div a.cancel {float:right; font:normal 11px Arial; text-deco
 div.merge_container div a.cancel:hover {color:#000000; cursor:pointer;}
 div.merge_container div a.merge_button {float:right; margin:7px 0 0 0!important; padding:0!important; width:54px!important; height:21px!important; background:url('/images/editor/merge_button.png') no-repeat 0 0!important;}
 div.merge_container div a.merge_button:hover {background-position: 0 -21px!important; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources {position:relative; float:left; padding:12px 0 14px 30px; margin:0; width:230px; border-top:1px solid #454648;}
+div#editor div#tools div.center div.right div.sources {position:static; float:left; padding:12px 0 14px 30px; margin:0; width:230px; border-top:1px solid #454648;}
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#editor div#tools div.center div.right div.sources span p {float:right; font:normal 11px "Futura"; color:#7C7D7E; padding:0 17px 0 0;}
@@ -262,6 +268,33 @@ div#editor div#tools div.center div.right div.sources a.gbif_hide.hide {backgrou
 div#editor div#tools div.center div.right div.sources a.your_hide.hide {background-position: 0 -11px;}
 div#editor div#tools div.center div.right div.sources ul {float:left; width:218px; padding:0; margin:5px 0 0 0;}
 div#editor div#tools div.center div.right div.sources ul li {float:left; position:relative; width:100%;}
+
+
+div#editor div#tools div.center div.right div.sources ul#sources_list {position:absolute; top:115px; right:5px; bottom:10px; width:225px; overflow: auto;}
+div#editor div#tools div.center div.right div.sources ul#sources_list:focus {outline:none;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspContainer{overflow:hidden;position:relative;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspPane{position:absolute;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar{position:absolute;top:0;right:1px;width:8px;height:100%;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar{position:absolute;bottom:0;left:0;width:100%;height:16px;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar *,
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar *{margin:0;padding:0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspCap{display:none;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspCap{float:left;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspTrack{background:#1c1d1f;position:relative; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspDrag{background:black;position:relative;top:0;left:0;cursor:pointer; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspTrack,
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspDrag{float:left;height:100%;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspArrow{background:#50506d;text-indent:-20000px;display:block;cursor:pointer;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspArrow.jspDisabled{cursor:default;background:#80808d;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar .jspArrow{height:16px;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspArrow{width:16px;float:left;height:100%;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar .jspArrow:focus{outline:none;}
+div#editor div#tools div.center div.right div.sources ul#sources_list .jspCorner{background:#eeeef4;float:left;height:100%;}
+div#editor div#tools div.center div.right div.sources ul#sources_list * html .jspCorner{margin:0 -3px 0 0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li {width:211px; height:58px; margin:3px 0; background:url('/images/editor/li_bkg.png') no-repeat 0 0;}
+
+
+
 /*add new source*/
 div#editor div#tools div#add_source_container {position:absolute; width:209px; bottom:42px; right:-36px; z-index:100; display:none;}
 div#editor div#tools div#add_source_container div.top {float:left; width:209px; padding:51px 0 0 0; background:url('/images/editor/add_source_top.png') no-repeat 0 top;}
@@ -324,7 +357,7 @@ div#editor div#tools div.center div.right div.sources div#add_source_container d
 div#editor div#tools div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:76px;}
 div#editor div#tools div.table div.bottom-left-tool {position:relative; float:left; width:24px; height:76px; background:url('/images/editor/bottom-left-tool.png') no-repeat right top;}
 div#editor div#tools div.table div.bottom-repeat-tool {position:absolute; bottom:0; left:24px; right:24px; background:url('/images/editor/bottom-repeat-tool.png') repeat left 0; height:76px;}
-div#editor div#tools div.table div.bottom-repeat-tool a.add_source {float:right; width:37px; height:35px; background:url('/images/editor/add_source.png') no-repeat 0 0; text-indent:-9999px; margin:14px 0 0 4px;}
+div#editor div#tools div.table div.bottom-repeat-tool a.add_source {float:right; width:92px; height:11px; padding:12px 0 12px 10px; background:url('/images/editor/add_source.png') no-repeat 0 0; font:normal 11px Arial; color:#CCCCCC; line-height:11px; text-shadow:0 1px black; margin:14px 0 0 4px;}
 div#editor div#tools div.table div.bottom-repeat-tool a.add_source:hover {background-position:0 -35px;}
 div#editor div#tools div.table div.bottom-right-tool {position:relative; float:right; width:24px; height:76px; background:url('/images/editor/bottom-right-tool.png') no-repeat left top;}
 /*2nd layer - map*/
@@ -448,7 +481,7 @@ div#export_window div.block a.export {float:left; width:125px; height:13px; padd
 div#export_window div.block a.export:hover {background-position:0 -26px;}
 
 
-div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:205px; height:224px; padding:25px 25px 25px 37px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
+div#layer_window {position:absolute!important; display:block; left:-27px; top:185px; width:205px; height:224px; padding:25px 25px 25px 37px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
 div#layer_window h3 {font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
 div#layer_window ul {display:inline-block; width:100%; height:150px; margin:18px 0 0 0; overflow-x:visible; overflow-y:scroll;}
 div#layer_window ul li {width:189px; background:url('/images/editor/layer_list_separator.png') repeat-x 0 bottom;}
@@ -540,5 +573,10 @@ footer.app_footer div.inner div.left p a.feedback {color:#FFCC00;}
 footer.app_footer div.inner div.left p a:hover {text-decoration:none;}
 footer.app_footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 footer.app_footer div.inner div.right {position:absolute; right:40px; width:160px; z-index:1;}
+footer.app_footer div.inner div.right a {background:none;}
 footer.app_footer div.inner div.right p {float:right; width:auto; font:normal 13px Arial; color:#0B0B0C; padding:22px 5px 0 0;}
 footer.app_footer div.inner div.right img {float:right; margin:7px 0 0 0; width:auto;}
+
+
+
+

@@ -1,8 +1,15 @@
 {
   "layers":[
     {
-      "url":"http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml",
+      "url":"http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/blackbirds.kml",
       "name":"Example 1",
+      "source":"Own",
+      "opacity":1,
+      "type": "kml"
+    },
+    {
+      "url":"http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml",
+      "name":"Example 2",
       "source":"Own",
       "opacity":1,
       "type": "kml"

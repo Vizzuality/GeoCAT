@@ -6,6 +6,10 @@
 	var polygon;
 	var specie_type;
 
+  head.ready(function(){
+    head.js("http://maps.google.com/maps/api/js?sensor=true&callback=initApplication");
+  });
+
 	function initApplication() {
 
     head.js("/javascripts/home/HomeMarker.js",function(){

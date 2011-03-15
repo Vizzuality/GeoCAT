@@ -54,8 +54,9 @@ class RlasController < ApplicationController
     
     $file_content = file_content[0]
     
-    @rla.specie = file_content_JSON[0]["rla"]["specie"]
-    @rla.zoom = file_content_JSON[0]["rla"]["zoom"]
+    @rla.reportName = file_content_JSON[0]["rla"]["reportName"]
+    @rla.zoom = file_content_JSON[0]["rla"]["viewPort"]['zoom']
+    @rla.center = file_content_JSON[0]["rla"]["viewPort"]['center']
     @rla.data = file_content_JSON[0]["rla"]["sources"]
     
     # Get the header     

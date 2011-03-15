@@ -23,6 +23,7 @@
 				$('a#toggle_analysis').click(function(ev){
 				  
 					if ($(this).hasClass('disabled')) {
+					  $('ul#sources_list').stop().animate({top: '265px'},'fast');
 					  closeSources();
 						$('body').bind('getBounds',function(ev){
 							var bounds = new google.maps.LatLngBounds();
@@ -40,6 +41,7 @@
 						$('#analysis_help').css('background','url(/images/editor/analysis_help2.png) no-repeat -2px 0');
 					} else {
 					  $('body').unbind('click');
+					  $('ul#sources_list').stop().animate({top: '115px'},'fast');
 						closeConvexHull();
 						$(this).addClass('disabled');
 						$(this).parent().children('h3').addClass('disabled');

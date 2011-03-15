@@ -1,7 +1,7 @@
 class RlatData
   include ActiveModel::Validations
 
-  attr_accessor :scientificname, :zoom, :center, :analysis, :format, :sources
+  attr_accessor :reportName, :zoom, :center, :analysis, :format, :sources, :layers
   attr_writer :warnings
 
   validate :sources_must_be_valid
@@ -30,11 +30,12 @@ class RlatData
       :success => valid?,
       :format => format,
       :data => {
-        :scientificname => scientificname,
+        :reportName => reportName,
         :zoom => zoom,
         :center => center,
         :analysis => analysis,
-        :sources => sources
+        :sources => sources,
+        :layers => layers
       },
       :errors => errors,
       :warnings => warnings
@@ -49,7 +50,7 @@ class RlatData
       data += source['points'].collect do |point|
         {
           'recordSource'                  => point['recordSource'],
-          'scientificname'                => scientificname,
+          'scientificname'                => source['points']['query'],
           'latitude'                      => point['latitude'],
           'longitude'                     => point['longitude'],
           'changed'                       => point['changed'],
@@ -92,13 +93,15 @@ class RlatData
       else
         JSON.parse(data.read)
       end
-
-      self.scientificname = hash['scientificname']
-      self.zoom           = hash['zoom']
-      self.format         = 'rla'
-      self.center         = hash['center']
+      
+      self.reportName     = hash['reportName']
+      self.zoom           = hash['viewPort']['zoom']
+      self.format         = 'geocat'
+      self.center         = hash['viewPort']['center']
       self.analysis       = hash['analysis']
       self.sources        = hash['sources']
+      self.layers         = hash['layers']
+      
     end
 
     def process_as_csv(file)
@@ -112,7 +115,7 @@ class RlatData
       end
       return if csv.blank?
 
-      self.scientificname = csv.first.scientificname if csv.first.respond_to?(:scientificname)
+      self.reportName     = csv.first.reportName if csv.first.respond_to?(:reportName)
       self.zoom           = csv.first.zoom if csv.first.respond_to?(:zoom)
       self.format         = 'csv'
       self.center         = {

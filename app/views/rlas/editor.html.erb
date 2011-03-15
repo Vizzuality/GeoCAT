@@ -1,8 +1,8 @@
     <% content_for :js do %>
       <%= headjs_include_tag "plugins/jquery.min","plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader", 
       "editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/RLAOperations", 
-      "editor/Models/TotalPointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Models/MergeOperations", "editor/Calculations/AnalysisRatings", 
-      "editor/MapOverlays/MapElements" %>
+      "editor/Models/TotalPointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Calculations/AnalysisRatings", 
+      "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization" %>
       
       
       <script type="text/javascript" charset="utf-8">
@@ -93,7 +93,35 @@
                     <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
                   </div>
                   <span><h3>NO OCCS IN YOUR ASESSMENT</h3></span>
-                  <ul id="sources_list"></ul>
+                  <ul id="sources_list">
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                    <li>
+                      afdssaf
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -102,7 +130,7 @@
           <div class="footer">
             <div class="bottom-left-tool"></div>
             <div class="bottom-repeat-tool">
-              <a class="add_source" id="add_source_button">Add sources</a>
+              <a class="add_source" id="add_source_button">Add source</a>
               <div id="add_source_container">
                 <div class="top">
                   <a onclick="closeSources()" id="close_sources"></a>
@@ -197,7 +225,7 @@
               </div>
               <div class="right">
                 <a onclick="changeApplicationTo(7)" class="export">EXPORT</a>
-                <a onclick="downloadRLA('rla')" class="download">DOWNLOAD</a>
+                <a onclick="downloadRLA('geocat')" class="download">DOWNLOAD</a>
               </div>
             </div>
             <div class="bottom-right-map"></div>

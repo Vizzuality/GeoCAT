@@ -26,15 +26,32 @@
 			        "/javascripts/editor/MapOverlays/PolygonOverTooltip.js",
 			        "/javascripts/editor/MapOverlays/DeleteInfowindow.js",
 			        "/javascripts/editor/Models/CreateMarker.js",
+			        "/javascripts/editor/Models/MergeOperations.js",
 			      function(){
 			        $('body').css('background','url(/images/editor/bkg.jpg) 0 0');
+
+
+
+              //PHASE 2--------------------------------------------------------------------------------
+              
+              //Pruebas con jscrollpane & sortable
+              $('ul#sources_list').jScrollPane({autoReinitialise:true});
+              $('ul#sources_list,div.jspPane').sortable({revert:true});
+              $('ul#sources_list,ul#sources_list li,div.jspContainer,div.jspPane').disableSelection();
+              
+              //Adding layers
+              var layers = new LayerCustomization(upload_information.data.layers);
+              //----------------------------------------------------------------------------------------
+              
+              
+              
 
         			//Get scientific_name
         			specie = $('a#scientific_name').text();
 
         			createMap();
         			startSources();
-
+              
 
         			//if the application comes through an upload file
         			if (upload_information.success) {
