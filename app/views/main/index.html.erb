@@ -1,5 +1,5 @@
   <% content_for :js do %>
-    <%= headjs_include_tag "plugins/jquery.min", "plugins/jquery.autocomplete", "http://www.google.com/jsapi", "http://maps.google.com/maps/api/js?sensor=true&callback=initApplication", "home/HomeConvexHull", "home/application.js" %>
+    <%= headjs_include_tag "plugins/jquery.min", "http://www.google.com/jsapi", "http://maps.google.com/maps/api/js?sensor=true&callback=initApplication", "home/HomeConvexHull", "home/application.js" %>
   <% end -%>
 
     <% flash.each do |name, msg| %>
@@ -8,84 +8,129 @@
       </div>
     <% end %>
 
-    <div class="main_layout">
+    <section class="layout">
       <div id="map"></div>
       <div class="opaque"></div>
-
-      <div class="layout header">
+    </section>
+    
+    <section class="main">
+      <div class="float">
         <header>
-          <h2>Red List Species Assessment Tool</h2>
+          <h1>GeoCat</h1>
+          <p>Geospatial Conservation Assessment Tool</p>
+          <h2>Perform geospatial analysis of endangered species data in the easiest and most powerful way.</h2>
+          <a class="start" href="/editor">Start a new report</a>
+          <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
+            <p>or <a id="upload_button">import a .geocat file</a></p>
+            <input type="file" name="file" size="30" id="upload_input" />
+          </form>
         </header>
-        <section class="name">
-          <h1>Analysis Tool for Geospatial Red List Species Assessment</h1>
-        </section>
-      </div>
-
-      <div class="white_band">
-        <div class="inner">
-          <%= image_tag 'home/arrow_gray.png', :class => 'arrow' %>
-          <ul>
-            <li class="selected"><a>How it works</a></li>
-          </ul>
-          <span class="main_shadow"></span>
-          <div id="main_container">
-            <span id="beta"></span>
-            <label>What taxa do you want to analyse?</label>
-            <form class="up" action="javascript: void goEditor()">
-              <input id="inputSearch" type="text" />
-              <p>you can try with <a href="/editor/Luzula%20Luzuloides">Luzula luzuloides</a></p>
-              <%= image_tag 'home/ajax-loader.gif', :class => 'loader' %>
-            </form>
-            <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
-              <p>or continue working in a previous project</p>
-              <a id="upload_button"></a>
-              <input type="file" name="file" size="30" id="upload_input" />
-            </form>
+        <div class="info">
+          <div class="block">
+            <h3>Simplified process, usable tool</h3>
+            <ul>
+              <li class="one">
+                <p>Create a report from scratch or upload your previous work.</p>
+              </li>
+              <li class="two">
+                <p>Manage your species data sources and work directly on the map.</p>
+              </li>
+              <li class="three">
+                <p>Download or print your report and start sharing it.</p>
+              </li>
+            </ul>
           </div>
+          <div class="block">
+            <h3>Based on real data</h3>
+            <p>GeoCAT synchronizes with <a href="http://gbif.org" target="_blank">GBIF</a> and <a href="http://flickr.com" target="_blank">Flickr</a> for extracting real species situation.</br></br>It also offers the possibility of performing AOO and EOO analysis.</p>
+          </div>
+          <div class="block last">
+            <h3>Red List Assessments compliant</h3>
+            <p>Endorsed by Kew Gardens, ViBRANT and IUCN, GeoCAT usage fits perfectly in the official endangered species protection process.</p>
+            <span class="logos">
+              <a class="iucn" href="http://iucn.org" target="_blank">IUCN</a>
+              <a class="kew" href="http://kewgardens.org" target="_blank">KEW</a>
+              <a class="vibrant" href="http://vibrant.org" target="_blank">VIBRANT</a>
+            </span>
+          </div>
+        </div>
+        <div class="video">
+          <iframe src="http://player.vimeo.com/video/15912678?byline=0&amp;portrait=0" width="550" height="308" frameborder="0"></iframe><p>
         </div>
       </div>
-
-      <div class="layout blocks">
-        <div class="block">
-          <h3>1. Select your desired species or create a report from scratch</h3>
-          <div class="image">
-            <%= image_tag 'home/image_1.jpg' %>
-          </div>
-        </div>
-        <div class="block">
-          <%= image_tag 'home/arrow_block.png', :class => 'top' %>
-          <h3>2. Manage your sources and work through the map</h3>
-          <div class="image">
-            <%= image_tag 'home/image_3.jpg' %>
-          </div>
-        </div>
-        <div class="block last">
-          <%= image_tag 'home/arrow_block.png', :class => 'bottom' %>
-          <h3>3. Download or print your report and start sharing it</h3>
-          <div class="image">
-            <%= image_tag 'home/image_2.jpg' %>
-          </div>
-        </div>
-      </div>
-
+      
       <footer>
         <div class="inner">
           <div class="left">
-            <p>An effort of</p>
-            <a href="http://www.kew.org" target="_blank">
-              <%= image_tag 'home/kew_logo.png', :alt => 'Kew' %>
-            </a>
-            <p>All rights reserved. 2011. <a href="http://www.kew.org/about-kew/website-information/legal-notices/" target="_blank">Legal terms</a> / <a href="mailto:GISUnit@kew.org" target="_blank">Contact us</a></p>
+            <p>All rights reserved. 2011. <a href="http://www.kew.org/about-kew/website-information/legal-notices/" target="_blank">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a></p>
           </div>
           <div class="right">
-            <a href="http://www.vizzuality.com" target="_blank">
-              <%= image_tag 'home/vizz_logo.png', :alt => 'Vizzuality' %>
-            </a>
+            <a href="http://www.vizzuality.com" target="_blank">Vizzuality</a>
             <p>Developed by</p>
           </div>
         </div>
       </footer>
-    </div>
+    </section>
+    
+    
+    
+      <!-- <div class="layout header">
+              <header>
+                <h2>Red List Species Assessment Tool</h2>
+              </header>
+              <section class="name">
+                <h1>Analysis Tool for Geospatial Red List Species Assessment</h1>
+              </section>
+            </div>
+
+            <div class="white_band">
+              <div class="inner">
+                <%= image_tag 'home/arrow_gray.png', :class => 'arrow' %>
+                <ul>
+                  <li class="selected"><a>How it works</a></li>
+                </ul>
+                <span class="main_shadow"></span>
+                <div id="main_container">
+                  <span id="beta"></span>
+                  <label>What taxa do you want to analyse?</label>
+                  <form class="up" action="javascript: void goEditor()">
+                    <input id="inputSearch" type="text" />
+                    <p>you can try with <a href="/editor/Luzula%20Luzuloides">Luzula luzuloides</a></p>
+                    <%= image_tag 'home/ajax-loader.gif', :class => 'loader' %>
+                  </form>
+                  <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
+                    <p>or continue working in a previous project</p>
+                    <a id="upload_button"></a>
+                    <input type="file" name="file" size="30" id="upload_input" />
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="layout blocks">
+              <div class="block">
+                <h3>1. Select your desired species or create a report from scratch</h3>
+                <div class="image">
+                  <%= image_tag 'home/image_1.jpg' %>
+                </div>
+              </div>
+              <div class="block">
+                <%= image_tag 'home/arrow_block.png', :class => 'top' %>
+                <h3>2. Manage your sources and work through the map</h3>
+                <div class="image">
+                  <%= image_tag 'home/image_3.jpg' %>
+                </div>
+              </div>
+              <div class="block last">
+                <%= image_tag 'home/arrow_block.png', :class => 'bottom' %>
+                <h3>3. Download or print your report and start sharing it</h3>
+                <div class="image">
+                  <%= image_tag 'home/image_2.jpg' %>
+                </div>
+              </div>
+            </div> -->
+
+
     
     
     <script type="text/javascript">

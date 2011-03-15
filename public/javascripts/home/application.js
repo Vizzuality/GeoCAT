@@ -8,116 +8,68 @@
 
 	function initApplication() {
 
-    var body = document.getElementsByTagName('body').item(0);
-    script = document.createElement('script');
-    script.src = '/javascripts/home/HomeMarker.js';
-    script.type = 'text/javascript';
-    body.appendChild(script);
-    
-		$('#inputSearch').focusin(function(){
-			if ($(this).attr('value')=='Start typing your desired taxon...') {
-				$(this).attr('value','');
-			}
-		});
-		
-		$('#inputSearch').focusout(function(){
-			if ($(this).attr('value')=='') {
-				$(this).attr('value','Start typing your desired taxon...');
-			}
-		});
+    head.js("/javascripts/home/HomeMarker.js",function(){
+      //register the Upload button action
+      $("#upload_input").change(function(event){
+         $("#upload_form").submit(); 
+      });
 
-    //register the Upload button action
-    $("#upload_input").change(function(event){
-       $("#upload_form").submit(); 
-    });
-
-		$('.flash').delay(5000).animate({height:0},300,function(ev){$('.flash').css('border','none');});
+  		$('.flash').delay(5000).animate({height:0},300,function(ev){$('.flash').css('border','none');});
 
 
-		// HOME
-	  var myLatlng = new google.maps.LatLng(20,-3);
-	  var myOptions = {
-	    zoom: 8,
-	    center: myLatlng,
-	    mapTypeId: google.maps.MapTypeId.TERRAIN,
-			disableDefaultUI: true,
-			scrollwheel: false
-	  }
+  		// HOME
+  	  var myLatlng = new google.maps.LatLng(20,-3);
+  	  var myOptions = {
+  	    zoom: 8,
+  	    center: myLatlng,
+  	    mapTypeId: google.maps.MapTypeId.TERRAIN,
+  			disableDefaultUI: true,
+  			scrollwheel: false
+  	  }
 
-	  map = new google.maps.Map(document.getElementById("map"), myOptions);
-		google.maps.event.addListener(map,"tilesloaded",function(event){generateObservations()});
-		elevator = new google.maps.ElevationService();
-	
-	
-		if (google.loader.ClientLocation) {
-      var zoom = 9;
-      latlng = new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
-    } else {
-    	var zoom = 9;
-      latlng = new google.maps.LatLng(51.5001524, -0.1262362);   
- 			//latlng = new google.maps.LatLng(38.998374945552115, 1.4179229736328125);   //Eivissa
-    }
-		
-		map.setCenter(latlng);
-		map.setZoom(zoom);
-
-			
-		$('#inputSearch').focus().autocomplete('http://bioblitz.tdwg.org/api/taxonomy?',{
-					dataType: 'jsonp',
-					parse: function(data){
-              var animals = new Array();
-              gbif_data = data;
-              for(var i=0; i<gbif_data.length; i++) {
-                animals[i] = { data: gbif_data[i], value: gbif_data[i].s, result: gbif_data[i].s};
-              }
-              return animals;
-					}, 
-					formatItem: function(row, i, n, value, term) {
-						var species = '<p style="float:left;width:100%;font:bold 15px Arial;">' + value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>") + '</p>';
-						species += '<div class="taxonomy"><p class="first">'+row.k+'</p><p>'+row.p+'</p><p>'+row.c+'</p><p class="last">'+row.f+'</p></div>';
-						return species;
-		      },					
-					width: 404,
-					height: 100,
-					minChars: 4,
-					max: 5,
-					selectFirst: false,
-					loadingClass: 'loader',
-					multiple: false,
-					scroll: false
-				}).result(function(event,row){
-					location.href = encodeURI('/editor/' + escape(row.s));
-				});	
-			
+  	  map = new google.maps.Map(document.getElementById("map"), myOptions);
+  		google.maps.event.addListener(map,"tilesloaded",function(event){generateObservations()});
+  		elevator = new google.maps.ElevationService();
 
 
-		//input effect - hack
-		$('form.upload input').hover(function(ev){
-			$('form.upload a').css('background-position','0 -32px');	
-		},
-		function(ev){
-			$('form.upload a').css('background-position','0 0');
-		});
-		
-		$('#rla_name').change(function(){		
-			validateFile(this);			
-		})
-		
-		
-		function validateFile(upload_field){
-			var correct_ext = /\.rla/;
-			var filename = upload_field.value;
-
-      /* Validation of filetype */
-      if (filename.search(correct_ext) == -1) {
-          //alert("ERROR - Formato no válido");
-          upload_field.form.reset();
-          return false;
+  		if (google.loader.ClientLocation) {
+        var zoom = 9;
+        latlng = new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
+      } else {
+      	var zoom = 9;
+        latlng = new google.maps.LatLng(51.5001524, -0.1262362);   
       }
-			/* IF, EXT IS CORRECT => SUBMIT */
-	    upload_field.form.submit();
-	    // return true;
-		}
+
+  		map.setCenter(latlng);
+  		map.setZoom(zoom);
+
+
+  		//input effect - hack
+  		$('form.upload input').hover(function(ev){
+  			$('form.upload a').css('background-position','0 -32px');	
+  		},
+  		function(ev){
+  			$('form.upload a').css('background-position','0 0');
+  		});
+
+  		$('#rla_name').change(function(){		
+  			validateFile(this);			
+  		})
+
+
+  		function validateFile(upload_field){
+  			var correct_ext = /\.rla/;
+  			var filename = upload_field.value;
+
+        /* Validation of filetype */
+        if (filename.search(correct_ext) == -1) {
+            upload_field.form.reset();
+            return false;
+        }
+  			/* IF, EXT IS CORRECT => SUBMIT */
+  	    upload_field.form.submit();
+  		}
+    });
 
 	}
 	
