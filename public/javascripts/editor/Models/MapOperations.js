@@ -47,8 +47,6 @@
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
         
-        // var myKmlLayer = new google.maps.KmlLayer('http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml', { suppressInfoWindows: true, preserveViewport:true});
-        // myKmlLayer.setMap(map);
 
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				total_points = new TotalPointsOperations();  		// TotalPoints Object

@@ -481,41 +481,43 @@ div#export_window div.block a.export {float:left; width:125px; height:13px; padd
 div#export_window div.block a.export:hover {background-position:0 -26px;}
 
 
+/*LAYER WINDOW*/
 div#layer_window {position:absolute!important; display:block; left:-27px; top:185px; width:205px; height:224px; padding:25px 25px 25px 37px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
 div#layer_window h3 {font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
-div#layer_window ul {display:inline-block; width:100%; height:150px; margin:18px 0 0 0; overflow-x:visible; overflow-y:scroll;}
-div#layer_window ul li {width:189px; background:url('/images/editor/layer_list_separator.png') repeat-x 0 bottom;}
+div#layer_window ul {position:relative; display:inline-block; width:100%; height:150px; margin:18px 0 0 0; overflow:auto;}
+div#layer_window ul:focus {outline:none;}
+div#layer_window ul .jspContainer{overflow:hidden;position:relative;}
+div#layer_window ul .jspPane{position:absolute;}
+div#layer_window ul .jspVerticalBar{position:absolute!important;top:0;right:1px;width:8px;height:100%;}
+div#layer_window ul .jspHorizontalBar{position:absolute!important;bottom:0;left:0;width:100%;height:16px;}
+div#layer_window ul .jspVerticalBar *,
+div#layer_window ul .jspHorizontalBar *{margin:0;padding:0;}
+div#layer_window ul .jspCap{display:none;}
+div#layer_window ul .jspHorizontalBar .jspCap{float:left;}
+div#layer_window ul .jspTrack{background:#c0c0c0;position:relative; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
+div#layer_window ul .jspDrag{background:#525252;position:relative;top:0;left:0;cursor:pointer; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
+div#layer_window ul .jspHorizontalBar .jspTrack,
+div#layer_window ul .jspHorizontalBar .jspDrag{float:left;height:100%;}
+div#layer_window ul .jspArrow{background:#50506d;text-indent:-20000px;display:block;cursor:pointer;}
+div#layer_window ul .jspArrow.jspDisabled{cursor:default;background:#80808d;}
+div#layer_window ul .jspVerticalBar .jspArrow{height:16px;}
+div#layer_window ul .jspHorizontalBar .jspArrow{width:16px;float:left;height:100%;}
+div#layer_window ul .jspVerticalBar .jspArrow:focus{outline:none;}
+div#layer_window ul .jspCorner{background:#eeeef4;float:left;height:100%;}
+div#layer_window ul * html .jspCorner{margin:0 -3px 0 0;}
+div#layer_window ul li {width:189px; padding:10px 0; background:url('/images/editor/layer_list_separator.png') repeat-x 0 bottom;}
+div#layer_window ul li.last {background:none;}
+div#layer_window ul li h4 {width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:bold 13px Arial; color:#333333;}
+div#layer_window ul li p {display:inline-block; width:135px; margin:2px 5px 0 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
+div#layer_window ul li a {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
+div#layer_window ul li a:hover {background-position:0 -19px;}
+div#layer_window ul li a.added {color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px;}
+div#layer_window ul li a.added:hover {background-position:0 -57px;}
+div#layer_window ul li a.loading {text-indent:-9999px; background:url('/images/editor/ajax-loader.gif') no-repeat center 0;}
+div#layer_window ul li a.loading:hover {cursor:default; background-position:center 0;}
+div#layer_window form {display:inline-block; width:205px;}
 
-/*'<div class="layer_window">' +
-  '<h3>LAYERS OVERLAY</h3>' +
-  '<ul>' +
-    '<li>' +
-      '<h4>Carbon Layer</h4>' +
-      '<p>by UNEP-WCMC - 2009</p>' +
-      '<a class="" onclick="">ADD</a>' +
-    '</li>' +
-    '<li>' +
-      '<h4>Carbon Layer</h4>' +
-      '<p>by UNEP-WCMC - 2009</p>' +
-      '<a class="" onclick="">ADD</a>' +
-    '</li>' +
-    '<li>' +
-      '<h4>Carbon Layer</h4>' +
-      '<p>by UNEP-WCMC - 2009</p>' +
-      '<a class="" onclick="">ADD</a>' +
-    '</li>' +
-    '<li>' +
-      '<h4>Carbon Layer</h4>' +
-      '<p>by UNEP-WCMC - 2009</p>' +
-      '<a class="" onclick="">ADD</a>' +
-    '</li>' +
-  '</ul>' +
-  '<form action="javascript:void alert(\'jamon\');">' +
-    '<input type="text" value="Add source from URL..." />' +
-    '<input type="submit" value="Import" />' +
-  '</form>' +
-'</div>'
-*/
+
 
 /*CSV Error*/
 div#csv_error {position:absolute!important; display:none; width:462px; height:311px; top:50%!important; left:50%; margin:-175px 0 0 -251px!important; padding:20px; background:url('/images/editor/csv_error_bkg.png') no-repeat 0 0; z-index:101;}

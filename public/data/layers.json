@@ -1,24 +1,24 @@
 {
   "layers":[
     {
-      "url":"http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/blackbirds.kml",
-      "name":"Example 1",
-      "source":"Own",
-      "opacity":1,
-      "type": "kml"
-    },
-    {
-      "url":"http://gmaps-samples.googlecode.com/svn/trunk/ggeoxml/cta.kml",
-      "name":"Example 2",
-      "source":"Own",
-      "opacity":1,
-      "type": "kml"
-    },
-    {
-      "url":"http://maps0.eol.org/php/map/getEolTile.php?tile=x_y_z_13140803",
+      "url":"http://maps0.eol.org/php/map/getEolTile.php?tile={X}_{Y}_{Z}_13140803",
       "name":"EOL",
       "source":"EOL.org",
       "opacity":1,
+      "type": "xyz"
+    },
+    {
+      "url":"http://184.73.201.235/blue/{Z}/{X}/{Y}",
+      "name":"ProtectedPlanet",
+      "source":"ProtectedPlanet",
+      "opacity":1,
+      "type": "xyz"
+    },
+    {
+      "url":"http://downloads.wdpa.org/ArcGIS/rest/services/carbon/Carbon_webmerc_93/MapServer/tile/{Z}/{Y}/{X}",
+      "name":"Carbon Layer",
+      "source":"LifeWeb",
+      "opacity":0.4,
       "type": "xyz"
     }]
 }
