@@ -72,7 +72,7 @@ class FileController < ApplicationController
   end
 
   def upload
-    @species_name = params[:species] if params[:species].present?
+    @report_name = params[:report_name] if params[:report_name].present?
 
     rlat = case
     when params[:file]

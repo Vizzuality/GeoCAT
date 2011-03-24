@@ -16,7 +16,6 @@
 
 
     <div id="editor">
-      <a id="scientific_name"><%= @species_name %></a>
       <ul class="editor_list">
         <li><a onclick="changeApplicationTo(5)">Close tool</a></li>
         <li class="first"><a onclick="changeApplicationTo(3)">Help</a></li>
@@ -40,11 +39,11 @@
             <div class="left-repeat-tool"></div>
             <div class="center-tool">
               <div class="left">
-                <a onclick="javascript: void setStatus('select')" class="select selected"></a>
-                <a onclick="javascript: void setStatus('selection')" class="selection"></a>
-                <a onclick="javascript: void setStatus('add')" class="add"></a>
-                <a onclick="javascript: void setStatus('remove')" class="remove"></a>
-                <a onclick="" class="layer"></a>
+                <a onclick="setStatus('select')" class="select selected"></a>
+                <a onclick="setStatus('selection')" class="selection"></a>
+                <a onclick="setStatus('add')" class="add"></a>
+                <a onclick="setStatus('remove')" class="remove"></a>
+                <a onclick="openLayers(event)" class="layer"></a>
               </div>
               <div class="right">
                 <div class="analysis">
@@ -178,7 +177,7 @@
           <div class="header">
             <div class="top-left-map"></div>
             <div class="top-repeat-map">
-              <h1 class="specie"><%= @species_name.blank? ? 'Specie not specified' : CGI::unescape(@species_name) %><sup>(unsaved)</sup></h1>
+              <h1 class="report_name"><p><%= @report_name.blank? ? 'Report without name' : CGI::unescape(@report_name) %></p><input type="text" value=""/><sup>(unsaved)</sup></h1>
             </div>
             <div class="top-right-map">
               <span id="beta"></span>

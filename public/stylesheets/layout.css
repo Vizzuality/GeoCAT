@@ -37,7 +37,7 @@ div.flash p {float:left; width:100%; margin:10px 0 0 0; text-align:center; font:
 section.layout {position:relative; float:left; width:100%; height:100%;}
 section.layout div#map {position:absolute; right:0; left:0; top:0; height:50%; z-index:0;}
 section.layout div.opaque {position:absolute; right:0; left:0; top:0; height:50%; width:100%; background:rgba(0,0,0,0.8); z-index:1;}
-section.main {position:absolute; left:50%; top:50%; width:980px; margin:-290px 0 0 -490px; z-index:100;}
+section.main {position:absolute; left:50%; top:50%; width:980px; margin:-280px 0 0 -490px; z-index:100;}
 section.main div.float {position:relative; width:920px; padding:30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5); 
   -webkit-box-shadow:0 0 20px rgba(0,0,0,0.5);}
 section.main div.video {position:absolute; top:-75px; right:23px; width:550px; height:308px; padding:35px; background:url('/images/home/video.png') no-repeat 0 0;}
@@ -415,9 +415,16 @@ div#map_container div.table div.center-map div#mamufas_map div#loader_map {posit
 div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
-div#map_container div.header h1 {float:left; margin:39px 0 0 16px; padding:0 0 0 20px; background:url('/images/editor/save_stars.png') no-repeat 0 0; font:normal 13px "Futura"; color:#CCCCCC;}
-div#map_container div.header h1 sup {padding:0 0 0 5px; font:normal 10px "Futura"; color:#FF9800;}
-div#map_container div.header h1.saved {background-position:0 -29px;}
+div#map_container div.header h1 {position:relative; float:left; width:auto; margin:35px 0 0 16px; padding:3px 0 2px 20px; background:url('/images/editor/save_stars.png') no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC; text-indent:0;}
+div#map_container div.header h1.selected {width:200px; background-color:white; border:1px solid #CCCCCC; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
+div#map_container div.header h1 p {float:none; display:inline-block; width:auto;}
+div#map_container div.header h1.selected p {text-indent:-9999px;}
+div#map_container div.header h1 input {display:none;}
+div#map_container div.header h1.selected input {position:absolute; display:block; top:-1px; left:20px; width:194px; font:normal 13px "Futura"; color:#666666; border:none; background:none;}
+div#map_container div.header h1 input:focus {outline:none;}
+div#map_container div.header h1.selected sup {display:none;}
+div#map_container div.header h1 sup {padding:0 0 0 5px; margin:0; font:normal 10px "Futura"; color:#FF9800; line-height:10px;}
+div#map_container div.header h1.saved {background-position:0 -31px;}
 div#map_container div.header h1.saved sup {color:#7FAB2D;}
 div#map_container div.footer div.left {float:left; margin:15px 0 0 5px; width:60%;}
 div#map_container div.footer div.left a.undo {float:left; width:44px; height:35px; background:url('/images/editor/actions_buttons.png') no-repeat 0 0; margin:0 5px 0 0;}
@@ -482,14 +489,16 @@ div#export_window div.block a.export:hover {background-position:0 -26px;}
 
 
 /*LAYER WINDOW*/
-div#layer_window {position:absolute!important; display:block; left:-27px; top:185px; width:205px; height:224px; padding:25px 25px 25px 37px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
+div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:205px; height:224px; padding:25px 25px 25px 37px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
+div#layer_window a#layer_close {position:absolute; right:23px; top:23px; background:url('/images/editor/close_source.png') no-repeat 0 0; width:16px; height:16px; padding:0; margin:0; text-indent:-9999px;}
+div#layer_window a#layer_close:hover {background-position:0 -16px; cursor:pointer;}
 div#layer_window h3 {font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
 div#layer_window ul {position:relative; display:inline-block; width:100%; height:150px; margin:18px 0 0 0; overflow:auto;}
 div#layer_window ul:focus {outline:none;}
 div#layer_window ul .jspContainer{overflow:hidden;position:relative;}
 div#layer_window ul .jspPane{position:absolute;}
 div#layer_window ul .jspVerticalBar{position:absolute!important;top:0;right:1px;width:8px;height:100%;}
-div#layer_window ul .jspHorizontalBar{position:absolute!important;bottom:0;left:0;width:100%;height:16px;}
+div#layer_window ul .jspHorizontalBar{display:none;}
 div#layer_window ul .jspVerticalBar *,
 div#layer_window ul .jspHorizontalBar *{margin:0;padding:0;}
 div#layer_window ul .jspCap{display:none;}
@@ -511,12 +520,17 @@ div#layer_window ul li h4 {width:100%; overflow:hidden; text-overflow:ellipsis; 
 div#layer_window ul li p {display:inline-block; width:135px; margin:2px 5px 0 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
 div#layer_window ul li a {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
 div#layer_window ul li a:hover {background-position:0 -19px;}
-div#layer_window ul li a.added {color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px;}
+div#layer_window ul li a.added {color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px; line-height:9px;}
 div#layer_window ul li a.added:hover {background-position:0 -57px;}
 div#layer_window ul li a.loading {text-indent:-9999px; background:url('/images/editor/ajax-loader.gif') no-repeat center 0;}
 div#layer_window ul li a.loading:hover {cursor:default; background-position:center 0;}
-div#layer_window form {display:inline-block; width:205px;}
-
+div#layer_window form {display:inline-block; width:205px; margin:15px 0 0 0;}
+div#layer_window form input[type="text"] {float:left; width:134px; height:13px; padding:7px 8px; background:url('/images/editor/layer_text_input.png') no-repeat 0 0; border:none; font:italic 11px Arial; color:#999999;}
+div#layer_window form input[type="text"]:focus {outline:none;}
+div#layer_window form input[type="submit"] {float:left; width:53px; height:25px; background:url('/images/editor/layer_submit_input.png') no-repeat 0 0; border:none; text-align:center; font:bold 11px Arial; color:#666666; text-shadow:0 1px white;}
+div#layer_window form input[type="submit"]:hover {background-position:0 -25px; cursor:pointer; color:#333333;}
+div#layer_window span.layer_error {position:absolute; display:none; left:-20px; bottom:-45px; width:206px; height:84px; background:url('/images/editor/search_not_found_bkg.png') no-repeat 0 0; z-index:1000;}
+div#layer_window span.layer_error p {float:left; width:137px; margin:33px 0 0 55px; font:normal 13px Arial; color:#333333;}
 
 
 /*CSV Error*/

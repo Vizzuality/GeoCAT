@@ -1,5 +1,5 @@
 
-		var specie;  										/*** specie name ***/
+		var report_name;  							/*** Report name ***/
 		var state = 'select';						// State of the map & application
 
 		var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
@@ -31,8 +31,32 @@
 			      function(){
 			        $('body').css('background','url(/images/editor/bkg.jpg) 0 0');
 
-        			//Get scientific_name
-        			specie = $('a#scientific_name').text();
+        			//Get report name and bind report name events
+        			report_name = $('h1 input').val();
+        			
+              $('h1 p').click(function(){
+                $(this).parent().addClass('selected');
+                $('h1 input').focus();
+              });
+              
+        			$('h1 input').focusin(function(){
+        			  var value = $('h1 p').text();
+        			  if (value != "Report without name") {
+        			    $(this).val(value);
+        			  } else {
+        			    $(this).val('');
+        			  }
+        			  $(this).parent().addClass('selected');
+        			});
+        			
+        			$('h1 input').focusout(function(){
+        			  var value = $(this).val();
+        			  if (value != "") {
+        			    $('h1 p').text(value);
+        			  }
+        			  $(this).parent().removeClass('selected');
+        			});
+        			
 
         			createMap();
         			startSources();
@@ -42,8 +66,8 @@
               
               //Pruebas con jscrollpane & sortable
               $('ul#sources_list').jScrollPane({autoReinitialise:true});
-              $('ul#sources_list,ul#sources_list li,ul.jspScrollable,ul#sources_list div.jspContainer, div.scrollable-helper,ul#sources_list div.jspPane').disableSelection();
-              $('ul#sources_list,div.jspPane').sortable({revert:true});
+              $('ul#sources_list, ul#sources_list li, ul.jspScrollable, div.jspContainer, div.scrollable-helper, div.jspPane').disableSelection();
+              $('ul#sources_list, div.jspPane').sortable({revert:true});
               
               //Adding layers
               var layers = new LayerCustomization(upload_information.data.layers);
@@ -63,7 +87,8 @@
         			    };
         				});
         			}
-			      });
+			      }
+			);
 		}
 	
 	
