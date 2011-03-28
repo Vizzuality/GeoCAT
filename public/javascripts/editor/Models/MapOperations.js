@@ -10,7 +10,7 @@
 			var bounds;											// LatLngBounds object to visualize the map correctly
 			var geocoder;                   // Geocoder application
 			
-			var _markers = [];							// All the markers of the map (Associative array)
+			var sources = [];							  // All the markers of the map (Associative array)
 			var global_id = 0; 							// Global id for your own markers
 			var global_zIndex = 1;					// Z-index for the markers
 			
@@ -49,7 +49,7 @@
         
 
 				google.maps.event.clearListeners(map, 'tilesloaded');
-				total_points = new TotalPointsOperations();  		// TotalPoints Object
+				points = new PointsOperations();  		          // Points Object
 				convex_hull = new HullOperations(map);					// Convex Hull Object
 				actions = new UnredoOperations();								// Un-Re-Do Object
         edit_metadata = new GapsOverlay(new google.maps.LatLng(0,0), null, map);
@@ -254,66 +254,66 @@
 			function addSourceToMap(information, getBound, uploadAction) {
 
 				// Recursive service for adding markers. */
-				function asynAddMarker(i,total,_bounds, uploadAction, observations) {
-					if(i < total){
-					  var info_data = new Object();
-					  $.extend(info_data, observations[i]);
-						(info_data.removed)?null:total_points.add(info_data.kind);
-						bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));		
-						var marker = CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.kind, true, true, info_data, (info_data.removed)?null:map);
-		 				_markers[marker.data.catalogue_id] = marker;
-		 				
-		 				if (!info_data.active) {
-		 				  var marker_id = marker.data.catalogue_id;
-  						switch (_markers[marker_id].data.kind) {
-  							case 'gbif': 		var image = new google.maps.MarkerImage('/images/editor/gbif_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-  															_markers[marker_id].setIcon(image);
-  															break;
-  							case 'flickr': 	var image = new google.maps.MarkerImage('/images/editor/flickr_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-  															_markers[marker_id].setIcon(image);
-  															break;
-  							default: 				var image = new google.maps.MarkerImage('/images/editor/your_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-  															_markers[marker_id].setIcon(image);
-  						}
-  						_markers[marker_id].set('opacity',0.1);		
-		 				}
-		 				
-		 				
-						if (info_data.active && !info_data.removed && convex_hull.isVisible()) {
-							convex_hull.addPoint(marker);
-						}
-			      i++;
-						setTimeout(function(){asynAddMarker(i,total,_bounds,uploadAction,observations);},0);
-			    } else {
-						if (uploadAction) {
-							$('body').trigger('hideMamufas');
-						} else {
-							hideMamufasMap(true);
-						}
-						if (_bounds) {
-			 				map.fitBounds(bounds);
-						}
-			    }
-				}
-				
-				if (information.points.length>20) {
-					showMamufasMap();
-				}
-
-				var marker_kind;
-				switch (information.name) {
-					case 'gbif': 		marker_kind = 'Gbif';
-													Gbif_exist = true;
-													break;
-					case 'flickr': 	marker_kind = 'Flickr';
-													Flickr_exist = true;
-													break;
-					default: 				marker_kind = 'Your';
-
-				}
-				var image = new google.maps.MarkerImage('/images/editor/' + marker_kind + '_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-				actions.Do('add', null,information.points);
-				setTimeout(function(){asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);},0);
+        // function asynAddMarker(i,total,_bounds, uploadAction, observations) {
+        //  if(i < total){
+        //    var info_data = new Object();
+        //    $.extend(info_data, observations[i]);
+        //    (info_data.removed)?null:total_points.add(info_data.kind);
+        //    bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
+        //    var marker = CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.kind, true, true, info_data, (info_data.removed)?null:map);
+        //            _markers[marker.data.catalogue_id] = marker;
+        //            
+        //            if (!info_data.active) {
+        //              var marker_id = marker.data.catalogue_id;
+        //              switch (_markers[marker_id].data.kind) {
+        //                case 'gbif':    var image = new google.maps.MarkerImage('/images/editor/gbif_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+        //                                _markers[marker_id].setIcon(image);
+        //                                break;
+        //                case 'flickr':  var image = new google.maps.MarkerImage('/images/editor/flickr_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+        //                                _markers[marker_id].setIcon(image);
+        //                                break;
+        //                default:        var image = new google.maps.MarkerImage('/images/editor/your_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+        //                                _markers[marker_id].setIcon(image);
+        //              }
+        //              _markers[marker_id].set('opacity',0.1);   
+        //            }
+        //            
+        //            
+        //    if (info_data.active && !info_data.removed && convex_hull.isVisible()) {
+        //      convex_hull.addPoint(marker);
+        //    }
+        //            i++;
+        //    setTimeout(function(){asynAddMarker(i,total,_bounds,uploadAction,observations);},0);
+        //          } else {
+        //    if (uploadAction) {
+        //      $('body').trigger('hideMamufas');
+        //    } else {
+        //      hideMamufasMap(true);
+        //    }
+        //    if (_bounds) {
+        //              map.fitBounds(bounds);
+        //    }
+        //          }
+        // }
+        // 
+        // if (information.points.length>20) {
+        //  showMamufasMap();
+        // }
+        // 
+        // var marker_kind;
+        // switch (information.name) {
+        //  case 'gbif':    marker_kind = 'Gbif';
+        //                  Gbif_exist = true;
+        //                  break;
+        //  case 'flickr':  marker_kind = 'Flickr';
+        //                  Flickr_exist = true;
+        //                  break;
+        //  default:        marker_kind = 'Your';
+        // 
+        // }
+        // var image = new google.maps.MarkerImage('/images/editor/' + marker_kind + '_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+        // actions.Do('add', null,information.points);
+        // setTimeout(function(){asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);},0);
 			}
 
 
@@ -353,30 +353,30 @@
 			function markersInPolygon() {	
 				
 				//Check if the polygon contains this point
-				function Contains(polygon, point) { 
-				  var j=0; 
-				  var oddNodes = false; 
-				  var x = point.lng(); 
-				  var y = point.lat(); 
-				  for (var i=0; i < polygon.getPath().getLength(); i++) { 
-				    j++; 
-				    if (j == polygon.getPath().getLength()) {j = 0;} 
-				    if (((polygon.getPath().getAt(i).lat() < y) && (polygon.getPath().getAt(j).lat() >= y)) || ((polygon.getPath().getAt(j).lat() < y) && (polygon.getPath().getAt(i).lat() >= y))) { 
-				      if ( polygon.getPath().getAt(i).lng() + (y - polygon.getPath().getAt(i).lat()) /  (polygon.getPath().getAt(j).lat()-polygon.getPath().getAt(i).lat()) *  (polygon.getPath().getAt(j).lng() - polygon.getPath().getAt(i).lng())<x ) { 
-				        oddNodes = !oddNodes; 
-				      } 
-				    } 
-				  } 
-				  return oddNodes; 
-				};
-						
-				var markers_polygon = [];
-				for (var i in _markers) {
-					if (!_markers[i].data.removed && Contains(selection_polygon,_markers[i].getPosition())) {
-						markers_polygon.push(_markers[i].data);
-					}
-				}
-				return markers_polygon;
+        // function Contains(polygon, point) { 
+        //   var j=0; 
+        //   var oddNodes = false; 
+        //   var x = point.lng(); 
+        //   var y = point.lat(); 
+        //   for (var i=0; i < polygon.getPath().getLength(); i++) { 
+        //     j++; 
+        //     if (j == polygon.getPath().getLength()) {j = 0;} 
+        //     if (((polygon.getPath().getAt(i).lat() < y) && (polygon.getPath().getAt(j).lat() >= y)) || ((polygon.getPath().getAt(j).lat() < y) && (polygon.getPath().getAt(i).lat() >= y))) { 
+        //       if ( polygon.getPath().getAt(i).lng() + (y - polygon.getPath().getAt(i).lat()) /  (polygon.getPath().getAt(j).lat()-polygon.getPath().getAt(i).lat()) *  (polygon.getPath().getAt(j).lng() - polygon.getPath().getAt(i).lng())<x ) { 
+        //         oddNodes = !oddNodes; 
+        //       } 
+        //     } 
+        //   } 
+        //   return oddNodes; 
+        // };
+        //    
+        // var markers_polygon = [];
+        // for (var i in _markers) {
+        //  if (!_markers[i].data.removed && Contains(selection_polygon,_markers[i].getPosition())) {
+        //    markers_polygon.push(_markers[i].data);
+        //  }
+        // }
+        // return markers_polygon;
 			}
 
 
@@ -385,35 +385,35 @@
 			/* Delete all the markers. 																										*/
 			/*============================================================================*/
 			function deleteAll(type) {
-        closeMapWindows();
-				var remove_markers = [];
-				closeDeleteAll();
-				
-				var markersCopy = $.extend(true,{},_markers);
-				showMamufasMap();
-			  
-			  function asynRemoveMarker(type) {
-          for (var i in markersCopy) { 
-           if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {           
-             total_points.deduct(type);
-             remove_markers.push(_markers[i].data);
-             _markers[i].data.removed = true;
-             _markers[i].setMap(null);
-             convex_hull.deductPoint(_markers[i].data.catalogue_id);
-           }
-           delete markersCopy[i];
-           break;
-          }
-          
-          if (i==undefined) {
-            actions.Do('remove', null, remove_markers);
-            hideMamufasMap(false);
-            delete markersCopy;
-          } else {
-            setTimeout(function(){asynRemoveMarker(type)},0);
-          }
-				}
-				asynRemoveMarker(type);
+        //         closeMapWindows();
+        // var remove_markers = [];
+        // closeDeleteAll();
+        // 
+        // var markersCopy = $.extend(true,{},_markers);
+        // showMamufasMap();
+        //        
+        //        function asynRemoveMarker(type) {
+        //           for (var i in markersCopy) { 
+        //            if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {           
+        //              total_points.deduct(type);
+        //              remove_markers.push(_markers[i].data);
+        //              _markers[i].data.removed = true;
+        //              _markers[i].setMap(null);
+        //              convex_hull.deductPoint(_markers[i].data.catalogue_id);
+        //            }
+        //            delete markersCopy[i];
+        //            break;
+        //           }
+        //           
+        //           if (i==undefined) {
+        //             actions.Do('remove', null, remove_markers);
+        //             hideMamufasMap(false);
+        //             delete markersCopy;
+        //           } else {
+        //             setTimeout(function(){asynRemoveMarker(type)},0);
+        //           }
+        // }
+        // asynRemoveMarker(type);
 			}
 
 
@@ -422,72 +422,73 @@
 			/* Remove markers from map and the marker information. 												*/
 			/*============================================================================*/
 			function removeMarkers(remove_markers) {
-				closeMapWindows();
-				function asynRemoveMarker(i,total, observations) {
-					if(i < total){
-						var marker_id = observations[i].catalogue_id;
-						total_points.deduct(_markers[marker_id].data.kind);
-						_markers[marker_id].data.removed = true;
-						_markers[marker_id].setMap(null);
-
-						convex_hull.deductPoint(marker_id);
-			      i++;
-						setTimeout(function(){asynRemoveMarker(i,total,observations);},0);
-			    } else {
-						hideMamufasMap(false);
-			    }
-				}
-
-				
-				if (remove_markers.length>0) {
-					if (remove_markers.length>20) {
-						showMamufasMap();
-					}
-					setTimeout(function(){asynRemoveMarker(0,remove_markers.length,remove_markers);},0);
-					actions.Do('remove', null, remove_markers);
-				}
+        // closeMapWindows();
+        // function asynRemoveMarker(i,total, observations) {
+        //  if(i < total){
+        //    var marker_id = observations[i].catalogue_id;
+        //    points.deduct(_markers[marker_id].data.kind);
+        //    _markers[marker_id].data.removed = true;
+        //    _markers[marker_id].setMap(null);
+        // 
+        //    convex_hull.deductPoint(marker_id);
+        //            i++;
+        //    setTimeout(function(){asynRemoveMarker(i,total,observations);},0);
+        //          } else {
+        //    hideMamufasMap(false);
+        //          }
+        // }
+        // 
+        // 
+        // if (remove_markers.length>0) {
+        //  if (remove_markers.length>20) {
+        //    showMamufasMap();
+        //  }
+        //  setTimeout(function(){asynRemoveMarker(0,remove_markers.length,remove_markers);},0);
+        //  actions.Do('remove', null, remove_markers);
+        // }
 			}
 				
 
 
 
 			/*============================================================================*/
-			/* Add new marker to the map. */
+			/* Add new marker to the map. CHANGED */
 			/*============================================================================*/
-			function addMarker(latlng, item_data , fromAction) {
+			function addMarker(latlng, fromAction) {
 
 					global_id++;
 					global_zIndex++;
 					var date = new Date();
 					
-					if (item_data == null) {
-						var inf = new Object();
-						inf.coordinateUncertaintyInMeters = 15000;
-						inf.active = true;
-						inf.kind = 'your';
-						inf.removed = false;
-						inf.collector = "";
-						inf.eventDate = date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate();
-						inf.occurrenceRemarks = ""
-						inf.catalogue_id = 'your_' + global_id;
-						inf.latitude = latlng.lat();
-						inf.longitude = latlng.lng();
-						var marker = CreateMarker(latlng, 'your', false, false, inf, map);
-					} else {
-						var marker = CreateMarker(latlng, 'your', false, false, item_data, map);
-					}
-					
+					var inf = new Object();
+					inf.coordinateUncertaintyInMeters = 15000;
+					inf.geocat_active = true;
+					inf.geocat_kind = 'user';
+					inf.geocat_removed = false;
+					inf.collector = "";
+					inf.eventDate = date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate();
+					inf.occurrenceRemarks = ""
+					inf.catalogue_id = 'user_' + global_id;
+					inf.latitude = latlng.lat();
+					inf.longitude = latlng.lng();
+					var marker = CreateMarker(latlng, 'user', false, false, inf, map);
 
-					total_points.add(inf.kind);
+					points.add('user',inf.kind);
 					bounds.extend(latlng);
-					_markers[marker.data.catalogue_id] = marker;
-
-					actions.Do('add', null, [marker.data]);
-
-
-					if (convex_hull.isVisible()) {
-						convex_hull.addPoint(marker);
+					
+					//Save occurence
+					if (sources['user']==undefined) {
+  					sources['user'] = {};
+  					sources['user'].query = 'user';
+  					sources['user'].type = 'user';
+  					sources['user'].occs = [];
 					}
+					sources['user'].occs[inf.catalogue_id] = marker;
+					//actions.Do('add', null, [marker.data]);
+
+          // if (convex_hull.isVisible()) {
+          //  convex_hull.addPoint(marker);
+          // }
 			}	
 
 
@@ -496,55 +497,55 @@
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
 			function makeActive (markers_id, fromAction) {
-				if (markers_id.length>0) {
-				  
-				  var kind = _markers[markers_id[0].catalogue_id].data.kind;
-          if (markers_id.length==total_points.get(kind)) {
-             if ($('a.'+kind+'_hide').hasClass('hide')) {
-               $('a.'+kind+'_hide').removeClass('hide');
-             } else {
-               $('a.'+kind+'_hide').addClass('hide');
-             }
-          }
-				  
-					for (var i=0; i<markers_id.length; i++) {
-						var marker_id = markers_id[i].catalogue_id;
-						switch (_markers[marker_id].data.kind) {
-							case 'gbif': 		var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
-																											new google.maps.Size(25, 25),
-																											new google.maps.Point(0,0),
-																											new google.maps.Point(12, 12));
-															_markers[marker_id].setIcon(image);
-															break;
-							case 'flickr': 	var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
-																											new google.maps.Size(25, 25),
-																											new google.maps.Point(0,0),
-																											new google.maps.Point(12, 12));
-															_markers[marker_id].setIcon(image);
-															break;
-							default: 				var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
-																											new google.maps.Size(25, 25),
-																											new google.maps.Point(0,0),
-																											new google.maps.Point(12, 12));
-															_markers[marker_id].setIcon(image);
-						}
-						_markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);		
-						_markers[marker_id].data.active = !_markers[marker_id].data.active;
-
-
-						// Add or deduct the marker from _active_markers
-						if (!_markers[marker_id].data.active) {
-							convex_hull.deductPoint(marker_id);
-						} else {
-							convex_hull.addPoint(_markers[marker_id]);
-						}
-					}
-
-					//If the action doesnt come from the UnredoOperations object
-					if (!fromAction) {
-						actions.Do('active', null, markers_id);
-					}
-				}
+				// if (markers_id.length>0) {
+				//          
+				//          var kind = _markers[markers_id[0].catalogue_id].data.kind;
+				//           if (markers_id.length==total_points.get(kind)) {
+				//              if ($('a.'+kind+'_hide').hasClass('hide')) {
+				//                $('a.'+kind+'_hide').removeClass('hide');
+				//              } else {
+				//                $('a.'+kind+'_hide').addClass('hide');
+				//              }
+				//           }
+				//          
+				//          for (var i=0; i<markers_id.length; i++) {
+				//            var marker_id = markers_id[i].catalogue_id;
+				//            switch (_markers[marker_id].data.kind) {
+				//              case 'gbif':    var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
+				//                                                      new google.maps.Size(25, 25),
+				//                                                      new google.maps.Point(0,0),
+				//                                                      new google.maps.Point(12, 12));
+				//                              _markers[marker_id].setIcon(image);
+				//                              break;
+				//              case 'flickr':  var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
+				//                                                      new google.maps.Size(25, 25),
+				//                                                      new google.maps.Point(0,0),
+				//                                                      new google.maps.Point(12, 12));
+				//                              _markers[marker_id].setIcon(image);
+				//                              break;
+				//              default:        var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
+				//                                                      new google.maps.Size(25, 25),
+				//                                                      new google.maps.Point(0,0),
+				//                                                      new google.maps.Point(12, 12));
+				//                              _markers[marker_id].setIcon(image);
+				//            }
+				//            _markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);   
+				//            _markers[marker_id].data.active = !_markers[marker_id].data.active;
+				// 
+				// 
+				//            // Add or deduct the marker from _active_markers
+				//            if (!_markers[marker_id].data.active) {
+				//              convex_hull.deductPoint(marker_id);
+				//            } else {
+				//              convex_hull.addPoint(_markers[marker_id]);
+				//            }
+				//          }
+				// 
+				//          //If the action doesnt come from the UnredoOperations object
+				//          if (!fromAction) {
+				//            actions.Do('active', null, markers_id);
+				//          }
+				//        }
 			}
 			
 			
@@ -553,64 +554,64 @@
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
 			function hideAll (kind) {
-			  var active_;
-			  
-			  switch (kind) {
-		      case 'gbif':  (($('a.gbif_hide').hasClass('hide'))?active_ = true:active_ = false);
-		                    (($('a.gbif_hide').hasClass('hide'))?$('a.gbif_hide').removeClass('hide'):$('a.gbif_hide').addClass('hide'))
-		                    break;
-  	      case 'flickr':  (($('a.flickr_hide').hasClass('hide'))?active_ = true:active_ = false);
-  	                      (($('a.flickr_hide').hasClass('hide'))?$('a.flickr_hide').removeClass('hide'):$('a.flickr_hide').addClass('hide'));
-  	                      break;
-  	      default:      (($('a.your_hide').hasClass('hide'))?active_ = true:active_ = false);
-  	                    (($('a.your_hide').hasClass('hide'))?$('a.your_hide').removeClass('hide'):$('a.your_hide').addClass('hide'))            
-			  }
-			  
-			  var hide_markers = [];
-				closeDeleteAll();
-				
-				var markersCopy = $.extend(true,{},_markers);
-				showMamufasMap();
-				
-  			asynHideMarker(kind,active_);
-				
-			  function asynHideMarker(type,active_) {
-          for (var i in markersCopy) {
-           if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {
-            switch (type) {
-              case 'gbif':    var image = new google.maps.MarkerImage((!active_)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-                              _markers[i].setIcon(image);
-                              break;
-              case 'flickr':  var image = new google.maps.MarkerImage((!active_)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-                              _markers[i].setIcon(image);
-                              break;
-              default:        var image = new google.maps.MarkerImage((!active_)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-                              _markers[i].setIcon(image);
-            }
-            _markers[i].set('opacity',(active_)? 0.3 : 0.1);   
-            _markers[i].data.active = active_;
-             
-            hide_markers.push(_markers[i].data);
-            if (convex_hull.isVisible()) {
-              if (active_) {
-                convex_hull.addPoint(_markers[i]);
-              } else {
-                convex_hull.deductPoint(i);
-              }
-            }
-           }
-           delete markersCopy[i];
-           break;
-          }
-          
-          if (i==undefined) {
-            actions.Do('active', null, hide_markers);            
-            hideMamufasMap(false);
-            delete markersCopy;
-          } else {
-            setTimeout(function(){asynHideMarker(type,active_)},0);
-          }
-				}
+			  // var active_;
+			  //         
+			  //         switch (kind) {
+			  //           case 'gbif':  (($('a.gbif_hide').hasClass('hide'))?active_ = true:active_ = false);
+			  //                         (($('a.gbif_hide').hasClass('hide'))?$('a.gbif_hide').removeClass('hide'):$('a.gbif_hide').addClass('hide'))
+			  //                         break;
+			  //           case 'flickr':  (($('a.flickr_hide').hasClass('hide'))?active_ = true:active_ = false);
+			  //                           (($('a.flickr_hide').hasClass('hide'))?$('a.flickr_hide').removeClass('hide'):$('a.flickr_hide').addClass('hide'));
+			  //                           break;
+			  //           default:      (($('a.your_hide').hasClass('hide'))?active_ = true:active_ = false);
+			  //                         (($('a.your_hide').hasClass('hide'))?$('a.your_hide').removeClass('hide'):$('a.your_hide').addClass('hide'))            
+			  //         }
+			  //         
+			  //         var hide_markers = [];
+			  //         closeDeleteAll();
+			  //         
+			  //         var markersCopy = $.extend(true,{},_markers);
+			  //         showMamufasMap();
+			  //         
+			  //         asynHideMarker(kind,active_);
+			  //         
+			  //         function asynHideMarker(type,active_) {
+			  //           for (var i in markersCopy) {
+			  //            if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {
+			  //             switch (type) {
+			  //               case 'gbif':    var image = new google.maps.MarkerImage((!active_)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+			  //                               _markers[i].setIcon(image);
+			  //                               break;
+			  //               case 'flickr':  var image = new google.maps.MarkerImage((!active_)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+			  //                               _markers[i].setIcon(image);
+			  //                               break;
+			  //               default:        var image = new google.maps.MarkerImage((!active_)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+			  //                               _markers[i].setIcon(image);
+			  //             }
+			  //             _markers[i].set('opacity',(active_)? 0.3 : 0.1);   
+			  //             _markers[i].data.active = active_;
+			  //              
+			  //             hide_markers.push(_markers[i].data);
+			  //             if (convex_hull.isVisible()) {
+			  //               if (active_) {
+			  //                 convex_hull.addPoint(_markers[i]);
+			  //               } else {
+			  //                 convex_hull.deductPoint(i);
+			  //               }
+			  //             }
+			  //            }
+			  //            delete markersCopy[i];
+			  //            break;
+			  //           }
+			  //           
+			  //           if (i==undefined) {
+			  //             actions.Do('active', null, hide_markers);            
+			  //             hideMamufasMap(false);
+			  //             delete markersCopy;
+			  //           } else {
+			  //             setTimeout(function(){asynHideMarker(type,active_)},0);
+			  //           }
+			  //         }
 			}			
 
 
@@ -619,20 +620,23 @@
 			/* Put all the markers with/without drag property.	 													*/
 			/*============================================================================*/		
 			function activeMarkersProperties() {
-				for (var i in _markers) {
-					if (state=='add') {
-						_markers[i].setClickable(false);
-						_markers[i].setCursor('hand');
-					} else {
-						_markers[i].setClickable(true);
-						_markers[i].setCursor('pointer');
-					}
+				for (var i in sources) {
+				  var element = sources[i].occs;
+				  for (var j in element) {
+				    if (state=='add') {
+              element[j].setClickable(false);
+              element[j].setCursor('hand');
+            } else {
+              element[j].setClickable(true);
+              element[j].setCursor('pointer');
+            }
 
-					if (state=='select') {
-						_markers[i].setDraggable(true);
-					} else {
-						_markers[i].setDraggable(false);
-					}
+            if (state=='select') {
+              element[j].setDraggable(true);
+            } else {
+              element[j].setDraggable(false);
+            }
+				  }
 				}		
 			}
 			

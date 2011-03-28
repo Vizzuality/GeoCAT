@@ -13,9 +13,18 @@
   		  var me = this;
   		  $('div#layer_window ul').jScrollPane({autoReinitialise:true});
         $('div#layer_window ul,div#layer_window ul li,div#layer_window ul.jspScrollable,div#layer_window ul div.jspContainer, div.scrollable-helper,ul#sources_list div.jspPane').disableSelection();
-        $('div#layer_window ul,div#layer_window ul div.jspPane').sortable({revert:true,stop:function(){
-          me.sortLayers();
-        }});
+        $('div#layer_window ul,div#layer_window ul div.jspPane').sortable({
+          revert:false,
+          items: 'li',
+          cursor: 'pointer',
+          beforeStop:function(event,ui){
+            $(ui.item).removeClass('moving');
+            me.sortLayers();
+          },
+          start:function(event,ui){
+            $(ui.item).addClass('moving');
+          }
+        });
   		  
   		  
   		  $('div#layer_window ul li a').livequery('click',function(ev){
@@ -66,11 +75,10 @@
   		    ev.stopPropagation();
   		    ev.preventDefault();
   		    var url = $('#import_layer input[type="text"]').val();
-  		    try {
-  		      if (me.layers[url]!=undefined) {
-    		      $('span.layer_error p').text('This layer has already been added previously').parent().fadeIn().delay(2000).fadeOut();
-    		    }
-  		    } catch (e){
+  		    
+  		    if (me.layers[url]!=undefined) {
+  		      $('span.layer_error p').text('This layer has already been added previously').parent().fadeIn().delay(2000).fadeOut();
+  		    } else {
   		      if (url!='') {
       		    me.importLayer(url);
     		    } else {
@@ -104,6 +112,11 @@
     		      me.addLayer(layers[i].name,layers[i].source,layers[i].url,layers[i].opacity,layers[i].type,false);
   		      }
   		    }
+  		    if (this.importation_errors==1) {
+  		      $('span.layer_error p').text('There was an error with importing the layers').parent().fadeIn().delay(2000).fadeOut();
+  		    } else if (this.importation_errors>1) {
+  		      $('span.layer_error p').text('There were '+this.importation_errors+' errors importing the layers').parent().fadeIn().delay(2000).fadeOut();
+  		    }
   		  });
   		}
   		
@@ -113,7 +126,11 @@
   		/* */
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.importLayer = function(url) {
+	      this.importation_errors = 0;
 	      this.addLayer('','',url,0.5,'',true);
+	      if (this.importation_errors==1) {
+		      $('span.layer_error p').text('Review your layer url, seems to be incorrect').parent().fadeIn().delay(2000).fadeOut();
+		    }
   		}
   		
   		
@@ -132,6 +149,7 @@
           }
         }
 
+
   		  if (type == 'kml') {
   		    var kml_layer = new google.maps.KmlLayer(url, { suppressInfoWindows: true, preserveViewport:true});
   		    if (add) {
@@ -147,6 +165,11 @@
     		  this.layers[url].add = add;
           this.layers[url].layer = kml_layer;
           this.layers[url].position = 0;
+          
+          var api = $('div#layer_window ul').data('jsp');
+    		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><p>by '+this.layers[url].source+'</p><a class="'+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
+    		  api.reinitialise();
+          
   		  } else {
   		    if (url.search('{X}')!=-1 && url.search('{Z}')!=-1 && url.search('{Y}')!=-1) {
   		      var layer = new google.maps.ImageMapType({
@@ -183,15 +206,14 @@
               map.overlayMapTypes.setAt(this.index_layers,layer);
       		    this.index_layers++;
             }
+            
+            var api = $('div#layer_window ul').data('jsp');
+      		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><p>by '+this.layers[url].source+'</p><a class="'+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
+      		  api.reinitialise();
   		    } else {
   		      this.importation_errors++;
-  		      return;
   		    }
   		  }
-
-  		  var api = $('div#layer_window ul').data('jsp');
-  		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><p>by '+this.layers[url].source+'</p><a class="'+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
-  		  api.reinitialise();
   		}
   		
   		
@@ -241,8 +263,17 @@
 			        $('#layer_window').fadeOut();
               $('a.layer').removeClass('selected');
 							$('body').unbind('click');
+							$(document).unbind('keydown');
   			    }
   				});
+  				$(document).keydown(function (e) {
+            if (e.keyCode == 27) { // ESC
+              $('#layer_window').fadeOut();
+              $('a.layer').removeClass('selected');
+							$('body').unbind('click');
+              $(document).unbind('keydown');
+            }
+          });
         }
       }
       

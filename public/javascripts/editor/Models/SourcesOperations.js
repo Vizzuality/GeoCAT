@@ -154,37 +154,56 @@
 
         //add source effects
         $("#add_source_container ul li a.checkbox").click(function(){
-          if (!$(this).parent().hasClass('selected') && !$(this).parent().hasClass('added')) {
+          if (!$(this).parent().hasClass('selected')) {
             removeSelectedSources();
-            $(this).parent().addClass('selected');
-            if (!$(this).parent().find('span p').hasClass('loaded') && !$(this).hasClass('import_file')) {
-              callSourceService($(this).attr('id'),$(this).parent());
+            if (!$(this).parent().hasClass('searching')) {
+              $(this).parent().addClass('selected');
             }
+            //if (!$(this).parent().find('span p').hasClass('loaded') && !$(this).hasClass('import_file')) {
+              //callSourceService($(this).attr('id'),$(this).parent());
+              
+            //}
           }
         });
+        
+        
+        //Search term
+        $("#add_source_container ul li span.search a").click(function(){
+          var value = $(this).parent().children('input').val();
+          var check_id = $(this).parent().parent().children('a.checkbox').attr('id');
+          var parent = $(this).parent().parent();
+          //if ($(this).parent().children('input').val()!='' && $(this).parent().children('input').val()!='Insert species name') {
+            $(this).parent().parent().addClass('searching');
+            callSourceService(check_id,parent,value);
+          //} else {
+            //TODO Error
+          //}
+        });
+        
+        
 
         //import data
-        $("span.normal a.import_data").click(function(){
-          if ($(this).hasClass('enabled')) {
-              $("#add_source_container").fadeOut();
-              $("#add_source_button").removeClass('open');
-              switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-                case 'add_flickr':   if (convex_hull.isVisible()) {
-                                      $('a#toggle_analysis').trigger('click');
-                                    }
-                                    flickr_data = flickr_founded[0];
-                                    addSourceToMap(flickr_data,true,false);
-                                     break;
-                case 'add_gbif':    if (convex_hull.isVisible()) {
-                                      $('a#toggle_analysis').trigger('click');
-                                    }
-                                    gbif_data = gbif_founded[0];
-                                    addSourceToMap(gbif_data,true,false);
-                                    break;
-                default:             null;
-              }
-          }
-        });
+        // $("span.normal a.import_data").click(function(){
+        //   if ($(this).hasClass('enabled')) {
+        //       $("#add_source_container").fadeOut();
+        //       $("#add_source_button").removeClass('open');
+        //       switch($(this).parent().parent().find('a.checkbox').attr('id')) {
+        //         case 'add_flickr':   if (convex_hull.isVisible()) {
+        //                               $('a#toggle_analysis').trigger('click');
+        //                             }
+        //                             flickr_data = flickr_founded[0];
+        //                             addSourceToMap(flickr_data,true,false);
+        //                              break;
+        //         case 'add_gbif':    if (convex_hull.isVisible()) {
+        //                               $('a#toggle_analysis').trigger('click');
+        //                             }
+        //                             gbif_data = gbif_founded[0];
+        //                             addSourceToMap(gbif_data,true,false);
+        //                             break;
+        //         default:             null;
+        //       }
+        //   }
+        // });
 
       }
 
@@ -271,20 +290,12 @@
           $(this).removeClass('selected');
           $(this).removeClass('added');
           $(this).find('span p').removeClass('loaded');
-          $(this).find('span a').removeClass('enabled');
+          $(this).find('span.normal a').removeClass('enabled');
           $(this).find('div').removeClass('selected');
           $(this).find('span p').text('Loading...');
         });
 
         resetUploader();
-
-        if (total_points.get('flickr')>0) {
-          $('#add_flickr').parent().addClass('added');
-        }
-
-        if (total_points.get('gbif')>0) {
-          $('#add_gbif').parent().addClass('added');
-        }
       }
 
 
@@ -293,30 +304,30 @@
       /* Open Delete container.                                                     */
       /*============================================================================*/
       function openDeleteAll(kind) {
-        var position = $('li a.'+kind).offset();
-        if (convex_hull.isVisible()) {
-          $('div.delete_all').css('top',position.top - 412 + 'px');
-        } else {
-          $('div.delete_all').css('top',position.top - 268 + 'px');
-        }
-        $('a.'+ kind).parent().children('a.delete_all').addClass('active');
-        $('div.delete_all').fadeIn();
-
-        var type;
-
-        switch (kind) {
-          case 'green':   type = 'gbif';
-                          $('div.delete_all h4').text('DELETE ALL GBIF POINTS');
-                          break;
-          case 'pink':     type = 'flickr';
-                          $('div.delete_all h4').text('DELETE ALL FLICKR POINTS');
-                          break;
-          default:         type = 'your';
-                          $('div.delete_all h4').text('DELETE ALL YOUR POINTS');
-        }
-
-        $('div.delete_all div a.yes').unbind('click');
-        $('div.delete_all div a.yes').bind('click',function(){deleteAll(type)});
+        // var position = $('li a.'+kind).offset();
+        // if (convex_hull.isVisible()) {
+        //   $('div.delete_all').css('top',position.top - 412 + 'px');
+        // } else {
+        //   $('div.delete_all').css('top',position.top - 268 + 'px');
+        // }
+        // $('a.'+ kind).parent().children('a.delete_all').addClass('active');
+        // $('div.delete_all').fadeIn();
+        // 
+        // var type;
+        // 
+        // switch (kind) {
+        //   case 'green':   type = 'gbif';
+        //                   $('div.delete_all h4').text('DELETE ALL GBIF POINTS');
+        //                   break;
+        //   case 'pink':     type = 'flickr';
+        //                   $('div.delete_all h4').text('DELETE ALL FLICKR POINTS');
+        //                   break;
+        //   default:         type = 'your';
+        //                   $('div.delete_all h4').text('DELETE ALL YOUR POINTS');
+        // }
+        // 
+        // $('div.delete_all div a.yes').unbind('click');
+        // $('div.delete_all div a.yes').bind('click',function(){deleteAll(type)});
       }
 
 
@@ -325,8 +336,8 @@
       /* Close Delete container.                                                     */
       /*============================================================================*/
       function closeDeleteAll() {
-        $('div.delete_all').fadeOut();
-        $('a.delete_all').removeClass('active');
+        // $('div.delete_all').fadeOut();
+        // $('a.delete_all').removeClass('active');
       }
 
 
@@ -335,18 +346,18 @@
       /* Active Merge buttons.                                                       */
       /*============================================================================*/
       function activeMerge() {
-        if (merge_object.gbif_points.length>0) {
-          $('a#GBIF_points').livequery(function(ev){
-            $(this).parent().find('a.merge').addClass('active');
-            $(this).parent().find('a.merge').click(function(){openMergeContainer("green")});
-          });
-        }
-        if (merge_object.flickr_points.length>0) {
-          $('a#Flickr_points').livequery(function(ev){
-            $(this).parent().find('a.merge').addClass('active');
-            $(this).parent().find('a.merge').click(function(){openMergeContainer("pink")});
-          });
-        }
+        // if (merge_object.gbif_points.length>0) {
+        //   $('a#GBIF_points').livequery(function(ev){
+        //     $(this).parent().find('a.merge').addClass('active');
+        //     $(this).parent().find('a.merge').click(function(){openMergeContainer("green")});
+        //   });
+        // }
+        // if (merge_object.flickr_points.length>0) {
+        //   $('a#Flickr_points').livequery(function(ev){
+        //     $(this).parent().find('a.merge').addClass('active');
+        //     $(this).parent().find('a.merge').click(function(){openMergeContainer("pink")});
+        //   });
+        // }
       }
 
 
@@ -355,39 +366,39 @@
       /* Open Merge container.                                                       */
       /*============================================================================*/
       function openMergeContainer(kind) {
-        var position = $('li a.'+kind).offset();
-        if (convex_hull.isVisible()) {
-          $('div.merge_container').css('top',position.top - 412 + 'px');
-        } else {
-          $('div.merge_container').css('top',position.top - 268 + 'px');
-        }
-        $('div.merge_container a.merge_button').unbind('click');
-
-        var type;
-
-        switch (kind) {
-          case 'green':   type = 'gbif';
-                          $('div.merge_container h4').text('MERGE NEW GBIF POINTS');
-                          if (merge_object.gbif_points.length==1) {
-                            $('div.merge_container p').text('There is 1 new point in GBIF');
-                          } else {
-                            $('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in GBIF');
-                          }
-                          $('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.gbif_points, kind:'gbif'},true,false); closeMergeContainer()});
-
-                          break;
-          default:         type = 'flickr';
-                          $('div.merge_container h4').text('MERGE NEW FLICKR POINTS');
-                          if (merge_object.flickr_points.length==1) {
-                            $('div.merge_container p').text('There is 1 new point in Flickr');
-                          } else {
-                            $('div.merge_container p').text('There are '+merge_object.flickr_points.length+' new points in Flickr');
-                          }
-                          $('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,false); closeMergeContainer()});
-                          break;
-        }
-
-        $('div.merge_container').fadeIn();
+        // var position = $('li a.'+kind).offset();
+        // if (convex_hull.isVisible()) {
+        //   $('div.merge_container').css('top',position.top - 412 + 'px');
+        // } else {
+        //   $('div.merge_container').css('top',position.top - 268 + 'px');
+        // }
+        // $('div.merge_container a.merge_button').unbind('click');
+        // 
+        // var type;
+        // 
+        // switch (kind) {
+        //   case 'green':   type = 'gbif';
+        //                   $('div.merge_container h4').text('MERGE NEW GBIF POINTS');
+        //                   if (merge_object.gbif_points.length==1) {
+        //                     $('div.merge_container p').text('There is 1 new point in GBIF');
+        //                   } else {
+        //                     $('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in GBIF');
+        //                   }
+        //                   $('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.gbif_points, kind:'gbif'},true,false); closeMergeContainer()});
+        // 
+        //                   break;
+        //   default:         type = 'flickr';
+        //                   $('div.merge_container h4').text('MERGE NEW FLICKR POINTS');
+        //                   if (merge_object.flickr_points.length==1) {
+        //                     $('div.merge_container p').text('There is 1 new point in Flickr');
+        //                   } else {
+        //                     $('div.merge_container p').text('There are '+merge_object.flickr_points.length+' new points in Flickr');
+        //                   }
+        //                   $('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,false); closeMergeContainer()});
+        //                   break;
+        // }
+        // 
+        // $('div.merge_container').fadeIn();
 
       }
 
@@ -397,9 +408,9 @@
       /* Close Merge container.                                                     */
       /*============================================================================*/
       function closeMergeContainer() {
-        $('div.merge_container').fadeOut();
-        $('a.merge').unbind('click');
-        $('a.merge').removeClass('active');
+        // $('div.merge_container').fadeOut();
+        // $('a.merge').unbind('click');
+        // $('a.merge').removeClass('active');
       }
 
 
@@ -408,24 +419,19 @@
       /*============================================================================*/
       /* Get data from api service thanks to the name (flickr,gbif,...etc).         */
       /*============================================================================*/
-      function callSourceService(kind,element) {
+      function callSourceService(kind, element, query) {
         var url;
         switch(kind) {
-          case 'add_flickr':   url = "/search/flickr/";
-                               break;
-          case 'add_gbif':    url= "/search/gbif/";
-                              break;
-          default:             url ="/";
+          case 'add_flickr':  url = "/search/flickr/"; break;
+          default:    url= "/search/gbif/"; break;
         }
 
-        $.getJSON(url + specie.replace(' ','+'),
+        $.getJSON(url + query.replace(' ','+'),
             function(result){
               switch(kind) {
-                case 'add_flickr':   flickr_founded.push(result[0]);
-                                     break;
-                case 'add_gbif':    gbif_founded.push(result[0]);
-                                    break;
-                default:             null;
+                case 'add_flickr':  flickr_founded.push(result[0]);break;
+                case 'add_gbif':    gbif_founded.push(result[0]);break;
+                default:            null;
               }
               $(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " occ" : " occs") + ' founded');
               onLoadedSource(element,result[0].points.length);

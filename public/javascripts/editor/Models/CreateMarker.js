@@ -33,6 +33,7 @@
                delete_infowindow.changePosition(this.getPosition(),this.data.catalogue_id,this.data);
              }
            } else {
+             console.log('jamon');
              delete_infowindow = new DeleteInfowindow(this.getPosition(), this.data.catalogue_id, this.data, marker_map);
            }       
          } else {

@@ -1,7 +1,7 @@
     <% content_for :js do %>
       <%= headjs_include_tag "plugins/jquery.min","plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader", 
       "editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/RLAOperations", 
-      "editor/Models/TotalPointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Calculations/AnalysisRatings", 
+      "editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Calculations/AnalysisRatings", 
       "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization" %>
       
       
@@ -91,35 +91,11 @@
                     <p>Are you sure you want to delete all these points?</p>
                     <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
                   </div>
-                  <span><h3>NO OCCS IN YOUR ASESSMENT</h3></span>
-                  <ul id="sources_list">
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
-                    <li>
-                      afdssaf
-                    </li>
+                  <span><h3>NO OCCS IN YOUR ASSESSMENT</h3></span>
+                  <ul id="sources_list">                   
+                    <div class="add_new_source">
+                      <button>Add a new source</button>
+                    </div>           
                   </ul>
                 </div>
               </div>
@@ -138,18 +114,26 @@
                       <ul>
                         <li>
                           <a id="add_flickr" class="checkbox">Add points from Flickr</a>
-                          <span class="normal">
+                          <span class="search">
+                            <input type="text" value="Insert species name" />
+                            <a class="search enabled">search</a>
+                          </span>
+                          <span class="loading">
                             <p>Loading...</p>
                             <a class="import_data">import</a>
                           </span>
+                          <!-- <div class="error">
+                            <p>You shouldn't search this term, try another</p>
+                          </div> -->
                         </li>
-                        <li>
+                        <!-- <li>
                           <a id="add_gbif" class="checkbox">Add points from GBIF</a>
                           <span class="normal">
+                            <input type="text" value="Insert species name" />
                             <p>Loading...</p>
-                            <a class="import_data">import</a>
+                            <a class="import_data">search</a>
                           </span>
-                        </li>
+                        </li> -->
                         <li>
                           <a id="add_rla" class="checkbox import_file">Import .RLA or .CSV</a>
                           <span class="import">

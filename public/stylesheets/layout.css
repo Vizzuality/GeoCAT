@@ -241,36 +241,9 @@ div.merge_container div a.merge_button:hover {background-position: 0 -21px!impor
 div#editor div#tools div.center div.right div.sources {position:static; float:left; padding:12px 0 14px 30px; margin:0; width:230px; border-top:1px solid #454648;}
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
 div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
-div#editor div#tools div.center div.right div.sources span p {float:right; font:normal 11px "Futura"; color:#7C7D7E; padding:0 17px 0 0;}
-div#editor div#tools div.center div.right div.sources a {float:left; margin:0; padding:1px 0 3px 22px; text-decoration:none;}
-div#editor div#tools div.center div.right div.sources a.blue {background:url('/images/editor/comon_list_left.png') no-repeat 0 1px;}
-div#editor div#tools div.center div.right div.sources a.green {background:url('/images/editor/comon_list_left.png') no-repeat 0 1px;}
-div#editor div#tools div.center div.right div.sources a.pink {background:url('/images/editor/comon_list_left.png') no-repeat 0 1px;}
-div#editor div#tools div.center div.right div.sources a span {float:left; height:16px; width:193px; padding:5px 6px 3px 0; background:url('/images/editor/right_black_bar.png') no-repeat right 0; font:normal 13px Arial; color:#999999;}
-div#editor div#tools div.center div.right div.sources a:hover span {background-position:right 0;}
-div#editor div#tools div.center div.right div.sources a.delete_all {position:absolute; width:28px; height:28px; padding:0; top:0px; right:-5px; background:url('/images/editor/delete_source.png') no-repeat center 0;}
-div#editor div#tools div.center div.right div.sources a.delete_all.active {background-position: center -29px;}
-div#editor div#tools div.center div.right div.sources a.delete_all:hover {background-position:center -29px; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources a.delete_all.your_points_change {right:-5px;}
-div#editor div#tools div.center div.right div.sources a.merge {position:absolute; width:28px; height:28px; padding:0; top:0px; right:15px; background:url('/images/editor/refresh_source.png') no-repeat center 0;}
-div#editor div#tools div.center div.right div.sources a.merge:hover {cursor:default;}
-div#editor div#tools div.center div.right div.sources a.merge.active {background-position:center -29px;}
-div#editor div#tools div.center div.right div.sources a.merge.active:hover {background-position:center -29px; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources a.add {float:left; padding:4px 0 4px 12px; width:209px; font:normal 13px Arial; color:#73982D; background:url('/images/editor/black_bar_add.png') no-repeat 0 0; text-decoration:underline;}
-div#editor div#tools div.center div.right div.sources a.add:hover {background-position:0 -24px; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources a.add.open {color:#cccccc; background-position:0 -48px; text-decoration:none;}
-div#editor div#tools div.center div.right div.sources a.add.open:hover {background-position:0 -48px;}
-div#editor div#tools div.center div.right div.sources a.flickr_hide {position:absolute; left:7px; top:8px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_flickr.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources a.gbif_hide {position:absolute; left:7px; top:8px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_gbif.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources a.your_hide {position:absolute; left:7px; top:8px; width:11px; height:11px; padding:0; margin:0; background:url('/images/editor/icon_your.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources a.flickr_hide.hide {background-position: 0 -11px;}
-div#editor div#tools div.center div.right div.sources a.gbif_hide.hide {background-position: 0 -11px;}
-div#editor div#tools div.center div.right div.sources a.your_hide.hide {background-position: 0 -11px;}
-div#editor div#tools div.center div.right div.sources ul {float:left; width:218px; padding:0; margin:5px 0 0 0;}
-div#editor div#tools div.center div.right div.sources ul li {float:left; position:relative; width:100%;}
 
 
-div#editor div#tools div.center div.right div.sources ul#sources_list {position:absolute; top:115px; right:5px; bottom:10px; width:225px; overflow: auto;}
+div#editor div#tools div.center div.right div.sources ul#sources_list {position:absolute; top:115px; right:5px; bottom:10px; width:225px; padding:5px 0 0 0; overflow: auto;}
 div#editor div#tools div.center div.right div.sources ul#sources_list:focus {outline:none;}
 div#editor div#tools div.center div.right div.sources ul#sources_list .jspContainer{overflow:hidden;position:relative;}
 div#editor div#tools div.center div.right div.sources ul#sources_list .jspPane{position:absolute;}
@@ -291,9 +264,23 @@ div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizo
 div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar .jspArrow:focus{outline:none;}
 div#editor div#tools div.center div.right div.sources ul#sources_list .jspCorner{background:#eeeef4;float:left;height:100%;}
 div#editor div#tools div.center div.right div.sources ul#sources_list * html .jspCorner{margin:0 -3px 0 0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li {width:211px; height:58px; margin:3px 0; background:url('/images/editor/li_bkg.png') no-repeat 0 0;}
-
-
+div#editor div#tools div.center div.right div.sources ul#sources_list li {position:relative; width:183px; height:48px; padding:5px 12px 5px 16px; margin:3px 0; background:url('/images/editor/li_bkg.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li:hover {cursor:pointer;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie {position:absolute; right:8px; top:10px; width:40px; height:14px; background:url('/images/editor/specie_visible.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.green {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #7BA600, #99CC00); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CC00), to(#7BA600));}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.pink {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #9F2062, #FF3399); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FF3399), to(#9F2062));}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.blue {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #0062A3, #0099FF); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0099FF), to(#0062A3));}
+div#editor div#tools div.center div.right div.sources ul#sources_list li h3 {width:140px; font:bold 13px Arial; color:#999999; line-height:13px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; text-shadow:0 1px black;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li:hover h3 {color:white;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.points {position:relative; display:inline-block; width:183px; height:18px; margin:7px 0 0 0; padding:0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.points p {width:167px; height:11px; padding:3px 8px 4px 0; font:normal 11px Arial; color:#CCCCCC; line-height:11px;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.points a {display:none;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.merge_specie {position:absolute; right:15px; bottom:2px; display:block; width:12px; height:13px; background:url('/images/editor/merge_specie.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.merge_specie.update {background-position:0 -13px;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.delete_specie {position:absolute; right:0; bottom:2px; display:block; width:12px; height:13px; background:url('/images/editor/delete_specie.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.delete_specie:hover {background-position:0 -13px;}
+div#editor div#tools div.center div.right div.sources ul#sources_list div.add_new_source button{width:211px; height:62px; background:url('/images/editor/add_new_source.png') no-repeat 0 0; border:none; font:bold 13px Arial; color:#0B0C0D; text-shadow:0 1px #2D2F30;}
+div#editor div#tools div.center div.right div.sources ul#sources_list div.add_new_source button:hover {cursor:pointer; color:#000000;}
 
 /*add new source*/
 div#editor div#tools div#add_source_container {position:absolute; width:209px; bottom:42px; right:-36px; z-index:100; display:none;}
@@ -307,33 +294,44 @@ div#editor div#tools div#add_source_container div.middle ul li {float:left; widt
 div#editor div#tools div#add_source_container div.middle ul li a {float:left; margin:2px 0 0 0; padding:0 0 0 17px; background:url('/images/editor/checkbox_add_image.png') no-repeat 0 1px; font:normal 13px Arial; color:#898989;}
 div#editor div#tools div#add_source_container div.middle ul li a:hover {cursor:pointer; color:#666666;}
 div#editor div#tools div#add_source_container div.middle ul li span {display:none;}
+
 /*selected*/
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url('/images/editor/checkbox_add_image.png') no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected a:hover {cursor:pointer; color:#666666;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span {display:block;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url('/images/editor/loader_source.gif') no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.loaded {background:url('/images/editor/ok_loaded.png') no-repeat 9px 9px #EBF7D6; color:#666666;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span p.imported {background:url('/images/editor/ok_loaded.png') no-repeat 9px 22px #A9C07C; color:white;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a {float:right; background:none; width:auto; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.retry {float:left; margin:3px 0 0 5px; width:auto; display:none; color:#333333;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled {background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.inner {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.inner a.browse {float:left; width:63px; height:21px; background:url('/images/editor/browse.png') no-repeat 0 0; padding:0; margin:0; display:block;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:4px; top:4px; background:url('/images/editor/delete_button.png') no-repeat 0 0; width:16px; height:17px; padding:0; margin:0; z-index:10000;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div a.delete:hover {background-position:0 -17px; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form {display:block; position:absolute; padding:0; margin:0; width:137px; height:21px; z-index:100; overflow:hidden; opacity:0;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div form input {float:left; width:137px; height:21px;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a {display:none;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete {display:block;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected.error {background:#F9C6C7;}
-div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.selected.error span div.inner {background:#F87174;}
+
+
+
+div#editor div#tools div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
+div#editor div#tools div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url('/images/editor/checkbox_add_image.png') no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
+div#editor div#tools div#add_source_container div.middle ul li.selected a:hover {cursor:pointer; color:#666666;}
+/*div#editor div#tools div#add_source_container div.middle ul li.selected span {display:block;}*/
+div#editor div#tools div#add_source_container div.middle ul li.selected span.search {display:block;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span.normal {display:none;}
+div#editor div#tools div#add_source_container div.middle ul li.searching span.search {display:none;}
+div#editor div#tools div#add_source_container div.middle ul li.searching span.normal {display:block;}
+div#editor div#tools div#add_source_container div.middle ul li.searching span.loading {display:block;}
+div#editor div#tools div#add_source_container div.middle ul li.selected input {width:123px; padding:8px; margin:10px 0 0 9px; background:; border:1px solid #999999; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; font:italic 11px Arial; color:#999999; line-height:11px;}
+div#editor div#tools div#add_source_container div.middle ul li.selected input:focus {outline:none;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url('/images/editor/loader_source.gif') no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span p.loaded {background:url('/images/editor/ok_loaded.png') no-repeat 9px 9px #EBF7D6; color:#666666;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span p.imported {background:url('/images/editor/ok_loaded.png') no-repeat 9px 22px #A9C07C; color:white;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span a {float:right; background:none; width:auto; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span a.retry {float:left; margin:3px 0 0 5px; width:auto; display:none; color:#333333;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span a.enabled {background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.inner {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.inner a.browse {float:left; width:63px; height:21px; background:url('/images/editor/browse.png') no-repeat 0 0; padding:0; margin:0; display:block;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:4px; top:4px; background:url('/images/editor/delete_button.png') no-repeat 0 0; width:16px; height:17px; padding:0; margin:0; z-index:10000;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div a.delete:hover {background-position:0 -17px; cursor:pointer;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div form {display:block; position:absolute; padding:0; margin:0; width:137px; height:21px; z-index:100; overflow:hidden; opacity:0;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div form input {float:left; width:137px; height:21px;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected a {display:none;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected a.delete {display:block;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
+div#editor div#tools div#add_source_container div.middle ul li.selected.error {background:#F9C6C7;}
+div#editor div#tools div#add_source_container div.middle ul li.selected.error span div.inner {background:#F87174;}
 /*jquery uploader*/
 div#uploader .qq-uploader {position:relative; width:100%; padding:0; margin:0; background:none;}
 div#uploader .qq-upload-button {float:left; width:63px; height:21px; background:url('/images/editor/browse.png') no-repeat 0 0; padding:0; margin:0; display:block; text-indent:-9999px;}
@@ -415,12 +413,12 @@ div#map_container div.table div.center-map div#mamufas_map div#loader_map {posit
 div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
-div#map_container div.header h1 {position:relative; float:left; width:auto; margin:35px 0 0 16px; padding:3px 0 2px 20px; background:url('/images/editor/save_stars.png') no-repeat 0 2px; font:normal 13px "Futura"; color:#CCCCCC; text-indent:0;}
-div#map_container div.header h1.selected {width:200px; background-color:white; border:1px solid #CCCCCC; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
+div#map_container div.header h1 {position:relative; float:left; width:auto; height:21px; margin:30px 0 0 6px; padding:8px 0 2px 26px; background:url('/images/editor/save_stars.png') no-repeat 5px 7px; font:normal 13px "Futura"; color:#CCCCCC; text-indent:0; line-height:13px;}
+div#map_container div.header h1.selected {width:200px; height:21px; background-position:0 0; background-image: url('/images/editor/save_stars.png'); background-image:url('/images/editor/save_stars.png'),-moz-linear-gradient(100% 100% 90deg, #FFFFFF, #CCCCCC); background-image:url('/images/editor/save_stars.png'),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#CCCCCC), to(#FFFFFF)); border:1px solid black; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;}
 div#map_container div.header h1 p {float:none; display:inline-block; width:auto;}
 div#map_container div.header h1.selected p {text-indent:-9999px;}
 div#map_container div.header h1 input {display:none;}
-div#map_container div.header h1.selected input {position:absolute; display:block; top:-1px; left:20px; width:194px; font:normal 13px "Futura"; color:#666666; border:none; background:none;}
+div#map_container div.header h1.selected input {position:absolute; display:block; top:4px; left:24px; width:194px; font:normal 13px "Futura"; color:#666666; border:none; background:none;}
 div#map_container div.header h1 input:focus {outline:none;}
 div#map_container div.header h1.selected sup {display:none;}
 div#map_container div.header h1 sup {padding:0 0 0 5px; margin:0; font:normal 10px "Futura"; color:#FF9800; line-height:10px;}
@@ -489,10 +487,10 @@ div#export_window div.block a.export:hover {background-position:0 -26px;}
 
 
 /*LAYER WINDOW*/
-div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:205px; height:224px; padding:25px 25px 25px 37px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
+div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:217px; height:224px; padding:25px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
 div#layer_window a#layer_close {position:absolute; right:23px; top:23px; background:url('/images/editor/close_source.png') no-repeat 0 0; width:16px; height:16px; padding:0; margin:0; text-indent:-9999px;}
 div#layer_window a#layer_close:hover {background-position:0 -16px; cursor:pointer;}
-div#layer_window h3 {font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
+div#layer_window h3 {margin:0 0 0 12px; font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
 div#layer_window ul {position:relative; display:inline-block; width:100%; height:150px; margin:18px 0 0 0; overflow:auto;}
 div#layer_window ul:focus {outline:none;}
 div#layer_window ul .jspContainer{overflow:hidden;position:relative;}
@@ -514,17 +512,18 @@ div#layer_window ul .jspHorizontalBar .jspArrow{width:16px;float:left;height:100
 div#layer_window ul .jspVerticalBar .jspArrow:focus{outline:none;}
 div#layer_window ul .jspCorner{background:#eeeef4;float:left;height:100%;}
 div#layer_window ul * html .jspCorner{margin:0 -3px 0 0;}
-div#layer_window ul li {width:189px; padding:10px 0; background:url('/images/editor/layer_list_separator.png') repeat-x 0 bottom;}
+div#layer_window ul li {width:180px; margin:0 0 0 2px; padding:10px; background:url('/images/editor/layer_list_separator.png') repeat-x 0 bottom;}
+div#layer_window ul li.moving {background:#ffffff; border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -webkit-box-shadow:0 0 10px rgba(0,0,0,0.5);}
 div#layer_window ul li.last {background:none;}
 div#layer_window ul li h4 {width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:bold 13px Arial; color:#333333;}
-div#layer_window ul li p {display:inline-block; width:135px; margin:2px 5px 0 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
+div#layer_window ul li p {display:inline-block; width:130px; margin:2px 5px 0 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
 div#layer_window ul li a {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
 div#layer_window ul li a:hover {background-position:0 -19px;}
 div#layer_window ul li a.added {color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px; line-height:9px;}
 div#layer_window ul li a.added:hover {background-position:0 -57px;}
 div#layer_window ul li a.loading {text-indent:-9999px; background:url('/images/editor/ajax-loader.gif') no-repeat center 0;}
 div#layer_window ul li a.loading:hover {cursor:default; background-position:center 0;}
-div#layer_window form {display:inline-block; width:205px; margin:15px 0 0 0;}
+div#layer_window form {display:inline-block; width:205px; margin:15px 0 0 12px;}
 div#layer_window form input[type="text"] {float:left; width:134px; height:13px; padding:7px 8px; background:url('/images/editor/layer_text_input.png') no-repeat 0 0; border:none; font:italic 11px Arial; color:#999999;}
 div#layer_window form input[type="text"]:focus {outline:none;}
 div#layer_window form input[type="submit"] {float:left; width:53px; height:25px; background:url('/images/editor/layer_submit_input.png') no-repeat 0 0; border:none; text-align:center; font:bold 11px Arial; color:#666666; text-shadow:0 1px white;}

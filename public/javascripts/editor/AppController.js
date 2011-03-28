@@ -2,7 +2,7 @@
 		var report_name;  							/*** Report name ***/
 		var state = 'select';						// State of the map & application
 
-		var total_points;								// Total points for each kind of data (will be TotalPointsOperations)
+		var points;								      // Points operations for each specie
 		var convex_hull;								// Convex Hull model Object for calculating the polygon
 		var actions;										// UnredoOperations model Object for actions made by the user.
 		var merge_object; 							// MergeOperations model Object for recover points from server like GBIF or Flickr
@@ -37,6 +37,13 @@
               $('h1 p').click(function(){
                 $(this).parent().addClass('selected');
                 $('h1 input').focus();
+                $('h1 input').keypress(function(event){
+                  var code = (event.keyCode ? event.keyCode : event.which);
+                  if (code == '13') {
+                    $('h1 input').focusout();
+                    $('h1 input').unbind('keypress');
+                  }
+                });
               });
               
         			$('h1 input').focusin(function(){
@@ -50,6 +57,7 @@
         			});
         			
         			$('h1 input').focusout(function(){
+        			  $('h1 input').unbind('keypress');
         			  var value = $(this).val();
         			  if (value != "") {
         			    $('h1 p').text(value);
@@ -60,18 +68,8 @@
 
         			createMap();
         			startSources();
-        			
-        			
-        			//PHASE 2--------------------------------------------------------------------------------
-              
-              //Pruebas con jscrollpane & sortable
-              $('ul#sources_list').jScrollPane({autoReinitialise:true});
-              $('ul#sources_list, ul#sources_list li, ul.jspScrollable, div.jspContainer, div.scrollable-helper, div.jspPane').disableSelection();
-              $('ul#sources_list, div.jspPane').sortable({revert:true});
-              
               //Adding layers
               var layers = new LayerCustomization(upload_information.data.layers);
-              //----------------------------------------------------------------------------------------
               
 
         			//if the application comes through an upload file
