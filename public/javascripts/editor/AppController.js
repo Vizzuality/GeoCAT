@@ -42,6 +42,7 @@
                   if (code == '13') {
                     $('h1 input').focusout();
                     $('h1 input').unbind('keypress');
+                    $('h1 input').parent().removeClass('selected');
                   }
                 });
               });

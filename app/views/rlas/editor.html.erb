@@ -2,7 +2,7 @@
       <%= headjs_include_tag "plugins/jquery.min","plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader", 
       "editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/RLAOperations", 
       "editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Calculations/AnalysisRatings", 
-      "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization" %>
+      "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization","plugins/jquery.backgroundpos.pack.js", "plugins/jquery.color.js" %>
       
       
       <script type="text/javascript" charset="utf-8">
@@ -49,7 +49,7 @@
                 <div class="analysis">
                   <div class="inner_analysis">
                     <a id="toggle_analysis" class="disabled"><span></span></a>
-                    <h3 class="disabled">Analysis disabled</h3>
+                    <h3 class="disabled">Analysis off</h3>
                     <div class="analysis_data">
                       <ul>
                         <li>
@@ -65,7 +65,7 @@
                       <span><a onclick="downloadRLA('print')">Print complete report</a></span>
                     </div>
                     <div class="cellsize">
-                      <h4>CHANGE CELL SIZE</h4>
+                      <h4>CHANGE CELL SIDEIZE</h4>
                       <a id="auto_value">Use auto value</a>
                       <span><label>SIDE LENGTH</label><p>1KM</p></span>
                       <div class="slider"></div>
@@ -94,7 +94,7 @@
                   <span><h3>NO OCCS IN YOUR ASSESSMENT</h3></span>
                   <ul id="sources_list">                   
                     <div class="add_new_source">
-                      <button>Add a new source</button>
+                      <button onclick="$('#add_source_button').trigger('click')">Add a new source</button>
                     </div>           
                   </ul>
                 </div>
@@ -161,7 +161,7 @@
           <div class="header">
             <div class="top-left-map"></div>
             <div class="top-repeat-map">
-              <h1 class="report_name"><p><%= @report_name.blank? ? 'Report without name' : CGI::unescape(@report_name) %></p><input type="text" value=""/><sup>(unsaved)</sup></h1>
+              <h1 class="report_name"><p><%= @report_name.blank? ? 'Untitled report' : CGI::unescape(@report_name) %></p><input type="text" value=""/><sup>(unsaved)</sup></h1>
             </div>
             <div class="top-right-map">
               <span id="beta"></span>
@@ -220,11 +220,7 @@
       <footer class="app_footer">
         <div class="inner">
           <div class="left">
-            <p>An effort of</p>
-            <a href="http://www.kew.org" target="_blank">
-              <%= image_tag 'editor/kwe_black.png', :alt => 'Kew' %>
-            </a>
-            <p>All rights reserved. 2011. <a href="http://www.kew.org/about-kew/website-information/legal-notices/">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a> / <a href="https://kewgis.uservoice.com/" target="_blank" class="feedback">feedback</a></p>
+            <p>Geospatial Conservation Assessment Tool. All rights reserved. 2011. <a href="http://www.kew.org/about-kew/website-information/legal-notices/">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a> / <a href="https://kewgis.uservoice.com/" target="_blank" class="feedback">feedback</a></p>
           </div>
           <div class="right">
             <a href="http://www.vizzuality.com" target="_blank">

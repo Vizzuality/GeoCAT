@@ -167,8 +167,8 @@ div#tools div.center div.right div.inner_analysis {position:relative; float:left
   background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2));}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:url('/images/editor/analysis_button.png') no-repeat 0 0; margin:0 0 0 16px;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {cursor:pointer;}
-div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url('/images/editor/analysis_button.png') no-repeat -28px -24px;}
-div#tools div.center div.right div.inner_analysis h3 {float:right; font:bold 15px Arial; color:#999999; text-shadow:0 1px white; padding:3px 0 0 0; margin:0 16px 18px 0;}
+div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url('/images/editor/analysis_button.png') no-repeat -26px -25px #999999; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
+div#tools div.center div.right div.inner_analysis h3 {float:left; font:bold 15px Arial; color:#999999; text-shadow:0 1px white; padding:3px 0 0 0; margin:0 0 18px 10px;}
 div#tools div.center div.right div.inner_analysis h3.disabled {color:#B7B7B7;}
 div.analysis_data {position:relative; float:left; width:100%; height:0; overflow:hidden!important;}
 div.analysis_data ul {position:relative; float:left; width:190px; height:105px; margin:0 0 5px 16px; padding:0;}
@@ -264,7 +264,7 @@ div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizo
 div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar .jspArrow:focus{outline:none;}
 div#editor div#tools div.center div.right div.sources ul#sources_list .jspCorner{background:#eeeef4;float:left;height:100%;}
 div#editor div#tools div.center div.right div.sources ul#sources_list * html .jspCorner{margin:0 -3px 0 0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li {position:relative; width:183px; height:48px; padding:5px 12px 5px 16px; margin:3px 0; background:url('/images/editor/li_bkg.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li {position:relative; width:183px; height:43px; padding:10px 12px 5px 16px; margin:3px 0; background:url('/images/editor/li_bkg.png') no-repeat 0 0;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li:hover {cursor:pointer;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie {position:absolute; right:8px; top:10px; width:40px; height:14px; background:url('/images/editor/specie_visible.png') no-repeat 0 0;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.green {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #7BA600, #99CC00); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CC00), to(#7BA600));}
@@ -296,8 +296,6 @@ div#editor div#tools div#add_source_container div.middle ul li a:hover {cursor:p
 div#editor div#tools div#add_source_container div.middle ul li span {display:none;}
 
 /*selected*/
-
-
 
 div#editor div#tools div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
 div#editor div#tools div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url('/images/editor/checkbox_add_image.png') no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
@@ -413,12 +411,13 @@ div#map_container div.table div.center-map div#mamufas_map div#loader_map {posit
 div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
-div#map_container div.header h1 {position:relative; float:left; width:auto; height:21px; margin:30px 0 0 6px; padding:8px 0 2px 26px; background:url('/images/editor/save_stars.png') no-repeat 5px 7px; font:normal 13px "Futura"; color:#CCCCCC; text-indent:0; line-height:13px;}
-div#map_container div.header h1.selected {width:200px; height:21px; background-position:0 0; background-image: url('/images/editor/save_stars.png'); background-image:url('/images/editor/save_stars.png'),-moz-linear-gradient(100% 100% 90deg, #FFFFFF, #CCCCCC); background-image:url('/images/editor/save_stars.png'),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#CCCCCC), to(#FFFFFF)); border:1px solid black; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;}
+div#map_container div.header h1 {position:relative; float:left; width:auto; height:22px; margin:30px 0 0 6px; padding:5px 0 5px 26px; background:url('/images/editor/save_stars.png') no-repeat 0 0; font:normal 13px "Futura"; color:#CCCCCC; text-indent:0; line-height:20px;}
+div#map_container div.header h1.selected {width:200px; height:22px; background-position:-1px -1px; background-image: url('/images/editor/save_stars.png'); background-image:url('/images/editor/save_stars.png'),-moz-linear-gradient(100% 100% 90deg, #FFFFFF, #CCCCCC); 
+background-image:url('/images/editor/save_stars.png'),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#CCCCCC), to(#FFFFFF)); border:1px solid black; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;}
 div#map_container div.header h1 p {float:none; display:inline-block; width:auto;}
 div#map_container div.header h1.selected p {text-indent:-9999px;}
 div#map_container div.header h1 input {display:none;}
-div#map_container div.header h1.selected input {position:absolute; display:block; top:4px; left:24px; width:194px; font:normal 13px "Futura"; color:#666666; border:none; background:none;}
+div#map_container div.header h1.selected input {position:absolute; display:block; top:3px; left:24px; width:194px; font:normal 13px "Futura"; color:#666666; border:none; background:none;}
 div#map_container div.header h1 input:focus {outline:none;}
 div#map_container div.header h1.selected sup {display:none;}
 div#map_container div.header h1 sup {padding:0 0 0 5px; margin:0; font:normal 10px "Futura"; color:#FF9800; line-height:10px;}
@@ -516,10 +515,14 @@ div#layer_window ul li {width:180px; margin:0 0 0 2px; padding:10px; background:
 div#layer_window ul li.moving {background:#ffffff; border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -webkit-box-shadow:0 0 10px rgba(0,0,0,0.5);}
 div#layer_window ul li.last {background:none;}
 div#layer_window ul li h4 {width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:bold 13px Arial; color:#333333;}
-div#layer_window ul li p {display:inline-block; width:130px; margin:2px 5px 0 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
-div#layer_window ul li a {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
+div#layer_window ul li span {display:inline-block; width:130px; margin:2px 5px 0 0; }
+div#layer_window ul li span p {display:inline-block; max-width:75px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
+div#layer_window ul li span a {display:none}
+div#layer_window ul li:hover span a.remove_layer {display:inline-block; float:none; height:auto; width:auto!important; margin:0; padding:0 0 0 5px; font:normal 12px Arial; color:#333333; background:none; border:none;}
+div#layer_window ul li:hover span a.remove_layer:hover {color:#000000;}
+div#layer_window ul li a.add {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
 div#layer_window ul li a:hover {background-position:0 -19px;}
-div#layer_window ul li a.added {color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px; line-height:9px;}
+div#layer_window ul li a.added { display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0; color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px; line-height:9px;}
 div#layer_window ul li a.added:hover {background-position:0 -57px;}
 div#layer_window ul li a.loading {text-indent:-9999px; background:url('/images/editor/ajax-loader.gif') no-repeat center 0;}
 div#layer_window ul li a.loading:hover {cursor:default; background-position:center 0;}

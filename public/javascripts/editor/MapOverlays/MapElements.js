@@ -60,12 +60,12 @@
             '<div class="block">' +
               '<label>Import data from<br/>' +
               'online source</label>' +
-              '<a class="import_data" onclick="$(\'div.center-tool div.right a.add\').trigger(\'click\');">Import data</a>' +
+              '<a class="import_data" onclick="$(\'#add_source_button\').trigger(\'click\');">Import data</a>' +
             '</div>' +
             '<div class="block">' +
               '<label>Upload your existing<br/>' +
               'data (CSV, RLAT)</label>' +
-              '<a class="upload_data" onclick="$(\'div.center-tool div.right a.add\').trigger(\'click\');">Upload data</a>' +
+              '<a class="upload_data" onclick="$(\'#add_source_button\').trigger(\'click\');">Upload data</a>' +
             '</div>' +
             '<div class="block last">' +
               '<label>Add / Edit points<br/>' +

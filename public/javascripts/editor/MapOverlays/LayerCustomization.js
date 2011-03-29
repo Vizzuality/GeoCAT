@@ -3,7 +3,7 @@
       /*==========================================================================================================================*/
     	/*  																																																												*/
     	/*  																																																												*/
-    	/*  																																																												*/
+    	/*				LayerCustomization => Class to control layers of the map                           																*/
     	/*  																																																												*/
     	/*  																																																												*/
     	/*==========================================================================================================================*/
@@ -87,7 +87,14 @@
   		    }
   		  });
   		  
-
+  		  
+        $('div#layer_window ul li a.remove_layer').livequery('click',function(ev){
+          var url = $(this).closest('li').attr('url');
+          var type = $(this).closest('li').attr('type');
+          me.removeLayer(url,type);
+        });
+  		  
+        this.uplaod_layers = [];
   			this.upload_layers = file_layers;
   			this.layers = [];
   			this.getLayers();
@@ -98,18 +105,20 @@
 
 
   		/*========================================================================================================================*/
-  		/* */
+  		/* Get locked layers from repository */
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.getLayers = function() {
   		  var me = this;
   		  this.importation_errors = 0;
   		  $.getJSON("/data/layers.json?1",function(result){
   		    var layers = result.layers;
-  		    layers.concat(me.upload_layers);
+  		    if (me.upload_layers!=null) {
+    		    layers = layers.concat(me.upload_layers);
+  		    }
   		    for (var i=0; i<layers.length; i++) {
   		      var url = layers[i].url;
   		      if (me.layers[url]==undefined) {
-    		      me.addLayer(layers[i].name,layers[i].source,layers[i].url,layers[i].opacity,layers[i].type,false);
+    		      me.addLayer(layers[i].name,layers[i].source,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false), ((layers[i].locked != undefined)? true : false));
   		      }
   		    }
   		    if (this.importation_errors==1) {
@@ -123,11 +132,11 @@
   		
   		
   		/*========================================================================================================================*/
-  		/* */
+  		/* Import a new layer */
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.importLayer = function(url) {
 	      this.importation_errors = 0;
-	      this.addLayer('','',url,0.5,'',true);
+	      this.addLayer('','',url,0.5,'',false,true);
 	      if (this.importation_errors==1) {
 		      $('span.layer_error p').text('Review your layer url, seems to be incorrect').parent().fadeIn().delay(2000).fadeOut();
 		    }
@@ -137,9 +146,9 @@
   		
   		
   		/*========================================================================================================================*/
-  		/* */
+  		/* Add a layer to the list */
   		/*========================================================================================================================*/
-  		LayerCustomization.prototype.addLayer = function(name,source,url,opacity,type,add) {
+  		LayerCustomization.prototype.addLayer = function(name,source,url,opacity,type,locked,add) {
 
         if (type=='') {
           if (url.search('.kml')!=-1) {
@@ -167,7 +176,9 @@
           this.layers[url].position = 0;
           
           var api = $('div#layer_window ul').data('jsp');
-    		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><p>by '+this.layers[url].source+'</p><a class="'+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
+    		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
+    		  ((!locked)?'<a class="remove_layer">| Remove</a>':'')+
+    		  '</span><a class="add_layer_link '+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
     		  api.reinitialise();
           
   		  } else {
@@ -186,7 +197,7 @@
                 return this.urlPattern.replace("{X}",x).replace("{Y}",y).replace("{Z}",zoom);
               },
               tileSize: new google.maps.Size(256, 256),
-              opacity:0.75,
+              opacity:opacity,
               isPng: true,
               urlPattern:url
             });
@@ -202,13 +213,14 @@
             this.layers[url].position = this.index_layers;
             
             if (add) {
-              map.overlayMapTypes.push(null);
               map.overlayMapTypes.setAt(this.index_layers,layer);
       		    this.index_layers++;
             }
             
             var api = $('div#layer_window ul').data('jsp');
-      		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><p>by '+this.layers[url].source+'</p><a class="'+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
+      		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
+      		  ((!locked)?'<a class="remove_layer">| Remove</a>':'')+
+      		  '</span><a class="add_layer_link '+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
       		  api.reinitialise();
   		    } else {
   		      this.importation_errors++;
@@ -219,7 +231,7 @@
   		
   		
   		/*========================================================================================================================*/
-  		/* */
+  		/* Add or remove a layer from the list */
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.addRemoveLayer = function(url,type,added) {
   		  if (type == 'kml') {
@@ -230,15 +242,42 @@
   		}
   		
   		
+  		
+  		/*========================================================================================================================*/
+  		/* Remove a layer from the list and map */
+  		/*========================================================================================================================*/
+  		LayerCustomization.prototype.removeLayer = function(url,type) {
+  		  
+        if (type == 'kml') {
+          try {this.layers[url].layer.setMap(null);} catch (e) {}
+        } else {
+          $('div#layer_window ul li[url="'+url+'"] a.added').removeClass('added').addClass('add');
+
+          var array = map.overlayMapTypes.getArray();
+    		  console.log(array);
+    		  for (var i in array) {
+            if (this.layers[url].layer == array[i]) {
+              map.overlayMapTypes.removeAt(i);
+              break;
+            }
+          }
+          
+          this.sortLayers();
+          
+        } 
+        $('div#layer_window ul li[url="'+url+'"]').remove();
+  		}
+  		
+  		
 
 
   		/*========================================================================================================================*/
-  		/* */
+  		/* Sort layers list */
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.sortLayers = function() {
-  		  var size = $('div#layer_window ul li').size()-1;
   		  var me = this;
-  		  $('div#layer_window ul li[type="xyz"] a').each(function(i,element){
+  		  var size = $('div#layer_window ul li[type="xyz"]').size() - 1;
+  		  $('div#layer_window ul li[type="xyz"] a.add_layer_link').each(function(i,element){
   		    var url = $(element).parent().attr('url');
   		    var added = $(element).hasClass('added');
           map.overlayMapTypes.setAt(size-i,(!added)?null:me.layers[url].layer);
@@ -249,7 +288,7 @@
   		
   		
   		/*========================================================================================================================*/
-  		/* */
+  		/* Open layers window */
   		/*========================================================================================================================*/
       function openLayers(event) {
         event.stopPropagation();
@@ -280,7 +319,7 @@
       
       
       /*========================================================================================================================*/
-  		/* */
+  		/* Close layers window */
   		/*========================================================================================================================*/
       function closeLayers(event) {
         event.stopPropagation();

@@ -167,17 +167,37 @@
         });
         
         
+        //Input focus in - out
+        $("#add_source_container ul li span.search input").focusin(function(){
+          var value = $(this).parent().children('input').val();
+          if (value!='' || value!='Insert species name') {
+            $(this).val('');
+            $(this).css('font-style','normal');
+            $(this).css('color','#333333');
+          }
+        });
+        $("#add_source_container ul li span.search input").focusout(function(){
+           var value = $(this).parent().children('input').val();
+           if (value=='' || value=='Insert species name') {
+             $(this).css('font-style','italic');
+             $(this).css('color','#666666');
+             $(this).val('Insert species name');
+           }
+         });
+        
+        
+        
         //Search term
         $("#add_source_container ul li span.search a").click(function(){
           var value = $(this).parent().children('input').val();
           var check_id = $(this).parent().parent().children('a.checkbox').attr('id');
           var parent = $(this).parent().parent();
-          //if ($(this).parent().children('input').val()!='' && $(this).parent().children('input').val()!='Insert species name') {
+          if (value!='' && value!='Insert species name') {
             $(this).parent().parent().addClass('searching');
             callSourceService(check_id,parent,value);
-          //} else {
+          } else {
             //TODO Error
-          //}
+          }
         });
         
         
@@ -289,7 +309,13 @@
         $("#add_source_container ul li").each(function(i,item){
           $(this).removeClass('selected');
           $(this).removeClass('added');
+          $(this).removeClass('searching');
+          $(this).find('span input').val('Insert species name');
+          $(this).find('span input').css('font-style','italic');
+          $(this).find('span input').css('color','#666666');
+          $(this).find('span input').val('Insert species name');
           $(this).find('span p').removeClass('loaded');
+          $(this).find('span.normal').hide();
           $(this).find('span.normal a').removeClass('enabled');
           $(this).find('div').removeClass('selected');
           $(this).find('span p').text('Loading...');

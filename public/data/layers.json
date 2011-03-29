@@ -4,21 +4,21 @@
       "url":"http://maps0.eol.org/php/map/getEolTile.php?tile={X}_{Y}_{Z}_13140803",
       "name":"EOL",
       "source":"EOL.org",
-      "opacity":1,
+      "opacity":0.5,
       "type": "xyz"
     },
     {
       "url":"http://184.73.201.235/blue/{Z}/{X}/{Y}",
       "name":"ProtectedPlanet",
       "source":"ProtectedPlanet",
-      "opacity":1,
+      "opacity":0.5,
       "type": "xyz"
     },
     {
       "url":"http://downloads.wdpa.org/ArcGIS/rest/services/carbon/Carbon_webmerc_93/MapServer/tile/{Z}/{Y}/{X}",
       "name":"Carbon Layer",
       "source":"LifeWeb",
-      "opacity":0.4,
+      "opacity":0.8,
       "type": "xyz"
     }]
 }
