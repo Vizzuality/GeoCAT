@@ -27,22 +27,20 @@
         });
   		  
   		  
-  		  $('div#layer_window ul li a').livequery('click',function(ev){
+  		  $('div#layer_window ul li a.add_layer_link').livequery('click',function(ev){
   		    ev.stopPropagation();
   		    ev.preventDefault();
   		    var added;
-  		    if (!$(this).hasClass('loading')) {
-  		      if ($(this).hasClass('add')) {
-  		        $(this).text('ADDED');
-  		        added = true;
-  		        $(this).removeClass('add').addClass('added');
-  		      } else {
-  		        $(this).text('ADD');
-  		        added = false;
-  		        $(this).removeClass('added').addClass('add');
-  		      }
-  		      me.addRemoveLayer($(this).parent().attr('url'),$(this).parent().attr('type'),added);
-  		    }
+		      if (!$(this).closest('li').hasClass('added')) {
+		        $(this).text('ADDED');
+		        added = true;
+		        $(this).closest('li').addClass('added');
+		      } else {
+		        $(this).text('ADD');
+		        added = false;
+		        $(this).closest('li').removeClass('added');
+		      }
+		      me.addRemoveLayer($(this).parent().attr('url'),$(this).parent().attr('type'),added);
   		  });
   		  
   		  
@@ -93,6 +91,7 @@
           var type = $(this).closest('li').attr('type');
           me.removeLayer(url,type);
         });
+        
   		  
         this.uplaod_layers = [];
   			this.upload_layers = file_layers;
@@ -149,7 +148,6 @@
   		/* Add a layer to the list */
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.addLayer = function(name,source,url,opacity,type,locked,add) {
-
         if (type=='') {
           if (url.search('.kml')!=-1) {
             type = 'kml';
@@ -157,7 +155,6 @@
             type = 'xyz';
           }
         }
-
 
   		  if (type == 'kml') {
   		    var kml_layer = new google.maps.KmlLayer(url, { suppressInfoWindows: true, preserveViewport:true});
@@ -176,11 +173,10 @@
           this.layers[url].position = 0;
           
           var api = $('div#layer_window ul').data('jsp');
-    		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
+    		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'" class="'+(add?'added':'')+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
     		  ((!locked)?'<a class="remove_layer">| Remove</a>':'')+
-    		  '</span><a class="add_layer_link '+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
+    		  '</span><a class="add_layer_link">'+(add?'ADDED':'ADD')+'</a><div class="slider"></div></li>');
     		  api.reinitialise();
-          
   		  } else {
   		    if (url.search('{X}')!=-1 && url.search('{Z}')!=-1 && url.search('{Y}')!=-1) {
   		      var layer = new google.maps.ImageMapType({
@@ -202,7 +198,6 @@
               urlPattern:url
             });
             
-            
             this.layers[url] = {};
             this.layers[url].name = (name=='')?'User XYZ layer':name;
       		  this.layers[url].source = (source=='')?'user':source;
@@ -218,10 +213,25 @@
             }
             
             var api = $('div#layer_window ul').data('jsp');
-      		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
+      		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'" class="'+(add?'added':'')+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
       		  ((!locked)?'<a class="remove_layer">| Remove</a>':'')+
-      		  '</span><a class="add_layer_link '+(add?'added':'add')+'">'+(add?'ADDED':'ADD')+'</a></li>');
+      		  '</span><a class="add_layer_link">'+(add?'ADDED':'ADD')+'</a><div class="slider"></div></li>');
       		  api.reinitialise();
+      		  var me = this;
+      		  
+      		  //Opacity slider
+      		  $('div#layer_window ul li div.slider').slider({
+      		    max:10,
+      		    min:1,
+      		    step:1,
+      		    value: opacity,
+      		    range:'min',
+      		    slide: function(event,ui) {
+      		      var url = $(this).closest('li').attr('url');
+      		      me.layers[url].opacity = ui.value/10;
+      		      me.layers[url].layer.opacity = ui.value/10;
+      		    }
+      		  });
   		    } else {
   		      this.importation_errors++;
   		    }
@@ -248,24 +258,24 @@
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.removeLayer = function(url,type) {
   		  
-        if (type == 'kml') {
-          try {this.layers[url].layer.setMap(null);} catch (e) {}
-        } else {
-          $('div#layer_window ul li[url="'+url+'"] a.added').removeClass('added').addClass('add');
-
-          var array = map.overlayMapTypes.getArray();
-    		  console.log(array);
-    		  for (var i in array) {
-            if (this.layers[url].layer == array[i]) {
-              map.overlayMapTypes.removeAt(i);
-              break;
-            }
-          }
-          
-          this.sortLayers();
-          
-        } 
-        $('div#layer_window ul li[url="'+url+'"]').remove();
+        // if (type == 'kml') {
+        //   try {this.layers[url].layer.setMap(null);} catch (e) {}
+        // } else {
+        //   $('div#layer_window ul li[url="'+url+'"] a.added').removeClass('added').addClass('add');
+        // 
+        //   var array = map.overlayMapTypes.getArray();
+        //          console.log(array);
+        //          for (var i in array) {
+        //     if (this.layers[url].layer == array[i]) {
+        //       map.overlayMapTypes.removeAt(i);
+        //       break;
+        //     }
+        //   }
+        //   
+        //   this.sortLayers();
+        //   
+        // } 
+        // $('div#layer_window ul li[url="'+url+'"]').remove();
   		}
   		
   		
@@ -277,8 +287,8 @@
   		LayerCustomization.prototype.sortLayers = function() {
   		  var me = this;
   		  var size = $('div#layer_window ul li[type="xyz"]').size() - 1;
-  		  $('div#layer_window ul li[type="xyz"] a.add_layer_link').each(function(i,element){
-  		    var url = $(element).parent().attr('url');
+  		  $('div#layer_window ul li[type="xyz"]').each(function(i,element){
+  		    var url = $(element).attr('url');
   		    var added = $(element).hasClass('added');
           map.overlayMapTypes.setAt(size-i,(!added)?null:me.layers[url].layer);
           me.layers[url].position = size-i;

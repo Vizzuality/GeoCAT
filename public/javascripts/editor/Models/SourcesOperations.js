@@ -159,10 +159,6 @@
             if (!$(this).parent().hasClass('searching')) {
               $(this).parent().addClass('selected');
             }
-            //if (!$(this).parent().find('span p').hasClass('loaded') && !$(this).hasClass('import_file')) {
-              //callSourceService($(this).attr('id'),$(this).parent());
-              
-            //}
           }
         });
         
@@ -203,27 +199,27 @@
         
 
         //import data
-        // $("span.normal a.import_data").click(function(){
-        //   if ($(this).hasClass('enabled')) {
-        //       $("#add_source_container").fadeOut();
-        //       $("#add_source_button").removeClass('open');
-        //       switch($(this).parent().parent().find('a.checkbox').attr('id')) {
-        //         case 'add_flickr':   if (convex_hull.isVisible()) {
-        //                               $('a#toggle_analysis').trigger('click');
-        //                             }
-        //                             flickr_data = flickr_founded[0];
-        //                             addSourceToMap(flickr_data,true,false);
-        //                              break;
-        //         case 'add_gbif':    if (convex_hull.isVisible()) {
-        //                               $('a#toggle_analysis').trigger('click');
-        //                             }
-        //                             gbif_data = gbif_founded[0];
-        //                             addSourceToMap(gbif_data,true,false);
-        //                             break;
-        //         default:             null;
-        //       }
-        //   }
-        // });
+        $("span.loading a.import_data").click(function(){
+          if ($(this).hasClass('enabled')) {
+            $("#add_source_container").fadeOut();
+            $("#add_source_button").removeClass('open');
+            switch($(this).parent().parent().find('a.checkbox').attr('id')) {
+              case 'add_flickr':  if (convex_hull.isVisible()) {
+                                    $('a#toggle_analysis').trigger('click');
+                                  }
+                                  flickr_data = flickr_founded[0];
+                                  addSourceToMap(flickr_data,true,false);
+                                   break;
+              case 'add_gbif':    if (convex_hull.isVisible()) {
+                                    $('a#toggle_analysis').trigger('click');
+                                  }
+                                  gbif_data = gbif_founded[0];
+                                  addSourceToMap(gbif_data,true,false);
+                                  break;
+              default:             null;
+            }
+        }
+        });
 
       }
 
@@ -330,30 +326,30 @@
       /* Open Delete container.                                                     */
       /*============================================================================*/
       function openDeleteAll(kind) {
-        // var position = $('li a.'+kind).offset();
-        // if (convex_hull.isVisible()) {
-        //   $('div.delete_all').css('top',position.top - 412 + 'px');
-        // } else {
-        //   $('div.delete_all').css('top',position.top - 268 + 'px');
-        // }
-        // $('a.'+ kind).parent().children('a.delete_all').addClass('active');
-        // $('div.delete_all').fadeIn();
-        // 
-        // var type;
-        // 
-        // switch (kind) {
-        //   case 'green':   type = 'gbif';
-        //                   $('div.delete_all h4').text('DELETE ALL GBIF POINTS');
-        //                   break;
-        //   case 'pink':     type = 'flickr';
-        //                   $('div.delete_all h4').text('DELETE ALL FLICKR POINTS');
-        //                   break;
-        //   default:         type = 'your';
-        //                   $('div.delete_all h4').text('DELETE ALL YOUR POINTS');
-        // }
-        // 
-        // $('div.delete_all div a.yes').unbind('click');
-        // $('div.delete_all div a.yes').bind('click',function(){deleteAll(type)});
+        var position = $('li a.'+kind).offset();
+        if (convex_hull.isVisible()) {
+          $('div.delete_all').css('top',position.top - 412 + 'px');
+        } else {
+          $('div.delete_all').css('top',position.top - 268 + 'px');
+        }
+        $('a.'+ kind).parent().children('a.delete_all').addClass('active');
+        $('div.delete_all').fadeIn();
+        
+        var type;
+        
+        switch (kind) {
+          case 'green':   type = 'gbif';
+                          $('div.delete_all h4').text('DELETE ALL GBIF POINTS');
+                          break;
+          case 'pink':     type = 'flickr';
+                          $('div.delete_all h4').text('DELETE ALL FLICKR POINTS');
+                          break;
+          default:         type = 'your';
+                          $('div.delete_all h4').text('DELETE ALL YOUR POINTS');
+        }
+        
+        $('div.delete_all div a.yes').unbind('click');
+        $('div.delete_all div a.yes').bind('click',function(){deleteAll(type)});
       }
 
 
@@ -362,8 +358,8 @@
       /* Close Delete container.                                                     */
       /*============================================================================*/
       function closeDeleteAll() {
-        // $('div.delete_all').fadeOut();
-        // $('a.delete_all').removeClass('active');
+        $('div.delete_all').fadeOut();
+        $('a.delete_all').removeClass('active');
       }
 
 
@@ -434,9 +430,9 @@
       /* Close Merge container.                                                     */
       /*============================================================================*/
       function closeMergeContainer() {
-        // $('div.merge_container').fadeOut();
-        // $('a.merge').unbind('click');
-        // $('a.merge').removeClass('active');
+        $('div.merge_container').fadeOut();
+        $('a.merge').unbind('click');
+        $('a.merge').removeClass('active');
       }
 
 

@@ -364,7 +364,7 @@ div#editor div#map_container div.table div.top-left-map{position:relative; float
 div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url('/images/editor/top-repeat-map.png')  0 bottom;}
 div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url('/images/editor/top-right-map.png') no-repeat left bottom;}
 div#editor div#map_container div.table div.top-right-map span#beta{position:absolute; top:11px; right:11px; width:80px; height:80px; background:url('/images/editor/beta_version.png') no-repeat 0 0; z-index:1000;}
-div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0;}
+div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0; -moz-user-select: none;-webkit-user-select: none;}
 div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url('/images/editor/left-repeat-map.png') repeat-y -6px 0;}
 div#editor div#map_container div.table div.center-map {position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}
 div#editor div#map_container div.table div.center-map a.vizzuality {position:absolute; bottom:3px; left:75px; z-index:100;}
@@ -520,12 +520,14 @@ div#layer_window ul li span p {display:inline-block; max-width:75px; overflow:hi
 div#layer_window ul li span a {display:none}
 div#layer_window ul li:hover span a.remove_layer {display:inline-block; float:none; height:auto; width:auto!important; margin:0; padding:0 0 0 5px; font:normal 12px Arial; color:#333333; background:none; border:none;}
 div#layer_window ul li:hover span a.remove_layer:hover {color:#000000;}
-div#layer_window ul li a.add {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
+div#layer_window ul li a.add_layer_link {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
 div#layer_window ul li a:hover {background-position:0 -19px;}
-div#layer_window ul li a.added { display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0; color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px; line-height:9px;}
-div#layer_window ul li a.added:hover {background-position:0 -57px;}
+div#layer_window ul li.added a.add_layer_link { display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0; color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px; line-height:9px;}
+div#layer_window ul li.added a.add_layer_link:hover {background-position:0 -57px;}
 div#layer_window ul li a.loading {text-indent:-9999px; background:url('/images/editor/ajax-loader.gif') no-repeat center 0;}
 div#layer_window ul li a.loading:hover {cursor:default; background-position:center 0;}
+div#layer_window ul li div.slider {display:none;}
+div#layer_window ul li.added div.slider {display:none; width:100%; height:5px; margin:6px 0 0 0;}
 div#layer_window form {display:inline-block; width:205px; margin:15px 0 0 12px;}
 div#layer_window form input[type="text"] {float:left; width:134px; height:13px; padding:7px 8px; background:url('/images/editor/layer_text_input.png') no-repeat 0 0; border:none; font:italic 11px Arial; color:#999999;}
 div#layer_window form input[type="text"]:focus {outline:none;}
@@ -584,7 +586,7 @@ div#other div.footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 /*FOOTER EDITOR*/
 footer.app_footer {position:absolute; left:0; bottom:0; width:100%; min-width:1183px; height:59px; padding:0; margin:0; background:none; border:none; z-index:1;}
 footer.app_footer div.inner {margin:0 auto; width:100%; }
-footer.app_footer div.inner div.left {position:absolute; left:100px; width:600px; z-index:1;}
+footer.app_footer div.inner div.left {position:absolute; left:100px; width:620px; z-index:1;}
 footer.app_footer div.inner div.left p {float:left; width:auto; font:normal 13px Arial; color:#000000; padding:22px 5px 0 0;}
 footer.app_footer div.inner div.left p a {color:#000000;}
 footer.app_footer div.inner div.left p a.feedback {color:#FFCC00;}

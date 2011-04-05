@@ -78,8 +78,8 @@
 					min: 1,
 					max: 50,
 					slide: function(event, ui) {
-					  _markers[me.marker_id].set('distance',ui.value*1000);
-  					_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
+					  occurrences[me.marker_id].set('distance',ui.value*1000);
+  					occurrences[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
   					$(div).find('div.slider_top p').html(ui.value + 'KM');
 					}
 				});
@@ -236,8 +236,8 @@
       			this.inf.longitude = $('#metadata_longitude').attr('value');
     			
           
-            _markers[this.marker_id].data = this.inf;
-            _markers[this.marker_id].setPosition(new google.maps.LatLng(this.inf.latitude,this.inf.longitude));
+            occurrences[this.marker_id].data = this.inf;
+            occurrences[this.marker_id].setPosition(new google.maps.LatLng(this.inf.latitude,this.inf.longitude));
             this.hide();
           
             actions.Do('edit',[{catalogue_id:this.marker_id,info:old_data}],[{catalogue_id:this.marker_id,info:this.inf}]);

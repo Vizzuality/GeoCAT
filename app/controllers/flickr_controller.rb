@@ -34,11 +34,12 @@ class FlickrController < ApplicationController
             'coordinateUncertaintyInMeters' => 15000,
             "occurrenceDetails"             => FlickRaw.url_photopage(photo),
             "collector"                     => photo['ownername'],
-            "active"                        => true,
-            "removed"                       => false,
+            "geocat_active"                 => true,
+            "geocat_removed"                => false,
             "catalogue_id"                  => "flickr_" + photo['id'],
-            "kind"                          => "flickr",
-            "occurrenceRemarks"             => "#{photo['title']} / #{photo['description']}"
+            "geocat_kind"                   => "flickr",
+            "occurrenceRemarks"             => "#{photo['title']} / #{photo['description']}",
+            "geocat_query"                  => CGI.unescape(name_specie)
           }
         end
 

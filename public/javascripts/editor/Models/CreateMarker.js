@@ -17,11 +17,7 @@
       function CreateMarker(latlng, kind, draggable, clickable, item, marker_map) {
        
        //Choose marker icon image.
-       var image = new google.maps.MarkerImage('/images/editor/'+ kind +'_marker.png',
-                                               new google.maps.Size(25, 25),
-                                               new google.maps.Point(0,0),
-                                               new google.maps.Point(12, 12));
-       
+       var image = new google.maps.MarkerImage('/images/editor/'+ kind +'_marker.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
        var marker = new google.maps.Marker({position: latlng, draggable: draggable, raiseOnDrag:false, clickable: clickable, map: marker_map, icon: image, data: item});
        
        
@@ -33,7 +29,6 @@
                delete_infowindow.changePosition(this.getPosition(),this.data.catalogue_id,this.data);
              }
            } else {
-             console.log('jamon');
              delete_infowindow = new DeleteInfowindow(this.getPosition(), this.data.catalogue_id, this.data, marker_map);
            }       
          } else {

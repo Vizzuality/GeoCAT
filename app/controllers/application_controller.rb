@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   private
     def browser_is_html5_compliant?
       user_agent = request.user_agent.downcase
-      unless user_agent.blank? || user_agent.match(/firefox\/3\.6|firefox\/4|safari\/5|chrome\/7|opera\/9\.8/)
+      unless user_agent.blank? || user_agent.match(/msie\/9\.0|firefox\/4|safari\/5|chrome\/7|opera\/9\.8/)
         raise NoHTML5Compliant
       end
     end

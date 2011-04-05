@@ -66,10 +66,11 @@ class GbifController < ApplicationController
           "occurrenceRemarks"             => @occurrenceRemarks,
           "occurrenceDetails"             => @occurrenceDetails,
           "collector"                     => @recordedBy,
-          "active"                        => true,
-          "removed"                       => false,
           "catalogue_id"                  => "gbif_#{@institutionCode}-#{@collectionCode}-#{@catalogNumber}",
-          "kind"                          => "gbif"
+          "geocat_active"                 => true,
+          "geocat_removed"                => false,
+          "geocat_kind"                   => "gbif",
+          "geocat_query"                  => CGI.unescape(q)
         }
       end
       @list =  [{"id"=>"gbif_id","name"=>"gbif","points"=> points }]

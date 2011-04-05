@@ -25,10 +25,10 @@
 				/*============================================================================*/
 				PointsOperations.prototype.add = function(query,kind) {
 					
-					if (this.sources[query]!=undefined) {
-					  this.sources[query] = this.sources[query]+1;
+					if (this.sources[query+'_'+kind]!=undefined) {
+					  this.sources[query+'_'+kind] = this.sources[query+'_'+kind]+1;
 					} else {
-					  this.sources[query] = 1;
+					  this.sources[query+'_'+kind] = 1;
 					  this.total = this.total + 1;
 					}
 					
@@ -42,11 +42,11 @@
 				/* Deduct one point to the object depending on the specie. */
 				/*============================================================================*/
 				PointsOperations.prototype.deduct = function(query,kind) {
-					if (this.sources[query]!=undefined) {
-					  this.sources[query] = this.sources[query]-1;
+					if (this.sources[query+'_'+kind]!=undefined) {
+					  this.sources[query+'_'+kind] = this.sources[query+'_'+kind]-1;
 					}
 					
-					if (this.sources[query]==0) {
+					if (this.sources[query+'_'+kind]==0) {
 					  this.total = this.total - 1;
 					}
 					
@@ -60,8 +60,8 @@
 				/*============================================================================*/
 				/* Get the total points of one specie. 																				*/
 				/*============================================================================*/
-				PointsOperations.prototype.get = function(query) {
-					return this.sources[query];
+				PointsOperations.prototype.get = function(query,kind) {
+					return this.sources[query+'_'+kind];
 				}
 
 
@@ -102,17 +102,17 @@
 			    }
 				  
 				  
-				  if ($('ul#sources_list li[specie="'+query+'"]').length>0) {
-				    $('li[specie="'+query+'"] span.points p').text(me.sources[query]+' '+kind_name+' '+((me.sources[query]>1)?'points':'point'));
+				  if ($('ul#sources_list li[specie="'+query+'"][type="'+kind+'"]').length>0) {
+				    $('li[specie="'+query+'"][type="'+kind+'"] span.points p').text(me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point'));
 				  } else {
 				    var api =  $('ul#sources_list').data('jsp');
       		  api.getContentPane().prepend(
-      		            '<li specie="'+query+'">'+
+      		            '<li specie="'+query+'" type="'+kind+'">'+
                         '<span class="'+kind_class+'"></span>'+
                         '<h3>'+((query=="user")?"User occs":query)+'</h3>'+
                         '<a class="visible_specie on"></a>'+
                         '<span class="points">'+
-                          '<p>'+me.sources[query]+' '+kind_name+' '+((me.sources[query]>1)?'points':'point')+'</p>'+
+                          '<p>'+me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point')+'</p>'+
                           '<a class="merge_specie"></a>'+
                           '<a class="delete_specie"></a>'+
                         '</span>'+
@@ -140,12 +140,12 @@
 			      kind_name = "User";
 			    }
           
-          if (this.sources[query]==0) {
+          if (this.sources[query+'_'+kind]==0) {
             var api =  $('ul#sources_list').data('jsp');
-      		  api.getContentPane().children('li[specie="'+query+'"]').remove();
+      		  api.getContentPane().children('li[specie="'+query+'"][type="'+kind+'"]').remove();
       		  api.reinitialise();
           } else {
-            $('li[specie="'+query+'"] span.points p').text(me.sources[query]+' '+kind_name+' '+((me.sources[query]>1)?'points':'point'));
+            $('li[specie="'+query+'"][type="'+kind+'"] span.points p').text(me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point'));
           }
 				}
 			}

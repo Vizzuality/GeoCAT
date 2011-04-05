@@ -287,8 +287,8 @@
 					min: 1,
 					max: 50,
 					slide: function(event, ui) {
-						_markers[me.marker_id].set('distance',ui.value*1000);
-						_markers[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
+						occurrences[me.marker_id].set('distance',ui.value*1000);
+						occurrences[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
 						$(div).find('p.precision').html(ui.value + 'KM');
 					}
 				});

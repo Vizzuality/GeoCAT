@@ -150,11 +150,11 @@
 		MarkerOverTooltip.prototype.showInformation = function() {
 			this.hide();
 			if (click_infowindow!=null) {					
-				if (_markers[this.marker_id].data.catalogue_id == click_infowindow.marker_id || !click_infowindow.isVisible()) {
-					click_infowindow.changePosition(_markers[this.marker_id].getPosition(),_markers[this.marker_id].data.catalogue_id,_markers[this.marker_id].data);
+				if (occurrences[this.marker_id].data.catalogue_id == click_infowindow.marker_id || !click_infowindow.isVisible()) {
+					click_infowindow.changePosition(occurrences[this.marker_id].getPosition(),occurrences[this.marker_id].data.catalogue_id,occurrences[this.marker_id].data);
 				}
 			} else {
-				click_infowindow = new MarkerTooltip(_markers[this.marker_id].getPosition(), _markers[this.marker_id].data.catalogue_id, _markers[this.marker_id].data, map);
+				click_infowindow = new MarkerTooltip(occurrences[this.marker_id].getPosition(), occurrences[this.marker_id].data.catalogue_id, occurrences[this.marker_id].data, map);
 			}
 		}		
 		
