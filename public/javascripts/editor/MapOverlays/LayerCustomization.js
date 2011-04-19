@@ -257,25 +257,24 @@
   		/* Remove a layer from the list and map */
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.removeLayer = function(url,type) {
-  		  
-        // if (type == 'kml') {
-        //   try {this.layers[url].layer.setMap(null);} catch (e) {}
-        // } else {
-        //   $('div#layer_window ul li[url="'+url+'"] a.added').removeClass('added').addClass('add');
-        // 
-        //   var array = map.overlayMapTypes.getArray();
-        //          console.log(array);
-        //          for (var i in array) {
-        //     if (this.layers[url].layer == array[i]) {
-        //       map.overlayMapTypes.removeAt(i);
-        //       break;
-        //     }
-        //   }
-        //   
-        //   this.sortLayers();
-        //   
-        // } 
-        // $('div#layer_window ul li[url="'+url+'"]').remove();
+        if (type == 'kml') {
+          try {this.layers[url].layer.setMap(null);} catch (e) {}
+        } else {
+          $('div#layer_window ul li[url="'+url+'"] a.added').removeClass('added').addClass('add');
+        
+          var array = map.overlayMapTypes.getArray();
+                 console.log(array);
+                 for (var i in array) {
+            if (this.layers[url].layer == array[i]) {
+              map.overlayMapTypes.removeAt(i);
+              break;
+            }
+          }
+          
+          this.sortLayers();
+          
+        } 
+        $('div#layer_window ul li[url="'+url+'"]').remove();
   		}
   		
   		

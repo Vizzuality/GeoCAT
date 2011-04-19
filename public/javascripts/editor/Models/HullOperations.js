@@ -16,8 +16,14 @@
 				this.cellsize_type = "user defined";
 
 				var me = this;
+
 			
 				/* Binding events of DOM elements related to HULLOperations  */
+
+				// If there is a change in the map belong to markers, we have to update the convexhull
+				$(document).bind('occs_updated',function(){
+				  convex_hull.createPolygon(occurrences);
+				});
 
 				//toggle on/off analysis
 				$('a#toggle_analysis').click(function(ev){
@@ -54,15 +60,15 @@
 			
 				//Hull convex slider
 				$("div.cellsize div.slider").slider({
-					range: "min",
-					value: 5,
-					min: 1,
-					max: 50,
-					slide: function(event, ui) {
-						me.cellsize = ui.value;
-						me.removeAOOPolygons();
-						me.setAlgorithmValues(me.cellsize);
-					}
+					  range: "min",
+  					value: 5,
+  					min: 1,
+  					max: 50,
+  					slide: function(event, ui) {
+  						me.cellsize = ui.value;
+  						me.removeAOOPolygons();
+  						me.setAlgorithmValues(me.cellsize);
+  					}
 				});
 				
 			
@@ -77,7 +83,6 @@
   					$('div.analysis p.change').html('AOO based on IUCN default<br/>cell width (2 km), <a class="change">change</a>');
 				  }
 				});
-			
 			
 				//Close Cellsize
 				$("div.cellsize a.done").click(function(){
@@ -101,11 +106,9 @@
 							$('div.cellsize').fadeOut();
 						}
 					});
-					
 				});
 				
-				
-				
+				//Auto value for AOO and EOO
 				$('#auto_value').click(function(){
 				  if ($(this).hasClass('selected')) {
 				    me.cellsize = me.beforeValue;
@@ -174,12 +177,19 @@
 			HullOperations.prototype.createActivePoints = function(all_markers) {
 				this.active_markers = [];
 				for (var i in all_markers) {
-					if (all_markers[i].data.active && !all_markers[i].data.removed) {
+					if (all_markers[i].data.geocat_active && !all_markers[i].data.geocat_removed) {
 						this.active_markers.push(all_markers[i]);
 					}
 				}
 				if (this.active_markers.length>2) {
 					this.calculateConvexHull(false);
+				} else {
+				  if (this.polygon!=undefined) {
+  					this.polygon.setPath([]);
+  				  this.removeAOOPolygons();
+  					this.polygon.setMap(null);
+  					this.resetAlgorithmValues();
+  				}
 				}
 			}
 
@@ -215,7 +225,7 @@
 						this.polygon.setMap(this.map);
 						this.calculateConvexHull(false);
 					} else {
-						this.createPolygon(_markers);
+						this.createPolygon(occurrences);
 					}
 				}
 			}
@@ -263,6 +273,7 @@
 				$("body").trigger(event);
 			
 				if (this.polygon != undefined) {
+				  this.polygon.setOptions({fillOpacity:0.25,strokeOpacity:1});
 					this.polygon.setPath(unwrappedHullPoints);
 				} else {
 				  this.polygon = new google.maps.Polygon({
@@ -395,7 +406,7 @@
 			/* Open Convex Hull window and show the convex hull polygon.	 								*/
 			/*============================================================================*/
 			function openConvexHull() {
-				convex_hull.createPolygon(sources);
+				convex_hull.createPolygon(occurrences);
 			}
 		
 		
@@ -411,14 +422,20 @@
 			/* Unique points in array.*/
 			/*============================================================================*/
 			function unique(a) {
-         var r = new Array();
-         o:for(var i = 0, n = a.length; i < n; i++)
-         {
-            for(var x = 0, y = r.length; x < y; x++)
-            {
-               if(r[x]==a[i]) continue o;
-            }
-            r[r.length] = a[i];
-         }
-         return r;
+        var r = new Array();
+         o:for(var i = 0, n = a.length; i < n; i++) {
+          for(var x = 0, y = r.length; x < y; x++) {
+            if(r[x]==a[i]) continue o;
+          }
+          r[r.length] = a[i];
+        }
+        return r;
+      }
+      
+      
+      /*============================================================================*/
+			/* Less opacity meanwhile user moves a occ */
+			/*============================================================================*/
+			function mamufasPolygon() {
+        convex_hull.polygon.setOptions({fillOpacity:0.1,strokeOpacity:0.2});
       }

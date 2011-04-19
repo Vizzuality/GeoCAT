@@ -6,11 +6,11 @@
 	/*==========================================================================================================================*/
 
 		
-			function PointsOperations () {
+			function PointsOperations() {
 				
 				//jScrollpane & sortable
         $('ul#sources_list').jScrollPane({autoReinitialise:true});
-        $('ul#sources_list').sortable({revert:true,items: 'li'});
+        $('ul#sources_list').sortable({revert:false, items: 'li', cursor:'pointer'});
         $('ul#sources_list').disableSelection();
 				
 				
@@ -24,13 +24,12 @@
 				/* Add one point to the object depending on the specie. 											*/
 				/*============================================================================*/
 				PointsOperations.prototype.add = function(query,kind) {
-					
-					if (this.sources[query+'_'+kind]!=undefined) {
-					  this.sources[query+'_'+kind] = this.sources[query+'_'+kind]+1;
-					} else {
-					  this.sources[query+'_'+kind] = 1;
+				  if (this.sources[query+'_'+kind]==undefined || this.sources[query+'_'+kind]==0) {
 					  this.total = this.total + 1;
-					}
+					  this.sources[query+'_'+kind] = 0;
+				  }
+				  
+					this.sources[query+'_'+kind] = this.sources[query+'_'+kind]+1;
 					
 					// Print the correct observations
 					this.addSpecieList(query,kind);
@@ -42,7 +41,7 @@
 				/* Deduct one point to the object depending on the specie. */
 				/*============================================================================*/
 				PointsOperations.prototype.deduct = function(query,kind) {
-					if (this.sources[query+'_'+kind]!=undefined) {
+				  if (this.sources[query+'_'+kind]!=undefined) {
 					  this.sources[query+'_'+kind] = this.sources[query+'_'+kind]-1;
 					}
 					
@@ -51,7 +50,7 @@
 					}
 					
 					// Print the correct observations
-				  this.removeSpecieList(query, specie);
+				  this.removeSpecieList(query, kind);
 				  this.calculateMapSpecies();
 				}
 
@@ -78,7 +77,7 @@
 				/* Calculate number of points in the map, and show in the sources container.	*/
 				/*============================================================================*/
 				PointsOperations.prototype.calculateMapSpecies = function() {
-					$('div.sources span H3').text( this.total + ' ' + ((this.total<2)?'OCC':'OCCS') + ' IN YOUR ASSESSMENT');
+					$('div.sources span H3').text(this.total + ' SPECIES IN YOUR ASSESSMENT');
 				}
 
 
@@ -127,7 +126,6 @@
 				/* Remove the specie to the list if it doesn't exist. 												*/
 				/*============================================================================*/
 				PointsOperations.prototype.removeSpecieList = function(query,kind) {
-          
           var kind_class,kind_name;
 			    if (kind == "gbif") {
 			      kind_class = "green";
@@ -145,7 +143,7 @@
       		  api.getContentPane().children('li[specie="'+query+'"][type="'+kind+'"]').remove();
       		  api.reinitialise();
           } else {
-            $('li[specie="'+query+'"][type="'+kind+'"] span.points p').text(me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point'));
+            $('li[specie="'+query+'"][type="'+kind+'"] span.points p').text(this.sources[query+'_'+kind]+' '+kind_name+' '+((this.sources[query+'_'+kind]>1)?'points':'point'));
           }
 				}
 			}

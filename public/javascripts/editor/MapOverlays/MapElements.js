@@ -22,11 +22,11 @@
           '<div class="blocks">' +
             '<div class="block">' +
               '<p>Plain text, comma separated values</p>' +
-              '<a onclick="downloadRLA(\'csv\');changeApplicationTo()" class="export">Download CSV</a>' +
+              '<a onclick="downloadGeoCAT(\'csv\');changeApplicationTo()" class="export">Download CSV</a>' +
             '</div>' +
             '<div class="block last">' +
               '<p>Structured XML file for geographic data</p>' +
-              '<a onclick="downloadRLA(\'kml\');changeApplicationTo()" class="export">Download KML</a>' +
+              '<a onclick="downloadGeoCAT(\'kml\');changeApplicationTo()" class="export">Download KML</a>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -47,7 +47,7 @@
           '<a onclick="changeApplicationTo()" class="close">X</a>' +
           '<p>You are going to leave the editor and lose<br/>' +
           'your changes. Do you want to save them?</p>' +
-          '<p class="bottom"><a onclick="window.location.href='/'" class="cancel">Close without saving</a><a onclick="$(\'#close_save\').fadeOut(); downloadRLA(\'rla\')" class="download"></a>' +
+          '<p class="bottom"><a onclick="window.location.href=\'/\'" class="cancel">Close without saving</a><a onclick="$(\'#close_save\').fadeOut(); downloadGeoCAT(\'rla\')" class="download">DOWNLOAD</a>' +
           '</p>' +
         '</div>' +
 
@@ -64,7 +64,7 @@
             '</div>' +
             '<div class="block">' +
               '<label>Upload your existing<br/>' +
-              'data (CSV, RLAT)</label>' +
+              'data (CSV,GeoCAT)</label>' +
               '<a class="upload_data" onclick="$(\'#add_source_button\').trigger(\'click\');">Upload data</a>' +
             '</div>' +
             '<div class="block last">' +

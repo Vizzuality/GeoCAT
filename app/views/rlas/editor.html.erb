@@ -1,6 +1,6 @@
     <% content_for :js do %>
       <%= headjs_include_tag "plugins/jquery.min","plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader", 
-      "editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/RLAOperations", "plugins/underscore",
+      "editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/GeoCATOperations", "plugins/underscore",
       "editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Calculations/AnalysisRatings", "editor/Models/MainApp",
       "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization","plugins/jquery.backgroundpos.pack.js", "plugins/jquery.color.js" %>
       
@@ -61,7 +61,7 @@
                           <p class="change">AOO based on user defined<br/>cell width (1 km), <a class="change">change</a></p>
                         </li>
                       </ul>
-                      <span><a onclick="downloadRLA('print')">Print complete report</a></span>
+                      <span><a onclick="downloadGeoCAT('print')">Print complete report</a></span>
                     </div>
                     <div class="cellsize">
                       <h4>CHANGE CELL SIDEIZE</h4>
@@ -90,7 +90,7 @@
                     <p>Are you sure you want to delete all these points?</p>
                     <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
                   </div>
-                  <span><h3>NO OCCS IN YOUR ASSESSMENT</h3></span>
+                  <span><h3>NO SPECIES IN YOUR ASSESSMENT</h3></span>
                   <ul id="sources_list">                   
                     <div class="add_new_source">
                       <button onclick="$('#add_source_button').trigger('click')">Add a new source</button>
@@ -134,7 +134,7 @@
                           </span>
                         </li>
                         <li>
-                          <a id="add_rla" class="checkbox import_file">Import .RLA or .CSV</a>
+                          <a id="add_rla" class="checkbox import_file">Import .GeoCAT,.CSV</a>
                           <span class="import">
                             <div class="inner">
                               <a class="delete"></a>
@@ -207,7 +207,7 @@
               </div>
               <div class="right">
                 <a onclick="changeApplicationTo(7)" class="export">EXPORT</a>
-                <a onclick="downloadRLA('geocat')" class="download">DOWNLOAD</a>
+                <a onclick="downloadGeoCAT('geocat')" class="download">DOWNLOAD</a>
               </div>
             </div>
             <div class="bottom-right-map"></div>

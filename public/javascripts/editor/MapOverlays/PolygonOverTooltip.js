@@ -76,8 +76,8 @@ PolygonOverTooltip.prototype.draw = function() {
 		button_o.style.background = "url(/images/editor/over_o.png) no-repeat 0 0";
 		button_o.style.cursor = "pointer";
 		$(button_o).click(function(ev){
-			try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 			me.makeActive();
+			try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
 		});
 		$(button_o).hover(function(ev){
 			$(this).css('background-position','0 -14px');
@@ -97,8 +97,8 @@ PolygonOverTooltip.prototype.draw = function() {
 		button_x.style.background = "url(/images/editor/over_x.png) no-repeat 0 0";
 		button_x.style.cursor = "pointer";
 		$(button_x).click(function(ev){
+		  me.deleteMarker();
 			try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
-			me.deleteMarker();
 		});
 		$(button_x).hover(function(ev){
 			$(this).css('background-position','0 -14px');

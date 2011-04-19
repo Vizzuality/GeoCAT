@@ -13,9 +13,7 @@
 				this.actions = new Array();
 				var me = this;
 				
-				
 				/* Binding events of DOM elements related to UnredoOperations  */
-				
 				//Undo-redo action fade when rollout bottom zone
 				$("div.footer").hover(function(ev){},
 					function(ev){
@@ -81,16 +79,10 @@
 					var actions_kind = this.actions[this.position].kind;
 
 					switch(actions_kind) {
-						case 'remove': 	if (actions_count>20 && convex_hull.isVisible()) {
-                              $('a#toggle_analysis').trigger('click');
-						                }
-						                this.removeMarkers(actions_data);
+						case 'remove': 	this.removeMarkers(actions_data);
 														$('#action_info span').text('Removed ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;
-						case 'add': 		if (actions_count>20 && convex_hull.isVisible()) {
-                              $('a#toggle_analysis').trigger('click');
-						                }
-						                this.restoreMarkers(actions_data);
+						case 'add': 		this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;	
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].new_.latlng);
@@ -101,9 +93,9 @@
   													break;
 						case 'active':  makeActive(actions_data,true);
 														if (actions_count==1) {
-															$('#action_info span').text('The point is '+((actions_data[0].new_.active)?'active':'no active')+' now');
+															$('#action_info span').text('The point is '+((actions_data[0].new_.geocat_active)?'active':'no active')+' now');
 														} else {
-															$('#action_info span').text(actions_count+' points are '+((actions_data[0].new_.active)?'active':'no active')+' now');
+															$('#action_info span').text(actions_count+' points are '+((actions_data[0].new_.geocat_active)?'active':'no active')+' now');
 														}
 														break;
 						default: 				null;
@@ -132,16 +124,10 @@
           
 
 					switch(actions_kind) {
-						case 'remove': 	if (actions_count>20 && convex_hull.isVisible()) {
-                              $('a#toggle_analysis').trigger('click');
-						                }
-						                this.restoreMarkers(actions_data);
+						case 'remove': 	this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;
-						case 'add': 		if (actions_count>20 && convex_hull.isVisible()) {
-                              $('a#toggle_analysis').trigger('click');
-						                }
-						                this.removeMarkers(actions_data);
+						case 'add': 		this.removeMarkers(actions_data);
 														$('#action_info span').text('Removed ' + actions_count + ((actions_count==1)?' point':' points'));
 														break;
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].old_.latlng);
@@ -152,9 +138,9 @@
   													break;		
 						case 'active': 	makeActive(actions_data,true);
 														if (actions_count==1) {
-															$('#action_info span').text('The point is '+((actions_data[0].new_.active)?'no active':'active')+' now');
+															$('#action_info span').text('The point is '+((actions_data[0].new_.geocat_active)?'no active':'active')+' now');
 														} else {
-															$('#action_info span').text(actions_count+' points are '+((!actions_data[0].new_.active)?'no active':'active')+' now');
+															$('#action_info span').text(actions_count+' points are '+((!actions_data[0].new_.geocat_active)?'no active':'active')+' now');
 														}
 														break;			
 						default: 				null;
@@ -173,21 +159,22 @@
 			UnredoOperations.prototype.restoreMarkers = function(restore_info) {
 			  
 			  this.hideAllOverlays();
+			  if (convex_hull.isVisible()) {
+          mamufasPolygon();
+        }
 
 				// Recursive function for add markers.
 				function AsynRestoreMarkers(count, observations_data) {
 					if (observations_data.length>count) {
-						_markers[observations_data[count].catalogue_id].data.removed = false;
-						_markers[observations_data[count].catalogue_id].setMap(map);
-						total_points.add(observations_data[count].new_.kind);
-						if (convex_hull.isVisible()) {
-							convex_hull.addPoint(_markers[observations_data[count].catalogue_id]);
-						}
+						occurrences[observations_data[count].catalogue_id].data.geocat_removed = false;
+						occurrences[observations_data[count].catalogue_id].setMap(map);
+						points.add(occurrences[observations_data[count].catalogue_id].data.geocat_query,occurrences[observations_data[count].catalogue_id].data.geocat_kind);
 						count = count+1;
-						setTimeout(function(){
-							AsynRestoreMarkers(count, observations_data);
-						},0);
+						setTimeout(function(){AsynRestoreMarkers(count, observations_data);},0);
 					} else {
+					  if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
+            }
 						hideMamufasMap(false);
 					}
 				}
@@ -195,6 +182,7 @@
 				if (restore_info.length>20) {
 					showMamufasMap();
 				}
+				
 				AsynRestoreMarkers(0, restore_info);
 			}
 			
@@ -209,9 +197,9 @@
 			  
 			  this.hideAllOverlays();
 			  
-				_markers[marker_id].data.longitude = latlng.lng();
-				_markers[marker_id].data.latitude = latlng.lat();
-				_markers[marker_id].setPosition(latlng);
+				occurrences[marker_id].data.longitude = latlng.lng();
+				occurrences[marker_id].data.latitude = latlng.lat();
+				occurrences[marker_id].setPosition(latlng);
 				if (convex_hull.isVisible()) {
 					convex_hull.calculateConvexHull(false);
 				}
@@ -223,8 +211,8 @@
 			/* Change occurence data.                     .													*/
 			/*======================================================================*/
 			UnredoOperations.prototype.changeData = function(marker_id, data_) {
-				_markers[marker_id].setPosition(new google.maps.LatLng(data_.latitude, data_.longitude));
-				_markers[marker_id].data = data_;
+				occurrences[marker_id].setPosition(new google.maps.LatLng(data_.latitude, data_.longitude));
+				occurrences[marker_id].data = data_;
 				this.hideAllOverlays();
 			}
 			
@@ -253,21 +241,22 @@
 			UnredoOperations.prototype.removeMarkers = function(restore_info) {
 				
 				this.hideAllOverlays();
+				if (convex_hull.isVisible()) {
+          mamufasPolygon();
+        }
 				
 				// Recursive function for remove markers.
 				function AsynRemoveMarkers(count, observations_data) {
 					if (observations_data.length>count) {
-						_markers[observations_data[count].catalogue_id].data.removed = true;
-						_markers[observations_data[count].catalogue_id].setMap(null);
-						total_points.deduct(observations_data[count].new_.kind);
-						if (convex_hull.isVisible()) {
-							convex_hull.deductPoint(observations_data[count].catalogue_id);
-						}
+						occurrences[observations_data[count].catalogue_id].data.geocat_removed = true;
+						occurrences[observations_data[count].catalogue_id].setMap(null);
+						points.deduct(observations_data[count].new_.geocat_query,observations_data[count].new_.geocat_kind);
 						count = count+1;
-						setTimeout(function(){
-							AsynRemoveMarkers(count,observations_data);
-						},0);
+						setTimeout(function(){AsynRemoveMarkers(count,observations_data);},0);
 					} else {
+					  if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
+            }
 						hideMamufasMap(false);
 					}
 				}

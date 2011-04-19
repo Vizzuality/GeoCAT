@@ -94,7 +94,10 @@
        //Marker drag start event
        google.maps.event.addListener(marker,"dragstart",function(ev){
          marker.data.init_latlng = ev.latLng;
-                 
+         if (convex_hull.isVisible()) {
+           mamufasPolygon();
+         }
+          
          if (click_infowindow!=null) {
            click_infowindow.hide();
          }
@@ -113,9 +116,6 @@
        google.maps.event.addListener(marker,"drag",function(ev){           
          this.data.longitude = ev.latLng.lng();
          this.data.latitude = ev.latLng.lat();
-         if (convex_hull.isVisible()) {
-           convex_hull.calculateConvexHull(true);
-         }
        });
       
       
@@ -126,22 +126,21 @@
          this.data.latitude = ev.latLng.lat();
          this.data.changed = true;
          if (convex_hull.isVisible()) {
-           convex_hull.calculateConvexHull(false);
+           $(document).trigger('occs_updated');
          }
          actions.Do('move', [{catalogue_id: marker.data.catalogue_id, latlng: marker.data.init_latlng}] , [{catalogue_id: marker.data.catalogue_id, latlng: ev.latLng}]);
        });
       
 
         // Create circle of accuracy
-        var color;
-        switch (kind) {
-         case 'gbif':    color = '#FFFFFF';
-                         break;
-         case 'flickr':  color = '#FF3399';
-                         break;
-         default:        color = '#066FB6';
-        }
-        
+        // var color;
+        // switch (kind) {
+        //  case 'gbif':    color = '#FFFFFF';
+        //                  break;
+        //  case 'flickr':  color = '#FF3399';
+        //                  break;
+        //  default:        color = '#066FB6';
+        // }
         // var circle = new google.maps.Circle({
         //  map: marker_map,
         //  radius: parseInt(item.coordinateUncertaintyInMeters),

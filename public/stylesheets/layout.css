@@ -111,14 +111,15 @@ div#wellcome div.blocks div.block a.import_data {background:url('/images/editor/
 div#wellcome div.blocks div.block a.upload_data {background:url('/images/editor/upload_data.png') no-repeat 0 0;}
 div#wellcome div.blocks div.block a.add_points {background:url('/images/editor/add_points.png') no-repeat 0 0;}
 div#wellcome div.blocks div.block a:hover {background-position:0 -26px; cursor:pointer; color:#2a3814;}
-div#close_save {display:none; position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-90px 0 0 -256px!important; padding:52px 17px 17px 17px; background:url('/images/editor/modal_bkg.png') no-repeat 0 0; z-index:100;}
+div#close_save {display:none; position:absolute!important; width:512px; height:130px; top:50%!important; left:50%; margin:-85px 0 0 -276px!important; padding:23px 17px 17px 17px; background:rgba(0,0,0,0.7); z-index:100; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px;}
 div#close_save p {float:left; width:100%; margin:0; padding:0; font:bold 23px Arial; color:white; letter-spacing:-1px; text-align:center; line-height:33px;}
-div#close_save a.close {position:absolute; right:24px; top:23px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#close_save a.close {position:absolute; right:10px; top:10px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#close_save a.close:hover {color:white; text-decoration:none; cursor:pointer;}
-div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 40px; font:normal 15px Arial; color:#CCCCCC; text-decoration:underline;}
+div#close_save p.bottom {margin:10px 0 0 0;}
+div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 10px; font:normal 15px Arial; color:#CCCCCC; text-decoration:underline;}
 div#close_save p a.cancel:hover {color:white; cursor:pointer;}
-div#close_save p a.download {float:right; width:158px; height:32px; margin:15px 35px 0 0; background:url('/images/editor/download_button.png') no-repeat 0 0;}
-div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer;}
+div#close_save p a.download {float:right; width:85px; height:13px; padding:10px 10px 10px 25px; margin:15px 0 0 10px; background:url('/images/editor/download_button.png') no-repeat 0 0; font:bold 13px Arial; color:#4F691B; text-align:center; line-height:13px;}
+div#close_save p a.download:hover {background-position:0 -33px; cursor:pointer; color:#2a3814}
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; height:100%; z-index:1;}
 div#editor a#scientific_name {display:none;}
 div#editor ul.editor_list {position:absolute; top:34px; right:50px;}
@@ -555,8 +556,8 @@ div#csv_error span a.cancel:hover {cursor:pointer;}
 div.help_container {display:none; position:absolute!important; top:0; left:0; right:0; bottom:-1px; z-index:1000}
 div.help_container img.help {float:left; width:100%; height:100%;}
 div.help_container span.do {position:absolute; width:320px; height:89px; bottom:1px!important; left:35px; background:url('/images/editor/do_help.png') no-repeat 0 0;}
-div.help_container span.tool {position:absolute; width:240px; height:180px; top:50px; left:0px; background:url('/images/editor/tool_help.png') no-repeat 0 0;}
-div.help_container span.download {position:absolute; width:270px; height:94px; bottom:1px; right:25px; background:url('/images/editor/download_help.png') no-repeat 0 0;}
+div.help_container span.tool {position:absolute; width:240px; height:215px; top:50px; left:0px; background:url('/images/editor/tool_help.png') no-repeat 0 0;}
+div.help_container span.download {position:absolute; width:270px; height:94px; bottom:1px; right:-10px; background:url('/images/editor/download_help.png') no-repeat 0 0;}
 div.help_container span#analysis_help {position:absolute; width:232px; height:245px; top:61px; right:0; background:url('/images/editor/analysis_help.png') no-repeat 0 0;}
 /*HTML5 && 404*/
 div#other {position:absolute; top:0; left:0; right:0; min-height:800px; width:100%; height:100%; background:url('/images/editor/bkg.jpg') repeat 0 0;}

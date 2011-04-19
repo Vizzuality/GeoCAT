@@ -131,7 +131,7 @@
 				
 				// Selection tool
 				$('div#map').mousedown(function(ev){
-				  if (state=="selection") {
+				  if (state=="selection" && !say_polygon_tooltip) {
             google.maps.event.clearListeners(selection_polygon, 'mouseover');
             google.maps.event.clearListeners(selection_polygon, 'mouseout');
             if (over_polygon_tooltip!=null) {
@@ -195,7 +195,6 @@
 
 
 
-
 			/*============================================================================*/
 			/* Show loading map stuff. 																										*/
 			/*============================================================================*/
@@ -224,6 +223,7 @@
 						$('div#import_success').fadeIn(function(ev){
 							$(this).delay(1000).animate({height:417, width:606, opacity:0, marginTop:-209, marginLeft:-303}, 300,function(ev){
 								$('#mamufas_map').fadeOut();
+								$('div#import_success').fadeOut();
 							});
 							$(this).children('img').delay(1000).animate({height:174, width:606, marginTop:122}, 300);
 						});
@@ -240,20 +240,22 @@
 			/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). 					*/
 			/*============================================================================*/
 			function addSourceToMap(information, getBound, uploadAction) {
-        
+        if (convex_hull.isVisible()) {
+          mamufasPolygon();
+        }
         
 				/* Recursive service for adding markers. */
         function asynAddMarker(i,total,_bounds, uploadAction, observations) {
           if (i < total){
-            //Deep copy of the data
             var info_data = new Object();
             $.extend(info_data, observations[i]);
            
-            (info_data.removed)?null:points.add(info_data.geocat_query,info_data.geocat_kind);
+            (info_data.removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
             bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
             var marker = CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
            
             occurrences[marker.data.catalogue_id] = marker;
+            occurrences[marker.data.catalogue_id].data.geocat_query = occurrences[marker.data.catalogue_id].data.geocat_query.toLowerCase();
            
             if (!info_data.geocat_active) {
               var marker_id = marker.data.catalogue_id;
@@ -261,21 +263,22 @@
               occurrences[marker_id].setIcon(image);
               occurrences[marker_id].set('opacity',0.1);   
             }
-                   
-            // if (info_data.active && !info_data.removed && convex_hull.isVisible()) {
-            //   convex_hull.addPoint(marker);
-            // }
+
             i++;
             setTimeout(function(){asynAddMarker(i,total,_bounds,uploadAction,observations);},0);
           } else {
-            //TRIGGER CONVEX HULL
             if (uploadAction) {
               $('body').trigger('hideMamufas');
             } else {
               hideMamufasMap(true);
             }
+            
             if (_bounds) {
               map.fitBounds(bounds);
+            }
+            
+            if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
             }
           }
         }
@@ -308,7 +311,6 @@
 
 
 
-
 			/*============================================================================*/
 			/* Remove selection polygon from map. 																				*/
 			/*============================================================================*/
@@ -324,31 +326,31 @@
 			/*============================================================================*/
 			function markersInPolygon() {	
 				
-				//Check if the polygon contains this point
-        // function Contains(polygon, point) { 
-        //   var j=0; 
-        //   var oddNodes = false; 
-        //   var x = point.lng(); 
-        //   var y = point.lat(); 
-        //   for (var i=0; i < polygon.getPath().getLength(); i++) { 
-        //     j++; 
-        //     if (j == polygon.getPath().getLength()) {j = 0;} 
-        //     if (((polygon.getPath().getAt(i).lat() < y) && (polygon.getPath().getAt(j).lat() >= y)) || ((polygon.getPath().getAt(j).lat() < y) && (polygon.getPath().getAt(i).lat() >= y))) { 
-        //       if ( polygon.getPath().getAt(i).lng() + (y - polygon.getPath().getAt(i).lat()) /  (polygon.getPath().getAt(j).lat()-polygon.getPath().getAt(i).lat()) *  (polygon.getPath().getAt(j).lng() - polygon.getPath().getAt(i).lng())<x ) { 
-        //         oddNodes = !oddNodes; 
-        //       } 
-        //     } 
-        //   } 
-        //   return oddNodes; 
-        // };
-        //    
-        // var markers_polygon = [];
-        // for (var i in _markers) {
-        //  if (!_markers[i].data.removed && Contains(selection_polygon,_markers[i].getPosition())) {
-        //    markers_polygon.push(_markers[i].data);
-        //  }
-        // }
-        // return markers_polygon;
+        //Check if the polygon contains this point
+        function Contains(polygon, point) { 
+          var j=0; 
+          var oddNodes = false; 
+          var x = point.lng(); 
+          var y = point.lat(); 
+          for (var i=0; i < polygon.getPath().getLength(); i++) { 
+            j++; 
+            if (j == polygon.getPath().getLength()) {j = 0;} 
+            if (((polygon.getPath().getAt(i).lat() < y) && (polygon.getPath().getAt(j).lat() >= y)) || ((polygon.getPath().getAt(j).lat() < y) && (polygon.getPath().getAt(i).lat() >= y))) { 
+              if ( polygon.getPath().getAt(i).lng() + (y - polygon.getPath().getAt(i).lat()) /  (polygon.getPath().getAt(j).lat()-polygon.getPath().getAt(i).lat()) *  (polygon.getPath().getAt(j).lng() - polygon.getPath().getAt(i).lng())<x ) { 
+                oddNodes = !oddNodes; 
+              } 
+            } 
+          } 
+          return oddNodes; 
+        };
+           
+        var markers_polygon = [];
+			  _.each(occurrences, function(element){
+         if (!element.data.geocat_removed && Contains(selection_polygon,element.getPosition())) {
+           markers_polygon.push(element.data);
+         }
+        });
+        return markers_polygon;
 			}
 
 
@@ -361,31 +363,38 @@
         closeDeleteAll();
         showMamufasMap();
         
+        if (convex_hull.isVisible()) {
+          mamufasPolygon();
+        }
+        
         var remove_markers = [];
         var occsCopy = $.extend(true,{},occurrences);
-               
-        function asynRemoveMarker(type) {
-          for (var i in markersCopy) { 
-           if (markersCopy[i].data.kind == type && markersCopy[i].data.removed == false) {           
-             total_points.deduct(type);
-             remove_markers.push(_markers[i].data);
-             _markers[i].data.removed = true;
-             _markers[i].setMap(null);
-             convex_hull.deductPoint(_markers[i].data.catalogue_id);
-           }
-           delete markersCopy[i];
-           break;
+        
+        
+        function asynRemoveMarker(query,type) {
+          for (var i in occsCopy) {
+            if ((occsCopy[i].data.geocat_kind == type) && (!occsCopy[i].data.geocat_removed) && (occsCopy[i].data.geocat_query == query)) {
+              points.deduct(query,type);
+              remove_markers.push(occurrences[i].data);
+              occurrences[i].data.geocat_removed = true;
+              occurrences[i].setMap(null);
+            }
+            delete occsCopy[i];
+            break;
           }
         
           if (i==undefined) {
             actions.Do('remove', null, remove_markers);
             hideMamufasMap(false);
-            delete markersCopy;
+            delete occsCopy;
+            if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
+            }
           } else {
-            setTimeout(function(){asynRemoveMarker(type)},0);
+            setTimeout(function(){asynRemoveMarker(query,type)},0);
           }
         }
-        asynRemoveMarker(type);
+        asynRemoveMarker(query,type);
 			}
 
 
@@ -395,6 +404,10 @@
 			/*============================================================================*/
 			function removeMarkers(remove_markers) {
         closeMapWindows();
+        if (convex_hull.isVisible()) {
+          mamufasPolygon();
+        }
+
         function asynRemoveMarker(i,total, observations) {
           if(i < total){
             var marker_id = observations[i].catalogue_id;
@@ -403,11 +416,12 @@
             points.deduct(query,kind);
             occurrences[marker_id].data.geocat_removed = true;
             occurrences[marker_id].setMap(null);
-            //convex_hull.deductPoint(marker_id);
             i++;
             setTimeout(function(){asynRemoveMarker(i,total,observations);},0);
           } else {
-            //TRIGGER CONVEX HULL
+            if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
+            }
             hideMamufasMap(false);
           }
         }
@@ -455,9 +469,9 @@
 					occurrences[inf.catalogue_id] = marker;
 					actions.Do('add', null, [marker.data]);
 
-          // if (convex_hull.isVisible()) {
-          //  convex_hull.addPoint(marker);
-          // }
+          if (convex_hull.isVisible()) {
+            convex_hull.addPoint(marker);
+          }
 			}	
 
 
@@ -466,55 +480,36 @@
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
 			function makeActive (markers_id, fromAction) {
-        // if (markers_id.length>0) {
-        //          
-        //  var kind = _markers[markers_id[0].catalogue_id].data.kind;
-        //   if (markers_id.length==total_points.get(kind)) {
-        //      if ($('a.'+kind+'_hide').hasClass('hide')) {
-        //        $('a.'+kind+'_hide').removeClass('hide');
-        //      } else {
-        //        $('a.'+kind+'_hide').addClass('hide');
-        //      }
-        //   }
-        //        
-        //  for (var i=0; i<markers_id.length; i++) {
-        //    var marker_id = markers_id[i].catalogue_id;
-        //    switch (_markers[marker_id].data.kind) {
-        //      case 'gbif':    var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/gbif_marker_no_active.png':'/images/editor/gbif_marker.png',
-        //                                              new google.maps.Size(25, 25),
-        //                                              new google.maps.Point(0,0),
-        //                                              new google.maps.Point(12, 12));
-        //                      _markers[marker_id].setIcon(image);
-        //                      break;
-        //      case 'flickr':  var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/flickr_marker_no_active.png':'/images/editor/flickr_marker.png',
-        //                                              new google.maps.Size(25, 25),
-        //                                              new google.maps.Point(0,0),
-        //                                              new google.maps.Point(12, 12));
-        //                      _markers[marker_id].setIcon(image);
-        //                      break;
-        //      default:        var image = new google.maps.MarkerImage((_markers[marker_id].data.active)?'/images/editor/your_marker_no_active.png':'/images/editor/your_marker.png',
-        //                                              new google.maps.Size(25, 25),
-        //                                              new google.maps.Point(0,0),
-        //                                              new google.maps.Point(12, 12));
-        //                      _markers[marker_id].setIcon(image);
-        //    }
-        //    _markers[marker_id].set('opacity',(!_markers[marker_id].data.active)? 0.3 : 0.1);   
-        //    _markers[marker_id].data.active = !_markers[marker_id].data.active;
-        // 
-        // 
-        //     // Add or deduct the marker from _active_markers
-        //     if (!_markers[marker_id].data.active) {
-        //       convex_hull.deductPoint(marker_id);
-        //     } else {
-        //       convex_hull.addPoint(_markers[marker_id]);
-        //     }
-        //   }
-        // 
-        //   //If the action doesnt come from the UnredoOperations object
-        //   if (!fromAction) {
-        //     actions.Do('active', null, markers_id);
-        //   }
-        // }
+        if (markers_id.length>0) {
+          
+          if (convex_hull.isVisible()) {
+            mamufasPolygon();
+          }
+               
+         for (var i=0; i<markers_id.length; i++) {
+           var marker_id = markers_id[i].catalogue_id;
+           var image = new google.maps.MarkerImage('/images/editor/'+occurrences[marker_id].data.geocat_kind+'_marker'+((!occurrences[marker_id].data.geocat_active)?'':'_no_active')+'.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+           occurrences[marker_id].setIcon(image);
+           occurrences[marker_id].set('opacity',(!occurrences[marker_id].data.geocat_active)? 0.3 : 0.1);   
+           occurrences[marker_id].data.geocat_active = !occurrences[marker_id].data.geocat_active;
+        
+            // Add or deduct the marker from _active_markers
+            if (!occurrences[marker_id].data.active) {
+              convex_hull.deductPoint(marker_id);
+            } else {
+              convex_hull.addPoint(occurrences[marker_id]);
+            }
+          }
+        
+          //If the action doesnt come from the UnredoOperations object
+          if (!fromAction) {
+            actions.Do('active', null, markers_id);
+          }
+          
+          if (convex_hull.isVisible()) {
+            $(document).trigger('occs_updated');
+          }
+        }
 			}
 			
 			
@@ -523,39 +518,38 @@
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
 			function hideAll (query,kind,active) {
-        var hideMarkers = _.select(occurrences, function(element,key){ return element[key].data.geocat_active!=active &&  element[key].data.geocat_kind==kind && element[key].data.geocat_active==query && !element[key].data.geocat_removed});
-        var hide_markers = $.extend(true,{},hideMarkers);
-        var image = new google.maps.MarkerImage('/images/editor/'+kind+'_marker'+((active)?'':'_no_active')+'.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+        
+        var hideMarkers = _.select(occurrences, function(element,key){return element.data.geocat_active!=active &&  element.data.geocat_kind==kind && element.data.geocat_query==query && !element.data.geocat_removed});
+        var hide_markers = [];
 
         showMamufasMap();
-        synHideMarker(query,kind,active);
+        asynHideMarker(query,kind,active);
+        
+        if (convex_hull.isVisible()) {
+          mamufasPolygon();
+        }
 
         function asynHideMarker(query,kind,active) {
           for (var i in hideMarkers) {
-            occurrences[i].setIcon(image);
-            occurrences[i].set('opacity',(active_)? 0.3 : 0.1);   
-            occurrences[i].data.active = active;
-             
-            hide_markers.push(occurrences[i].data);
-            
-            // if (convex_hull.isVisible()) {
-            //    if (active_) {
-            //      convex_hull.addPoint(_markers[i]);
-            //    } else {
-            //      convex_hull.deductPoint(i);
-            //    }
-            //  }
-           delete hideMarkers[i];
-           break;
+            var _id = hideMarkers[i].data.catalogue_id;
+            var image = new google.maps.MarkerImage('/images/editor/'+kind+'_marker'+((active)?'':'_no_active')+'.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
+            occurrences[_id].setIcon(image);
+            occurrences[_id].set('opacity',(active)? 0.3 : 0.1);   
+            occurrences[_id].data.geocat_active = active;
+            hide_markers.push(occurrences[_id].data);
+            delete hideMarkers[i];
+            break;
           }
           
           if (i==undefined) {
             actions.Do('active', null, hide_markers);            
             hideMamufasMap(false);
-            // TRIGGER CONVEX
+            if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
+            }
             delete hideMarkers;
           } else {
-            setTimeout(function(){asynHideMarker(type,active_)},0);
+            setTimeout(function(){asynHideMarker(query,kind,active)},0);
           }
         }
 			}	
@@ -567,13 +561,23 @@
 			/*============================================================================*/		
 			function activeMarkersProperties() {
 			  _.each(occurrences, function(element){
+			    if (state == "selection") {
+  				  map.setOptions({draggable:false});
+  				} else {
+  				  map.setOptions({draggable:true});
+  				}
+			    
   		    if (state=='add') {
             element.setClickable(false);
             element.setCursor('hand');
           } else {
             element.setCursor('pointer');
           }
-
+          
+          if (state=='remove') {
+            element.setClickable(true);
+          }
+          
           if (state=='select') {
             element.setDraggable(true);
           } else {
@@ -598,12 +602,6 @@
 				google.maps.event.clearListeners(map, 'mousemove');
 				removeSelectionPolygon();
 				
-				if (status == "selection") {
-				  map.setOptions({draggable:false});
-				} else {
-				  map.setOptions({draggable:true});
-				}
-
 				state = status;
 				activeMarkersProperties();
 			}

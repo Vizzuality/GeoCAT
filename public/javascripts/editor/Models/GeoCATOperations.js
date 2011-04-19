@@ -1,7 +1,7 @@
 
 	/*==========================================================================================================================*/
 	/*  																																																												*/
-	/*				RLA => Class to download and upload .rla files.																																		*/
+	/*				GeoCAT => Class to download and upload .geocat files.																															*/
 	/*						*Params ->	specie: name of the specie.																																				*/
 	/*												markers: whole markers of the map.																																*/
 	/*  											map_properties: zoom and center of the map.																												*/
@@ -11,8 +11,7 @@
 
 
 
-		function RLA (specie, markers, map_properties, upload_obj) {
-			this.specie_ = specie;
+		function GeoCAT (markers, map_properties, upload_obj) {
 			this.upload_data_ = upload_obj;
 			this.markers_ = markers;
 			this.zoom = (map_properties==null)? null : map_properties.zoom;
@@ -22,38 +21,47 @@
 
 
 		/*========================================================================================================================*/
-		/* Download all the data thanks to a .rla file. */
+		/* Download all the data thanks to a .GeoCAT file. */
 		/*========================================================================================================================*/
-		RLA.prototype.download = function(format) {
+		GeoCAT.prototype.download = function(format) {
 		  var dataset = new Object();
-			dataset.scientificname = unescape(this.specie_);
-			dataset.zoom = this.zoom;
-			dataset.center = new Object();
-			dataset.center.latitude = this.center.lat();
-			dataset.center.longitude = this.center.lng();
+			// Report name
+			dataset.reportName = unescape(report_name);
+			
+			// Viewport 
+			dataset.viewPort = {};
+			dataset.viewPort.zoom = this.zoom;
+			dataset.viewPort.center = new Object();
+			dataset.viewPort.center.latitude = this.center.lat();
+			dataset.viewPort.center.longitude = this.center.lng();
 			dataset.sources = [];
 			this.addMarkers(dataset,this.markers_);
 			
+			// Analysis
 			var analysis = new Object();
-			
 			// Send analysis if it is visible
 			if (convex_hull.isVisible()) {
 			  dataset.analysis = new Object();
-			  analysis.cellsize_type = convex_hull.cellsize_type;
-			  analysis.cellsize = convex_hull.cellsize;
-			  analysis.cellsize_step = $("div.cellsize div.slider").slider('value');
 			  analysis.EOO = new Object();
+			  analysis.EOO.cellsize_type = convex_hull.cellsize_type;
+			  analysis.EOO.cellsize = convex_hull.cellsize;
+			  analysis.EOO.cellsize_step = $("div.cellsize div.slider").slider('value');
 			  analysis.EOO.status = convex_hull.EOOkind;
 			  analysis.EOO.result = convex_hull.EOO;
 			  analysis.EOO.convex_hull = [];
-			  for (var i=0; i<convex_hull.polygon.getPath().getLength(); i++) {
-			    var point = convex_hull.polygon.getPath().getAt(i);
-			    analysis.EOO.convex_hull.push({latitude:point.lat(), longitude:point.lng()});
+			  if (convex_hull.polygon!=undefined && convex_hull.polygon.getPath().getLength()>2) {
+			    for (var i=0; i<convex_hull.polygon.getPath().getLength(); i++) {
+  			    var point = convex_hull.polygon.getPath().getAt(i);
+  			    analysis.EOO.convex_hull.push({latitude:point.lat(), longitude:point.lng()});
+  			  }
 			  }
 			  
 			  analysis.AOO = new Object();
 			  analysis.AOO.status = convex_hull.AOOkind;
 			  analysis.AOO.result = convex_hull.AOO;
+			  analysis.AOO.cellsize_type = convex_hull.cellsize_type;
+			  analysis.AOO.cellsize = convex_hull.cellsize;
+			  analysis.AOO.cellsize_step = $("div.cellsize div.slider").slider('value');
 			  analysis.AOO.grids = [];
 			  
 			  for (var id in convex_hull.Cells) {
@@ -67,8 +75,24 @@
 				}
 				dataset.analysis = analysis;
 			}
+			
+			
+			// Add active Layers
+			var added_layers = [];
+			for (var i in layers.layers) {
+			  if (layers.layers[i].add) {
+			    var obj = _.clone(layers.layers[i]);
+			    delete obj.layer;
+			    delete obj.add;
+			    obj.url = i;
+			    added_layers.push(obj);
+			  }
+			}
+			dataset.layers = added_layers;
 		
-		  $("#format_input").attr("value",format);
+		  //console.log(dataset);
+		  
+      $("#format_input").attr("value",format);
       $("#rla_input").attr("value",JSON.stringify(dataset));
       $("#download_form").submit();
 			changeApplicationTo(2);
@@ -79,41 +103,37 @@
 		/*========================================================================================================================*/
 		/* Create the object for download later as a .rla file. */
 		/*========================================================================================================================*/
-		RLA.prototype.addMarkers = function(obj,markers) {
+		GeoCAT.prototype.addMarkers = function(obj,markers) {
 			for (var i in markers) {
 				var find = false;
 				for (var j=0; j<obj.sources.length; j++) {
-					if (obj.sources[j].name == markers[i].data.kind) {
-            
+					if (obj.sources[j].query == markers[i].data.geocat_query && obj.sources[j].type == markers[i].data.geocat_kind) {
 					  for (var prop in markers[i].data) {
   					  if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0) {
       					delete markers[i].data[prop];
   					  }
             }
-					  
   					delete markers[i].data.init_latlng;
-
-  					(markers[i].data.kind!='your')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
-  					
+  					(markers[i].data.geocat_kind!='user')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
 						obj.sources[j].points.push(markers[i].data);
 						find = true;
 						break;
 					}
 				}
 
+
 				if (!find) {
 					var new_source = new Object();
-					new_source.name = markers[i].data.kind;
+					new_source.type = markers[i].data.geocat_kind;
+					new_source.query = markers[i].data.geocat_query;
 					new_source.points = [];
-					
 					for (var prop in markers[i].data) {
             if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0) {
               delete markers[i].data[prop];
             }
           }
-          
 					delete markers[i].data.init_latlng;
-          (markers[i].data.kind!='your')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
+          (markers[i].data.geocat_kind!='user')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
 
 					new_source.points.push(markers[i].data);
 					obj.sources.push(new_source);
@@ -126,8 +146,7 @@
 		/*========================================================================================================================*/
 		/* Upload the application from a .rla file. */
 		/*========================================================================================================================*/
-		RLA.prototype.upload = function() {
-			
+		GeoCAT.prototype.upload = function() {
 			//loop object and give all the parameters.
 			var result = [];
 								
@@ -151,11 +170,9 @@
 			}
 			
 			result.push(obj);
-		  
 			for (var i=0; i<this.upload_data_.data.sources.length; i++) {
 				result.push(this.upload_data_.data.sources[i]);
 			}
-			
 			return result;
 		}
 		
@@ -165,12 +182,12 @@
 		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
 		/*===============================================================================================================*/
 		
-		function downloadRLA(format) {
+		function downloadGeoCAT(format) {
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
-			var rla = new RLA(specie,_markers,map_inf,null);
-			rla.download(format);		
+			var geocat = new GeoCAT(occurrences,map_inf,null);
+			geocat.download(format);		
 		}
 		
 		
@@ -180,8 +197,8 @@
 		/* Restore the application thanks to the file you have uploaded. */
 		/*===============================================================*/
 		
-		function uploadRLA(upload_data) {
-			var rla = new RLA(null,null,null,upload_data);
+		function uploadGeoCAT(upload_data) {
+			var geocat = new GeoCAT(null,upload_data);
 			var app_data = rla.upload();
 			var sources = [];
 			
