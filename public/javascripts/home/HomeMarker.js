@@ -48,7 +48,7 @@ HomeMarker.prototype.createElement = function() {
 		} else if (random>0.32&&random<0.66) {
 			var image = '/images/editor/flickr_marker.png';
 		} else {
-			var image = '/images/editor/your_marker.png';
+			var image = '/images/editor/user_marker.png';
 		}
     
     div = this.div_ = document.createElement("div");

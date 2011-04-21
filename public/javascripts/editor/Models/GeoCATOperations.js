@@ -90,7 +90,6 @@
 			}
 			dataset.layers = added_layers;
 		
-		  //console.log(dataset);
 		  
       $("#format_input").attr("value",format);
       $("#rla_input").attr("value",JSON.stringify(dataset));

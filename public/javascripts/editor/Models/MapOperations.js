@@ -46,9 +46,7 @@
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
-        
-        /*TEST*/
-        //canvas_map = new CanvasOVerlay(map);
+
         
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				points = new PointsOperations();  		          // Points Object
@@ -563,12 +561,6 @@
 			/*============================================================================*/		
 			function activeMarkersProperties() {
 			  _.each(occurrences, function(element){
-			    if (state == "selection") {
-  				  map.setOptions({draggable:false});
-  				} else {
-  				  map.setOptions({draggable:true});
-  				}
-			    
   		    if (state=='add') {
             element.setClickable(false);
             element.setCursor('hand');
@@ -594,17 +586,24 @@
 			/* Set status of the application. 																						*/
 			/*============================================================================*/
 			function setStatus(status) {
+			  state = status;
+			  
 				$("div.left a.select").removeClass('selected');
 				$("div.left a.add").removeClass('selected');
 				$("div.left a.remove").removeClass('selected');
 				$("div.left a.selection").removeClass('selected');
 				$("div.left a."+status).addClass('selected');
+        
+        if (status == "selection") {
+				  map.setOptions({draggable:false});
+				} else {
+				  map.setOptions({draggable:true});
+				}
 
 				//Remove selection tool addons
 				google.maps.event.clearListeners(map, 'mousemove');
 				removeSelectionPolygon();
 				
-				state = status;
 				activeMarkersProperties();
 			}
 			

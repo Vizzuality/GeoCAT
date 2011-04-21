@@ -32,14 +32,14 @@ a:hover{cursor:pointer;}
 /*fonts*/
 @font-face { font-family: "Futura"; src: url('/fonts/Futura.ttc'); }
 /* HOME */
-div.flash {float:left; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666;}
-div.flash p {float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
+div.flash {position:absolute; left:0; top:0; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666; z-index:10000; overflow:hidden;}
+div.flash p {position:relative; float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
 section.layout {position:relative; float:left; width:100%; height:100%;}
 section.layout div#map {position:absolute; right:0; left:0; top:0; height:50%; z-index:0;}
 section.layout div.opaque {position:absolute; right:0; left:0; top:0; height:50%; width:100%; background:rgba(0,0,0,0.8); z-index:1;}
 section.main {position:absolute; left:50%; top:50%; width:980px; margin:-280px 0 0 -490px; z-index:100;}
 section.main div.float {position:relative; width:920px; padding:30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5); 
-  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.5);}
+  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.5); box-shadow:0 0 20px rgba(0,0,0,0.5);}
 section.main div.video {position:absolute; top:-75px; right:23px; width:550px; height:308px; padding:35px; background:url('/images/home/video.png') no-repeat 0 0;}
 section.main header {width:285px; height:285px;}
 section.main header h1 {font:bold 43px "Helvetica","Arial"; color:black; letter-spacing:-2px; line-height:43px;}

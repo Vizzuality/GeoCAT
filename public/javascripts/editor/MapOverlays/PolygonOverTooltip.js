@@ -154,6 +154,8 @@ PolygonOverTooltip.prototype.draw = function() {
 
 	PolygonOverTooltip.prototype.makeActive = function() {
 	  this.hide();
+	  selection_polygon.setPath([]);
+		selection_polygon.setMap(null);
 		makeActive(this.markers,false);
 	}
 
