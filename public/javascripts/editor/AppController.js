@@ -14,7 +14,7 @@
 		/*============================================================================*/
 		
 		head.ready(function(){
-		  head.js("http://maps.google.com/maps/api/js?libraries=geometry&sensor=false&callback=initApplication");
+		  head.js("http://maps.google.com/maps/api/js?v=3.4&libraries=geometry&sensor=false&callback=initApplication");
 		});
 		
 		function initApplication() {		  	
@@ -28,6 +28,7 @@
 			        "/javascripts/editor/Models/CreateMarker.js",
 			        "/javascripts/editor/Models/MergeOperations.js",
 			        "/javascripts/plugins/tileoverlay.js",
+			        "/javascripts/editor/MapOVerlays/CanvasTest.js",
 			      function(){
 			        mainApp();
         			createMap();

@@ -17,7 +17,7 @@ PolygonOverTooltip.prototype.draw = function() {
 
   var div = this.div_;
   if (!div) {
-    div = this.div_ = document.createElement('DIV');
+    div = this.div_ = document.createElement('div');
     div.style.border = "none";
     div.style.position = "absolute";
 		div.style.height = '22px';

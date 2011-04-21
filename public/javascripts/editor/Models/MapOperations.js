@@ -47,7 +47,9 @@
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
         
-
+        /*TEST*/
+        //canvas_map = new CanvasOVerlay(map);
+        
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				points = new PointsOperations();  		          // Points Object
 				convex_hull = new HullOperations(map);					// Convex Hull Object
@@ -223,9 +225,9 @@
 						$('div#import_success').fadeIn(function(ev){
 							$(this).delay(1000).animate({height:417, width:606, opacity:0, marginTop:-209, marginLeft:-303}, 300,function(ev){
 								$('#mamufas_map').fadeOut();
-								$('div#import_success').fadeOut();
 							});
 							$(this).children('img').delay(1000).animate({height:174, width:606, marginTop:122}, 300);
+							$('div#import_success').delay(300).fadeOut();
 						});
 					} else {
 						$('#mamufas_map').fadeOut(function(){$('#mamufas_map').css('background','none');});
@@ -252,7 +254,7 @@
            
             (info_data.removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
             bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
-            var marker = CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+            var marker = new CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
            
             occurrences[marker.data.catalogue_id] = marker;
             occurrences[marker.data.catalogue_id].data.geocat_query = occurrences[marker.data.catalogue_id].data.geocat_query.toLowerCase();
@@ -460,7 +462,7 @@
 					inf.catalogue_id = 'user_' + global_id;
 					inf.latitude = latlng.lat();
 					inf.longitude = latlng.lng();
-					var marker = CreateMarker(latlng, 'user', false, false, inf, map);
+					var marker = new CreateMarker(latlng, 'user', false, false, inf, map);
 
 					points.add('user','user');
 					bounds.extend(latlng);

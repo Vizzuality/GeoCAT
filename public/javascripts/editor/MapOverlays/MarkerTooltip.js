@@ -332,6 +332,7 @@
 			this.latlng_ = latlng;
 			this.inf = opt;
 			var div = this.div_;
+  		
 			
 			if ((this.latlng_.lat()).toFixed(0).length>2) {
 				num = 4;
