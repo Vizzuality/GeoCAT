@@ -77,7 +77,7 @@
 				/* Calculate number of points in the map, and show in the sources container.	*/
 				/*============================================================================*/
 				PointsOperations.prototype.calculateMapSpecies = function() {
-					$('div.sources span H3').text(this.total + ' SPECIES IN YOUR ASSESSMENT');
+					$('div.sources span h3').text(this.total + ' SPECIES IN YOUR ASSESSMENT');
 				}
 
 
@@ -101,14 +101,14 @@
 			    }
 				  
 				  
-				  if ($('ul#sources_list li[specie="'+query+'"][type="'+kind+'"]').length>0) {
-				    $('li[specie="'+query+'"][type="'+kind+'"] span.points p').text(me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point'));
+				  if ($('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').length>0) {
+				    $('li[species="'+query+'"][type="'+kind+'"] span.points p').text(me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point'));
 				  } else {
 				    var api =  $('ul#sources_list').data('jsp');
       		  api.getContentPane().prepend(
-      		            '<li specie="'+query+'" type="'+kind+'">'+
+      		            '<li species="'+query+'" type="'+kind+'">'+
                         '<span class="'+kind_class+'"></span>'+
-                        '<h3>'+((query=="user")?"User occs":query)+'</h3>'+
+                        '<h3>'+((kind=="user")?"User occs":query)+'</h3>'+
                         '<a class="visible_specie on"></a>'+
                         '<span class="points">'+
                           '<p>'+me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point')+'</p>'+
@@ -140,10 +140,10 @@
           
           if (this.sources[query+'_'+kind]==0) {
             var api =  $('ul#sources_list').data('jsp');
-      		  api.getContentPane().children('li[specie="'+query+'"][type="'+kind+'"]').remove();
+      		  api.getContentPane().children('li[species="'+query+'"][type="'+kind+'"]').remove();
       		  api.reinitialise();
           } else {
-            $('li[specie="'+query+'"][type="'+kind+'"] span.points p').text(this.sources[query+'_'+kind]+' '+kind_name+' '+((this.sources[query+'_'+kind]>1)?'points':'point'));
+            $('li[species="'+query+'"][type="'+kind+'"] span.points p').text(this.sources[query+'_'+kind]+' '+kind_name+' '+((this.sources[query+'_'+kind]>1)?'points':'point'));
           }
 				}
 			}

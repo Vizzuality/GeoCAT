@@ -27,6 +27,7 @@
 				div.style.width = '187px';
 				div.style.height = '123px';
 				div.style.background = 'url(/images/editor/delete_bkg.png) no-repeat 0 0';
+				div.style.zIndex = global_zIndex;
 		
 				//Close Infowindow button
 				var cancel_button = document.createElement('a');
@@ -107,7 +108,7 @@
 			this.latlng_ = latlng;
 			this.inf = opt;
 			var div = this.div_;
-
+  		div.style.zIndex = global_zIndex + 1;
 	
 		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
 		  if (pixPosition) {

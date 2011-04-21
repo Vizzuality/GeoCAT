@@ -28,6 +28,7 @@
 		    div.style.position = "absolute";
 		    div.style.paddingLeft = "0px";
 				div.style.opacity = "0";
+				div.style.zIndex = global_zIndex;
 				div.style.width = '233px';
 				div.style.height = '245px';
 				div.style.background = 'url(/images/editor/tooltip_bkg.png) no-repeat 0 0';
@@ -221,7 +222,7 @@
 				hide_button.style.width = "58px";
 				hide_button.style.height = "19px";
 				hide_button.style.cursor = 'pointer';
-				if (this.inf.active) {
+				if (this.inf.geocat_active) {
 					hide_button.style.background = "url(/images/editor/info_hide.png) no-repeat 0 0";
 				} else {
 					hide_button.style.background = "url(/images/editor/show_button.png) no-repeat 0 0";
@@ -274,9 +275,6 @@
 						event.cancelBubble=true;
 					}; 
 			  });
-			  
-			  
-				
 				
 		    var panes = this.getPanes();
 		    panes.floatPane.appendChild(div);
@@ -332,14 +330,14 @@
 			this.latlng_ = latlng;
 			this.inf = opt;
 			var div = this.div_;
-  		
+  		div.style.zIndex = global_zIndex + 1;
 			
 			if ((this.latlng_.lat()).toFixed(0).length>2) {
 				num = 4;
 			} else {
 				num = 5;
 			}
-			if (!this.inf.active) {
+			if (!this.inf.geocat_active) {
 				$(div).find('a.hide_button_').css('background-image','url(/images/editor/show_button.png)');
 			} else {
 				$(div).find('a.hide_button_').css('background-image','url(/images/editor/info_hide.png)');

@@ -41,7 +41,7 @@
           canvas.style.position = "absolute";
           canvas.style.width = '22px';
           canvas.style.height = '22px';
-          canvas.style.zIndex = 0;
+          canvas.style.zIndex = global_zIndex;
           canvas.setAttribute('width',22);
           canvas.setAttribute('height',22);
           
@@ -70,28 +70,72 @@
           panes.floatPane.appendChild(canvas);
           
           
-          //Marker click event
-          $(this.canvas_).click(function(ev){
-            if (state == 'remove') {
-              if (delete_infowindow!=null) {          
-                if (me.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
-                  delete_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
-                }
-              } else {
-                delete_infowindow = new DeleteInfowindow(me.getPosition(), me.data.catalogue_id, me.data, me.map_);
-              }       
-            } else {
+          // Draggable action
+          $(canvas).draggable({
+            start:function(event,ui){
+              is_dragging = true;
+              if (convex_hull.isVisible()) {
+                mamufasPolygon();
+              }
+              map.setOptions({draggable:false});
+              me.data.init_latlng = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));
+              if (click_infowindow!=null) {
+                click_infowindow.hide();
+              }
               if (over_tooltip!=null) {
                 over_tooltip.hide();
               }
-              if (click_infowindow!=null) {         
-                if (me.data.catalogue_id != click_infowindow.marker_id || !click_infowindow.isVisible()) {
-                  click_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
-                }
-              } else {
-                click_infowindow = new MarkerTooltip(me.getPosition(), me.data.catalogue_id, me.data,me.map_);
+              if (edit_metadata!=null) {
+                edit_metadata.hide();
               }
-              if (edit_metadata!=undefined) edit_metadata.hide();
+            },
+            drag:function(event,ui){
+              me.latlng_ = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));
+              me.data.longitude = me.latlng_.lng();
+              me.data.latitude = me.latlng_.lat();
+            },
+            stop:function(event,ui){
+              is_dragging = false;
+              
+              map.setOptions({draggable:true});
+              me.latlng_ = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));
+              me.data.longitude = me.latlng_.lng();
+              me.data.latitude = me.latlng_.lat();
+              me.data.geocat_changed = true;
+              if (convex_hull.isVisible()) {
+                $(document).trigger('occs_updated');
+              }
+              actions.Do('move', [{catalogue_id: me.data.catalogue_id, latlng: me.data.init_latlng}] , [{catalogue_id: me.data.catalogue_id, latlng: me.latlng_}]);
+              event.stopPropagation(); // Stop propagation event avoiding open info panel
+            }
+          });
+          $(canvas).draggable((this.draggable)?'enable':'disable');
+          
+          
+          //Marker click event
+          $(this.canvas_).click(function(ev){
+            if (me.clickable) {
+              if (state == 'remove') {
+                if (delete_infowindow!=null) {          
+                  if (me.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
+                    delete_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
+                  }
+                } else {
+                  delete_infowindow = new DeleteInfowindow(me.getPosition(), me.data.catalogue_id, me.data, me.map_);
+                }       
+              } else {
+                if (over_tooltip!=null) {
+                  over_tooltip.hide();
+                }
+                if (click_infowindow!=null) {         
+                  if (me.data.catalogue_id != click_infowindow.marker_id || !click_infowindow.isVisible()) {
+                    click_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
+                  }
+                } else {
+                  click_infowindow = new MarkerTooltip(me.getPosition(), me.data.catalogue_id, me.data,me.map_);
+                }
+                if (edit_metadata!=undefined) edit_metadata.hide();
+              }
             }
           });
 
@@ -134,51 +178,6 @@
               },50);
             }
           }); 
-
-          
-          
-          
-          // Draggable action
-          $(canvas).draggable({
-            start:function(event,ui){
-              is_dragging = true;
-              if (convex_hull.isVisible()) {
-                mamufasPolygon();
-              }
-              map.setOptions({draggable:false});
-              me.data.init_latlng = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));
-              if (click_infowindow!=null) {
-                click_infowindow.hide();
-              }
-              if (over_tooltip!=null) {
-                over_tooltip.hide();
-              }
-              if (edit_metadata!=null) {
-                edit_metadata.hide();
-              }
-            },
-            drag:function(event,ui){
-              me.latlng_ = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));
-              me.data.longitude = me.latlng_.lng();
-              me.data.latitude = me.latlng_.lat();
-            },
-            stop:function(event,ui){
-              event.stopPropagation();
-              event.preventDefault();
-              is_dragging = false;
-              
-              map.setOptions({draggable:true});
-              me.latlng_ = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));
-              me.data.longitude = me.latlng_.lng();
-              me.data.latitude = me.latlng_.lat();
-              me.data.geocat_changed = true;
-              if (convex_hull.isVisible()) {
-                $(document).trigger('occs_updated');
-              }
-              actions.Do('move', [{catalogue_id: me.data.catalogue_id, latlng: me.data.init_latlng}] , [{catalogue_id: me.data.catalogue_id, latlng: me.latlng_}]);
-            }
-          });
-          $(canvas).draggable((this.draggable)?'enable':'disable');
         }
         
         var pixPosition = me.getProjection().fromLatLngToDivPixel(me.latlng_);
@@ -191,6 +190,8 @@
       
       };
       
+      
+      /* Remove occurrence from the map */
       CreateMarker.prototype.remove = function() {
         if (this.canvas_) {
           this.canvas_.parentNode.removeChild(this.canvas_);
@@ -198,16 +199,22 @@
         }
       };
       
+      
+      /* Hide occurrence from the map */
       CreateMarker.prototype.hide = function() {
         if (this.canvas_) {
           $(this.canvas_).find('div').fadeOut();
         }
       };
       
+      
+      /* Get position of the occurrence */
       CreateMarker.prototype.getPosition = function() {
        return this.latlng_;
       };
       
+      
+      /* Set position of the occurrence */
       CreateMarker.prototype.setPosition = function(latlng) {
         this.latlng_ = latlng;
         var canvas = this.canvas_;
@@ -220,17 +227,37 @@
         }
       };
       
+      
+      /* Set draggable property of the occurrence */
       CreateMarker.prototype.setDraggable = function(draggable) {
         if (!draggable) {
           $(this.canvas_).draggable("disable");
         } else {
           $(this.canvas_).draggable("enable");
         }
+        this.draggable = draggable;
       };
       
-      CreateMarker.prototype.setClickable = function() {};
-      CreateMarker.prototype.setCursor = function() {};
-      CreateMarker.prototype.setIcon = function() {};
       
+      /* Set clickable property of the occurrence */
+      CreateMarker.prototype.setClickable = function(clickable) {
+        this.clickable = clickable;
+      };
+      
+      
+      /* Set cursor property of the occurrence */
+      CreateMarker.prototype.setCursor = function(type) {
+        this.canvas_.style.cursor = type;
+      };
+      
+      
+      CreateMarker.prototype.setActive = function(active) {
+        this.data.geocat_active = active;
+        this.canvas_.style.opacity = (active)?1:0.6;
+      };
+      
+      
+      /* Set zIndex property of the occurrence */
       CreateMarker.prototype.setZIndex = function(num) {
+        this.canvas_.style.zIndex = num;
       };

@@ -43,9 +43,6 @@
 			if (convex_hull.isVisible()) {
 			  dataset.analysis = new Object();
 			  analysis.EOO = new Object();
-			  analysis.EOO.cellsize_type = convex_hull.cellsize_type;
-			  analysis.EOO.cellsize = convex_hull.cellsize;
-			  analysis.EOO.cellsize_step = $("div.cellsize div.slider").slider('value');
 			  analysis.EOO.status = convex_hull.EOOkind;
 			  analysis.EOO.result = convex_hull.EOO;
 			  analysis.EOO.convex_hull = [];
@@ -92,7 +89,7 @@
 		
 		  
       $("#format_input").attr("value",format);
-      $("#rla_input").attr("value",JSON.stringify(dataset));
+      $("#geocat_input").attr("value",JSON.stringify(dataset));
       $("#download_form").submit();
 			changeApplicationTo(2);
 		}
@@ -100,7 +97,7 @@
 
 
 		/*========================================================================================================================*/
-		/* Create the object for download later as a .rla file. */
+		/* Create the object for download later as a .geocat file. */
 		/*========================================================================================================================*/
 		GeoCAT.prototype.addMarkers = function(obj,markers) {
 			for (var i in markers) {
@@ -108,7 +105,7 @@
 				for (var j=0; j<obj.sources.length; j++) {
 					if (obj.sources[j].query == markers[i].data.geocat_query && obj.sources[j].type == markers[i].data.geocat_kind) {
 					  for (var prop in markers[i].data) {
-  					  if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0) {
+  					  if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0 && prop!='geocat_query') {
       					delete markers[i].data[prop];
   					  }
             }
@@ -127,7 +124,7 @@
 					new_source.query = markers[i].data.geocat_query;
 					new_source.points = [];
 					for (var prop in markers[i].data) {
-            if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0) {
+            if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0 && prop!='geocat_query') {
               delete markers[i].data[prop];
             }
           }
@@ -143,28 +140,26 @@
 	
 	
 		/*========================================================================================================================*/
-		/* Upload the application from a .rla file. */
+		/* Upload the application from a .geocat file. */
 		/*========================================================================================================================*/
 		GeoCAT.prototype.upload = function() {
 			//loop object and give all the parameters.
 			var result = [];
-								
 			var obj = new Object();
 			obj.center = this.upload_data_.data.center;
 			obj.zoom = this.upload_data_.data.zoom;
-			obj.specie = this.upload_data_.data.scientificname;
+			obj.reportName = this.upload_data_.data.reportName;
 			
 			//If there is analysis
 			if (this.upload_data_.data.analysis!=undefined) {
 			  $('a#toggle_analysis').trigger('click');
 			  $('body').unbind('getBounds');
-			  if (this.upload_data_.data.analysis.cellsize_type=='auto') {
+			  if (this.upload_data_.data.analysis.AOO.cellsize_type=='auto') {
 			    $('#auto_value').trigger('click');
 			  } else {
-			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.cellsize_step);
-			    convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.cellsize_step-1));
+			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.AOO.cellsize_step);
+			    convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.AOO.cellsize_step-1));
 			    convex_hull.removeAOOPolygons();
-			    convex_hull.setAlgorithmValues(convex_hull.cellsize);
 			  }
 			}
 			
@@ -178,7 +173,7 @@
 
 
 		/*===============================================================================================================*/
-		/* Download to your computer one .rla file with all the points and properties you have at the moment in the map. */
+		/* Download to your computer one .geocat file with all the points and properties you have at the moment in the map. */
 		/*===============================================================================================================*/
 		
 		function downloadGeoCAT(format) {
@@ -197,8 +192,8 @@
 		/*===============================================================*/
 		
 		function uploadGeoCAT(upload_data) {
-			var geocat = new GeoCAT(null,upload_data);
-			var app_data = rla.upload();
+			var geocat = new GeoCAT(null,null,upload_data);
+			var app_data = geocat.upload();
 			var sources = [];
 			
 			//Trick for showing loader while uploading observations;
@@ -210,20 +205,20 @@
 				if (sources_length==count) {
 					$('body').unbind('hideMamufas');
 					hideMamufasMap(true);
-					$('div.header h1').html(app_data[0].specie+'<sup>(saved)</sup>');
+					$('div.header h1').html(app_data[0].reportName+'<sup>(saved)</sup>');
 					changeApplicationTo(2);
 
 					//Merge points from service
-					merge_object = new MergeOperations(sources);
-					setTimeout(function(){merge_object.checkSources();},1000);
+					//merge_object = new MergeOperations(sources);
+					//setTimeout(function(){merge_object.checkSources();},1000);
 				}
 			});
 			
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					sources.push(app_data[i].name);
-					//Get last id from "your points"
-					if (app_data[i].name=='your') {
+					//Get last id from "user_points"
+					if (app_data[i].name=='user') {
 						var obs_data = app_data[i].points[app_data[i].points.length-1].catalogue_id.split('_');
 						global_id = parseInt(obs_data[1]);
 					}

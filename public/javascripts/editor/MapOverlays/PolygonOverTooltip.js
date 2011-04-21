@@ -22,6 +22,7 @@ PolygonOverTooltip.prototype.draw = function() {
     div.style.position = "absolute";
 		div.style.height = '22px';
 		div.style.width ="auto";
+		div.style.zIndex = global_zIndex;
 
 		$(div).hover(function(ev){
 		  ev.stopPropagation();
@@ -135,6 +136,7 @@ PolygonOverTooltip.prototype.draw = function() {
 		this.markers = markers;
 		this.latlng_ = latlng;
 		var div = this.div_;
+		div.style.zIndex = global_zIndex + 1;
 		$(div).find('p').text(this.markers.length + ((this.markers.length==1)?' point':' points'));
 	  var pixPosition = this.getProjection().fromLatLngToDivPixel(latlng);
 	  if (pixPosition) {

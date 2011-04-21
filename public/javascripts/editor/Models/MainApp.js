@@ -38,11 +38,17 @@
     $('h1 input').focusout(function(){
       $('h1 input').unbind('keypress');
       var value = $(this).val();
+      //Change application to unsaved?
+      if ($('h1 p').text()!='Untitled report' && value !='' && value != $('h1 p').text()) {
+        changeApplicationTo(1);
+      }
+      //Change value of the textinput
       if (value != "") {
         $('h1 p').text(value);
         report_name = value;
         document.title = "GeoCAT - " + value;
       }
+
       $(this).parent().removeClass('selected');
     });
   }

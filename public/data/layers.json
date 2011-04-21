@@ -13,12 +13,5 @@
       "source":"ProtectedPlanet",
       "opacity":0.5,
       "type": "xyz"
-    },
-    {
-      "url":"http://downloads.wdpa.org/ArcGIS/rest/services/carbon/Carbon_webmerc_93/MapServer/tile/{Z}/{Y}/{X}",
-      "name":"Carbon Layer",
-      "source":"LifeWeb",
-      "opacity":0.8,
-      "type": "xyz"
     }]
 }

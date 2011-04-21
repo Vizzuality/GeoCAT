@@ -413,6 +413,8 @@ div#map_container div.table div.center-map div#mamufas_map div#loader_map img {p
 div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
 div#map_container div.header h1 {position:relative; float:left; width:auto; height:22px; margin:30px 0 0 6px; padding:5px 0 5px 26px; background:url('/images/editor/save_stars.png') no-repeat 0 0; font:normal 13px "Futura"; color:#CCCCCC; text-indent:0; line-height:20px;}
+div#map_container div.header h1.saved {background-position:0 -30px;}
+div#map_container div.header h1.saved sup {color:#7FAB2D;}
 div#map_container div.header h1.selected {width:200px; height:22px; background-position:-1px -1px; background-image: url('/images/editor/save_stars.png'); background-image:url('/images/editor/save_stars.png'),-moz-linear-gradient(100% 100% 90deg, #FFFFFF, #CCCCCC); 
 background-image:url('/images/editor/save_stars.png'),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#CCCCCC), to(#FFFFFF)); border:1px solid black; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;}
 div#map_container div.header h1 p {float:none; display:inline-block; width:auto;}
@@ -422,8 +424,8 @@ div#map_container div.header h1.selected input {position:absolute; display:block
 div#map_container div.header h1 input:focus {outline:none;}
 div#map_container div.header h1.selected sup {display:none;}
 div#map_container div.header h1 sup {padding:0 0 0 5px; margin:0; font:normal 10px "Futura"; color:#FF9800; line-height:10px;}
-div#map_container div.header h1.saved {background-position:0 -31px;}
-div#map_container div.header h1.saved sup {color:#7FAB2D;}
+
+
 div#map_container div.footer div.left {float:left; margin:15px 0 0 5px; width:60%;}
 div#map_container div.footer div.left a.undo {float:left; width:44px; height:35px; background:url('/images/editor/actions_buttons.png') no-repeat 0 0; margin:0 5px 0 0;}
 div#map_container div.footer div.left a.redo {float:left; width:44px; height:35px; background:url('/images/editor/actions_buttons.png') no-repeat -44px 0;}

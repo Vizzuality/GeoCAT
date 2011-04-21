@@ -259,9 +259,7 @@
            
             if (!info_data.geocat_active) {
               var marker_id = marker.data.catalogue_id;
-              var image = new google.maps.MarkerImage('/images/editor/'+occurrences[marker_id].data.geocat_kind+'_marker_no_active.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-              occurrences[marker_id].setIcon(image);
-              occurrences[marker_id].set('opacity',0.1);   
+              occurrences[marker_id].setActive(false);
             }
 
             i++;
@@ -452,7 +450,7 @@
 					inf.coordinateUncertaintyInMeters = 15000;
 					inf.geocat_active = true;
 					inf.geocat_kind = 'user';
-					inf.geocat_query = 'user';
+					inf.geocat_query = '';
 					inf.geocat_removed = false;
 					inf.collector = "";
 					inf.eventDate = date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate();
@@ -462,7 +460,7 @@
 					inf.longitude = latlng.lng();
 					var marker = new CreateMarker(latlng, 'user', false, false, inf, map);
 
-					points.add('user','user');
+					points.add('','user');
 					bounds.extend(latlng);
 					
 					//Save occurence
@@ -488,10 +486,7 @@
                
          for (var i=0; i<markers_id.length; i++) {
            var marker_id = markers_id[i].catalogue_id;
-           var image = new google.maps.MarkerImage('/images/editor/'+occurrences[marker_id].data.geocat_kind+'_marker'+((!occurrences[marker_id].data.geocat_active)?'':'_no_active')+'.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-           occurrences[marker_id].setIcon(image);
-           occurrences[marker_id].set('opacity',(!occurrences[marker_id].data.geocat_active)? 0.3 : 0.1);   
-           occurrences[marker_id].data.geocat_active = !occurrences[marker_id].data.geocat_active;
+           occurrences[marker_id].setActive(!occurrences[marker_id].data.geocat_active);
         
             // Add or deduct the marker from _active_markers
             if (!occurrences[marker_id].data.active) {
@@ -532,10 +527,7 @@
         function asynHideMarker(query,kind,active) {
           for (var i in hideMarkers) {
             var _id = hideMarkers[i].data.catalogue_id;
-            var image = new google.maps.MarkerImage('/images/editor/'+kind+'_marker'+((active)?'':'_no_active')+'.png',new google.maps.Size(25, 25),new google.maps.Point(0,0),new google.maps.Point(12, 12));
-            occurrences[_id].setIcon(image);
-            occurrences[_id].set('opacity',(active)? 0.3 : 0.1);   
-            occurrences[_id].data.geocat_active = active;
+            occurrences[_id].setActive(active);
             hide_markers.push(occurrences[_id].data);
             delete hideMarkers[i];
             break;
@@ -573,6 +565,7 @@
           }
           
           if (state=='select') {
+            element.setClickable(true);
             element.setDraggable(true);
           } else {
             element.setDraggable(false);

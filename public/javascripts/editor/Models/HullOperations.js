@@ -437,5 +437,5 @@
 			/* Less opacity meanwhile user moves a occ */
 			/*============================================================================*/
 			function mamufasPolygon() {
-        convex_hull.polygon.setOptions({fillOpacity:0.1,strokeOpacity:0.2});
+			  if (convex_hull.polygon != undefined) convex_hull.polygon.setOptions({fillOpacity:0.1,strokeOpacity:0.2});
       }

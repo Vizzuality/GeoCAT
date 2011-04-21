@@ -38,7 +38,7 @@
 
         			//if the application comes through an upload file
         			if (upload_information.success) {
-        				uploadRLA(upload_information);
+        				uploadGeoCAT(upload_information);
         			} else {
         				$('#wellcome').show();
         				// Trick to hide wellcome window if user clicks off this container

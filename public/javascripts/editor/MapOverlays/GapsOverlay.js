@@ -24,6 +24,7 @@
         div.style.position = "absolute";
         div.style.display = "none";
     		div.style.background = 'url(/images/editor/gaps_bkg.png) no-repeat 0 0';
+    		div.style.zIndex = global_zIndex;
     		
     		$(div).append(
     		  '<a class="close"></a>'+
@@ -142,6 +143,7 @@
     	this.marker_id = marker_id;
     	this.latlng_ = latlng;
     	var div = this.div_;
+    	div.style.zIndex = global_zIndex + 1;
     	this.inf = opt;
 
       //Value

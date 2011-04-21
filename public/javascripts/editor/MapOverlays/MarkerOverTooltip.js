@@ -23,6 +23,7 @@
 		    div.style.paddingLeft = "0px";
 				div.style.width = '57px';
 				div.style.height = '22px';
+				div.style.zIndex = global_zIndex;
 				div.style.background = 'url(/images/editor/over_bkg.png) no-repeat 0 0';
 		
 				$(div).hover(function(){
@@ -126,6 +127,7 @@
   			this.marker_id = marker_id;
   			this.latlng_ = latlng;
   			var div = this.div_;
+  			div.style.zIndex = global_zIndex + 1;
   		  var pixPosition = this.getProjection().fromLatLngToDivPixel(latlng);
   		  if (pixPosition) {
   			  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
