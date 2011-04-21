@@ -4,10 +4,11 @@
 
     //Get report name and bind report name events
     report_name = $('h1 input').val();
-    
-    if (report_name!="") {
-      document.title = "GeoCAT - " + report_name;
+    if (report_name == "") {
+      report_name = "Untitled report";
     }
+    
+    document.title = "GeoCAT - " + report_name;
 
     $('h1 p').click(function(){
       $(this).parent().addClass('selected');
