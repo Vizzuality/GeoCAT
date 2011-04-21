@@ -25,7 +25,7 @@
 			        "/javascripts/editor/MapOverlays/MarkerTooltip.js",
 			        "/javascripts/editor/MapOverlays/PolygonOverTooltip.js",
 			        "/javascripts/editor/MapOverlays/DeleteInfowindow.js",
-			        "/javascripts/editor/Models/CreateMarker.js",
+			        "/javascripts/editor/MapOverlays/GeoCATMarker.js",
 			        "/javascripts/editor/Models/MergeOperations.js",
 			        "/javascripts/plugins/tileoverlay.js",
 			        "/javascripts/editor/MapOVerlays/CanvasTest.js",

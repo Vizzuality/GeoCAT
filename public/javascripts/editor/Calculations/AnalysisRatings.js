@@ -44,12 +44,12 @@
 				/*=======================================*/
 				/* Draw and get AOO data. */
 				/*=======================================*/
-				function DrawAOO (gMap, points, cellsize){
+				function DrawAOO (points, cellsize){
 				 	var LLx, LLy, URx, URy;
 				 	var LLll, URll;
 				 	var Cellpoints = new Array();
 				 	var testtxt = new Array();
-
+				 					 	
 				 	for (var idx in points) {
 						var xy = LLtoCylind (points[idx].getPosition().lat(),points[idx].getPosition().lng());
 						LLx = (Math.floor (xy[0]/cellsize)) * cellsize;
@@ -59,8 +59,6 @@
 						LLll = CylindtoLL(LLx,LLy);
 						URll = CylindtoLL(URx,URy);
 
-            
-              
 						//Draw cell
 						Cellpoints = [
 				        new google.maps.LatLng(LLll[0],LLll[1]),
@@ -69,8 +67,10 @@
 				        new google.maps.LatLng(URll[0],LLll[1]),
 								new google.maps.LatLng(LLll[0],LLll[1])
 				    ];
+				  					
 				
 						var array_index = LLll[0] + LLll[1] + LLll[0] + URll[1];
+						console.log(array_index);
 						
 						if (Cells[array_index] == undefined) {
 							Cells[array_index] = new google.maps.Polygon({
@@ -88,7 +88,6 @@
 							var count = Cells[array_index].data.count;
 							Cells[array_index].setOptions({fillOpacity: count/100});
 						}
-
 						testtxt[idx] = LLx + "," + LLy
 					}
 					testtxt.sort();
@@ -192,7 +191,7 @@
         }
 				
 				var EOORat = EOOrating(convex_area);
-		    var AOO = DrawAOO(null, all_markers, cellsize_);
+		    var AOO = DrawAOO(all_markers, cellsize_);
 		    var AOOArea = (AOO * cellsize_ * cellsize_)/(1000*1000);
 		    var AOOrat = AOOrating(AOOArea);
 

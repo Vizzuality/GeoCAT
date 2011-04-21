@@ -1,7 +1,7 @@
 
 			/*==========================================================================================================================*/
 			/*  																																																												*/
-			/*				CreateMarker => Create a new marker with circle. (Events included)																								*/
+			/*				GeoCATMarker => Create a new marker with circle. (Events included)																								*/
 			/*						*Params ->	latlng: position in the map.																																			*/
 			/*												kind: type of the marker.																																					*/
 			/*												draggable: if it will be draggable at the start.																									*/
@@ -14,7 +14,7 @@
 
 			/* Main marker */			
 			
-      function CreateMarker(latlng, kind, draggable, clickable, item, marker_map) {
+      function GeoCATMarker(latlng, kind, draggable, clickable, item, marker_map) {
         this.latlng_ = latlng;
         this.data = item;
         this.map_ = marker_map;
@@ -28,11 +28,11 @@
         this.setMap(marker_map);
       }
       
-      CreateMarker.prototype = new google.maps.OverlayView();
+      GeoCATMarker.prototype = new google.maps.OverlayView();
       
       
       /* Draw the overlay */
-      CreateMarker.prototype.draw = function() {
+      GeoCATMarker.prototype.draw = function() {
         var me = this;
       
         var canvas = this.canvas_;
@@ -192,7 +192,7 @@
       
       
       /* Remove occurrence from the map */
-      CreateMarker.prototype.remove = function() {
+      GeoCATMarker.prototype.remove = function() {
         if (this.canvas_) {
           this.canvas_.parentNode.removeChild(this.canvas_);
           this.canvas_ = null;
@@ -201,7 +201,7 @@
       
       
       /* Hide occurrence from the map */
-      CreateMarker.prototype.hide = function() {
+      GeoCATMarker.prototype.hide = function() {
         if (this.canvas_) {
           $(this.canvas_).find('div').fadeOut();
         }
@@ -209,13 +209,13 @@
       
       
       /* Get position of the occurrence */
-      CreateMarker.prototype.getPosition = function() {
+      GeoCATMarker.prototype.getPosition = function() {
        return this.latlng_;
       };
       
       
       /* Set position of the occurrence */
-      CreateMarker.prototype.setPosition = function(latlng) {
+      GeoCATMarker.prototype.setPosition = function(latlng) {
         this.latlng_ = latlng;
         var canvas = this.canvas_;
         var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
@@ -229,7 +229,7 @@
       
       
       /* Set draggable property of the occurrence */
-      CreateMarker.prototype.setDraggable = function(draggable) {
+      GeoCATMarker.prototype.setDraggable = function(draggable) {
         if (!draggable) {
           $(this.canvas_).draggable("disable");
         } else {
@@ -240,24 +240,25 @@
       
       
       /* Set clickable property of the occurrence */
-      CreateMarker.prototype.setClickable = function(clickable) {
+      GeoCATMarker.prototype.setClickable = function(clickable) {
         this.clickable = clickable;
       };
       
       
       /* Set cursor property of the occurrence */
-      CreateMarker.prototype.setCursor = function(type) {
+      GeoCATMarker.prototype.setCursor = function(type) {
         this.canvas_.style.cursor = type;
       };
       
       
-      CreateMarker.prototype.setActive = function(active) {
+      /* Set active property of the occurrence */
+      GeoCATMarker.prototype.setActive = function(active) {
         this.data.geocat_active = active;
         this.canvas_.style.opacity = (active)?1:0.6;
       };
       
       
       /* Set zIndex property of the occurrence */
-      CreateMarker.prototype.setZIndex = function(num) {
+      GeoCATMarker.prototype.setZIndex = function(num) {
         this.canvas_.style.zIndex = num;
       };

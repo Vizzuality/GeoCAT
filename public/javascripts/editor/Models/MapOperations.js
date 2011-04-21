@@ -252,7 +252,7 @@
            
             (info_data.removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
             bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
-            var marker = new CreateMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+            var marker = new GeoCATMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
            
             occurrences[marker.data.catalogue_id] = marker;
             occurrences[marker.data.catalogue_id].data.geocat_query = occurrences[marker.data.catalogue_id].data.geocat_query.toLowerCase();
@@ -458,7 +458,7 @@
 					inf.catalogue_id = 'user_' + global_id;
 					inf.latitude = latlng.lat();
 					inf.longitude = latlng.lng();
-					var marker = new CreateMarker(latlng, 'user', false, false, inf, map);
+					var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
 
 					points.add('','user');
 					bounds.extend(latlng);
