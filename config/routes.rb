@@ -1,13 +1,13 @@
-Rlat::Application.routes.draw do |map|
+Geocat::Application.routes.draw do |map|
 
-  resources :rlas
+  resources :geocat
 
   root :to => "main#index"
 
   match 'about' => 'main#about'
 
-  #match 'editor' => 'rlas#editor'
-  #match 'editor/:id/:specie' => 'rlas#editor_params'
+  #match 'editor' => 'geocats#editor'
+  #match 'editor/:id/:specie' => 'geocats#editor_params'
 
   match 'search/flickr/:q' => 'flickr#search'
   match 'search/gbif/:q' => 'gbif#search'

@@ -16,24 +16,24 @@ class FileController < ApplicationController
 
   def download
     format = params[:format]
-    @rla = JSON.parse(params[:rla])
+    @geocat = JSON.parse(params[:geocat])
 
     # Removes 'removed' points from each datasource
-    @rla['sources'].each do |source|
+    @geocat['sources'].each do |source|
       source['points'].reject!{|point| point['removed']}
     end
 
     case format.downcase
     when 'geocat'
-      file_name = filename_escape(@rla['reportName'])
-      headers["Content-Type"]        = "application/vizzuality-geocat.geocat+xml"
+      file_name = filename_escape(@geocat['reportName'])
+      headers["Content-Type"]        = "application/geocat.geocat+json"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.geocat\""
 
-      render :text => params[:rla]
+      render :text => params[:geocat]
     when 'kml'
-      file_name = filename_escape(@rla['reportName'])
+      file_name = filename_escape(@geocat['reportName'])
 
-      @analysis = @rla["analysis"]
+      @analysis = @geocat["analysis"]
 
       headers["Content-Type"]        = "application/vnd.google-earth.kml+xml"
       headers["Content-Disposition"] = "attachment; filename=\"#{file_name}.kml\""
@@ -42,13 +42,13 @@ class FileController < ApplicationController
     when 'print'
       @RED_LIST_CATEGORIES = @@RED_LIST_CATEGORIES
 
-      @analysis = @rla["analysis"]
+      @analysis = @geocat["analysis"]
 
       @flickr_points, @gbif_points, @user_points = []
-      if @rla['sources']
-        @flickr_points = @rla['sources'].select{|s| s['type'] == 'flickr'}.map{|s| s['points']}.flatten
-        @gbif_points   = @rla['sources'].select{|s| s['type'] == 'gbif'}.map{|s| s['points']}.flatten
-        @user_points   = @rla['sources'].select{|s| s['type'] == 'user'}.map{|s| s['points']}.flatten
+      if @geocat['sources']
+        @flickr_points = @geocat['sources'].select{|s| s['type'] == 'flickr'}.map{|s| s['points']}.flatten
+        @gbif_points   = @geocat['sources'].select{|s| s['type'] == 'gbif'}.map{|s| s['points']}.flatten
+        @user_points   = @geocat['sources'].select{|s| s['type'] == 'user'}.map{|s| s['points']}.flatten
 
         @flickr_coords = @flickr_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
         @gbif_coords   = @gbif_points[0,25].map{|c| "#{c['latitude']},#{c['longitude']}"}.join('|')
@@ -62,10 +62,10 @@ class FileController < ApplicationController
 
       render :action => :print
     when 'csv'
-      file_name = filename_escape(@rla['reportName'])
-      @rla = RlatData.new(@rla)
+      file_name = filename_escape(@geocat['reportName'])
+      @geocat = GeocatData.new(@geocat)
 
-      send_data @rla.to_csv,
+      send_data @geocat.to_csv,
         :type => 'text/csv; charset=iso-8859-1; header=present',
         :disposition => "attachment; filename=#{file_name}.csv"
     end
@@ -74,30 +74,30 @@ class FileController < ApplicationController
   def upload
     @report_name = params[:report_name] if params[:report_name].present?
 
-    rlat = case
+    geocat = case
     when params[:file]
-      RlatData.new(params[:file])
+      GeocatData.new(params[:file])
     when params[:qqfile]
-      RlatData.new(request.body)
+      GeocatData.new(request.body)
     else
-      RlatData.new
+      GeocatData.new
     end
 
     # HACK! HACK! HACK!
     # Since valums file upload lib doesn't send a valid http-accept header,
     # we cannot use respond_to
 
-    render :json => rlat.to_json and return if params[:qqfile] && request.xhr?
+    render :json => geocat.to_json and return if params[:qqfile] && request.xhr?
 
-    invalid_rla_file and return if params[:file] && rlat.invalid?
+    invalid_geocat_file and return if params[:file] && geocat.invalid?
 
-    @rlat_json = rlat.to_json
-    render :template => 'rlas/editor'
+    @geocat_json = geocat.to_json
+    render :template => 'geocat/editor'
   end
 
   private
     def verify_download_params
-      if params[:format].blank? && params[:rla]
+      if params[:format].blank? && params[:geocat]
         flash[:error] = 'There were a problem downloading the file'
         redirect_to :controller => 'main', :action => 'index'
       end
@@ -105,10 +105,10 @@ class FileController < ApplicationController
 
     def verify_upload_extension
       file_path = params[:file].original_filename if params[:file] && params[:file].respond_to?(:original_filename)
-      invalid_rla_file if file_path && (not file_path.match(/^.*\.geocat$/))
+      invalid_geocat_file if file_path && (not file_path.match(/^.*\.geocat$/))
     end
 
-    def invalid_rla_file
+    def invalid_geocat_file
       flash[:error] = 'Invalid file. You must provide a valid GeoCAT file.'
       redirect_to :controller => 'main', :action => 'index'
     end

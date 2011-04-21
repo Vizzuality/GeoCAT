@@ -2,11 +2,11 @@
   <%= stylesheet_link_tag('print') %>
 <%- end -%>
 <div id="printed_report">
-  <h1 class="title"><%= @rla['scientificname'].downcase %></h1>
+  <h1 class="title"><%= @geocat['scientificname'].downcase %></h1>
   <span class="title time">Published <%= Time.now.strftime('%d/%m/%Y %H:%M') %></span>
 
   <div class="map">
-    <img src="http://maps.google.com/maps/api/staticmap?center=<%= @rla['center']['latitude']%>,<%= @rla['center']['longitude']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
+    <img src="http://maps.google.com/maps/api/staticmap?center=<%= @geocat['center']['latitude']%>,<%= @geocat['center']['longitude']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
     <div class="warning">
       <img src="/images/print/in_development.png" alt="In Development" />
       <p>

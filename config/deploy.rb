@@ -8,13 +8,13 @@ require "bundler/capistrano"
 
 default_run_options[:pty] = true
 
-set :application, 'rlat'
+set :application, 'geocat'
 
 set :scm, :git
 # set :git_enable_submodules, 1
 set :git_shallow_clone, 1
 set :scm_user, 'ubuntu'
-set :repository, "git://github.com/Vizzuality/RLAT.git"
+set :repository, "git://github.com/Vizzuality/GeoCAT.git"
 ssh_options[:forward_agent] = true
 set :keep_releases, 5
 

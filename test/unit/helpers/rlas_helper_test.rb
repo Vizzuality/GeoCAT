@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class RlasHelperTest < ActionView::TestCase
+class GeocatHelperTest < ActionView::TestCase
 end

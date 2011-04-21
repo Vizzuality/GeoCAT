@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
-  <name><%= @rla['scientificname']%>.kml</name>
+  <name><%= @geocat['scientificname']%>.kml</name>
   <Style id="sn_gbif_marker0">
     <IconStyle>
       <scale>0.6</scale>
@@ -520,18 +520,18 @@
       <styleUrl>#sh_ylw-pushpin6</styleUrl>
     </Pair>
   </StyleMap>
-  <% if @rla.present? %>
+  <% if @geocat.present? %>
     <Folder>
-      <name>RLAT: <%= @rla['scientificname'] %></name>
-      <description>RLAT analysis performed for <%= @rla['scientificname'] %> using <%= "#{request.protocol}#{request.host_with_port}" %></description>
+      <name>Geocat: <%= @geocat['scientificname'] %></name>
+      <description>Geocat analysis performed for <%= @geocat['scientificname'] %> using <%= "#{request.protocol}#{request.host_with_port}" %></description>
       <Folder>
         <name>occurrences</name>
-        <% if @rla['sources'].present? %>
-          <% @rla['sources'].each do |source| %>
+        <% if @geocat['sources'].present? %>
+          <% @geocat['sources'].each do |source| %>
             <% if source && source['points'].present? %>
               <% source['points'].each do |point| %>
                 <Placemark>
-                  <name><%= @rla['scientificname'] %></name>
+                  <name><%= @geocat['scientificname'] %></name>
                   <description>
                     <%= "basisOfRecord: #{point['basisOfRecord']}" if point['basisOfRecord'] %>
                     <%= "catalogNumber: #{point['catalogue_id']}" if point['catalogue_id'] %>
@@ -619,7 +619,7 @@
       <%- end -%>
       <% if @analysis['AOO'].present? && @analysis['EOO'].present?%>
         <ScreenOverlay id="khScreenOverlay756">
-          <name>RLAT Analsysis result</name>
+          <name>GeoCAT Analsysis result</name>
           <description>EOO: <%= "#{@analysis['EOO']['result']} Km2 #{@analysis['EOO']['status'].upcase}" %>, AOO: <%= "#{@analysis['AOO']['status']} Km2 #{@analysis['AOO']['result'].upcase}" %></description>
           <Icon>
             <href>http://chart.apis.google.com/chart?chst=d_text_outline&amp;chf=bg,s,EFEFEF&amp;chma=130,130,130,130&amp;chld=0A0A0A|16|l|FFFFFF|b|Result|EOO: <%= "#{@analysis['EOO']['result']} Km2 #{@analysis['EOO']['status'].upcase}" %>|AOO: <%= "#{@analysis['AOO']['status']} Km2 #{@analysis['AOO']['result'].upcase}" %></href>

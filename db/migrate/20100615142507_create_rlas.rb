@@ -1,6 +1,6 @@
-class CreateRlas < ActiveRecord::Migration
+class CreateGeocat < ActiveRecord::Migration
   def self.up
-    create_table :rlas do |t|
+    create_table :geocat do |t|
       t.string :name
       t.text :data      
       t.timestamps
@@ -11,6 +11,6 @@ class CreateRlas < ActiveRecord::Migration
   end
   
   def self.down
-    drop_table :rlas
+    drop_table :geocat
   end
 end

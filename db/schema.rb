@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(:version => 20100615143439) do
 
-  create_table "rlas", :force => true do |t|
+  create_table "geocat", :force => true do |t|
     t.string   "name"
     t.text     "data"
     t.datetime "created_at"

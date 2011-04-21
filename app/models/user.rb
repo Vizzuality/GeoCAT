@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  has_many :rlas
+  has_many :geocat
 end

@@ -1,7 +1,7 @@
 class MainController < ApplicationController
   def index
-    @rla = ""
-    $rla = ""
+    @geocat = ""
+    $geocat = ""
   end
 
   def about
