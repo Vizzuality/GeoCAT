@@ -1,10 +1,10 @@
 class GeocatData
   include ActiveModel::Validations
 
-  attr_accessor :reportName, :zoom, :center, :analysis, :format, :sources, :layers
+  attr_accessor :reportName, :viewPort, :analysis, :format, :sources, :layers
   attr_writer :warnings
 
-  validate :sources_must_be_valid
+  #validate :sources_must_be_valid
 
   def initialize(file = nil)
     return if file.blank?
@@ -31,8 +31,10 @@ class GeocatData
       :format => format,
       :data => {
         :reportName => reportName,
-        :zoom => zoom,
-        :center => center,
+        :viewPort => {
+          :zoom => viewPort["zoom"],
+          :center => viewPort["center"]
+        },
         :analysis => analysis,
         :sources => sources,
         :layers => layers
@@ -95,9 +97,8 @@ class GeocatData
       end
       
       self.reportName     = hash['reportName']
-      self.zoom           = hash['viewPort']['zoom']
+      self.viewPort       = hash['viewPort']
       self.format         = 'geocat'
-      self.center         = hash['viewPort']['center']
       self.analysis       = hash['analysis']
       self.sources        = hash['sources']
       self.layers         = hash['layers']
