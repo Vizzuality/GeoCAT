@@ -94,8 +94,9 @@
           me.removeLayer(url,type);
         });
         
-  		  
+        
         this.uplaod_layers = [];
+  		  _.each(file_layers,function(element){element.add = true;});
   			this.upload_layers = file_layers;
   			this.layers = [];
   			this.getLayers();
@@ -120,16 +121,23 @@
   		    for (var i=0; i<layers.length; i++) {
   		      var url = layers[i].url;
   		      if (me.layers[url]==undefined) {
-    		      me.addLayer(layers[i].name,layers[i].source,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false), ((layers[i].locked != undefined)? true : false));
+    		      me.addLayer(layers[i].name,layers[i].source,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false), ((layers[i].add != undefined)? true : false));
   		      } else {
-  		        $('div#layer_window ul li[url="'+url+'"] a.add_layer_link').delay(2000).trigger('click');
+  		        me.layers[url].add = true;
   		      }
   		    }
+  		    
   		    if (this.importation_errors==1) {
   		      $('span.layer_error p').text('There was an error with importing the layers').parent().fadeIn().delay(2000).fadeOut();
   		    } else if (this.importation_errors>1) {
   		      $('span.layer_error p').text('There were '+this.importation_errors+' errors importing the layers').parent().fadeIn().delay(2000).fadeOut();
   		    }
+  		    
+          // for (var i in me.layers) {
+          //   if (me.layers[i].add) {
+          //     $('div#layer_window ul li[url="'+me.layers[i].url+'"] a.add_layer_link').trigger('click');
+          //   }
+          // }
   		  });
   		}
   		

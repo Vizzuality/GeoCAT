@@ -439,4 +439,8 @@
 			/*============================================================================*/
 			function mamufasPolygon() {
 			  if (convex_hull.polygon != undefined) convex_hull.polygon.setOptions({fillOpacity:0.1,strokeOpacity:0.2});
+			  _.each(convex_hull.Cells,function(element){
+			    element.setMap(null);
+			  });
+			  this.Cells = new Array();
       }
