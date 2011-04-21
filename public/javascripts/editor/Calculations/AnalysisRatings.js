@@ -4,7 +4,7 @@
 			function getAnalysisData(convex_area, convex_points, all_markers, cellsize_, cellsize_type) {
 				
 				var earth_radius=6378137.79;
-				var Cells = [];
+				var Cells = {};
 				
 				function getUnique (arr) {
 					var o = new Object();
@@ -70,23 +70,22 @@
 				  					
 				
 						var array_index = LLll[0] + LLll[1] + LLll[0] + URll[1];
-						console.log(array_index);
 						
 						if (Cells[array_index] == undefined) {
 							Cells[array_index] = new google.maps.Polygon({
 								paths: Cellpoints,
-					      strokeColor: "red",
+					      strokeColor: "#FF0000",
 					      strokeOpacity: 1,
 					      strokeWeight: 1,
-					      fillColor: "red",
-					      fillOpacity: 0.01,
+					      fillColor: "#FF0000",
+					      fillOpacity: 1/points.length,
 								data: {count:1},
 								clickable: false
 							});
 						} else {
 							Cells[array_index].data.count++;
 							var count = Cells[array_index].data.count;
-							Cells[array_index].setOptions({fillOpacity: count/100});
+							Cells[array_index].setOptions({fillOpacity: count/points.length});
 						}
 						testtxt[idx] = LLx + "," + LLy
 					}

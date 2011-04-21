@@ -318,9 +318,10 @@
 			/* Draw the AOO polygons of each marker.																			*/
 			/*============================================================================*/
 			HullOperations.prototype.drawAOOPolygons = function(path) {
-					for (var id in this.Cells) {
-						this.Cells[id].setMap(this.map);
-					}
+  			var me = this;
+  			_.each(this.Cells,function(element){
+  			  element.setMap(me.map);
+  			});
 			}
 		
 		
@@ -329,9 +330,10 @@
 			/* Remove the AOO polygons of each marker.																		*/
 			/*============================================================================*/
 			HullOperations.prototype.removeAOOPolygons = function(path) {
-				for (var id in this.Cells) {
-					this.Cells[id].setMap(null);
-				}
+			  var me = this;
+  			_.each(this.Cells,function(element){
+  			  element.setMap(null);
+  			});
 				this.Cells = new Array();
 			}
 		
@@ -344,11 +346,6 @@
 			HullOperations.prototype.setAlgorithmData = function(path, cellsize) {
 			  
 			  var area = google.maps.geometry.spherical.computeArea(path)/1000000;
-        // console.log(this.active_markers);
-        // console.log(cellsize);
-        // console.log(this.cellsize_type);
-        // console.log(area);
-        // console.log(path);
 				var obj = getAnalysisData(area, path, this.active_markers, cellsize, this.cellsize_type);
 				this.Cells = obj.Cells;
 				this.EOO = obj.EOOArea.toFixed(5);

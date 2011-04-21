@@ -62,7 +62,6 @@
 			  analysis.AOO.grids = [];
 			  
 			  for (var id in convex_hull.Cells) {
-  			  
   			  var path_points = [];
   			  for (var i=0; i<convex_hull.Cells[id].getPath().getLength(); i++) {
   			    var point = convex_hull.Cells[id].getPath().getAt(i);
@@ -146,8 +145,8 @@
 			//loop object and give all the parameters.
 			var result = [];
 			var obj = new Object();
-			obj.center = this.upload_data_.data.center;
-			obj.zoom = this.upload_data_.data.zoom;
+			obj.center = this.upload_data_.data.viewPort.center;
+			obj.zoom = this.upload_data_.data.viewPort.zoom;
 			obj.reportName = this.upload_data_.data.reportName;
 			
 			//If there is analysis
@@ -157,8 +156,10 @@
 			  if (this.upload_data_.data.analysis.AOO.cellsize_type=='auto') {
 			    $('#auto_value').trigger('click');
 			  } else {
-			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.AOO.cellsize_step);
-			    convex_hull.cellsize = 0.002*(Math.pow(2,this.upload_data_.data.analysis.AOO.cellsize_step-1));
+			    var cellsize = this.upload_data_.data.analysis.AOO.cellsize_step;
+			    $("div.cellsize span p").text(cellsize + 'KM');
+			    $("div.cellsize div.slider").slider('value',cellsize);
+			    convex_hull.cellsize = cellsize;
 			    convex_hull.removeAOOPolygons();
 			  }
 			}
@@ -207,7 +208,7 @@
 					hideMamufasMap(true);
 					$('div.header h1').html(app_data[0].reportName+'<sup>(saved)</sup>');
 					changeApplicationTo(2);
-
+          
 					//Merge points from service
 					//merge_object = new MergeOperations(sources);
 					//setTimeout(function(){merge_object.checkSources();},1000);

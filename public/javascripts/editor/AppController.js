@@ -28,6 +28,7 @@
 			        "/javascripts/editor/MapOverlays/GeoCATMarker.js",
 			        "/javascripts/editor/Models/MergeOperations.js",
 			        "/javascripts/plugins/tileoverlay.js",
+			        "/javascripts/editor/Calculations/AnalysisRatings.js",
 			        "/javascripts/editor/MapOVerlays/CanvasTest.js",
 			      function(){
 			        mainApp();

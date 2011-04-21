@@ -40,7 +40,9 @@
 		        added = false;
 		        $(this).closest('li').removeClass('added');
 		      }
-		      me.addRemoveLayer($(this).parent().attr('url'),$(this).parent().attr('type'),added);
+		      var url = $(this).parent().attr('url');
+		      me.layers[url].add = added; 
+		      me.addRemoveLayer(url,$(this).parent().attr('type'),added);
   		  });
   		  
   		  
@@ -109,15 +111,18 @@
   		LayerCustomization.prototype.getLayers = function() {
   		  var me = this;
   		  this.importation_errors = 0;
-  		  $.getJSON("/data/layers.json?1",function(result){
+  		  $.getJSON("/data/layers.json",function(result){
   		    var layers = result.layers;
   		    if (me.upload_layers!=null) {
     		    layers = layers.concat(me.upload_layers);
   		    }
+  		    
   		    for (var i=0; i<layers.length; i++) {
   		      var url = layers[i].url;
   		      if (me.layers[url]==undefined) {
     		      me.addLayer(layers[i].name,layers[i].source,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false), ((layers[i].locked != undefined)? true : false));
+  		      } else {
+  		        $('div#layer_window ul li[url="'+url+'"] a.add_layer_link').delay(2000).trigger('click');
   		      }
   		    }
   		    if (this.importation_errors==1) {
@@ -260,7 +265,6 @@
         if (type == 'kml') {
           try {this.layers[url].layer.setMap(null);} catch (e) {}
         } else {
-          $('div#layer_window ul li[url="'+url+'"] a.added').removeClass('added').addClass('add');
           var array = map.overlayMapTypes.getArray();
           for (var i in array) {
             if (this.layers[url].layer == array[i]) {
@@ -268,9 +272,7 @@
               break;
             }
           }
-          
           this.sortLayers();
-          
         } 
         $('div#layer_window ul li[url="'+url+'"]').remove();
   		}
