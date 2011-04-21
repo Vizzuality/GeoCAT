@@ -2,11 +2,11 @@
   <%= stylesheet_link_tag('print') %>
 <%- end -%>
 <div id="printed_report">
-  <h1 class="title"><%= @geocat['scientificname'].downcase %></h1>
+  <h1 class="title"><%= @geocat['reportName'].downcase %></h1>
   <span class="title time">Published <%= Time.now.strftime('%d/%m/%Y %H:%M') %></span>
 
   <div class="map">
-    <img src="http://maps.google.com/maps/api/staticmap?center=<%= @geocat['center']['latitude']%>,<%= @geocat['center']['longitude']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false" />
+    <img src="http://maps.google.com/maps/api/staticmap?center=<%= @geocat['viewPort']['center']['latitude']%>,<%= @geocat['viewPort']['center']['longitude']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false&zoom=<%=(@geocat['viewPort']['zoom']-1)%>" />
     <div class="warning">
       <img src="/images/print/in_development.png" alt="In Development" />
       <p>
@@ -42,8 +42,8 @@
       <p><%= "#{@analysis['AOO']['status']}" %> km<sup>2</sup></p>
     </div>
     <div class="cellsize">
-      <span>AOO Cell width (based on <%= @analysis['cellsize_type'] %>)</span>
-      <h3><%= @analysis['cellsize'] %> km</h3>
+      <span>AOO Cell width (based on <%= @analysis['AOO']['cellsize_type'] %>)</span>
+      <h3><%= @analysis['AOO']['cellsize'] %> km</h3>
       <p><%= "#{@analysis['AOO']['grids'].length} AOO cells" %></p>
     </div>
   </div>
