@@ -269,6 +269,7 @@ div#editor div#tools div.center div.right div.sources ul#sources_list * html .js
 div#editor div#tools div.center div.right div.sources ul#sources_list li {position:relative; width:183px; height:43px; padding:10px 12px 5px 16px; margin:3px 0; background:url('/images/editor/li_bkg.png') no-repeat 0 0;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li:hover {cursor:pointer;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie {position:absolute; right:8px; top:10px; width:40px; height:14px; background:url('/images/editor/specie_visible.png') no-repeat 0 0;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie:hover {cursor:pointer;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.green {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #7BA600, #99CC00); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CC00), to(#7BA600));}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.pink {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #9F2062, #FF3399); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FF3399), to(#9F2062));}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.blue {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #0062A3, #0099FF); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0099FF), to(#0062A3));}
@@ -302,19 +303,22 @@ div#editor div#tools div#add_source_container div.middle ul li span {display:non
 div#editor div#tools div#add_source_container div.middle ul li.selected {border:1px solid #BFC7B0; border-radius:6px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#CCE896; width:155px;}
 div#editor div#tools div#add_source_container div.middle ul li.selected a {float:left; margin:3px 0 0 0; padding:0 0 0 17px; background:url('/images/editor/checkbox_add_image.png') no-repeat 0 -15px; font:normal 13px Arial; color:#666666;}
 div#editor div#tools div#add_source_container div.middle ul li.selected a:hover {cursor:pointer; color:#666666;}
-/*div#editor div#tools div#add_source_container div.middle ul li.selected span {display:block;}*/
+div#editor div#tools div#add_source_container div.middle ul li.selected span.import {display:block;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span.search {display:block;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span.normal {display:none;}
 div#editor div#tools div#add_source_container div.middle ul li.searching span.search {display:none;}
 div#editor div#tools div#add_source_container div.middle ul li.searching span.normal {display:block;}
 div#editor div#tools div#add_source_container div.middle ul li.searching span.loading {display:block;}
+div#editor div#tools div#add_source_container div.middle ul li.searching.error {background-color:#F8C5C5;}
+div#editor div#tools div#add_source_container div.middle ul li.searching.error span.normal {display:block;}
 div#editor div#tools div#add_source_container div.middle ul li.selected input {width:123px; padding:8px; margin:10px 0 0 9px; background:; border:1px solid #999999; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; font:italic 11px Arial; color:#999999; line-height:11px;}
 div#editor div#tools div#add_source_container div.middle ul li.selected input:focus {outline:none;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url('/images/editor/loader_source.gif') no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span p.loaded {background:url('/images/editor/ok_loaded.png') no-repeat 9px 9px #EBF7D6; color:#666666;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span p.imported {background:url('/images/editor/ok_loaded.png') no-repeat 9px 22px #A9C07C; color:white;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span p.error {background:url('/images/editor/error_searching.png') no-repeat 9px 11px #f57070; color:white;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span a {float:right; background:none; width:auto; padding:7px 5px 3px 0; text-decoration:underline; color:#9DB177;}
-div#editor div#tools div#add_source_container div.middle ul li.selected span a.retry {float:left; margin:3px 0 0 5px; width:auto; display:none; color:#333333;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span a.retry:hover {cursor:pointer;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span a.enabled {background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
@@ -330,8 +334,8 @@ div#editor div#tools div#add_source_container div.middle ul li.selected span div
 div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected a.delete:hover {background-position:0 -17px; cursor:pointer;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected p {float:left; font:normal 13px Arial; color:#666666; padding:1px 0 0 6px;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span div.selected form {display:none;}
-div#editor div#tools div#add_source_container div.middle ul li.selected.error {background:#F9C6C7;}
-div#editor div#tools div#add_source_container div.middle ul li.selected.error span div.inner {background:#F87174;}
+div#editor div#tools div#add_source_container div.middle ul li.searching.error span a {color:#333333;}
+
 /*jquery uploader*/
 div#uploader .qq-uploader {position:relative; width:100%; padding:0; margin:0; background:none;}
 div#uploader .qq-upload-button {float:left; width:63px; height:21px; background:url('/images/editor/browse.png') no-repeat 0 0; padding:0; margin:0; display:block; text-indent:-9999px;}
@@ -343,7 +347,7 @@ div#uploader .qq-upload-drop-area-active {background:#FF7171;}
 div#uploader .qq-upload-list {float:right; padding:5px 6px 5px 6px!important; margin:0!important; width:auto!important; background:none!important; -moz-border-radius:0px; -webkit-border-radius:0px; font:normal 11px Arial; color:#999999;}
 div#uploader .qq-upload-list li {float:left; width:auto!important; margin:0!important; padding:0!important; line-height:15px; font:normal 11px Arial; color:#999999;}
 div#uploader .qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {}
-div#uploader .qq-upload-file {}
+div#uploader span.qq-upload-file {display:inline-block!important; width:100px!important; text-overflow:ellipsis!important;  overflow:hidden!important; white-space:nowrap!important;}
 div#uploader .qq-upload-size,.qq-upload-cancel {display:none!important;}
 div#uploader .qq-upload-failed-text {display:none!important;}
 div#uploader .qq-upload-fail .qq-upload-failed-text {display:none!important;}
@@ -490,11 +494,11 @@ div#export_window div.block a.export:hover {background-position:0 -26px;}
 
 
 /*LAYER WINDOW*/
-div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:217px; height:224px; padding:25px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
+div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:217px; height:254px; padding:25px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
 div#layer_window a#layer_close {position:absolute; right:23px; top:23px; background:url('/images/editor/close_source.png') no-repeat 0 0; width:16px; height:16px; padding:0; margin:0; text-indent:-9999px;}
 div#layer_window a#layer_close:hover {background-position:0 -16px; cursor:pointer;}
 div#layer_window h3 {margin:0 0 0 12px; font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
-div#layer_window ul {position:relative; display:inline-block; width:100%; height:150px; margin:18px 0 0 0; overflow:auto;}
+div#layer_window ul {position:relative; display:inline-block; width:100%; height:175px; margin:18px 0 0 0; overflow:auto;}
 div#layer_window ul:focus {outline:none;}
 div#layer_window ul .jspContainer{overflow:hidden;position:relative;}
 div#layer_window ul .jspPane{position:absolute;}
@@ -532,7 +536,7 @@ div#layer_window ul li a.loading {text-indent:-9999px; background:url('/images/e
 div#layer_window ul li a.loading:hover {cursor:default; background-position:center 0;}
 div#layer_window ul li div.slider {display:none;}
 div#layer_window ul li.added div.slider {display:none; width:100%; height:5px; margin:6px 0 0 0;}
-div#layer_window form {display:inline-block; width:205px; margin:15px 0 0 12px;}
+div#layer_window form {display:inline-block; width:205px; margin:22px 0 0 12px;}
 div#layer_window form input[type="text"] {float:left; width:134px; height:13px; padding:7px 8px; background:url('/images/editor/layer_text_input.png') no-repeat 0 0; border:none; font:italic 11px Arial; color:#999999;}
 div#layer_window form input[type="text"]:focus {outline:none;}
 div#layer_window form input[type="submit"] {float:left; width:53px; height:25px; background:url('/images/editor/layer_submit_input.png') no-repeat 0 0; border:none; text-align:center; font:bold 11px Arial; color:#666666; text-shadow:0 1px white;}

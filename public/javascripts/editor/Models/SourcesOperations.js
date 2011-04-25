@@ -30,6 +30,7 @@
             },
             onComplete: function(id, fileName, responseJSON) {
               $('#uploader').parent().find('a.delete').show();
+              $('span.qq-upload-file').show();
               $('span.qq-upload-file').text(fileName);
               if (responseJSON.success) {
                 if (responseJSON.warnings.length==undefined) {
@@ -73,7 +74,7 @@
                 }
 
               } else {
-                if (responseJSON.format=="rla" || responseJSON.format==null) {
+                if (responseJSON.format=="geocat" || responseJSON.format==null) {
                   $('span.import').parent().addClass('error');
                   $('span.import a.delete').hide();
                   $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
@@ -166,11 +167,17 @@
         //Input focus in - out
         $("#add_source_container ul li span.search input").focusin(function(){
           var value = $(this).parent().children('input').val();
-          if (value!='' || value!='Insert species name') {
+          var me = this;
+          if (value=='' || value=='Insert species name') {
             $(this).val('');
             $(this).css('font-style','normal');
             $(this).css('color','#333333');
           }
+          $(document).keydown(function(e) {
+            if (e.keyCode == 13) { // ESC
+              $(me).closest('li').find('span.search a').trigger('click');
+            }
+          });
         });
         $("#add_source_container ul li span.search input").focusout(function(){
            var value = $(this).parent().children('input').val();
@@ -179,27 +186,49 @@
              $(this).css('color','#666666');
              $(this).val('Insert species name');
            }
+           $(document).unbind('keydown');
          });
         
         
         
         //Search term
         $("#add_source_container ul li span.search a").click(function(){
-          var value = $(this).parent().children('input').val();
+          var kind = ($(this).closest('li').children('a.checkbox').attr('id')=="add_flickr")?'flickr':'gbif';
+          var value = $(this).parent().children('input').val().toLowerCase();
           var check_id = $(this).parent().parent().children('a.checkbox').attr('id');
           var parent = $(this).parent().parent();
-          if (value!='' && value!='Insert species name') {
+          if (value!='' && value!='insert species name' ) {
             $(this).parent().parent().addClass('searching');
-            callSourceService(check_id,parent,value);
-          } else {
-            //TODO Error
+            if (points.speciesAdded(value,kind)) {
+              $(this).closest('li').find('span.loading a').removeClass('import_data').addClass('retry').text('retry');
+              $(this).closest('li').addClass('error');
+              $(this).closest('li').find('span p').addClass('error');
+              $(this).closest('li').find('span p').text('Already added!');
+            } else {
+              $(this).closest('li').find('span.loading p').removeClass('loaded');
+              $(this).closest('li').find('span p').text('Loading...');
+              $(this).closest('li').find('span.loading a').addClass('import_data').removeClass('enabled');
+              callSourceService(check_id,parent,value);
+            }
           }
+        });
+        
+        
+        $("span.loading a.retry").livequery('click',function(ev){
+          ev.stopPropagation();
+          ev.preventDefault();
+          $(this).addClass('import_data').removeClass('retry').text('import');
+          $(this).closest('li').removeClass('searching');
+          $(this).closest('li').removeClass('error');
+          $(this).closest('li').find('span p').removeClass('error');
+          $(this).closest('li').find('span p').text('Loading...');
+          $(this).parent().find('p').removeClass('loaded');
         });
         
         
 
         //import data
-        $("span.loading a.import_data").click(function(){
+        $("span.loading a.import_data").livequery('click', function(){
           if ($(this).hasClass('enabled')) {
             $("#add_source_container").fadeOut();
             $("#add_source_button").removeClass('open');
@@ -274,7 +303,14 @@
       /*============================================================================*/
       function removeSelectedSources() {
         $("#add_source_container ul li").each(function(i,item){
+          $(this).find('input').val('Insert species name').css('font-style','italic').css('color','#666666');
           $(this).removeClass('selected');
+          $(this).find('span.loading a').addClass('import_data').removeClass('retry').text('import');
+          $(this).removeClass('searching');
+          $(this).find('span p').removeClass('loaded');
+          $(this).removeClass('error');
+          $(this).find('span p').removeClass('error');
+          $(this).find('span p').text('Loading...');
         });
       }
 
@@ -285,8 +321,11 @@
       /*============================================================================*/
       function onLoadedSource(element, total) {
         $(element).find('span p').addClass('loaded');
-        if (total != 0)
+        if (total != 0) {
           $(element).find('span a').addClass('enabled');
+        } else {
+          $(element).find('span.loading a').removeClass('import_data').addClass('enabled').addClass('retry').text('retry');
+        }
       }
 
 
@@ -297,7 +336,7 @@
         $('span.import').parent().removeClass('error');
         $('span.import a.delete').hide();
         $('span.import a.retry').removeClass('enabled');
-        $('span.import a.retry').hide();
+        $('span.import append').hide();
         $('span.import a.retry').unbind('click');
 
         $('span.import a.import_data').removeClass('enabled');
@@ -317,7 +356,6 @@
       function resetSourcesProperties() {
         flickr_founded = [];
         gbif_founded = [];
-
         $("#add_source_container ul li").each(function(i,item){
           $(this).removeClass('selected');
           $(this).removeClass('added');
@@ -332,7 +370,6 @@
           $(this).find('div').removeClass('selected');
           $(this).find('span p').text('Loading...');
         });
-
         resetUploader();
       }
 
@@ -464,7 +501,7 @@
           case 'add_flickr':  url = "/search/flickr/"; break;
           default:    url= "/search/gbif/"; break;
         }
-
+        
         $.getJSON(url + query.replace(' ','+'),
             function(result){
               switch(kind) {

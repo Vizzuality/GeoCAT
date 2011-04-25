@@ -34,12 +34,18 @@
 			        mainApp();
         			createMap();
         			startSources();
+        			
               //Adding layers
-              layers = new LayerCustomization(upload_information.data.layers);
+              if (!_.isEmpty(upload_information)) {
+                layers = new LayerCustomization(upload_information.data.layers);
+              } else {
+                layers = new LayerCustomization([]);
+              }
 
         			//if the application comes through an upload file
         			if (upload_information.success) {
-        			  $('div.header h1').html(upload_information.data.reportName+'<sup>(saved)</sup>');
+        			  $('div.header h1 p').text(upload_information.data.reportName);
+                $('div.header h1 sup').text('saved');
       					changeApplicationTo(2);
         				uploadGeoCAT(upload_information);
         			} else {

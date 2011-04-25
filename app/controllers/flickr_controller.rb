@@ -36,7 +36,7 @@ class FlickrController < ApplicationController
             "collector"                     => photo['ownername'],
             "geocat_active"                 => true,
             "geocat_removed"                => false,
-            "catalogue_id"                  => "flickr_" + photo['id'],
+            "catalogue_id"                  => "flickr_"+ name_specie + "_" + photo['id'],
             "geocat_kind"                   => "flickr",
             "occurrenceRemarks"             => "#{photo['title']} / #{photo['description']}",
             "geocat_query"                  => CGI.unescape(name_specie)

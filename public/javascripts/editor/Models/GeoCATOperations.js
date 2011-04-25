@@ -207,7 +207,8 @@
 					$('body').unbind('hideMamufas');
 					hideMamufasMap(true);
 					
-					$('div.header h1').html(app_data[0].reportName+'<sup>(saved)</sup>');
+          $('div.header h1 p').text(app_data[0].reportName);
+          $('div.header h1 sup').text('saved');
 					changeApplicationTo(2);
           
 					//Merge points from service
@@ -216,13 +217,19 @@
 				}
 			});
 			
+			
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
-					sources.push(app_data[i].name);
 					//Get last id from "user_points"
-					if (app_data[i].name=='user') {
+					if (app_data[i].type=='user') {
 						var obs_data = app_data[i].points[app_data[i].points.length-1].catalogue_id.split('_');
 						global_id = parseInt(obs_data[1]);
+					} else {
+					  // Save the sources for the merging stuff
+					  var source_pair = {};
+					  source_pair.query = app_data[i].query;
+  				  source_pair.kind = app_data[i].type;
+  					sources.push(source_pair);
 					}
 					addSourceToMap(app_data[i],false,true);
 					showMamufasMap();

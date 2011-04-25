@@ -143,6 +143,7 @@
           //Marker mouseover event
           $(this.canvas_).hover(function(ev){
             if (state == 'select') {
+              map.setOptions({draggable:false});
               global_zIndex++;
               me.setZIndex(global_zIndex);
               over_marker = true; 
@@ -169,6 +170,7 @@
             }
           }, function(ev){
             if (state == 'select') {
+              map.setOptions({draggable:true});
               over_marker = false;
               setTimeout(function(ev){
                 if (over_tooltip!=null && !over_mini_tooltip && !over_marker) {

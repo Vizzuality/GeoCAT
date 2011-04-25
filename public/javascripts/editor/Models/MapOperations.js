@@ -162,6 +162,11 @@
 				    });
 				    
 				    $('div#map').mouseup(function(ev){
+				      var position = {};
+				      position.x = ev.pageX-($('div#map').offset().left);
+  				    position.y = ev.pageY-($('div#map').offset().top);
+  				    var latLng = edit_metadata.transformCoordinates(new google.maps.Point(position.x,position.y));
+				      
 				      $('div#map').unbind('mouseup');
 				      $('div#map').unbind('mousemove');
               drawing = false;
@@ -170,9 +175,9 @@
               google.maps.event.clearListeners(selection_polygon, 'click');
 
               if (over_polygon_tooltip!=null) {
-               over_polygon_tooltip.changeData(markersInPolygon(),selection_polygon.getPath().getAt(1));
+                over_polygon_tooltip.changeData(markersInPolygon(),latLng);
               } else {
-               over_polygon_tooltip = new PolygonOverTooltip(selection_polygon.getPath().getAt(1), markersInPolygon(), map);
+                over_polygon_tooltip = new PolygonOverTooltip(latLng, markersInPolygon(), map);
               }
 
               google.maps.event.addListener(selection_polygon,'mouseover',function(){

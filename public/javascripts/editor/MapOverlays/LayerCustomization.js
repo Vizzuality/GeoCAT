@@ -112,7 +112,7 @@
   		LayerCustomization.prototype.getLayers = function() {
   		  var me = this;
   		  this.importation_errors = 0;
-  		  $.getJSON("/data/layers.json?990",function(result){
+  		  $.getJSON("/data/layers.json",function(result){
   		    var layers = result.layers;
   		    if (me.upload_layers!=null) {
     		    layers = layers.concat(me.upload_layers);
@@ -133,11 +133,14 @@
   		      $('span.layer_error p').text('There were '+this.importation_errors+' errors importing the layers').parent().fadeIn().delay(2000).fadeOut();
   		    }
   		    
-          // for (var i in me.layers) {
-          //   if (me.layers[i].add) {
-          //     $('div#layer_window ul li[url="'+me.layers[i].url+'"] a.add_layer_link').trigger('click');
-          //   }
-          // }
+          for (var i in me.layers) {
+            if (me.layers[i].add) {
+              $('div#layer_window ul li[url="'+i+'"] ').addClass('added');
+    		      me.addRemoveLayer(i,me.layers[i].type,true);
+    		      $('div#layer_window ul li[url="'+i+'"] a.add_layer_link').text('ADDED');
+    		      me.sortLayers();
+            }
+          }
   		  });
   		}
   		

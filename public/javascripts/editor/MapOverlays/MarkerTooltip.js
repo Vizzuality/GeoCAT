@@ -138,11 +138,16 @@
 				description.style.margin = "0";
 				description.style.font = "normal 11px Arial";
 				description.style.color = "#666666";
-				if (this.inf.occurrenceRemarks.length>36) {
-  				$(description).text(this.inf.occurrenceRemarks.substr(0,33)+'...');
+				if (this.inf.occurrenceRemarks!=undefined) {
+				  if (this.inf.occurrenceRemarks.length>36) {
+    				$(description).text(this.inf.occurrenceRemarks.substr(0,33)+'...');
+  				} else {
+    				$(description).text(this.inf.occurrenceRemarks);
+  				}
 				} else {
-  				$(description).text(this.inf.occurrenceRemarks);
+				  $(description).text('');
 				}
+
 				div.appendChild(description);
 				
 
@@ -155,11 +160,16 @@
 				collector.style.margin = "0";
 				collector.style.font = "normal 11px Arial";
 				collector.style.color = "#666666";
-				if (this.inf.collector.length>36) {
-  				$(collector).text(this.inf.collector.substr(0,33)+'...');
+				if (this.inf.collector!=undefined) {
+  				if (this.inf.collector.length>36) {
+    				$(collector).text(this.inf.collector.substr(0,33)+'...');
+  				} else {
+    				$(collector).text(this.inf.collector);
+  				}
 				} else {
-  				$(collector).text(this.inf.collector);
+				  $(collector).text('');
 				}
+
 				div.appendChild(collector);
 
         

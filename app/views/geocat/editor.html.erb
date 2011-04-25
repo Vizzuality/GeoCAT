@@ -141,7 +141,6 @@
                               <a class="delete"></a>
                               <div id="uploader"><noscript></noscript></div>
                             </div>
-                            <a class="retry">cancel and close</a>
                             <a class="import_data">merge</a>
                           </span>
                         </li>
@@ -161,7 +160,7 @@
           <div class="header">
             <div class="top-left-map"></div>
             <div class="top-repeat-map">
-              <h1 class="report_name"><p><%= @report_name.blank? ? 'Untitled report' : CGI::unescape(@report_name) %></p><input type="text" value=""/><sup>(unsaved)</sup></h1>
+              <h1 class="report_name"><p><%= @report_name.blank? ? 'Untitled report' : CGI::unescape(@report_name) %></p><input type="text" value="<%= @report_name.blank? ? 'Untitled report' : CGI::unescape(@report_name) %>"/><sup>(unsaved)</sup></h1>
             </div>
             <div class="top-right-map">
               <span id="beta"></span>

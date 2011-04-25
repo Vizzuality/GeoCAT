@@ -3,8 +3,8 @@
     $('body').css('background','url(/images/editor/bkg.jpg) 0 0');
 
     //Get report name and bind report name events
-    report_name = $('h1 input').val();
-    if (report_name == "") {
+    report_name = $('h1 p').text();
+    if (report_name == null) {
       report_name = "Untitled report";
     }
     

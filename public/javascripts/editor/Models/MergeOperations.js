@@ -66,8 +66,7 @@
 									if (this.sources[count]!=undefined) {
 										me.requestPoints(count);
 									}
-								}
-								catch (e) {
+								} catch (e) {
 									activeMerge();
 								}
 							}

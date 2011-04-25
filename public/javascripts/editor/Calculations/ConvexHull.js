@@ -1,5 +1,4 @@
   function getConvexHullPoints(points) {
-        
     
     points = getPointCheck(points);
         

@@ -146,6 +146,19 @@
             $('li[species="'+query+'"][type="'+kind+'"] span.points p').text(this.sources[query+'_'+kind]+' '+kind_name+' '+((this.sources[query+'_'+kind]>1)?'points':'point'));
           }
 				}
+				
+				
+				
+				/*============================================================================*/
+				/* Return if the species has been added previously.   												*/
+				/*============================================================================*/
+				PointsOperations.prototype.speciesAdded = function(query,kind) {
+          return this.sources[query+'_'+kind]!=undefined && this.sources[query+'_'+kind]>0;
+				}
 			}
+			
+			
+			
+			
 			
 			PointsOperations.prototype = new Object();
