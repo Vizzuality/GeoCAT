@@ -309,6 +309,8 @@ div#editor div#tools div#add_source_container div.middle ul li.selected span.nor
 div#editor div#tools div#add_source_container div.middle ul li.searching span.search {display:none;}
 div#editor div#tools div#add_source_container div.middle ul li.searching span.normal {display:block;}
 div#editor div#tools div#add_source_container div.middle ul li.searching span.loading {display:block;}
+div#editor div#tools div#add_source_container div.middle ul li.selected.error {background-color:#F8C5C5;}
+div#editor div#tools div#add_source_container div.middle ul li.selected.error div.inner {background-color:#f57070;}
 div#editor div#tools div#add_source_container div.middle ul li.searching.error {background-color:#F8C5C5;}
 div#editor div#tools div#add_source_container div.middle ul li.searching.error span.normal {display:block;}
 div#editor div#tools div#add_source_container div.middle ul li.selected input {width:123px; padding:8px; margin:10px 0 0 9px; background:; border:1px solid #999999; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; font:italic 11px Arial; color:#999999; line-height:11px;}

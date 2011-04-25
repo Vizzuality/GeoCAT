@@ -29,16 +29,24 @@
               $('span.qq-upload-file').text('Uploading...');
             },
             onComplete: function(id, fileName, responseJSON) {
+              try {
+                var total_occurrences = {};
+                total_occurrences.points = new Array();
+                var sources = responseJSON.data.sources;
+                _.each(sources,function(element){
+                  $.merge(total_occurrences.points,element.points);
+                });
+              } catch (e) {}
+              
               $('#uploader').parent().find('a.delete').show();
               $('span.qq-upload-file').show();
               $('span.qq-upload-file').text(fileName);
               if (responseJSON.success) {
                 if (responseJSON.warnings.length==undefined) {
                   $('span.import a.import_data').addClass('enabled');
-                  merge_object = new MergeOperations([]);
                   $('span.import a.import_data').click(function(ev){
                     closeSources();
-                    merge_object.importPoints(responseJSON.data.sources);
+                    addSourceToMap(total_occurrences,false,false);
                   });
                 } else {
                   closeSources();
@@ -61,11 +69,10 @@
                     $('div#csv_error h3').text('There are errors in your uploaded csv file');
                     $('div#csv_error span a.continue').hide();
                   } else {
-                    merge_object = new MergeOperations([]);
                     $('div#csv_error span a.continue').unbind('click');
                     $('div#csv_error span a.continue').click(function(ev){
                       $('div#csv_error').fadeOut();
-                      merge_object.importPoints(responseJSON.data.sources);
+                      addSourceToMap(total_occurrences,false,false);
                     });
                     $('div#csv_error h3').text('There are warnings in your uploaded csv file');
                     $('div#csv_error span a.continue').show();
@@ -90,10 +97,9 @@
                 } else {
                   if (responseJSON.warnings.length==undefined) {
                     $('span.import a.import_data').addClass('enabled');
-                    merge_object = new MergeOperations([]);
                     $('span.import a.import_data').click(function(ev){
                       closeSources();
-                      merge_object.importPoints(responseJSON.data.sources);
+                      addSourceToMap(total_occurrences,false,false);
                     });
                   } else {
                     closeSources();
@@ -117,12 +123,11 @@
                       $('div#csv_error h3').text('There are errors in your uploaded csv file');
                       $('div#csv_error span a.continue').hide();
                     } else {
-                      merge_object = new MergeOperations([]);
                       $('div#csv_error span a.continue').unbind('click');
-                     $('div#csv_error span a.continue').click(function(ev){
-                       $('div#csv_error').fadeOut();
-                       merge_object.importPoints(responseJSON.data.sources);
-                     });
+                      $('div#csv_error span a.continue').click(function(ev){
+                        $('div#csv_error').fadeOut();
+                        addSourceToMap(total_occurrences,false,false);
+                      });
                       $('div#csv_error h3').text('There are warnings in your uploaded csv file');
                       $('div#csv_error span a.continue').show();
                     }

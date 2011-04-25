@@ -96,7 +96,6 @@
             },
             stop:function(event,ui){
               is_dragging = false;
-              
               map.setOptions({draggable:true});
               me.latlng_ = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));
               me.data.longitude = me.latlng_.lng();
@@ -114,7 +113,7 @@
           
           //Marker click event
           $(this.canvas_).click(function(ev){
-            if (me.clickable) {
+            if (state=="select" || state=="remove") {
               if (state == 'remove') {
                 if (delete_infowindow!=null) {          
                   if (me.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
@@ -248,7 +247,7 @@
       
       /* Set cursor property of the occurrence */
       GeoCATMarker.prototype.setCursor = function(type) {
-        this.canvas_.style.cursor = type;
+        try {this.canvas_.style.cursor = type;} catch(e) {}
       };
       
       

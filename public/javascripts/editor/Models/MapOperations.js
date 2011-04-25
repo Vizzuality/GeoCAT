@@ -255,16 +255,18 @@
             var info_data = new Object();
             $.extend(info_data, observations[i]);
             
-            (info_data.geocat_removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
-            bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
-            var marker = new GeoCATMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
-           
-            occurrences[marker.data.catalogue_id] = marker;
-            occurrences[marker.data.catalogue_id].data.geocat_query = occurrences[marker.data.catalogue_id].data.geocat_query.toLowerCase();
-           
-            if (!info_data.geocat_active) {
-              var marker_id = marker.data.catalogue_id;
-              occurrences[marker_id].setActive(false);
+            if (occurrences[info_data.catalogue_id]==undefined) {
+              (info_data.geocat_removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
+              bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
+              var marker = new GeoCATMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+
+              occurrences[marker.data.catalogue_id] = marker;
+              occurrences[marker.data.catalogue_id].data.geocat_query = occurrences[marker.data.catalogue_id].data.geocat_query.toLowerCase();
+
+              if (!info_data.geocat_active) {
+                var marker_id = marker.data.catalogue_id;
+                occurrences[marker_id].setActive(false);
+              }
             }
 
             i++;
