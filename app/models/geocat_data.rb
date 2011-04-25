@@ -53,7 +53,7 @@ class GeocatData
       data += source['points'].collect do |point|
         {
           'recordSource'                  => point['recordSource'],
-          'scientificname'                => source['points']['query'],
+          'scientificname'                => source['query'],
           'latitude'                      => point['latitude'],
           'longitude'                     => point['longitude'],
           'changed'                       => point['changed'],
