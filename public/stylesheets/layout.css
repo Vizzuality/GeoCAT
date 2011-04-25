@@ -222,14 +222,15 @@ div.hull_container p.diameter {position:absolute; top:72px; left:31px;}
 div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
 div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
-div.delete_all {display:none; position:absolute!important; top:0; right:14px; z-index:10; background:url('/images/editor/merge_delete_container.png') no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
+div.delete_all {display:none; position:absolute!important; top:-10px; left:-10px; z-index:10; background:url('/images/editor/merge_delete_container.png') no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
 div.delete_all h4 {float:left; margin:13px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:23px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
-div.delete_all div {float:right; width:100px; margin:10px 0 0 0;}
+div.delete_all div {float:right; width:100px; margin:0 0 0 0;}
 div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0; padding:3px 0 0 0!important;}
 div.delete_all div a.cancel:hover {color:#000000; cursor:pointer;}
-div.delete_all div a.yes {float:right!important; margin:10px 0 0 0; padding:0!important; width:51px; height:19px; background:url('/images/editor/yes_delete_button.png') no-repeat 0 0;}
+div.delete_all div a.yes {float:right!important; margin:13px 0 0 0; padding:0!important; width:51px; height:19px; background:url('/images/editor/yes_delete_button.png') no-repeat 0 0;}
 div.delete_all div a.yes:hover {background-position: 0 -19px; cursor:pointer;}
+div.delete_all span.arrow {position:absolute; right:12px; top:52px; width:12px!important; height:23px; background:url('/images/editor/grey_arrow.png') no-repeat 0 0;}
 div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:22px; right:11px; z-index:10; background:url('/images/editor/merge_delete_container.png') no-repeat 0 0;}
 div.merge_container h4 {float:left; margin:12px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.merge_container p {float:left; padding:0; margin:25px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
@@ -271,7 +272,7 @@ div#editor div#tools div.center div.right div.sources ul#sources_list li a.visib
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.green {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #7BA600, #99CC00); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CC00), to(#7BA600));}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.pink {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #9F2062, #FF3399); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FF3399), to(#9F2062));}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.blue {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #0062A3, #0099FF); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0099FF), to(#0062A3));}
-div#editor div#tools div.center div.right div.sources ul#sources_list li h3 {width:140px; font:bold 13px Arial; color:#999999; line-height:13px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; text-shadow:0 1px black;}
+div#editor div#tools div.center div.right div.sources ul#sources_list li h3 {width:140px; font:bold 13px Arial; color:#999999; line-height:13px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; text-shadow:0 1px black; text-transform:capitalize;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li:hover h3 {color:white;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.points {position:relative; display:inline-block; width:183px; height:18px; margin:7px 0 0 0; padding:0;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.points p {width:167px; height:11px; padding:3px 8px 4px 0; font:normal 11px Arial; color:#CCCCCC; line-height:11px;}

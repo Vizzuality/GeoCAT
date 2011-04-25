@@ -78,23 +78,24 @@
                 </div>
 
                 <div class="sources">
-                  <!-- Merge window -->
-                  <div class="merge_container">
-                    <h4>MERGE NEW FLICKR POINTS</h4>
-                    <p>There are 2 new points in flickr.</p>
-                    <div><a class="cancel" onclick="closeMergeContainer()">Cancel</a><a class="merge_button"></a></div>
-                  </div>
-                  <!-- Delete all window -->
-                  <div class="delete_all">
-                    <h4>DELETE ALL FLICKR POINTS</h4>
-                    <p>Are you sure you want to delete all these points?</p>
-                    <div><a class="yes"></a><a onclick="closeDeleteAll()" class="cancel">cancel</a></div>
-                  </div>
                   <span><h3>NO SPECIES IN YOUR ASSESSMENT</h3></span>
                   <ul id="sources_list">                   
                     <div class="add_new_source">
                       <button onclick="$('#add_source_button').trigger('click')">Add a new source</button>
-                    </div>           
+                    </div>  
+                    <!-- Merge window -->
+                    <div class="merge_container">
+                      <h4>MERGE NEW FLICKR POINTS</h4>
+                      <p>There are 2 new points in flickr.</p>
+                      <div><a class="cancel">Cancel</a><a class="merge_button"></a></div>
+                    </div>
+                    <!-- Delete all window -->
+                    <div class="delete_all">
+                      <h4>DELETE ALL FLICKR POINTS</h4>
+                      <p>Are you sure you want to delete all these points?</p>
+                      <div><a class="yes"></a><a class="cancel">cancel</a></div>
+                      <span class="arrow"></span>
+                    </div>         
                   </ul>
                 </div>
               </div>

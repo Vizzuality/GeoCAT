@@ -25,7 +25,6 @@
 
 				// Redo action.
 				$('a.redo').click(function() {me.Redo();});
-
 			}
 			
 			

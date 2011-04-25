@@ -39,14 +39,16 @@
 
         			//if the application comes through an upload file
         			if (upload_information.success) {
+        			  $('div.header h1').html(upload_information.data.reportName+'<sup>(saved)</sup>');
+      					changeApplicationTo(2);
         				uploadGeoCAT(upload_information);
         			} else {
         				$('#wellcome').show();
         				// Trick to hide wellcome window if user clicks off this container
         				$('body').click(function(event) {
         			    if (!$(event.target).closest('#wellcome').length) {
-        			        $('#wellcome').fadeOut();
-        							$('body').unbind('click');
+        			      $('#wellcome').fadeOut();
+        						$('body').unbind('click');
         			    };
         				});
         			}

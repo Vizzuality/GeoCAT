@@ -8,8 +8,8 @@
 
 
 
-      var flickr_founded;              // Flickr data founded
-      var gbif_founded;                // Gbif data founded
+      var flickr_founded;   // Flickr data founded
+      var gbif_founded;     // Gbif data founded
 
 
       function startSources() {
@@ -212,7 +212,29 @@
                                   break;
               default:             null;
             }
-        }
+          }
+        });
+        
+        
+        //Close merge & delete windows
+        $('div.delete_all a.cancel').click(function(){
+          $('div.delete_all').fadeOut();
+        });
+        
+        
+        //Visible or not any source.
+        $('a.visible_specie').livequery('click',function(){
+          var visible = ($(this).hasClass('on'))?false:true;
+          if (visible) {
+            $(this).addClass('on');
+          } else {
+            $(this).removeClass('on');
+          }
+          var kind = $(this).closest('li').attr('type');
+          var query = $(this).closest('li').attr('species');
+          
+          $(this).animate({'background-position': (!visible)?'-20px 0':'0 0'},200);
+          hideAll(query,kind,visible);
         });
 
       }
@@ -319,31 +341,32 @@
       /*============================================================================*/
       /* Open Delete container.                                                     */
       /*============================================================================*/
-      function openDeleteAll(kind) {
-        var position = $('li a.'+kind).offset();
-        if (convex_hull.isVisible()) {
-          $('div.delete_all').css('top',position.top - 412 + 'px');
+      function openDeleteAll(query,kind) {
+        var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
+        var list_height = $('ul#sources_list').height(); 
+        
+        //Arrow position
+        if (position.top<20) {
+          $('div.delete_all').css('top','-10px');
+          $('div.delete_all span.arrow').css('top','52px');
         } else {
-          $('div.delete_all').css('top',position.top - 268 + 'px');
+          $('div.delete_all').css('top',position.top-20 + 'px');
+          $('div.delete_all span.arrow').css('top','52px');
         }
+
         $('a.'+ kind).parent().children('a.delete_all').addClass('active');
         $('div.delete_all').fadeIn();
         
-        var type;
-        
         switch (kind) {
-          case 'green':   type = 'gbif';
-                          $('div.delete_all h4').text('DELETE ALL GBIF POINTS');
+          case 'gbif':   $('div.delete_all h4').text('DELETE THESE GBIF OCCS');
                           break;
-          case 'pink':     type = 'flickr';
-                          $('div.delete_all h4').text('DELETE ALL FLICKR POINTS');
+          case 'flickr':    $('div.delete_all h4').text('DELETE THESE FLICKR OCCS');
                           break;
-          default:         type = 'your';
-                          $('div.delete_all h4').text('DELETE ALL YOUR POINTS');
+          default:        $('div.delete_all h4').text('DELETE ALL YOUR OCCS');
         }
         
         $('div.delete_all div a.yes').unbind('click');
-        $('div.delete_all div a.yes').bind('click',function(){deleteAll(type)});
+        $('div.delete_all div a.yes').bind('click',function(){deleteAll(query,kind)});
       }
 
 

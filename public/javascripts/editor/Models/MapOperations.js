@@ -249,8 +249,8 @@
           if (i < total){
             var info_data = new Object();
             $.extend(info_data, observations[i]);
-           
-            (info_data.removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
+            
+            (info_data.geocat_removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
             bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
             var marker = new GeoCATMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
            
@@ -284,8 +284,12 @@
         if (information.points.length>20) {
          showMamufasMap();
         }
+                
+        var non_removed = _.select(information.points,function(element){
+          return !element.geocat_removed;
+        });
         
-        actions.Do('add',null,information.points);
+        actions.Do('add',null,non_removed);
         asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);
 			}
 
@@ -483,11 +487,12 @@
           if (convex_hull.isVisible()) {
             mamufasPolygon();
           }
+          
                
-         for (var i=0; i<markers_id.length; i++) {
+          for (var i=0; i<markers_id.length; i++) {
            var marker_id = markers_id[i].catalogue_id;
            occurrences[marker_id].setActive(!occurrences[marker_id].data.geocat_active);
-        
+
             // Add or deduct the marker from _active_markers
             if (!occurrences[marker_id].data.active) {
               convex_hull.deductPoint(marker_id);
@@ -512,7 +517,7 @@
 			/*============================================================================*/
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
-			function hideAll (query,kind,active) {
+			function hideAll(query,kind,active) {
         
         var hideMarkers = _.select(occurrences, function(element,key){return element.data.geocat_active!=active &&  element.data.geocat_kind==kind && element.data.geocat_query==query && !element.data.geocat_removed});
         var hide_markers = [];

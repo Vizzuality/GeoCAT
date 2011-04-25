@@ -113,7 +113,7 @@
                         '<span class="points">'+
                           '<p>'+me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point')+'</p>'+
                           '<a class="merge_specie"></a>'+
-                          '<a class="delete_specie"></a>'+
+                          '<a onclick="openDeleteAll(\''+query+'\',\''+kind+'\')" class="delete_specie"></a>'+
                         '</span>'+
                       '</li>');
       		  api.reinitialise();

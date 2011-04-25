@@ -390,6 +390,11 @@
 				$('div.analysis_data ul li:eq(0) p:eq(0)').html('0 km<sup>2</sup>');
 				$('div.analysis_data ul li:eq(1)').removeClass();
 				$('div.analysis_data ul li:eq(1) p:eq(0)').html('0 km<sup>2</sup>');
+				
+				this.EOO = 0;
+				this.AOO = 0;
+				this.AOOkind = '';
+				this.EOOkind = '';
 			}
 
 

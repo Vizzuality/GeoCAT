@@ -112,7 +112,7 @@
   		LayerCustomization.prototype.getLayers = function() {
   		  var me = this;
   		  this.importation_errors = 0;
-  		  $.getJSON("/data/layers.json",function(result){
+  		  $.getJSON("/data/layers.json?990",function(result){
   		    var layers = result.layers;
   		    if (me.upload_layers!=null) {
     		    layers = layers.concat(me.upload_layers);

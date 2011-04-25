@@ -142,10 +142,9 @@
 
           //Marker mouseover event
           $(this.canvas_).hover(function(ev){
-            global_zIndex++;
-            me.setZIndex(global_zIndex);
-            
             if (state == 'select') {
+              global_zIndex++;
+              me.setZIndex(global_zIndex);
               over_marker = true; 
               if (click_infowindow != null) {
                 if (!is_dragging && !click_infowindow.isVisible()) {

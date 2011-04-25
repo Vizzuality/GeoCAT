@@ -13,5 +13,12 @@
       "source":"ProtectedPlanet",
       "opacity":0.5,
       "type": "xyz"
+    },
+    {
+      "url":"http://code.google.com/apis/kml/documentation/KML_Samples.kml",
+      "name":"Unknown",
+      "source": "Google",
+      "opacity":0.5,
+      "type":"kml"
     }]
 }

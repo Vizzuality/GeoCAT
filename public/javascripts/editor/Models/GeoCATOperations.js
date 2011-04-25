@@ -206,6 +206,7 @@
 				if (sources_length==count) {
 					$('body').unbind('hideMamufas');
 					hideMamufasMap(true);
+					
 					$('div.header h1').html(app_data[0].reportName+'<sup>(saved)</sup>');
 					changeApplicationTo(2);
           
