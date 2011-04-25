@@ -39,7 +39,7 @@
       $('h1 input').unbind('keypress');
       var value = $(this).val();
       //Change application to unsaved?
-      if ($('h1 p').text()!='Untitled report' && value !='' && value != $('h1 p').text()) {
+      if (value!='Untitled report' && value !='' && value != $('h1 p').text()) {
         changeApplicationTo(1);
       }
       //Change value of the textinput

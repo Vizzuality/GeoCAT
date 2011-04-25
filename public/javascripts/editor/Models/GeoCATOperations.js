@@ -160,6 +160,7 @@
 			    $("div.cellsize span p").text(cellsize + 'KM');
 			    $("div.cellsize div.slider").slider('value',cellsize);
 			    convex_hull.cellsize = cellsize;
+			    convex_hull.cellsize_type = this.upload_data_.data.analysis.AOO.cellsize_type;
 			    convex_hull.removeAOOPolygons();
 			  }
 			}
@@ -176,7 +177,6 @@
 		/*===============================================================================================================*/
 		/* Download to your computer one .geocat file with all the points and properties you have at the moment in the map. */
 		/*===============================================================================================================*/
-		
 		function downloadGeoCAT(format) {
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
@@ -191,7 +191,6 @@
 		/*===============================================================*/
 		/* Restore the application thanks to the file you have uploaded. */
 		/*===============================================================*/
-		
 		function uploadGeoCAT(upload_data) {
 			var geocat = new GeoCAT(null,null,upload_data);
 			var app_data = geocat.upload();
