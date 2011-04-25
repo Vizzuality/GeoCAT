@@ -26,22 +26,23 @@ class GeocatData
   end
 
   def to_json
-    {
-      :success => valid?,
-      :format => format,
-      :data => {
-        :reportName => reportName,
-        :viewPort => {
-          :zoom => viewPort["zoom"],
-          :center => viewPort["center"]
+    if reportName.blank?
+      return {}.to_json
+    else
+      {
+        :success => valid?,
+        :format => format,
+        :data => {
+          :reportName => reportName,
+          :viewPort => viewPort,
+          :analysis => analysis,
+          :sources => sources,
+          :layers => layers
         },
-        :analysis => analysis,
-        :sources => sources,
-        :layers => layers
-      },
-      :errors => errors,
-      :warnings => warnings
-    }.to_json
+        :errors => errors,
+        :warnings => warnings
+      }.to_json
+    end
   end
 
   def to_csv
