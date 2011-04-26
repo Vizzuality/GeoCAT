@@ -251,8 +251,9 @@
         
         
         //Close merge & delete windows
-        $('div.delete_all a.cancel').click(function(){
+        $('div.delete_all a.cancel,div.merge_container a.cancel').click(function(){
           $('div.delete_all').fadeOut();
+          $('div.merge_container').fadeOut();
         });
         
         
@@ -446,41 +447,25 @@
       /*============================================================================*/
       /* Open Merge container.                                                       */
       /*============================================================================*/
-      function openMergeContainer(kind) {
-        // var position = $('li a.'+kind).offset();
-        // if (convex_hull.isVisible()) {
-        //   $('div.merge_container').css('top',position.top - 412 + 'px');
-        // } else {
-        //   $('div.merge_container').css('top',position.top - 268 + 'px');
-        // }
-        // $('div.merge_container a.merge_button').unbind('click');
-        // 
-        // var type;
-        // 
-        // switch (kind) {
-        //   case 'green':   type = 'gbif';
-        //                   $('div.merge_container h4').text('MERGE NEW GBIF POINTS');
-        //                   if (merge_object.gbif_points.length==1) {
-        //                     $('div.merge_container p').text('There is 1 new point in GBIF');
-        //                   } else {
-        //                     $('div.merge_container p').text('There are '+merge_object.gbif_points.length+' new points in GBIF');
-        //                   }
-        //                   $('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.gbif_points, kind:'gbif'},true,false); closeMergeContainer()});
-        // 
-        //                   break;
-        //   default:         type = 'flickr';
-        //                   $('div.merge_container h4').text('MERGE NEW FLICKR POINTS');
-        //                   if (merge_object.flickr_points.length==1) {
-        //                     $('div.merge_container p').text('There is 1 new point in Flickr');
-        //                   } else {
-        //                     $('div.merge_container p').text('There are '+merge_object.flickr_points.length+' new points in Flickr');
-        //                   }
-        //                   $('div.merge_container a.merge_button').click(function(){addSourceToMap({points: merge_object.flickr_points, kind:'flickr'},true,false); closeMergeContainer()});
-        //                   break;
-        // }
-        // 
-        // $('div.merge_container').fadeIn();
-
+      function openMergeContainer(query,kind) {
+        
+        var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
+        var list_height = $('ul#sources_list').height(); 
+        
+        //Arrow position
+        if (position.top<20) {
+          $('div.merge_container').css('top','-10px');
+          $('div.merge_container span.arrow').css('top','52px');
+        } else {
+          $('div.merge_container').css('top',position.top-20 + 'px');
+          $('div.merge_container span.arrow').css('top','52px');
+        }
+        
+        $('div.merge_container h4').text('MERGE THESE '+kind+' OCCS');
+        $('div.merge_container p').text('There are new points in this '+kind+' source');
+        $('div.merge_container div a.merge_button').unbind('click');
+        $('div.merge_container div a.merge_button').bind('click',function(){mergeSource(query,kind)});
+        $('div.merge_container').fadeIn();
       }
 
 
@@ -488,10 +473,10 @@
       /*============================================================================*/
       /* Close Merge container.                                                     */
       /*============================================================================*/
-      function closeMergeContainer() {
-        $('div.merge_container').fadeOut();
-        $('a.merge').unbind('click');
-        $('a.merge').removeClass('active');
+      function closeMergeContainer(query,kind) {
+        // $('div.merge_container').fadeOut();
+        // $('a.merge').unbind('click');
+        // $('a.merge').removeClass('active');
       }
 
 
@@ -506,6 +491,8 @@
           case 'add_flickr':  url = "/search/flickr/"; break;
           default:    url= "/search/gbif/"; break;
         }
+        flickr_founded = new Array();
+        gbif_founded = new Array();
         
         $.getJSON(url + query.replace(' ','+'),
             function(result){

@@ -156,9 +156,14 @@
 			  if (this.upload_data_.data.analysis.AOO.cellsize_type=='auto') {
 			    $('#auto_value').trigger('click');
 			  } else {
+			    if (this.upload_data_.data.analysis.AOO.cellsize_type == "auto-value") {
+			      $('#auto_value').trigger('click')
+			    } else {
+			      $("div.cellsize span p").text(cellsize + 'KM');
+  			    $("div.cellsize div.slider").slider('value',cellsize);
+			    }
+			    
 			    var cellsize = this.upload_data_.data.analysis.AOO.cellsize_step;
-			    $("div.cellsize span p").text(cellsize + 'KM');
-			    $("div.cellsize div.slider").slider('value',cellsize);
 			    convex_hull.cellsize = cellsize;
 			    convex_hull.cellsize_type = this.upload_data_.data.analysis.AOO.cellsize_type;
 			    convex_hull.removeAOOPolygons();
@@ -211,8 +216,8 @@
 					changeApplicationTo(2);
           
 					//Merge points from service
-					//merge_object = new MergeOperations(sources);
-					//setTimeout(function(){merge_object.checkSources();},1000);
+          merge_object = new MergeOperations(sources);
+          setTimeout(function(){merge_object.checkSources();},1000);
 				}
 			});
 			

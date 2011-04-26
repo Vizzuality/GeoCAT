@@ -11,9 +11,7 @@
 
 
 			function MergeOperations(sources) {
-				this.gbif_points = [];
-				this.flickr_points = [];
-				this.your_points = [];
+				this.source_points = [];
 				this.sources = sources;
 			}
 
@@ -26,7 +24,7 @@
 				if (this.sources.length>0) {
 					var me = this;
 					setTimeout(function(ev){
-						me.requestPoints(0);
+						me.requestPoints();
 					},1000);
 				}
 			}
@@ -36,129 +34,73 @@
 			/*============================================================================*/
 			/*  Get the sources included in the tool.																			*/
 			/*============================================================================*/
-			MergeOperations.prototype.requestPoints = function(count) {
-				var me = this;
-				if (this.sources[count]=="your") {
-					count++;
-					try {
-						if (this.sources[count]!=undefined) {
-							me.requestPoints(count);
-						}
-					}
-					catch (e) {
-						activeMerge();
-					}
-				} else {
-					var url = "/search/" + this.sources[count] + '/' + specie.replace(' ','+');
+			MergeOperations.prototype.requestPoints = function() {
+			  var me = this;
+			  if (this.sources.length>0) {
+			    var url = "/search/" + this.sources[0].kind + '/' + this.sources[0].query.replace(' ','+');
 					$.getJSON(url,
-							function(result){
-								for (var i=0; i<result[0].points.length; i++) {
-									if (_markers[result[0].points[i].catalogue_id]==undefined && _markers[result[0].points[i].catalogue_id]==null) {
-										if (me.sources[count]=="gbif") {
-											me.gbif_points.push(result[0].points[i]);
-										} else {
-											me.flickr_points.push(result[0].points[i]);
-										}
-									}
-								}
-								count++;
-								try {
-									if (this.sources[count]!=undefined) {
-										me.requestPoints(count);
-									}
-								} catch (e) {
-									activeMerge();
-								}
-							}
+					  function(result){
+					    var species = {};
+					    species.kind = result[0].name;
+					    species.query = result[0].specie.replace('+',' ');
+					    species.points = result[0].points;
+					    me.source_points.push(species);
+					    
+					    me.sources = _.rest(me.sources);
+					    me.requestPoints();
+						}
 					);
-				}
+			  } else {
+			    this.selectPoints();
+			  }
 			}
 			
 			
 			
 			/*============================================================================*/
-			/*  Import .RLA or .CSV file occurences.																			*/
+			/*  Select the new points for each source                                     */
 			/*============================================================================*/
-			MergeOperations.prototype.importPoints = function(sources) {
-        var me = this;
-        showMamufasMap();
-				
-        function asynCheckPoints(count,sources_) {
-          if (sources_[count]!=undefined) {
-            for (var i=0; i<sources_[count].points.length; i++) {
-              var catalogue_id = sources_[count].points[i].catalogue_id;
-              if (catalogue_id==null || catalogue_id==undefined) {
-                global_id++;
-                sources_[count].points[i].removed=false;
-                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined && sources_[count].points[i].coordinateUncertaintyInMeters>999)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15000;
-                (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
-                (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
-                (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
-                sources_[count].points[i].catalogue_id = 'your_'+global_id;
-                (sources_[count].points[i].kind!=undefined)?null:sources_[count].points[i].kind='your';
-                me.your_points.push(sources_[count].points[i]);
-              } else {
-                sources_[count].points[i].removed=false;
-                (sources_[count].points[i].coordinateUncertaintyInMeters!=undefined && sources_[count].points[i].coordinateUncertaintyInMeters>999)?null:sources_[count].points[i].coordinateUncertaintyInMeters=15000;
-                (sources_[count].points[i].active!=undefined)?null:sources_[count].points[i].active=true;
-                (sources_[count].points[i].occurrenceRemarks!=undefined)?null:sources_[count].points[i].occurrenceRemarks='';
-                (sources_[count].points[i].collector!=undefined)?null:sources_[count].points[i].collector='';
-                
-                 if (sources_[count].points[i].recordSource=="gbif" && _markers[catalogue_id]==undefined) {
-                   sources_[count].points[i].kind='gbif';
-                   me.gbif_points.push(sources_[count].points[i]);
-                 } else if (sources_[count].points[i].recordSource=="flickr" && _markers[catalogue_id]==undefined) {
-                   sources_[count].points[i].kind='flickr';
-                   me.flickr_points.push(sources_[count].points[i]);
-                 } else {
-                   if (_markers[catalogue_id]==undefined) {
-                     /*Get top index global number*/
-                     var number = catalogue_id.split('_')[1];
-                     if (number>global_id) {global_id = number;}
-                     sources_[count].points[i].kind='your';
-                     me.your_points.push(sources_[count].points[i]);
-                   }
-                 }
-              }
-            }
-            count++;
-            setTimeout(function(){asynCheckPoints(count,sources_);},0);
-          } else {
-            sources_length = 0;
-            if (me.gbif_points.length>0) {
-        			sources_length++;
-            }
-            if (me.flickr_points.length>0) {
-        			sources_length++;
-            }
-            if (me.your_points.length>0) {
-              sources_length++;
-            }
-            sources_count=0;
-            $('body').bind('hideMamufas', function(ev){
-      				sources_count++;
-      				if (sources_length==sources_count) {
-      					$('body').unbind('hideMamufas');
-      					hideMamufasMap(true);
-      				}
-      			});
-            if (me.gbif_points.length>0) {
-        			addSourceToMap({points:me.gbif_points},false,true);
-            }
-            if (me.flickr_points.length>0) {
-        			addSourceToMap({points:me.flickr_points},false,true);
-            }
-            if (me.your_points.length>0) {
-              addSourceToMap({points:me.your_points},false,true);
-            }
-            if (me.gbif_points.length==0 && me.flickr_points.length==0 && me.your_points.length==0) {
-    					$('body').unbind('hideMamufas');
-    					hideMamufasMap(false);
-            }
-          }
-        }
-        asynCheckPoints(0,sources);
+			MergeOperations.prototype.selectPoints = function() {
+			  var me = this;
+			  _.each(this.source_points,function(source){
+			    source.points = _.select(source.points, function(point){ return occurrences[point.catalogue_id]==undefined;});
+			    if (source.points.length>0) {
+			      me.activateMerge(source.query,source.kind);
+			    }
+			  });
+			  
+			  this.source_points = _.select(this.source_points, function(source){ return source.points.length>0;});
 			}
+			
+			
+			
+			/*============================================================================*/
+			/*  Active the sources in the list                                            */
+			/*============================================================================*/
+			MergeOperations.prototype.activateMerge = function(query,kind) {
+        $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] ').animate({boxShadow: '0 0 10px #666666'},500);
+        $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] ').delay(500).animate({boxShadow: '0 0 0 #1e2022'},500,function(){
+          $(this).css('box-shadow','none').css('-webkit-box-shadow','none').css('-moz-box-shadow','none');
+        });
+        $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] a.merge_specie').addClass('update');
+        $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] a.merge_specie').bind('click',function(){
+          openMergeContainer(query,kind);
+        });
+			}
+			
+			
+			
+			function mergeSource(query,kind) {
+			  $('div.merge_container').fadeOut();
+			  $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] a.merge_specie').removeClass('update').unbind('click');
+			  _.each(merge_object.source_points,function(element){
+			    if (element.kind == kind && element.query == query) {
+			      addSourceToMap(element,true,true);
+			      return;
+			    }
+			  });
+			}
+			
 
 			
 			
