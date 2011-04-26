@@ -40,7 +40,6 @@
 			    var url = "/search/" + this.sources[0].kind + '/' + this.sources[0].query.replace(' ','+');
 					$.getJSON(url,
 					  function(result){
-					    console.log(result);
 					    var species = {};
 					    species.kind = result[0].name;
 					    species.query = result[0].specie.replace('+',' ');
@@ -69,7 +68,6 @@
 			      me.activateMerge(source.query,source.kind);
 			    }
 			  });
-			  
 			  this.source_points = _.select(this.source_points, function(source){ return source.points.length>0;});
 			}
 			
@@ -96,7 +94,7 @@
 			  $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] a.merge_specie').removeClass('update').unbind('click');
 			  _.each(merge_object.source_points,function(element){
 			    if (element.kind == kind && element.query == query) {
-			      addSourceToMap(element,true,true);
+			      addSourceToMap(element,true,false);
 			      return;
 			    }
 			  });
