@@ -40,6 +40,7 @@
 			    var url = "/search/" + this.sources[0].kind + '/' + this.sources[0].query.replace(' ','+');
 					$.getJSON(url,
 					  function(result){
+					    console.log(result);
 					    var species = {};
 					    species.kind = result[0].name;
 					    species.query = result[0].specie.replace('+',' ');
