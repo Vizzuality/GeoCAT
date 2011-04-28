@@ -24,7 +24,7 @@ set :user,  'ubuntu'
 
 set :deploy_to, "/home/ubuntu/www/#{application}"
 
-after  "deploy:update_code", :run_migrations, :symlinks, :asset_packages, :set_staging_flag
+after  "deploy:update_code", :run_migrations, :symlinks, :set_staging_flag
 after "deploy:update", "deploy:cleanup"
 
 desc "Restart Application"
@@ -49,11 +49,3 @@ task :symlinks, :roles => [:app] do
   CMD
 end
 
-desc 'Create asset packages'
-task :asset_packages, :roles => [:app] do
- run <<-CMD
-   export RAILS_ENV=production &&
-   cd #{release_path} &&
-   bundle exec jammit config/assets.yml
- CMD
-end
