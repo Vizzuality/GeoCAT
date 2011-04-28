@@ -23,7 +23,7 @@ class FlickrController < ApplicationController
           :text     => name_specie,
           :extras   => 'geo,tags,owner_name,machine_tags,description',
           :has_geo  => '1',
-          :per_page => '200'
+          :per_page => '500'
         )
 
         # Filtering the json answer

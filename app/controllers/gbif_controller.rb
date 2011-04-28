@@ -17,7 +17,7 @@ class GbifController < ApplicationController
           gbif_url = URI.escape(
             "http://#{mirror}/ws" +
             "/rest/Occurrence/list?georeferencedonly=true&format=darwin" +
-            "&maxresults=200&coordinateissues=false&scientificname=#{q}"
+            "&maxresults=500&coordinateissues=false&scientificname=#{q}"
           )
           open(gbif_url) {|f| @list =  f.read }
           break
