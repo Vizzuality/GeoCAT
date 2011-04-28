@@ -5,4 +5,4 @@ require 'flickraw'
 
 
 # Initialize the rails application
-Geocat::Application.initialize!
+GeocatApp::Application.initialize!

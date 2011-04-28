@@ -1,4 +1,4 @@
-Geocat::Application.routes.draw do |map|
+GeocatApp::Application.routes.draw do |map|
 
   resources :geocat
 
