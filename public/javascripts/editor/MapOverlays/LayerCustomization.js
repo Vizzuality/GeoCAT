@@ -296,12 +296,13 @@
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.sortLayers = function() {
   		  var me = this;
-  		  var size = $('div#layer_window ul li[type="xyz"]').size() - 1;
-  		  $('div#layer_window ul li[type="xyz"]').each(function(i,element){
+  		  var size = $('div#layer_window ul li[type="xyz"].added').size();
+  		  map.overlayMapTypes.clear();
+  		  $('div#layer_window ul li[type="xyz"].added').reverse(function(i,element) {
   		    var url = $(element).attr('url');
   		    var added = $(element).hasClass('added');
-          map.overlayMapTypes.setAt(size-i,(!added)?null:me.layers[url].layer);
-          me.layers[url].position = size-i;
+          map.overlayMapTypes.push(me.layers[url].layer);
+          me.layers[url].position = size-i-1;
   		  });
   		}
   		
@@ -348,6 +349,15 @@
         $('a.layer').removeClass('selected');
         $('body').unbind('click');
       }
+      
+      
+      jQuery.fn.reverse = function(fn) {       
+         var i = this.length;
+         while(i) {
+           i--;
+           fn.call(this[i], i, this[i]);
+         }
+      };
 
 
   		
