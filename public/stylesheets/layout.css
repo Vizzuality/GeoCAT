@@ -177,7 +177,7 @@ div#tools div.center div.right div.inner_analysis {position:relative; float:left
 div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:url('/images/editor/analysis_button.png') no-repeat 0 0; margin:0 0 0 16px;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {cursor:pointer;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url('/images/editor/analysis_button.png') no-repeat -26px -25px #999999; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
-div#tools div.center div.right div.inner_analysis h3 {float:left; font:bold 15px Arial; color:#999999; text-shadow:0 1px white; padding:3px 0 0 0; margin:0 0 18px 10px;}
+div#tools div.center div.right div.inner_analysis h3 {float:left; font:bold 13px Arial; color:#999999; text-shadow:0 1px white; padding:3px 0 0 0; margin:2px 0 18px 10px;}
 div#tools div.center div.right div.inner_analysis h3.disabled {color:#B7B7B7;}
 div.analysis_data {position:relative; float:left; width:100%; height:0; overflow:hidden!important;}
 div.analysis_data ul {position:relative; float:left; width:190px; height:105px; margin:0 0 5px 16px; padding:0;}
