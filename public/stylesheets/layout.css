@@ -539,6 +539,8 @@ div#layer_window ul li h4 {width:100%; overflow:hidden; text-overflow:ellipsis; 
 div#layer_window ul li span {display:inline-block; width:130px; margin:2px 5px 0 0; }
 div#layer_window ul li span p {display:inline-block; max-width:75px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
 div#layer_window ul li span a {display:none}
+div#layer_window ul li span p a {display:inline; color:#666666}
+div#layer_window ul li span p a:hover {display:inline; color:#333333}
 div#layer_window ul li:hover span a.remove_layer {display:inline-block; float:none; height:auto; width:auto!important; margin:0; padding:0 0 0 5px; font:normal 12px Arial; color:#333333; background:none; border:none;}
 div#layer_window ul li:hover span a.remove_layer:hover {color:#000000;}
 div#layer_window ul li a.add_layer_link {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/images/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}

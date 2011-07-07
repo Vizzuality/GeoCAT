@@ -29,6 +29,8 @@
               $('span.qq-upload-file').text('Uploading...');
             },
             onComplete: function(id, fileName, responseJSON) {
+							console.log(responseJSON);
+	
               try {
                 var total_occurrences = {};
                 total_occurrences.points = new Array();

@@ -112,7 +112,7 @@
   		LayerCustomization.prototype.getLayers = function() {
   		  var me = this;
   		  this.importation_errors = 0;
-  		  $.getJSON("/data/layers.json",function(result){
+  		  $.getJSON("/data/layers.json?12333",function(result){
   		    var layers = result.layers;
   		    if (me.upload_layers!=null) {
     		    layers = layers.concat(me.upload_layers);
@@ -121,7 +121,7 @@
   		    for (var i=0; i<layers.length; i++) {
   		      var url = layers[i].url;
   		      if (me.layers[url]==undefined) {
-    		      me.addLayer(layers[i].name,layers[i].source,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false), ((layers[i].add != undefined)? true : false));
+    		      me.addLayer(layers[i].name,layers[i].source_url,layers[i].source_name,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false), ((layers[i].add != undefined)? true : false));
   		      } else {
   		        me.layers[url].add = true;
   		      }
@@ -151,7 +151,7 @@
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.importLayer = function(url) {
 	      this.importation_errors = 0;
-	      this.addLayer('','',url,0.5,'',false,true);
+	      this.addLayer('','','',url,0.5,'',false,true);
 	      if (this.importation_errors==1) {
 		      $('span.layer_error p').text('Review your layer url, seems to be incorrect').parent().fadeIn().delay(2000).fadeOut();
 		    }
@@ -163,7 +163,7 @@
   		/*========================================================================================================================*/
   		/* Add a layer to the list */
   		/*========================================================================================================================*/
-  		LayerCustomization.prototype.addLayer = function(name,source,url,opacity,type,locked,add) {
+  		LayerCustomization.prototype.addLayer = function(name,source_url,source_name,url,opacity,type,locked,add) {
         if (type=='') {
           if (url.search('.kml')!=-1) {
             type = 'kml';
@@ -181,7 +181,8 @@
   		    }
   		    this.layers[url] = {};
           this.layers[url].name = (name=='')?'User KML layer':name;
-    		  this.layers[url].source = (source=='')?'user':source;
+    		  this.layers[url].source_url = (source_url=='')?url:source_url;
+    		  this.layers[url].source_name = (source_name=='')?'user':source_name;
     		  this.layers[url].opacity = (opacity=='')?0.5:opacity;
     		  this.layers[url].type = type;
     		  this.layers[url].add = add;
@@ -189,7 +190,7 @@
           this.layers[url].position = 0;
           
           var api = $('div#layer_window ul').data('jsp');
-    		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'" class="'+(add?'added':'')+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
+    		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'" class="'+(add?'added':'')+'"><h4>'+this.layers[url].name+'</h4><span><p>by <a target="_blank" href="'+this.layers[url].source_url+'">'+this.layers[url].source_name+'</a></p>'+
     		  ((!locked)?'<a class="remove_layer">| Remove</a>':'')+
     		  '</span><a class="add_layer_link">'+(add?'ADDED':'ADD')+'</a><div class="slider"></div></li>');
     		  api.reinitialise();
@@ -216,7 +217,8 @@
             
             this.layers[url] = {};
             this.layers[url].name = (name=='')?'User XYZ layer':name;
-      		  this.layers[url].source = (source=='')?'user':source;
+      		  this.layers[url].source_url = (source_url=='')?url:source_url;
+      		  this.layers[url].source_name = (source_name=='')?'user':source_name;
       		  this.layers[url].opacity = (opacity=='')?0.5:opacity;
       		  this.layers[url].type = type;
       		  this.layers[url].add = add;
@@ -229,7 +231,7 @@
             }
             
             var api = $('div#layer_window ul').data('jsp');
-      		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'" class="'+(add?'added':'')+'"><h4>'+this.layers[url].name+'</h4><span><p>by '+this.layers[url].source+'</p>'+
+      		  api.getContentPane().prepend('<li url="'+url+'" type="'+type+'" class="'+(add?'added':'')+'"><h4>'+this.layers[url].name+'</h4><span><p>by <a target="_blank" href="'+this.layers[url].source_url+'">'+this.layers[url].source_name+'</a></p>'+
       		  ((!locked)?'<a class="remove_layer">| Remove</a>':'')+
       		  '</span><a class="add_layer_link">'+(add?'ADDED':'ADD')+'</a><div class="slider"></div></li>');
       		  api.reinitialise();

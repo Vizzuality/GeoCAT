@@ -1,23 +1,26 @@
-{
+ {
   "layers":[
     {
       "url":"http://maps0.eol.org/php/map/getEolTile.php?tile={X}_{Y}_{Z}_13140803",
       "name":"EOL",
-      "source":"EOL.org",
+      "source_url":"http://www.eol.org",
+      "source_name": "EOL xyz",
       "opacity":0.5,
       "type": "xyz"
     },
     {
       "url":"http://184.73.201.235/blue/{Z}/{X}/{Y}",
       "name":"ProtectedPlanet",
-      "source":"ProtectedPlanet",
+      "source_url":"http://www.protectedplanet.net",
+      "source_name": "ProtectedPlanet xyz",
       "opacity":0.5,
       "type": "xyz"
     },
     {
       "url":"http://code.google.com/apis/kml/documentation/KML_Samples.kml",
-      "name":"Unknown",
-      "source": "Google",
+      "name":"Google",
+      "source_url": "http://www.google.com",
+      "source_name": "Google KML",
       "opacity":0.5,
       "type":"kml"
     }]
