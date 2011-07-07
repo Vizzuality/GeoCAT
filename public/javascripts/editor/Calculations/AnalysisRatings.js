@@ -187,6 +187,10 @@
 				if (cellsize_type=="auto-value") {
 				  var diameter = getDiameter(convex_points);
     		  cellsize_ = diameter * 100;
+					// Limit auto-value cellsize up to 50km.
+					if (cellsize_>50000) {
+						cellsize_ = 50000;
+					}
         }
 				
 				var EOORat = EOOrating(convex_area);

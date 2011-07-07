@@ -500,7 +500,7 @@
                 case 'add_flickr':  flickr_founded.push(result[0]);break;
                 default:            gbif_founded.push(result[0]);
               }
-              $(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " occ" : " occs") + ' founded');
+              $(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " occ" : " occs") + ' found');
               onLoadedSource(element,result[0].points.length);
             }
         );

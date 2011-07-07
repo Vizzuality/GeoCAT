@@ -12,7 +12,7 @@
 				this.active_markers = [];
 				this.Cells = [];
 				this.map = _map;
-				this.cellsize = 1;
+				this.cellsize = 2;
 				this.cellsize_type = "user defined";
 
 				var me = this;
@@ -61,11 +61,19 @@
 				//Hull convex slider
 				$("div.cellsize div.slider").slider({
 					  range: "min",
-  					value: 5,
+  					value: 12,
   					min: 1,
-  					max: 50,
+  					max: 60,
   					slide: function(event, ui) {
-  						me.cellsize = ui.value;
+							if (ui.value<11) {
+								if (ui.value == 10) {
+									me.cellsize = 1;
+								} else {
+									me.cellsize = (ui.value * 0.1).toFixed(1);
+								}
+							} else {
+	  						me.cellsize = ui.value - 10;
+							}
   						me.removeAOOPolygons();
   						me.setAlgorithmValues(me.cellsize);
   					}
@@ -75,7 +83,7 @@
 				//Choose default value 
 				$('a.default').click(function(ev){
 				  if (!$(this).hasClass('disabled')) {
-				    $("div.cellsize div.slider").slider({value:2});
+				    $("div.cellsize div.slider").slider({value:12});
   					me.cellsize = 2;
   					me.cellsize_type = "IUCN default";
   					me.removeAOOPolygons();
@@ -355,6 +363,7 @@
 				
 				if ($('#auto_value').hasClass('selected')) {
 				  this.cellsize = (obj.cellsize/1000).toFixed(3);
+					console.log(this.cellsize);
 				  $('div.analysis p.change').html('AOO based on auto-value<br/>cell width ('+this.cellsize+' km), <a class="change">change</a>');
 				}
 				
@@ -362,9 +371,9 @@
 				$('div.analysis_data ul li:eq(0)').removeClass();
 				$('div.analysis_data ul li:eq(1)').removeClass();
 				$('div.analysis_data ul li:eq(0)').addClass(obj.EOORat);
-				$('div.analysis_data ul li:eq(0) p:eq(0)').html(obj.EOOArea.toFixed(2)+' km<sup>2</sup>');
+				$('div.analysis_data ul li:eq(0) p:eq(0)').html(addCommas(obj.EOOArea.toFixed(2))+' km<sup>2</sup>');
 				$('div.analysis_data ul li:eq(1)').addClass(obj.AOORat);
-				$('div.analysis_data ul li:eq(1) p:eq(0)').html(((obj.AOOArea<1)?obj.AOOArea.toFixed(4):obj.AOOArea.toFixed(2))+' km<sup>2</sup>');
+				$('div.analysis_data ul li:eq(1) p:eq(0)').html(((obj.AOOArea<1)?obj.AOOArea.toFixed(4):addCommas(obj.AOOArea.toFixed(2)))+' km<sup>2</sup>');
 			}
 		
 		
@@ -449,3 +458,19 @@
 			  });
 			  this.Cells = new Array();
       }
+
+			
+			/*============================================================================*/
+			/* Add commas to large numbers */
+			/*============================================================================*/
+			function addCommas(nStr) {
+				nStr += '';
+				x = nStr.split('.');
+				x1 = x[0];
+				x2 = x.length > 1 ? '.' + x[1] : '';
+				var rgx = /(\d+)(\d{3})/;
+				while (rgx.test(x1)) {
+					x1 = x1.replace(rgx, '$1' + ',' + '$2');
+				}
+				return x1 + x2;
+			}

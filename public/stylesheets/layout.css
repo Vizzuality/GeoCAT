@@ -30,7 +30,11 @@ ul{list-style:none;}
 a:hover{cursor:pointer;}
 
 /*fonts*/
-@font-face { font-family: "Futura"; src: url('/fonts/Futura.ttc'); }
+@font-face{font-family:'FuturaStdMedium';src:url('/fonts/futurastd-medium-webfont.eot');src:url('/fonts/futurastd-medium-webfont.eot?#iefix') format('embedded-opentype'),
+url('/fonts/futurastd-medium-webfont.woff') format('woff'),
+url('/fonts/futurastd-medium-webfont.ttf') format('truetype'),
+url('/fonts/futurastd-medium-webfont.svg#FuturaStdMedium') format('svg');font-weight:normal;font-style:normal;}
+
 /* HOME */
 div.flash {position:absolute; left:0; top:0; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666; z-index:10000; overflow:hidden;}
 div.flash p {position:relative; float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
@@ -38,16 +42,17 @@ section.layout {position:relative; float:left; width:100%; height:100%;}
 section.layout div#map {position:absolute; right:0; left:0; top:0; height:50%; z-index:0;}
 section.layout div.opaque {position:absolute; right:0; left:0; top:0; height:50%; width:100%; background:rgba(0,0,0,0.8); z-index:1;}
 section.main {position:absolute; left:50%; top:50%; width:980px; margin:-280px 0 0 -490px; z-index:100;}
-section.main div.float {position:relative; width:920px; padding:30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5); 
+section.main div.float {position:relative; width:920px; padding:30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5);
   -webkit-box-shadow:0 0 20px rgba(0,0,0,0.5); box-shadow:0 0 20px rgba(0,0,0,0.5);}
 section.main div.video {position:absolute; top:-75px; right:23px; width:550px; height:308px; padding:35px; background:url('/images/home/video.png') no-repeat 0 0;}
 section.main header {width:285px; height:285px;}
 section.main header h1 {font:bold 43px "Helvetica","Arial"; color:black; letter-spacing:-2px; line-height:43px;}
 section.main header p {padding:6px 0 0 0; font:normal 15px "Arial"; color:#999999;}
 section.main header h2 {padding:13px 0 0 0; font:bold 18px "Arial"; color:#333333;}
-section.main header a.start {display:inline-block; height:17px; padding:12px 10px; margin:15px 0 0 0; border:1px solid #3F5A05; background-image:-moz-linear-gradient(100% 100% 90deg, #5B8003, #8EC135); background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#8EC135), to(#5B8003));
+section.main header a.start {display:inline-block; height:17px; padding:12px 10px; margin:15px 0 0 0; border:1px solid #3F5A05;
+  background:-webkit-gradient(linear,50% 0%,50% 100%,from(#8EC135),to(#5B8003));background:-moz-linear-gradient(-90deg,#8EC135,#5B8003);background:-o-linear-gradient(#8EC135,#5B8003);background:#8EC135\9;
   -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; text-align:center; font:bold 17px Arial; color:white; text-shadow:0 1px #415D01; text-decoration:none; line-height:17px;}
-section.main header a.start:hover {background-image:-moz-linear-gradient(100% 100% 90deg, #8EC135, #5B8003); background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#5B8003), to(#8EC135));}
+section.main header a.start:hover {background:-webkit-gradient(linear,50% 0%,50% 100%,from(#5B8003),to(#8EC135));background:-moz-linear-gradient(-90deg,#5B8003,#8EC135);background:-o-linear-gradient(#5B8003,#8EC135);background:#5B8003\9;}
 section.main header a#upload_button {color:#729A27; text-decoration:underline;}
 section.main header a#upload_button:hover {color:#435B16;}
 section.main header form#upload_form {position:relative; display:inline-block; width:160px;}
@@ -108,7 +113,7 @@ div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
 div#wellcome div.blocks {float:left; width:423px; height:63px; margin:18px 0 0 0; padding:17px 20px 20px 20px;}
 div#wellcome div.blocks div.block {float:left; width:118px; margin:0 33px 0 0;}
 div#wellcome div.blocks div.block.last {margin:0;}
-div#wellcome div.blocks div.block label {float:left; width:100%; color:#999999; font:normal 13px Arial; text-align:center;}
+div#wellcome div.blocks div.block label {float:left; width:100%; color:#999999; font:normal 13px Arial; font-size:12px\9; text-align:center;}
 div#wellcome div.blocks div.block a {float:left; width:118px; height:26px; margin:10px 0 0 0; text-indent:-9999px;}
 div#wellcome div.blocks div.block a.import_data {background:url('/images/editor/import_data.png') no-repeat 0 0;}
 div#wellcome div.blocks div.block a.upload_data {background:url('/images/editor/upload_data.png') no-repeat 0 0;}
@@ -128,8 +133,8 @@ div#editor a#scientific_name {display:none;}
 div#editor ul.editor_list {position:absolute; top:34px; right:50px;}
 div#editor ul.editor_list li {float:right;}
 div#editor ul.editor_list li.first {margin:0 20px 0 0;}
-div#editor ul.editor_list li a {font:normal 13px "Futura"; color:#999999; text-decoration:none;}
-div#editor ul.editor_list li a:hover {font:normal 13px "Futura"; color:#dddddd; cursor:pointer;}
+div#editor ul.editor_list li a {font:normal 13px "Futura","FuturaStdMedium"; color:#999999; text-decoration:none;}
+div#editor ul.editor_list li a:hover {font:normal 13px "Futura","FuturaStdMedium"; color:#dddddd; cursor:pointer;}
 div#editor ul.editor_list li.selected a {color:#dddddd;}
 div#editor ul.editor_list li.selected a:hover {cursor:default;}
 /*1st layer - tools*/
@@ -140,9 +145,9 @@ div#tools div.table div.top-left-tool{position:relative; float:left; width:24px;
 div#tools div.table div.top-repeat-tool{position:absolute; left:24px; right:24px; top:0; height:62px; background:url('/images/editor/top-repeat-tool.png')  0 bottom;}
 div#tools div.table div.top-right-tool {position:relative; float:right; width:24px; height:62px; background:url('/images/editor/top-right-tool.png') no-repeat left bottom;}
 div#tools div.header div.left {float:left; padding:22px 0 0 3px; width:50px; color:white; height:40px;}
-div#tools div.header div.left h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura"; text-shadow:0 1px #000000; color:#CCCCCC;}
+div#tools div.header div.left h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura","FuturaStdMedium"; text-shadow:0 1px #000000; color:#CCCCCC;}
 div#tools div.header div.right {float:right; padding:22px 0 0 0; width:220px; color:white; height:45px;}
-div#tools div.header div.right h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000}
+div#tools div.header div.right h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura","FuturaStdMedium"; color:#CCCCCC; text-shadow:0 1px #000000}
 div#tools div.table div.center {position:absolute; top:62px; bottom:76px; left:0; right:0;}
 div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:14px; background:url('/images/editor/left-repeat-tool.png') repeat-y left 0;}
 div#tools div.table div.center-tool {position:absolute; top:0; bottom:0; left:14px; right:24px; background:#242628;}
@@ -168,7 +173,7 @@ div#tools div.center div.left a.selected:hover {cursor:default;}
 div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:10;}
 div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
 div#tools div.center div.right div.inner_analysis {position:relative; float:left; padding:16px 0 0; margin:0 0 0 30px; width:220px; height:auto; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
-  background: -moz-linear-gradient(100% 100% 90deg, #EEEEEE, #D2D2D2); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEEEEE), to(#D2D2D2));}
+  background:-webkit-gradient(linear,50% 0%,50% 100%,from(#EEEEEE),to(#D2D2D2));background:-moz-linear-gradient(-90deg,#EEEEEE,#D2D2D2);background:-o-linear-gradient(#EEEEEE,#D2D2D2);background:#EEEEEE\9;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:url('/images/editor/analysis_button.png') no-repeat 0 0; margin:0 0 0 16px;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {cursor:pointer;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url('/images/editor/analysis_button.png') no-repeat -26px -25px #999999; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
@@ -188,8 +193,8 @@ div.analysis_data ul li.vu {background:url('/images/editor/VU.png') no-repeat ri
 div.analysis_data ul li p.change {float:left; width:100%; margin:4px 0 0; font:normal 11px Arial; color:#999999; text-shadow:none; line-height:11px;}
 div.analysis_data ul li p.change a {float:none; text-decoration:underline; color:#FF6600; background:none; line-height:11px;}
 div.analysis_data ul li p.change a:hover {color:#FF3300; cursor:pointer;}
-div.inner_analysis div.cellsize {display:none; position:absolute!important; width:154px; height:170px; bottom:-150px; left:1px; margin:0; padding:38px 26px 0 26px; background:url('/images/editor/cellsize_bkg.png') no-repeat 0 0; z-index:1000;}
-div.inner_analysis div.cellsize h4 {float:left; width:100%; font:normal 11px "Futura"; color:#666666; margin:0; padding:0;}
+div.inner_analysis div.cellsize {display:none; position:absolute!important; width:154px; height:190px; bottom:-150px; left:1px; margin:0; padding:38px 26px 0 26px; background:url('/images/editor/cellsize_bkg.png') no-repeat 0 0; z-index:1000;}
+div.inner_analysis div.cellsize h4 {float:left; width:100%; font:normal 11px "Futura","FuturaStdMedium"; color:#666666; margin:0; padding:0;}
 div.inner_analysis div.cellsize a#auto_value {float:left; font:normal 13px Arial; text-decoration:none; color:#999999; margin:18px 0 0 0!important; padding:0 0 0 18px!important; background:url('/images/editor/checkbox.png') no-repeat 0 1px!important;}
 div.inner_analysis div.cellsize a#auto_value.selected {background-position:0 -26px!important; color:#333333;}
 div.inner_analysis div.cellsize p {float:left; margin:13px 0 0 0; width:100%; font:normal 11px Arial; color:#666666;}
@@ -209,7 +214,7 @@ div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0;
 div.analysis_data span a {font:bold 13px Arial; color:#333333; text-shadow:0 1px #B7D58D; text-decoration:none; padding:0;}
 div.analysis_data span a:hover {color:#111111;}
 div#tools div.center div.right div.algorithms {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-bottom:1px solid #000000;}
-div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
+div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura","FuturaStdMedium"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:url('/images/editor/orange_bar.png') no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}
 div#tools div.center div.right div.algorithms a.first {margin:0;}
 div#tools div.center div.right div.algorithms a:hover {background-position:0 -24px;}
@@ -226,7 +231,7 @@ div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
 div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
 div.delete_all {display:none; position:absolute!important; top:-10px; left:-10px; z-index:10; background:url('/images/editor/merge_delete_container.png') no-repeat 0 0; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0;}
-div.delete_all h4 {float:left; margin:13px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
+div.delete_all h4 {float:left; margin:13px 0 0 0; font:normal 11px "Futura","FuturaStdMedium"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.delete_all p {float:left; padding:0; margin:23px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
 div.delete_all div {float:right; width:100px; margin:0 0 0 0;}
 div.delete_all div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:13px 10px 0 0; padding:3px 0 0 0!important;}
@@ -235,7 +240,7 @@ div.delete_all div a.yes {float:right!important; margin:13px 0 0 0; padding:0!im
 div.delete_all div a.yes:hover {background-position: 0 -19px; cursor:pointer;}
 div.delete_all span.arrow {position:absolute; right:12px; top:52px; width:12px!important; height:23px; background:url('/images/editor/grey_arrow.png') no-repeat 0 0;}
 div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:22px; right:18px; z-index:10; background:url('/images/editor/merge_delete_container.png') no-repeat 0 0;}
-div.merge_container h4 {float:left; margin:12px 0 0 0; font:normal 11px "Futura"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
+div.merge_container h4 {float:left; margin:12px 0 0 0; font:normal 11px "Futura","FuturaStdMedium"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.merge_container p {float:left; padding:0; margin:25px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
 div.merge_container a.preview:hover {color:#333333; cursor:pointer;}
 div.merge_container div {float:right; margin:18px 0 0 0;}
@@ -246,7 +251,7 @@ div.merge_container div a.merge_button:hover {background-position: 0 -21px!impor
 div.merge_container span.arrow {position:absolute; right:12px; top:52px; width:12px!important; height:23px; background:url('/images/editor/grey_arrow.png') no-repeat 0 0;}
 div#editor div#tools div.center div.right div.sources {position:static; float:left; padding:12px 0 14px 30px; margin:0; width:230px; border-top:1px solid #454648;}
 div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
-div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0; font:normal 11px "Futura"; color:#CCCCCC; text-shadow:0 1px #000000;}
+div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0; font:normal 11px "Futura","FuturaStdMedium"; color:#CCCCCC; text-shadow:0 1px #000000;}
 
 
 div#editor div#tools div.center div.right div.sources ul#sources_list {position:absolute; top:115px; right:5px; bottom:10px; width:235px; padding:5px 0 0 0; overflow: auto;}
@@ -275,9 +280,9 @@ div#editor div#tools div.center div.right div.sources ul#sources_list li {positi
 div#editor div#tools div.center div.right div.sources ul#sources_list li:hover {cursor:pointer;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie {position:absolute; right:8px; top:10px; width:40px; height:14px; background:url('/images/editor/specie_visible.png') no-repeat 0 0;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie:hover {cursor:pointer;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.green {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #7BA600, #99CC00); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CC00), to(#7BA600));}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.pink {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #9F2062, #FF3399); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FF3399), to(#9F2062));}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.blue {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-moz-linear-gradient(100% 100% 90deg, #0062A3, #0099FF); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0099FF), to(#0062A3));}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.green {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#99CC00),to(#7BA600));background:-moz-linear-gradient(-90deg,#99CC00,#7BA600);background:-o-linear-gradient(#99CC00,#7BA600); filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99CC00', endColorstr='#7BA600');}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.pink {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#FF3399),to(#9F2062));background:-moz-linear-gradient(-90deg,#FF3399,#9F2062);background:-o-linear-gradient(#FF3399,#9F2062); filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');}
+div#editor div#tools div.center div.right div.sources ul#sources_list li span.blue {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#0099FF),to(#0062A3));background:-moz-linear-gradient(-90deg,#0099FF,#0062A3);background:-o-linear-gradient(#0099FF,#0062A3); filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099FF', endColorstr='#0062A3');}
 div#editor div#tools div.center div.right div.sources ul#sources_list li h3 {width:140px; font:bold 13px Arial; color:#999999; line-height:13px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; text-shadow:0 1px black; text-transform:capitalize;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li:hover h3 {color:white;}
 div#editor div#tools div.center div.right div.sources ul#sources_list li span.points {position:relative; display:inline-block; width:183px; height:18px; margin:7px 0 0 0; padding:0;}
@@ -297,7 +302,8 @@ div#editor div#tools div#add_source_container div.top a#close_sources {position:
 div#editor div#tools div#add_source_container div.top a#close_sources:hover {background-position:0 -16px; cursor:pointer;}
 div#editor div#tools div#add_source_container div.bottom {float:left; width:209px; padding:0 0 25px; background:url('/images/editor/add_source_bottom.png') no-repeat 0 bottom;}
 div#editor div#tools div#add_source_container div.middle {float:left; width:185px; padding:0 12px; background:url('/images/editor/add_source_repeat.png') repeat-y 0 0;}
-div#editor div#tools div#add_source_container div.middle ul {float:left; width:171px; padding:8px 7px; margin:0; background-image:-moz-linear-gradient(center bottom,rgb(212,212,212) 61%,rgb(243,243,243) 100%); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F3F3F3), to(#D4D4D4));}
+div#editor div#tools div#add_source_container div.middle ul {float:left; width:171px; padding:8px 7px; margin:0;
+  background:-webkit-gradient(linear,50% 0%,50% 100%,from(#F3F3F3),to(#D4D4D4));background:-moz-linear-gradient(-90deg,#F3F3F3,#D4D4D4);background:-o-linear-gradient(#F3F3F3,#D4D4D4); filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F3F3F3', endColorstr='#D4D4D4');}
 div#editor div#tools div#add_source_container div.middle ul li {float:left; width:157px; padding:4px 7px;}
 div#editor div#tools div#add_source_container div.middle ul li a {float:left; margin:2px 0 0 0; padding:0 0 0 17px; background:url('/images/editor/checkbox_add_image.png') no-repeat 0 1px; font:normal 13px Arial; color:#898989;}
 div#editor div#tools div#add_source_container div.middle ul li a:hover {cursor:pointer; color:#666666;}
@@ -320,7 +326,7 @@ div#editor div#tools div#add_source_container div.middle ul li.searching.error {
 div#editor div#tools div#add_source_container div.middle ul li.searching.error span.normal {display:block;}
 div#editor div#tools div#add_source_container div.middle ul li.selected input {width:123px; padding:8px; margin:10px 0 0 9px; background:; border:1px solid #999999; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; font:italic 11px Arial; color:#999999; line-height:11px;}
 div#editor div#tools div#add_source_container div.middle ul li.selected input:focus {outline:none;}
-div#editor div#tools div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url('/images/editor/loader_source.gif') no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span p {float:left; margin:10px 0 0 9px; width:103px; background:url('/images/editor/loader_source.gif') no-repeat 7px 7px #EBF7D6; -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px; padding:8px 10px 8px 29px; font:normal 13px Arial; color:#999999;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span p.loaded {background:url('/images/editor/ok_loaded.png') no-repeat 9px 9px #EBF7D6; color:#666666;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span p.imported {background:url('/images/editor/ok_loaded.png') no-repeat 9px 22px #A9C07C; color:white;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span p.error {background:url('/images/editor/error_searching.png') no-repeat 9px 11px #f57070; color:white;}
@@ -329,9 +335,9 @@ div#editor div#tools div#add_source_container div.middle ul li.selected span a.r
 div#editor div#tools div#add_source_container div.middle ul li.selected span a:hover {cursor:default; color:#9DB177;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span a.enabled {background:none; padding:7px 5px 3px 0; text-decoration:underline; color:#333333;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span a.enabled:hover {cursor:pointer;}
-div#editor div#tools div#add_source_container div.middle ul li.selected span div.inner {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div.inner {float:left; margin:10px 0 0 9px; width:137px; -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px; padding:2px; font:normal 13px Arial; color:#999999; background:#EBF7D6;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span div.inner a.browse {float:left; width:63px; height:21px; background:url('/images/editor/browse.png') no-repeat 0 0; padding:0; margin:0; display:block;}
-div#editor div#tools div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
+div#editor div#tools div#add_source_container div.middle ul li.selected span div p {background:none; -moz-border-radius:0px; -webkit-border-radius:0px; border-radius:0; padding:5px 6px 0 0; margin:0; width:auto; float:right; font:normal 11px Arial; color:#999999;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span div a.delete {display:none; position:absolute; right:4px; top:4px; background:url('/images/editor/delete_button.png') no-repeat 0 0; width:16px; height:17px; padding:0; margin:0; z-index:10000;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span div a.delete:hover {background-position:0 -17px; cursor:pointer;}
 div#editor div#tools div#add_source_container div.middle ul li.selected span div form {display:block; position:absolute; padding:0; margin:0; width:137px; height:21px; z-index:100; overflow:hidden; opacity:0;}
@@ -351,7 +357,7 @@ div#uploader .qq-upload-button-focus {outline:none;}
 div#uploader .qq-upload-drop-area {position:absolute; top:0; left:0; width:100%; height:100%; min-height:70px; z-index:2; background:#FF9797; text-align:center; }
 div#uploader .qq-upload-drop-area span {display:block; position:absolute; top:50%; width:100%; margin:-8px 0 0 0; font-size:16px;}
 div#uploader .qq-upload-drop-area-active {background:#FF7171;}
-div#uploader .qq-upload-list {float:right; padding:5px 6px 5px 6px!important; margin:0!important; width:auto!important; background:none!important; -moz-border-radius:0px; -webkit-border-radius:0px; font:normal 11px Arial; color:#999999;}
+div#uploader .qq-upload-list {float:right; padding:5px 6px 5px 6px!important; margin:0!important; width:auto!important; background:none!important; -moz-border-radius:0px; -webkit-border-radius:0px; border-radius:0; font:normal 11px Arial; color:#999999;}
 div#uploader .qq-upload-list li {float:left; width:auto!important; margin:0!important; padding:0!important; line-height:15px; font:normal 11px Arial; color:#999999;}
 div#uploader .qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {}
 div#uploader span.qq-upload-file {display:inline-block!important; width:100px!important; text-overflow:ellipsis!important;  overflow:hidden!important; white-space:nowrap!important;}
@@ -401,7 +407,7 @@ div#editor div#map_container div.table div.center-map div.search_place p {float:
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:0 0 3px 6px; width:110px; height:auto; padding:4px 0; background:url('/images/editor/search_input_bkg.png') no-repeat 0 18px; border:0;
   font:normal 13px Arial; color:white;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"]:focus {outline:none;}
-div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:13px; height:13px; margin:4px 0 0 10px; background:url('/images/editor/len_bkg.png');}
+div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:13px; height:13px; margin:4px 0 0 10px; background:url('/images/editor/len_bkg.png') no-repeat 0 0;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="submit"]:hover {cursor:pointer;}
 div#editor div#map_container div.table div.center-map span.search_not_found {position:absolute; display:none; right:120px; top:30px; width:206px; height:84px; background:url('/images/editor/search_not_found_bkg.png') no-repeat 0 0; z-index:1000;}
 div#editor div#map_container div.table div.center-map span.search_not_found p {float:left; width:137px; margin:33px 0 0 55px; font:normal 13px Arial; color:#333333;}
@@ -420,22 +426,22 @@ div#map_type ul li {float:left; width:100%; font:bold 11px Arial; color:white; t
 div#map_type ul li:hover {cursor:pointer;}
 div#map_container div.table div.center-map div#map {position:absolute; z-index:1; top:0; left:0; height:100%; width:100%;}
 div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url('/images/editor/mamufas_bkg.png') repeat 0 0;}
-div#map_container div.table div.center-map div#mamufas_map div#loader_map {position:absolute; top:50%; left:50%; margin:-25px 0 0 -25px;/*hack*/ display:none; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; background:#333333;}
+div#map_container div.table div.center-map div#mamufas_map div#loader_map {position:absolute; top:50%; left:50%; margin:-25px 0 0 -25px;/*hack*/ display:none; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px; background:#333333;}
 div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
-div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; opacity:0.7;}
+div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
-div#map_container div.header h1 {position:relative; float:left; width:auto; height:22px; margin:30px 0 0 6px; padding:5px 0 5px 26px; background:url('/images/editor/save_stars.png') no-repeat 0 0; font:normal 13px "Futura"; color:#CCCCCC; text-indent:0; line-height:20px;}
+div#map_container div.header h1 {position:relative; float:left; width:auto; height:22px; margin:30px 0 0 6px; padding:5px 0 5px 26px; background:url('/images/editor/save_stars.png') no-repeat 0 0; font:normal 13px "Futura","FuturaStdMedium"; color:#CCCCCC; text-indent:0; line-height:20px;}
 div#map_container div.header h1.saved {background-position:0 -30px;}
 div#map_container div.header h1.saved sup {color:#7FAB2D;}
-div#map_container div.header h1.selected {width:200px; height:22px; background-position:-1px -1px; background-image: url('/images/editor/save_stars.png'); background-image:url('/images/editor/save_stars.png'),-moz-linear-gradient(100% 100% 90deg, #FFFFFF, #CCCCCC); 
-background-image:url('/images/editor/save_stars.png'),-webkit-gradient(linear, 0% 0%, 0% 100%, from(#CCCCCC), to(#FFFFFF)); border:1px solid black; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px;}
+div#map_container div.header h1.selected{width:200px;height:22px;border:1px solid black; border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;background:url('/images/editor/save_stars.png') no-repeat -1px -1px,-moz-linear-gradient(-90deg,#CCCCCC,#FFFFFF);background:url('/images/editor/save_stars.png') no-repeat -1px -1px,-webkit-gradient(linear,50% 0%,50% 100%,from(#CCCCCC),to(#FFFFFF));
+  background:url('/images/editor/save_stars.png') no-repeat -1px -1px,-o-linear-gradient(#CCCCCC,#FFFFFF);background:url('/images/editor/save_stars.png') no-repeat 0 0 #F7F7F7\9;}
 div#map_container div.header h1 p {float:none; display:inline-block; width:auto;}
 div#map_container div.header h1.selected p {text-indent:-9999px;}
 div#map_container div.header h1 input {display:none;}
-div#map_container div.header h1.selected input {position:absolute; display:block; top:3px; left:24px; width:194px; font:normal 13px "Futura"; color:#666666; border:none; background:none;}
+div#map_container div.header h1.selected input {position:absolute; display:block; top:3px; left:24px; top:6px\9; left:28px\9; width:194px; font:normal 13px "Futura","FuturaStdMedium"; color:#666666; border:none; background:none;}
 div#map_container div.header h1 input:focus {outline:none;}
 div#map_container div.header h1.selected sup {display:none;}
-div#map_container div.header h1 sup {padding:0 0 0 5px; margin:0; font:normal 10px "Futura"; color:#FF9800; line-height:10px;}
+div#map_container div.header h1 sup {padding:0 0 0 5px; margin:0; font:normal 10px "Futura","FuturaStdMedium"; color:#FF9800; line-height:10px;}
 
 
 div#map_container div.footer div.left {float:left; margin:15px 0 0 5px; width:60%;}
@@ -504,7 +510,7 @@ div#export_window div.block a.export:hover {background-position:0 -26px;}
 div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:217px; height:254px; padding:25px; background:url('/images/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
 div#layer_window a#layer_close {position:absolute; right:23px; top:23px; background:url('/images/editor/close_source.png') no-repeat 0 0; width:16px; height:16px; padding:0; margin:0; text-indent:-9999px;}
 div#layer_window a#layer_close:hover {background-position:0 -16px; cursor:pointer;}
-div#layer_window h3 {margin:0 0 0 12px; font:normal 11px "Futura"; color:#666666; text-shadow:0 1px white;}
+div#layer_window h3 {margin:0 0 0 12px; font:normal 11px "Futura","FuturaStdMedium"; color:#666666; text-shadow:0 1px white;}
 div#layer_window ul {position:relative; display:inline-block; width:100%; height:175px; margin:18px 0 0 0; overflow:auto;}
 div#layer_window ul:focus {outline:none;}
 div#layer_window ul .jspContainer{overflow:hidden;position:relative;}
@@ -569,7 +575,7 @@ div#csv_error span a.cancel:hover {cursor:pointer;}
 /*HELP*/
 div.help_container {display:none; position:absolute!important; top:0; left:0; right:0; bottom:-1px; z-index:1000}
 div.help_container img.help {float:left; width:100%; height:100%;}
-div.help_container span.do {position:absolute; width:320px; height:89px; bottom:1px!important; left:35px; background:url('/images/editor/do_help.png') no-repeat 0 0;}
+div.help_container span.do {position:absolute; width:320px; height:89px; bottom:1px!important; left:35px; background:url('/images/editor/do_help.png') no-repeat 0 0; background:rgba(0,0,0,0.5)\9;}
 div.help_container span.tool {position:absolute; width:240px; height:215px; top:50px; left:0px; background:url('/images/editor/tool_help.png') no-repeat 0 0;}
 div.help_container span.download {position:absolute; width:270px; height:94px; bottom:1px; right:-10px; background:url('/images/editor/download_help.png') no-repeat 0 0;}
 div.help_container span#analysis_help {position:absolute; width:232px; height:245px; top:61px; right:0; background:url('/images/editor/analysis_help.png') no-repeat 0 0;}

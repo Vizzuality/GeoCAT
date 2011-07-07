@@ -151,16 +151,14 @@
   		selection_polygon.setPath([]);
   		selection_polygon.setMap(null);
   		removeMarkers(this.markers);
-  		setStatus('select');
   	}
 
 
   	PolygonOverTooltip.prototype.makeActive = function() {
-  	  this.hide();
-  	  selection_polygon.setPath([]);
+  		this.hide();
+  		selection_polygon.setPath([]);
   		selection_polygon.setMap(null);
   		makeActive(this.markers,false);
-  		setStatus('select');
   	}
 
 
