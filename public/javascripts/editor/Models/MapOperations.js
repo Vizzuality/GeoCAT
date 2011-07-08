@@ -256,12 +256,21 @@
             $.extend(info_data, observations[i]);
             
             if (occurrences[info_data.catalogue_id]==undefined) {
-              (info_data.geocat_removed)?null:points.add(info_data.geocat_query.toLowerCase(),info_data.geocat_kind);
-              bounds.extend(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)));    
-              var marker = new GeoCATMarker(new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude)), info_data.geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+							// If the point doesnt have info about _active and _removed
+							if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
+							if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
+							
+							var geocat_query = (info_data.geocat_query!=undefined)?info_data.geocat_query.toLowerCase():'';
+							var geocat_kind = (info_data.geocat_kind!=undefined)?info_data.geocat_kind.toLowerCase():'user';
+							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
+							
+              (info_data.geocat_removed)?null:points.add(geocat_query,geocat_kind);
+              bounds.extend(latlng);
+	
+              var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
 
               occurrences[marker.data.catalogue_id] = marker;
-              occurrences[marker.data.catalogue_id].data.geocat_query = occurrences[marker.data.catalogue_id].data.geocat_query.toLowerCase();
+              occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
 
               if (!info_data.geocat_active) {
                 var marker_id = marker.data.catalogue_id;

@@ -42,7 +42,7 @@
               }
 
         			//if the application comes through an upload file
-        			if (upload_information.success) {
+        			if (upload_information.data.sources!=null) {
         			  $('div.header h1 p').text(upload_information.data.reportName);
                 $('div.header h1 sup').text('saved');
       					changeApplicationTo(2);

@@ -30,7 +30,7 @@ class GeocatData
       :success => valid?,
       :format => format,
       :data => {
-        :reportName => reportName || '',
+        :reportName => reportName || 'CSV file',
         :viewPort => viewPort,
         :analysis => analysis,
         :sources => sources,

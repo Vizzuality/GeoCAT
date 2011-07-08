@@ -37,19 +37,21 @@
 			MergeOperations.prototype.requestPoints = function() {
 			  var me = this;
 			  if (this.sources.length>0) {
-			    var url = "/search/" + this.sources[0].kind + '/' + this.sources[0].query.replace(' ','+');
-					$.getJSON(url,
-					  function(result){
-					    var species = {};
-					    species.kind = result[0].name;
-					    species.query = result[0].specie.replace('+',' ');
-					    species.points = result[0].points;
-					    me.source_points.push(species);
-					    
-					    me.sources = _.rest(me.sources);
-					    me.requestPoints();
-						}
-					);
+					if (this.sources[0].kind!='user') {
+						var url = "/search/" + this.sources[0].kind + '/' + this.sources[0].query.replace(' ','+');
+						$.getJSON(url,
+						  function(result){
+						    var species = {};
+						    species.kind = result[0].name;
+						    species.query = result[0].specie.replace('+',' ');
+						    species.points = result[0].points;
+						    me.source_points.push(species);
+
+						    me.sources = _.rest(me.sources);
+						    me.requestPoints();
+							}
+						);
+					}
 			  } else {
 			    this.selectPoints();
 			  }

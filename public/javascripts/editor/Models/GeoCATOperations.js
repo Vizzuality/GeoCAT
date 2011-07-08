@@ -145,8 +145,8 @@
 			//loop object and give all the parameters.
 			var result = [];
 			var obj = new Object();
-			obj.center = this.upload_data_.data.viewPort.center;
-			obj.zoom = this.upload_data_.data.viewPort.zoom;
+			obj.center = (this.upload_data_.data.viewPort!=null)? this.upload_data_.data.viewPort.center : {latitude:0,longitude:0};
+			obj.zoom = (this.upload_data_.data.viewPort!=null)? this.upload_data_.data.viewPort.zoom : 2;
 			obj.reportName = this.upload_data_.data.reportName;
 			
 			//If there is analysis
@@ -231,8 +231,8 @@
 					} else {
 					  // Save the sources for the merging stuff
 					  var source_pair = {};
-					  source_pair.query = app_data[i].query;
-  				  source_pair.kind = app_data[i].type;
+					  source_pair.query = app_data[i].query || '';
+  				  source_pair.kind = app_data[i].type || 'user';
   					sources.push(source_pair);
 					}
 					addSourceToMap(app_data[i],false,true);
