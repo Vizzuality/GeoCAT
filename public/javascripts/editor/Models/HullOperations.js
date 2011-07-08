@@ -361,7 +361,6 @@
 				
 				if ($('#auto_value').hasClass('selected')) {
 				  this.cellsize = (obj.cellsize/1000).toFixed(3);
-					console.log(this.cellsize);
 				  $('div.analysis p.change').html('AOO based on auto-value<br/>cell width ('+this.cellsize+' km), <a class="change">change</a>');
 				}
 				

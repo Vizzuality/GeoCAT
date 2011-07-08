@@ -276,7 +276,26 @@
                 var marker_id = marker.data.catalogue_id;
                 occurrences[marker_id].setActive(false);
               }
-            }
+            } else {
+							if (info_data.geocat_kind==undefined) {
+								if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
+								if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
+
+								var geocat_query = (info_data.geocat_query!=undefined)?info_data.geocat_query.toLowerCase():'';
+								var geocat_kind = (info_data.geocat_kind!=undefined)?info_data.geocat_kind.toLowerCase():'user';
+								var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
+								
+								points.add(geocat_query,geocat_kind);
+								bounds.extend(latlng);
+								global_id++;
+								info_data.catalogue_id = global_id + '_user';
+								
+								var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+
+	              occurrences[marker.data.catalogue_id] = marker;
+	              occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
+							}
+						}
 
             i++;
             setTimeout(function(){asynAddMarker(i,total,_bounds,uploadAction,observations);},0);
