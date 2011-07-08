@@ -79,6 +79,9 @@ class FileController < ApplicationController
       GeocatData.new(params[:file])
     when params[:qqfile]
       GeocatData.new(request.body)
+    when params[:geocat_url]
+      uri = URI.parse(params[:geocat_url])
+      GeocatData.new(StringIO.new uri.read) if uri.present?
     else
       GeocatData.new
     end

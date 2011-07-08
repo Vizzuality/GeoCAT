@@ -2,7 +2,7 @@ class GeocatController < ApplicationController
 
   # This action is to store the id and the specie_name in the editor page
   def editor_params
-    puts 'jamon'
+
     $geocat = ""
     if !params[:id].nil? && !params[:specie].nil?
       @geocat = Geocat.new

@@ -1,7 +1,7 @@
 class GeocatData
   include ActiveModel::Validations
 
-  attr_accessor :reportName, :viewPort, :analysis, :format, :sources, :layers
+  attr_accessor :reportName, :viewPort, :analysis, :format, :center, :sources, :layers
   attr_writer :warnings
 
   #validate :sources_must_be_valid
@@ -26,23 +26,19 @@ class GeocatData
   end
 
   def to_json
-    if reportName.blank?
-      return {}.to_json
-    else
-      {
-        :success => valid?,
-        :format => format,
-        :data => {
-          :reportName => reportName,
-          :viewPort => viewPort,
-          :analysis => analysis,
-          :sources => sources,
-          :layers => layers
-        },
-        :errors => errors,
-        :warnings => warnings
-      }.to_json
-    end
+    {
+      :success => valid?,
+      :format => format,
+      :data => {
+        :reportName => reportName || '',
+        :viewPort => viewPort,
+        :analysis => analysis,
+        :sources => sources,
+        :layers => layers
+      },
+      :errors => errors,
+      :warnings => warnings
+    }.to_json
   end
 
   def to_csv
@@ -96,14 +92,14 @@ class GeocatData
       else
         JSON.parse(data.read)
       end
-      
+
       self.reportName     = hash['reportName']
       self.viewPort       = hash['viewPort']
       self.format         = 'geocat'
       self.analysis       = hash['analysis']
       self.sources        = hash['sources']
       self.layers         = hash['layers']
-      
+
     end
 
     def process_as_csv(file)
