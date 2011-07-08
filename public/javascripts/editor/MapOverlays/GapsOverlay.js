@@ -240,6 +240,9 @@
           
             occurrences[this.marker_id].data = this.inf;
             occurrences[this.marker_id].setPosition(new google.maps.LatLng(this.inf.latitude,this.inf.longitude));
+						if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
+            }
             this.hide();
           
             actions.Do('edit',[{catalogue_id:this.marker_id,info:old_data}],[{catalogue_id:this.marker_id,info:this.inf}]);
