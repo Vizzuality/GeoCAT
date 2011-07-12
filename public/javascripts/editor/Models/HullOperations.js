@@ -379,8 +379,15 @@
 			/* Set values of the algorithm data.																					*/
 			/*============================================================================*/
 			HullOperations.prototype.setAlgorithmValues = function(value) {
-				$('div.cellsize span p').text(value+'KM');
-				$('div.analysis p.change').html('AOO based on user defined<br/>cell width ('+value+' km), <a class="change">change</a>');
+				if (value>1) {
+					var text_ = value;
+					var metric_ = 'km';
+				} else {
+					var text_ = (value*1000);
+					var metric_ = 'm';
+				}
+				$('div.cellsize span p').text(text_+metric_.toUpperCase());
+				$('div.analysis p.change').html('AOO based on user defined<br/>cell width ('+text_+' '+metric_+'), <a class="change">change</a>');
 				if (this.polygon!=undefined && this.polygon.getPath().getLength()>2) {
 					this.setAlgorithmData(this.polygon.getPath().getArray(),this.cellsize*1000);
 				}

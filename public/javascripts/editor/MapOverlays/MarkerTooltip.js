@@ -293,11 +293,14 @@
 					range: "min",
 					value: km_value,
 					min: 1,
-					max: 50,
+					max: 60,
 					slide: function(event, ui) {
-						occurrences[me.marker_id].set('distance',ui.value*1000);
-						occurrences[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
-						$(div).find('p.precision').html(ui.value + 'KM');
+						var value = (ui.value<11)?ui.value*100:(ui.value-10)*1000;
+						var metric = (ui.value<11)?'M':'KM';
+						var value_showed = (ui.value<11)?ui.value*100:(ui.value-10);
+						occurrences[me.marker_id].set('distance',value);
+						occurrences[me.marker_id].data.coordinateUncertaintyInMeters = value;
+						$(div).find('p.precision').html(value_showed + metric);
 					}
 				});
 		
@@ -389,8 +392,14 @@
 			} else {
   			$(div).find('p.collector').text(this.inf.collector);
 			}
-			$(div).find('p.precision').text((this.inf.coordinateUncertaintyInMeters/1000)+'KM');
-			$("div#precision_slider").slider({value: (this.inf.coordinateUncertaintyInMeters/1000)});
+
+			
+			var value_ = (this.inf.coordinateUncertaintyInMeters<1000)?this.inf.coordinateUncertaintyInMeters/100:this.inf.coordinateUncertaintyInMeters/1000;
+			var metric_ = (this.inf.coordinateUncertaintyInMeters<1000)?'M':'KM';
+			var value_showed = (this.inf.coordinateUncertaintyInMeters<1000)?this.inf.coordinateUncertaintyInMeters:this.inf.coordinateUncertaintyInMeters/1000;
+
+			$(div).find('p.precision').text(value_showed + metric_);
+			$("div#precision_slider").slider({value: value_});
 				
 			this.moveMaptoOpen();	
 			
