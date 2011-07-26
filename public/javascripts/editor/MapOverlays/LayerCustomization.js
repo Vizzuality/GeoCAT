@@ -165,7 +165,7 @@
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.addLayer = function(name,source_url,source_name,url,opacity,type,locked,add) {
         if (type=='') {
-          if (url.search('.kml')!=-1) {
+          if (url.search('.kml')!=-1 || url.search('.kmz')!=-1) {
             type = 'kml';
           } else {
             type = 'xyz';
