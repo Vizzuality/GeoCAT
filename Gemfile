@@ -13,6 +13,9 @@ gem 'nokogiri', '1.4.2'
 gem 'csv-mapper'
 gem 'htmlentities'
 
+group :development, :test do
+  gem 'rspec-rails'
+end
 
 gem 'capistrano'
 gem 'capistrano-ext'

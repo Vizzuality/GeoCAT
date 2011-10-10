@@ -76,7 +76,13 @@ class FileController < ApplicationController
 
     geocat = case
     when params[:file]
-      GeocatData.new(params[:file])
+      if upload_file_extname == '.geocat'
+        GeocatData.new(params[:file])
+      elsif upload_file_extname == '.rla'
+        rla = RlatData.new(params[:file])
+        debugger
+        GeocatData.new(rla)
+      end
     when params[:qqfile]
       GeocatData.new(request.body)
     when params[:geocat_url]
@@ -107,8 +113,15 @@ class FileController < ApplicationController
     end
 
     def verify_upload_extension
-      file_path = params[:file].original_filename if params[:file] && params[:file].respond_to?(:original_filename)
-      invalid_geocat_file if file_path && (not file_path.match(/^.*\.geocat$/))
+      invalid_geocat_file unless upload_file_path.blank? || %w(.geocat .rla).include?(upload_file_extname)
+    end
+
+    def upload_file_path
+      params[:file].original_filename if params[:file] && params[:file].respond_to?(:original_filename)
+    end
+
+    def upload_file_extname
+      File.extname(upload_file_path) if upload_file_path
     end
 
     def invalid_geocat_file

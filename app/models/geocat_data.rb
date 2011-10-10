@@ -6,16 +6,21 @@ class GeocatData
 
   #validate :sources_must_be_valid
 
-  def initialize(file = nil)
-    return if file.blank?
+  def initialize(data = nil)
+    return if data.blank?
 
-    begin
-      process_as_hash file
-    rescue JSON::ParserError => e
+    case data
+    when RlatData
+      process_as_rla data
+    else
       begin
-        process_as_csv file
-      rescue Exception => ex
-        errors.add(:file, 'file is not valid')
+        process_as_hash data
+      rescue JSON::ParserError => e
+        begin
+          process_as_csv data
+        rescue Exception => ex
+          errors.add(:file, 'file is not valid')
+        end
       end
     end
   end
@@ -126,27 +131,67 @@ class GeocatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'recordSource'                  => row.respond_to?(:recordsource)                                       ? row.recordsource                                       : 'Added by user',
-          'latitude'                      => row.respond_to?(:latitude)                                           ? row.latitude                                           : nil,
-          'longitude'                     => row.respond_to?(:longitude)                                          ? row.longitude                                          : nil,
-          'collector'                     => row.respond_to?(:collector)                                          ? row.collectioncode                                     : nil,
-          'coordinateUncertaintyInMeters' => row.respond_to?(:coordinateuncertaintyinmeters)                      ? row.coordinateuncertaintyinmeters                      : nil,
-          'catalogue_id'                  => row.respond_to?(:catalogue_id)                                       ? row.catalogue_id                                       : nil,
-          'collectionCode'                => row.respond_to?(:collectioncode)                                     ? row.collectioncode                                     : nil,
-          'institutionCode'               => row.respond_to?(:institutioncode)                                    ? row.institutioncode                                    : nil,
-          'catalogNumber'                 => row.respond_to?(:catalognumber)                                      ? row.catalognumber                                      : nil,
-          'basisOfRecord'                 => row.respond_to?(:basisofrecord)                                      ? row.basisofrecord                                      : nil,
-          'eventDate'                     => row.respond_to?(:eventdate)                                          ? row.eventdate                                          : nil,
-          'country'                       => row.respond_to?(:country)                                            ? row.country                                            : nil,
-          'stateProvince'                 => row.respond_to?(:stateprovince)                                      ? row.stateprovince                                      : nil,
-          'county'                        => row.respond_to?(:county)                                             ? row.county                                             : nil,
-          'verbatimElevation'             => row.respond_to?(:verbatimelevation)                                  ? row.verbatimelevation                                  : nil,
-          'locality'                      => row.respond_to?(:locality)                                           ? row.locality                                           : nil,
-          'coordinateUncertaintyText'     => row.respond_to?(:coordinateuncertaintytext)                          ? row.coordinateuncertaintytext                          : nil,
-          'identifiedBy'                  => row.respond_to?(:identifiedby)                                       ? row.identifiedby                                       : nil,
-          'occurrenceRemarks'             => row.respond_to?(:occurrenceremarks)                                  ? row.occurrenceremarks                                  : nil,
-          'occurrenceDetails'             => row.respond_to?(:occurrencedetails)                                  ? row.occurrencedetails                                  : nil
+          'recordSource'                  => row.respond_to?(:recordsource)                  ? row.recordsource                                       : 'Added by user',
+          'latitude'                      => row.respond_to?(:latitude)                      ? row.latitude                                           : nil,
+          'longitude'                     => row.respond_to?(:longitude)                     ? row.longitude                                          : nil,
+          'collector'                     => row.respond_to?(:collector)                     ? row.collectioncode                                     : nil,
+          'coordinateUncertaintyInMeters' => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters                      : nil,
+          'catalogue_id'                  => row.respond_to?(:catalogue_id)                  ? row.catalogue_id                                       : nil,
+          'collectionCode'                => row.respond_to?(:collectioncode)                ? row.collectioncode                                     : nil,
+          'institutionCode'               => row.respond_to?(:institutioncode)               ? row.institutioncode                                    : nil,
+          'catalogNumber'                 => row.respond_to?(:catalognumber)                 ? row.catalognumber                                      : nil,
+          'basisOfRecord'                 => row.respond_to?(:basisofrecord)                 ? row.basisofrecord                                      : nil,
+          'eventDate'                     => row.respond_to?(:eventdate)                     ? row.eventdate                                          : nil,
+          'country'                       => row.respond_to?(:country)                       ? row.country                                            : nil,
+          'stateProvince'                 => row.respond_to?(:stateprovince)                 ? row.stateprovince                                      : nil,
+          'county'                        => row.respond_to?(:county)                        ? row.county                                             : nil,
+          'verbatimElevation'             => row.respond_to?(:verbatimelevation)             ? row.verbatimelevation                                  : nil,
+          'locality'                      => row.respond_to?(:locality)                      ? row.locality                                           : nil,
+          'coordinateUncertaintyText'     => row.respond_to?(:coordinateuncertaintytext)     ? row.coordinateuncertaintytext                          : nil,
+          'identifiedBy'                  => row.respond_to?(:identifiedby)                  ? row.identifiedby                                       : nil,
+          'occurrenceRemarks'             => row.respond_to?(:occurrenceremarks)             ? row.occurrenceremarks                                  : nil,
+          'occurrenceDetails'             => row.respond_to?(:occurrencedetails)             ? row.occurrencedetails                                  : nil
         })
+      end
+    end
+
+    def process_as_rla(rla)
+      self.viewPort = {
+        'zoom' => rla.zoom,
+        'center' => rla.center
+      }
+      self.sources = rla.sources.map do |source|
+        {
+          "type" => source["name"],
+          "query" => rla.scientificname,
+          "points" => source["points"].map do |point|
+            point_hash = point.slice(
+              "ocurrenceDetails",
+              "latitude",
+              "collector",
+              "country",
+              "collectionCode",
+              "ocurrenceRemarks",
+              "catalogNumber",
+              "county",
+              "stateProvince",
+              "locality",
+              "recordedBy",
+              "catalogue_id",
+              "basisOfRecord",
+              "longitude",
+              "coordinateUncertaintyMeters",
+              "institutionCode",
+              "eventDate",
+              "verbatimElevation"
+            )
+            point_hash["geocat_active"] = point["active"]
+            point_hash["geocat_query"] = rla.scientificname
+            point_hash["geocat_kind"] = point["kind"]
+            point_hash["geocat_removed"] = point["removed"]
+            point_hash
+          end
+        }
       end
     end
 
