@@ -51,7 +51,7 @@ class GeocatData
 
     data = []
     sources.each do |source|
-      data += source['points'].collect do |point|
+      data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
         {
           'recordSource'                  => point['recordSource'],
           'scientificname'                => source['query'],
@@ -78,6 +78,8 @@ class GeocatData
         }
       end
     end
+
+    return if data.first.nil?
 
     columns = data.first.keys.sort
 
