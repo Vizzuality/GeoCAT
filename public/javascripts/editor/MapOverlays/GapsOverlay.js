@@ -173,7 +173,7 @@
 			(this.inf.county!=undefined)?$('#metadata_county').attr('value',unescape(this.inf.county)):$('#metadata_county').attr('value','');
 			(this.inf.verbatimElevation!=undefined)?$('#metadata_altitude').attr('value',unescape(this.inf.verbatimElevation)):$('#metadata_altitude').attr('value','');
 			(this.inf.locality!=undefined)?$('#metadata_locality').attr('value',unescape(this.inf.locality)):$('#metadata_locality').attr('value','');
-			(this.inf.coordinateUncertaintyText!=undefined)?$('#metadata_precission').attr('value',unescape(this.inf.coordinateUncertaintyText)):$('#metadata_precission').attr('value','');
+			(this.inf.coordinateUncertaintyInMeters!=undefined)?$('#metadata_precission').attr('value',unescape(this.inf.coordinateUncertaintyInMeters)):$('#metadata_precission').attr('value','');
 			(this.inf.identifiedBy!=undefined)?$('#metadata_identifier').attr('value',unescape(this.inf.identifiedBy)):$('#metadata_identifier').attr('value','');
 			(this.inf.occurrenceRemarks!=undefined)?$('#metadata_gbif').attr('value',unescape(this.inf.occurrenceRemarks)):$('#metadata_gbif').attr('value','');
 			(this.inf.occurrenceDetails!=undefined)?$('#metadata_url').attr('value',unescape(this.inf.occurrenceDetails)):$('#metadata_url').attr('value','');
