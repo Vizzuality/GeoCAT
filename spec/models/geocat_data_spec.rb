@@ -12,7 +12,7 @@ describe GeocatData do
 
     geocat.should be_valid
 
-    geocat.reportName.should be_nil
+    geocat.reportName.should be == rla.scientificname
     geocat.viewPort["zoom"].should be == rla.zoom
     geocat.viewPort["center"]["latitude"].should be == rla.center["latitude"]
     geocat.viewPort["center"]["longitude"].should be == rla.center["longitude"]
@@ -44,10 +44,11 @@ describe GeocatData do
     geocat_point["institutionCode"].should be == rla_point["institutionCode"]
     geocat_point["eventDate"].should be == rla_point["eventDate"]
     geocat_point["verbatimElevation"].should be == rla_point["verbatimElevation"]
-
     geocat_point["geocat_active"].should be == rla_point["active"]
     geocat_point["geocat_query"].should be == rla.scientificname
     geocat_point["geocat_kind"].should be == rla_point["kind"]
     geocat_point["geocat_removed"].should be == rla_point["removed"]
+
+    geocat.analysis.should be_true
   end
 end

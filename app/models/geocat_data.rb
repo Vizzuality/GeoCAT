@@ -156,6 +156,7 @@ class GeocatData
     end
 
     def process_as_rla(rla)
+      self.reportName = rla.scientificname
       self.viewPort = {
         'zoom' => rla.zoom,
         'center' => rla.center
@@ -193,6 +194,7 @@ class GeocatData
           end
         }
       end
+      self.analysis = true if rla.analysis
     end
 
     def sources_must_be_valid
