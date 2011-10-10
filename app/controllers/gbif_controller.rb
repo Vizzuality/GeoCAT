@@ -73,6 +73,7 @@ class GbifController < ApplicationController
           "geocat_query"                  => CGI.unescape(q)
         }
       end
+
       @list =  [{"specie"=>q,"name"=>"gbif","points"=> points }]
 
       render :json =>@list

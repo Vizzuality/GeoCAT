@@ -44,6 +44,7 @@
 			  }
 
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
+			  			  
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
 

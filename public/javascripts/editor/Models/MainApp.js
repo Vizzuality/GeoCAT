@@ -10,6 +10,7 @@
     
     document.title = "GeoCAT - " + report_name;
 
+
     $('h1 p').click(function(){
       $(this).parent().addClass('selected');
       $('h1 input').focus();
@@ -100,11 +101,7 @@
 								break;
 			case 5: 	// Change app to close state
 			          $('div#csv_error').fadeOut();
-								if ($('div.header h1').hasClass('saved')) {
-									window.location.href="/";
-								} else {
-									changeApplicationTo(4);
-								}
+								changeApplicationTo(4);
 								break;
   		case 6: 	// Change app to csv import
   							$('div.help_container').fadeOut();
