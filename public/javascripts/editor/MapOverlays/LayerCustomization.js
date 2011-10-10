@@ -276,12 +276,16 @@
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.removeLayer = function(url,type) {
         if (type == 'kml') {
-          try {this.layers[url].layer.setMap(null);} catch (e) {}
+          try {
+            this.layers[url].layer.setMap(null); 
+            delete this.layers[url];
+          } catch (e) {}
         } else {
           var array = map.overlayMapTypes.getArray();
           for (var i in array) {
             if (this.layers[url].layer == array[i]) {
               map.overlayMapTypes.removeAt(i);
+              delete this.layers[url];
               break;
             }
           }

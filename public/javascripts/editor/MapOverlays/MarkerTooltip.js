@@ -381,20 +381,25 @@
 			}
 
 			$(div).find('p.longitude').html(au_lng+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia;">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
-			if (this.inf.occurrenceRemarks.length>36) {
+			if (this.inf.occurrenceRemarks && this.inf.occurrenceRemarks.length>36) {
   			$(div).find('p.description').text(this.inf.occurrenceRemarks.substr(0,33)+'...');
 			} else {
   			$(div).find('p.description').text(this.inf.occurrenceRemarks);
 			}
 			
-			if (this.inf.collector.length>36) {
+			if (this.inf.collector && this.inf.collector.length>36) {
   			$(div).find('p.collector').text(this.inf.collector.substr(0,33)+'...');
 			} else {
   			$(div).find('p.collector').text(this.inf.collector);
 			}
 
-			
-			var value_ = (this.inf.coordinateUncertaintyInMeters<1000)?this.inf.coordinateUncertaintyInMeters/100:this.inf.coordinateUncertaintyInMeters/1000;
+			var value_;
+			if (this.inf.coordinateUncertaintyInMeters) {
+			  value_ = (this.inf.coordinateUncertaintyInMeters<1000)?this.inf.coordinateUncertaintyInMeters/100:this.inf.coordinateUncertaintyInMeters/1000;
+			} else {
+			  value_ = 1000;
+			  this.inf.coordinateUncertaintyInMeters = 1000;
+			}
 			var metric_ = (this.inf.coordinateUncertaintyInMeters<1000)?'M':'KM';
 			var value_showed = (this.inf.coordinateUncertaintyInMeters<1000)?this.inf.coordinateUncertaintyInMeters:this.inf.coordinateUncertaintyInMeters/1000;
 

@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag('print') %>
 <%- end -%>
 <div id="printed_report">
-  <h1 class="title"><%= @geocat['reportName'].downcase %></h1>
+  <h1 class="title"><%= @geocat['reportName'] %></h1>
   <span class="title time">Published <%= Time.now.strftime('%d/%m/%Y %H:%M') %></span>
 
   <div class="map">

@@ -1,8 +1,9 @@
     <% content_for :js do %>
       <%= headjs_include_tag "plugins/jquery.min","plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader",
-      "editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/GeoCATOperations", "plugins/underscore",
-      "editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Models/MainApp", "plugins/boxshadow.js",
-      "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization","plugins/jquery.backgroundpos.pack.js", "plugins/jquery.color.js"%>
+      "plugins/general_functions","editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/GeoCATOperations",
+       "plugins/underscore","editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Models/MainApp", "plugins/boxshadow.js",
+      "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization","plugins/jquery.backgroundpos.pack.js",
+       "plugins/jquery.color.js"%>
 
       <script type="text/javascript" charset="utf-8">
         var upload_information;
@@ -81,7 +82,7 @@
                   <span><h3>NO SPECIES IN YOUR ASSESSMENT</h3></span>
                   <ul id="sources_list">
                     <div class="add_new_source">
-                      <button onclick="$('#add_source_button').trigger('click')">Add a new source</button>
+                      <button onclick="$('#add_source_button').click()">Add a new source</button>
                     </div>
                     <!-- Merge window -->
                     <div class="merge_container">

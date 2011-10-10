@@ -627,11 +627,18 @@
 				$("div.left a.selection").removeClass('selected');
 				$("div.left a."+status).addClass('selected');
         
-        if (status == "selection") {
-				  map.setOptions({draggable:false});
+        // Remove double click zoom when app is in 'add' status
+        if (status != "add") {
+				  map.setOptions({disableDoubleClickZoom:false});
 				} else {
-				  map.setOptions({draggable:true});
+				  map.setOptions({disableDoubleClickZoom:true});
 				}
+			
+        if (status == "selection") {
+          map.setOptions({doubleclick:false});
+        } else {
+          map.setOptions({doubleclick:true});
+        }
 
 				//Remove selection tool addons
 				google.maps.event.clearListeners(map, 'mousemove');

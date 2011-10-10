@@ -108,7 +108,7 @@
       		  api.getContentPane().prepend(
       		            '<li species="'+query+'" type="'+kind+'">'+
                         '<span class="'+kind_class+'"></span>'+
-                        '<h3>'+((kind=="user")?"User occs":query)+'</h3>'+
+                        '<h3>'+((kind=="user")?"User occs":ucfirst(query,true))+'</h3>'+
                         '<a class="visible_specie on"></a>'+
                         '<span class="points">'+
                           '<p>'+me.sources[query+'_'+kind]+' '+kind_name+' '+((me.sources[query+'_'+kind]>1)?'points':'point')+'</p>'+

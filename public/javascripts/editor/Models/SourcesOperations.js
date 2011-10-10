@@ -170,7 +170,7 @@
         
         //Input focus in - out
         $("#add_source_container ul li span.search input").focusin(function(){
-          var value = $(this).parent().children('input').val();
+          var value = $(this).parent().children('input[type="text"]').val();
           var me = this;
           if (value=='' || value=='Insert species name') {
             $(this).val('');
@@ -184,7 +184,7 @@
           });
         });
         $("#add_source_container ul li span.search input").focusout(function(){
-           var value = $(this).parent().children('input').val();
+           var value = $(this).parent().children('input[type="text"]').val();
            if (value=='' || value=='Insert species name') {
              $(this).css('font-style','italic');
              $(this).css('color','#666666');
@@ -308,7 +308,7 @@
       /*============================================================================*/
       function removeSelectedSources() {
         $("#add_source_container ul li").each(function(i,item){
-          $(this).find('input').val('Insert species name').css('font-style','italic').css('color','#666666');
+          $(this).find('input[type="text"]').val('Insert species name').css('font-style','italic').css('color','#666666');
           $(this).removeClass('selected');
           $(this).find('span.loading a').addClass('import_data').removeClass('retry').text('import');
           $(this).removeClass('searching');
@@ -361,20 +361,18 @@
       function resetSourcesProperties() {
         flickr_founded = [];
         gbif_founded = [];
+        
         $("#add_source_container ul li").each(function(i,item){
-          $(this).removeClass('selected');
-          $(this).removeClass('added');
-          $(this).removeClass('searching');
-          $(this).find('span input').val('Insert species name');
-          $(this).find('span input').css('font-style','italic');
-          $(this).find('span input').css('color','#666666');
-          $(this).find('span input').val('Insert species name');
-          $(this).find('span p').removeClass('loaded');
-          $(this).find('span.normal').hide();
-          $(this).find('span.normal a').removeClass('enabled');
-          $(this).find('div').removeClass('selected');
-          $(this).find('span p').text('Loading...');
+          $(item).removeClass('selected added searching');
+          $(item).find('input[type="text"]').val('Insert species name');
+          $(item).find('span input[type="text"]').css({'font-style':'italic','color':'#666666'});
+          $(item).find('span p').removeClass('loaded');
+          $(item).find('span.normal').hide();
+          $(item).find('span.normal a').removeClass('enabled');
+          $(item).find('div').removeClass('selected');
+          $(item).find('span p').text('Loading...');
         });
+        
         resetUploader();
       }
 

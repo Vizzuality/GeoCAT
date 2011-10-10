@@ -36,11 +36,11 @@
     		  '<div class="two_gaps"><span><label>BASIS OF RECORD</label><input id="metadata_basis" /></span></div>'+
     		  '<div class="two_gaps"><span><label>COLLECTOR</label><input id="metadata_collector" /></span><span class="short last"><label>DATE COLLECTED</label><input id="metadata_date" /></span></div>'+
     		  '<div class="three_gaps"><span><label>COUNTRY</label><input id="metadata_country" /></span><span><label>STATE/PROVINCE</label><input id="metadata_state" /></span><span class="last"><label>COUNTY</label><input id="metadata_county" /></span></div>' +
-    		  '<div class="three_gaps"><span><label>ALTITUDE</label><input id="metadata_altitude" /></span><span><label>LOCALITY</label><input id="metadata_locality" /></span><span class="last"><label>PRECISION</label><input id="metadata_precission" /></span></div>' +
+    		  '<div class="three_gaps"><span><label>ALTITUDE</label><input id="metadata_altitude" /></span><span><label>LOCALITY</label><input id="metadata_locality" /></span><span class="last"><label>GBIF PRECISION</label><input id="metadata_precission" /></span></div>' +
     		  '<div class="two_gaps"><span><label>IDENTIFIER</label><input id="metadata_identifier" /></span></div>'+
     		  '<div class="one_gap"><span><label>NOTES</label><input id="metadata_gbif" /></span></div>'+
     		  '<div class="one_gap"><span><label>URL</label><a class="goGBIF" href="#" target="_blank">Visit URL</a><input id="metadata_url" /></span></div>'+
-    		  '<div class="slider_top"><label>PRECISION</label><p>3KM</p></div>'+
+    		  '<div class="slider_top"><label>MAP PRECISION</label><p>3KM</p></div>'+
     		  '<div class="slider"></div>'+
     		  '<span class="bottom"><a class="cancel">Cancel</a><a class="save">SAVE CHANGES</a></span>'+
     		  '</form>'
