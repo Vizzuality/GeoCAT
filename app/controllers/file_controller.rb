@@ -80,7 +80,6 @@ class FileController < ApplicationController
         GeocatData.new(params[:file])
       elsif upload_file_extname == '.rla'
         rla = RlatData.new(params[:file])
-        debugger
         GeocatData.new(rla)
       end
     when params[:qqfile]
