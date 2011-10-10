@@ -196,7 +196,9 @@ class GeocatData
           end
         }
       end
-      self.analysis = rla.analysis.slice(*%w(cellsize_type cellsize cellsize_step)) if rla.analysis.present?
+      self.analysis = {
+        'AOO' => rla.analysis.slice(*%w(cellsize_type cellsize cellsize_step))
+      } if rla.analysis.present?
     end
 
     def sources_must_be_valid

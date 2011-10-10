@@ -49,8 +49,8 @@ describe GeocatData do
     geocat_point["geocat_kind"].should be == rla_point["kind"]
     geocat_point["geocat_removed"].should be == rla_point["removed"]
 
-    geocat.analysis["cellsize_type"].should be == rla.analysis["cellsize_type"]
-    geocat.analysis["cellsize"].should be == rla.analysis["cellsize"]
-    geocat.analysis["cellsize_step"].should be == rla.analysis["cellsize_step"]
+    geocat.analysis["AOO"]["cellsize_type"].should be == rla.analysis["cellsize_type"]
+    geocat.analysis["AOO"]["cellsize"].should be == rla.analysis["cellsize"]
+    geocat.analysis["AOO"]["cellsize_step"].should be == rla.analysis["cellsize_step"]
   end
 end
