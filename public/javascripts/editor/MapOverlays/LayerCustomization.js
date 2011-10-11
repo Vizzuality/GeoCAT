@@ -121,7 +121,7 @@
   		    for (var i=0; i<layers.length; i++) {
   		      var url = layers[i].url;
   		      if (me.layers[url]==undefined) {
-    		      me.addLayer(layers[i].name,layers[i].source_url,layers[i].source_name,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false), ((layers[i].add != undefined)? true : false));
+    		      me.addLayer(layers[i].name,layers[i].source_url,layers[i].source_name,layers[i].url,layers[i].opacity,layers[i].type,((layers[i].locked == undefined || layers[i].locked )?true:false),((layers[i].tmsr != undefined)? true : false), ((layers[i].add != undefined)? true : false));
   		      } else {
   		        me.layers[url].add = true;
   		      }
@@ -151,7 +151,7 @@
   		/*========================================================================================================================*/
   		LayerCustomization.prototype.importLayer = function(url) {
 	      this.importation_errors = 0;
-	      this.addLayer('','','',url,0.5,'',false,true);
+	      this.addLayer('','','',url,0.5,'',false,false,true);
 	      if (this.importation_errors==1) {
 		      $('span.layer_error p').text('Review your layer url, seems to be incorrect').parent().fadeIn().delay(2000).fadeOut();
 		    }
@@ -163,7 +163,7 @@
   		/*========================================================================================================================*/
   		/* Add a layer to the list */
   		/*========================================================================================================================*/
-  		LayerCustomization.prototype.addLayer = function(name,source_url,source_name,url,opacity,type,locked,add) {
+  		LayerCustomization.prototype.addLayer = function(name,source_url,source_name,url,opacity,type,locked,tms,add) {
         if (type=='') {
           if (url.search('.kml')!=-1 || url.search('.kmz')!=-1) {
             type = 'kml';
@@ -202,6 +202,9 @@
                 var tileRange = 1 << zoom;
                 if (y < 0 || y  >= tileRange) {
                   return null;
+                }
+                if (tms) {
+                  y = Math.pow(2, zoom) - tile.y - 1;
                 }
                 var x = tile.x;
                 if (x < 0 || x >= tileRange) {

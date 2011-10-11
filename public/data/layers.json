@@ -1,11 +1,12 @@
  {
   "layers":[
     {
-      "url":"http://maps0.eol.org/php/map/getEolTile.php?tile={X}_{Y}_{Z}_13140803",
-      "name":"EOL",
-      "source_url":"http://www.eol.org",
-      "source_name": "EOL xyz",
+      "url":"http://www.kew.org/gis/kml/hfp/final/{Z}/{X}/{Y}.png",
+      "name":"Human Footprint",
+      "source_url":"http://www.wcs.org/humanfootprint/",
+      "source_name": "Human Footprint",
       "opacity":0.5,
+      "tms": true,
       "type": "xyz"
     },
     {
@@ -15,13 +16,5 @@
       "source_name": "ProtectedPlanet xyz",
       "opacity":0.5,
       "type": "xyz"
-    },
-    {
-      "url":"http://code.google.com/apis/kml/documentation/KML_Samples.kml",
-      "name":"Google",
-      "source_url": "http://www.google.com",
-      "source_name": "Google KML",
-      "opacity":0.5,
-      "type":"kml"
     }]
 }
