@@ -12,6 +12,7 @@ gem 'RedCloth', '4.2.3'
 gem 'nokogiri', '1.4.2'
 gem 'csv-mapper'
 gem 'htmlentities'
+gem 'rchardet'
 
 group :development, :test do
   gem 'rspec-rails'

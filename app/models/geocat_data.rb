@@ -110,10 +110,7 @@ class GeocatData
     end
 
     def process_as_csv(file)
-      buffer = file
-
-      buffer.rewind if buffer.respond_to?(:rewind)
-      buffer = StringIO.new(file.read) if file.respond_to?(:read)
+      buffer = fix_encoding(file)
 
       csv = CsvMapper.import(buffer, {:type => :io}) do
         read_attributes_from_file
@@ -234,4 +231,15 @@ class GeocatData
       errors.add(:sources, sources_errors) if sources_errors.present?
     end
 
+    def fix_encoding(file)
+      buffer = file
+
+      buffer.rewind if buffer.respond_to?(:rewind)
+      buffer = StringIO.new(file.read) if file.respond_to?(:read)
+
+      buffer_encoding = CharDet.detect(buffer.read).try(:[], 'encoding')
+      buffer.rewind
+      StringIO.new(Iconv.conv('utf-8', buffer_encoding, buffer.read)) rescue nil
+    end
+    private :fix_encoding
 end
