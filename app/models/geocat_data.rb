@@ -130,26 +130,26 @@ class GeocatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'recordSource'                  => row.respond_to?(:recordsource)                  ? row.recordsource                                       : 'Added by user',
-          'latitude'                      => row.respond_to?(:latitude)                      ? row.latitude                                           : nil,
-          'longitude'                     => row.respond_to?(:longitude)                     ? row.longitude                                          : nil,
-          'collector'                     => row.respond_to?(:collector)                     ? row.collectioncode                                     : nil,
-          'coordinateUncertaintyInMeters' => row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters                      : nil,
-          'catalogue_id'                  => row.respond_to?(:catalogue_id)                  ? row.catalogue_id                                       : nil,
-          'collectionCode'                => row.respond_to?(:collectioncode)                ? row.collectioncode                                     : nil,
-          'institutionCode'               => row.respond_to?(:institutioncode)               ? row.institutioncode                                    : nil,
-          'catalogNumber'                 => row.respond_to?(:catalognumber)                 ? row.catalognumber                                      : nil,
-          'basisOfRecord'                 => row.respond_to?(:basisofrecord)                 ? row.basisofrecord                                      : nil,
-          'eventDate'                     => row.respond_to?(:eventdate)                     ? row.eventdate                                          : nil,
-          'country'                       => row.respond_to?(:country)                       ? row.country                                            : nil,
-          'stateProvince'                 => row.respond_to?(:stateprovince)                 ? row.stateprovince                                      : nil,
-          'county'                        => row.respond_to?(:county)                        ? row.county                                             : nil,
-          'verbatimElevation'             => row.respond_to?(:verbatimelevation)             ? row.verbatimelevation                                  : nil,
-          'locality'                      => row.respond_to?(:locality)                      ? row.locality                                           : nil,
-          'coordinateUncertaintyText'     => row.respond_to?(:coordinateuncertaintytext)     ? row.coordinateuncertaintytext                          : nil,
-          'identifiedBy'                  => row.respond_to?(:identifiedby)                  ? row.identifiedby                                       : nil,
-          'occurrenceRemarks'             => row.respond_to?(:occurrenceremarks)             ? row.occurrenceremarks                                  : nil,
-          'occurrenceDetails'             => row.respond_to?(:occurrencedetails)             ? row.occurrencedetails                                  : nil
+          'recordSource'                  => (row.try(:recordsource)                  rescue nil),
+          'latitude'                      => (row.try(:latitude)                      rescue nil),
+          'longitude'                     => (row.try(:longitude)                     rescue nil),
+          'collector'                     => (row.try(:collector)                     rescue nil),
+          'coordinateUncertaintyInMeters' => (row.try(:coordinateuncertaintyinmeters) rescue nil),
+          'catalogue_id'                  => (row.try(:catalogue_id)                  rescue nil),
+          'collectionCode'                => (row.try(:collectioncode)                rescue nil),
+          'institutionCode'               => (row.try(:institutioncode)               rescue nil),
+          'catalogNumber'                 => (row.try(:catalognumber)                 rescue nil),
+          'basisOfRecord'                 => (row.try(:basisofrecord)                 rescue nil),
+          'eventDate'                     => (row.try(:eventdate)                     rescue nil),
+          'country'                       => (row.try(:country)                       rescue nil),
+          'stateProvince'                 => (row.try(:stateprovince)                 rescue nil),
+          'county'                        => (row.try(:county)                        rescue nil),
+          'verbatimElevation'             => (row.try(:verbatimelevation)             rescue nil),
+          'locality'                      => (row.try(:locality)                      rescue nil),
+          'coordinateUncertaintyText'     => (row.try(:coordinateuncertaintytext)     rescue nil),
+          'identifiedBy'                  => (row.try(:identifiedby)                  rescue nil),
+          'occurrenceRemarks'             => (row.try(:occurrenceremarks)             rescue nil),
+          'occurrenceDetails'             => (row.try(:occurrencedetails)             rescue nil)
         })
       end
     end
