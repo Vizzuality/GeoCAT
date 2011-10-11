@@ -213,6 +213,8 @@ div.analysis_data span {float:left; width:100%; padding:8px 0; margin:2px 0 0 0;
   -moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; text-align:center;}
 div.analysis_data span a {font:bold 13px Arial; color:#333333; text-shadow:0 1px #B7D58D; text-decoration:none; padding:0;}
 div.analysis_data span a:hover {color:#111111;}
+div.analysis_data span a.disabled {color:#999999}
+div.analysis_data span a.disabled:hover {color:#999999; cursor:default}
 div#tools div.center div.right div.algorithms {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-bottom:1px solid #000000;}
 div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura","FuturaStdMedium"; color:#CCCCCC; text-shadow:0 1px #000000;}
 div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:url('/images/editor/orange_bar.png') no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}

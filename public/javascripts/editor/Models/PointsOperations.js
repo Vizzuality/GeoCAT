@@ -29,6 +29,12 @@
 					  this.sources[query+'_'+kind] = 0;
 				  }
 				  
+				  if ($('.analysis_data span a#report_button').hasClass('disabled')) {
+				    $('.analysis_data span a#report_button').removeClass('disabled').click(function(ev){
+					    downloadGeoCAT('print');
+					  });
+				  }
+				  
 					this.sources[query+'_'+kind] = this.sources[query+'_'+kind]+1;
 					
 					// Print the correct observations
@@ -47,6 +53,11 @@
 					
 					if (this.sources[query+'_'+kind]==0) {
 					  this.total = this.total - 1;
+					}
+					
+					if (this.total==0) {
+					  // Disable print complete report
+					  $('.analysis_data span a#report_button').addClass('disabled').unbind('click');
 					}
 					
 					// Print the correct observations
