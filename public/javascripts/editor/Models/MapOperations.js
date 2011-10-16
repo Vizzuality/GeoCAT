@@ -1,4 +1,3 @@
-
 			/*==========================================================================================================================*/
 			/*  																																																												*/
 			/*				MapOperations => Class to create and interact with the map.																												*/
@@ -636,9 +635,9 @@
 				}
 			
         if (status == "selection") {
-          map.setOptions({doubleclick:false});
+          map.setOptions({draggable:false});
         } else {
-          map.setOptions({doubleclick:true});
+          map.setOptions({draggable:true});
         }
 
 				//Remove selection tool addons
