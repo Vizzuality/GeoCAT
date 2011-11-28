@@ -16,14 +16,6 @@
       "source_name": "ProtectedPlanet xyz",
       "opacity":0.5,
       "type": "xyz"
-    },
-    {
-      "url":"http://code.google.com/apis/kml/documentation/KML_Samples.kml",
-      "name":"Human Footprint Jamon",
-      "source_url":"code.google.com/apis/kml/documentation/KML_Samples.kml",
-      "source_name": "Human Footprint Jamon",
-      "opacity":0.5,
-      "tms": true,
-      "type": "kml"
-    }]
+    }
+  ]
 }
