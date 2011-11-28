@@ -493,11 +493,18 @@
         
         $.getJSON(url + query.replace(' ','+'),
             function(result){
+							var count = 0;
               switch(kind) {
-                case 'add_flickr':  flickr_founded.push(result[0]);break;
-                default:            gbif_founded.push(result[0]);
+                case 'add_flickr':  flickr_founded.push(result[0]); count = result[0].points.length; break;
+                default:            gbif_founded.push(result[0]); count = result[0].points.length;
               }
-              $(element).find('span p').text(result[0].points.length + ((result[0].points.length == 1) ? " occ" : " occs") + ' found');
+							
+              $(element).find('span p').text(((count>=1000)?'> ':'') + count + ((count == 1) ? " occ" : " occs") + ' found');
+
+							if (count>=1000) {
+								$(element).find('a.import_data').text('import first 1000');
+	 						}
+							
               onLoadedSource(element,result[0].points.length);
             }
         );
