@@ -345,7 +345,7 @@
         $('span.import a.retry').unbind('click');
 
         $('span.import a.import_data').removeClass('enabled');
-        $('span.import a.import_data').text('merge');
+        $('span.import a.import_data').text('import');
         $('span.import a.import_data').unbind('click');
 
         $('.qq-upload-button').show();
