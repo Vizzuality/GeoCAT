@@ -156,15 +156,24 @@
 			  if (this.upload_data_.data.analysis.AOO.cellsize_type=='auto') {
 			    $('#auto_value').trigger('click');
 			  } else {
+					var cellsize = this.upload_data_.data.analysis.AOO.cellsize_step;
+					if (cellsize<11) {
+						if (cellsize == 10) {
+							convex_hull.cellsize = 1;
+						} else {
+							convex_hull.cellsize = (cellsize * 0.1).toFixed(1);
+						}
+					} else {
+						convex_hull.cellsize = cellsize - 10;
+					}
+					
 			    if (this.upload_data_.data.analysis.AOO.cellsize_type == "auto-value") {
 			      $('#auto_value').trigger('click')
 			    } else {
-			      $("div.cellsize span p").text(cellsize + 'KM');
-  			    $("div.cellsize div.slider").slider('value',cellsize);
+			      $("div.cellsize span p").text(convex_hull.cellsize + 'KM');
+  			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.AOO.cellsize_step);
 			    }
 			    
-			    var cellsize = this.upload_data_.data.analysis.AOO.cellsize_step;
-			    convex_hull.cellsize = cellsize;
 			    convex_hull.cellsize_type = this.upload_data_.data.analysis.AOO.cellsize_type;
 			    convex_hull.removeAOOPolygons();
 			  }

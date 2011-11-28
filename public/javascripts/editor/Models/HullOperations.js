@@ -386,6 +386,7 @@
 					var text_ = (value*1000);
 					var metric_ = 'm';
 				}
+
 				$('div.cellsize span p').text(text_+metric_.toUpperCase());
 				$('div.analysis p.change').html('AOO based on user defined<br/>cell width ('+text_+' '+metric_+'), <a class="change">change</a>');
 				if (this.polygon!=undefined && this.polygon.getPath().getLength()>2) {
