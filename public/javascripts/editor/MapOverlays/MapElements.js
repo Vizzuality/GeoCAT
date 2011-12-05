@@ -1,4 +1,4 @@
-    
+
     head(function(){
       $('div.center-map').append(
         '<div class="search_place">' +
@@ -93,8 +93,8 @@
           '<span class="download"></span>' +
           '<span id="analysis_help"></span>' +
         '</div>'+
-        
-        
+
+
         '<!-- Layers window -->' +
         '<div id="layer_window">' +
           '<a onclick="closeLayers(event)" id="layer_close">close</a>'+
@@ -110,4 +110,4 @@
         '</div>'
         );
     });
-    
+
