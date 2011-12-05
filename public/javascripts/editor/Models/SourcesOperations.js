@@ -34,7 +34,6 @@
               total_occurrences.points = new Array();
               var sources = responseJSON.data.sources;
               _.each(sources,function(element){
-                console.log(element.points);
                 _.each(element.points,function(point){
                   if (point.catalogue_id.search('user') != -1 || !point.geocat_kind) {
                     global_id++;
