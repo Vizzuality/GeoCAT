@@ -288,7 +288,7 @@
 								points.add(geocat_query,geocat_kind);
 								bounds.extend(latlng);
 								global_id++;
-								info_data.catalogue_id = global_id + '_user';
+								info_data.catalogue_id = 'user_' + global_id;
 								
 								var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
 
@@ -428,7 +428,7 @@
               $(document).trigger('occs_updated');
             }
           } else {
-            setTimeout(function(){asynRemoveMarker(query,type)},0);
+            setTimeout(function(){asynRemoveMarker(query,type)},0);            
           }
         }
         asynRemoveMarker(query,type);

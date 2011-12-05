@@ -149,6 +149,7 @@
 			obj.zoom = (this.upload_data_.data.viewPort!=null)? this.upload_data_.data.viewPort.zoom : 2;
 			obj.reportName = this.upload_data_.data.reportName;
 			
+
 			//If there is analysis
 			if (this.upload_data_.data.analysis!=undefined) {
 			  $('a#toggle_analysis').trigger('click');

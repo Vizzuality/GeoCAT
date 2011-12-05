@@ -29,14 +29,21 @@
               $('span.qq-upload-file').text('Uploading...');
             },
             onComplete: function(id, fileName, responseJSON) {
-              try {
-                var total_occurrences = {};
-                total_occurrences.points = new Array();
-                var sources = responseJSON.data.sources;
-                _.each(sources,function(element){
-                  $.merge(total_occurrences.points,element.points);
+
+              var total_occurrences = {};
+              total_occurrences.points = new Array();
+              var sources = responseJSON.data.sources;
+              _.each(sources,function(element){
+                console.log(element.points);
+                _.each(element.points,function(point){
+                  if (point.catalogue_id.search('user') != -1 || !point.geocat_kind) {
+                    global_id++;
+                    point.catalogue_id = 'user_'+global_id;
+                    point.geocat_kind = 'user';
+                  }
+                  total_occurrences.points.push(point);
                 });
-              } catch (e) {}
+              });
               
               $('#uploader').parent().find('a.delete').show();
               $('span.qq-upload-file').show();

@@ -88,7 +88,7 @@
 				/* Calculate number of points in the map, and show in the sources container.	*/
 				/*============================================================================*/
 				PointsOperations.prototype.calculateMapSpecies = function() {
-					$('div.sources span h3').text(this.total + ' SPECIES IN YOUR ASSESSMENT');
+					$('div.sources span h3').text(this.total + ' DATA SOURCES');
 				}
 
 
