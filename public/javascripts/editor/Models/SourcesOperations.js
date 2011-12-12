@@ -35,7 +35,7 @@
               var sources = responseJSON.data.sources;
               _.each(sources,function(element){
                 _.each(element.points,function(point){
-                  if (point.catalogue_id.search('user') != -1 || !point.geocat_kind) {
+                  if (point.catalogue_id && (point.catalogue_id.search('user') != -1 || !point.geocat_kind)) {
                     global_id++;
                     point.catalogue_id = 'user_'+global_id;
                     point.geocat_kind = 'user';

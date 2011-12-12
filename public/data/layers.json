@@ -1,11 +1,11 @@
  {
   "layers":[
     {
-      "url":"http://www.kew.org/gis/kml/hfp/final/{Z}/{X}/{Y}.png",
-      "name":"Human Footprint",
-      "source_url":"http://www.wcs.org/humanfootprint/",
-      "source_name": "Human Footprint",
-      "opacity":0.5,
+      "url":"http://184.73.201.235/blue/{Z}/{X}/{Y}",
+      "name":"ProtectedPlanet",
+      "source_url":"http://protectedplanet.net/",
+      "source_name": "ProtectedPlanet",
+      "opacity":1,
       "tms": true,
       "type": "xyz"
     }
