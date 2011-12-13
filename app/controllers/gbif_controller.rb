@@ -10,7 +10,7 @@ class GbifController < ApplicationController
 
       require 'open-uri'
 
-      gbif_mirrors = %w(de.mirror.gbif.org us.mirror.gbif.org es.mirror.gbif.org data.gbif.org)
+      gbif_mirrors = %w(data.gbif.org de.mirror.gbif.org us.mirror.gbif.org es.mirror.gbif.org)
 
       gbif_mirrors.each do |mirror|
         begin
