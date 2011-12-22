@@ -47,7 +47,7 @@
           '<a onclick="changeApplicationTo()" class="close">X</a>' +
           '<p>You are going to leave the editor and lose<br/>' +
           'your changes. Do you want to save them?</p>' +
-          '<p class="bottom"><a onclick="window.location.href=\'/\'" class="cancel">Close without saving</a><a onclick="$(\'#close_save\').fadeOut(); downloadGeoCAT(\'rla\')" class="download">SAVE PROJECT</a>' +
+          '<p class="bottom"><a onclick="window.location.href=\'/\'" class="cancel">Close without saving</a><a onclick="$(\'#close_save\').fadeOut(); downloadGeoCAT(\'geocat\')" class="download">SAVE PROJECT</a>' +
           '</p>' +
         '</div>' +
 
