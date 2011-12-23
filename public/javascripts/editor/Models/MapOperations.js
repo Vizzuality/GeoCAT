@@ -39,7 +39,8 @@
 			    mapTypeId: google.maps.MapTypeId.TERRAIN,
 					disableDefaultUI: true,
 					scrollwheel: false,
-					streetViewControl: false
+					streetViewControl: false,
+					scaleControl: true
 			  }
 
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);

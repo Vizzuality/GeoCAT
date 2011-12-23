@@ -75,23 +75,50 @@
 			
 			// Add active Layers
 			var added_layers = [];
-			for (var i in layers.layers) {
-			  if (layers.layers[i].add) {
-			    var obj = _.clone(layers.layers[i]);
+			_.each(layers.layers, function(layer,i){
+				if (layer.add) {
+			    var obj = _.clone(layer);
 			    delete obj.layer;
 			    delete obj.add;
 			    obj.url = i;
 			    added_layers.push(obj);
 			  }
-			}
+			})
+
 			dataset.layers = added_layers;
-		
-		  
+
+			var value_ = $.stringify(dataset);
+
       $("#format_input").attr("value",format);
-      $("#geocat_input").attr("value",JSON.stringify(dataset));
+      $("#geocat_input").text(value_);
       $("#download_form").submit();
-			changeApplicationTo(2);
+		 	changeApplicationTo(2);
 		}
+
+
+		jQuery.extend({
+    stringify  : function stringify(obj) {
+        var t = typeof (obj);
+        if (t != "object" || obj === null) {
+            // simple data type
+            if (t == "string") obj = '"' + obj + '"';
+            return String(obj);
+        } else {
+            // recurse array or object
+            var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+            for (n in obj) {
+                v = obj[n];
+                t = typeof(v);
+                if (obj.hasOwnProperty(n)) {
+                    if (t == "string") v = '"' + v + '"'; else if (t == "object" && v !== null) v = jQuery.stringify(v);
+                    json.push((arr ? "" : '"' + n + '":') + String(v));
+                }
+            }
+            return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+        }
+    }
+});
 
 
 

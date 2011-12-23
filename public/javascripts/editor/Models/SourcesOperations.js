@@ -29,6 +29,8 @@
               $('span.qq-upload-file').text('Uploading...');
             },
             onComplete: function(id, fileName, responseJSON) {
+              console.log(responseJSON);
+
               var total_occurrences = {};
               total_occurrences.points = new Array();
               var sources = responseJSON.data.sources;
@@ -51,7 +53,7 @@
                   $('span.import a.import_data').addClass('enabled');
                   $('span.import a.import_data').click(function(ev){
                     closeSources();
-                    addSourceToMap(total_occurrences,false,false);
+                    addSourceToMap(total_occurrences,true,false);
                   });
                 } else {
                   closeSources();
@@ -77,7 +79,7 @@
                     $('div#csv_error span a.continue').unbind('click');
                     $('div#csv_error span a.continue').click(function(ev){
                       $('div#csv_error').fadeOut();
-                      addSourceToMap(total_occurrences,false,false);
+                      addSourceToMap(total_occurrences,true,false);
                     });
                     $('div#csv_error h3').text('There are warnings in your uploaded csv file');
                     $('div#csv_error span a.continue').show();

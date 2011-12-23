@@ -1,5 +1,5 @@
     <% content_for :js do %>
-      <%= headjs_include_tag "plugins/jquery.min","plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader",
+      <%= headjs_include_tag "plugins/jquery.min", "plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader",
       "plugins/general_functions","editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/GeoCATOperations",
        "plugins/underscore","editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Models/MainApp", "plugins/boxshadow.js",
       "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization","plugins/jquery.backgroundpos.pack.js",
@@ -182,7 +182,6 @@
             </div>
             <div class="center-map">
               <div id="map"></div>
-              <a href="http://www.vizzuality.com" target="_blank" class="vizzuality"><img src="/images/editor/vizzuality.png" alt="Vizzuality" title="Vizzuality" /></a>
             </div>
             <div class="right-repeat-map">
               <div id="map_type">
@@ -235,9 +234,10 @@
 
 
 
-  <form style="display:none" id="download_form" name="download_form" action="/download" method="post" target="_blank">
-    <input style="display:none" type="text" name="geocat" id="geocat_input" />
+  <form style="display:none" id="download_form" name="download_form" action="/download" method="post" target="_blank" enctype="multipart/form-data">
+    <!-- <input style="display:none" type="text" name="geocat" id="geocat_input" /> -->
     <input style="display:none" type="text" name="format" id="format_input" />
+    <textarea id="geocat_input" name="geocat"></textarea>
   </form>
 
 

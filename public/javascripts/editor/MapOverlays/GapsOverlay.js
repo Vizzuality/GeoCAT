@@ -36,7 +36,7 @@
     		  '<div class="two_gaps"><span><label>BASIS OF RECORD</label><input onfocus="this.value = this.value;" id="metadata_basis" /></span></div>'+
     		  '<div class="two_gaps"><span><label>COLLECTOR</label><input onfocus="this.value = this.value;" type="text" id="metadata_collector" /></span><span class="short last"><label>DATE COLLECTED</label><input onfocus="this.value = this.value;" type="text" id="metadata_date" /></span></div>'+
     		  '<div class="three_gaps"><span><label>COUNTRY</label><input onfocus="this.value = this.value;" type="text" id="metadata_country" /></span><span><label>STATE/PROVINCE</label><input onfocus="this.value = this.value;" type="text" id="metadata_state" /></span><span class="last"><label>COUNTY</label><input onfocus="this.value = this.value;" type="text" id="metadata_county" /></span></div>' +
-    		  '<div class="three_gaps"><span><label>ALTITUDE</label><input onfocus="this.value = this.value;" type="text" id="metadata_altitude" /></span><span><label>LOCALITY</label><input onfocus="this.value = this.value;" type="text" id="metadata_locality" /></span><span class="last"><label>GBIF PRECISION</label><input onfocus="this.value = this.value;" type="text" id="metadata_precission" /></span></div>' +
+    		  '<div class="three_gaps"><span><label>ALTITUDE</label><input onfocus="this.value = this.value;" type="text" id="metadata_altitude" /></span><span><label>LOCALITY</label><input onfocus="this.value = this.value;" type="text" id="metadata_locality" /></span><span class="last"><label>REPOR. PRECISION</label><input onfocus="this.value = this.value;" type="text" id="metadata_precission" /></span></div>' +
     		  '<div class="two_gaps"><span><label>IDENTIFIER</label><input onfocus="this.value = this.value;" type="text" id="metadata_identifier" /></span></div>'+
     		  '<div class="one_gap"><span><label>NOTES</label><input onfocus="this.value = this.value;" type="text" id="metadata_gbif" /></span></div>'+
     		  '<div class="one_gap"><span><label>URL</label><a class="goGBIF" href="#" target="_blank">Visit URL</a><input type="text" onfocus="this.value = this.value;" id="metadata_url" /></span></div>'+
@@ -173,7 +173,7 @@
 			(this.inf.county!=undefined)?$('#metadata_county').attr('value',unescape(this.inf.county)):$('#metadata_county').attr('value','');
 			(this.inf.verbatimElevation!=undefined)?$('#metadata_altitude').attr('value',unescape(this.inf.verbatimElevation)):$('#metadata_altitude').attr('value','');
 			(this.inf.locality!=undefined)?$('#metadata_locality').attr('value',unescape(this.inf.locality)):$('#metadata_locality').attr('value','');
-			(this.inf.coordinateUncertaintyInMeters!=undefined)?$('#metadata_precission').attr('value',unescape(this.inf.coordinateUncertaintyInMeters)):$('#metadata_precission').attr('value','');
+			(this.inf.coordinateUncertaintyInMeters!=undefined)?$('#metadata_precission').attr('value',unescape(this.inf.coordinateUncertaintyInMeters) + ' metres'):$('#metadata_precission').attr('value','');
 			(this.inf.identifiedBy!=undefined)?$('#metadata_identifier').attr('value',unescape(this.inf.identifiedBy)):$('#metadata_identifier').attr('value','');
 			(this.inf.occurrenceRemarks!=undefined)?$('#metadata_gbif').attr('value',unescape(this.inf.occurrenceRemarks)):$('#metadata_gbif').attr('value','');
 			(this.inf.occurrenceDetails!=undefined)?$('#metadata_url').attr('value',unescape(this.inf.occurrenceDetails)):$('#metadata_url').attr('value','');
@@ -197,7 +197,7 @@
         if (($('#metadata_collection').attr('value')!=unescape(this.inf.collectionCode)) || ($('#metadata_institution').attr('value')!=unescape(this.inf.institutionCode)) || ($('#metadata_catalog').attr('value')!=unescape(this.inf.catalogNumber))
           || ($('#metadata_basis').attr('value')!=unescape(this.inf.basisOfRecord)) || ($('#metadata_collector').attr('value')!=unescape(this.inf.collector)) || ($('#metadata_date').attr('value')!=unescape(this.inf.eventDate))
           || ($('#metadata_country').attr('value')!=unescape(this.inf.country)) || ($('#metadata_state').attr('value')!=unescape(this.inf.stateProvince)) || ($('#metadata_county').attr('value')!=unescape(this.inf.county))
-          || ($('#metadata_altitude').attr('value')!=unescape(this.inf.verbatimElevation)) || ($('#metadata_locality').attr('value')!=unescape(this.inf.locality)) || ($('#metadata_precission').attr('value')!=unescape(this.inf.coordinateUncertaintyText))
+          || ($('#metadata_altitude').attr('value')!=unescape(this.inf.verbatimElevation)) || ($('#metadata_locality').attr('value')!=unescape(this.inf.locality)) || ($('#metadata_precission').attr('value')!=(unescape(this.inf.coordinateUncertaintyText + ' metres')))
           || ($('#metadata_identifier').attr('value')!=unescape(this.inf.identifiedBy)) || ($('#metadata_gbif').attr('value')!=unescape(this.inf.occurrenceRemarks)) || ($('#metadata_url').attr('value')!=unescape(this.inf.occurrenceDetails)) || ($('#metadata_latitude').attr('value')!=unescape(this.inf.latitude)) || ($('#metadata_longitude').attr('value')!=unescape(this.inf.longitude))) {
         
             var old_data = new Object();
@@ -233,7 +233,7 @@
       			this.inf.county = $('#metadata_county').attr('value');
       			this.inf.verbatimElevation = $('#metadata_altitude').attr('value');
       			this.inf.locality = $('#metadata_locality').attr('value');
-      			this.inf.coordinateUncertaintyText = $('#metadata_precission').attr('value');
+      			this.inf.coordinateUncertaintyText = $('#metadata_precission').attr('value').replace(' metres','');
       			this.inf.identifiedBy = $('#metadata_identifier').attr('value');
       			this.inf.occurrenceRemarks = $('#metadata_gbif').attr('value');
       			this.inf.occurrenceDetails = $('#metadata_url').attr('value');

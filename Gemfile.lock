@@ -53,7 +53,7 @@ GEM
     highline (1.6.1)
     htmlentities (4.2.4)
     i18n (0.4.2)
-    json (1.4.3)
+    json (1.6.3)
     linecache (0.43)
     mail (2.2.9)
       activesupport (>= 2.3.6)
@@ -125,7 +125,7 @@ DEPENDENCIES
   csv-mapper
   flickraw (= 0.8.2)
   htmlentities
-  json (= 1.4.3)
+  json (= 1.6.3)
   nokogiri (= 1.4.2)
   rails (~> 3.0.0)
   rchardet
