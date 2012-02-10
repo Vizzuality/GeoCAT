@@ -249,14 +249,16 @@
         if (convex_hull.isVisible()) {
           mamufasPolygon();
         }
-        
+
+        var point_changes = []
+
 				/* Recursive service for adding markers. */
         function asynAddMarker(i,total,_bounds, uploadAction, observations) {
           if (i < total){
             var info_data = new Object();
             $.extend(info_data, observations[i]);
             
-            if (occurrences[info_data.catalogue_id]==undefined) {
+            if (info_data.catalogue_id && occurrences[info_data.catalogue_id]==undefined) {
 							// If the point doesnt have info about _active and _removed
 							if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
 							if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
@@ -272,6 +274,7 @@
 
               occurrences[marker.data.catalogue_id] = marker;
               occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
+              occurrences[marker.data.catalogue_id].data.geocat_kind = geocat_kind;
 
               if (!info_data.geocat_active) {
                 var marker_id = marker.data.catalogue_id;
@@ -295,8 +298,13 @@
 
 	              occurrences[marker.data.catalogue_id] = marker;
 	              occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
+	              occurrences[marker.data.catalogue_id].data.geocat_kind = geocat_kind;
 							}
 						}
+
+
+						if (!occurrences[marker.data.catalogue_id].data.geocat_removed)
+							point_changes.push(occurrences[marker.data.catalogue_id].data);
 
             i++;
             setTimeout(function(){asynAddMarker(i,total,_bounds,uploadAction,observations);},0);
@@ -314,18 +322,16 @@
             if (convex_hull.isVisible()) {
               $(document).trigger('occs_updated');
             }
+
+            // Do add
+            actions.Do('add',null,point_changes);
           }
         }
         
         if (information.points.length>20) {
          showMamufasMap();
         }
-                
-        var non_removed = _.select(information.points,function(element){
-          return !element.geocat_removed;
-        });
-        
-        actions.Do('add',null,non_removed);
+
         asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);
 			}
 

@@ -4,7 +4,7 @@ class GeocatData
   attr_accessor :reportName, :viewPort, :analysis, :format, :center, :sources, :layers
   attr_writer :warnings
 
-  #validate :sources_must_be_valid
+  validate :sources_must_be_valid
 
   def initialize(data = nil)
     return if data.blank?
@@ -130,7 +130,7 @@ class GeocatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'recordSource'                  => (row.try(:recordsource)                  rescue nil),
+          'recordSource'                  => (row.try(:recordsource)                  rescue "Added by user"),
           'latitude'                      => (row.try(:latitude)                      rescue nil),
           'longitude'                     => (row.try(:longitude)                     rescue nil),
           'collector'                     => (row.try(:collector)                     rescue nil),

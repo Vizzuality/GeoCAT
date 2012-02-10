@@ -243,6 +243,7 @@
 				if (convex_hull.isVisible()) {
           mamufasPolygon();
         }
+
 				
 				// Recursive function for remove markers.
 				function AsynRemoveMarkers(count, observations_data) {
