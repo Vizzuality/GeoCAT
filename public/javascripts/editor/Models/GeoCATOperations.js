@@ -87,7 +87,7 @@
 
 			dataset.layers = added_layers;
 
-			var value_ = $.stringify(dataset);
+			var value_ = JSON.stringify(dataset);
 
       $("#format_input").attr("value",format);
       $("#geocat_input").text(value_);

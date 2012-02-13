@@ -61,7 +61,7 @@ class GbifController < ApplicationController
           "county"                        => @county,
           "verbatimElevation"             => @verbatimElevation,
           "locality"                      => @locality,
-          "coordinateUncertaintyInMeters" => 15000,
+          "coordinateUncertaintyInMeters" => @coordinateUncertaintyInMeters || 15000,
           "identifiedBy"                  => @identifiedBy,
           "occurrenceRemarks"             => @occurrenceRemarks,
           "occurrenceDetails"             => @occurrenceDetails,
@@ -75,6 +75,9 @@ class GbifController < ApplicationController
       end
 
       @list =  [{"specie"=>q,"name"=>"gbif","points"=> points }]
+
+            puts :json => @list
+
 
       render :json =>@list
     rescue Exception=> e
