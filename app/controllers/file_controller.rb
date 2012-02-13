@@ -16,7 +16,7 @@ class FileController < ApplicationController
 
   def download
     format = params[:format]
-    @geocat = ActiveSupport::JSON.decode(params[:geocat])
+    @geocat = JSON.parse(params[:geocat])
 
     # Removes 'removed' points from each datasource
     @geocat['sources'].each do |source|
