@@ -5,7 +5,7 @@
 	/*						*Params ->	specie: name of the specie.																																				*/
 	/*												markers: whole markers of the map.																																*/
 	/*  											map_properties: zoom and center of the map.																												*/
-	/*												upload_obj: only if you want to make an upload of this file have to be distinct null.							*/	
+	/*												upload_obj: only if you want to make an upload of this file have to be distinct null.							*/
 	/*  																																																												*/
 	/*==========================================================================================================================*/
 
@@ -27,8 +27,8 @@
 		  var dataset = new Object();
 			// Report name
 			dataset.reportName = unescape(report_name);
-			
-			// Viewport 
+
+			// Viewport
 			dataset.viewPort = {};
 			dataset.viewPort.zoom = this.zoom;
 			dataset.viewPort.center = new Object();
@@ -36,7 +36,7 @@
 			dataset.viewPort.center.longitude = this.center.lng();
 			dataset.sources = [];
 			this.addMarkers(dataset,this.markers_);
-			
+
 			// Analysis
 			var analysis = new Object();
 			// Send analysis if it is visible
@@ -52,7 +52,7 @@
   			    analysis.EOO.convex_hull.push({latitude:point.lat(), longitude:point.lng()});
   			  }
 			  }
-			  
+
 			  analysis.AOO = new Object();
 			  analysis.AOO.status = convex_hull.AOOkind;
 			  analysis.AOO.result = convex_hull.AOO;
@@ -60,7 +60,7 @@
 			  analysis.AOO.cellsize = convex_hull.cellsize;
 			  analysis.AOO.cellsize_step = $("div.cellsize div.slider").slider('value');
 			  analysis.AOO.grids = [];
-			  
+
 			  for (var id in convex_hull.Cells) {
   			  var path_points = [];
   			  for (var i=0; i<convex_hull.Cells[id].getPath().getLength(); i++) {
@@ -71,8 +71,8 @@
 				}
 				dataset.analysis = analysis;
 			}
-			
-			
+
+
 			// Add active Layers
 			var added_layers = [];
 			_.each(layers.layers, function(layer,i){
@@ -87,7 +87,7 @@
 
 			dataset.layers = added_layers;
 
-			var value_ = $.stringify(dataset);
+			var value_ = JSON.stringify(dataset);
 
       $("#format_input").attr("value",format);
       $("#geocat_input").text(value_);
@@ -162,9 +162,9 @@
 				}
 			}
 		}
-	
-	
-	
+
+
+
 		/*========================================================================================================================*/
 		/* Upload the application from a .geocat file. */
 		/*========================================================================================================================*/
@@ -175,7 +175,7 @@
 			obj.center = (this.upload_data_.data.viewPort!=null)? this.upload_data_.data.viewPort.center : {latitude:0,longitude:0};
 			obj.zoom = (this.upload_data_.data.viewPort!=null)? this.upload_data_.data.viewPort.zoom : 2;
 			obj.reportName = this.upload_data_.data.reportName;
-			
+
 
 			//If there is analysis
 			if (this.upload_data_.data.analysis!=undefined) {
@@ -194,26 +194,26 @@
 					} else {
 						convex_hull.cellsize = cellsize - 10;
 					}
-					
+
 			    if (this.upload_data_.data.analysis.AOO.cellsize_type == "auto-value") {
 			      $('#auto_value').trigger('click')
 			    } else {
 			      $("div.cellsize span p").text(convex_hull.cellsize + 'KM');
   			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.AOO.cellsize_step);
 			    }
-			    
+
 			    convex_hull.cellsize_type = this.upload_data_.data.analysis.AOO.cellsize_type;
 			    convex_hull.removeAOOPolygons();
 			  }
 			}
-			
+
 			result.push(obj);
 			for (var i=0; i<this.upload_data_.data.sources.length; i++) {
 				result.push(this.upload_data_.data.sources[i]);
 			}
 			return result;
 		}
-		
+
 
 
 		/*===============================================================================================================*/
@@ -224,12 +224,12 @@
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();
 			var geocat = new GeoCAT(occurrences,map_inf,null);
-			geocat.download(format);		
+			geocat.download(format);
 		}
-		
-		
-		
-		
+
+
+
+
 		/*===============================================================*/
 		/* Restore the application thanks to the file you have uploaded. */
 		/*===============================================================*/
@@ -237,28 +237,28 @@
 			var geocat = new GeoCAT(null,null,upload_data);
 			var app_data = geocat.upload();
 			var sources = [];
-			
+
 			//Trick for showing loader while uploading observations;
 			var sources_length = app_data.length-1;
 			var count = 0;
-			
+
 			$('body').bind('hideMamufas', function(ev){
 				count++;
 				if (sources_length==count) {
 					$('body').unbind('hideMamufas');
 					hideMamufasMap(true);
-					
+
           $('div.header h1 p').text(app_data[0].reportName);
           $('div.header h1 sup').text('saved');
 					changeApplicationTo(2);
-          
+
 					//Merge points from service
           merge_object = new MergeOperations(sources);
           setTimeout(function(){merge_object.checkSources();},1000);
 				}
 			});
-			
-			
+
+
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					//Get last id from "user_points"
@@ -277,16 +277,16 @@
 				} else {
 				  specie = app_data[0].specie;
 					map.setCenter(new google.maps.LatLng(app_data[0].center.latitude,app_data[0].center.longitude));
-					map.setZoom(parseInt(app_data[0].zoom));				
+					map.setZoom(parseInt(app_data[0].zoom));
 				}
 			}
 		}
-		
-		
-		
-		
-		
-		
-	
-	
-	
+
+
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@ class GeocatData
   attr_accessor :reportName, :viewPort, :analysis, :format, :center, :sources, :layers
   attr_writer :warnings
 
-  validate :sources_must_be_valid
+  #validate :sources_must_be_valid
 
   def initialize(data = nil)
     return if data.blank?
