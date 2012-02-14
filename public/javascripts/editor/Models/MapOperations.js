@@ -236,6 +236,20 @@
 					} else {
 						$('#mamufas_map').fadeOut(function(){$('#mamufas_map').css('background','none');});
 					}
+
+					$('#mamufas_map').delay(2000).fadeOut(function(){
+						$('#mamufas_map').css('background','none');
+						$('div#import_success').css('display','none');
+						$('div#import_success').css('width','202px');
+						$('div#import_success').css('height','139px');
+						$('div#import_success').css('margin-top','-70px');
+						$('div#import_success').css('margin-left','-101px');
+						$('div#import_success').css('opacity', '0.7');
+						$('div#import_success img').css('width','202px');
+						$('div#import_success img').css('height','58px');
+						$('div#import_success img').css('margin-top','40px');
+					});
+
 				});
 			}
 				
