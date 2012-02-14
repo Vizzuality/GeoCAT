@@ -97,7 +97,7 @@ class GeocatData
       hash = if data.is_a? Hash
         data
       else
-        JSON.parse(data.read)
+        JSON.parse(data.read.gsub(/\bundefined\b/, '"Added by user"'))
       end
 
       self.reportName     = hash['reportName']
@@ -107,6 +107,9 @@ class GeocatData
       self.sources        = hash['sources']
       self.layers         = hash['layers']
 
+    rescue Exception => e
+      puts e
+      puts e.backtrace
     end
 
     def process_as_csv(file)
