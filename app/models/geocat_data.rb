@@ -107,9 +107,6 @@ class GeocatData
       self.sources        = hash['sources']
       self.layers         = hash['layers']
 
-    rescue Exception => e
-      puts e
-      puts e.backtrace
     end
 
     def process_as_csv(file)
