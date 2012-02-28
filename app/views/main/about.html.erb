@@ -1,2 +1,70 @@
-<h1>Main#about</h1>
-<p>Find me in app/views/main/about.html.erb</p>
+  <% content_for :js do %>
+    <%= headjs_include_tag "home/application.js", "plugins/jquery.min", "http://www.google.com/jsapi", "home/HomeConvexHull" %>
+  <% end -%>
+
+    <section class="layout">
+      <div id="map"></div>
+      <div class="opaque"></div>
+    </section>
+
+    <section class="about">
+    	<div class="float">
+	    	<header>
+	        <h1>About the project</h1>
+	      </header>
+	      <div class="left">
+	        <h2 class="margin40">Developed by</h2>
+	        <span class="logos">
+	          <a class="kew top" href="http://kewgardens.org" target="_blank">KEW</a>
+	          <a class="vizzuality" href="http://vizzuality.com" target="_blank">Vizzuality</a>
+	        </span>
+
+	        <h2 class="margin40">Supported by</h2>
+	        <span class="logos">
+	          <a class="iucn" href="http://iucn.org" target="_blank">IUCN</a>
+	          <a class="vibrant" href="http://vbrant.eu" target="_blank">VIBRANT</a>
+	          <a class="seventh" href="http://cordis.europa.eu/fp7/home_en.html" target="_blank">7th framework</a>
+	          <a class="eu" href="http://europa.eu/index_en.htm" target="_blank">EU</a>
+	        </span>
+
+	        <h2 class="margin40">Citation for the tool</h2>
+	        <p>Bachman S, Moat J, Hill AW, de la Torre J, Scott B</p>
+	        <p><blockquote>“Supporting Red List threat assessments with GeoCAT: geospatial conservation assessment tool.” (2012)</blockquote></p>
+	        <p class="small light">In: Smith V, Penev L (Eds) e-Infrastructures for data publishing in biodiversity science. ZooKeys 150: 117–126. doi: 0.3897/zookeys.150.2109</p>
+
+	        <h2 class="margin40">Citation for the tool</h2>
+	        <p>Bachman S, Moat J, Hill AW, de la Torre J, Scott B</p>
+	        <p><blockquote>“Supporting Red List threat assessments with GeoCAT: geospatial conservation assessment tool.” (2012)</blockquote></p>
+	        <p class="small light">In: Smith V, Penev L (Eds) e-Infrastructures for data publishing in biodiversity science. ZooKeys 150: 117–126. doi: 0.3897/zookeys.150.2109</p>
+
+	      </div>
+	      <nav class="right menu">
+	      	<a href="/what">What is GeoCAT?</a>
+	      	<a href="/help">Help & Support</a>
+	      	<a class="selected">About the project</a>
+	      </nav>
+    	</div>
+    	<footer>
+	      <div class="inner">
+	        <div class="left">
+	          <p>All rights reserved. 2012. <a href="http://www.kew.org/about-kew/website-information/legal-notices/" target="_blank">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a></p>
+	        </div>
+	        <div class="right">
+	          <a href="http://www.vizzuality.com" target="_blank">Vizzuality</a>
+	          <p>Developed by</p>
+	        </div>
+	      </div>
+	    </footer>
+    </section>
+
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-1321334-1']);
+     _gaq.push(['_setDomainName', '.kew.org']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>

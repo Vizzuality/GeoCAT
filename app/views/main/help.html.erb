@@ -1,1 +1,57 @@
-help
+  <% content_for :js do %>
+    <%= headjs_include_tag "home/application.js", "plugins/jquery.min", "http://www.google.com/jsapi", "home/HomeConvexHull" %>
+  <% end -%>
+
+    <section class="layout">
+      <div id="map"></div>
+      <div class="opaque"></div>
+    </section>
+
+    <section class="about">
+    	<div class="float">
+	    	<header>
+	        <h1>Help & Support</h1>
+	      </header>
+	      <div class="left">
+	        <h2 class="margin40">GeoCAT help</h2>
+	        <p>You can <a href="">download the GeoCAT Help Guide</a> to guide you in the usage of the tool.</p>
+
+	        <h2 class="margin40">Mailing list</h2>
+	        <p>If you think you will become a regular user of GeoCAT, you will find a lot of useful information in <a href="">GeoCAT Mailing List</a>. Subscribe to it and get in touch with us and other users.</p>
+
+					<h2 class="margin40">Looking for help?</h2>
+	        <p>Do you have any doubt, problem or suggestion about the tool? <a href="">Contact us</a>.</p>
+	      </div>
+	      <nav class="right menu">
+	      	<a href="/what">What is GeoCAT?</a>
+	      	<a class="selected">Help & Support</a>
+	      	<a href="/about">About the project</a>
+	      </nav>
+	    </div>
+
+	    <footer>
+	      <div class="inner">
+	        <div class="left">
+	          <p>All rights reserved. 2012. <a href="http://www.kew.org/about-kew/website-information/legal-notices/" target="_blank">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a></p>
+	        </div>
+	        <div class="right">
+	          <a href="http://www.vizzuality.com" target="_blank">Vizzuality</a>
+	          <p>Developed by</p>
+	        </div>
+	      </div>
+	    </footer>
+    </section>
+    
+ 
+
+    <script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-1321334-1']);
+     _gaq.push(['_setDomainName', '.kew.org']);
+     _gaq.push(['_trackPageview']);
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    </script>

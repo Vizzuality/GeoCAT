@@ -36,6 +36,12 @@ url('/fonts/futurastd-medium-webfont.ttf') format('truetype'),
 url('/fonts/futurastd-medium-webfont.svg#FuturaStdMedium') format('svg');font-weight:normal;font-style:normal;}
 
 /* HOME */
+
+a.feedback {position:fixed; left:0; top:50%; margin:-50px 0 0 -33px; font:bold 17px "Arial"; color:white; z-index:100; border:1px solid black; border-top:0; background:#89BA30;
+	padding:5px 12px; text-decoration:none; transform:rotate(-45deg); -ms-transform:rotate(-90deg); -moz-transform:rotate(-90deg); -webkit-transform:rotate(-90deg); -o-transform:rotate(-90deg);
+	-webkit-border-bottom-right-radius: 3px; -webkit-border-bottom-left-radius: 3px; -moz-border-radius-bottomright: 3px; -moz-border-radius-bottomleft: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+a.feedback:hover {background:#597A20;}
+
 div.flash {position:absolute; left:0; top:0; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666; z-index:10000; overflow:hidden;}
 div.flash p {position:relative; float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
 section.layout {position:relative; float:left; width:100%; height:100%;}
@@ -69,17 +75,41 @@ section.main div.info div.block ul {width:100%;}
 section.main div.info div.block ul li {padding:0 0 15px 35px; background:url('/images/home/ol.jpg') no-repeat 0 0;}
 section.main div.info div.block ul li.two {background-position:0 -67px;}
 section.main div.info div.block ul li.three {background-position:0 -134px;}
-section.main div.info div.block span.logos {display:inline-block; width:100%; margin:23px 0 0 0;}
-section.main div.info div.block span.logos a.iucn {float:left; width:36px; height:37px; margin:0 12px 0 0; background:url('/images/home/logos.png') no-repeat 0 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.iucn:hover {background-position:0 -37px;}
-section.main div.info div.block span.logos a.vibrant {float:left; width:75px; height:37px; margin:0 8px 0 0; background:url('/images/home/logos.png') no-repeat -101px 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.vibrant:hover {background-position:-101px -37px;}
-section.main div.info div.block span.logos a.kew {float:left; width:46px; height:37px; margin:0 8px 0 0; background:url('/images/home/logos.png') no-repeat -47px 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.kew:hover {background-position:-47px -37px;}
-section.main div.info div.block span.logos a.seventh {float:left; width:47px; height:37px; margin:0 8px 0 0; background:url('/images/home/logos.png') no-repeat -184px 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.seventh:hover {background-position:-184px -37px;}
-section.main div.info div.block span.logos a.eu {float:left; width:43px; height:37px;  background:url('/images/home/logos.png') no-repeat -241px 0; text-indent:-9999px;}
-section.main div.info div.block span.logos a.eu:hover {background-position:-241px -37px;}
+span.logos {display:inline-block; width:100%; margin:23px 0 0 0;}
+span.logos a.iucn {float:left; width:36px; height:37px; margin:0 12px 0 0; background:url('/images/home/logos.png') no-repeat 0 0; text-indent:-9999px;}
+span.logos a.iucn:hover {background-position:0 -37px;}
+span.logos a.vibrant {float:left; width:75px; height:37px; margin:0 8px 0 0; background:url('/images/home/logos.png') no-repeat -101px 0; text-indent:-9999px;}
+span.logos a.vibrant:hover {background-position:-101px -37px;}
+span.logos a.kew {float:left; width:46px; height:37px; margin:0 8px 0 0; background:url('/images/home/logos.png') no-repeat -47px 0; text-indent:-9999px;}
+span.logos a.kew.top {margin:10px 0 0 0;}
+span.logos a.kew:hover {background-position:-47px -37px;}
+span.logos a.seventh {float:left; width:47px; height:37px; margin:0 8px 0 0; background:url('/images/home/logos.png') no-repeat -184px 0; text-indent:-9999px;}
+span.logos a.seventh:hover {background-position:-184px -37px;}
+span.logos a.eu {float:left; width:43px; height:37px;  background:url('/images/home/logos.png') no-repeat -241px 0; text-indent:-9999px;}
+span.logos a.eu:hover {background-position:-241px -37px;}
+span.logos a.vizzuality {float:left; margin:0 0 0 10px; width:71px; height:38px;  background:url('/images/home/logos.png') no-repeat 0 -81px; text-indent:-9999px;}
+span.logos a.vizzuality:hover {background-position:0 -121px;}
+
+section.about {position:absolute; left:50%; top:100px; width:980px; margin:0 0 0 -490px; z-index:100;}
+section.about div.float {position:relative; overflow:hidden; width:920px; padding:40px 30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5);
+	-webkit-box-shadow:0 0 20px rgba(0,0,0,0.5); box-shadow:0 0 20px rgba(0,0,0,0.5);}
+section.about h1 {font:bold 43px "Helvetica",Arial; color:#151819; letter-spacing:-1px;}
+section.about h2 {padding:0 0 6px 0; font:bold 18px Arial; color:#333333;}
+section.about p {font:normal 15px Arial; color:#666666;}
+section.about p.light {color:#999999;}
+section.about p.small {font-size:13px;}
+section.about a {color:#8ABB31; text-decoration:none;}
+section.about a:hover {text-decoration:underline;}
+section.about blockquote {padding:5px 0; font:italic 15px Arial; color:#666666;}
+section.about span.logos {margin:6px 0 0 0;}
+section.about .margin40 {margin-top:40px;}
+section.about .margin20 {margin-top:20px;}
+section.about div.left {float:left; width:600px;}
+section.about .right {float:right; width:268px;}
+section.about nav {margin:40px 0 0;}
+section.about nav a {display:block; margin:0 0 12px 0; font:bold 18px Arial; color:#8ABB31; text-decoration:none;}
+section.about nav a:hover {color:; text-decoration:underline;}
+section.about nav a.selected {color:#666666; text-decoration:none; cursor:default;}
 
 
 footer {display:inline-block; width:980px; padding:0; margin:45px 0 0 0; z-index:100; height:59px;}
@@ -93,6 +123,7 @@ footer div.inner div.right {float:right; width:160px;}
 footer div.inner div.right p {float:right; width:auto; font:normal 13px Arial; color:#757575; padding:22px 5px 0 0;}
 footer div.inner div.right a {float:right; margin:0 0 0 0; width:71px; height:38px; background:url('/images/home/vizzuality.jpg') no-repeat 0 0; text-indent:-9999px;}
 footer div.inner div.right a:hover {background-position:0 -38px;}
+
 
 
 /*EDITOR*/

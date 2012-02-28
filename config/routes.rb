@@ -5,6 +5,9 @@ GeocatApp::Application.routes.draw do |map|
   root :to => "main#index"
 
   match 'about' => 'main#about'
+  match 'help' => 'main#help'
+  match 'what' => 'main#what'
+
 
   #match 'editor' => 'geocats#editor'
   #match 'editor/:id/:specie' => 'geocats#editor_params'
