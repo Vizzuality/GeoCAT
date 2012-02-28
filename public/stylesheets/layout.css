@@ -46,7 +46,9 @@ div.flash {position:absolute; left:0; top:0; width:100%; height:40px; border:1px
 div.flash p {position:relative; float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
 section.layout {position:relative; float:left; width:100%; height:100%;}
 section.layout div#map {position:absolute; right:0; left:0; top:0; height:50%; z-index:0;}
+section.layout.small div#map {position:absolute; right:0; left:0; top:0; height:30%; z-index:0;}
 section.layout div.opaque {position:absolute; right:0; left:0; top:0; height:50%; width:100%; background:rgba(0,0,0,0.8); z-index:1;}
+section.layout.small div.opaque {position:absolute; right:0; left:0; top:0; height:30%; width:100%; background:rgba(0,0,0,0.8); z-index:1;}
 section.main {position:absolute; left:50%; top:50%; width:980px; margin:-280px 0 0 -490px; z-index:100;}
 section.main div.float {position:relative; width:920px; padding:30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5);
   -webkit-box-shadow:0 0 20px rgba(0,0,0,0.5); box-shadow:0 0 20px rgba(0,0,0,0.5);}
