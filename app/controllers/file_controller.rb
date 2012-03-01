@@ -95,6 +95,7 @@ class FileController < ApplicationController
     # Since valums file upload lib doesn't send a valid http-accept header,
     # we cannot use respond_to
 
+    require 'ruby-debug'; debugger
     render :json => geocat.to_json and return if params[:qqfile] && request.xhr?
 
     invalid_geocat_file and return if params[:file] && geocat.invalid?
