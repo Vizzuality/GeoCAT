@@ -37,10 +37,10 @@ url('/fonts/futurastd-medium-webfont.svg#FuturaStdMedium') format('svg');font-we
 
 /* HOME */
 
-a.feedback {position:fixed; left:0; top:50%; margin:-50px 0 0 -33px; font:bold 17px "Arial"; color:white; z-index:100; border:1px solid black; border-top:0; background:#89BA30;
+a.support {position:fixed; left:0; top:50%; margin:-50px 0 0 -33px; font:bold 17px "Arial"; color:white; z-index:100; border:1px solid black; border-top:0; background:#89BA30;
 	padding:5px 12px; text-decoration:none; transform:rotate(-45deg); -ms-transform:rotate(-90deg); -moz-transform:rotate(-90deg); -webkit-transform:rotate(-90deg); -o-transform:rotate(-90deg);
 	-webkit-border-bottom-right-radius: 3px; -webkit-border-bottom-left-radius: 3px; -moz-border-radius-bottomright: 3px; -moz-border-radius-bottomleft: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
-a.feedback:hover {background:#597A20;}
+a.support:hover {background:#597A20;}
 
 div.flash {position:absolute; left:0; top:0; width:100%; height:40px; border:1px solid #FF0000; border-left:0; border-right:0; background:#FF6666; z-index:10000; overflow:hidden;}
 div.flash p {position:relative; float:left; width:100%; margin:10px 0 0 0; text-align:center; font:normal 14px Arial; color:white;}
