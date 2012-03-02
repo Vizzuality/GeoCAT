@@ -30,8 +30,6 @@
             },
             onComplete: function(id, fileName, responseJSON) {
 
-              debugger;
-
               var total_occurrences = {};
               total_occurrences.points = new Array();
               var sources = responseJSON.data.sources;
