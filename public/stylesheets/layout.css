@@ -100,12 +100,14 @@ section.about h2 {padding:0 0 6px 0; font:bold 18px Arial; color:#333333;}
 section.about p {font:normal 15px Arial; color:#666666;}
 section.about p.light {color:#999999;}
 section.about p.small {font-size:13px;}
+section.about p.tiny {font-size:11px;}
 section.about a {color:#8ABB31; text-decoration:none;}
 section.about a:hover {text-decoration:underline;}
 section.about blockquote {padding:5px 0; font:italic 15px Arial; color:#666666;}
 section.about span.logos {margin:6px 0 0 0;}
 section.about .margin40 {margin-top:40px;}
 section.about .margin20 {margin-top:20px;}
+section.about .margin10 {margin-top:10px;}
 section.about div.left {float:left; width:600px;}
 section.about .right {float:right; width:268px;}
 section.about form {margin:20px 0 0 0;}
