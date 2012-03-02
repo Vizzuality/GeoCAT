@@ -1,3 +1,4 @@
+require 'active_support/all'
 require File.expand_path("../../../lib/geocat_data_importer", __FILE__)
 
 class GeocatData
@@ -9,6 +10,7 @@ describe GeocatDataImporter do
   let(:invalid_latlong_geocat_file)        { File.open(File.expand_path("../../support/data/invalid_latlong.geocat", __FILE__))        }
   let(:invalid_records_geocat_file)        { File.open(File.expand_path("../../support/data/invalid_records.geocat", __FILE__))        }
   let(:duplicated_catalogueid_geocat_file) { File.open(File.expand_path("../../support/data/duplicated_catalogueid.geocat", __FILE__)) }
+  let(:ephedra_americana_csv)              { File.open(File.expand_path("../../support/data/Ephedra_americana.csv", __FILE__))         }
 
   it "shouldn't import geocat files without a valid resource type" do
     geocat_model = GeocatData.new(invalid_resourcename_geocat_file)
@@ -40,4 +42,10 @@ describe GeocatDataImporter do
     geocat_model.warnings[:sources].should include("gbif source has duplicated catalogue_id's")
   end
 
+  it 'should import a valid csv file' do
+    geocat_model = GeocatData.new(ephedra_americana_csv)
+    geocat_model.should be_valid
+    geocat_model.errors.should be_empty
+    geocat_model.warnings.should be_empty
+  end
 end

@@ -1,6 +1,8 @@
 require 'active_model'
 require 'app/models/rlat_data'
 require 'json'
+require 'rchardet'
+require 'csv-mapper'
 
 module GeocatDataImporter
 
@@ -142,6 +144,7 @@ module GeocatDataImporter
         }
         self.sources        = [{
           'name'   => 'csv',
+          'type'   => 'user',
           'points' => []
         }]
         csv.each do |row|
@@ -235,8 +238,8 @@ module GeocatDataImporter
                 sources_warnings << "#{invalid_points.length} records were not imported because they were missing mandatory fields."
               end
             end
-            removed_dupes = Hash[source['points'].select{|x| x['catalogue_id'].present?}.map{|x| [x['catalogue_id'], x]}].values
-            if source['points'].length > removed_dupes.length
+            removed_dupes = Hash[source['points'].select{|x| x['catalogue_id'].present?}.map{|x| [x['catalogue_id'], x]}].values || []
+            if removed_dupes.present? && source['points'].length > removed_dupes.length
               source['points'] = source['points'] - removed_dupes
               sources_warnings << "#{source['type']} source has duplicated catalogue_id's"
             end

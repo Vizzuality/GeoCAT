@@ -31,8 +31,7 @@
             onComplete: function(id, fileName, responseJSON) {
 
 
-
-            	debugger;
+              debugger;
 
               var total_occurrences = {};
               total_occurrences.points = new Array();
@@ -47,7 +46,7 @@
                   total_occurrences.points.push(point);
                 });
               });
-              
+
               $('#uploader').parent().find('a.delete').show();
               $('span.qq-upload-file').show();
               $('span.qq-upload-file').text(fileName);
@@ -176,8 +175,8 @@
             }
           }
         });
-        
-        
+
+
         //Input focus in - out
         $("#add_source_container ul li span.search input").focusin(function(){
           var value = $(this).parent().children('input[type="text"]').val();
@@ -202,9 +201,9 @@
            }
            $(document).unbind('keydown');
          });
-        
-        
-        
+
+
+
         //Search term
         $("#add_source_container ul li span.search a").click(function(){
           var kind = ($(this).closest('li').children('a.checkbox').attr('id')=="add_flickr")?'flickr':'gbif';
@@ -226,8 +225,8 @@
             }
           }
         });
-        
-        
+
+
         $("span.loading a.retry").livequery('click',function(ev){
           ev.stopPropagation();
           ev.preventDefault();
@@ -238,8 +237,8 @@
           $(this).closest('li').find('span p').text('Loading...');
           $(this).parent().find('p').removeClass('loaded');
         });
-        
-        
+
+
 
         //import data
         $("span.loading a.import_data").livequery('click', function(){
@@ -257,15 +256,15 @@
             }
           }
         });
-        
-        
+
+
         //Close merge & delete windows
         $('div.delete_all a.cancel,div.merge_container a.cancel').click(function(){
           $('div.delete_all').fadeOut();
           $('div.merge_container').fadeOut();
         });
-        
-        
+
+
         //Visible or not any source.
         $('a.visible_specie').livequery('click',function(){
           var visible = ($(this).hasClass('on'))?false:true;
@@ -276,7 +275,7 @@
           }
           var kind = $(this).closest('li').attr('type');
           var query = $(this).closest('li').attr('species');
-          
+
           $(this).animate({'background-position': (!visible)?'-20px 0':'0 0'},200);
           hideAll(query,kind,visible);
         });
@@ -371,7 +370,7 @@
       function resetSourcesProperties() {
         flickr_founded = [];
         gbif_founded = [];
-        
+
         $("#add_source_container ul li").each(function(i,item){
           $(item).removeClass('selected added searching');
           $(item).find('input[type="text"]').val('Insert species name');
@@ -382,7 +381,7 @@
           $(item).find('div').removeClass('selected');
           $(item).find('span p').text('Loading...');
         });
-        
+
         resetUploader();
       }
 
@@ -393,8 +392,8 @@
       /*============================================================================*/
       function openDeleteAll(query,kind) {
         var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
-        var list_height = $('ul#sources_list').height(); 
-        
+        var list_height = $('ul#sources_list').height();
+
         //Arrow position
         if (position.top<20) {
           $('div.delete_all').css('top','-10px');
@@ -406,7 +405,7 @@
 
         $('a.'+ kind).parent().children('a.delete_all').addClass('active');
         $('div.delete_all').fadeIn();
-        
+
         switch (kind) {
           case 'gbif':   $('div.delete_all h4').text('DELETE THESE GBIF OCCS');
                           break;
@@ -414,7 +413,7 @@
                           break;
           default:        $('div.delete_all h4').text('DELETE ALL YOUR OCCS');
         }
-        
+
         $('div.delete_all div a.yes').unbind('click');
         $('div.delete_all div a.yes').bind('click',function(){deleteAll(query,kind)});
       }
@@ -455,10 +454,10 @@
       /* Open Merge container.                                                       */
       /*============================================================================*/
       function openMergeContainer(query,kind) {
-        
+
         var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
-        var list_height = $('ul#sources_list').height(); 
-        
+        var list_height = $('ul#sources_list').height();
+
         //Arrow position
         if (position.top<20) {
           $('div.merge_container').css('top','-10px');
@@ -467,7 +466,7 @@
           $('div.merge_container').css('top',position.top-20 + 'px');
           $('div.merge_container span.arrow').css('top','52px');
         }
-        
+
         $('div.merge_container h4').text('MERGE THESE '+kind+' OCCS');
         $('div.merge_container p').text('There are new points in this '+kind+' source');
         $('div.merge_container div a.merge_button').unbind('click');
@@ -500,7 +499,7 @@
         }
         flickr_founded = new Array();
         gbif_founded = new Array();
-        
+
         $.getJSON(url + query.replace(' ','+'),
             function(result){
 			  var count = 0;
@@ -508,21 +507,21 @@
                 case 'add_flickr':  flickr_founded.push(result[0]); count = result[0].points.length; break;
                 default:            gbif_founded.push(result[0]); count = result[0].points.length;
               }
-							
+
               $(element).find('span p').text(((count>=1000)?'> ':'') + count + ((count == 1) ? " occ" : " occs") + ' found');
 
 							if (count>=1000) {
 								$(element).find('a.import_data').text('import first 1000');
 	 						}
-	 						
-							
+
+
               onLoadedSource(element,result[0].points.length);
             }
-        ).error(function() { 
+        ).error(function() {
             $(element).find('span p').text('Sorry, the data provider is down.');
             $(element).find('span.loading a').removeClass('import_data').addClass('enabled').addClass('retry').text('retry');
-            
-            
+
+
         });
       }
 
