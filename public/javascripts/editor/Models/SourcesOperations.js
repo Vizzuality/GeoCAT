@@ -30,7 +30,6 @@
             },
             onComplete: function(id, fileName, responseJSON) {
 
-
               debugger;
 
               var total_occurrences = {};
@@ -51,7 +50,7 @@
               $('span.qq-upload-file').show();
               $('span.qq-upload-file').text(fileName);
               if (responseJSON.success) {
-                if (responseJSON.warnings.sources.length==0) {
+                if (_.isEmpty(responseJSON.warnings)) {
                   $('span.import a.import_data').addClass('enabled');
                   $('span.import a.import_data').click(function(ev){
                     closeSources();
@@ -103,7 +102,7 @@
                   $('span.import a.import_data').text('retry');
                   $('span.import a.import_data').click(function(ev){resetUploader();});
                 } else {
-                  if (responseJSON.warnings.sources.length==0) {
+                  if (_.isEmpty(responseJSON.warnings)) {
                     $('span.import a.import_data').addClass('enabled');
                     $('span.import a.import_data').click(function(ev){
                       closeSources();
