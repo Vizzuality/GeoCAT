@@ -108,11 +108,24 @@ section.about .margin40 {margin-top:40px;}
 section.about .margin20 {margin-top:20px;}
 section.about div.left {float:left; width:600px;}
 section.about .right {float:right; width:268px;}
+section.about form {margin:20px 0 0 0;}
+section.about form h5 {display:block; padding:0 0 10px 0; font:bold 13px Arial; color:#666;}
+section.about form label {display:block; font:bold 11px Arial; color:#BBB;}
+section.about form input[type="text"] {margin:5px 0 0 0; padding:5px 6px; border:1px solid #ccc; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; font:normal 13px Arial; color:#333333;}
+section.about form input[type="text"]:focus {outline:none; border-color:#333333;}
+section.about form input[type="submit"] {margin:5px 0 0 0; padding:7px 6px 6px; border:1px solid #AAA; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; font:bold 11px Arial; color:white; text-transform:uppercase; background:#89BA30;}
+section.about form input[type="submit"]:focus,
+section.about form input[type="submit"]:hover {outline:none; background:#597A20; cursor:pointer;}
 section.about nav {margin:40px 0 0;}
 section.about nav a {display:block; margin:0 0 12px 0; font:bold 18px Arial; color:#8ABB31; text-decoration:none;}
 section.about nav a:hover {color:; text-decoration:underline;}
 section.about nav a.selected {color:#666666; text-decoration:none; cursor:default;}
-
+section.about nav.links_menu, section.main nav.links_menu {position:absolute; top:-40px; left:30px;}
+section.about nav.links_menu a, section.main nav.links_menu a {font:bold 13px Arial; color:#BBBBBB; text-decoration:none;}
+section.about nav.links_menu a:hover,
+section.main nav.links_menu a:hover {font:bold 13px Arial; color:#FFFFFF; text-decoration:underline;}
+section.about nav.links_menu {top:-75px;}
+section.about img {display:block; margin:25px 0 0 0; border:1px solid #333333; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;}
 
 footer {display:inline-block; width:980px; padding:0; margin:45px 0 0 0; z-index:100; height:59px;}
 footer div.inner {margin:0 auto; width:980px;}
