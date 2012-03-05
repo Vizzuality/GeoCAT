@@ -123,9 +123,9 @@ section.about nav a {display:block; margin:0 0 12px 0; font:bold 18px Arial; col
 section.about nav a:hover {color:; text-decoration:underline;}
 section.about nav a.selected {color:#666666; text-decoration:none; cursor:default;}
 section.about nav.links_menu, section.main nav.links_menu {position:absolute; top:-40px; left:30px;}
-section.about nav.links_menu a, section.main nav.links_menu a {margin:0 10px 0 0; font:bold 13px Arial; color:#BBBBBB; text-decoration:none;}
+section.about nav.links_menu a, section.main nav.links_menu a {margin:0 10px 0 0; font:bold 13px Arial; color:#8ABB31; text-decoration:none;}
 section.about nav.links_menu a:hover,
-section.main nav.links_menu a:hover {font:bold 13px Arial; color:#FFFFFF; text-decoration:underline;}
+section.main nav.links_menu a:hover {text-decoration:underline;}
 section.about nav.links_menu {top:-75px;}
 section.about img {display:block; margin:25px 0 0 0; border:1px solid #333333; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;}
 
