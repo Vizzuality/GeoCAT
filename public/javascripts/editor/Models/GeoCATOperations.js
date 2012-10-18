@@ -238,7 +238,9 @@
 				if (i!=0) {
 					//Get last id from "user_points"
 					if (app_data[i].type=='user') {
-						var obs_data = app_data[i].points[app_data[i].points.length-1].catalogue_id.split('_');
+						// Check if there is a catalogue_id, if not, 0 for global id (YAY!)
+						var catalogue_id 	= app_data[i].points[app_data[i].points.length-1].catalogue_id
+							, obs_data 			= catalogue_id && catalogue_id.split('_') || ['user', '0'];
 						global_id = parseInt(obs_data[1]);
 					} else {
 					  // Save the sources for the merging stuff
