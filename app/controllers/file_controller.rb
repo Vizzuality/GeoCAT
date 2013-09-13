@@ -87,6 +87,9 @@ class FileController < ApplicationController
     when params[:geocat_url]
       uri = URI.parse(params[:geocat_url])
       GeocatData.new(StringIO.new uri.read) if uri.present?
+    when params[:dwc_url]
+      uri = URI.parse(params[:dwc_url])
+      GeocatDWC.new('url.dwc', open(uri).read)
     else
       GeocatData.new
     end

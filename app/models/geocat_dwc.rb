@@ -18,6 +18,14 @@ class GeocatDWC
     self.dwc = DarwinCore.new(generate_temp_file(file_name, file_data))
   end
 
+  def to_json
+    if valid?
+      {:species => species}
+    else
+      {:errors => errors}
+    end
+  end
+
   private
 
   def process_file
