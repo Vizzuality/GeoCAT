@@ -15,10 +15,11 @@ class GeocatDWC
   before_validation :process_file
 
   def initialize(file_name, file_data)
-    self.dwc = DarwinCore.new(generate_temp_file(file_name, file_data))
+    file = generate_temp_file(file_name, file_data)
+    self.dwc = DarwinCore.new(file)
   end
 
-  def to_json
+  def as_json(arguments)
     if valid?
       {:species => species}
     else
@@ -32,6 +33,7 @@ class GeocatDWC
     get_types_and_specimen_extensions
     get_terms
     get_scientific_name_index
+    get_coords_index
     get_taxon_rank_index
     get_species
   end
@@ -51,13 +53,35 @@ class GeocatDWC
     @scientific_name_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/scientificName'}.first[:attributes][:index] rescue nil
   end
 
+  def get_coords_index
+    @latitude_index = dwc.extensions[0].data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/decimalLatitude'}.first[:attributes][:index]
+    @longitude_index = dwc.extensions[0].data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/decimalLongitude'}.first[:attributes][:index]
+  end
+
   def get_taxon_rank_index
     @taxon_rank_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/taxonRank'}.first[:attributes][:index] rescue nil
   end
 
   def get_species
-    data, @dwc_errors = dwc.core.read
-    @species = data.select{|d| d[3] == 'Species'}.map{|d| d[@scientific_name_index]}
+    core, @dwc_errors = dwc.core.read
+    core = core.select{|d| d[3] == 'Species'}
+    species_hash = Hash[core.map{|d| [ d[0], { :scientificName => d[@scientific_name_index], :data => []} ]}]
+
+    ext, @ext_errors = dwc.extensions[0].read
+    ext.each do |e|
+      next unless e.present? && species_hash[e[0]].present?
+      next if e[@latitude_index].blank? || e[@longitude_index].blank?
+
+      species_hash[e[0]][:data] << {latitude: e[@latitude_index], longitude: e[@longitude_index]}
+    end
+
+
+    @species = species_hash.values.
+      select{ |h| h[:data].present? }.
+      map do |h|
+        h[:data] = h[:data].select{|a| a[:latitude].present? && a[:longitude].present?}.first(1000)
+        h
+      end
   end
 
   def core_has_no_errors
@@ -65,8 +89,9 @@ class GeocatDWC
   end
 
   def generate_temp_file(name, data)
-    Tempfile.new(name) do |f|
-      f.write data
-    end.path
+    f = Tempfile.new(name)
+    f.write data.force_encoding('UTF-8')
+    f.close
+    f.path
   end
 end
