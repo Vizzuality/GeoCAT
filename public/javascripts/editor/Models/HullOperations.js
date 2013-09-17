@@ -40,7 +40,7 @@
 						});
 						openConvexHull();
 						$(this).parent().children().removeClass('disabled');
-						$(this).find('span').stop().animate({backgroundPosition: '-3px -25px',backgroundColor: '#A6DD3A'}, 100);
+						$(this).find('span').stop().animate({backgroundPosition:'-3px -25px', backgroundColor:'#A6DD3A'}, 100);
 						$('div.analysis_data').stop().animate({height: '144px'}, 'fast',function(ev){$(this).css('overflow','auto');});
 						$('#analysis_help').css('background','url(/images/editor/analysis_help2.png) no-repeat -2px 0');
 					} else {
@@ -49,7 +49,7 @@
 						closeConvexHull();
 						$(this).addClass('disabled');
 						$(this).parent().children('h3').addClass('disabled');
-						$(this).find('span').stop(true).animate({backgroundPosition: '-26px -25px',backgroundColor: '#999999'}, 100);
+						$(this).find('span').stop(true).animate({backgroundPosition:'-26px -25px', backgroundColor:'#999999'}, 100);
 						$('div.analysis_data').stop().animate({height: '0'}, 'fast',function(ev){$(this).css('overflow','auto');});
 						$('#analysis_help').css('background','url(/images/editor/analysis_help.png) no-repeat 0 0');
 					}
@@ -97,7 +97,7 @@
 				});
 			
 				//Open Cellsize
-				$("p.change a.change").livequery('click',function(ev){
+				$("p.change a.change").live('click',function(ev){
 				  ev.stopPropagation();
 				  ev.preventDefault();
 				  $('body').click(function(event) {

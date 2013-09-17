@@ -27,7 +27,7 @@
         });
   		  
   		  
-  		  $('div#layer_window ul li a.add_layer_link').livequery('click',function(ev){
+  		  $('div#layer_window ul li a.add_layer_link').live('click',function(ev){
   		    ev.stopPropagation();
   		    ev.preventDefault();
   		    var added;
@@ -47,7 +47,7 @@
   		  
   		  
   		  // Import new layers events
-  		  $('#import_layer input[type="text"]').livequery("focusin",function(ev){
+  		  $('#import_layer input[type="text"]').live("focusin",function(ev){
   		    ev.stopPropagation();
   		    ev.preventDefault();
   		    var value = $(this).val();
@@ -59,7 +59,7 @@
   		  });
   		  
   		  
-  		  $('#import_layer input[type="text"]').livequery("focusout",function(ev){
+  		  $('#import_layer input[type="text"]').live("focusout",function(ev){
   		    ev.stopPropagation();
   		    ev.preventDefault();
   		    var value = $(this).val();
@@ -71,7 +71,7 @@
   		  });
   		  
   		  
-  		  $('#import_layer').livequery("submit",function(ev){
+  		  $('#import_layer').live("submit",function(ev){
   		    ev.stopPropagation();
   		    ev.preventDefault();
   		    var url = $('#import_layer input[type="text"]').val();
@@ -88,7 +88,7 @@
   		  });
   		  
   		  
-        $('div#layer_window ul li a.remove_layer').livequery('click',function(ev){
+        $('div#layer_window ul li a.remove_layer').live('click',function(ev){
           var url = $(this).closest('li').attr('url');
           var type = $(this).closest('li').attr('type');
           me.removeLayer(url,type);

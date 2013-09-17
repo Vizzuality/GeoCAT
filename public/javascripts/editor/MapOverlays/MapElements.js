@@ -51,9 +51,9 @@
           '</p>' +
         '</div>' +
 
-        '<!-- Wellcome window -->' +
-        '<div id="wellcome">' +
-          '<a onclick="$(\'#wellcome\').fadeOut()" class="close">X</a>' +
+        '<!-- Welcome window -->' +
+        '<div id="welcome">' +
+          '<a onclick="$(\'#welcome\').fadeOut()" class="close">X</a>' +
           '<p>Start your new assessment by...</p>' +
 
           '<div class="blocks">' +

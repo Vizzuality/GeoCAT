@@ -1,7 +1,63 @@
-﻿/* http://keith-wood.name/backgroundPos.html
-   Background position animation for jQuery v1.0.0.
-   Written by Keith Wood (kbwood{at}iinet.com.au) November 2010.
-   Dual licensed under the GPL (http://dev.jquery.com/browser/trunk/jquery/GPL-LICENSE.txt) and 
-   MIT (http://dev.jquery.com/browser/trunk/jquery/MIT-LICENSE.txt) licenses. 
-   Please attribute the author if you use it. */
-eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('(6($){5 g=\'D\';$.p.q[\'8\']=$.p.q[\'9-h\']=6(a){j(!a.r){5 b=$(a.s);5 c=b.t(g);b.k(\'8\',c);a.7=l(c);a.3=l(a.u.v[\'8\']||a.u.v[\'9-h\']);E(5 i=0;i<a.3.w;i++){j(a.3[i][0]){a.3[i][1]=a.7[i][1]+(a.3[i][0]==\'-=\'?-1:+1)*a.3[i][1]}}a.r=F}$(a.s).k(\'9-h\',((a.x*(a.3[0][1]-a.7[0][1])+a.7[0][1])+a.3[0][2])+\' \'+((a.x*(a.3[1][1]-a.7[1][1])+a.7[1][1])+a.3[1][2]))};6 l(c){5 d={G:\'m%\',H:\'0%\',I:\'y%\',z:\'0%\',A:\'y%\'};5 e=c.J(/ /);5 f=6(a){5 b=(d[e[a]]||e[a]||\'m%\').K(/^([+-]=)?([+-]?\\d+(\\.\\d*)?)(.*)$/);e[a]=[b[1],L(b[2]),b[4]||\'M\']};j(e.w==1&&$.N(e[0],[\'z\',\'A\'])>-1){e[1]=e[0];e[0]=\'m%\'}f(0);f(1);n e}$.B.C=6(e){n 6(a,b,c,d){j(a[\'8\']||a[\'9-h\']){$(o).t(g,o.k(\'8\'))}n e.O($(o),[a,b,c,d])}}($.B.C)})(P);',52,52,'|||end||var|function|start|backgroundPosition|background||||||||position||if|css|parseBackgroundPosition|50|return|this|fx|step|set|elem|data|options|curAnim|length|pos|100|top|bottom|fn|animate|bgPos|for|true|center|left|right|split|match|parseFloat|px|inArray|apply|jQuery'.split('|'),0,{}))
+﻿(function($) {
+if(!document.defaultView || !document.defaultView.getComputedStyle){
+    var oldCSS = jQuery.css;
+    jQuery.css = function(elem, name, force){
+        if(name === 'background-position'){
+            name = 'backgroundPosition';
+        }
+        if(name !== 'backgroundPosition' || !elem.currentStyle || elem.currentStyle[ name ]){
+            return oldCSS.apply(this, arguments);
+        }
+        var style = elem.style;
+        if ( !force && style && style[ name ] ){
+            return style[ name ];
+        }
+        return oldCSS(elem, 'backgroundPositionX', force) +' '+ oldCSS(elem, 'backgroundPositionY', force);
+    };
+}
+
+var oldAnim = $.fn.animate;
+$.fn.animate = function(prop){
+    if('background-position' in prop){
+        prop.backgroundPosition = prop['background-position'];
+        delete prop['background-position'];
+    }
+    if('backgroundPosition' in prop){
+        prop.backgroundPosition = '('+ prop.backgroundPosition + ')';
+    }
+    return oldAnim.apply(this, arguments);
+};
+
+function toArray(strg){
+    strg = strg.replace(/left|top/g,'0px');
+    strg = strg.replace(/right|bottom/g,'100%');
+    strg = strg.replace(/([0-9\.]+)(\s|\)|$)/g,"$1px$2");
+    var res = strg.match(/(-?[0-9\.]+)(px|\%|em|pt)\s(-?[0-9\.]+)(px|\%|em|pt)/);
+    return [parseFloat(res[1],10),res[2],parseFloat(res[3],10),res[4]];
+}
+
+$.fx.step.backgroundPosition = function(fx) {
+    if (!fx.bgPosReady) {
+        var start = $.css(fx.elem,'backgroundPosition');
+
+        if(!start){//FF2 no inline-style fallback
+            start = '0px 0px';
+        }
+
+        start = toArray(start);
+
+        fx.start = [start[0],start[2]];
+
+        var end = toArray(fx.end);
+        fx.end = [end[0],end[2]];
+
+        fx.unit = [end[1],end[3]];
+        fx.bgPosReady = true;
+    }
+
+    var nowPosX = [];
+    nowPosX[0] = ((fx.end[0] - fx.start[0]) * fx.pos) + fx.start[0] + fx.unit[0];
+    nowPosX[1] = ((fx.end[1] - fx.start[1]) * fx.pos) + fx.start[1] + fx.unit[1];
+    fx.elem.style.backgroundPosition = nowPosX[0]+' '+nowPosX[1];
+};
+})(jQuery);

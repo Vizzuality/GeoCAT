@@ -1,4 +1,4 @@
-class DWCController < ApplicationController
+class DwcController < ApplicationController
 
   def search
     geocat_dwc = GeocatDWC.new(params[:qqfile], request.body)

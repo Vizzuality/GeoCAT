@@ -90,7 +90,7 @@ class GeocatDWC
 
   def generate_temp_file(name, data)
     f = Tempfile.new(name)
-    f.write data.force_encoding('UTF-8')
+    f.write (data.force_encoding('UTF-8') rescue data)
     f.close
     f.path
   end

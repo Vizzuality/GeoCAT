@@ -1,7 +1,7 @@
     <% content_for :js do %>
-      <%= headjs_include_tag "plugins/jquery.min", "plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/jquery.livequery.min", "plugins/fileuploader",
+      <%= headjs_include_tag "plugins/jquery.min", "plugins/jquery-ui.min", "editor/AppController", "plugins/jquery.json-2.2", "plugins/fileuploader", "plugins/select2.min.js",
       "plugins/general_functions","editor/Models/SourcesOperations", "editor/Models/MapOperations", "editor/Calculations/ConvexHull", "editor/Models/GeoCATOperations",
-       "plugins/underscore","editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Models/MainApp", "plugins/boxshadow.js",
+       "plugins/underscore","editor/Models/PointsOperations", "editor/Models/HullOperations", "editor/Models/UnredoOperations", "editor/Modals/specie_selector.js", "editor/Models/MainApp", "plugins/boxshadow.js",
       "editor/MapOverlays/MapElements", "plugins/jquery.mousewheel", "plugins/jquery.scrollpane", "editor/MapOverlays/LayerCustomization","plugins/jquery.backgroundpos.pack.js",
        "plugins/jquery.color.js"%>
 
@@ -137,11 +137,21 @@
                           </span>
                         </li>
                         <li>
+                          <a id="add_dwc" class="checkbox import_file">Import .DWC</a>
+                          <span class="import">
+                            <div class="inner">
+                              <a class="delete"></a>
+                              <div class="uploader" id="dwc_uploader"><noscript></noscript></div>
+                            </div>
+                            <a class="import_data">import</a>
+                          </span>
+                        </li>
+                        <li>
                           <a id="add_geocat" class="checkbox import_file">Import .GeoCAT,.CSV</a>
                           <span class="import">
                             <div class="inner">
                               <a class="delete"></a>
-                              <div id="uploader"><noscript></noscript></div>
+                              <div class="uploader" id="geocat_uploader"><noscript></noscript></div>
                             </div>
                             <a class="import_data">import</a>
                           </span>

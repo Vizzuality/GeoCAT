@@ -151,22 +151,31 @@ div#start_one input {float:left; width:418px; height:24px; margin:10px 0 0 36px;
 div#start_one input:focus {outline:none;}
 div#start_one a {float:left; margin:15px 0 0 200px; text-decoration:underline; font:bold 23px Arial; color:#A4D939;}
 div#start_one a:hover {color:#6F9326;}
-div#wellcome {position:absolute!important; display:none; width:463px; height:187px; top:50%!important; left:50%; margin:-110px 0 0 -272px!important; padding:17px 40px; background:url('/images/editor/start_new_bkg.png') no-repeat 0 0; z-index:101;}
-div#wellcome a.close {position:absolute; right:18px; top:18px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
-div#wellcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
-div#wellcome p {float:left; width:100%; margin:10px 0 0 0; padding:0; font:bold 21px Arial; color:white; letter-spacing:-1px; text-align:left; line-height:33px;}
-div#wellcome p.bottom {margin:10px 0 0 0; font-size:23px; letter-spacing:-1px;}
-div#wellcome p.bottom a {color:#A4D939; text-decoration:underline;}
-div#wellcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
-div#wellcome div.blocks {float:left; width:423px; height:63px; margin:18px 0 0 0; padding:17px 20px 20px 20px;}
-div#wellcome div.blocks div.block {float:left; width:118px; margin:0 33px 0 0;}
-div#wellcome div.blocks div.block.last {margin:0;}
-div#wellcome div.blocks div.block label {float:left; width:100%; color:#999999; font:normal 13px Arial; font-size:12px\9; text-align:center;}
-div#wellcome div.blocks div.block a {float:left; width:118px; height:26px; margin:10px 0 0 0; text-indent:-9999px;}
-div#wellcome div.blocks div.block a.import_data {background:url('/images/editor/import_data.png') no-repeat 0 0;}
-div#wellcome div.blocks div.block a.upload_data {background:url('/images/editor/upload_data.png') no-repeat 0 0;}
-div#wellcome div.blocks div.block a.add_points {background:url('/images/editor/add_points.png') no-repeat 0 0;}
-div#wellcome div.blocks div.block a:hover {background-position:0 -26px; cursor:pointer; color:#2a3814;}
+div#welcome {position:absolute!important; display:none; width:463px; height:187px; top:50%!important; left:50%; margin:-110px 0 0 -272px!important; padding:17px 40px; background:url('/images/editor/start_new_bkg.png') no-repeat 0 0; z-index:101;}
+div#welcome a.close {position:absolute; right:18px; top:18px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+div#welcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
+div#welcome p {float:left; width:100%; margin:10px 0 0 0; padding:0; font:bold 21px Arial; color:white; letter-spacing:-1px; text-align:left; line-height:33px;}
+div#welcome p.bottom {margin:10px 0 0 0; font-size:23px; letter-spacing:-1px;}
+div#welcome p.bottom a {color:#A4D939; text-decoration:underline;}
+div#welcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
+div#welcome div.blocks {float:left; width:423px; height:63px; margin:18px 0 0 0; padding:17px 20px 20px 20px;}
+div#welcome div.blocks div.block {float:left; width:118px; margin:0 33px 0 0;}
+div#welcome div.blocks div.block.last {margin:0;}
+div#welcome div.blocks div.block label {float:left; width:100%; color:#999999; font:normal 13px Arial; font-size:12px\9; text-align:center;}
+div#welcome div.blocks div.block a {float:left; width:118px; height:26px; margin:10px 0 0 0; text-indent:-9999px;}
+div#welcome div.blocks div.block a.import_data {background:url('/images/editor/import_data.png') no-repeat 0 0;}
+div#welcome div.blocks div.block a.upload_data {background:url('/images/editor/upload_data.png') no-repeat 0 0;}
+div#welcome div.blocks div.block a.add_points {background:url('/images/editor/add_points.png') no-repeat 0 0;}
+div#welcome div.blocks div.block a:hover {background-position:0 -26px; cursor:pointer; color:#2a3814;}
+
+.specie_selector {position:absolute!important; display:none; width:300px; height:187px; top:50%!important; left:50%; margin:-110px 0 0 -190px; padding:17px 40px; background:rgba(0,0,0,0.8); z-index:101;
+  border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px;}
+.specie_selector a.close {position:absolute; right:18px; top:18px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
+.specie_selector a.close:hover {color:white; text-decoration:none; cursor:pointer;}
+.specie_selector h2 {float:left; width:100%; margin:10px 0 0 0; padding:0; font:bold 21px Arial; color:white; letter-spacing:-1px; text-align:left; line-height:33px;}
+.specie_selector a.import {float:left; width:118px; height:26px; margin:10px 0 0 0; text-indent:-9999px; background:url('/images/editor/import_data.png') no-repeat 0 0;}
+.specie_selector a.import:hover {background-position:0 -26px; cursor:pointer; color:#2a3814;}
+
 div#close_save {display:none; position:absolute!important; width:512px; height:130px; top:50%!important; left:50%; margin:-85px 0 0 -276px!important; padding:23px 17px 17px 17px; background:rgba(0,0,0,0.7); z-index:100; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px;}
 div#close_save p {float:left; width:100%; margin:0; padding:0; font:bold 23px Arial; color:white; letter-spacing:-1px; text-align:center; line-height:33px;}
 div#close_save a.close {position:absolute; right:10px; top:10px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
@@ -400,20 +409,20 @@ div#editor div#tools div#add_source_container div.middle ul li.selected span div
 div#editor div#tools div#add_source_container div.middle ul li.searching.error span a {color:#333333;}
 
 /*jquery uploader*/
-div#uploader .qq-uploader {position:relative; width:100%; padding:0; margin:0; background:none;}
-div#uploader .qq-upload-button {float:left; width:63px; height:21px; background:url('/images/editor/browse.png') no-repeat 0 0; padding:0; margin:0; display:block; text-indent:-9999px;}
-div#uploader .qq-upload-button-hover {background-position:0 -21px;}
-div#uploader .qq-upload-button-focus {outline:none;}
-div#uploader .qq-upload-drop-area {position:absolute; top:0; left:0; width:100%; height:100%; min-height:70px; z-index:2; background:#FF9797; text-align:center; }
-div#uploader .qq-upload-drop-area span {display:block; position:absolute; top:50%; width:100%; margin:-8px 0 0 0; font-size:16px;}
-div#uploader .qq-upload-drop-area-active {background:#FF7171;}
-div#uploader .qq-upload-list {float:right; padding:5px 6px 5px 6px!important; margin:0!important; width:auto!important; background:none!important; -moz-border-radius:0px; -webkit-border-radius:0px; border-radius:0; font:normal 11px Arial; color:#999999;}
-div#uploader .qq-upload-list li {float:left; width:auto!important; margin:0!important; padding:0!important; line-height:15px; font:normal 11px Arial; color:#999999;}
-div#uploader .qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {}
-div#uploader span.qq-upload-file {display:inline-block!important; width:100px!important; text-overflow:ellipsis!important;  overflow:hidden!important; white-space:nowrap!important;}
-div#uploader .qq-upload-size,.qq-upload-cancel {display:none!important;}
-div#uploader .qq-upload-failed-text {display:none!important;}
-div#uploader .qq-upload-fail .qq-upload-failed-text {display:none!important;}
+.uploader .qq-uploader {position:relative; width:100%; padding:0; margin:0; background:none;}
+.uploader .qq-upload-button {float:left; width:63px; height:21px; background:url('/images/editor/browse.png') no-repeat 0 0; padding:0; margin:0; display:block; text-indent:-9999px;}
+.uploader .qq-upload-button-hover {background-position:0 -21px;}
+.uploader .qq-upload-button-focus {outline:none;}
+.uploader .qq-upload-drop-area {position:absolute; top:0; left:0; width:100%; height:100%; min-height:70px; z-index:2; background:#FF9797; text-align:center; }
+.uploader .qq-upload-drop-area span {display:block; position:absolute; top:50%; width:100%; margin:-8px 0 0 0; font-size:16px;}
+.uploader .qq-upload-drop-area-active {background:#FF7171;}
+.uploader .qq-upload-list {float:right; padding:5px 6px 5px 6px!important; margin:0!important; width:auto!important; background:none!important; -moz-border-radius:0px; -webkit-border-radius:0px; border-radius:0; font:normal 11px Arial; color:#999999;}
+.uploader .qq-upload-list li {float:left; width:auto!important; margin:0!important; padding:0!important; line-height:15px; font:normal 11px Arial; color:#999999;}
+.uploader .qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {}
+.uploader span.qq-upload-file {display:inline-block!important; width:100px!important; text-overflow:ellipsis!important;  overflow:hidden!important; white-space:nowrap!important;}
+.uploader .qq-upload-size,.qq-upload-cancel {display:none!important;}
+.uploader .qq-upload-failed-text {display:none!important;}
+.uploader .qq-upload-fail .qq-upload-failed-text {display:none!important;}
 /*end jquery uploader*/
 /*added*/
 div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a {background-position: 0 -30px; color:#c3c3c3;}

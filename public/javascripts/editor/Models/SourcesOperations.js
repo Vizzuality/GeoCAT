@@ -14,140 +14,9 @@
 
       function startSources() {
 
-        // Jquery uploader file RLA
-        var uploader = new qq.FileUploader({
-            element: $('#uploader')[0],
-            action: '/editor',
-            allowedExtensions: [],
-            onSubmit: function(id, fileName){
-              $('.qq-upload-button').hide();
-              $('#uploader .qq-upload-list li:eq(0)').remove();
-              $('#uploader').parent().find('a.delete').show();
-            },
-            onProgress: function(id, fileName, loaded, total){
-              $('#uploader').parent().find('a.delete').hide();
-              $('span.qq-upload-file').text('Uploading...');
-            },
-            onComplete: function(id, fileName, responseJSON) {
-
-              var total_occurrences = {};
-              total_occurrences.points = new Array();
-              var sources = responseJSON.data.sources;
-              _.each(sources,function(element){
-                _.each(element.points,function(point){
-                  if (point.catalogue_id && (point.catalogue_id.search('user') != -1 || !point.geocat_kind)) {
-                    global_id++;
-                    point.catalogue_id = 'user_'+global_id;
-                    point.geocat_kind = 'user';
-                  }
-                  total_occurrences.points.push(point);
-                });
-              });
-
-              $('#uploader').parent().find('a.delete').show();
-              $('span.qq-upload-file').show();
-              $('span.qq-upload-file').text(fileName);
-              if (responseJSON.success) {
-                if (_.isEmpty(responseJSON.warnings)) {
-                  $('span.import a.import_data').addClass('enabled');
-                  $('span.import a.import_data').click(function(ev){
-                    closeSources();
-                    addSourceToMap(total_occurrences,true,false);
-                  });
-                } else {
-                  closeSources();
-                  $('div#csv_error ul li').remove();
-                  var errors_size = 0;
-                  $.each(responseJSON.errors,function(index,element){
-                    for (var i=0; i<element.length;i++) {
-                      errors_size++;
-                      $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
-                    }
-                  });
-
-                  $.each(responseJSON.warnings,function(index,element){
-                    for (var i=0; i<element.length;i++) {
-                      $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
-                    }
-                  });
-
-                  if (errors_size>0) {
-                    $('div#csv_error h3').text('There are errors in your uploaded csv file');
-                    $('div#csv_error span a.continue').hide();
-                  } else {
-                    $('div#csv_error span a.continue').unbind('click');
-                    $('div#csv_error span a.continue').click(function(ev){
-                      $('div#csv_error').fadeOut();
-                      addSourceToMap(total_occurrences,true,false);
-                    });
-                    $('div#csv_error h3').text('There are warnings in your uploaded csv file');
-                    $('div#csv_error span a.continue').show();
-                  }
-                  changeApplicationTo(6);
-                }
-              } else {
-                if (responseJSON.format=="geocat" || responseJSON.format==null) {
-                  $('span.import').parent().addClass('error');
-                  $('span.import a.delete').hide();
-                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
-                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('color','white');
-                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('background','url(/images/editor/fail.png) no-repeat 0 1px');
-                  $('#uploader .qq-upload-list li:eq(0) span:eq(0)').css('padding','0 0 0 14px');
-                  $('span.import a.retry').addClass('enabled');
-                  $('span.import a.retry').show();
-                  $('span.import a.retry').click(function(ev){closeSources();});
-                  $('span.import a.import_data').addClass('enabled');
-                  $('span.import a.import_data').text('retry');
-                  $('span.import a.import_data').click(function(ev){resetUploader();});
-                } else {
-                  if (_.isEmpty(responseJSON.warnings)) {
-                    $('span.import a.import_data').addClass('enabled');
-                    $('span.import a.import_data').click(function(ev){
-                      closeSources();
-                      addSourceToMap(total_occurrences,false,false);
-                    });
-                  } else {
-                    closeSources();
-                    $('div#csv_error ul li').remove();
-                    var errors_size = 0;
-
-                    $.each(responseJSON.errors,function(index,element){
-                      for (var i=0; i<element.length;i++) {
-                        errors_size++;
-                        $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
-                      }
-                    });
-
-                    $.each(responseJSON.warnings,function(index,element){
-                      for (var i=0; i<element.length;i++) {
-                        $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
-                      }
-                    });
-
-                    if (errors_size>0) {
-                      $('div#csv_error h3').text('There are errors in your uploaded csv file');
-                      $('div#csv_error span a.continue').hide();
-                    } else {
-                      $('div#csv_error span a.continue').unbind('click');
-                      $('div#csv_error span a.continue').click(function(ev){
-                        $('div#csv_error').fadeOut();
-                        addSourceToMap(total_occurrences,false,false);
-                      });
-                      $('div#csv_error h3').text('There are warnings in your uploaded csv file');
-                      $('div#csv_error span a.continue').show();
-                    }
-                  }
-                  removeSelectedSources();
-                  changeApplicationTo(6);
-                }
-              }
-            },
-            onCancel: function(id, fileName){},
-            messages: {},
-            showMessage: function(message){ alert(message); }
-        });
-
-
+        // Init uploaders
+        initDwcUploader();
+        initGeocatUploader();
 
         //change file input value
         $('span div.inner a.delete').click(function(ev){
@@ -224,7 +93,7 @@
         });
 
 
-        $("span.loading a.retry").livequery('click',function(ev){
+        $("span.loading a.retry").live('click',function(ev){
           ev.stopPropagation();
           ev.preventDefault();
           $(this).addClass('import_data').removeClass('retry').text('import');
@@ -238,7 +107,7 @@
 
 
         //import data
-        $("span.loading a.import_data").livequery('click', function(){
+        $("span.loading a.import_data").live('click', function(){
           if ($(this).hasClass('enabled')) {
             $("#add_source_container").fadeOut();
             $("#add_source_button").removeClass('open');
@@ -263,7 +132,7 @@
 
 
         //Visible or not any source.
-        $('a.visible_specie').livequery('click',function(){
+        $('a.visible_specie').live('click',function(){
           var visible = ($(this).hasClass('on'))?false:true;
           if (visible) {
             $(this).addClass('on');
@@ -273,10 +142,177 @@
           var kind = $(this).closest('li').attr('type');
           var query = $(this).closest('li').attr('species');
 
-          $(this).animate({'background-position': (!visible)?'-20px 0':'0 0'},200);
+          $(this).animate({backgroundPosition: (!visible)?'-20px 0px':'0px 0px'},200);
           hideAll(query,kind,visible);
         });
+      }
 
+      function initGeocatUploader() {
+        var $uploader = $("#geocat_uploader");
+        var $option = $uploader.closest('li');
+
+        // Jquery uploader for GeoCat and RLA files
+        var uploader = new qq.FileUploader({
+            element: $uploader[0],
+            action: '/editor',
+            allowedExtensions: [],
+            onSubmit: function(id, fileName){
+              $uploader.find('.qq-upload-button').hide();
+              $uploader.find('.qq-upload-list li:eq(0)').remove();
+              $uploader.parent().find('a.delete').show();
+            },
+            onProgress: function(id, fileName, loaded, total){
+              $uploader.parent().find('a.delete').hide();
+              $option.find('span.qq-upload-file').text('Uploading...');
+            },
+            onComplete: function(id, fileName, responseJSON) {
+
+              var total_occurrences = {};
+              total_occurrences.points = new Array();
+              var sources = responseJSON.data.sources;
+              _.each(sources,function(element){
+                _.each(element.points,function(point){
+                  if (point.catalogue_id && (point.catalogue_id.search('user') != -1 || !point.geocat_kind)) {
+                    global_id++;
+                    point.catalogue_id = 'user_'+global_id;
+                    point.geocat_kind = 'user';
+                  }
+                  total_occurrences.points.push(point);
+                });
+              });
+
+              $option.find('a.delete').show();
+              $uploader.find('span.qq-upload-file').show();
+              $uploader.find('span.qq-upload-file').text(fileName);
+
+              if (responseJSON.success) {
+                if (_.isEmpty(responseJSON.warnings)) {
+                  $option.find('span.import a.import_data').addClass('enabled');
+                  $option.find('span.import a.import_data').click(function(ev){
+                    closeSources();
+                    addSourceToMap(total_occurrences,true,false);
+                  });
+                } else {
+                  closeSources();
+                  $('div#csv_error ul li').remove();
+                  var errors_size = 0;
+                  $.each(responseJSON.errors,function(index,element){
+                    for (var i=0; i<element.length;i++) {
+                      errors_size++;
+                      $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
+                    }
+                  });
+
+                  $.each(responseJSON.warnings,function(index,element){
+                    for (var i=0; i<element.length;i++) {
+                      $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
+                    }
+                  });
+
+                  if (errors_size>0) {
+                    $('div#csv_error h3').text('There are errors in your uploaded csv file');
+                    $('div#csv_error span a.continue').hide();
+                  } else {
+                    $('div#csv_error span a.continue').unbind('click');
+                    $('div#csv_error span a.continue').click(function(ev){
+                      $('div#csv_error').fadeOut();
+                      addSourceToMap(total_occurrences,true,false);
+                    });
+                    $('div#csv_error h3').text('There are warnings in your uploaded csv file');
+                    $('div#csv_error span a.continue').show();
+                  }
+                  changeApplicationTo(6);
+                }
+              } else {
+                if (responseJSON.format=="geocat" || responseJSON.format==null) {
+                  $option.find('span.import').parent().addClass('error');
+                  $option.find('span.import a.delete').hide();
+                  $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
+                  $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').css('color','white');
+                  $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').css('background','url(/images/editor/fail.png) no-repeat 0 1px');
+                  $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').css('padding','0 0 0 14px');
+                  $option.find('span.import a.retry').addClass('enabled');
+                  $option.find('span.import a.retry').show();
+                  $option.find('span.import a.retry').click(function(ev){closeSources();});
+                  $option.find('span.import a.import_data').addClass('enabled');
+                  $option.find('span.import a.import_data').text('retry');
+                  $option.find('span.import a.import_data').click(function(ev){resetUploader();});
+                } else {
+                  if (_.isEmpty(responseJSON.warnings)) {
+                    $option.find('span.import a.import_data').addClass('enabled');
+                    $option.find('span.import a.import_data').click(function(ev){
+                      closeSources();
+                      addSourceToMap(total_occurrences,false,false);
+                    });
+                  } else {
+                    closeSources();
+                    $('div#csv_error ul li').remove();
+                    var errors_size = 0;
+
+                    $.each(responseJSON.errors,function(index,element){
+                      for (var i=0; i<element.length;i++) {
+                        errors_size++;
+                        $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
+                      }
+                    });
+
+                    $.each(responseJSON.warnings,function(index,element){
+                      for (var i=0; i<element.length;i++) {
+                        $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
+                      }
+                    });
+
+                    if (errors_size>0) {
+                      $('div#csv_error h3').text('There are errors in your uploaded csv file');
+                      $('div#csv_error span a.continue').hide();
+                    } else {
+                      $('div#csv_error span a.continue').unbind('click');
+                      $('div#csv_error span a.continue').click(function(ev){
+                        $('div#csv_error').fadeOut();
+                        addSourceToMap(total_occurrences,false,false);
+                      });
+                      $('div#csv_error h3').text('There are warnings in your uploaded csv file');
+                      $('div#csv_error span a.continue').show();
+                    }
+                  }
+                  removeSelectedSources();
+                  changeApplicationTo(6);
+                }
+              }
+            },
+            onCancel: function(id, fileName){},
+            messages: {},
+            showMessage: function(message){ alert(message); }
+        });
+      }
+
+      function initDwcUploader() {
+        var $uploader = $('#dwc_uploader');
+        var $option = $uploader.closest('li');
+
+        // Jquery uploader for GeoCat and RLA files
+        var uploader = new qq.FileUploader({
+            element: $uploader[0],
+            action: '/search/dwc',
+            allowedExtensions: [],
+            onSubmit: function(id, fileName){
+              $uploader.find('.qq-upload-button').hide();
+              $uploader.find('.qq-upload-list li:eq(0)').remove();
+              $option.parent().find('a.delete').show();
+            },
+            onProgress: function(id, fileName, loaded, total){
+              $option.parent().find('a.delete').hide();
+              $uploader.find('span.qq-upload-file').text('Uploading...');
+            },
+            onComplete: function(id, fileName, responseJSON) {
+              resetUploader();
+              closeSources();
+              var species_selector = new SpecieSelector(upload_information);
+            },
+            onCancel: function(id, fileName){},
+            messages: {},
+            showMessage: function(message){ alert(message); }
+        });
       }
 
 
@@ -432,13 +468,13 @@
       /*============================================================================*/
       function activeMerge() {
         // if (merge_object.gbif_points.length>0) {
-        //   $('a#GBIF_points').livequery(function(ev){
+        //   $('a#GBIF_points').live(function(ev){
         //     $(this).parent().find('a.merge').addClass('active');
         //     $(this).parent().find('a.merge').click(function(){openMergeContainer("green")});
         //   });
         // }
         // if (merge_object.flickr_points.length>0) {
-        //   $('a#Flickr_points').livequery(function(ev){
+        //   $('a#Flickr_points').live(function(ev){
         //     $(this).parent().find('a.merge').addClass('active');
         //     $(this).parent().find('a.merge').click(function(){openMergeContainer("pink")});
         //   });
