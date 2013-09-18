@@ -14,7 +14,7 @@ GeocatApp::Application.routes.draw do |map|
 
   match 'search/flickr/:q' => 'flickr#search'
   match 'search/gbif/:q'   => 'gbif#search'
-  post 'search/dwc'       => 'dwc#search'
+  match 'search/dwc'       => 'dwc#search'
 
   match 'download'          => 'file#download'
   match 'editor(/:species)' => 'file#upload'
