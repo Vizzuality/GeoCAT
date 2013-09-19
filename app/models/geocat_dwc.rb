@@ -59,11 +59,11 @@ class GeocatDWC
   end
 
   def get_taxon_rank_index
-    @taxon_rank_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/taxonRank'}.first[:attributes][:index] rescue nil
-  end
+      @taxon_rank_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/taxonRank'}.first[:attributes][:index] rescue nil
+    end
 
-  def get_species
-    core, @dwc_errors = dwc.core.read
+    def get_species
+      core, @dwc_errors = dwc.core.read
     core = core.select{|d| d[3] == 'Species'}
     species_hash = Hash[core.map{|d| [ d[0], { :scientificName => d[@scientific_name_index], :data => []} ]}]
 
@@ -89,9 +89,15 @@ class GeocatDWC
   end
 
   def generate_temp_file(name, data)
+    dwc_stream = if data.respond_to?(:read)
+                  data.read.force_encoding('UTF-8')
+                else
+                  data.to_s.force_encoding('UTF-8')
+                end
     f = Tempfile.new(name)
-    f.write data.force_encoding('UTF-8')
+    f.write dwc_stream
     f.close
     f.path
   end
+
 end
