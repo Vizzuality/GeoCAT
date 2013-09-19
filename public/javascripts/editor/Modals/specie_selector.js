@@ -24,6 +24,9 @@
   SpecieSelector.prototype.render = function() {
     this.$el = $( _.isEmpty(this.data.errors) ? this.template : this.template_error );
     $('.center-map').append(this.$el);
+
+    if (this.data.errors && !_.isEmpty(this.data.errors))
+      this.renderErrors()
   }
 
   SpecieSelector.prototype.initComponents = function() {
@@ -52,11 +55,23 @@
   SpecieSelector.prototype.initBinds = function() {
     this.$el.find('.import').on('click', this._uploadData);
     this.$el.find('.close').on('click', this.hide);
+    this.$el.find('.cancel').on('click', this.hide);
   }
 
   SpecieSelector.prototype.destroyBinds = function() {
     this.$el.find('.import').off('click', this._uploadData);
     this.$el.find('.close').off('click', this.hide);
+    this.$el.find('.cancel').off('click', this.hide);
+  }
+
+  SpecieSelector.prototype.renderErrors = function() {
+    var $ul = this.$el.find('ul');
+    var item_error = _.template(this.template_item_error);
+
+    _.each(this.data.errors.sources, function(msg) {
+      var li = item_error({ msg: msg });
+      $ul.append(li);
+    })
   }
 
   SpecieSelector.prototype._getData = function(specie_name) {
@@ -135,9 +150,17 @@
   ";
 
   SpecieSelector.prototype.template_error = "\
-    <div class='specie_selector'>\
-      <h2>There were errors in the {{ type }} provided</h2>\
+    <div id='csv_error' class='specie_selector'>\
+      <a onclick='changeApplicationTo()' class='close'>X</a>\
+      <h3>There are errors in your uploaded file</h3>\
       <ul></ul>\
-      <a href='#/close' class='button close'>CLOSE</a>\
+      <span>\
+        <a class='cancel'>Cancel</a>\
+      </span>\
     </div>\
-  "
+  ";
+
+  SpecieSelector.prototype.template_item_error = "\
+    <li class='warning'><%= msg %></li>\
+  ";  
+
