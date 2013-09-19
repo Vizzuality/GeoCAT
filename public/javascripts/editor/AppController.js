@@ -42,7 +42,7 @@
               }
 
               // Adding DWC points?
-              if (upload_information && upload_information.species ) {
+              if (upload_information && ( upload_information.species || ( upload_information.errors && !_.isEmpty(upload_information.errors)))) {
                 var species_selector = new SpecieSelector(upload_information);
               }
 
