@@ -91,7 +91,7 @@ class FileController < ApplicationController
       uri = URI.parse(params[:dwc_url])
       GeocatDWC.new('url.dwc', open(uri).read)
     else
-      GeocatData.new
+      {}
     end
 
     # HACK! HACK! HACK!
@@ -103,6 +103,7 @@ class FileController < ApplicationController
     invalid_geocat_file and return if params[:file] && geocat.invalid?
 
     @geocat_json = geocat.to_json
+
     render :template => 'geocat/editor'
   end
 
