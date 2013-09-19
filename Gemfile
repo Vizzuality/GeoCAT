@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'bundler', '~> 1.0.0'
+gem 'bundler'
 gem 'rails', '~> 3.0.0'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'pg'
 
 gem 'awesome_print', :require => 'ap'
 gem 'json'
@@ -12,12 +12,13 @@ gem 'RedCloth'
 gem 'nokogiri'
 gem 'csv-mapper'
 gem 'htmlentities'
-gem 'rchardet'
+gem 'rchardet19'
 gem 'dwc-archive'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'debugger'
+  gem 'heroku'
 end
 
 gem 'capistrano'

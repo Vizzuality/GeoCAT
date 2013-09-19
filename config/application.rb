@@ -1,3 +1,4 @@
+#encoding: utf-8
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -44,5 +45,6 @@ module GeocatApp
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    ActionController::Base.config.relative_url_root = ''
   end
 end

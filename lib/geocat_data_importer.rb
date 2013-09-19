@@ -1,7 +1,7 @@
+# encoding: utf-8
 require 'active_model'
 require './app/models/rlat_data'
 require 'json'
-require 'rchardet'
 require 'csv-mapper'
 
 module GeocatDataImporter
