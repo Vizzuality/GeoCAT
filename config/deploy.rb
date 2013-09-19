@@ -24,6 +24,8 @@ set :user,  'ubuntu'
 
 set :deploy_to, "/home/ubuntu/www/#{application}"
 
+set :bundle_flags,   ""  # no verbose output
+
 after  "deploy:update_code", :run_migrations, :symlinks, :set_staging_flag
 after "deploy:update", "deploy:cleanup"
 
