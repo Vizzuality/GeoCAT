@@ -259,7 +259,11 @@ module GeocatDataImporter
 
         buffer_encoding = CharDet.detect(buffer.read).try(:[], 'encoding')
         buffer.rewind
-        StringIO.new(Iconv.conv('utf-8', buffer_encoding, buffer.read)) rescue nil
+        if RUBY_VERSION.to_f < 1.9
+          StringIO.new(Iconv.conv('utf-8', buffer_encoding, buffer.read))
+        else
+          StringIO.new(buffer.read.encode(Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => ''))
+        end rescue nil
       end
       private :fix_encoding
 
