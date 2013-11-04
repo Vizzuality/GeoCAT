@@ -97,6 +97,8 @@ class GeocatDWC
     f = Tempfile.new(name, "#{Rails.root}/tmp")
     f.write dwc_stream
     f.close
+    Rails.logger.debug f.path
+    Rails.logger.debug File.exists?(f.path)
     f.path
   end
 
