@@ -94,7 +94,7 @@ class GeocatDWC
                 else
                   data.to_s.force_encoding('UTF-8')
                 end
-    f = Tempfile.new(name)
+    f = Tempfile.new(name, "#{Rails.root}/tmp")
     f.write dwc_stream
     f.close
     f.path
