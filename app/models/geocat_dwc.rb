@@ -99,6 +99,7 @@ class GeocatDWC
     f.close
     Rails.logger.info f.path
     Rails.logger.info File.exists?(f.path)
+    Rails.logger.info f.size
     f.path
   end
 
