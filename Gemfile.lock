@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:Ferdev/dwc-archive.git
+  remote: git://github.com/Ferdev/dwc-archive.git
   revision: f761c5ecbd2156e274864f2bcbb81a264e7b3268
   specs:
     dwc-archive (0.9.6)

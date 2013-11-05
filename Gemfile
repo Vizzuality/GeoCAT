@@ -13,7 +13,7 @@ gem 'nokogiri'
 gem 'csv-mapper'
 gem 'htmlentities'
 gem 'rchardet19'
-gem 'dwc-archive', :git => 'git@github.com:Ferdev/dwc-archive.git'
+gem 'dwc-archive', :github => 'Ferdev/dwc-archive'
 gem 'parsley-store', '~> 0.3.2'
 
 group :development, :test do
