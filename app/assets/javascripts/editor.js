@@ -1,0 +1,35 @@
+//=require plugins/jquery.min
+//=require plugins/jquery-ui.min
+//=require plugins/underscore
+//=require plugins/boxshadow.js
+//=require plugins/jquery.json-2.2
+//=require plugins/fileuploader
+//=require plugins/select2.min
+//=require plugins/jquery.mousewheel
+//=require plugins/jquery.scrollpane
+//=require plugins/jquery.backgroundpos.pack
+//=require plugins/jquery.color
+//=require plugins/general_functions
+
+//=require editor/AppController
+//=require editor/Models/SourcesOperations
+//=require editor/Models/MapOperations
+//=require editor/Calculations/ConvexHull
+//=require editor/Models/GeoCATOperations
+//=require editor/Models/PointsOperations
+//=require editor/Models/HullOperations
+//=require editor/Models/UnredoOperations
+//=require editor/Modals/specie_selector
+//=require editor/Models/MainApp
+//=require editor/MapOverlays/MapElements
+//=require editor/MapOverlays/LayerCustomization
+
+//=require editor/MapOverlays/GapsOverlay
+//=require editor/MapOverlays/MarkerOverTooltip
+//=require editor/MapOverlays/MarkerTooltip
+//=require editor/MapOverlays/PolygonOverTooltip
+//=require editor/MapOverlays/DeleteInfowindow
+//=require editor/MapOverlays/GeoCATMarker
+//=require editor/Models/MergeOperations
+//=require plugins/tileoverlay
+//=require editor/Calculations/AnalysisRatings

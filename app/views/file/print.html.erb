@@ -8,7 +8,7 @@
   <div class="map">
     <img src="http://maps.google.com/maps/api/staticmap?center=<%= @geocat['viewPort']['center']['latitude']%>,<%= @geocat['viewPort']['center']['longitude']%>&size=700x490&maptype=terrain&markers=icon:http://bit.ly/9mkues|<%= @gbif_coords %>&markers=icon:http://bit.ly/9ict2f|<%= @flickr_coords %>&markers=icon:http://bit.ly/bEUs24|<%= @your_coords %>&sensor=false&zoom=<%=(@geocat['viewPort']['zoom']-1)%>" />
     <div class="warning">
-      <img src="/images/print/in_development.png" alt="In Development" />
+      <img src="/assets/print/in_development.png" alt="In Development" />
       <p>
         In Development
       </p>

@@ -42,6 +42,38 @@ module GeocatApp
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
+
+    # config.sass.load_paths ||= []
+    # config.sass.load_paths << "#{Gem.loaded_specs['sass'].full_gem_path}/frameworks/sass/stylesheets"
+
+    config.assets.initialize_on_precompile = false
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    # Default setting is [/\w+\.(?!js|css).+/, /application.(css|js)$/]
+
+    config.assets.precompile += %w[
+      editor.js
+    ]
+
+    # config.assets.precompile += %w[
+    #   front.css
+    #   fonts.css
+    #   fonts_ie.css
+    #   superadmin.css
+    #   users.css
+    #   example.css
+    #   all.css
+    #   fonts.css
+    #   fonts_ie.css
+    # ]
+
+    # config.assets.precompile += %w( search.js )
+    # config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.ico]
+    # config.assets.precompile += %w[*.eot *.svg *.ttf *.otf *.woff]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

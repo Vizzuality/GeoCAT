@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'bundler'
-gem 'rails', '~> 3.0.0'
+gem 'rails', '~> 3.1.0'
 
 gem 'pg'
 
@@ -15,12 +15,13 @@ gem 'htmlentities'
 gem 'rchardet19'
 gem 'dwc-archive', :github => 'Vizzuality/dwc-archive'
 gem 'parsley-store', '~> 0.3.2'
+gem 'rails_legacy_mapper'
 
-group :development, :test do
-  gem 'rspec-rails'
-  gem 'debugger'
-  gem 'heroku'
-end
+# group :development, :test do
+#   gem 'rspec-rails'
+#   gem 'debugger'
+#   gem 'heroku'
+# end
 
 gem 'capistrano'
 gem 'capistrano-ext'

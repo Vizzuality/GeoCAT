@@ -1,5 +1,6 @@
   <% content_for :js do %>
-    <%= headjs_include_tag "home/application.js", "plugins/jquery.min", "http://www.google.com/jsapi", "home/HomeConvexHull" %>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.4&libraries=geometry&sensor=true"></script>
+    <%= javascript_include_tag :home %>
   <% end -%>
 
     <section class="layout small">
@@ -16,7 +17,7 @@
 	        <h2 class="margin40">Geospatial analysis of species at the click of a button</h2>
 	        <p>Ease the process of Red Listing with GeoCAT and help identify threatened species. GeoCAT (Geospatial Conservation Assessment Tool) is an open source, browser based tool that performs rapid geospatial analysis for Red List assessment. Developed to utilise spatially referenced primary occurrence data, the analysis focuses on two aspects of the geographic range of a taxon: the extent of occurrence (EOO) and the area of occupancy (AOO). These metrics form part of the IUCN Red List categories and criteria and have often proved challenging to obtain in an accurate, consistent and repeatable way. Within a familiar Google Maps environment, GeoCAT users can quickly and easily combine data from multiple sources such as GBIF, Flickr and Scratchpads as well as user generated occurrence data.</p>
 
-	        <img width="100%" src="/images/screenshot.png" alt="GeoCAT" title="GeoCAT" />
+	        <img width="100%" src="/assets/screenshot.png" alt="GeoCAT" title="GeoCAT" />
 
 	        <h2 class="margin40">Why create GeoCAT?</h2>
 	        <p>There is a shortfall in the number of species that have been added to the Red List. Although the better known groups such as birds and mammals have been comprehensively assessed, the mega-diverse groups such as plants and insects are poorly represented on the Red List. This means that we are making conservation decisions without seeing the full picture of threat to biodiversity. Despite the best efforts of scientists around the world, progress is slow and an acceleration in the production of Red List assessments is needed.<br/><br/>
