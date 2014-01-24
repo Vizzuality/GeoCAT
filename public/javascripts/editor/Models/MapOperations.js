@@ -316,8 +316,8 @@
 							}
 						}
 
-
-						if (!occurrences[marker.data.catalogue_id].data.geocat_removed)
+            // Check if marker was created and it is added to the stack
+						if (marker && !occurrences[marker.data.catalogue_id].data.geocat_removed)
 							point_changes.push(occurrences[marker.data.catalogue_id].data);
 
             i++;
