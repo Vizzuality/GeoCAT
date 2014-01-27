@@ -195,7 +195,7 @@
 					this.resetAlgorithmValues();
 				}
 
-				if (this.active_markers.length < 3) {
+				if (this.polygon && this.active_markers.length < 3) {
 					this.polygon.setPath([]);
 					this.polygon.setMap(null);
 				}
