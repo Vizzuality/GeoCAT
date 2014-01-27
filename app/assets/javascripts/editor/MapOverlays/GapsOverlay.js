@@ -26,32 +26,10 @@
     		div.style.background = 'url(/assets/editor/gaps_bkg.png) no-repeat 0 0';
     		div.style.zIndex = global_zIndex;
     		
-    		$(div).append(
-    		  '<a class="close"></a>'+
-    		  '<h3>EDITING METADATA</h3>'+
-    		  '<form action="">'+
-    		  '<span class="error_latlng"><p>You need a valid lat/lng</p></span>'+
-    		  '<div class="three_gaps"><span><label>LATITUDE</label><input onfocus="this.value = this.value;" type="text" id="metadata_latitude" value=""/></span><span class="last"><label>LONGITUDE</label><input onfocus="this.value = this.value;" type="text" id="metadata_longitude" /></span></div>'+
-    		  '<div class="three_gaps"><span><label>COLLECTION CODE</label><input onfocus="this.value = this.value;" type="text" id="metadata_collection" /></span><span><label>INSTITUTION CODE</label><input onfocus="this.value = this.value;" type="text" id="metadata_institution" /></span><span class="last"><label>CATALOG NUMBER</label><input onfocus="this.value = this.value;" type="text" id="metadata_catalog" /></span></div>'+
-    		  '<div class="two_gaps"><span><label>BASIS OF RECORD</label><input onfocus="this.value = this.value;" id="metadata_basis" /></span></div>'+
-    		  '<div class="two_gaps"><span><label>COLLECTOR</label><input onfocus="this.value = this.value;" type="text" id="metadata_collector" /></span><span class="short last"><label>DATE COLLECTED</label><input onfocus="this.value = this.value;" type="text" id="metadata_date" /></span></div>'+
-    		  '<div class="three_gaps"><span><label>COUNTRY</label><input onfocus="this.value = this.value;" type="text" id="metadata_country" /></span><span><label>STATE/PROVINCE</label><input onfocus="this.value = this.value;" type="text" id="metadata_state" /></span><span class="last"><label>COUNTY</label><input onfocus="this.value = this.value;" type="text" id="metadata_county" /></span></div>' +
-    		  '<div class="three_gaps"><span><label>ALTITUDE</label><input onfocus="this.value = this.value;" type="text" id="metadata_altitude" /></span><span><label>LOCALITY</label><input onfocus="this.value = this.value;" type="text" id="metadata_locality" /></span><span class="last"><label>REPOR. PRECISION</label><input onfocus="this.value = this.value;" type="text" id="metadata_precission" /></span></div>' +
-    		  '<div class="two_gaps"><span><label>IDENTIFIER</label><input onfocus="this.value = this.value;" type="text" id="metadata_identifier" /></span></div>'+
-    		  '<div class="one_gap"><span><label>NOTES</label><input onfocus="this.value = this.value;" type="text" id="metadata_gbif" /></span></div>'+
-    		  '<div class="one_gap"><span><label>URL</label><a class="goGBIF" href="#" target="_blank">Visit URL</a><input type="text" onfocus="this.value = this.value;" id="metadata_url" /></span></div>'+
-    		  '<div class="slider_top"><label>MAP PRECISION</label><p>3KM</p></div>'+
-    		  '<div class="slider"></div>'+
-    		  '<span class="bottom"><a class="cancel">Cancel</a><a class="save">SAVE CHANGES</a></span>'+
-    		  '</form>'
-    		);
+    		$(div).append(JST['editor/views/gaps_overlay']);
     		
-    		
-    		
-
         var panes = this.getPanes();
         panes.floatPane.appendChild(div);
-        
         
         $(div).find('a.close').hover(function(){
           $(this).css('background-position','0 -21px');
@@ -63,19 +41,16 @@
           me.save();
         });
         
-        
         $(div).find('a.goGBIF').click(function(ev){
           ev.stopPropagation();
           ev.preventDefault();
           me.goGBIF();
         });
-  
         
         $(div).find('a.close, a.cancel').click(function(){
           me.hide();
         });
         
-
 				$("div.metadata div.slider").slider({
 					range: "min",
 					value: 11,
@@ -91,8 +66,6 @@
 					}
 				});
 
-        
-        
         google.maps.event.addDomListener(div,'mousedown',function(ev){ 
   		    try{
   					ev.stopPropagation();
@@ -109,8 +82,6 @@
   				}; 
   		  });
       }
-      
-
 
       // Position the overlay 
       var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
@@ -224,7 +195,7 @@
       			old_data.longitude = this.inf.longitude;
     			
           
-            this.inf.changed = true;
+            this.inf.geocat_changed = true;
           	this.inf.collectionCode = $('#metadata_collection').attr('value'); 
       			this.inf.institutionCode = $('#metadata_institution').attr('value');
       			this.inf.catalogNumber = $('#metadata_catalog').attr('value');
@@ -243,7 +214,7 @@
       			this.inf.latitude = $('#metadata_latitude').attr('value');
       			this.inf.longitude = $('#metadata_longitude').attr('value');
     			
-          
+            occurrences[this.marker_id].redraw();
             occurrences[this.marker_id].data = this.inf;
             occurrences[this.marker_id].setPosition(new google.maps.LatLng(this.inf.latitude,this.inf.longitude));
 						if (convex_hull.isVisible()) {
@@ -329,8 +300,3 @@
     		}
     	}
     }
-
-
-
-
-
