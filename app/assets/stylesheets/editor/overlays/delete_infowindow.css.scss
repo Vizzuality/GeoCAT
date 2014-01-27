@@ -1,0 +1,56 @@
+
+
+  @import "compass/css3/opacity";
+  @import "compass/css3/inline-block";
+  @import "compass/css3/images";
+
+  .delete_infowindow {
+    position:absolute;
+    width:193px;
+    height:131px;
+    @include opacity(0);
+    @include background(url('/assets/editor/delete_bkg.png') no-repeat 0 0);
+
+    .inner_infowindow {
+      display:block;
+      padding:24px;
+    }
+
+    p {
+      display:block;
+      height:52px;
+      font:bold 12px Arial;
+      color:#333;
+    }
+
+    .buttons {
+      display:block;
+      text-align:right;
+
+      a {
+        @include inline-block();
+        vertical-align: middle;
+      }
+
+      a.cancel {
+        margin-right:5px;
+        font:normal 11px Arial;
+        color:#333;
+        text-decoration: underline;
+        &:hover { color:#000 }
+      }
+
+      a.yes {
+        width:51px;
+        height:19px;
+        text-indent:-9999px;
+        font-size:0;
+        line-height:0;
+        @include background(url('/assets/editor/yes_delete_button.png') no-repeat 0 0);
+        &:hover {
+          background-position: 0 -19px;
+        }
+      }
+    }
+  }
+        

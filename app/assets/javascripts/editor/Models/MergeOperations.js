@@ -79,10 +79,10 @@
 			/*  Active the sources in the list                                            */
 			/*============================================================================*/
 			MergeOperations.prototype.activateMerge = function(query,kind) {
-        $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] ').animate({boxShadow: '0 0 10px #666666'},500);
-        $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] ').delay(500).animate({boxShadow: '0 0 0 #1e2022'},500,function(){
-          $(this).css('box-shadow','none').css('-webkit-box-shadow','none').css('-moz-box-shadow','none');
-        });
+        // $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] ').animate({boxShadow: '0 0 10px #666666'},500);
+        // $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] ').delay(500).animate({boxShadow: '0 0 0 #1e2022'},500,function(){
+        //   $(this).css('box-shadow','none').css('-webkit-box-shadow','none').css('-moz-box-shadow','none');
+        // });
         $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] a.merge_specie').addClass('update');
         $('ul#sources_list li[species="'+query+'"][type="'+kind+'"] a.merge_specie').bind('click',function(){
           openMergeContainer(query,kind);
