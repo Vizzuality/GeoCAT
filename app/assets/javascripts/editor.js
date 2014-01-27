@@ -10,27 +10,5 @@
 //=require plugins/jquery.backgroundpos.pack
 //=require plugins/jquery.color
 //=require plugins/general_functions
-//=require_tree ./editor/views/
-
-//=require editor/AppController
-//=require editor/Models/SourcesOperations
-//=require editor/Models/MapOperations
-//=require editor/Calculations/ConvexHull
-//=require editor/Models/GeoCATOperations
-//=require editor/Models/PointsOperations
-//=require editor/Models/HullOperations
-//=require editor/Models/UnredoOperations
-//=require editor/Modals/specie_selector
-//=require editor/Models/MainApp
-//=require editor/MapOverlays/MapElements
-//=require editor/MapOverlays/LayerCustomization
-
-//=require editor/MapOverlays/GapsOverlay
-//=require editor/MapOverlays/MarkerOverTooltip
-//=require editor/MapOverlays/MarkerTooltip
-//=require editor/MapOverlays/PolygonOverTooltip
-//=require editor/MapOverlays/DeleteInfowindow
-//=require editor/MapOverlays/GeoCATMarker
-//=require editor/Models/MergeOperations
 //=require plugins/tileoverlay
-//=require editor/Calculations/AnalysisRatings
+//=require_tree ./editor
