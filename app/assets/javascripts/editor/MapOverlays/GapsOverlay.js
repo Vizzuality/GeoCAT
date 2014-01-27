@@ -80,11 +80,14 @@
 					range: "min",
 					value: 11,
 					min: 1,
-					max: 50,
+					max: 60,
 					slide: function(event, ui) {
-					  occurrences[me.marker_id].set('distance',ui.value*1000);
-  					occurrences[me.marker_id].data.coordinateUncertaintyInMeters = ui.value*1000;
-  					$(div).find('div.slider_top p').html(ui.value + 'KM');
+            var value = (ui.value<11)?ui.value*100:(ui.value-10)*1000;
+            var metric = (ui.value<11)?'M':'KM';
+            var value_showed = (ui.value<11)?ui.value*100:(ui.value-10);
+            occurrences[me.marker_id].set('distance',value);
+            occurrences[me.marker_id].data.coordinateUncertaintyInMeters = value;
+            $(div).find('div.slider_top p').html(value_showed + metric);
 					}
 				});
 
