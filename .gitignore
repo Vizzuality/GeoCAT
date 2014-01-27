@@ -3,5 +3,5 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 public/assets/
-.sass-cache
+.sass-cache/
 public/javascripts/editor/.DS_Store
