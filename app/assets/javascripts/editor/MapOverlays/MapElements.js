@@ -1,5 +1,5 @@
 
-    (function(){
+    $(document).ready(function() {
       $('div.center-map').append(
         '<div class="search_place">' +
           '<p>go to</p>' +
@@ -109,5 +109,5 @@
           '</span>' +
         '</div>'
         );
-    })();
+    });
 
