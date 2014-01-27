@@ -187,15 +187,17 @@
 						this.active_markers.push(all_markers[i]);
 					}
 				}
-				if (this.active_markers.length>2) {
-					this.calculateConvexHull(false);
+
+				if (this.active_markers.length > 0) {
+					this.calculateConvexHull(false)
 				} else {
-				  if (this.polygon!=undefined) {
-  					this.polygon.setPath([]);
-  				  this.removeAOOPolygons();
-  					this.polygon.setMap(null);
-  					this.resetAlgorithmValues();
-  				}
+					this.removeAOOPolygons();
+					this.resetAlgorithmValues();
+				}
+
+				if (this.active_markers.length < 3) {
+					this.polygon.setPath([]);
+					this.polygon.setMap(null);
 				}
 			}
 
@@ -389,9 +391,9 @@
 
 				$('div.cellsize span p').text(text_+metric_.toUpperCase());
 				$('div.analysis p.change').html('AOO based on user defined<br/>cell width ('+text_+' '+metric_+'), <a class="change">change</a>');
-				if (this.polygon!=undefined && this.polygon.getPath().getLength()>2) {
-					this.setAlgorithmData(this.polygon.getPath().getArray(),this.cellsize*1000);
-				}
+				// if (this.polygon!=undefined && this.polygon.getPath().getLength()>0) {
+					this.setAlgorithmData(this.polygon && this.polygon.getPath().getArray() || [],this.cellsize*1000);
+				// }
 			}
 		
 		
