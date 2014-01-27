@@ -1,7 +1,7 @@
 //=require plugins/jquery.min
 //=require plugins/jquery-ui.min
 //=require plugins/underscore
-//=require plugins/boxshadow.js
+//=require plugins/boxshadow
 //=require plugins/jquery.json-2.2
 //=require plugins/fileuploader
 //=require plugins/select2.min
@@ -10,6 +10,7 @@
 //=require plugins/jquery.backgroundpos.pack
 //=require plugins/jquery.color
 //=require plugins/general_functions
+//=require_tree ./editor/views/
 
 //=require editor/AppController
 //=require editor/Models/SourcesOperations

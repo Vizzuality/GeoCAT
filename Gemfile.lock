@@ -38,6 +38,8 @@ GEM
       multi_json (~> 1.0)
     arel (2.2.3)
     awesome_print (1.1.0)
+    backbone-rails (1.0.0.1)
+      rails (>= 3.0.0)
     biodiversity (3.1.2)
       parallel
       parallel (~> 0.6)
@@ -56,6 +58,7 @@ GEM
       capistrano (>= 1.0.0)
     csv-mapper (0.5.1)
       fastercsv
+    ejs (1.1.1)
     erubis (2.7.0)
     fastercsv (1.5.5)
     flickraw (0.8.2)
@@ -141,11 +144,13 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   awesome_print
+  backbone-rails
   bundler
   capistrano
   capistrano-ext
   csv-mapper
   dwc-archive!
+  ejs (~> 1.1.1)
   flickraw (= 0.8.2)
   htmlentities
   json
