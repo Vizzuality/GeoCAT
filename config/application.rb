@@ -7,7 +7,7 @@ require './lib/geocat_data_importer'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+Bundler.require(:default, :assets, Rails.env) if defined?(Bundler)
 
 module GeocatApp
   class Application < Rails::Application
@@ -48,7 +48,7 @@ module GeocatApp
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.initialize_on_precompile = false
+
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     # Default setting is [/\w+\.(?!js|css).+/, /application.(css|js)$/]
 
@@ -64,9 +64,6 @@ module GeocatApp
       print.css
       select2.css
     ]
-
-    # config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif *.ico]
-    # config.assets.precompile += %w[*.eot *.svg *.ttf *.otf *.woff]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
