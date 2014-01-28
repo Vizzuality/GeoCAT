@@ -89,7 +89,7 @@
           context.closePath();
           context.fill();
 
-          if (this.data.geocat_changed) {
+          if (this.data.geocat_changed && this.data.geocat_kind !== "user") {
             context.beginPath();
             context.arc(18,4,3,0,Math.PI*2,false);
             context.fillStyle = "#FFF";
