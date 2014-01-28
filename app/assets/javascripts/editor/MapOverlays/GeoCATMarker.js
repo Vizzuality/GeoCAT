@@ -45,27 +45,7 @@
           canvas.setAttribute('width',22);
           canvas.setAttribute('height',22);
           
-          if (canvas.getContext) {
-            var context = canvas.getContext('2d');
-            context.fillStyle = "rgba(255,255,255,0.75)";
-            context.beginPath();
-            context.arc(11,11,11,0,Math.PI*2,false);
-            context.fill();
-            if (this.data.geocat_kind == "flickr") {
-              context.fillStyle = "#FF3399"; //pink
-            } else if (this.data.geocat_kind == "gbif") {
-              context.fillStyle = "#99CC00"; //green
-            } else {
-              context.fillStyle = "#066FB6"; //blue
-            }
-            context.beginPath();
-            context.arc(11,11,8,0,Math.PI*2,false);
-            context.closePath();
-            context.fill();
-          } else {
-            canvas.style.background = 'url('+this.image+') no-repeat 0 0';
-          }
-
+          this.redraw();
           this._bindEvents();
 
           var panes = this.getPanes();
@@ -84,20 +64,26 @@
 
       GeoCATMarker.prototype.redraw = function() {
         var canvas = this.canvas_;
-          
-        if (canvas && canvas.getContext) {
+        
+        if (!canvas) return;
+
+        if (canvas.getContext) {
           var context = canvas.getContext('2d');
+          var color = '';
+
+          if (this.data.geocat_kind == "flickr") {
+            color = "#FF3399"; //pink
+          } else if (this.data.geocat_kind == "gbif") {
+            color = "#99CC00"; //green
+          } else {
+            color = "#066FB6"; //blue
+          }
+
           context.fillStyle = "rgba(255,255,255,0.75)";
           context.beginPath();
           context.arc(11,11,11,0,Math.PI*2,false);
           context.fill();
-          if (this.data.geocat_kind == "flickr") {
-            context.fillStyle = "#FF3399"; //pink
-          } else if (this.data.geocat_kind == "gbif") {
-            context.fillStyle = "#99CC00"; //green
-          } else {
-            context.fillStyle = "#066FB6"; //blue
-          }
+          context.fillStyle = color;
           context.beginPath();
           context.arc(11,11,8,0,Math.PI*2,false);
           context.closePath();
@@ -107,10 +93,14 @@
             context.beginPath();
             context.arc(18,4,3,0,Math.PI*2,false);
             context.fillStyle = "#FFF";
+            context.strokeStyle = color;
+            context.lineWidth = 2;
             context.stroke();
             context.closePath();
             context.fill();
           }
+        } else {
+          canvas.style.background = 'url('+this.image+') no-repeat 0 0';
         }
       }
 
