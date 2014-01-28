@@ -9,45 +9,88 @@
     var layers;                     // LayersCustomization variable
 
 
-		/*============================================================================*/
-		/* DOM loaded.									 																							*/
-		/*============================================================================*/
-		
 
-    window.onload = initApplication;  
-		
-		function initApplication() {		  	
-		
-      mainApp();
-  		createMap();
-  		startSources();
-  		
-      //Adding layers
-      if (!_.isEmpty(upload_information) && upload_information.data) {
-        layers = new LayerCustomization(upload_information.data.layers);
-      } else {
-        layers = new LayerCustomization([]);
-      }
+    $(function() {
 
-      // Adding DWC points?
-      if (upload_information && ( upload_information.species || ( upload_information.errors && !_.isEmpty(upload_information.errors)))) {
-        var species_selector = new SpecieSelector(upload_information);
-      }
+      var App = Backbone.View.extend({
 
-  		//if the application comes through an upload file
-  		if (upload_information.data && upload_information.data.sources!=null) {
-  		  $('div.header h1 p').text(upload_information.data.reportName);
-        $('div.header h1 sup').text('saved');
-  			changeApplicationTo(2);
-  			uploadGeoCAT(upload_information);
-  		} else if (_.isEmpty(upload_information)) {
-  			$('#welcome').show();
-  			// Trick to hide welcome window if user clicks off this container
-  			$('body').click(function(event) {
-  		    if (!$(event.target).closest('#welcome').length) {
-  		      $('#welcome').fadeOut();
-  					$('body').unbind('click');
-  		    };
-  			});
-  		}
-		}
+        el: document.body,
+
+        events: {
+          'click a.layer': '_openLayers'
+        },
+
+        initialize: function() {
+          mainApp();
+          createMap();
+          startSources();
+
+          this._initModels();
+          this._initBinds();
+          this._initViews();
+        },
+
+        _initBinds: function() {
+          _.bindAll(this, '_openLayers');
+        },
+
+        _initModels: function() {
+          // Create custom layers collection
+          layers = new Layers();
+
+          // Model to control custom layers
+          this.map_layers = new MapLayers({
+            layers: layers,
+            map:    map
+          });
+
+          // Add custom layers saved previously
+          if (!_.isEmpty(upload_information) && upload_information.data) {
+            layers.reset(upload_information.data.layers);
+          }
+
+          // Get default custom layers
+          layers.getDefaultLayers();
+        },
+
+        _initViews: function() {
+          
+          // Create custom layer dialog
+          this.layers_view = new LayersView({ collection: layers });
+          this.$el.append(this.layers_view.render().el);
+
+          // Adding DWC points?
+          if (upload_information && ( upload_information.species || ( upload_information.errors && !_.isEmpty(upload_information.errors)))) {
+            var species_selector = new SpecieSelector(upload_information);
+          }
+
+          //if the application comes through an upload file
+          if (upload_information.data && upload_information.data.sources!=null) {
+            $('div.header h1 p').text(upload_information.data.reportName);
+            $('div.header h1 sup').text('saved');
+            changeApplicationTo(2);
+            uploadGeoCAT(upload_information);
+          } else if (_.isEmpty(upload_information)) {
+            $('#welcome').show();
+            // Trick to hide welcome window if user clicks off this container
+            $('body').click(function(event) {
+              if (!$(event.target).closest('#welcome').length) {
+                $('#welcome').fadeOut();
+                // $('body').unbind('click');
+              };
+            });
+          }
+        },
+
+        _openLayers: function(e) {
+          if (e) e.preventDefault();
+          var isVisible = this.layers_view.isVisible();
+          this.layers_view[ isVisible ? 'hide' : 'show'](e);
+        }
+
+      });
+
+      // Application!
+      window.app = new App();
+
+    });

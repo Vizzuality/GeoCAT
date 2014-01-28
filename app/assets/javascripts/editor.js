@@ -1,6 +1,8 @@
 //=require plugins/jquery.min
 //=require plugins/jquery-ui.min
 //=require plugins/underscore
+//=require plugins/backbone.min
+//=require plugins/view
 //=require plugins/boxshadow
 //=require plugins/jquery.json-2.2
 //=require plugins/fileuploader

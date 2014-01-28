@@ -1,0 +1,225 @@
+
+  /**
+   *  Layer dialog styles
+   */
+
+  @import "compass/css3/border-radius";
+  @import "compass/css3/box-shadow";
+  @import "../common/buttons";
+
+
+  #layer_dialog {
+    position:absolute!important;
+    display:none;
+    left:127px; top:185px;
+    width:232px;
+    height:280px;
+    padding:11px 11px 11px 23px;
+    background:url('/assets/editor/layer_bkg.png') no-repeat 0 0;
+    z-index:100;
+
+    .close {
+      position:absolute;
+      top:23px; right:18px;
+      width:16px;
+      height:16px;
+      padding:0;
+      margin:0;
+      background:url('/assets/editor/close_source.png') no-repeat 0 0;
+      text-indent:-9999px;
+      font-size:0;
+      line-height:0;
+
+      &:hover { background-position:0 -16px }
+    }
+    
+    h3 {
+      display:block;
+      padding:14px;
+      height:12px;
+      font:normal 11px "Futura","FuturaStdMedium";
+      color:#666666;
+      text-shadow:0 1px white;
+    }
+
+
+    // List 
+    ul {
+      display:block;
+      height:191px;
+      padding:0;
+      overflow:auto;
+    }
+
+    li {
+      position:relative;
+      margin:0 14px;
+      padding:6px 0 12px;
+      border-bottom:1px solid #BFBFBF;
+      border-top:1px solid #F8F8F8;
+
+      &:first-child { border-top: 0 }
+      &:last-child { border-bottom: 0 }
+      &:hover {
+        cursor:move;
+        a.remove { @include inline-block(); vertical-align:top }
+      }
+
+      // Li elements
+      input {
+        @include inline-block();
+        width:145px;
+        margin:0 0 0 -5px;
+        padding:3px 5px;
+        font:bold 12px Arial;
+        color: #333333;
+        background:white;
+        border:1px solid #999;
+        @include border-radius(4px);
+        outline:none;
+        z-index:2;
+
+        &:hover { cursor:default }
+        &:focus { border-color:#767676 }
+
+        &[readonly] {
+          overflow:hidden;
+          width:auto;
+          margin-left:0;
+          margin-bottom:3px;
+          padding-right:0;
+          padding-left:0;
+          padding-bottom:0;
+          background:none;
+          border:1px solid transparent;
+          text-overflow:ellipsis;
+          white-space:nowrap;
+          &:hover { cursor:pointer }
+        }
+      }
+
+      p {
+        @include inline-block();
+        vertical-align:middle;
+        font:normal 11px Arial;
+        color:#666666;
+
+        a {
+          color:#666;
+          text-decoration:underline;
+          &:hover { color:#333 }
+        }
+      }
+
+      // Remove button
+      a.remove {
+        display:none;
+        vertical-align:top;
+        margin:0 0 0 2px;
+        padding-left:5px;
+        border-left:1px solid #999; 
+      }
+
+      // Add button
+      a.add {
+        @include grey-button();
+        position:absolute;
+        top:22px;
+        right:0;
+        width:45px;
+        padding-left:0;
+        padding-right:0;
+        text-align:center;
+        z-index:1;
+
+        &.selected {
+          border:1px solid #739C29;
+          color:white;
+          text-shadow:0 1px #78A22A;
+          @include background(linear-gradient(#739C29,#A9E13B));
+          &:hover { @include background(linear-gradient(#A9E13B,#739C29)) }
+        }
+      }
+
+      // Slider
+      div.slider {
+        display:block;
+        margin:12px 0 0;
+        height:5px;
+        cursor:pointer;
+        .ui-widget-content { background:#C9C9C9 }
+        .ui-slider-handle { margin-left:-7px }
+      }
+
+      // Li types
+      &.moving {
+        padding:6px 14px 12px;
+        background:white;
+        @include border-radius(6px);
+        @include box-shadow(0 0 10px rgba(0,0,0,0.5));
+        
+        a.add {
+          right:14px;
+        }
+      }
+    }
+
+    // Import form
+    form.import {
+      position:relative;
+      display:block;
+      height:24px;
+      padding:12px 14px;
+      overflow:auto;
+
+      input[type="text"] {
+        float:left;
+        width:139px;
+        margin:0;
+        padding:4px 5px;
+        line-height:14px;
+        border:1px solid #999999;
+        @include border-left-radius(3px);
+        border-right:none;
+        outline:none;
+        @include box-shadow(#C9C9C9 0 1px 0 0);
+        &:focus { border-color:#676767 }
+      }
+
+      input[type="submit"] {
+        @include grey-button();
+        float:left;
+        width:53px;
+        padding:4px 0;
+        line-height:14px;
+        text-align:center;
+        @include border-left-radius(0);
+        border:1px solid #999999;
+        outline:none;
+        @include box-shadow(#C9C9C9 0 1px 0 0);
+        
+        &:hover { cursor:pointer }
+      }
+    }
+
+    // Error report
+    span.error {
+      position:absolute;
+      display:none;
+      left:10px;
+      bottom:-55px;
+      width:206px;
+      height:84px;
+      background:url('/assets/editor/search_not_found_bkg.png') no-repeat 0 0;
+      z-index:1000;
+      
+      p {
+        float:left;
+        width:137px;
+        margin:33px 0 0 55px;
+        font:normal 12px Arial;
+        line-height:15px;
+        color:#333333;
+      }
+    }
+  }

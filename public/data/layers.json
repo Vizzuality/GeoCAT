@@ -6,8 +6,10 @@
       "source_url":"http://protectedplanet.net/",
       "source_name": "ProtectedPlanet",
       "opacity":1,
-      "tms": true,
-      "type": "xyz"
+      "position": 0,
+      "tms": false,
+      "type": "xyz",
+      "common": true
     }
   ]
 }

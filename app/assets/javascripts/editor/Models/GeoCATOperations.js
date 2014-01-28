@@ -73,17 +73,15 @@
 			}
 
 
-			// Add active Layers
+			// Add active custom Layers
 			var added_layers = [];
-			_.each(layers.layers, function(layer,i){
-				if (layer.add) {
-			    var obj = _.clone(layer);
-			    delete obj.layer;
-			    delete obj.add;
-			    obj.url = i;
+			layers.sort().each(function(layer,i){
+				if (layer.get('added')) {
+					var obj = layer.toJSON();
+					delete obj.layer;
 			    added_layers.push(obj);
 			  }
-			})
+			});
 
 			dataset.layers = added_layers;
 

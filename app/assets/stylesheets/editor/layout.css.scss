@@ -543,61 +543,6 @@ div#export_window div.block p {text-align:center; font:normal 13px Arial; color:
 div#export_window div.block a.export {float:left; width:125px; height:13px; padding:6px 0 7px 0; margin:12px 0 0 0; background:url('/assets/editor/export_to_button.png') no-repeat 0 0; text-align:center; font:bold 13px Arial; color:#4D6719; text-shadow:0 1px #B1D47E; text-transform:uppercase;}
 div#export_window div.block a.export:hover {background-position:0 -26px;}
 
-
-/*LAYER WINDOW*/
-div#layer_window {position:absolute!important; display:none; left:-27px; top:185px; width:227px; height:254px; padding:25px 15px 25px 25px; background:url('/assets/editor/layer_bkg.png') no-repeat 0 0; z-index:100;}
-div#layer_window a#layer_close {position:absolute; right:23px; top:23px; background:url('/assets/editor/close_source.png') no-repeat 0 0; width:16px; height:16px; padding:0; margin:0; text-indent:-9999px;}
-div#layer_window a#layer_close:hover {background-position:0 -16px; cursor:pointer;}
-div#layer_window h3 {margin:0 0 0 12px; font:normal 11px "Futura","FuturaStdMedium"; color:#666666; text-shadow:0 1px white;}
-div#layer_window ul {position:relative; display:inline-block; width:227px!important; height:175px; margin:18px 0 0 0; overflow:auto;}
-div#layer_window ul:focus {outline:none;}
-div#layer_window ul .jspContainer{overflow:hidden;position:relative;}
-div#layer_window ul .jspPane{position:absolute;}
-div#layer_window ul .jspVerticalBar{position:absolute!important;top:0;right:1px;width:8px;height:100%;}
-div#layer_window ul .jspHorizontalBar{display:none;}
-div#layer_window ul .jspVerticalBar *,
-div#layer_window ul .jspHorizontalBar *{margin:0;padding:0;}
-div#layer_window ul .jspCap{display:none;}
-div#layer_window ul .jspHorizontalBar .jspCap{float:left;}
-div#layer_window ul .jspTrack{background:#c0c0c0;position:relative; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
-div#layer_window ul .jspDrag{background:#525252;position:relative;top:0;left:0;cursor:pointer; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
-div#layer_window ul .jspHorizontalBar .jspTrack,
-div#layer_window ul .jspHorizontalBar .jspDrag{float:left;height:100%;}
-div#layer_window ul .jspArrow{background:#50506d;text-indent:-20000px;display:block;cursor:pointer;}
-div#layer_window ul .jspArrow.jspDisabled{cursor:default;background:#80808d;}
-div#layer_window ul .jspVerticalBar .jspArrow{height:16px;}
-div#layer_window ul .jspHorizontalBar .jspArrow{width:16px;float:left;height:100%;}
-div#layer_window ul .jspVerticalBar .jspArrow:focus{outline:none;}
-div#layer_window ul .jspCorner{background:#eeeef4;float:left;height:100%;}
-div#layer_window ul * html .jspCorner{margin:0 -3px 0 0;}
-div#layer_window ul li {width:200px; margin:0 0 0 2px; padding:10px; background:url('/assets/editor/layer_list_separator.png') repeat-x 0 bottom;}
-div#layer_window ul li.moving {background:#ffffff; border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -webkit-box-shadow:0 0 10px rgba(0,0,0,0.5);}
-div#layer_window ul li.last {background:none;}
-div#layer_window ul li h4 {width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:bold 13px Arial; color:#333333;}
-div#layer_window ul li span {display:inline-block; width:150px; margin:2px 5px 0 0; }
-div#layer_window ul li span p {display:inline-block; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:normal 12px Arial; color:#666666;}
-div#layer_window ul li span a {display:none;}
-div#layer_window ul li span p a {display:inline; color:#666666}
-div#layer_window ul li span p a:hover {display:inline; color:#333333}
-div#layer_window ul li:hover span a.remove_layer {display:inline-block; float:none; height:auto; width:auto!important; margin:0; padding:0 0 0 5px; font:normal 12px Arial; color:#333333; background:none; border:none;}
-div#layer_window ul li:hover span a.remove_layer:hover {color:#000000;}
-div#layer_window ul li a.add_layer_link {display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/assets/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0;}
-div#layer_window ul li a:hover {background-position:0 -19px;}
-div#layer_window ul li.added a.add_layer_link { display:inline-block; width:45px; height:9px; margin:2px 0 0 0; padding:5px 0; background:url('/assets/editor/layer_button.png') no-repeat 0 0; text-decoration:none; text-align:center; font:bold 9px Arial; color:#666666; text-shadow:0 1px white; line-height:9px; text-indent:0; color:white; text-shadow: 0 1px #78A22A; text-transform:uppercase; background-position:0 -38px; line-height:9px;}
-div#layer_window ul li.added a.add_layer_link:hover {background-position:0 -57px;}
-div#layer_window ul li a.loading {text-indent:-9999px; background:url('/assets/editor/ajax-loader.gif') no-repeat center 0;}
-div#layer_window ul li a.loading:hover {cursor:default; background-position:center 0;}
-div#layer_window ul li div.slider {display:none;}
-div#layer_window ul li.added div.slider {display:none; width:100%; height:5px; margin:6px 0 0 0;}
-div#layer_window form {display:inline-block; width:205px; margin:22px 0 0 12px;}
-div#layer_window form input[type="text"] {float:left; width:134px; height:13px; padding:7px 8px; background:url('/assets/editor/layer_text_input.png') no-repeat 0 0; border:none; font:italic 11px Arial; color:#999999;}
-div#layer_window form input[type="text"]:focus {outline:none;}
-div#layer_window form input[type="submit"] {float:left; width:53px; height:25px; background:url('/assets/editor/layer_submit_input.png') no-repeat 0 0; border:none; text-align:center; font:bold 11px Arial; color:#666666; text-shadow:0 1px white;}
-div#layer_window form input[type="submit"]:hover {background-position:0 -25px; cursor:pointer; color:#333333;}
-div#layer_window span.layer_error {position:absolute; display:none; left:-20px; bottom:-45px; width:206px; height:84px; background:url('/assets/editor/search_not_found_bkg.png') no-repeat 0 0; z-index:1000;}
-div#layer_window span.layer_error p {float:left; width:137px; margin:33px 0 0 55px; font:normal 13px Arial; color:#333333;}
-
-
 /*CSV Error*/
 div#csv_error {position:absolute!important; display:none; width:462px; height:311px; top:50%!important; left:50%; margin:-175px 0 0 -251px!important; padding:20px; background:url('/assets/editor/csv_error_bkg.png') no-repeat 0 0; z-index:101;}
 div#csv_error a.close {position:absolute; right:14px; top:14px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}

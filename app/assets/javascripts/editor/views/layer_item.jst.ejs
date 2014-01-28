@@ -1,0 +1,24 @@
+<div class="head">
+  <form>
+    <input type="text" value="<%= name %>" readonly />
+    <a href="#/add-layer" class="add">Add</a>
+  </form>
+</div>
+<div class="content">
+  <p>
+    <% if (source_name) { %>
+      by
+      <% if (source_url) { %>
+        <a href="<%= source_url %>"><%= source_name %></a>
+      <% } else { %>
+        <%= source_name %>
+      <% } %>
+    <% } %>
+    <% if (!common) { %>
+      <a href="#/remove" class="remove">Remove</a>
+    <% } %>
+  </p>
+</div>
+<div class="foot">
+  <div class="slider"></div>
+</div>

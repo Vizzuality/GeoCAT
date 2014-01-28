@@ -1,0 +1,26 @@
+
+  /**
+   *  Buttons for GeoCAT
+   */
+
+  @import "compass/css3/inline-block";
+  @import "compass/css3/box-shadow";
+  @import "compass/css3/images";
+  @import "compass/css3/border-radius";
+
+  @mixin grey-button() {
+    @include inline-block();
+    padding:4px 12px;
+    font:bold 9px Arial;
+    color:#666666;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-shadow:0 1px white;
+    @include box-shadow(white 0 1px 0 0);
+    border:1px solid #999999;
+    @include border-radius(3px);
+    @include background(linear-gradient(#FFFFFF,#CCCCCC));
+
+    &:hover { @include background(linear-gradient(#FFF,#AAA)) }
+    &:active { @include background(linear-gradient(#AAA,#FFF)) }
+  }

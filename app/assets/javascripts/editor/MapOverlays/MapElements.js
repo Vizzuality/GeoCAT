@@ -92,21 +92,6 @@
           '<span class="tool"></span>' +
           '<span class="download"></span>' +
           '<span id="analysis_help"></span>' +
-        '</div>'+
-
-
-        '<!-- Layers window -->' +
-        '<div id="layer_window">' +
-          '<a onclick="closeLayers(event)" id="layer_close">close</a>'+
-          '<h3>LAYERS OVERLAY</h3>' +
-          '<ul></ul>' +
-          '<form id="import_layer">' +
-            '<input type="text" value="Add source from URL..." />' +
-            '<input type="submit" value="Import" />' +
-          '</form>' +
-          '<span class="layer_error">' +
-            '<p>Ops! It looks like your location doesn’t exists</p>' +
-          '</span>' +
         '</div>'
         );
     });
