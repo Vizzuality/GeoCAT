@@ -5,3 +5,4 @@ tmp/**/*
 public/assets/
 .sass-cache/
 public/javascripts/editor/.DS_Store
+TODO.md
