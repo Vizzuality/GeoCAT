@@ -53,7 +53,7 @@
 				points = new PointsOperations();  		          // Points Object
 				convex_hull = new HullOperations(map);					// Convex Hull Object
 				actions = new UnredoOperations();								// Un-Re-Do Object
-        edit_metadata = new GapsOverlay(new google.maps.LatLng(0,0), null, map);
+        edit_metadata = new MetadataInfowindow(new google.maps.LatLng(0,0), null, map);
 
 
 				selection_polygon = new google.maps.Polygon({

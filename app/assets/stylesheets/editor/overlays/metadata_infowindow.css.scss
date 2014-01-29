@@ -1,0 +1,14 @@
+
+  /**
+   *  Delete infowindow overlay styles
+   */
+
+  @import "compass/css3/opacity";
+  @import "compass/css3/inline-block";
+  @import "compass/css3/images";
+
+  .metadata_infowindow {
+    position:absolute;
+    display:none;
+    @include background(url('/assets/editor/gaps_bkg.png') no-repeat 0 0);
+  }
