@@ -6,9 +6,148 @@
   @import "compass/css3/opacity";
   @import "compass/css3/inline-block";
   @import "compass/css3/images";
+  @import "compass/css3/border-radius";
+  @import "../../common/mixins";
 
   .metadata_infowindow {
     position:absolute;
     display:none;
+    margin:0;
+    
     @include background(url('/assets/editor/gaps_bkg.png') no-repeat 0 0);
+
+    div.inner {
+      padding:22px 22px 0 33px;  
+    }
+
+    h3 {
+      display:block;
+      margin:0 0 11px 0;
+      font:bold 11px Arial;
+      color:#666666;
+    }
+
+    a.close {
+      position:absolute;
+      right:1px; top:1px;
+      width:21px;
+      height:21px;
+      background:url('/assets/editor/close_infowindow.png') no-repeat 0 0;
+      &:hover { background-position: 0 -21px }
+    }
+
+    .url {
+      position:absolute;
+      right:0;
+      top:0;
+      line-height:12px;
+      font:normal 10px Arial;
+      color:#888888;
+      text-decoration: underline;
+      
+      &:hover,
+      &:focus { color:#555 }
+    }
+
+    div.slider {
+      margin-top:3px;
+      height:5px;
+      .ui-widget-content { background:#C9C9C9 }
+      .ui-slider-handle { margin-left:-7px }
+    }
+
+    .slider_value {
+      position:absolute;
+      right:0;
+      top:0;
+      font:normal 10px Arial;
+      color:#F99600;
+    }
+
+
+    // Form fields
+    .row {
+      overflow:auto;
+      padding-bottom:8px;
+
+      &:first-child { padding-top:8px }
+    }
+
+    label {
+      display:block;
+      padding:0 0 2px 2px;
+      font:normal 10px Arial;
+      color:#888888;
+      line-height:11px;
+    }
+
+    input.text {
+      position:relative;
+      padding:0 5px;
+      height:22px;
+      line-height:22px;
+      font:normal 11px Arial;
+      color:#666666;
+      border:1px solid #CACACA;
+      @include border-radius(3px);
+      @include background(linear-gradient(#EBEBEB, #FFF));
+      outline:none;
+
+      &:focus { border-color:#999 }
+    }
+
+    .field {
+      position:relative;
+      float:left;
+      @include inline-block();
+      margin:0 10px 0 0;
+      vertical-align:top;
+
+      &.error {
+        border-color:rgba(red,0.6);
+      }
+
+      &:last-child { margin-right:0 }
+    }
+
+    .field-1 {
+      width:102px;
+      input.text { width:90px }
+    }
+
+    .field-2 {
+      width:214px;
+      input.text { width:202px } 
+    }
+
+    .field-3 {
+      width:326px;
+      input.text { width:314px } 
+    }
+
+    .cancel {
+      float:left;
+      margin-top:7px;
+      font:normal 11px Arial;
+      color:#666;
+      text-decoration:underline;
+      &:hover { color:#333 }
+    }
+
+    input.submit {
+      float:right;
+      width:89px;
+      height:19px;
+      margin-top:3px;
+      background:url('/assets/editor/save_changes_metadata.png') no-repeat 0 0;
+      border:none;
+      text-indent:-9999px;
+      font-size:0;
+      line-height:0;
+
+      &:hover {
+        cursor:pointer;
+        background-position:0 -19px;
+      }
+    }
   }

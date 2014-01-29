@@ -1,122 +1,124 @@
-<a class="close"></a>
-<h3>EDITING METADATA</h3>
-<form class="metadata">
-  
-  <div class="row">
-    <div class="field field-1">
-      <label>LATITUDE</label>
-      <input type="text" value="<%= latitude %>" class="text" id="metadata_latitude" data-validation="number empty" />
+<div class="inner">
+  <a class="close"></a>
+  <h3>EDITING METADATA</h3>
+  <form class="metadata">
+    
+    <div class="row">
+      <div class="field field-1">
+        <label>LATITUDE</label>
+        <input type="text" value="<%= latitude %>" class="text" id="metadata_latitude" data-validation="number empty" />
+      </div>
+      <div class="field field-1">
+        <label>LONGITUDE</label>
+        <input type="text" class="text" value="<%= longitude %>" id="metadata_longitude" data-validation="number empty" />
+      </div>
     </div>
-    <div class="field field-1">
-      <label>LONGITUDE</label>
-      <input type="text" class="text" value="<%= longitude %>" id="metadata_longitude" data-validation="number empty" />
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-2">
-      <label>COLLECTOR</label>
-      <input type="text" class="text" id="metadata_collector" value="<%= collector %>" />
+    <div class="row">
+      <div class="field field-2">
+        <label>COLLECTOR</label>
+        <input type="text" class="text" id="metadata_collector" value="<%= collector %>" />
+      </div>
+      <div class="field field-1">
+        <label>COLLECT. NUMBER</label>
+        <input type="text" class="text" value="<%= collectorNumber %>" id="metadata_collector_number" data-validation="number" />
+      </div>
     </div>
-    <div class="field field-1">
-      <label>CATALOG NUMBER</label>
-      <input type="text" class="text" value="<%= collectorNumber %>" id="metadata_collector_number" data-validation="number" />
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-2">
-      <label>LOCALITY</label>
-      <input type="text" class="text" value="<%= locality %>" id="metadata_locality" />
+    <div class="row">
+      <div class="field field-2">
+        <label>LOCALITY</label>
+        <input type="text" class="text" value="<%= locality %>" id="metadata_locality" />
+      </div>
+      <div class="field field-1">
+        <label>REPOR. PRECISION</label>
+        <input type="text" class="text" value="<%= coordinateUncertaintyInMeters %>"  id="metadata_coordinateUncertaintyInMeters" />
+      </div>
     </div>
-    <div class="field field-1">
-      <label>REPOR. PRECISION</label>
-      <input type="text" class="text" value="<%= coordinateUncertaintyInMeters %>"  id="metadata_coordinateUncertaintyInMeters" />
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-1">
-      <label>COUNTRY</label>
-      <input type="text" class="text" value="<%= country %>" id="metadata_country" />
+    <div class="row">
+      <div class="field field-1">
+        <label>COUNTRY</label>
+        <input type="text" class="text" value="<%= country %>" id="metadata_country" />
+      </div>
+      <div class="field field-1">
+        <label>STATE/PROVINCE</label>
+        <input type="text" class="text" value="<%= stateProvince %>" id="metadata_stateProvince" />
+      </div>
+      <div class="field field-1">
+        <label>COUNTY</label>
+        <input type="text" class="text" value="<%= county %>" id="metadata_county" />
+      </div>
     </div>
-    <div class="field field-1">
-      <label>STATE/PROVINCE</label>
-      <input type="text" class="text" value="<%= stateProvince %>" id="metadata_stateProvince" />
-    </div>
-    <div class="field field-1">
-      <label>COUNTY</label>
-      <input type="text" class="text" value="<%= county %>" id="metadata_county" />
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-1">
-      <label>COLLECTION CODE</label>
-      <input type="text" class="text" value="<%= collectionCode %>" id="metadata_collectionCode" />
+    <div class="row">
+      <div class="field field-1">
+        <label>COLLECTION CODE</label>
+        <input type="text" class="text" value="<%= collectionCode %>" id="metadata_collectionCode" />
+      </div>
+      <div class="field field-1">
+        <label>INSTITUTION CODE</label>
+        <input type="text" class="text" value="<%= institutionCode %>" id="metadata_institutionCode" />
+      </div>
+      <div class="field field-1">
+        <label>CATALOG NUMBER</label>
+        <input type="text" class="text" value="<%= catalogNumber %>" id="metadata_catalogNumber" />
+      </div>
     </div>
-    <div class="field field-1">
-      <label>INSTITUTION CODE</label>
-      <input type="text" class="text" value="<%= institutionCode %>" id="metadata_institutionCode" />
-    </div>
-    <div class="field field-1">
-      <label>CATALOG NUMBER</label>
-      <input type="text" class="text" value="<%= catalogNumber %>" id="metadata_catalogNumber" />
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-1">
-      <label>ALTITUDE</label>
-      <input type="text" class="text" value="<%= verbatimElevation %>" id="metadata_verbatimElevation" data-validation="number" />
+    <div class="row">
+      <div class="field field-1">
+        <label>ALTITUDE</label>
+        <input type="text" class="text" value="<%= verbatimElevation %>" id="metadata_verbatimElevation" data-validation="number" />
+      </div>
+      <div class="field field-1">
+        <label>DATE COLLECTED</label>
+        <input type="text" class="text" value="<%= eventDate %>" id="metadata_eventDate" data-validation="date" />
+      </div>
     </div>
-    <div class="field field-1">
-      <label>DATE COLLECTED</label>
-      <input type="text" class="text" value="<%= eventDate %>" id="metadata_eventDate" data-validation="date" />
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-2">
-      <label>IDENTIFIER</label>
-      <input type="text" class="text" value="<%= identifiedBy %>" id="metadata_identifiedBy" />
+    <div class="row">
+      <div class="field field-2">
+        <label>IDENTIFIER</label>
+        <input type="text" class="text" value="<%= identifiedBy %>" id="metadata_identifiedBy" />
+      </div>
+      <div class="field field-1">
+        <label>BASIS OF RECORD</label>
+        <input type="text" class="text" value="<%= basisOfRecord %>" id="metadata_basisOfRecord" />
+      </div>
     </div>
-    <div class="field field-1">
-      <label>BASIS OF RECORD</label>
-      <input type="text" class="text" value="<%= basisOfRecord %>" id="metadata_basisOfRecord" />
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-3">
-      <label>NOTES</label>
-      <input type="text" class="text" value="<%= occurrenceRemarks %>" id="metadata_occurrenceRemarks" />
+    <div class="row">
+      <div class="field field-3">
+        <label>NOTES</label>
+        <input type="text" class="text" value="<%= occurrenceRemarks %>" id="metadata_occurrenceRemarks" />
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-3">
-      <label>URL</label>
-      <a href="<%= occurrenceDetails %>">Visit URL</a>
-      <input type="text" class="text" value="<%= occurrenceDetails %>" id="metadata_occurrenceDetails" />
+    <div class="row">
+      <div class="field field-3">
+        <label>URL</label>
+        <a class="url" target="_blank" href="<%= occurrenceDetails %>">Visit URL</a>
+        <input type="text" class="text" value="<%= occurrenceDetails %>" id="metadata_occurrenceDetails" />
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-3">
-      <label>
-        MAP PRECISION
-        <span class="slider_value">0KM</span>
-      </label>
-      <div class="slider"></div>
+    <div class="row">
+      <div class="field field-3">
+        <label>
+          MAP PRECISION
+          <span class="slider_value">0KM</span>
+        </label>
+        <div class="slider"></div>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="field field-3">
-      <a class="cancel" href="#/cancel">Cancel</a>
-      <input type="submit" class="submit" value="Save changes" />
+    <div class="row">
+      <div class="field field-3">
+        <a class="cancel" href="#/cancel">Cancel</a>
+        <input type="submit" class="submit" value="Save changes" />
+      </div>
     </div>
-  </div>
 
-</form>
+  </form>
+</div>

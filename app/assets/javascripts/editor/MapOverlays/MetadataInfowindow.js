@@ -220,6 +220,8 @@
       },
 
       hide: function(e) {
+        if (e) e.preventDefault();
+
         var div = this.model.get('div');
         if (div) $(div).fadeOut();
         this.model.set('visible', false);
