@@ -32,6 +32,7 @@ class GbifController < ApplicationController
         @collectionCode                = node.xpath("to:collectionCode").text
         @catalogNumber                 = node.xpath("to:catalogNumber").text
         @basisOfRecord                 = node.xpath("to:basisOfRecordString").text
+        @collectorNumber               = ""
         @recordedBy                    = node.xpath("to:collector").text
         @eventDate                     = node.xpath("to:earliestDateCollected").text
         @country                       = node.xpath("to:country").text
@@ -66,6 +67,7 @@ class GbifController < ApplicationController
           "occurrenceRemarks"             => @occurrenceRemarks,
           "occurrenceDetails"             => @occurrenceDetails,
           "collector"                     => @recordedBy,
+          "collectorNumber"               => @collectorNumber,
           "catalogue_id"                  => "gbif_#{@institutionCode}-#{@collectionCode}-#{@catalogNumber}",
           "geocat_active"                 => true,
           "geocat_removed"                => false,

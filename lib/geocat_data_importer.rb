@@ -77,6 +77,7 @@ module GeocatDataImporter
             'longitude'                     => point['longitude'],
             'changed'                       => point['changed'],
             'collector'                     => point['collector'],
+            'collectorNumber'               => point['collectorNumber'],
             'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
             'catalogue_id'                  => point['catalogue_id'],
             'collectionCode'                => point['collectionCode'],
