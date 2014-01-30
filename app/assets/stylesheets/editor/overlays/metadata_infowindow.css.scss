@@ -67,10 +67,8 @@
 
     // Form fields
     .row {
-      overflow:auto;
-      padding-bottom:8px;
-
-      &:first-child { padding-top:8px }
+      position:inherit!important;
+      overflow:visible;
     }
 
     label {
@@ -94,18 +92,20 @@
       outline:none;
 
       &:focus { border-color:#999 }
+
+      &.error {
+        color:rgba(red,0.7);
+        border-color:rgba(red,0.4);
+        &:focus { border-color:rgba(red,0.6) }
+      }
     }
 
     .field {
       position:relative;
       float:left;
       @include inline-block();
-      margin:0 10px 0 0;
+      margin:8px 10px 0 0;
       vertical-align:top;
-
-      &.error {
-        border-color:rgba(red,0.6);
-      }
 
       &:last-child { margin-right:0 }
     }
@@ -144,10 +144,30 @@
       text-indent:-9999px;
       font-size:0;
       line-height:0;
+      outline:none;
 
       &:hover {
         cursor:pointer;
         background-position:0 -19px;
+      }
+    }
+
+    span.error {
+      position:absolute;
+      display:none;
+      margin:31px 0 0 -50px;
+      width:206px;
+      height:84px;
+      background:url('/assets/editor/search_not_found_bkg.png') no-repeat 0 0;
+      z-index:1000;
+      
+      p {
+        float:left;
+        width:137px;
+        margin:33px 0 0 55px;
+        font:normal 12px Arial;
+        line-height:15px;
+        color:#333333;
       }
     }
   }

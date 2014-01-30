@@ -68,6 +68,7 @@
           if (upload_information.data && upload_information.data.sources!=null) {
             $('div.header h1 p').text(upload_information.data.reportName);
             $('div.header h1 sup').text('saved');
+            document.title = "GeoCAT - " + upload_information.data.reportName;
             changeApplicationTo(2);
             uploadGeoCAT(upload_information);
           } else if (_.isEmpty(upload_information)) {

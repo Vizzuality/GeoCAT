@@ -10,6 +10,12 @@
     var MetadataModel = Backbone.Model.extend({
 
       defaults: {
+        geocat_active: true,
+        geocat_changed: false,
+        geocat_kind: 'user',
+        geocat_query: '',
+        geocat_removed: false,
+        catalogue_id: '',
         latitude: '',
         longitude: '',
         collectionCode: '',
@@ -54,6 +60,8 @@
         data:             new MetadataModel(info)
       });
 
+      _.bindAll(this, 'changeDistance', 'save', 'hide', 'submit');
+
       this.setMap(map);
     }
 
@@ -89,6 +97,7 @@
         this.unBindEvents();
         $(div).html(JST['editor/views/metadata_infowindow'](data))
         this.bindEvents();
+        this.setDistance();
       },
 
       remove: function() {
@@ -104,18 +113,17 @@
       bindEvents: function() {
         var div = this.model.get('div');
         var self = this;
-
-        _.bindAll(this, 'changeDistance', 'save', 'hide');
         
-        $(div).find('.save').bind('click', this.save);
+        $(div).find('form').bind('submit', this.submit);
+        $(div).find('.save').bind('click', this.submit);
         $(div).find('a.close, a.cancel').bind('click', this.hide);
         
         $(div).find("div.slider").slider({
           range:  "min",
-          value:  11,
+          value:  10,
           min:    1,
           max:    60,
-          update: self.changeDistance
+          slide:  self.changeDistance
         });
 
         $(div).bind('mousedown', this.stopPropagation);
@@ -124,8 +132,9 @@
 
       unBindEvents: function() {
         var div = this.model.get('div');
-        $(div).find('.save').unbind('click');
-        $(div).find('a.close, a.cancel').unbind('click');
+        $(div).find('.save').unbind('click', this.submit);
+        $(div).find('form').unbind('submit', this.submit);
+        $(div).find('a.close, a.cancel').unbind('click', this.hide);
         $(div).find("div.slider").slider('destroy');
         $(div).unbind('mousedown', this.stopPropagation);
         $(div).unbind('dblclick', this.stopPropagation);
@@ -135,23 +144,36 @@
         try { ev.stopPropagation() } catch(e) { ev.cancelBubble=true }
       },
 
+      setDistance: function() {
+        var div = this.model.get('div');
+        var meters = this.model.get('data').get('coordinateUncertaintyInMeters');
+
+        //Value
+        var km_value;
+        if (meters !== "") {
+          km_value = ( meters < 1100 ) ? ( meters / 100 ) : (( meters / 1000 ) + 10);
+        } else {
+          km_value = 10;
+        }
+
+        $(div).find('div.slider').slider({ value: km_value });
+        
+        var metric = (km_value < 11) ? 'M' : 'KM';
+        var value_showed = (km_value < 11) ? km_value * 100 : (km_value-10);
+        $(div).find('.slider_value').html(value_showed + metric);
+      },
+
       changeDistance: function(e, ui) {
         var div = this.model.get('div');
-        var value = (ui.value < 11) ? ui.value*100 : (ui.value-10)*1000;
         var metric = (ui.value<11) ? 'M' : 'KM';
         var value_showed = (ui.value<11) ? ui.value*100 : (ui.value-10);
-        
-        // NOOOOO, global :(
-        var marker_id = this.model.get('marker_id');
-        occurrences[marker_id].set('distance',value);
-        occurrences[marker_id].data.coordinateUncertaintyInMeters = value;
-        
         $(div).find('.slider_value').html(value_showed + metric);
       },
 
       changePosition: function(latlng,marker_id,opt) {
         // Clean old data model
         var data = this.model.get('data');
+        data.clear();
         data.destroy();
 
         delete data;
@@ -186,10 +208,138 @@
         }
       },
 
+      checkFields: function() {
+        var errors = []
+        var div = this.model.get('div');
+
+        $(div).find('form input[data-validation]').each(function(i,el) {
+          var validations = $(el).data('validation').split(' ');
+          var _id = $(el).attr('id');
+          var value = $(el).val();
+          var error = "";
+
+          if (!_.isEmpty(value) && _.contains(validations, 'date')) {
+            if (!value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/)) {
+              error = "Date is not valid, it should be yyyy-mm-dd"
+            }
+          }
+
+          if (!_.isEmpty(value) && _.contains(validations, 'url')) {
+            if (value.search('http://') != 0 && value.search('https://') != 0) {
+              error = "Value is not a valid url"
+            }
+          }
+
+          if (!_.isEmpty(value) && _.contains(validations, 'number')) {
+            if (!(!isNaN(parseFloat(value)) && isFinite(value))) {
+              error = "Value is not valid, it has to be a number"
+            }
+          }
+
+          if (_.contains(validations, 'empty')) {
+            if (value.replace(/ /,'') === "") {
+              error = "Value can't be empty"
+            }
+          }
+
+          // Set error :(
+          if (error) {
+            errors.push({ id: _id, error: error })
+            $(el).addClass('error');
+          } else {
+            $(el).removeClass('error');
+          }
+
+        });
+
+        return errors;
+      },
+
+      submit: function(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        
+        var errors = this.checkFields();
+        if (errors.length == 0) {
+          this.hideError();
+          this.save();
+          this.hide();
+        } else {
+          this.showError(errors[0]);
+        }
+      },
 
       save: function() {
+        var div = this.model.get('div');
+        var marker_id = this.model.get('marker_id');
+        var old_data = this.model.get('data').toJSON();
 
+        // Get new data
+        var new_data = {};
+        // All fields
+        _.each(old_data, function(val,i){
+          var $field = $(div).find('#metadata_' + i);
+          
+          if ($field.length == 0) {
+            // console.log('not found ' + i + ' in metadata :(');
+          } else {
+            var value = $field.val();
+            new_data[i] = value;
+          }
+          
+        });
+
+        // slider value == coordinateUncertaintyInMeters
+        var slider_value = $(div).find('.slider').slider("value");
+        var meters = (slider_value < 11) ? slider_value * 100 : (slider_value - 10) * 1000;
+        new_data.coordinateUncertaintyInMeters = meters;
+
+        // Geocat changed?
+        new_data.geocat_changed = true;
+
+        // Extend new_data from old_data
+        new_data = _.extend(_.clone(old_data), new_data);
+
+        occurrences[marker_id].redraw();
+        occurrences[marker_id].data = new_data;
+        occurrences[marker_id].setPosition(new google.maps.LatLng(new_data.latitude,new_data.longitude));
+        // occurrences[marker_id].set('distance', new_data.coordinateUncertaintyInMeters);
+        
+        if (convex_hull.isVisible()) {
+          $(document).trigger('occs_updated');
+        }
+        this.hide();
+      
+        actions.Do('edit',
+          [{ catalogue_id: marker_id, info: old_data }],
+          [{ catalogue_id: marker_id, info: new_data }]
+        );
       },
+
+
+      hideError: function() {
+        var div = this.model.get('div');
+        $(div).find('span.error').stop().fadeOut();
+      },
+
+      showError: function(error) {
+        var div = this.model.get('div');
+        // Positionate error
+        var pos = $(div).find("#" + error.id).closest('.field').position();
+
+        // Show it
+        $(div).find('span.error')
+          .css({
+            top:  pos.top,
+            left: pos.left
+          })
+          .find('p').text(error.error)
+          .parent()
+          .stop()
+          .fadeIn()
+          .delay(3000)
+          .fadeOut();
+      },
+
 
       transformCoordinates: function(point) {
         return this.getProjection().fromContainerPixelToLatLng(point);
@@ -224,6 +374,7 @@
 
         var div = this.model.get('div');
         if (div) $(div).fadeOut();
+        this.hideError();
         this.model.set('visible', false);
       },
 

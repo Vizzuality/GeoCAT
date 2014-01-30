@@ -174,11 +174,19 @@
 
         
 				//Marker Precision/Accuracy
-				if (this.inf.coordinateUncertaintyInMeters<1000 || this.inf.coordinateUncertaintyInMeters==null) {
-          var km_value = 1000;
-        } else {
-          var km_value = this.inf.coordinateUncertaintyInMeters/1000;
-        }
+				// if (this.inf.coordinateUncertaintyInMeters<1000 || this.inf.coordinateUncertaintyInMeters==null) {
+    //       var km_value = 1000;
+    //     } else {
+    //       var km_value = this.inf.coordinateUncertaintyInMeters/1000;
+    //     }
+
+        var meters = this.inf.coordinateUncertaintyInMeters;
+				var km_value;
+	      if (meters !== "") {
+	        km_value = ( meters < 1100 ) ? ( meters / 100 ) : (( meters / 1000 ) + 10);
+	      } else {
+	        km_value = 10;
+	      }
         
 				var precision = document.createElement('p');
 				$(precision).addClass('precision');
@@ -188,7 +196,9 @@
 				precision.style.margin = "0";
 				precision.style.font = "bold 10px Arial";
 				precision.style.color = "#F4A939";
-				$(precision).text(km_value+'KM');
+				var metric = (km_value < 11) ? 'M' : 'KM';
+	      var value_showed = (km_value < 11) ? km_value * 100 : (km_value-10);
+				$(precision).text(value_showed + metric);
 				div.appendChild(precision);
 				
 				var precision_slider = document.createElement('div');
@@ -298,7 +308,7 @@
 						var value = (ui.value<11)?ui.value*100:(ui.value-10)*1000;
 						var metric = (ui.value<11)?'M':'KM';
 						var value_showed = (ui.value<11)?ui.value*100:(ui.value-10);
-						occurrences[me.marker_id].set('distance',value);
+						// occurrences[me.marker_id].set('distance',value);
 						occurrences[me.marker_id].data.coordinateUncertaintyInMeters = value;
 						$(div).find('p.precision').html(value_showed + metric);
 					}
@@ -393,18 +403,24 @@
   			$(div).find('p.collector').text(this.inf.collector);
 			}
 
-			var value_;
-			if (this.inf.coordinateUncertaintyInMeters) {
-			  value_ = (this.inf.coordinateUncertaintyInMeters<1000)?this.inf.coordinateUncertaintyInMeters/100:this.inf.coordinateUncertaintyInMeters/1000;
-			} else {
-			  value_ = 1000;
-			  this.inf.coordinateUncertaintyInMeters = 1000;
-			}
-			var metric_ = (this.inf.coordinateUncertaintyInMeters<1000)?'M':'KM';
-			var value_showed = (this.inf.coordinateUncertaintyInMeters<1000)?this.inf.coordinateUncertaintyInMeters:this.inf.coordinateUncertaintyInMeters/1000;
+			// Slider
+			var meters = this.inf.coordinateUncertaintyInMeters;
+			var km_value;
+      if (meters !== "") {
+        km_value = ( meters < 1100 ) ? ( meters / 100 ) : (( meters / 1000 ) + 10);
+      } else {
+        km_value = 10;
+      }
 
-			$(div).find('p.precision').text(value_showed + metric_);
-			$("div#precision_slider").slider({value: value_});
+      $("div#precision_slider").slider({ value: km_value });
+      
+      var metric = (km_value < 11) ? 'M' : 'KM';
+      var value_showed = (km_value < 11) ? km_value * 100 : (km_value-10);
+
+      $(div).find('p.precision').text(value_showed + metric);
+			$("div#precision_slider").slider({ value: km_value });
+			// End slider
+
 				
 			this.moveMaptoOpen();	
 			
