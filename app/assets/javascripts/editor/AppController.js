@@ -65,6 +65,12 @@
             var species_selector = new SpecieSelector(upload_information);
           }
 
+          // IE?
+          if ($.browser.msie) {
+            var ie = new IEbar();
+            this.$el.append(ie.render().el);
+          }
+
           // Create welcome window
           modals.welcome = new WelcomeDialog();
           this.$('div.center-map').append(modals.welcome.render().el);
