@@ -13,4 +13,5 @@
 //=require plugins/jquery.color
 //=require plugins/general_functions
 //=require plugins/tileoverlay
+//=require plugins/oms.min
 //=require_tree ./editor

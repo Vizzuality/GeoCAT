@@ -31,7 +31,6 @@
 
 
 			function createMap() {
-				
 				//initialize map
 			  var myOptions = {
 			    zoom: 2,
@@ -44,9 +43,29 @@
 			  }
 
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
-			  			  
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
+        oms = new OverlappingMarkerSpiderfier(map, { markersWontMove: true, markersWontHide: true });
+        
+        oms.addListener('click', function(marker) {
+          console.log("click");
+        });
+        
+        oms.addListener('spiderfy', function(markers) {
+          for(var i = 0; i < markers.length; i ++) {
+            // markers[i].setIcon(iconWithColor(spiderfiedColor));
+            // markers[i].setShadow(null);
+          }
+          console.log("spiderfy");
+        });
+        oms.addListener('unspiderfy', function(markers) {
+          for(var i = 0; i < markers.length; i ++) {
+            // markers[i].setIcon(iconWithColor(usualColor));
+            // markers[i].setShadow(shadow);
+          }
+          console.log("unspiderfy");
+        });
+
 
         
 				google.maps.event.clearListeners(map, 'tilesloaded');
@@ -285,6 +304,7 @@
               bounds.extend(latlng);
 	
               var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+              oms.addMarker(marker)
 
               occurrences[marker.data.catalogue_id] = marker;
               occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
@@ -309,6 +329,7 @@
 								info_data.catalogue_id = 'user_' + global_id;
 								
 								var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+                oms.addMarker(marker)
 
 	              occurrences[marker.data.catalogue_id] = marker;
 	              occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
@@ -519,6 +540,7 @@
 					inf.latitude = latlng.lat();
 					inf.longitude = latlng.lng();
 					var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
+          oms.addMarker(marker);
 
 					points.add('','user');
 					bounds.extend(latlng);
