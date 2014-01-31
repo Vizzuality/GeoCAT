@@ -44,7 +44,7 @@
 						$('div.analysis_data').stop().animate({height: '144px'}, 'fast',function(ev){$(this).css('overflow','auto');});
 						$('#analysis_help').css('background','url(/assets/editor/analysis_help2.png) no-repeat -2px 0');
 					} else {
-					  $('body').unbind('click');
+					  // $('body').unbind('click');
 					  $('ul#sources_list').stop().animate({top: '115px'},'fast');
 						closeConvexHull();
 						$(this).addClass('disabled');
@@ -92,7 +92,7 @@
 			
 				//Close Cellsize
 				$("div.cellsize a.done").click(function(){
-				  $('body').unbind('click');
+				  // $('body').unbind('click');
 				  $('div.cellsize').fadeOut();
 				});
 			
@@ -103,7 +103,7 @@
 				  $('body').click(function(event) {
   				  if (!$(event.target).closest('div.cellsize').length) {
   				    $('div.cellsize').fadeOut();
-  						$('body').unbind('click');
+  						// $('body').unbind('click');
   				  };
   				});
 				  $('div.cellsize').fadeIn();
