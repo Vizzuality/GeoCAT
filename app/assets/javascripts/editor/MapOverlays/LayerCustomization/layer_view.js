@@ -15,7 +15,7 @@
       'click input':          'killEvent',
       'focusout input':       '_finishEdit',
       'click .add':           '_onAddClick',
-      'slidechange .slider':  '_onSlideChange',
+      'slide .slider':        '_onSlideChange',
       'submit form':          '_onSubmit',
       'click .remove':        '_onRemove'
     },

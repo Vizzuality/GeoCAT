@@ -21,9 +21,9 @@
     _changeLayer: function(m) {
       if (m.changed.opacity !== undefined) {
         m.get('layer').set('opacity', m.get('opacity'));  
+      } else {
+        this._manageLayers();  
       }
-    
-      this._manageLayers();
     },
 
     _addLayers: function() {
