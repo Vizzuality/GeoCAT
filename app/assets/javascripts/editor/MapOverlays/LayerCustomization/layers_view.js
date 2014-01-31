@@ -82,8 +82,10 @@
 
       if (!error) {
         this._hideError();
+        var pos = this.collection.size();
         this.collection.add(
           new Layer({
+            position: pos,
             url: url,
             name: 'User',
             source_name: 'user',
