@@ -136,8 +136,12 @@
           border:1px solid #739C29;
           color:white;
           text-shadow:0 1px #78A22A;
+          background:#739C29;//IE9
           @include background(linear-gradient(#739C29,#A9E13B));
-          &:hover { @include background(linear-gradient(#A9E13B,#739C29)) }
+          &:hover {
+            background:#A9E13B;//IE9
+            @include background(linear-gradient(#A9E13B,#739C29));
+          }
         }
       }
 

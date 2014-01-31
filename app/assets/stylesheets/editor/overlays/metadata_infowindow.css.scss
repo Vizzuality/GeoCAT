@@ -88,6 +88,7 @@
       color:#666666;
       border:1px solid #CACACA;
       @include border-radius(3px);
+      background:white;//IE9
       @include background(linear-gradient(#EBEBEB, #FFF));
       outline:none;
 

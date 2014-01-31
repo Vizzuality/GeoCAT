@@ -19,10 +19,17 @@
     @include box-shadow(white 0 1px 0 0);
     border:1px solid #999999;
     @include border-radius(3px);
+    background:#FFF;//IE9
     @include background(linear-gradient(#FFFFFF,#CCCCCC));
 
-    &:hover { @include background(linear-gradient(#FFF,#AAA)) }
-    &:active { @include background(linear-gradient(#AAA,#FFF)) }
+    &:hover {
+      background:#DDD;//IE9
+      @include background(linear-gradient(#FFF,#AAA));
+    }
+    &:active {
+      background:#AAA;//IE9
+      @include background(linear-gradient(#AAA,#FFF));
+    }
   }
 
   @mixin green-button() {
@@ -35,10 +42,18 @@
     text-shadow:0 1px #B2D571;
     border:none;
     @include border-radius(3px);
+    background:#A9E13B;//IE9
     @include background(linear-gradient(#A9E13B,#739C29));
     outline:none;
     text-align:center;
 
-    &:hover { @include background(linear-gradient(#A9E13B,#5C7D21)) }
-    &:active { color:#2A3814; @include background(linear-gradient(#5C7D21,#A9E13B)) }
+    &:hover {
+      background:#739C29;//IE9
+      @include background(linear-gradient(#A9E13B,#5C7D21));
+    }
+    &:active {
+      color:#2A3814;
+      background:#5C7D21;//IE9
+      @include background(linear-gradient(#5C7D21,#A9E13B));
+    }
   }
