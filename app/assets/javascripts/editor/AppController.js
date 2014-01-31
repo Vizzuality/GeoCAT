@@ -8,6 +8,7 @@
 		var merge_object; 							// MergeOperations model Object for recover points from server like GBIF or Flickr
     var layers;                     // LayersCustomization variable
 
+    var modals = {}                 // Modal dialogs available
 
 
     $(function() {
@@ -64,19 +65,23 @@
             var species_selector = new SpecieSelector(upload_information);
           }
 
+          // Create welcome window
+          modals.welcome = new WelcomeDialog();
+          this.$('div.center-map').append(modals.welcome.render().el);
+
           //if the application comes through an upload file
           if (upload_information.data && upload_information.data.sources!=null) {
-            $('div.header h1 p').text(upload_information.data.reportName);
-            $('div.header h1 sup').text('saved');
+            this.$('div.header h1 p').text(upload_information.data.reportName);
+            this.$('div.header h1 sup').text('saved');
             document.title = "GeoCAT - " + upload_information.data.reportName;
             changeApplicationTo(2);
             uploadGeoCAT(upload_information);
           } else if (_.isEmpty(upload_information)) {
-            $('#welcome').show();
+            modals.welcome.show();
             // Trick to hide welcome window if user clicks off this container
             $('body').click(function(event) {
               if (!$(event.target).closest('#welcome').length) {
-                $('#welcome').fadeOut();
+                modals.welcome.hide();
                 // $('body').unbind('click');
               };
             });

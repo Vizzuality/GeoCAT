@@ -72,7 +72,7 @@
 								$('div.header h1 sup').text('(saved)');
 								break;
 			case 3: 	// Change app to help state
-								$('div#welcome').hide();
+								modals.welcome.hide();
 								$('ul.editor_list li:eq(1)').removeClass('selected');
 								$('ul.editor_list li:eq(0)').addClass('selected');
 								$('div.help_container').fadeIn();
@@ -86,7 +86,7 @@
 								});
 								break;
 			case 4: 	// Change app to close state
-								$('div#welcome').hide();
+								modals.welcome.hide();
 								$('ul.editor_list li:eq(0)').removeClass('selected');
 								$('ul.editor_list li:eq(1)').addClass('selected');
 								$('div.help_container').hide();
@@ -106,7 +106,7 @@
   		case 6: 	// Change app to csv import
   							$('div.help_container').fadeOut();
 								$('div#close_save').fadeOut();
-								$('div#welcome').fadeOut();
+								modals.welcome.hide();
 								$('ul.editor_list li').removeClass('selected');
   		          $('div#csv_error').fadeIn();
   		          $('div#export_window').fadeOut();
@@ -114,7 +114,7 @@
   		case 7: 	// Change app to export window
   							$('div.help_container').fadeOut();
 								$('div#close_save').fadeOut();
-								$('div#welcome').fadeOut();
+								modals.welcome.hide();
 								$('ul.editor_list li').removeClass('selected');
   		          $('div#csv_error').fadeOut();
   		          $('div#export_window').fadeIn();
@@ -124,7 +124,7 @@
 								$(document).unbind('keydown');
 								$('div.help_container').fadeOut();
 								$('div#close_save').fadeOut();
-								$('div#welcome').fadeOut();
+								modals.welcome.hide();
 								$('ul.editor_list li').removeClass('selected');
 								$('div#csv_error').fadeOut();
   		          $('div#export_window').fadeOut();

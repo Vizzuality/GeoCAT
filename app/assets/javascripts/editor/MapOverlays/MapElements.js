@@ -51,30 +51,6 @@
           '</p>' +
         '</div>' +
 
-        '<!-- Welcome window -->' +
-        '<div id="welcome">' +
-          '<a onclick="$(\'#welcome\').fadeOut()" class="close">X</a>' +
-          '<p>Start your new assessment by...</p>' +
-
-          '<div class="blocks">' +
-            '<div class="block">' +
-              '<label>Import data from<br/>' +
-              'online source</label>' +
-              '<a class="import_data" onclick="$(\'#add_source_button\').trigger(\'click\');">Import data</a>' +
-            '</div>' +
-            '<div class="block">' +
-              '<label>Upload your existing<br/>' +
-              'data (CSV,GeoCAT)</label>' +
-              '<a class="upload_data" onclick="$(\'#add_source_button\').trigger(\'click\');">Upload data</a>' +
-            '</div>' +
-            '<div class="block last">' +
-              '<label>Add / Edit points<br/>' +
-              'just in the map</label>' +
-              '<a class="add_points" onclick="$(\'div.center-tool div.left a.add\').trigger(\'click\');">Add points</a>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-
         '<!-- Mamufas map -->' +
         '<div id="mamufas_map">' +
           '<div id="loader_map">' +

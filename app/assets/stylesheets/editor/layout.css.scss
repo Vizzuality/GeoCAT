@@ -124,22 +124,6 @@ div#start_one input {float:left; width:418px; height:24px; margin:10px 0 0 36px;
 div#start_one input:focus {outline:none;}
 div#start_one a {float:left; margin:15px 0 0 200px; text-decoration:underline; font:bold 23px Arial; color:#A4D939;}
 div#start_one a:hover {color:#6F9326;}
-div#welcome {position:absolute!important; display:none; width:463px; height:187px; top:50%!important; left:50%; margin:-110px 0 0 -272px!important; padding:17px 40px; background:url('/assets/editor/start_new_bkg.png') no-repeat 0 0; z-index:101;}
-div#welcome a.close {position:absolute; right:18px; top:18px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
-div#welcome a.close:hover {color:white; text-decoration:none; cursor:pointer;}
-div#welcome p {float:left; width:100%; margin:10px 0 0 0; padding:0; font:bold 21px Arial; color:white; letter-spacing:-1px; text-align:left; line-height:33px;}
-div#welcome p.bottom {margin:10px 0 0 0; font-size:23px; letter-spacing:-1px;}
-div#welcome p.bottom a {color:#A4D939; text-decoration:underline;}
-div#welcome p.bottom a:hover {color:#80AA2A; cursor:pointer;}
-div#welcome div.blocks {float:left; width:423px; height:63px; margin:18px 0 0 0; padding:17px 20px 20px 20px;}
-div#welcome div.blocks div.block {float:left; width:118px; margin:0 33px 0 0;}
-div#welcome div.blocks div.block.last {margin:0;}
-div#welcome div.blocks div.block label {float:left; width:100%; color:#999999; font:normal 13px Arial; font-size:12px\9; text-align:center;}
-div#welcome div.blocks div.block a {float:left; width:118px; height:26px; margin:10px 0 0 0; text-indent:-9999px;}
-div#welcome div.blocks div.block a.import_data {background:url('/assets/editor/import_data.png') no-repeat 0 0;}
-div#welcome div.blocks div.block a.upload_data {background:url('/assets/editor/upload_data.png') no-repeat 0 0;}
-div#welcome div.blocks div.block a.add_points {background:url('/assets/editor/add_points.png') no-repeat 0 0;}
-div#welcome div.blocks div.block a:hover {background-position:0 -26px; cursor:pointer; color:#2a3814;}
 
 .specie_selector {position:absolute!important; display:none; width:300px; height:187px; top:50%!important; left:50%; margin:-110px 0 0 -190px; padding:17px 40px; background:rgba(0,0,0,0.8); z-index:101;
   border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px;}

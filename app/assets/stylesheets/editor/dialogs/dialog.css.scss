@@ -1,0 +1,53 @@
+
+  /**
+   *  Default styles for GeoCAT dialogs
+   *
+   */
+
+  @import "compass/css3/border-radius";
+
+  .dialog {
+    position:absolute!important;
+    top:50%; left:50%;
+    width:543px;
+    margin:-100px 0 0 -271px;
+    padding:0;
+    background:rgba(black,0.8);
+    @include border-radius(5px);
+    z-index:100;
+
+    // Close button
+    .close {
+      position:absolute;
+      right:18px;
+      top:18px;
+      padding:5px;
+      font:bold 13px Arial;
+      color:#CCCCCC;
+      text-decoration:none;
+      z-index:10;
+
+      &:hover {
+        color:white;
+        text-decoration:none;
+        cursor:pointer;
+      }
+    }
+
+    div.head,
+    div.foot,
+    div.content {
+      display:block;
+      padding:30px 40px;
+    }
+
+    div.head {
+      h3 { font:600 21px Arial; color:white; letter-spacing:-1px }
+    }
+    
+    div.content {}
+
+    div.foot {
+      border-top:1px solid rgba(white,0.10)
+    } 
+  }

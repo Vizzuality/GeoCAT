@@ -1,0 +1,54 @@
+  
+  /**
+   *  Welcome dialog styles
+   *
+   */
+
+  @import "compass/css3/border-radius";
+  @import "../../common/buttons";
+
+
+  div#welcome {
+    margin-top:-155px;
+
+    div.content {
+      padding-top:0;
+
+      ul {
+        overflow:auto;
+        background:rgba(black,0.6);
+        @include border-radius(5px);
+
+        li {
+          float:left;
+          width:118px;
+          margin:18px;
+          color:white;
+
+          label {
+            display:block;
+            font:normal 13px Arial;
+            color:#999999;
+            text-align:center;
+          }
+          
+          .button.green {
+            margin-top:12px;
+            @include green-button();
+            display:block;
+          }
+        }
+      }
+    }
+   
+    div.foot p {
+      text-align: center;
+      font:bold 17px Arial;
+      color:white;
+
+      a {
+        color:#A5D700;
+        text-decoration:underline;
+      }
+    } 
+  }
