@@ -270,51 +270,6 @@ div.merge_container div a.cancel:hover {color:#000000; cursor:pointer;}
 div.merge_container div a.merge_button {float:right; margin:7px 0 0 0!important; padding:0!important; width:54px!important; height:21px!important; background:url('/assets/editor/merge_button.png') no-repeat 0 0!important;}
 div.merge_container div a.merge_button:hover {background-position: 0 -21px!important; cursor:pointer;}
 div.merge_container span.arrow {position:absolute; right:12px; top:52px; width:12px!important; height:23px; background:url('/assets/editor/grey_arrow.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources {position:static; float:left; padding:12px 0 14px 30px; margin:0; width:230px; border-top:1px solid #454648;}
-div#editor div#tools div.center div.right div.sources span {float:left; width:100%;}
-div#editor div#tools div.center div.right div.sources span h3 {float:left; padding:0; font:normal 11px "Futura","FuturaStdMedium"; color:#CCCCCC; text-shadow:0 1px #000000;}
-
-
-div#editor div#tools div.center div.right div.sources ul#sources_list {position:absolute; top:115px; right:5px; bottom:10px; width:235px; padding:5px 0 0 0; overflow: auto;}
-div#editor div#tools div.center div.right div.sources ul#sources_list:focus {outline:none;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspContainer{overflow:hidden;position:relative;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspPane{position:absolute;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar{position:absolute;top:0;right:1px;width:8px;height:100%;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar{position:absolute;bottom:0;left:0;width:100%;height:16px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar *,
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar *{margin:0;padding:0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspCap{display:none;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspCap{float:left;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspTrack{background:#1c1d1f;position:relative; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspDrag{background:black;position:relative;top:0;left:0;cursor:pointer; -moz-border-radius:20px; -webkit-border-radius:20px; border-radius:20px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspTrack,
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspDrag{float:left;height:100%;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspArrow{background:#50506d;text-indent:-20000px;display:block;cursor:pointer;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspArrow.jspDisabled{cursor:default;background:#80808d;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar .jspArrow{height:16px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspHorizontalBar .jspArrow{width:16px;float:left;height:100%;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspVerticalBar .jspArrow:focus{outline:none;}
-div#editor div#tools div.center div.right div.sources ul#sources_list .jspCorner{background:#eeeef4;float:left;height:100%;}
-div#editor div#tools div.center div.right div.sources ul#sources_list * html .jspCorner{margin:0 -3px 0 0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li {position:relative; width:183px; height:43px; padding:10px 12px 5px 16px; margin:3px 0 3px 10px; background:url('/assets/editor/li_bkg.png') no-repeat 0 0;
-  border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li:hover {cursor:pointer;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie {position:absolute; right:8px; top:10px; width:40px; height:14px; background:url('/assets/editor/specie_visible.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li a.visible_specie:hover {cursor:pointer;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.green {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#99CC00),to(#7BA600));background:-moz-linear-gradient(-90deg,#99CC00,#7BA600);background:-o-linear-gradient(#99CC00,#7BA600); filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99CC00', endColorstr='#7BA600');}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.pink {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#FF3399),to(#9F2062));background:-moz-linear-gradient(-90deg,#FF3399,#9F2062);background:-o-linear-gradient(#FF3399,#9F2062); filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.blue {position:absolute; top:7px; left:6px; width:2px; height:46px; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#0099FF),to(#0062A3));background:-moz-linear-gradient(-90deg,#0099FF,#0062A3);background:-o-linear-gradient(#0099FF,#0062A3); filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099FF', endColorstr='#0062A3');}
-div#editor div#tools div.center div.right div.sources ul#sources_list li h3 {width:140px; height:14px; font:bold 13px Arial; color:#999999; line-height:13px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; text-shadow:0 1px black;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li:hover h3 {color:white;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.points {position:relative; display:inline-block; width:183px; height:18px; margin:7px 0 0 0; padding:0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.points p {width:167px; height:11px; padding:3px 8px 4px 0; font:normal 11px Arial; color:#CCCCCC; line-height:11px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li span.points a {display:none;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.merge_specie {position:absolute; right:15px; bottom:2px; display:block; width:12px; height:13px; background:url('/assets/editor/merge_specie.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.merge_specie.update {background-position:0 -13px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.delete_specie {position:absolute; right:0; bottom:2px; display:block; width:12px; height:13px; background:url('/assets/editor/delete_specie.png') no-repeat 0 0;}
-div#editor div#tools div.center div.right div.sources ul#sources_list li:hover span.points a.delete_specie:hover {background-position:0 -13px;}
-div#editor div#tools div.center div.right div.sources ul#sources_list div.add_new_source button{width:211px; height:62px; margin:0 0 0 10px; background:url('/assets/editor/add_new_source.png') no-repeat 0 0; border:none; font:bold 13px Arial; color:#0B0C0D; text-shadow:0 1px #2D2F30;}
-div#editor div#tools div.center div.right div.sources ul#sources_list div.add_new_source button:hover {cursor:pointer; color:#000000;}
 
 /*add new source*/
 div#editor div#tools div#add_source_container {position:absolute; width:209px; bottom:42px; right:-36px; z-index:100; display:none;}

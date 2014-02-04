@@ -54,9 +54,15 @@
 
         //-----//
         // collection man!
-        sources_collection = new SourcesCollection();
+        sources_collection = new SourcesCollection(null, { map: map });
+        // map sources -> panes!
+        map_sources = new MapSources({
+          map:      map,
+          sources:  sources_collection
+        });
         // sources_list
-        points = new SourcesList({ el: $('ul#sources_list'), collection: sources_collection });
+        points = new SourcesList({ el: $('div.sources'), collection: sources_collection });
+        points.render();
         //-----//
 
 				convex_hull = new HullOperations(map);					// Convex Hull Object
@@ -290,7 +296,7 @@
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 							
               // (info_data.geocat_removed)? null : points.add(geocat_query,geocat_kind);
-              if (info_data.geocat_removed) sources_collection.sumUp(geocat_query, geocat_kind);
+              if (!info_data.geocat_removed) sources_collection.sumUp(geocat_query, geocat_kind);
 
 
               bounds.extend(latlng);
@@ -537,10 +543,11 @@
 					inf.catalogue_id = 'user_' + global_id;
 					inf.latitude = latlng.lat();
 					inf.longitude = latlng.lng();
-					var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
 
 					// points.add('','user');
-          sources_collection.sumUp('', 'user');
+          sources_collection.sumUp('user', 'user');
+
+          var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
 
 					bounds.extend(latlng);
 					

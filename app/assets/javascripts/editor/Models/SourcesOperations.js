@@ -78,7 +78,12 @@
           var parent = $(this).parent().parent();
           if (value!='' && value!='insert species name' ) {
             $(this).parent().parent().addClass('searching');
-            if (points.speciesAdded(value,kind)) {
+
+            var m = sources_collection.find(function(m) {
+              return m.get('query') == value && m.get('type') == kind
+            });
+
+            if (m) {
               $(this).closest('li').find('span.loading a').removeClass('import_data').addClass('retry').text('retry');
               $(this).closest('li').addClass('error');
               $(this).closest('li').find('span p').addClass('error');

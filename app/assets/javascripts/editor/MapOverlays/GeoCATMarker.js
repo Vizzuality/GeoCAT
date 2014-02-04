@@ -33,7 +33,7 @@
       
       /* Draw the overlay */
       GeoCATMarker.prototype.draw = function() {
-        var me = this;
+        var self = this;
       
         var canvas = this.canvas_;
         if (!canvas) {
@@ -48,24 +48,19 @@
           this.redraw();
           this._bindEvents();
 
-          if (this.data.geocat_kind == "flickr") {
-            pane = "floatPane"
-          } else if (this.data.geocat_kind == "gbif") {
-            pane = "floatShadow"
-          } else {
-            pane = "overlayMouseTarget"
-          }
-
-          var panes = this.getPanes();
-          panes[pane].appendChild(canvas);
+          // Get pane from source
+          var pane = sources_collection.find(function(m){
+            return self.data.geocat_kind == m.get('type') && self.data.geocat_query == m.get('query')
+          }).getPane();
+          pane.appendChild(canvas);
         }
         
-        var pixPosition = me.getProjection().fromLatLngToDivPixel(me.latlng_);
+        var pixPosition = self.getProjection().fromLatLngToDivPixel(self.latlng_);
         if (pixPosition) {
-          canvas.style.width = me.width_ + 'px';
-          canvas.style.left = (pixPosition.x + me.offsetHorizontal_) + 'px';
-          canvas.style.height = me.height_ + 'px';
-          canvas.style.top = (pixPosition.y + me.offsetVertical_) + 'px';
+          canvas.style.width = self.width_ + 'px';
+          canvas.style.left = (pixPosition.x + self.offsetHorizontal_) + 'px';
+          canvas.style.height = self.height_ + 'px';
+          canvas.style.top = (pixPosition.y + self.offsetVertical_) + 'px';
         }
       };
 

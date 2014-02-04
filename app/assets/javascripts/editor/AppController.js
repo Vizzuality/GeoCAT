@@ -22,13 +22,19 @@
         },
 
         initialize: function() {
+          _.bindAll(this, '_startApp');
+
           mainApp();
           createMap();
           startSources();
 
+          google.maps.event.addListenerOnce(map, 'idle', this._startApp);
+        },
+
+        _startApp: function() {
           this._initModels();
           this._initBinds();
-          this._initViews();
+          this._initViews();  
         },
 
         _initBinds: function() {
