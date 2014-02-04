@@ -48,8 +48,16 @@
           this.redraw();
           this._bindEvents();
 
+          if (this.data.geocat_kind == "flickr") {
+            pane = "floatPane"
+          } else if (this.data.geocat_kind == "gbif") {
+            pane = "floatShadow"
+          } else {
+            pane = "overlayMouseTarget"
+          }
+
           var panes = this.getPanes();
-          panes.floatPane.appendChild(canvas);
+          panes[pane].appendChild(canvas);
         }
         
         var pixPosition = me.getProjection().fromLatLngToDivPixel(me.latlng_);

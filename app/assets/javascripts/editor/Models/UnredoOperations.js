@@ -167,7 +167,12 @@
 					if (observations_data.length>count) {
 						occurrences[observations_data[count].catalogue_id].data.geocat_removed = false;
 						occurrences[observations_data[count].catalogue_id].setMap(map);
-						points.add(occurrences[observations_data[count].catalogue_id].data.geocat_query,occurrences[observations_data[count].catalogue_id].data.geocat_kind);
+
+						// points.add(occurrences[observations_data[count].catalogue_id].data.geocat_query,occurrences[observations_data[count].catalogue_id].data.geocat_kind);
+						var query = occurrences[observations_data[count].catalogue_id].data.geocat_query;
+						var type = occurrences[observations_data[count].catalogue_id].data.geocat_kind;
+						sources_collection.sumUp(query, type);
+
 						count = count+1;
 						setTimeout(function(){AsynRestoreMarkers(count, observations_data);},0);
 					} else {
@@ -250,7 +255,12 @@
 					if (observations_data.length>count) {
 						occurrences[observations_data[count].catalogue_id].data.geocat_removed = true;
 						occurrences[observations_data[count].catalogue_id].setMap(null);
-						points.deduct(observations_data[count].new_.geocat_query,observations_data[count].new_.geocat_kind);
+						
+						// points.deduct(observations_data[count].new_.geocat_query,observations_data[count].new_.geocat_kind);
+						var query = observations_data[count].new_.geocat_query;
+						var type = observations_data[count].new_.geocat_kind;
+						sources_collection.deduct(query, type);
+
 						count = count+1;
 						setTimeout(function(){AsynRemoveMarkers(count,observations_data);},0);
 					} else {

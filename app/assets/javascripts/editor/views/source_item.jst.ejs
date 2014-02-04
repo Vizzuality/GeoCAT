@@ -1,0 +1,17 @@
+<span class="<%= type %>"></span>
+<div class="top">
+  <form>
+    <input type="text" class="text" value="<%= query %>" readonly />
+  </form>
+  <a href="#/change-visibility" class="visible_specie <%= visible ? 'on' : '' %>">visible</a>
+</div>
+<div class="bottom">
+  <p>
+    <%= total %> <em class="<%= type %>"><%= type %></em>
+    point<% if (total != 1) { %>s<% } %>
+  </p>
+  <span class="controls">
+    <a href="#/merge" class="merge_specie">merge</a>
+    <a href="#/remove" class="delete_specie">remove</a>
+  </span>
+</div>
