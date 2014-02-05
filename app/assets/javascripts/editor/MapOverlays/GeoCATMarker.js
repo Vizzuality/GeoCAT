@@ -171,11 +171,11 @@
                 over_tooltip.hide();
               }
               if (click_infowindow!=null) {         
-                if (me.data.catalogue_id != click_infowindow.marker_id || !click_infowindow.isVisible()) {
+                if (me.data.catalogue_id != click_infowindow.getMarkerId() || !click_infowindow.isVisible()) {
                   click_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
                 }
               } else {
-                click_infowindow = new MarkerTooltip(me.getPosition(), me.data.catalogue_id, me.data,me.map_);
+                click_infowindow = new OccurrenceInfowindow(me.getPosition(), me.data.catalogue_id, me.data,me.map_);
               }
               if (edit_metadata!=undefined) edit_metadata.hide();
             }
@@ -189,7 +189,7 @@
             map.setOptions({draggable:false});
             global_zIndex++;
             me.setZIndex(global_zIndex);
-            over_marker = true; 
+            over_marker = true;
             if (click_infowindow != null) {
               if (!is_dragging && !click_infowindow.isVisible()) {
                 if (over_tooltip!=null) {

@@ -1,0 +1,112 @@
+
+  /**
+   *  Occurrence infowindow styles
+   */
+  @import "compass/css3/opacity";
+  @import "compass/css3/inline-block";
+  @import "../../common/mixins";
+
+  .occurrence_infowindow {
+    position:absolute;
+    width:235px;
+    height:251px;
+    padding:0;
+    @include opacity(0);
+    background:url('/assets/editor/tooltip_bkg.png') no-repeat 0 0;
+
+    a.close {
+      position:absolute;
+      right:1px;
+      top:1px;
+      width:21px;
+      height:21px;
+      @include text-indent();
+      background:url('/assets/editor/close_infowindow.png') no-repeat 0 0;
+      z-index:10;
+      &:hover { background-position:0 -21px }
+    }
+
+    div.position {
+      position:relative;
+      display:block;
+      height:75px;
+
+      p {
+        position:absolute;
+        top:18px;
+        font:normal 29px Georgia;
+        color:#666;
+        line-height:29px;
+
+        sup {
+          font:normal 15px Georgia;
+          color: #666666;
+        }
+
+        &.lat { left:26px }
+        &.lng { left:131px }
+      }
+    }
+
+    div.info {
+      display:block;
+      padding:0 21px 0 25px;
+      height:76px;
+
+      p {
+        display:block;
+        padding:21px 0 0;
+        font:normal 11px Arial;
+        color:#666666;
+        @include text-overflow();
+
+        &.notes {}
+        &.collector {}
+      }
+    }
+
+    div.precision {
+      display:block;
+      padding:24px 21px 0 25px;
+      height:16px;
+
+      div.slider {
+        height:5px;
+        .ui-widget-content { background:#C9C9C9 }
+        .ui-slider-handle { margin-left:-7px }
+      }
+
+      .slider_value {
+        position:absolute;
+        right:22px;
+        top:8px;
+        font:normal 10px Arial;
+        color:#F99600;
+      }
+    }
+
+    div.actions {
+      display:block;
+      padding:7px 21px 0 25px;
+      height:30px;
+
+      .right { float:right }
+      .left { float:left }
+
+      .hide,
+      .delete,
+      .edit,
+      .show {
+        @include inline-block();
+        width:58px;
+        height:19px;
+        @include text-indent();
+        &:hover { background-position:0 -19px }
+      }
+
+      .hide { width:51px; background:url(/assets/editor/info_hide.png) no-repeat 0 0 }
+      .show { width:51px; background:url(/assets/editor/show_button.png) no-repeat 0 0 }
+      .delete { margin-left:3px; background:url(/assets/editor/info_delete.png) no-repeat 0 0 }
+      .edit { width:38px; background:url(/assets/editor/edit_button.png) no-repeat 0 0 }
+    }
+  }

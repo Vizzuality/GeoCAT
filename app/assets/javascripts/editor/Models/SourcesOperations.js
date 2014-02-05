@@ -446,8 +446,8 @@
       /* Close Delete container.                                                     */
       /*============================================================================*/
       function closeDeleteAll() {
-        $('div.delete_all').fadeOut();
-        $('a.delete_all').removeClass('active');
+        // $('div.delete_all').fadeOut();
+        // $('a.delete_all').removeClass('active');
       }
 
 

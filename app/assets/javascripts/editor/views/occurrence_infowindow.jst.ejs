@@ -1,0 +1,18 @@
+<a href="#/close" class="close">X</a>
+<div class="position">
+  <p class="lat"><%= Math.floor(latitude)+1 %><sup><%= String(Math.abs((latitude % 1.0).toFixed(3))).substring(1) %></sup></p>
+  <p class="lng"><%= Math.floor(longitude)+1 %><sup><%= String(Math.abs((longitude % 1.0).toFixed(3))).substring(1) %></sup></p>
+</div>
+<div class="info">
+  <p class="notes"><%= occurrenceRemarks %></p>
+  <p class="collector"><%= collector %></p>
+</div>
+<div class="precision">
+  <div class="slider"></div>
+  <p class="slider_value"></p>
+</div>
+<div class="actions">
+  <a class="left <%= geocat_active ? 'hide' : 'show' %>" href="#/<%= geocat_active ? 'hide' : 'show' %>">hide</a>
+  <a class="left delete" href="#/delete">delete</a>
+  <a class="right edit" href="#/edit">edit</a>
+</div>

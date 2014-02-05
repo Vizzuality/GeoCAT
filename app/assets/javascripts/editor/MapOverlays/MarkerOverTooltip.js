@@ -152,11 +152,11 @@
 		MarkerOverTooltip.prototype.showInformation = function() {
 			this.hide();
 			if (click_infowindow!=null) {					
-				if (occurrences[this.marker_id].data.catalogue_id == click_infowindow.marker_id || !click_infowindow.isVisible()) {
+				if (occurrences[this.marker_id].data.catalogue_id == click_infowindow.getMarkerId() || !click_infowindow.isVisible()) {
 					click_infowindow.changePosition(occurrences[this.marker_id].getPosition(),occurrences[this.marker_id].data.catalogue_id,occurrences[this.marker_id].data);
 				}
 			} else {
-				click_infowindow = new MarkerTooltip(occurrences[this.marker_id].getPosition(), occurrences[this.marker_id].data.catalogue_id, occurrences[this.marker_id].data, map);
+				click_infowindow = new OccurrenceInfowindow(occurrences[this.marker_id].getPosition(), occurrences[this.marker_id].data.catalogue_id, occurrences[this.marker_id].data, map);
 			}
 		}		
 		
