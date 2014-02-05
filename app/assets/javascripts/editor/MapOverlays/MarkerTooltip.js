@@ -138,15 +138,7 @@
 				description.style.margin = "0";
 				description.style.font = "normal 11px Arial";
 				description.style.color = "#666666";
-				if (this.inf.occurrenceRemarks!=undefined) {
-				  if (this.inf.occurrenceRemarks.length>36) {
-    				$(description).text(this.inf.occurrenceRemarks.substr(0,33)+'...');
-  				} else {
-    				$(description).text(this.inf.occurrenceRemarks);
-  				}
-				} else {
-				  $(description).text('');
-				}
+				$(description).text(this.inf.occurrenceRemarks || '');
 
 				div.appendChild(description);
 				
@@ -160,26 +152,10 @@
 				collector.style.margin = "0";
 				collector.style.font = "normal 11px Arial";
 				collector.style.color = "#666666";
-				if (this.inf.collector!=undefined) {
-  				if (this.inf.collector.length>36) {
-    				$(collector).text(this.inf.collector.substr(0,33)+'...');
-  				} else {
-    				$(collector).text(this.inf.collector);
-  				}
-				} else {
-				  $(collector).text('');
-				}
-
+				$(collector).text(this.inf.collector || '');
 				div.appendChild(collector);
 
-        
-				//Marker Precision/Accuracy
-				// if (this.inf.coordinateUncertaintyInMeters<1000 || this.inf.coordinateUncertaintyInMeters==null) {
-    //       var km_value = 1000;
-    //     } else {
-    //       var km_value = this.inf.coordinateUncertaintyInMeters/1000;
-    //     }
-
+       
         var meters = this.inf.coordinateUncertaintyInMeters;
 				var km_value;
 	      if (meters !== "") {
@@ -391,17 +367,8 @@
 			}
 
 			$(div).find('p.longitude').html(au_lng+'<sup style="color:rgb(102, 102, 102); font:normal 15px Georgia;">'+String(Math.abs((this.latlng_.lng() % 1.0).toFixed(num))).substring(1)+'</sup>');
-			if (this.inf.occurrenceRemarks && this.inf.occurrenceRemarks.length>36) {
-  			$(div).find('p.description').text(this.inf.occurrenceRemarks.substr(0,33)+'...');
-			} else {
-  			$(div).find('p.description').text(this.inf.occurrenceRemarks);
-			}
-			
-			if (this.inf.collector && this.inf.collector.length>36) {
-  			$(div).find('p.collector').text(this.inf.collector.substr(0,33)+'...');
-			} else {
-  			$(div).find('p.collector').text(this.inf.collector);
-			}
+  		$(div).find('p.description').text(this.inf.occurrenceRemarks || '');
+  		$(div).find('p.collector').text(this.inf.collector || '');
 
 			// Slider
 			var meters = this.inf.coordinateUncertaintyInMeters;

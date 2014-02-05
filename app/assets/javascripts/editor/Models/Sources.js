@@ -1,44 +1,4 @@
 
-  /*
-  
-    TODO:
-
-      - Styles :(
-      - Download sources order IMPORTANT
-      - Delete dialog...
-      - Merge dialog...
-      - Visibility funcionality...
-      - If analysis on, list fucked!
-
-      
-
-        // <!-- Merge window -->
-        // <div class="merge_container">
-        //   <h4>MERGE NEW FLICKR POINTS</h4>
-        //   <p>There are 2 new points in flickr.</p>
-        //   <div><a class="merge_button"></a><a class="cancel">Cancel</a></div>
-        //   <span class="arrow"></span>
-        // </div>
-        // <!-- Delete all window -->
-        // <div class="delete_all">
-        //   <h4>DELETE ALL FLICKR POINTS</h4>
-        //   <p>Are you sure you want to delete all these points?</p>
-        //   <div><a class="yes"></a><a class="cancel">cancel</a></div>
-        //   <span class="arrow"></span>
-        // </div>
-
-
-
-      · Rename stuff! :S
-        - When a source query is renamed -> change all points :S
-        - If model with same query and type is already added to the collection, what should we do? -> speciesAdded?
-        - When add a new point, if query is not user and it is changed... movie...? Should we create another source? I dunno
-        // We should store a global z-index per each layer,
-        // not a global variable, would be fucking nice!
-  */
-
-
-
   // Create a new pane for this source
   var SourcePane = View.extend({
 
@@ -230,12 +190,13 @@
     className:  'source',
 
     events: {
-      // visibility
-      // remove
-      // merge :S
+      'click .visible_specie':  '_toggleVisibility',
+      'click .delete_specie':   '_deleteSpecie',
+      'click .merge_specie':    'killEvent'
     },
 
     initialize: function() {
+      _.bindAll(this, '_toggleVisibility', '_deleteSpecie');
       this.model.bind('change', this.render, this);
       this.template = JST['editor/views/source_item'];
     },
@@ -247,14 +208,90 @@
       this.$el.attr('data-cid', this.cid);
 
       return this;
+    },
+
+    _deleteSpecie: function(e) {
+      if (e) e.preventDefault();
+      this.trigger('delete', this.model, this);
+    },
+
+    _toggleVisibility: function(e) {
+      if (e) e.preventDefault();
+
+      var visible = this.model.get('visible');
+      this.model.set('visible', !visible);
+
+      this.$('.visible_specie')[ visible ? 'removeClass' : 'addClass' ]('on');
+      hideAll(this.model.get('query'), this.model.get('type'), this.model.get('visible')); // Arg! :(
     }
 
   });
   
 
+  var DeleteSourceWarning = View.extend({
+
+    className:  'delete_source',
+    tagName:    'div',
+
+    events: {
+      'click .yes':     '_removeSource',
+      'click .cancel':  'hide'
+    },
+
+    initialize: function(opts) {
+      this.view = opts.view;
+      _.bindAll(this, '_removeSource');
+      this.template = JST['editor/views/delete_source_warning'];
+    },
+
+    render: function() {
+      this.$el.html(this.template(this.model.toJSON()));
+      return this;
+    },
+
+    _removeSource: function(e) {
+      if (e) e.preventDefault();
+      this.view.clean();
+      this.model.destroy();
+      this.hide();
+    },
+
+    show: function(e) {
+      if (e) e.preventDefault();
+
+      var pos = this.view.$el.position();
+
+      this.$el
+        .css({
+          top:        pos.top - 4 + 'px',
+          marginLeft: '+=10px',
+          opacity:    0,
+          display:    'block'
+        })
+        .animate({
+          marginLeft: '-=10px',
+          opacity:    1
+        }, 150);
+    },
+
+    hide: function(e) {
+      if (e) e.preventDefault();
+
+      var self = this;
+
+      this.$el
+        .animate({
+          marginLeft: '+=10px',
+          opacity:    0
+        }, 150, function() {
+          self.clean()
+        });
+    }
+
+  })
 
   
-  var SourcesList = View.extend({
+  var SourcesView = View.extend({
 
     events: {
       'click .add_source a': '_onAddSource'
@@ -275,13 +312,13 @@
       this.clearSubViews();
       _.each(this.collection.last(this.collection.length).reverse(), this._addSource, this);
       this._makeSortable();
-
       return this;
     },
 
     _addSource: function(m, pos) {
       var l = new SourceItem({ model:m });
       $(l.render().el).insertBefore(this.$('ul .add_source'));
+      l.bind('delete', this._showDeleteWarning, this);
       this.addView(l);
 
       this._countSources();
@@ -345,6 +382,23 @@
     _onAddSource: function(e) {
       if (e) e.preventDefault();
       $('#add_source_button').click()
+    },
+
+    _showDeleteWarning: function(m, view) {
+      // Remove previous warning
+      this._hideDeleteWarning();
+
+      // Show the new one
+      this.delete = new DeleteSourceWarning({
+        model:  m,
+        view:   view
+      });
+      this.$el.append(this.delete.render().el);
+      this.delete.show();
+    },
+
+    _hideDeleteWarning: function() {
+      if (this.delete) this.delete.hide();
     },
 
     // If there are more than 1 source,

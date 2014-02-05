@@ -134,22 +134,6 @@
           $('div.delete_all').fadeOut();
           $('div.merge_container').fadeOut();
         });
-
-
-        //Visible or not any source.
-        $('a.visible_specie').live('click',function(){
-          var visible = ($(this).hasClass('on'))?false:true;
-          if (visible) {
-            $(this).addClass('on');
-          } else {
-            $(this).removeClass('on');
-          }
-          var kind = $(this).closest('li').attr('type');
-          var query = $(this).closest('li').attr('species');
-
-          $(this).animate({backgroundPosition: (!visible)?'-20px 0px':'0px 0px'},200);
-          hideAll(query,kind,visible);
-        });
       }
 
       function initGeocatUploader() {
@@ -429,31 +413,31 @@
       /* Open Delete container.                                                     */
       /*============================================================================*/
       function openDeleteAll(query,kind) {
-        var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
-        var list_height = $('ul#sources_list').height();
+        // var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
+        // var list_height = $('ul#sources_list').height();
 
-        //Arrow position
-        if (position.top<20) {
-          $('div.delete_all').css('top','-10px');
-          $('div.delete_all span.arrow').css('top','52px');
-        } else {
-          $('div.delete_all').css('top',position.top-20 + 'px');
-          $('div.delete_all span.arrow').css('top','52px');
-        }
+        // //Arrow position
+        // if (position.top<20) {
+        //   $('div.delete_all').css('top','-10px');
+        //   $('div.delete_all span.arrow').css('top','52px');
+        // } else {
+        //   $('div.delete_all').css('top',position.top-20 + 'px');
+        //   $('div.delete_all span.arrow').css('top','52px');
+        // }
 
-        $('a.'+ kind).parent().children('a.delete_all').addClass('active');
-        $('div.delete_all').fadeIn();
+        // $('a.'+ kind).parent().children('a.delete_all').addClass('active');
+        // $('div.delete_all').fadeIn();
 
-        switch (kind) {
-          case 'gbif':   $('div.delete_all h4').text('DELETE THESE GBIF OCCS');
-                          break;
-          case 'flickr':    $('div.delete_all h4').text('DELETE THESE FLICKR OCCS');
-                          break;
-          default:        $('div.delete_all h4').text('DELETE ALL YOUR OCCS');
-        }
+        // switch (kind) {
+        //   case 'gbif':   $('div.delete_all h4').text('DELETE THESE GBIF OCCS');
+        //                   break;
+        //   case 'flickr':    $('div.delete_all h4').text('DELETE THESE FLICKR OCCS');
+        //                   break;
+        //   default:        $('div.delete_all h4').text('DELETE ALL YOUR OCCS');
+        // }
 
-        $('div.delete_all div a.yes').unbind('click');
-        $('div.delete_all div a.yes').bind('click',function(){deleteAll(query,kind)});
+        // $('div.delete_all div a.yes').unbind('click');
+        // $('div.delete_all div a.yes').bind('click',function(){deleteAll(query,kind)});
       }
 
 
@@ -493,23 +477,23 @@
       /*============================================================================*/
       function openMergeContainer(query,kind) {
 
-        var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
-        var list_height = $('ul#sources_list').height();
+        // var position = $('ul#sources_list li[species="'+query+'"][type="'+kind+'"]').position();
+        // var list_height = $('ul#sources_list').height();
 
-        //Arrow position
-        if (position.top<20) {
-          $('div.merge_container').css('top','-10px');
-          $('div.merge_container span.arrow').css('top','52px');
-        } else {
-          $('div.merge_container').css('top',position.top-20 + 'px');
-          $('div.merge_container span.arrow').css('top','52px');
-        }
+        // //Arrow position
+        // if (position.top<20) {
+        //   $('div.merge_container').css('top','-10px');
+        //   $('div.merge_container span.arrow').css('top','52px');
+        // } else {
+        //   $('div.merge_container').css('top',position.top-20 + 'px');
+        //   $('div.merge_container span.arrow').css('top','52px');
+        // }
 
-        $('div.merge_container h4').text('MERGE THESE '+kind+' OCCS');
-        $('div.merge_container p').text('There are new points in this '+kind+' source');
-        $('div.merge_container div a.merge_button').unbind('click');
-        $('div.merge_container div a.merge_button').bind('click',function(){mergeSource(query,kind)});
-        $('div.merge_container').fadeIn();
+        // $('div.merge_container h4').text('MERGE THESE '+kind+' OCCS');
+        // $('div.merge_container p').text('There are new points in this '+kind+' source');
+        // $('div.merge_container div a.merge_button').unbind('click');
+        // $('div.merge_container div a.merge_button').bind('click',function(){mergeSource(query,kind)});
+        // $('div.merge_container').fadeIn();
       }
 
 

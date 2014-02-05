@@ -1,15 +1,15 @@
 <span class="band <%= type %>"></span>
-<div class="top">
+<div class="info">
   <form>
-    <input type="text" class="text" value="<%= query %>" />
+    <input type="text" class="text" value="<%= query %>" readonly />
+    <p class="total">
+      <%= total %> <em class="<%= type %>"><%= type %></em>
+      point<% if (total != 1) { %>s<% } %>
+    </p>
   </form>
-  <a href="#/change-visibility" class="visible_specie <%= visible ? 'on' : '' %>">visible</a>
 </div>
-<div class="bottom">
-  <p>
-    <%= total %> <em class="<%= type %>"><%= type %></em>
-    point<% if (total != 1) { %>s<% } %>
-  </p>
+<div class="actions">
+  <a href="#/change-visibility" class="visible_specie <%= visible ? 'on' : '' %>">visible</a>
   <span class="controls">
     <a href="#/merge" class="merge_specie">merge</a>
     <a href="#/remove" class="delete_specie">remove</a>

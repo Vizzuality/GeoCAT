@@ -50,7 +50,7 @@
 
         
 				google.maps.event.clearListeners(map, 'tilesloaded');
-				// points = new PointsOperations();  		          // Points Object
+				
 
         //-----//
         // collection man!
@@ -61,8 +61,15 @@
           sources:  sources_collection
         });
         // sources_list
-        points = new SourcesList({ el: $('div.sources'), collection: sources_collection });
+        points = new SourcesView({
+          el:         $('div.sources'),
+          collection: sources_collection
+        });
         points.render();
+
+        //-else-//
+        
+        // points = new PointsOperations(); // Points Object
         //-----//
 
 				convex_hull = new HullOperations(map);					// Convex Hull Object
@@ -535,7 +542,7 @@
 					inf.coordinateUncertaintyInMeters = 15000;
 					inf.geocat_active = true;
 					inf.geocat_kind = 'user';
-					inf.geocat_query = '';
+					inf.geocat_query = 'user';
 					inf.geocat_removed = false;
 					inf.collector = "";
 					inf.eventDate = date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate();
