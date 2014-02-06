@@ -298,8 +298,8 @@
 							if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
 							if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
 							
-							var geocat_query = (info_data.geocat_query!=undefined)?info_data.geocat_query.toLowerCase():'';
-							var geocat_kind = (info_data.geocat_kind!=undefined)?info_data.geocat_kind.toLowerCase():'user';
+							var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
+              var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
               var geocat_alias = info_data.geocat_alias;
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 							
@@ -323,8 +323,8 @@
 								if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
 								if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
 
-								var geocat_query = (info_data.geocat_query!=undefined)?info_data.geocat_query.toLowerCase():'';
-								var geocat_kind = (info_data.geocat_kind!=undefined)?info_data.geocat_kind.toLowerCase():'user';
+								var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
+								var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
                 var geocat_alias = info_data.geocat_alias;
 								var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 								

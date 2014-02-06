@@ -99,7 +99,9 @@
 
           em {
             font-style:normal;
-            &.gbif { text-transform:uppercase }
+            &.gbif,
+            &.dwc,
+            &.csv { text-transform:uppercase }
             &.flickr { text-transform:capitalize }
           }
         }
