@@ -65,7 +65,18 @@ module GeocatApp
       select2.css
     ]
 
-    config.assets.precompile += %w( *.jpg *.ico *.gif *.png *.eot *.otf *.svg *.woff *.ttf *.swf )
+    config.assets.precompile += %w[
+      *.jpg
+      *.ico
+      *.gif
+      *.png
+      *.eot
+      *.otf
+      *.svg
+      *.woff
+      *.ttf
+      *.swf
+    ]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
