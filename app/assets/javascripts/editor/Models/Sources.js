@@ -169,8 +169,8 @@
         return false;
       } else {
         // Deduct one from total, setting model
-        var t = m.get('total');
-        m.set('total', t-1);
+        var t = m.get('total') - 1;
+        m.set('total', t);
       }
 
       // If total is 0, remove the model + remove item + añsdlfjñlajsdflñajsd
@@ -198,6 +198,7 @@
     initialize: function() {
       _.bindAll(this, '_toggleVisibility', '_deleteSpecie');
       this.model.bind('change', this.render, this);
+      this.model.bind('destroy', this.clean, this);
       this.template = JST['editor/views/source_item'];
     },
 
@@ -251,7 +252,6 @@
 
     _removeSource: function(e) {
       if (e) e.preventDefault();
-      this.view.clean();
       this.model.destroy();
       this.hide();
     },
