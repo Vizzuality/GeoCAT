@@ -151,6 +151,8 @@
           top:7px; left:6px;
           width:2px;
           height:46px;
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099FF', endColorstr='#0062A3');
+          @include background(linear-gradient(#0099FF,#0062A3));
 
           &.gbif {
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99CC00', endColorstr='#7BA600');
@@ -159,10 +161,6 @@
           &.flickr {
            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');
             @include background(linear-gradient(#FF3399,#9F2062)) 
-          }
-          &.user {
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0099FF', endColorstr='#0062A3');
-            @include background(linear-gradient(#0099FF,#0062A3))
           }
         }
 

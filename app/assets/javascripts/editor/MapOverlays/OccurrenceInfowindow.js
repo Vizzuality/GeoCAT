@@ -6,6 +6,21 @@
 	 */
 
 
+  // Occurrence infowindow needed model
+  var OccurrenceModel = Backbone.Model.extend({
+
+    defaults: {
+      latitude:                       '',
+      longitude:                      '',
+      occurrenceRemarks:              '',
+      collector:                      '',
+      coordinateUncertaintyInMeters:  15000
+    }
+
+  });
+
+
+
 	function OccurrenceInfowindow(latlng, marker_id, opt, map) {
 
 		this.model = new Backbone.Model({
@@ -17,7 +32,7 @@
       width:            235,
       map:              map,
       marker_id:  			marker_id,
-      data:             new Backbone.Model(opt)
+      data:             new OccurrenceModel(opt)
     });
 	
 	  this.setMap(map);
@@ -148,7 +163,6 @@
       var metric = (ui.value<11) ? 'M' : 'KM';
       var value_showed = (ui.value<11) ? ui.value*100 : (ui.value-10);
       $(div).find('.slider_value').html(value_showed + metric);
-      debugger;
       this.model.get('data').set('coordinateUncertaintyInMeters',value);
       occurrences[this.model.get('marker_id')].data.coordinateUncertaintyInMeters = value;
 		},
@@ -163,7 +177,7 @@
       this.model.set({
         latlng:     latlng,
         marker_id:  marker_id,
-        data:       new Backbone.Model(opt)
+        data:       new OccurrenceModel(opt)
       });
       
       // Fill data

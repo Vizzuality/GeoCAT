@@ -11,6 +11,8 @@
     this.specie = null;
   }
 
+  _.extend(SpecieSelector.prototype, {});
+
   SpecieSelector.prototype.initialize = function() {
 
     _.bindAll(this, '_uploadData', 'hide');
@@ -76,15 +78,22 @@
 
   SpecieSelector.prototype._getData = function(specie_name) {
     var specie_data = _.find(this.data.species, function(specie){ return specie.scientificName == specie_name });
+    
+    var alias = specie_data.scientificName;
+    var query = alias + '_' + new Date().getTime();
+    var type = 'dwc';
+
     _.each(specie_data.data, function(obj,i) {
       global_id++;
 
       obj.geocat_active = true;
-      obj.geocat_query = "";
+      obj.geocat_query = query;
       obj.geocat_removed = false;
-      obj.geocat_kind = "user";
+      obj.geocat_kind = type;
+      obj.geocat_alias = alias;
       obj.catalogue_id = 'user_' + global_id;
     });
+
     return specie_data;
   }
 

@@ -113,7 +113,10 @@ class RlatData
       end
       return if csv.blank?
 
-      self.scientificname = csv.first.scientificname if csv.first.respond_to?(:scientificname)
+      reportName = csv.first.scientificname if csv.first.respond_to?(:scientificname)
+      query = "#{reportName}_#{Time.now.to_i}"
+
+      self.scientificname = reportName
       self.zoom           = csv.first.zoom if csv.first.respond_to?(:zoom)
       self.format         = 'csv'
       self.center         = {
@@ -121,7 +124,9 @@ class RlatData
         "longitude" => csv.first.respond_to?(:center_longitude) ? csv.first.center_longitude : nil
       }
       self.sources        = [{
-        'name'   => 'csv',
+        'type'   => 'csv',
+        'name'   => reportName,
+        'query'  => query,
         'points' => []
       }]
       csv.each do |row|
@@ -146,7 +151,10 @@ class RlatData
           'coordinateUncertaintyText'     => row.respond_to?(:coordinateuncertaintytext)                          ? row.coordinateuncertaintytext                          : nil,
           'identifiedBy'                  => row.respond_to?(:identifiedby)                                       ? row.identifiedby                                       : nil,
           'occurrenceRemarks'             => row.respond_to?(:occurrenceremarks)                                  ? row.occurrenceremarks                                  : nil,
-          'occurrenceDetails'             => row.respond_to?(:occurrencedetails)                                  ? row.occurrencedetails                                  : nil
+          'occurrenceDetails'             => row.respond_to?(:occurrencedetails)                                  ? row.occurrencedetails                                  : nil,
+          'geocat_query'                  => query,
+          'geocat_kind'                   => 'csv',
+          'geocat_alias'                  => reportName
         })
       end
     end

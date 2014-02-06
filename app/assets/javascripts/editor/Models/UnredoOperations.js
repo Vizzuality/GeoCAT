@@ -171,7 +171,8 @@
 						// points.add(occurrences[observations_data[count].catalogue_id].data.geocat_query,occurrences[observations_data[count].catalogue_id].data.geocat_kind);
 						var query = occurrences[observations_data[count].catalogue_id].data.geocat_query;
 						var type = occurrences[observations_data[count].catalogue_id].data.geocat_kind;
-						sources_collection.sumUp(query, type);
+						var alias = occurrences[observations_data[count].catalogue_id].data.geocat_alias;
+						sources_collection.sumUp(query, type, alias);
 
 						count = count+1;
 						setTimeout(function(){AsynRestoreMarkers(count, observations_data);},0);

@@ -102,8 +102,9 @@
 
     defaults: {
       query:    'user',
-      position: 0,
       type:     'user',
+      alias:    'User occs',
+      position: 0,
       visible:  true,
       removed:  false,
       total:    1
@@ -140,7 +141,7 @@
       return m.get('position')
     },
 
-    sumUp: function(query, type) {
+    sumUp: function(query, type, alias) {
       // Search model
       var m = this.find(function(m) {
         return m.get('query') == query && m.get('type') == type
@@ -148,7 +149,7 @@
 
       // If it doesn't exist, let's create it!
       if (!m) {
-        m = new SourceModel({ type: type, query: query }, { map: this.options.map });
+        m = new SourceModel({ type: type, query: query, alias: alias || query }, { map: this.options.map });
         this.add(m);
       } else {
         // If it does exist, add new one to the total
@@ -157,7 +158,7 @@
       }
     },
 
-    deduct: function(query, type) {
+    deduct: function(query, type, alias) {
       // Search model
       var m = this.find(function(m) {
         return m.get('query') == query && m.get('type') == type
@@ -165,7 +166,7 @@
 
       // If you can't find it, please console!
       if (!m) {
-        console.log('Ouch, source with query ' + query + ' and type ' + type + ' doesn\'t exist' );
+        // console.log('Ouch, source with query ' + query + ' and type ' + type + ' doesn\'t exist' );
         return false;
       } else {
         // Deduct one from total, setting model
@@ -198,6 +199,7 @@
     initialize: function() {
       _.bindAll(this, '_toggleVisibility', '_deleteSpecie');
       this.model.bind('change', this.render, this);
+      this.model.bind('delete', this._removeSource, this);
       this.model.bind('destroy', this.clean, this);
       this.template = JST['editor/views/source_item'];
     },
@@ -209,6 +211,11 @@
       this.$el.attr('data-cid', this.cid);
 
       return this;
+    },
+
+    _removeSource: function(m) {
+      deleteAll(m.get('query'), m.get('type'));
+      this.model.destroy();
     },
 
     _deleteSpecie: function(e) {
@@ -252,7 +259,7 @@
 
     _removeSource: function(e) {
       if (e) e.preventDefault();
-      this.model.destroy();
+      this.model.trigger('delete', this.model, this);
       this.hide();
     },
 

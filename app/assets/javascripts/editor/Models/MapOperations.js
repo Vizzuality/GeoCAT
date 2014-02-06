@@ -300,11 +300,11 @@
 							
 							var geocat_query = (info_data.geocat_query!=undefined)?info_data.geocat_query.toLowerCase():'';
 							var geocat_kind = (info_data.geocat_kind!=undefined)?info_data.geocat_kind.toLowerCase():'user';
+              var geocat_alias = info_data.geocat_alias;
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 							
               // (info_data.geocat_removed)? null : points.add(geocat_query,geocat_kind);
-              if (!info_data.geocat_removed) sources_collection.sumUp(geocat_query, geocat_kind);
-
+              if (!info_data.geocat_removed) sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
 
               bounds.extend(latlng);
 	
@@ -319,16 +319,17 @@
                 occurrences[marker_id].setActive(false);
               }
             } else {
-							if (info_data.geocat_kind==undefined) {
+							// if (info_data.geocat_kind==undefined) {
 								if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
 								if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
 
 								var geocat_query = (info_data.geocat_query!=undefined)?info_data.geocat_query.toLowerCase():'';
 								var geocat_kind = (info_data.geocat_kind!=undefined)?info_data.geocat_kind.toLowerCase():'user';
+                var geocat_alias = info_data.geocat_alias;
 								var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 								
 								// points.add(geocat_query,geocat_kind);
-                sources_collection.sumUp(geocat_query, geocat_kind);
+                sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
 
 								bounds.extend(latlng);
 								global_id++;
@@ -339,7 +340,7 @@
 	              occurrences[marker.data.catalogue_id] = marker;
 	              occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
 	              occurrences[marker.data.catalogue_id].data.geocat_kind = geocat_kind;
-							}
+							// }
 						}
 
             // Check if marker was created and it is added to the stack
@@ -552,7 +553,13 @@
 					inf.longitude = latlng.lng();
 
 					// points.add('','user');
-          sources_collection.sumUp('user', 'user');
+          sources_collection.sumUp('user', 'user', 'User ocss');
+
+          // Get alias and add it.
+          var alias = sources_collection.find(function(m){
+            return m.get('type') == inf.geocat_kind &&  m.get('query') == inf.geocat_query
+          }).get('alias');
+          inf.geocat_alias = alias;
 
           var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
 

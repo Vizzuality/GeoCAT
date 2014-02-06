@@ -136,16 +136,21 @@ module GeocatDataImporter
         end
         return if csv.blank?
 
-        self.reportName     = csv.first.reportName if csv.first.respond_to?(:reportName)
+        reportName = "CSV occs"
+        query = "#{reportName}_#{Time.now.to_i}"
+
+        self.reportName     = reportName
         self.zoom           = csv.first.zoom if csv.first.respond_to?(:zoom)
         self.format         = 'csv'
         self.center         = {
           "latitude"  => csv.first.respond_to?(:center_latitude)  ? csv.first.center_latitude  : nil,
           "longitude" => csv.first.respond_to?(:center_longitude) ? csv.first.center_longitude : nil
         }
+
         self.sources        = [{
-          'name'   => 'csv',
-          'type'   => 'user',
+          'type'   => 'csv',
+          'name'   => reportName,
+          'query'  => query,
           'points' => []
         }]
         csv.each do |row|
@@ -155,7 +160,7 @@ module GeocatDataImporter
             'longitude'                     => (row.try(:longitude)                     rescue nil),
             'collector'                     => (row.try(:collector)                     rescue nil),
             'coordinateUncertaintyInMeters' => (row.try(:coordinateuncertaintyinmeters) rescue nil),
-            'catalogue_id'                  => (row.try(:catalogue_id)                  rescue nil),
+            'catalogue_id'                  => nil,
             'collectionCode'                => (row.try(:collectioncode)                rescue nil),
             'institutionCode'               => (row.try(:institutioncode)               rescue nil),
             'catalogNumber'                 => (row.try(:catalognumber)                 rescue nil),
@@ -169,7 +174,10 @@ module GeocatDataImporter
             'coordinateUncertaintyText'     => (row.try(:coordinateuncertaintytext)     rescue nil),
             'identifiedBy'                  => (row.try(:identifiedby)                  rescue nil),
             'occurrenceRemarks'             => (row.try(:occurrenceremarks)             rescue nil),
-            'occurrenceDetails'             => (row.try(:occurrencedetails)             rescue nil)
+            'occurrenceDetails'             => (row.try(:occurrencedetails)             rescue nil),
+            'geocat_query'                  => query,
+            'geocat_kind'                   => 'csv',
+            'geocat_alias'                  => reportName
           })
         end
       end
@@ -209,6 +217,7 @@ module GeocatDataImporter
               point_hash["geocat_query"] = rla.scientificname
               point_hash["geocat_kind"] = point["kind"]
               point_hash["geocat_removed"] = point["removed"]
+              point_hash["geocat_alias"] = rla.scientificname
               point_hash
             end
           }

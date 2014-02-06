@@ -15,6 +15,7 @@
         geocat_kind: 'user',
         geocat_query: '',
         geocat_removed: false,
+        geocat_alias: '',
         catalogue_id: '',
         latitude: '',
         longitude: '',
