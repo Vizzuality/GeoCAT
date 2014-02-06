@@ -68,7 +68,6 @@
         var pos = s.get('position');
         if (pane) {
           pane.style.zIndex = i + self._START_INDEX - pos;
-          i--;
         }
       });
 
@@ -324,7 +323,7 @@
 
     _addSource: function(m, pos) {
       var l = new SourceItem({ model:m });
-      $(l.render().el).insertBefore(this.$('ul .add_source'));
+      this.$('ul').prepend(l.render().el);
       l.bind('delete', this._showDeleteWarning, this);
       this.addView(l);
 
