@@ -157,7 +157,7 @@
             onComplete: function(id, fileName, responseJSON) {
               var total_occurrences = {};
               total_occurrences.points = new Array();
-              var sources = responseJSON.data.sources;
+              var sources = responseJSON.data.sources || {};
               _.each(sources,function(element){
                 _.each(element.points,function(point){
                   if (point.catalogue_id && (point.catalogue_id.search('user') != -1 || !point.geocat_kind)) {
