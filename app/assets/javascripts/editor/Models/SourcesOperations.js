@@ -155,7 +155,6 @@
               $option.find('span.qq-upload-file').text('Uploading...');
             },
             onComplete: function(id, fileName, responseJSON) {
-              console.log(responseJSON);
               var total_occurrences = {};
               total_occurrences.points = new Array();
               var sources = responseJSON.data.sources || {};
