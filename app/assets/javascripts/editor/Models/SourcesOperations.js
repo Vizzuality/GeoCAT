@@ -155,8 +155,6 @@
               $option.find('span.qq-upload-file').text('Uploading...');
             },
             onComplete: function(id, fileName, responseJSON) {
-              console.log(responseJSON);
-
               var total_occurrences = {};
               total_occurrences.points = new Array();
               var sources = responseJSON.data.sources;
@@ -193,7 +191,7 @@
                     }
                   });
 
-                  $.each(responseJSON.warnings.sources,function(index,element){
+                  $.each(responseJSON.warnings,function(index,element){
                     for (var i=0; i<element.length;i++) {
                       $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
                     }
