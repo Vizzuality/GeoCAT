@@ -83,9 +83,10 @@
 
           //if the application comes through an upload file
           if (upload_information.data && upload_information.data.sources!=null) {
-            this.$('div.header h1 p').text(upload_information.data.reportName);
+            report_name = upload_information.data.reportName;
+            this.$('div.header h1 p').text(report_name);
             this.$('div.header h1 sup').text('saved');
-            document.title = "GeoCAT - " + upload_information.data.reportName;
+            document.title = "GeoCAT - " + report_name;
             changeApplicationTo(2);
             uploadGeoCAT(upload_information);
           } else if (_.isEmpty(upload_information)) {

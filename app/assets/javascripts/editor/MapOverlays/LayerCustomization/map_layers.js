@@ -39,8 +39,19 @@
         layer = this._createKML(m);
       }
 
+      this._orderLayer(m);
       m.set('layer', layer, { silent: true });
       this._manageLayers();
+    },
+
+    _orderLayer: function(m) {
+      m.set('position', 0, { silent:true });
+      this.get('layers').each(function(mod) {
+        if (mod !== m) {
+          var pos = mod.get('position') + 1;
+          mod.set('position', pos, { silent:true })
+        }
+      });
     },
 
     _createXYZ: function(m) {
@@ -114,7 +125,7 @@
       // Show layers already added
       this.get('layers').sort().each(function(l) {
         var layer = l.get('layer');
-        var type = l.get('type'); 
+        var type = l.get('type');
         if (l.get('added')) {
           if (type === "xyz") {
             map.overlayMapTypes.setAt(index, layer);

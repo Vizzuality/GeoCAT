@@ -21,7 +21,7 @@
     },
 
     initialize: function() {
-      _.bindAll(this, '_onSlideChange', '_finishEdit', '_startEdit', '_onAddClick');
+      _.bindAll(this, '_onSlideChange', '_finishEdit', '_startEdit', '_onSubmit', '_onAddClick');
       this.template = this.getTemplate('layer_item');
       this.model.bind('change:added', this._toggleSlider, this);
       this.model.bind('change:added', this._toggleSelected, this);
@@ -80,7 +80,7 @@
 
       var $input = this.$('input');
       this.old_value = $input.val();
-      this.$('input').removeAttr('readonly');
+      $input.removeAttr('readonly');
     },
 
     _finishEdit: function(e) {

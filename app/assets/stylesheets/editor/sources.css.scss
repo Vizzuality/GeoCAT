@@ -73,16 +73,18 @@
           @include border-radius(3px);
           border:1px solid black;
           background:white;
+          outline:none;
           @include text-overflow();
+
+          &:hover { cursor:default }
 
           &[readonly] {
             background:none;
             border:1px solid transparent;
             color:#999;
             text-shadow:0 1px black;
+            &:hover { cursor:pointer }
           }
-
-          &:hover { cursor:move }
         }
 
         // Total
@@ -169,7 +171,7 @@
         // Li styles when hover
         &:hover {
           cursor:move;
-          input { color:white!important }
+          input[readonly] { color:white!important }
           a.merge_specie,
           a.delete_specie { @include inline-block() }
         }

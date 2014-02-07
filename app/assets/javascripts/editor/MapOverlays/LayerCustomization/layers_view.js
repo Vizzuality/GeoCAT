@@ -30,7 +30,7 @@
     render: function() {
       this.clearSubViews();
       this.$el.html(this.template());
-      _.each(this.collection.last(this.collection.length).reverse(), this._addLayer, this);
+      _.each(this.collection.last(this.collection.length).sort(), this._addLayer, this);
       this._makeSortable();
 
       return this;
@@ -67,7 +67,7 @@
 
     _addLayer: function(m, pos) {
       var l = new LayerView({ model:m });
-      this.$('ul').append(l.render().el);
+      this.$('ul').prepend(l.render().el);
       this.addView(l);
     },
 
@@ -85,7 +85,6 @@
         var pos = this.collection.size();
         this.collection.add(
           new Layer({
-            position: pos,
             url: url,
             name: 'User',
             source_name: 'user',

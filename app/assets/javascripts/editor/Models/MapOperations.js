@@ -55,11 +55,13 @@
         //-----//
         // collection man!
         sources_collection = new SourcesCollection(null, { map: map });
+        
         // map sources -> panes!
         map_sources = new MapSources({
           map:      map,
           sources:  sources_collection
         });
+
         // sources_list
         points = new SourcesView({
           el:         $('div.sources'),
@@ -67,7 +69,16 @@
         });
         points.render();
 
-        //-else-//
+        // Change alias from occs when it is neccessary
+        sources_collection.bind('change:alias', function(m, val){
+          _.each(occurrences, function(occ) {
+            if (
+              m.get('query') == occ.data.geocat_query &&
+              m.get('type') == occ.data.geocat_kind) 
+                occ.data.geocat_alias = val;
+          });
+        })
+        
         
         // points = new PointsOperations(); // Points Object
         //-----//

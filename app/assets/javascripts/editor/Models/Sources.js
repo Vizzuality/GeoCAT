@@ -190,13 +190,18 @@
     className:  'source',
 
     events: {
+      'dblclick input':         '_startEdit',
+      'focusout input':         '_finishEdit',
+      'submit form':            '_onSubmit',
+      'click input':            'killEvent',
       'click .visible_specie':  '_toggleVisibility',
       'click .delete_specie':   '_deleteSpecie',
-      'click .merge_specie':    'killEvent'
+      'click .merge_specie':    'killEvent',
+      'click':                  '_finishEdit'
     },
 
     initialize: function() {
-      _.bindAll(this, '_toggleVisibility', '_deleteSpecie');
+      _.bindAll(this, '_toggleVisibility', '_deleteSpecie', '_finishEdit', '_startEdit', '_onSubmit');
       this.model.bind('change', this.render, this);
       this.model.bind('delete', this._removeSource, this);
       this.model.bind('destroy', this.clean, this);
@@ -210,6 +215,37 @@
       this.$el.attr('data-cid', this.cid);
 
       return this;
+    },
+
+    _startEdit: function(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      var $input = this.$('input');
+      this.old_value = $input.val();
+      $input.removeAttr('readonly');
+      setTimeout(function(){
+        $input.focus();
+      },0);
+    },
+
+    _finishEdit: function(e) {
+      if (e) e.preventDefault();
+
+      this.$('input').attr('readonly', 'readonly')
+      var value = this.$('input').val();
+      
+      if (!value) {
+        value = this.old_value;
+      }
+      this.model.set({ alias: value });
+    },
+
+    _onSubmit: function(e) {
+      if (e) e.stopPropagation();
+      this._finishEdit(e);
     },
 
     _removeSource: function(m) {
