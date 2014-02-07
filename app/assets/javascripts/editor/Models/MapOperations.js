@@ -292,11 +292,9 @@
 			/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). 					*/
 			/*============================================================================*/
 			function addSourceToMap(information, getBound, uploadAction) {
-        if (convex_hull.isVisible()) {
-          mamufasPolygon();
-        }
+        if (convex_hull.isVisible()) mamufasPolygon();
 
-        var point_changes = []
+        var point_changes = [];
 
 				/* Recursive service for adding markers. */
         function asynAddMarker(i,total,_bounds, uploadAction, observations) {
@@ -367,22 +365,16 @@
               hideMamufasMap(true);
             }
             
-            if (_bounds) {
-              map.fitBounds(bounds);
-            }
+            if (_bounds) map.fitBounds(bounds)
             
-            if (convex_hull.isVisible()) {
-              $(document).trigger('occs_updated');
-            }
+            if (convex_hull.isVisible()) $(document).trigger('occs_updated')
 
             // Do add
             actions.Do('add',null,point_changes);
           }
         }
         
-        if (information.points.length>20) {
-         showMamufasMap();
-        }
+        if (information.points.length>20) showMamufasMap()
 
         asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);
 			}

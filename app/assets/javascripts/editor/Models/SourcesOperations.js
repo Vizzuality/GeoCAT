@@ -155,6 +155,8 @@
               $option.find('span.qq-upload-file').text('Uploading...');
             },
             onComplete: function(id, fileName, responseJSON) {
+              console.log(responseJSON);
+
               var total_occurrences = {};
               total_occurrences.points = new Array();
               var sources = responseJSON.data.sources;
@@ -184,14 +186,14 @@
                   closeSources();
                   $('div#csv_error ul li').remove();
                   var errors_size = 0;
-                  $.each(responseJSON.errors,function(index,element){
+                  $.each(responseJSON.errors.sources,function(index,element){
                     for (var i=0; i<element.length;i++) {
                       errors_size++;
                       $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
                     }
                   });
 
-                  $.each(responseJSON.warnings,function(index,element){
+                  $.each(responseJSON.warnings.sources,function(index,element){
                     for (var i=0; i<element.length;i++) {
                       $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
                     }
@@ -217,7 +219,7 @@
                   $option.find('span.import a.delete').hide();
                   $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').text('File Corrupted');
                   $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').css('color','white');
-                  $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').css('background','url(/images/editor/fail.png) no-repeat 0 1px');
+                  $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').css('background','url(/assets/editor/fail.png) no-repeat 0 1px');
                   $uploader.find('.qq-upload-list li:eq(0) span:eq(0)').css('padding','0 0 0 14px');
                   $option.find('span.import a.retry').addClass('enabled');
                   $option.find('span.import a.retry').show();
@@ -226,25 +228,25 @@
                   $option.find('span.import a.import_data').text('retry');
                   $option.find('span.import a.import_data').click(function(ev){resetUploader();});
                 } else {
-                  if (_.isEmpty(responseJSON.warnings)) {
-                    $option.find('span.import a.import_data').addClass('enabled');
-                    $option.find('span.import a.import_data').click(function(ev){
-                      closeSources();
-                      addSourceToMap(total_occurrences,false,false);
-                    });
-                  } else {
+                  // if (_.isEmpty(responseJSON.warnings)) {
+                  //   $option.find('span.import a.import_data').addClass('enabled');
+                  //   $option.find('span.import a.import_data').click(function(ev){
+                  //     closeSources();
+                  //     addSourceToMap(total_occurrences,false,false);
+                  //   });
+                  // } else {
                     closeSources();
                     $('div#csv_error ul li').remove();
                     var errors_size = 0;
 
-                    $.each(responseJSON.errors,function(index,element){
+                    $.each(responseJSON.errors.sources,function(index,element){
                       for (var i=0; i<element.length;i++) {
                         errors_size++;
                         $('div#csv_error ul').append('<li class="error">'+element[i].capitalize()+'</li>');
                       }
                     });
 
-                    $.each(responseJSON.warnings,function(index,element){
+                    $.each(responseJSON.warnings.sources,function(index,element){
                       for (var i=0; i<element.length;i++) {
                         $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
                       }
@@ -262,7 +264,7 @@
                       $('div#csv_error h3').text('There are warnings in your uploaded csv file');
                       $('div#csv_error span a.continue').show();
                     }
-                  }
+                  // }
                   removeSelectedSources();
                   changeApplicationTo(6);
                 }
