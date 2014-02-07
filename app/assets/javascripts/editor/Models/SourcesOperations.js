@@ -245,7 +245,7 @@
                       }
                     });
 
-                    $.each(responseJSON.warnings.sources,function(index,element){
+                    $.each(responseJSON.warnings,function(index,element){
                       for (var i=0; i<element.length;i++) {
                         $('div#csv_error ul').append('<li class="warning">'+element[i].capitalize()+'</li>');
                       }
