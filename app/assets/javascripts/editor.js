@@ -13,5 +13,6 @@
 //=require plugins/jquery.color
 //=require plugins/general_functions
 //=require plugins/tileoverlay
+//=require plugins/oms
 //=require editor/MapOverlays/MapElements
 //=require_tree ./editor
