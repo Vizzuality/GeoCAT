@@ -41,37 +41,13 @@
 					scrollwheel: false,
 					streetViewControl: false,
 					scaleControl: true
-			  }
+			  };
 
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
-<<<<<<< HEAD
-			  			  
-        oms = new OverlappingMarkerSpiderfier(map, { markersWontMove: true, markersWontHide: true });
-=======
->>>>>>> 76690de4cab50733aa0551eb43727e2a43b803ba
+        
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
         oms = new OverlappingMarkerSpiderfier(map, { markersWontMove: true, markersWontHide: true });
-        
-        oms.addListener('click', function(marker) {
-          console.log("click");
-        });
-        
-        oms.addListener('spiderfy', function(markers) {
-          for(var i = 0; i < markers.length; i ++) {
-            // markers[i].setIcon(iconWithColor(spiderfiedColor));
-            // markers[i].setShadow(null);
-          }
-          console.log("spiderfy");
-        });
-        oms.addListener('unspiderfy', function(markers) {
-          for(var i = 0; i < markers.length; i ++) {
-            // markers[i].setIcon(iconWithColor(usualColor));
-            // markers[i].setShadow(shadow);
-          }
-          console.log("unspiderfy");
-        });
-
 
         oms.addListener('click', function(m,e) {
           m._click(e);
