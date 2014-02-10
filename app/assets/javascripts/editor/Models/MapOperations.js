@@ -6,6 +6,7 @@
 
 			
 			var map;												// Map object
+      var oms;                        // 
 			var bounds;											// LatLngBounds object to visualize the map correctly
 			var geocoder;                   // Geocoder application
 			
@@ -45,10 +46,14 @@
 
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
 			  			  
+        oms = new OverlappingMarkerSpiderfier(map, { markersWontMove: true, markersWontHide: true });
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
 
-        
+        oms.addListener('click', function(m,e) {
+          m._click(e);
+        });
+
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				
 
@@ -296,6 +301,9 @@
 
         var point_changes = [];
 
+        // Remove spiderfy!
+        oms.unspiderfy();
+
 				/* Recursive service for adding markers. */
         function asynAddMarker(i,total,_bounds, uploadAction, observations) {
           if (i < total){
@@ -454,6 +462,9 @@
         if (convex_hull.isVisible()) {
           mamufasPolygon();
         }
+
+        // Remove spiderfy!
+        oms.unspiderfy();
         
         var remove_markers = [];
         var occsCopy = $.extend(true,{},occurrences);
@@ -499,13 +510,15 @@
           mamufasPolygon();
         }
 
+        // Remove spiderfy!
+        oms.unspiderfy();
+
         function asynRemoveMarker(i,total, observations) {
           if(i < total){
             var marker_id = observations[i].catalogue_id;
   					var query = occurrences[marker_id].data.geocat_query;
   					var kind = occurrences[marker_id].data.geocat_kind;
 
-            // points.deduct(query,kind);
             sources_collection.deduct(query, kind);
 
             occurrences[marker_id].data.geocat_removed = true;
@@ -537,6 +550,8 @@
 			/* Add new marker to the map. */
 			/*============================================================================*/
 			function addMarker(latlng, fromAction) {
+
+          oms.unspiderfy();
 
 					global_id++;
 					global_zIndex++;

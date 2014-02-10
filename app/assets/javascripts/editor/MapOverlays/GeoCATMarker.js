@@ -64,6 +64,10 @@
         }
       };
 
+      GeoCATMarker.prototype.setMap = function(map) {
+        oms[map ? 'addMarker' : 'removeMarker' ](this);
+        google.maps.OverlayView.prototype.setMap.call(this, map);
+      }
 
       GeoCATMarker.prototype.redraw = function() {
         var canvas = this.canvas_;
@@ -156,30 +160,21 @@
         
         
         //Marker click event
-        $(canvas).click(function(ev){
-          if (state=="select" || state=="remove") {
-            if (state == 'remove') {
-              if (delete_infowindow!=null) {          
-                if (me.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
-                  delete_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
-                }
-              } else {
-                delete_infowindow = new DeleteInfowindow(me.getPosition(), me.data.catalogue_id, me.data, me.map_);
-              }       
-            } else {
-              if (over_tooltip!=null) {
-                over_tooltip.hide();
-              }
-              if (click_infowindow!=null) {         
-                if (me.data.catalogue_id != click_infowindow.getMarkerId() || !click_infowindow.isVisible()) {
-                  click_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
-                }
-              } else {
-                click_infowindow = new OccurrenceInfowindow(me.getPosition(), me.data.catalogue_id, me.data,me.map_);
-              }
-              if (edit_metadata!=undefined) edit_metadata.hide();
-            }
+        $(canvas).click(function(e){
+
+          // Check zoom level
+          if (me.map_.getZoom() < 6) {
+            me._click(e);
+            return this;
           }
+
+          // Check state
+          if (state == 'select') {
+            google.maps.event.trigger(me, 'click', e);
+          } else {
+            me._click(e);
+          }
+          
         });
 
 
@@ -236,6 +231,33 @@
           .draggable('destroy')
           .off('hover');
       }
+
+      GeoCATMarker.prototype._click = function(e) {
+        var me = this;
+        if (state=="select" || state=="remove") {
+          if (state == 'remove') {
+            if (delete_infowindow!=null) {          
+              if (me.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
+                delete_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
+              }
+            } else {
+              delete_infowindow = new DeleteInfowindow(me.getPosition(), me.data.catalogue_id, me.data, me.map_);
+            }       
+          } else {
+            if (over_tooltip!=null) {
+              over_tooltip.hide();
+            }
+            if (click_infowindow!=null) {         
+              if (me.data.catalogue_id != click_infowindow.getMarkerId() || !click_infowindow.isVisible()) {
+                click_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
+              }
+            } else {
+              click_infowindow = new OccurrenceInfowindow(me.getPosition(), me.data.catalogue_id, me.data,me.map_);
+            }
+            if (edit_metadata!=undefined) edit_metadata.hide();
+          }
+        }
+      };
       
       
       /* Remove occurrence from the map */
@@ -259,6 +281,10 @@
       /* Get position of the occurrence */
       GeoCATMarker.prototype.getPosition = function() {
        return this.latlng_;
+      };
+
+      GeoCATMarker.prototype.getVisible = function() {
+       return !this.data.geocat_removed;
       };
       
       

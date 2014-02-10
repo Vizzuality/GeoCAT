@@ -162,6 +162,9 @@
           mamufasPolygon();
         }
 
+        // Remove spiderfy!
+  			oms.unspiderfy();
+
 				// Recursive function for add markers.
 				function AsynRestoreMarkers(count, observations_data) {
 					if (observations_data.length>count) {
@@ -205,6 +208,10 @@
 				occurrences[marker_id].data.longitude = latlng.lng();
 				occurrences[marker_id].data.latitude = latlng.lat();
 				occurrences[marker_id].setPosition(latlng);
+
+				// Remove spiderfy!
+			  oms.unspiderfy();
+
 				if (convex_hull.isVisible()) {
 					convex_hull.calculateConvexHull(false);
 				}
@@ -250,6 +257,8 @@
           mamufasPolygon();
         }
 
+				// Remove spiderfy!
+			  oms.unspiderfy();
 				
 				// Recursive function for remove markers.
 				function AsynRemoveMarkers(count, observations_data) {

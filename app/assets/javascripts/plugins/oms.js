@@ -245,6 +245,7 @@ this['OverlappingMarkerSpiderfier'] = (function() {
   };
 
   p.spiderListener = function(marker, event) {
+    event.stopPropagation();
     var m, mPt, markerPt, markerSpiderfied, nDist, nearbyMarkerData, nonNearbyMarkers, pxSq, _j, _len1, _ref2;
     markerSpiderfied = marker['_omsData'] != null;
     if (!(markerSpiderfied && this['keepSpiderfied'])) {
@@ -257,14 +258,14 @@ this['OverlappingMarkerSpiderfier'] = (function() {
       nonNearbyMarkers = [];
       nDist = this['nearbyDistance'];
       pxSq = nDist * nDist;
-      markerPt = this.llToPt(marker.position);
+      markerPt = this.llToPt(marker.getPosition());
       _ref2 = this.markers;
       for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
         m = _ref2[_j];
         if (!((m.map != null) && m.getVisible())) {
           continue;
         }
-        mPt = this.llToPt(m.position);
+        mPt = this.llToPt(m.getPosition());
         if (this.ptDistanceSq(mPt, markerPt) < pxSq) {
           nearbyMarkerData.push({
             marker: m,
@@ -292,7 +293,7 @@ this['OverlappingMarkerSpiderfier'] = (function() {
     }
     nDist = this['nearbyDistance'];
     pxSq = nDist * nDist;
-    markerPt = this.llToPt(marker.position);
+    markerPt = this.llToPt(marker.getPosition());
     markers = [];
     _ref2 = this.markers;
     for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
@@ -300,7 +301,7 @@ this['OverlappingMarkerSpiderfier'] = (function() {
       if (m === marker || (m.map == null) || !m.getVisible()) {
         continue;
       }
-      mPt = this.llToPt((_ref3 = (_ref4 = m['_omsData']) != null ? _ref4.usualPosition : void 0) != null ? _ref3 : m.position);
+      mPt = this.llToPt((_ref3 = (_ref4 = m['_omsData']) != null ? _ref4.usualPosition : void 0) != null ? _ref3 : m.getPosition());
       if (this.ptDistanceSq(mPt, markerPt) < pxSq) {
         markers.push(m);
         if (firstOnly) {
@@ -325,7 +326,7 @@ this['OverlappingMarkerSpiderfier'] = (function() {
       for (_j = 0, _len1 = _ref2.length; _j < _len1; _j++) {
         m = _ref2[_j];
         _results.push({
-          pt: this.llToPt((_ref3 = (_ref4 = m['_omsData']) != null ? _ref4.usualPosition : void 0) != null ? _ref3 : m.position),
+          pt: this.llToPt((_ref3 = (_ref4 = m['_omsData']) != null ? _ref4.usualPosition : void 0) != null ? _ref3 : m.getPosition()),
           willSpiderfy: false
         });
       }
@@ -420,13 +421,13 @@ this['OverlappingMarkerSpiderfier'] = (function() {
         marker = nearestMarkerDatum.marker;
         leg = new gm.Polyline({
           map: this.map,
-          path: [marker.position, footLl],
+          path: [marker.getPosition(), footLl],
           strokeColor: this['legColors']['usual'][this.map.mapTypeId],
           strokeWeight: this['legWeight'],
           zIndex: this['usualLegZIndex']
         });
         marker['_omsData'] = {
-          usualPosition: marker.position,
+          usualPosition: marker.getPosition(),
           leg: leg
         };
         if (this['legColors']['highlighted'][this.map.mapTypeId] !== this['legColors']['usual'][this.map.mapTypeId]) {
@@ -437,6 +438,7 @@ this['OverlappingMarkerSpiderfier'] = (function() {
           };
         }
         marker.setPosition(footLl);
+        marker.setDraggable(false);
         marker.setZIndex(Math.round(this['spiderfiedZIndex'] + footPt.y));
         _results.push(marker);
       }
@@ -466,6 +468,7 @@ this['OverlappingMarkerSpiderfier'] = (function() {
         if (marker !== markerNotToMove) {
           marker.setPosition(marker['_omsData'].usualPosition);
         }
+        marker.setDraggable(true);
         marker.setZIndex(null);
         listeners = marker['_omsData'].hightlightListeners;
         if (listeners != null) {
