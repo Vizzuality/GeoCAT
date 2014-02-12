@@ -163,10 +163,10 @@
         $(canvas).click(function(e){
 
           // Check zoom level
-          if (me.map_.getZoom() < 6) {
-            me._click(e);
-            return this;
-          }
+          // if (me.map_.getZoom() < 6) {
+          //   me._click(e);
+          //   return this;
+          // }
 
           // Check state
           if (state == 'select') {
