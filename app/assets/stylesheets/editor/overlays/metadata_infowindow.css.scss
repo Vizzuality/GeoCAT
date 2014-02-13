@@ -138,7 +138,7 @@
       position:relative;
       float:left;
       @include inline-block();
-      margin:8px 10px 0 0;
+      margin:4px 10px 0 0;
       vertical-align:top;
 
       &:last-child { margin-right:0 }
