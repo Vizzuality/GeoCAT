@@ -89,6 +89,29 @@
     </div>
 
     <div class="row">
+      <div class="field field-2">
+        <label>SEASONALITY</label>
+        <select id="metadata_seasonality">
+          <option <% if (unescape(seasonality) === 'Resident') { %>selected<% } %>>Resident</option>
+          <option <% if (unescape(seasonality) === 'Breeding Season') { %>selected<% } %>>Breeding Season</option>
+          <option <% if (unescape(seasonality) === 'Non-Breeding season') { %>selected<% } %>>Non-Breeding season</option>
+          <option <% if (unescape(seasonality) === 'Passage') { %>selected<% } %>>Passage</option>
+          <option <% if (unescape(seasonality) === 'Seasonal Occurrence Uncertain') { %>selected<% } %>>Seasonal Occurrence Uncertain</option>
+        </select>
+      </div>
+      <div class="field field-1">
+        <label>ORIGIN</label>
+        <select id="metadata_origin">
+          <option <% if (unescape(origin) === 'Native') { %>selected<% } %>>Native</option>
+          <option <% if (unescape(origin) === 'Reintroduced') { %>selected<% } %>>Reintroduced</option>
+          <option <% if (unescape(origin) === 'Introduced') { %>selected<% } %>>Introduced</option>
+          <option <% if (unescape(origin) === 'Vagrant') { %>selected<% } %>>Vagrant</option>
+          <option <% if (unescape(origin) === 'Origin Uncertain') { %>selected<% } %>>Origin Uncertain</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="field field-3">
         <label>NOTES</label>
         <input type="text" class="text" value='<%= unescape(occurrenceRemarks) %>' id="metadata_occurrenceRemarks" />

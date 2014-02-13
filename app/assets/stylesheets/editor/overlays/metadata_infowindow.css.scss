@@ -7,6 +7,7 @@
   @import "compass/css3/inline-block";
   @import "compass/css3/images";
   @import "compass/css3/border-radius";
+  @import "compass/css3/box-shadow";
   @import "../../common/mixins";
 
   .metadata_infowindow {
@@ -101,6 +102,38 @@
       }
     }
 
+    .select2-container {
+      font-size:11px;
+      font-family:Arial;
+      color:#666666;
+
+      .select2-choice {
+        border-color:#CACACA;
+        height:24px;
+        line-height:24px;
+
+        .select2-arrow b {
+          background-position:0 0;
+        }
+        .select2-chosen {
+          margin-right:18px;
+        }
+      }
+
+      &.select2-container-active {
+        border-color:#999;
+        @include box-shadow(none);
+        .select2-choice {
+          border-color:#999;
+          @include box-shadow(none);
+        }
+      }
+
+      &.select2-dropdown-open .select2-choice .select2-arrow b {
+        background-position:-18px 0;
+      }
+    }
+
     .field {
       position:relative;
       float:left;
@@ -114,16 +147,19 @@
     .field-1 {
       width:102px;
       input.text { width:90px }
+      .select2-container { width:102px }
     }
 
     .field-2 {
       width:214px;
-      input.text { width:202px } 
+      input.text { width:202px }
+      .select2-container { width:214px }
     }
 
     .field-3 {
       width:326px;
       input.text { width:314px } 
+      .select2-container { width:326px }
     }
 
     .cancel {

@@ -31,6 +31,8 @@
         county:'',
         verbatimElevation: '',
         locality: '',
+        seasonality: 'Resident',
+        origin: 'Native',
         coordinateUncertaintyInMeters: '',
         identifiedBy: '',
         occurrenceRemarks: '',
@@ -42,10 +44,8 @@
 
 
     /**
-     *  Metadata infowindow class
+     *  Metadata infowindow view
      *
-     *  - A GMaps overlay view.
-     *  - A model created storing all overlay properties + occurence info
      */
 
     function MetadataInfowindow(latlng, info, map) {
@@ -127,6 +127,8 @@
           slide:  self.changeDistance
         });
 
+        $(div).find('form select').select2({ minimumResultsForSearch: 10 });
+
         $(div).bind('mousedown', this.stopPropagation);
         $(div).bind('dblclick', this.stopPropagation);
       },
@@ -137,6 +139,7 @@
         $(div).find('form').unbind('submit', this.submit);
         $(div).find('a.close, a.cancel').unbind('click', this.hide);
         $(div).find("div.slider").slider('destroy');
+        $(div).find('form select').select2('destroy');
         $(div).unbind('mousedown', this.stopPropagation);
         $(div).unbind('dblclick', this.stopPropagation);
       },
@@ -303,7 +306,6 @@
         occurrences[marker_id].redraw();
         occurrences[marker_id].data = new_data;
         occurrences[marker_id].setPosition(new google.maps.LatLng(new_data.latitude,new_data.longitude));
-        // occurrences[marker_id].set('distance', new_data.coordinateUncertaintyInMeters);
         
         if (convex_hull.isVisible()) {
           $(document).trigger('occs_updated');

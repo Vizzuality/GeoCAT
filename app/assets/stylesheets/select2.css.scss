@@ -166,12 +166,12 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
 }
 
 .select2-drop-active {
-    border: 1px solid #5897fb;
+    border: 1px solid #999;
     border-top: none;
 }
 
 .select2-drop.select2-drop-above.select2-drop-active {
-    border-top: 1px solid #5897fb;
+    border-top: 1px solid #999;
 }
 
 .select2-container .select2-choice .select2-arrow {
@@ -239,11 +239,11 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
 
 .select2-container-active .select2-choice,
 .select2-container-active .select2-choices {
-    border: 1px solid #5897fb;
+    border: 1px solid #999;
     outline: none;
 
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-            box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: none;
+            box-shadow: none;
 }
 
 .select2-dropdown-open .select2-choice {
@@ -264,7 +264,7 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
 
 .select2-dropdown-open.select2-drop-above .select2-choice,
 .select2-dropdown-open.select2-drop-above .select2-choices {
-    border: 1px solid #5897fb;
+    border: 1px solid #999;
     border-top-color: transparent;
 
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(0.5, #eee));
@@ -435,11 +435,11 @@ disabled look for disabled choices in the results dropdown
 }
 
 .select2-container-multi.select2-container-active .select2-choices {
-    border: 1px solid #5897fb;
+    border: 1px solid #999;
     outline: none;
 
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-            box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: none;
+            box-shadow: none;
 }
 .select2-container-multi .select2-choices li {
     float: left;
@@ -485,8 +485,8 @@ disabled look for disabled choices in the results dropdown
 
     border-radius: 3px;
 
-    -webkit-box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-            box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: none;
+            box-shadow: none;
 
     background-clip: padding-box;
 
