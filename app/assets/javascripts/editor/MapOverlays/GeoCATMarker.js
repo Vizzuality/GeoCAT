@@ -65,7 +65,7 @@
       };
 
       GeoCATMarker.prototype.setMap = function(map) {
-        oms[map ? 'addMarker' : 'removeMarker' ](this);
+        oms[ map ? 'addMarker' : 'removeMarker' ](this);
         google.maps.OverlayView.prototype.setMap.call(this, map);
       }
 

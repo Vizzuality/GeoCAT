@@ -571,9 +571,7 @@
 					inf.latitude = latlng.lat();
 					inf.longitude = latlng.lng();
 
-					var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
-
-					// points.add('','user');
+          // Add one to the source collection
           sources_collection.sumUp('user', 'user', 'User ocss');
 
           // Get alias and add it.
@@ -583,7 +581,6 @@
           inf.geocat_alias = alias;
 
           var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
-
 					bounds.extend(latlng);
 					
 					//Save occurence
