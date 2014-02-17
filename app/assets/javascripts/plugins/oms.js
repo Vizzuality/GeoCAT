@@ -9,10 +9,6 @@ var _ref,
   __hasProp = {}.hasOwnProperty,
   __slice = [].slice;
 
-if (((_ref = this['google']) != null ? _ref['maps'] : void 0) == null) {
-  return;
-}
-
 this['OverlappingMarkerSpiderfier'] = (function() {
   var ge, gm, lcH, lcU, mt, p, twoPi, x, _i, _len, _ref1;
 
