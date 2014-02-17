@@ -232,10 +232,9 @@
 					if (this.polygon!=undefined) {
 						this.polygon.setMap(this.map);
 						this.calculateConvexHull(false);
-					} else {
-						this.createPolygon(occurrences);
 					}
 				}
+				this.createPolygon(occurrences);
 			}
 
 
