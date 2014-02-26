@@ -44,6 +44,15 @@
 			  };
 
 			  map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+
+        function setLocation() {
+          var c = map.getCenter(); 
+          $('.map-center-label').text('Lat,Lon: ' + c.lat().toFixed(5) + ',' + c.lng().toFixed(5))
+        }
+
+        google.maps.event.addListener(map, "center_changed", setLocation);
+        setLocation();
         
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
