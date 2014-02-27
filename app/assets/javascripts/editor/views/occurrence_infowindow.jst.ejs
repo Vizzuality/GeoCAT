@@ -1,7 +1,7 @@
 <a href="#/close" class="close">X</a>
 <div class="position">
-  <p class="lat"><%= Math.floor(latitude)+1 %><sup><%= String(Math.abs((latitude % 1.0).toFixed(3))).substring(1) %></sup></p>
-  <p class="lng"><%= Math.floor(longitude)+1 %><sup><%= String(Math.abs((longitude % 1.0).toFixed(3))).substring(1) %></sup></p>
+  <p class="lat"><%= ~~latitude %><sup><%= (Math.abs(latitude) % 1).toFixed(3).substring(1) %></sup></p>
+  <p class="lng"><%= ~~longitude %><sup><%= (Math.abs(longitude) % 1).toFixed(3).substring(1) %></sup></p>
 </div>
 <div class="info">
   <p class="notes"><%= occurrenceRemarks %></p>
