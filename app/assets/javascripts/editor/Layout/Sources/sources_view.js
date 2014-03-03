@@ -117,7 +117,7 @@
     // If there are more than 1 source,
     // you can print the report
     _checkReport: function() {
-      var $report = $('a#report_button');
+      var $report = $('a#report');
       $report.unbind('click');
 
       if (this.collection.size() > 0) {
