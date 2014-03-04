@@ -122,7 +122,8 @@
           start:function(event,ui){
             is_dragging = true;
             if (convex_hull.isVisible()) {
-              mamufasPolygon();
+              // mamufasPolygon();
+              analysis_map.stop();
             }
             map.setOptions({draggable:false});
             me.data.init_latlng = me.getProjection().fromDivPixelToLatLng(new google.maps.Point(ui.position.left-me.offsetHorizontal_,ui.position.top-me.offsetVertical_));

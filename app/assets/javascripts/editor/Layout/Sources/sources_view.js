@@ -35,12 +35,10 @@
       this.addView(l);
 
       this._countSources();
-      this._checkReport();
     },
 
     _removeSource: function(m) {
       this._countSources();
-      this._checkReport();
     },
 
     _destroySorteable: function() {
@@ -112,24 +110,6 @@
 
     _hideDeleteWarning: function() {
       if (this.delete) this.delete.hide();
-    },
-
-    // If there are more than 1 source,
-    // you can print the report
-    _checkReport: function() {
-      var $report = $('a#report');
-      $report.unbind('click');
-
-      if (this.collection.size() > 0) {
-        $report
-          .removeClass('disabled')
-          .click(function(e){
-            if (e) e.preventDefault();
-            downloadGeoCAT('print');
-          });
-      } else {
-        $report.addClass('disabled')
-      }
     }
 
   });

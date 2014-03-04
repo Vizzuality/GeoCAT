@@ -159,7 +159,8 @@
 			  
 			  this.hideAllOverlays();
 			  if (convex_hull.isVisible()) {
-          mamufasPolygon();
+          // mamufasPolygon();
+          analysis_map.stop();
         }
 
         // Remove spiderfy!
@@ -254,7 +255,8 @@
 				
 				this.hideAllOverlays();
 				if (convex_hull.isVisible()) {
-          mamufasPolygon();
+          // mamufasPolygon();
+          analysis_map.stop();
         }
 
 				// Remove spiderfy!

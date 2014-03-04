@@ -10,7 +10,7 @@
 			var bounds;											// LatLngBounds object to visualize the map correctly
 			var geocoder;                   // Geocoder application
 			
-			var occurrences = {};							  // All the markers of the map (Associative array)
+			var occurrences = {};						// All the markers of the map (Associative array)
 			var global_id = 0; 							// Global id for your own markers
 			var global_zIndex = 1;					// Z-index for the markers
 			
@@ -90,13 +90,22 @@
               m.get('type') == occ.data.geocat_kind) 
                 occ.data.geocat_alias = val;
           });
-        })
-        
-        
-        // points = new PointsOperations(); // Points Object
-        //-----//
+        });
 
-				convex_hull = new HullOperations(map);					// Convex Hull Object
+        // Analysis stuff
+        analysis_data = new AnalysisData();           // Analysis data (cell size, cell type, ...)
+        analysis_map = new AnalysisMap({              // Analysis in the map (polygons, cells, AOO, EOO,...)
+          map: map,
+          analysis: analysis_data
+        });
+
+        convex_hull = analysis_view = new AnalysisView({
+          el:             $('div.analysis'),
+          analysis_map:   analysis_map,
+          analysis_data:  analysis_data
+        });
+        // End analysis
+
 				actions = new UnredoOperations();								// Un-Re-Do Object
         edit_metadata = new MetadataInfowindow(new google.maps.LatLng(0,0), null, map);
 
@@ -305,7 +314,10 @@
 			/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). 					*/
 			/*============================================================================*/
 			function addSourceToMap(information, getBound, uploadAction) {
-        if (convex_hull.isVisible()) mamufasPolygon();
+        if (convex_hull.isVisible()) {
+          // mamufasPolygon();
+          analysis_map.stop();
+        }
 
         var point_changes = [];
 
@@ -470,7 +482,8 @@
         showMamufasMap();
         
         if (convex_hull.isVisible()) {
-          mamufasPolygon();
+          // mamufasPolygon();
+          analysis_map.stop();
         }
 
         // Remove spiderfy!
@@ -517,7 +530,8 @@
 			function removeMarkers(remove_markers) {
         closeMapWindows();
         if (convex_hull.isVisible()) {
-          mamufasPolygon();
+          // mamufasPolygon();
+          analysis_map.stop();
         }
 
         // Remove spiderfy!
@@ -597,7 +611,7 @@
 					actions.Do('add', null, [marker.data]);
 
           if (convex_hull.isVisible()) {
-            convex_hull.addPoint(marker);
+            analysis_map.addPoint(marker);
           }
 			}	
 
@@ -610,7 +624,8 @@
         if (markers_id.length>0) {
           
           if (convex_hull.isVisible()) {
-            mamufasPolygon();
+            // mamufasPolygon();
+            analysis_map.stop();
           }
           
                
@@ -620,9 +635,9 @@
 
             // Add or deduct the marker from _active_markers
             if (!occurrences[marker_id].data.active) {
-              convex_hull.deductPoint(marker_id);
+              analysis_map.deductPoint(marker_id);
             } else {
-              convex_hull.addPoint(occurrences[marker_id]);
+              analysis_map.addPoint(occurrences[marker_id]);
             }
           }
         
@@ -651,7 +666,8 @@
         asynHideMarker(query,kind,active);
         
         if (convex_hull.isVisible()) {
-          mamufasPolygon();
+          // mamufasPolygon();
+          analysis_map.stop();
         }
 
         function asynHideMarker(query,kind,active) {
