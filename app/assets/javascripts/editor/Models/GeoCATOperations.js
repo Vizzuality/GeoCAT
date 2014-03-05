@@ -195,6 +195,9 @@
 		/* Download to your computer one .geocat file with all the points and properties you have at the moment in the map. */
 		/*===============================================================================================================*/
 		function downloadGeoCAT(format) {
+
+			if (reduce_analysis) return false;
+
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
 			map_inf.center = map.getCenter();

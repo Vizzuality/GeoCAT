@@ -25,6 +25,9 @@
 
         //open add sources container
         $("#add_source_button").click(function(){
+
+          if (reduce_analysis) return; 
+
           if (!$('#add_source_container').is(':visible')) {
             openSources();
           } else {
@@ -320,6 +323,8 @@
       /* Open sources window.                                                       */
       /*============================================================================*/
       function openSources() {
+        if (reduce_analysis) return false;
+
         resetSourcesProperties();
         // bind ESC keydown events
         $(document).keydown(function (e) {

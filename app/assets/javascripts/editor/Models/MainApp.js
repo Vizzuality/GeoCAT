@@ -59,6 +59,8 @@
   /* ===== APLICATION STATE FUNCTION ===== */
 	
 	function changeApplicationTo(type) {
+    if (reduce_analysis) return false;
+    
 		switch (type) {
 			case 0: //Un-do-re-do operation -> Remove selection polygon 
 								removeSelectionPolygon();

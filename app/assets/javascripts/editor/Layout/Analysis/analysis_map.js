@@ -27,21 +27,44 @@
       this.analysis.bind('change:cellsize', this.start, this);
     },
 
+    // Start analysis
     start: function() {
       this._getActivePoints();
     },
 
+    // Stop/pause analysis (When a point is being moved, etc)
     stop: function() {
       this._disableHullPolygon();
       this._removeCellPolygons();
     },
 
+    // Analysis over!
     finish: function() {
       this._removeHullPolygon();
       this._removeCellPolygons();
       this._resetActivePoints();
     },
 
+    reduce: function() {
+      this._drawPatternPolygon();
+    },
+
+    applyReduce: function() {
+      this._destroyPatternPolygon();
+    },
+
+    discardReduce: function() {
+      this._destroyPatternPolygon();
+    },
+
+    _drawPatternPolygon: function() {
+      this.old_hull = new PolyLineFill(this.hull.getPath().getArray(), this.map);
+    },
+
+    _destroyPatternPolygon: function() {
+      this.old_hull.setMap(null);
+      delete this.old_hull;
+    },
 
     _setOverlays: function() {
       this._removeHullPolygon();

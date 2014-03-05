@@ -8,6 +8,7 @@
   @import "compass/css3/images";
   @import "compass/css3/transform";
   @import "compass/css3/transition";
+  @import "compass/css3/opacity";
   @import "../common/mixins";
   @import "../common/buttons";
 
@@ -27,6 +28,14 @@
       font:normal 11px "Futura","FuturaStdMedium";
       color:#CCCCCC;
       text-shadow:0 1px #000000;
+    }
+
+    .sources_mamufas {
+      position:absolute!important;
+      top:37px; right:0; left:0; bottom:0;
+      background:#242628;
+      @include opacity(0.6);
+      z-index:5;
     }
 
     ul {

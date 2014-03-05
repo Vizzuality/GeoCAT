@@ -1,0 +1,56 @@
+<div class="top">
+  <h3>REDUCED ANALYSIS</h3>
+</div>
+<div class="content">  
+  <div class="stats eoo">
+    <div class="comparative">
+      <ul>
+        <li class="comp left original">
+          <div class="info">
+            <label>Original</label>
+            <p><%= (EOO).toString().parseFloat() %></p>
+          </div>
+          <div class="bar"></div>
+        </li>
+        <li class="comp right reduced">
+          <div class="info">
+            <label>Reduced</label>
+            <p><%= (reduce.EOO).toString().parseFloat() %></p>
+          </div>
+          <div class="bar"></div>
+        </li>
+      </ul>
+      <span class="per">-20%</span>
+    </div>
+    <span class="label">EOO (km<sup>2</sup>)</span>
+  </div>
+
+  <div class="stats aoo">
+    <div class="comparative">
+      <ul>
+        <li class="comp left original">
+          <div class="info">
+            <label>Original</label>
+            <p><%= (AOO).toString().parseFloat() %></p>
+          </div>
+          <div class="bar"></div>
+        </li>
+        <li class="comp right reduced">
+          <div class="info">
+            <label>Reduced</label>
+            <p><%= (reduce.AOO).toString().parseFloat() %></p>
+          </div>
+          <div class="bar"></div>
+        </li>
+      </ul>
+      <span class="per">-20%</span>
+    </div>
+    <span class="label">AOO (km<sup>2</sup>)</span>
+  </div>
+</div>
+<div class="bottom">
+  <nav>
+    <a href="#/reset-reduce" id="reset-reduce">Reset original</a>
+    <a href="#/apply-reduce" id="apply-reduce">Apply results</a>
+  </nav>
+</div>

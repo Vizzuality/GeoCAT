@@ -7,6 +7,17 @@
   @import "compass/css3/border-radius";
 
 
+  div.analysis {
+    .reduce_mamufas {
+      position:absolute!important;
+      top:0; right:0; left:0; bottom:0;
+      background:#242628;
+      @include opacity(0.6);
+      z-index:5;
+    }
+  }
+
+
   div.analysis_data {
     position:relative;
     float:left;
@@ -236,4 +247,174 @@
         }
       }
     } 
+  }
+
+
+
+  // Reduce analysis popup
+
+  .reduce_analysis {
+    position:absolute;
+    display:none;
+    width:232px;
+    height:330px;
+    right:274px;
+    top:140px;
+    padding:11px 24px 12px 11px;
+    background:url('/assets/editor/reduce_analysis_bkg.png') no-repeat 0 0;
+    z-index:10;
+
+    div.top {
+      display:block;
+      height:40px;
+
+      h3 {
+        display:block;
+        line-height:12px;
+        padding:14px 0;
+        text-align:center;
+        text-transform:uppercase;
+        font:normal 11px "Futura","FuturaStdMedium";
+        color:#666666;
+        text-shadow:0 1px #FFFFFF;
+      }
+    }
+
+    div.content {
+      display:block;
+      height:256px;
+
+      div.stats {
+        position:relative;
+        display:block;
+        height:90px;
+        padding:20px;
+
+        ul {
+          display:block;
+          height:73px;
+        }
+
+        li {
+          position:relative;
+          float:left;
+          height:73px;
+          width:94px;
+
+          &.left {
+            div.info {left:0;}
+            div.bar {
+              right:1px;
+              height:100%;
+              background:url("/assets/editor/analysis_bar_bkg.png") repeat-y 0 0;
+            }
+            p, label { text-align: right }
+          }
+
+          &.right {
+            div.info {right:0}
+            div.bar {left:1px}
+            p, label { text-align: left }
+
+            &.less .bar {background:#98BD17}
+            &.more .bar {background:#FFB44F}
+          }
+        }
+
+        div.info {
+          position:absolute;
+          bottom:0;
+          width:65px;
+        }
+
+        div.bar {
+          position:absolute;
+          bottom:3px;
+          width:21px;
+          min-height:3px;
+          max-height:100%;
+        }
+
+        label {
+          display:block;
+          font:normal 11px "Futura","FuturaStdMedium";
+          color:#AAA;
+          text-shadow:0 1px #FFFFFF;
+        }
+
+        p {
+          display:block;
+          font:normal 11px "Futura","FuturaStdMedium";
+          color:#666666;
+          text-shadow:0 1px #FFFFFF;
+        }
+
+        span.per {
+          position:absolute;
+          top:48px;
+          left:50%;
+          width:33px;
+          padding:10px 0 11px;
+          line-height:11px;
+          margin-left:-17px;
+          background:white;
+          text-align:center;
+          font:bold 11px Arial;
+          @include border-radius(33px);
+
+          &.less { color:#98BD17 }
+          &.more { color:#FFB44F }
+        }
+
+        span.label {
+          position:absolute;
+          bottom:15px;
+          left:0;
+          width:100%;
+          text-align:center;
+          font:normal 11px "Futura","FuturaStdMedium";
+          color:#666666;
+          text-shadow:0 1px #FFFFFF;
+        }
+      }
+    }
+
+    div.bottom {
+      display:block;
+      height:34px;
+      
+      nav {
+        display:block;
+
+        a {
+          float:left;
+          width:116px;
+          height:15px;
+          padding:9px 0 10px!important;
+          font:bold 13px Arial;
+          color:#333333;
+          text-shadow:0 1px #B7D58D;
+          text-decoration:none;
+          text-align:center;
+          padding:0;
+          background:url('/assets/editor/download_analysis_bkg.png') repeat-x 0 0;
+
+          &#reset-reduce {
+            width:115px;
+            border-right:1px solid #B93D3A;
+            background:url('/assets/editor/discard_analysis_bkg.jpg') repeat-x 0 0;
+            text-shadow:0 -1px #923E2A;
+            color:white;
+            @include border-bottom-left-radius(4px);
+          }
+
+          &#apply-reduce {
+            @include border-bottom-right-radius(4px);
+          }
+
+          &:hover { text-decoration:underline }
+        }
+
+      }
+    }
   }

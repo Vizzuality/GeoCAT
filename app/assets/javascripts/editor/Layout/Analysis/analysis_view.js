@@ -4,11 +4,6 @@
    *
    */
 
-  
-  // Set saved analysis
-  // Show warning near to the undo-redo telling "This operations only belongs to this analysis"
-
-
   var AnalysisModel = Backbone.Model.extend({
 
     defaults: {
@@ -21,14 +16,18 @@
 
   var AnalysisView = View.extend({
 
+    _MIN_POINTS_ANALYSIS: 3,
+
     events: {
       'click #toggle_analysis': '_toggleAnalysis',
       'click .change':          '_toggleCellsize',
       'click #report':          '_downloadReport',
-      'click #reduce':          '_toggleReduce'
+      'click #reduce':          '_startReduce'
     },
 
     initialize: function(opts) {
+      _.bindAll(this, '_toggleAnalysis', '_toggleCellsize', '_startReduce');
+
       this.model = new Backbone.Model({
         active: false,
         state:  "idle"
@@ -38,6 +37,9 @@
       
       this._initViews();
       this._initBinds();
+
+      this.add_related_model(this.analysis_map);
+      this.add_related_model(this.analysis_data);
     },
     
     render: function() {
@@ -47,7 +49,7 @@
         .attr('class','')
         .addClass(this.analysis_map.get('EOO_type'))
         .find('p').html(
-          this._addCommas(this.analysis_map.get('EOO')) + "km<sup>2</sup>"
+          (this.analysis_map.get('EOO')).toString().addCommas() + "km<sup>2</sup>"
         )
 
       // Set AOO
@@ -55,7 +57,7 @@
         .attr('class','')
         .addClass(this.analysis_map.get('AOO_type'))
         .find('p').html(
-          this._addCommas(this.analysis_map.get('AOO')) + "km<sup>2</sup>"
+          (this.analysis_map.get('AOO')).toString().addCommas() + "km<sup>2</sup>"
         )
 
       // Change test
@@ -81,19 +83,25 @@
       this.addView(this.cellsize);
 
       // Reduce view
-      // this.reduce = new ReduceView();
-      // this.addView(this.reduce);
+      this.reduce = new ReduceAnalysisView({
+        analysis_map: this.analysis_map
+      });
+      this.reduce.bind('apply',   this._applyReduce,    this);
+      this.reduce.bind('discard', this._discardReduce,  this);
+      $('body').append(this.reduce.el);
+      this.addView(this.reduce);
     },
 
     _initBinds: function() {
-      _.bindAll(this, '_toggleAnalysis', '_toggleCellsize');
-
       this.model.bind('change',                       this.render, this);
       this.analysis_data.bind('change',               this.render, this);
       this.analysis_map.bind('change:active_points',  this.render, this);
+    },
 
-      this.add_related_model(this.analysis_map);
-      this.add_related_model(this.analysis_data);
+    _destroyBinds: function() {
+      this.model.unbind('change',                       this.render, this);
+      this.analysis_data.unbind('change',               this.render, this);
+      this.analysis_map.unbind('change:active_points',  this.render, this);
     },
 
     _toggleCellsize: function(e) {
@@ -102,6 +110,9 @@
     },
 
     _toggleAnalysis: function() {
+      // Reduce analysis running? no again please!
+      if (reduce_analysis) return false;
+
       var active = !this.model.get('active');
       
       this.model.set('active', active);
@@ -157,26 +168,71 @@
     _downloadReport: function(e) {
       if (e) e.preventDefault();
 
+      // Reduce analysis running?
+      if (reduce_analysis) return false;
+
       if (this.analysis_map.get('active_points').length > 0) {
         downloadGeoCAT('print');  
       }
     },
 
-    _toggleReduce: function(e) {
+    _startReduce: function(e) {
       if (e) e.preventDefault();
 
+      // Reduce analysis running? no again please!
+      if (reduce_analysis) return false;
+
+      // If there are more than X active points, go ahead!
+      if (this.analysis_map.get('active_points').length < this._MIN_POINTS_ANALYSIS) return false;
+
+      // App with reduce analysis on! :(
+      reduce_analysis = true;
+
+      // Unbind EOO & AOO changes
+      this._destroyBinds();
+
+      // Show reduce
+      this.reduce.open(this.analysis_map.get('EOO'), this.analysis_map.get('AOO'));
+
+      // Undo-redo operations in mode reduce!
+
+      // Analysis map in mode reduce!
+      this.analysis_map.reduce();
+
+      // Show message near undo-redo operations about this analysis
+
+      // Block analysis (mamufas?), sources (mamufas?) and several buttons
+      this._showReduceMamufas();
+
+      $(document).trigger('start_reduce');
     },
-    
-    _addCommas: function(nStr) {
-      nStr += '';
-      x = nStr.split('.');
-      x1 = x[0];
-      x2 = x.length > 1 ? '.' + x[1] : '';
-      var rgx = /(\d+)(\d{3})/;
-      while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + ',' + '$2');
-      }
-      return x1 + x2;
+
+    _discardReduce: function() {
+      reduce_analysis = false;
+      this.analysis_map.discardReduce();
+      this._hideReduceMamufas();
+      this._initBinds();
+
+      $(document).trigger('finish_reduce');
+    },
+
+    _applyReduce: function() {
+      reduce_analysis = false;
+      this.analysis_map.applyReduce();
+      this._hideReduceMamufas();
+      this._initBinds();
+      this.render();
+
+      $(document).trigger('finish_reduce');
+    },
+
+
+    _showReduceMamufas: function() {
+      this.$el.append('<div class="reduce_mamufas"></div>');
+    },
+
+    _hideReduceMamufas: function() {
+      this.$el.find('div.reduce_mamufas').remove();
     },
 
 
@@ -185,7 +241,6 @@
     isVisible: function() {
       return this.model.get('active');
     }
-
 
   });
 

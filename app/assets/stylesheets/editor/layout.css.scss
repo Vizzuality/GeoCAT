@@ -215,7 +215,7 @@ div#tools div.center div.left a.layer:hover {background-position:-248px -51px; c
 div#tools div.center div.left a.layer.selected {background-position:-248px -51px;}
 div#tools div.center div.left a.selected:hover {cursor:default;}
 div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0; width:260px; z-index:10;}
-div#tools div.center div.right div.analysis {float:left; padding:15px 0; border-bottom:1px solid black;}
+div#tools div.center div.right div.analysis {float:left; padding:15px 10px 15px 0; border-bottom:1px solid black;}
 div#tools div.center div.right div.inner_analysis {position:relative; float:left; padding:16px 0 0; margin:0 0 0 30px; width:220px; height:auto; border-radius:5px; -moz-border-radius:5px;
   -webkit-border-radius:5px; background:#EEE; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#EEEEEE),to(#D2D2D2));background:-moz-linear-gradient(-90deg,#EEEEEE,#D2D2D2);background:-o-linear-gradient(#EEEEEE,#D2D2D2);background:#EEEEEE\9;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:url('/assets/editor/analysis_button.png') no-repeat 0 0; margin:0 0 0 16px;}

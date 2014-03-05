@@ -11,13 +11,7 @@
     },
 
     initialize: function() {
-      _.bindAll(this, '_orderSources');
-
-      this.collection.bind('reset',   this.render,        this);
-      this.collection.bind('add',     this._addSource,    this);
-      this.collection.bind('remove',  this._removeSource, this);
-
-      this.collection.bind('change',  this._countSources, this);
+      this._initBinds();
     },
     
     render: function() {
@@ -26,6 +20,19 @@
       _.each(this.collection.last(this.collection.length).reverse(), this._addSource, this);
       this._makeSortable();
       return this;
+    },
+
+    _initBinds: function() {
+      _.bindAll(this, '_orderSources', '_disableSources', '_enableSources');
+
+      this.collection.bind('reset',   this.render,        this);
+      this.collection.bind('add',     this._addSource,    this);
+      this.collection.bind('remove',  this._removeSource, this);
+      this.collection.bind('change',  this._countSources, this);
+
+      var self = this;
+      $(document).bind('start_reduce', function() { self._disableSources() });
+      $(document).bind('finish_reduce', function() { self._enableSources() });
     },
 
     _addSource: function(m, pos) {
@@ -110,6 +117,15 @@
 
     _hideDeleteWarning: function() {
       if (this.delete) this.delete.hide();
+    },
+
+    _enableSources: function() {
+      this.$el.find('div.sources_mamufas').remove();
+    },
+
+    _disableSources: function() {
+      this.$el.append('<div class="sources_mamufas"></div>');
+      
     }
 
   });
