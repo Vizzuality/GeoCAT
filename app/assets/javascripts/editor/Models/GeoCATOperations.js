@@ -173,7 +173,7 @@
 
 			// Analysis?
 
-			if (this.upload_data_.data.analysis !== undefined) {
+			if (this.upload_data_.data.analysis) {
 
 				var analy = this.upload_data_.data.analysis;
 
