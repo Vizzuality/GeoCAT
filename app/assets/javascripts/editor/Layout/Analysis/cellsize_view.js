@@ -85,6 +85,19 @@
       });
     },
 
+    setSlider: function() {
+      var cellsize = this.analysis.get('cellsize');
+      var value = 0;
+
+      if (cellsize<2) {
+        value = cellsize * 10;
+      } else {
+        value = cellsize + 10;
+      }
+      
+      this.$("div.slider").slider('value', value);
+    },
+
     _toggleAutoValue: function(e) {
       if (e) e.preventDefault();
 
