@@ -1,7 +1,7 @@
 ///Start custom poly fill code
 PolyLineFill.prototype = new google.maps.OverlayView();
 
-function PolyLineFill(poly, map, fill, stroke) {
+function PolyLineFill(poly, map, fill, stroke, pattern_stroke) {
    var bounds = new google.maps.LatLngBounds();
    for (var i = 0; i < poly.length; i++) {
        bounds.extend(poly[i]);
@@ -15,6 +15,7 @@ function PolyLineFill(poly, map, fill, stroke) {
    this.polysvg_ = null;
    this.fill_ = fill;
    this.stroke_ = stroke;
+   this.pattern_stroke_ = pattern_stroke;
 
    // Explicitly call setMap on this overlay
    this.setMap(map);
@@ -58,7 +59,7 @@ PolyLineFill.prototype.onAdd = function () {
    //add polygon to the div
    var p = document.createElementNS(svgns, "polygon");
    p.setAttributeNS(null, "fill", "url(#lineFill)");
-   p.setAttributeNS(null, "stroke", "#666");
+   p.setAttributeNS(null, "stroke", this.pattern_stroke_ || "#666");
    p.setAttributeNS(null, "stroke-width", "2");
    //set a reference to this element;
    this.polysvg_ = p;

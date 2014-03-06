@@ -31,8 +31,8 @@
       this.collection.bind('change',  this._countSources, this);
 
       var self = this;
-      $(document).bind('start_reduce', function() { self._disableSources() });
-      $(document).bind('finish_reduce', function() { self._enableSources() });
+      $(document).bind('start_reduction', function() { self._disableSources() });
+      $(document).bind('finish_reduction', function() { self._enableSources() });
     },
 
     _addSource: function(m, pos) {
@@ -125,7 +125,6 @@
 
     _disableSources: function() {
       this.$el.append('<div class="sources_mamufas"></div>');
-      
     }
 
   });

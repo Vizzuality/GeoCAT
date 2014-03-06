@@ -22,11 +22,11 @@
       'click #toggle_analysis': '_toggleAnalysis',
       'click .change':          '_toggleCellsize',
       'click #report':          '_downloadReport',
-      'click #reduce':          '_startReduce'
+      'click #reduction':       '_startReduction'
     },
 
     initialize: function(opts) {
-      _.bindAll(this, '_toggleAnalysis', '_toggleCellsize', '_startReduce');
+      _.bindAll(this, '_toggleAnalysis', '_toggleCellsize', '_startReduction');
 
       this.model = new Backbone.Model({
         active: false,
@@ -69,7 +69,7 @@
 
       // Buttons enabled?
       this.$('#report')[this.analysis_map.getActivePoints() > 0 ? 'removeClass' : 'addClass' ]('disabled');
-      this.$('#reduce')[this.analysis_map.getActivePoints() > 2 ? 'removeClass' : 'addClass' ]('disabled');
+      this.$('#reduction')[this.analysis_map.getActivePoints() > 2 ? 'removeClass' : 'addClass' ]('disabled');
       
       return this;
     },
@@ -82,14 +82,14 @@
       });
       this.addView(this.cellsize);
 
-      // Reduce view
-      this.reduce = new ReduceAnalysisView({
+      // Reduction view
+      this.reduction = new ReductionAnalysisView({
         analysis_map: this.analysis_map
       });
-      this.reduce.bind('apply',   this._applyReduce,    this);
-      this.reduce.bind('discard', this._discardReduce,  this);
-      $('body').append(this.reduce.el);
-      this.addView(this.reduce);
+      this.reduction.bind('apply',   this._applyReduction,    this);
+      this.reduction.bind('discard', this._discardReduction,  this);
+      $('body').append(this.reduction.el);
+      this.addView(this.reduction);
     },
 
     _initBinds: function() {
@@ -110,8 +110,8 @@
     },
 
     _toggleAnalysis: function() {
-      // Reduce analysis running? no again please!
-      if (reduce_analysis) return false;
+      // Reduction analysis running? no again please!
+      if (reduction_analysis) return false;
 
       var active = !this.model.get('active');
       
@@ -138,7 +138,7 @@
       );
 
       // Start or finish convex hull
-      this.analysis_map[ active ? 'start' : 'finish' ]()
+      this.analysis_map[ active ? 'start' : 'finish' ](true);
 
       // Analysis data animation
       this.$('div.analysis_data')
@@ -162,77 +162,80 @@
 
       // Analysis buttons
       this.$('#report')[this.analysis_map.getActivePoints() > 0 ? 'removeClass' : 'addClass' ]('disabled');
-      this.$('#reduce')[this.analysis_map.getActivePoints() > 2 ? 'removeClass' : 'addClass' ]('disabled');
+      this.$('#reduction')[this.analysis_map.getActivePoints() > 2 ? 'removeClass' : 'addClass' ]('disabled');
     },
 
     _downloadReport: function(e) {
       if (e) e.preventDefault();
 
-      // Reduce analysis running?
-      if (reduce_analysis) return false;
+      // Reduction analysis running?
+      if (reduction_analysis) return false;
 
       if (this.analysis_map.get('active_points').length > 0) {
         downloadGeoCAT('print');  
       }
     },
 
-    _startReduce: function(e) {
+    _startReduction: function(e) {
       if (e) e.preventDefault();
 
-      // Reduce analysis running? no again please!
-      if (reduce_analysis) return false;
+      // Reduction analysis running? no again please!
+      if (reduction_analysis) return false;
 
       // If there are more than X active points, go ahead!
       if (this.analysis_map.get('active_points').length < this._MIN_POINTS_ANALYSIS) return false;
 
-      // App with reduce analysis on! :(
-      reduce_analysis = true;
+      // App with reduction analysis on! :(
+      reduction_analysis = true;
 
       // Unbind EOO & AOO changes
       this._destroyBinds();
 
-      // Show reduce
-      this.reduce.open(this.analysis_map.get('EOO'), this.analysis_map.get('AOO'));
+      // Show reduction
+      this.reduction.open(this.analysis_map.get('EOO'), this.analysis_map.get('AOO'));
 
-      // Undo-redo operations in mode reduce!
+      // Undo-redo operations in mode reduction!
+      actions.startReduction();
 
-      // Analysis map in mode reduce!
-      this.analysis_map.reduce();
+      // Analysis map in mode reduction!
+      this.analysis_map.reduction();
 
       // Show message near undo-redo operations about this analysis
 
       // Block analysis (mamufas?), sources (mamufas?) and several buttons
-      this._showReduceMamufas();
+      this._showReductionMamufas();
 
-      $(document).trigger('start_reduce');
+      $(document).trigger('start_reduction');
     },
 
-    _discardReduce: function() {
-      reduce_analysis = false;
-      this.analysis_map.discardReduce();
-      this._hideReduceMamufas();
+    _discardReduction: function() {
+      reduction_analysis = false;
+      this.analysis_map.discardReduction();
+      actions.discardReduction();
+      this._hideReductionMamufas();
       this._initBinds();
 
-      $(document).trigger('finish_reduce');
+      $(document).trigger('finish_reduction');
     },
 
-    _applyReduce: function() {
-      reduce_analysis = false;
-      this.analysis_map.applyReduce();
-      this._hideReduceMamufas();
+    _applyReduction: function() {
+      reduction_analysis = false;
+      this.analysis_map.applyReduction();
+      actions.applyReduction();
+      this._hideReductionMamufas();
       this._initBinds();
       this.render();
 
-      $(document).trigger('finish_reduce');
+      $(document).trigger('finish_reduction');
     },
 
 
-    _showReduceMamufas: function() {
-      this.$el.append('<div class="reduce_mamufas"></div>');
+    _showReductionMamufas: function() {
+      this.$el.append('<div class="reduction_mamufas"></div>');
     },
 
-    _hideReduceMamufas: function() {
-      this.$el.find('div.reduce_mamufas').remove();
+    _hideReductionMamufas: function() {
+      this.$el.find('div.reduction_mamufas').remove();
     },
 
 

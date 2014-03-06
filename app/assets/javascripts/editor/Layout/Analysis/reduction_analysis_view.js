@@ -1,17 +1,22 @@
 
+  /**
+   *  Reduction analysis view
+   *
+   */
+  
 
-  var ReduceAnalysisView = View.extend({
+  var ReductionAnalysisView = View.extend({
 
-    className:  'reduce_analysis',
+    className:  'reduction_analysis',
     tagName:    'div',
 
     events: {
-      'click #apply-reduce':  '_applyReduce',
-      'click #reset-reduce':  '_discardReduce'
+      'click #apply-reduction':  '_applyReduction',
+      'click #reset-reduction':  '_discardReduction'
     },
 
     initialize: function(opts) {
-      this.template = this.getTemplate('reduce_analysis');
+      this.template = this.getTemplate('reduction_analysis');
       this.analysis_map = opts.analysis_map;
       this.add_related_model(this.analysis_map);
       this.model = new Backbone.Model({ active: false });
@@ -22,58 +27,58 @@
         AOO: parseFloat(this.AOO),
         EOO: parseFloat(this.EOO)
       };
-      obj.reduce = this.analysis_map.toJSON();
-      obj.reduce.EOO = parseFloat(obj.reduce.EOO);
-      obj.reduce.AOO = parseFloat(obj.reduce.AOO);
+      obj.reduction = this.analysis_map.toJSON();
+      obj.reduction.EOO = parseFloat(obj.reduction.EOO);
+      obj.reduction.AOO = parseFloat(obj.reduction.AOO);
       this.$el.html(this.template(obj));
 
 
       // Set EOO bars
-      var isEOOReduced = obj.EOO >= obj.reduce.EOO;
+      var isEOOReducted = obj.EOO >= obj.reduction.EOO;
 
       this.$('.stats.eoo .right')
         .removeClass('less more')
-        .addClass(isEOOReduced ? 'less' : 'more')
+        .addClass(isEOOReducted ? 'less' : 'more')
 
       var EOO_per;
-      if (isEOOReduced) {
+      if (isEOOReducted) {
         this.$('.stats.eoo .left .bar').css('height', '100%');
-        EOO_per = Math.abs(Math.ceil((100 * (obj.EOO - obj.reduce.EOO)) / obj.EOO));
+        EOO_per = Math.abs(Math.ceil((100 * (obj.EOO - obj.reduction.EOO)) / obj.EOO));
         this.$('.stats.eoo .right .bar').css('height', (100 - EOO_per) + '%');
       } else {
         this.$('.stats.eoo .right .bar').css('height', '100%');
-        EOO_per = Math.abs(Math.ceil((100 * (obj.reduce.EOO - obj.EOO)) / obj.reduce.EOO));
+        EOO_per = Math.abs(Math.ceil((100 * (obj.reduction.EOO - obj.EOO)) / obj.reduction.EOO));
         this.$('.stats.eoo .left .bar').css('height', (100 - EOO_per) + '%');
       }
 
       this.$('.stats.eoo .per')
         .removeClass('less more')
-        .addClass(isEOOReduced ? 'less' : 'more')
-        .text( (isEOOReduced ? '-' : '+') + EOO_per + '%')
+        .addClass(isEOOReducted ? 'less' : 'more')
+        .text( (isEOOReducted ? '-' : '+') + EOO_per + '%')
 
 
       // Set AOO bars
-      var isAOOReduced = obj.AOO >= obj.reduce.AOO;
+      var isAOOReduction = obj.AOO >= obj.reduction.AOO;
 
       this.$('.stats.aoo .right')
         .removeClass('less more')
-        .addClass(isAOOReduced ? 'less' : 'more')
+        .addClass(isAOOReduction ? 'less' : 'more')
 
       var AOO_per;
-      if (isAOOReduced) {
+      if (isAOOReduction) {
         this.$('.stats.aoo .left .bar').css('height', '100%');
-        AOO_per = Math.abs(Math.ceil((100 * (obj.AOO - obj.reduce.AOO)) / obj.AOO));
+        AOO_per = Math.abs(Math.ceil((100 * (obj.AOO - obj.reduction.AOO)) / obj.AOO));
         this.$('.stats.aoo .right .bar').css('height', (100 - AOO_per) + '%');
       } else {
         this.$('.stats.aoo .right .bar').css('height', '100%');
-        AOO_per = Math.abs(Math.ceil((100 * (obj.reduce.AOO - obj.AOO)) / obj.reduce.AOO));
+        AOO_per = Math.abs(Math.ceil((100 * (obj.reduction.AOO - obj.AOO)) / obj.reduction.AOO));
         this.$('.stats.aoo .left .bar').css('height', (100 - AOO_per) + '%');
       }
 
       this.$('.stats.aoo .per')
         .removeClass('less more')
-        .addClass(isAOOReduced ? 'less' : 'more')
-        .text( (isAOOReduced ? '-' : '+') + AOO_per + '%')
+        .addClass(isAOOReduction ? 'less' : 'more')
+        .text( (isAOOReduction ? '-' : '+') + AOO_per + '%')
 
       return this;
     },
@@ -86,14 +91,14 @@
       this.analysis_map.unbind('change:AOO change:EOO',  this.render, this);
     },
 
-    _applyReduce: function(e) {
+    _applyReduction: function(e) {
       if (e) e.preventDefault();
       this._destroyBinds();
       this.trigger('apply', this);
       this.hide();
     },
 
-    _discardReduce: function(e) {
+    _discardReduction: function(e) {
       if (e) e.preventDefault();
       this._destroyBinds();
       this.trigger('discard', this);

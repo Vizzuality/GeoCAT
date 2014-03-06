@@ -1,4 +1,8 @@
 
+  /**
+   *  
+   */
+
   var AnalysisMap = Backbone.Model.extend({
 
     _MIN_POINTS_ANALYSIS: 3,
@@ -28,14 +32,15 @@
     },
 
     // Start analysis
-    start: function() {
-      this._getActivePoints();
+    // - It needs to bounds the active points?
+    start: function(bounds) {
+      this._getActivePoints(bounds === true);
     },
 
     // Stop/pause analysis (When a point is being moved, etc)
     stop: function() {
       this._disableHullPolygon();
-      this._removeCellPolygons();
+      this._disableCellPolygons();
     },
 
     // Analysis over!
@@ -45,26 +50,45 @@
       this._resetActivePoints();
     },
 
-    reduce: function() {
-      this._drawPatternPolygon();
+    reduction: function() {
+      this._drawReductionPolygons();
     },
 
-    applyReduce: function() {
-      this._destroyPatternPolygon();
+    applyReduction: function() {
+      this._destroyReductionPolygons();
     },
 
-    discardReduce: function() {
-      this._destroyPatternPolygon();
+    discardReduction: function() {
+      this._destroyReductionPolygons();
     },
 
-    _drawPatternPolygon: function() {
+
+
+    _drawReductionPolygons: function() {
+      var self = this;
+      // Hull
       this.old_hull = new PolyLineFill(this.hull.getPath().getArray(), this.map);
+      // Cells
+      this.old_cells = [];
+      _.each(this.cells, function(c) {
+        self.old_cells.push(
+          new PolyLineFill(c.getPath().getArray(), self.map, null, "#FE8483", "#FE8483")
+        );
+      });
     },
 
-    _destroyPatternPolygon: function() {
+    _destroyReductionPolygons: function() {
+      // Hull
       this.old_hull.setMap(null);
       delete this.old_hull;
+      // Cells
+      _.each(this.old_cells, function(c) {
+        c.setMap(null);
+      });
+      delete this.old_cells;
     },
+
+
 
     _setOverlays: function() {
       this._removeHullPolygon();
@@ -108,6 +132,12 @@
         AOO_type: d.AOORat,
         EOO_type: d.EOORat
       });
+
+      if (d.cellsize !== (this.analysis.get('cellsize') * 1000)) {
+        var cellsize = Math.ceil(d.cellsize / 1000 );
+        this.analysis.set('cellsize', cellsize);
+      }
+      
     },
 
 
@@ -129,11 +159,7 @@
         fillOpacity:0.25,
         strokeOpacity:1
       });
-      this.hull.setMap(this.map);
-
-      // var event = jQuery.Event("getBounds");
-      // event.points = hullPoints;
-      // $("body").trigger(event);  
+      this.hull.setMap(this.map); 
     },
 
     _disableHullPolygon: function() {
@@ -156,13 +182,19 @@
       return result;
     },
 
-
-
-
     _drawCellPolygons: function() {
       var self = this;
       _.each(this.cells,function(c){
         c.setMap(self.map);
+      });
+    },
+
+    _disableCellPolygons: function() {
+      _.each(this.cells,function(c){
+        c.setOptions({
+          fillOpacity:0.1,
+          strokeOpacity:0.2
+        });
       });
     },
 
@@ -174,8 +206,9 @@
       this.cells = [];
     },
 
-    _getActivePoints: function() {
+    _getActivePoints: function(bounds) {
       var self = this;
+      var b = new google.maps.LatLngBounds();
 
       this._resetActivePoints(true);
 
@@ -183,8 +216,13 @@
       _.each(occurrences, function(o) {
         if (o.data.geocat_active && !o.data.geocat_removed) {
           self.get('active_points').push(o);
+          b.extend(o.getPosition());
         }
       });
+
+      // Need to bounds to map
+      if (bounds && this.get('active_points').length > 1)
+        map.fitBounds(b);
 
       this.trigger('change:active_points', this);
     },

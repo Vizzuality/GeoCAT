@@ -26,6 +26,72 @@
 				// Redo action.
 				$('a.redo').click(function() {me.Redo();});
 			}
+
+
+			// New un-redo operations when reduction process
+			// is running
+
+			_.extend(UnredoOperations.prototype, {
+
+				// start reduction analysis,
+				// store last actions and clean it
+				startReduction: function() {
+					this.old = {
+						position: this.position,
+						actions: 	_.clone(this.actions)
+					};
+
+					this.position = 0;
+					this.actions = [];
+				},
+
+				// discard last changes and back to original
+				discardReduction: function() {
+					// Show mamufas
+					showMamufasMap();
+
+					// Loop through reduction actions until position specified
+					for (var i = (this.position - 1); i >= 0; i--) {
+						var d = this.actions[i].data;
+						var k = this.actions[i].kind;
+
+						switch(k) {
+							case 'remove': 	this.restoreMarkers(d); break;
+							case 'add': 		this.removeMarkers(d); break;
+							case 'move': 		this.moveMarker(d[0].catalogue_id,d[0].old_.latlng); break;
+	            case 'edit': 		this.changeData(d[0].catalogue_id,d[0].old_.info); break;
+							case 'active': 	makeActive(d,true); break;
+							default:
+						}
+					}
+
+					// Reset to original values
+					this.position = this.old.position;
+					this.actions = this.old.actions; 
+					delete this.old;
+
+					// Update analysis
+					$(document).trigger('occs_updated');
+
+					// Hide mamufas
+					hideMamufasMap(false);
+				},
+
+				// apply changes, concat actions
+				applyReduction: function() {
+					// Get old history up to old position :D
+					var old_actions = this.old.actions.slice(0,this.old.position);
+					// Concat old + new
+					this.actions = old_actions.concat(this.actions);
+					// All past actions length + new position! Sum old position
+					// + new position is an error because old position could be
+					// 0, n or (n/2) :S
+					this.position = this.old.position + this.position; 
+
+					delete this.old;
+				}
+
+			});
 			
 			
 			
@@ -120,8 +186,6 @@
 					var actions_count = this.actions[this.position].data.length;
 					var actions_kind = this.actions[this.position].kind;
 					
-          
-
 					switch(actions_kind) {
 						case 'remove': 	this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
@@ -214,7 +278,7 @@
 			  oms.unspiderfy();
 
 				if (convex_hull.isVisible()) {
-					convex_hull.calculateConvexHull(false);
+					$(document).trigger('occs_updated');
 				}
 			}
 			

@@ -1,7 +1,7 @@
 
 		var report_name;  							/*** Report name ***/
 		var state = 'select';						// State of the map & application
-    var reduce_analysis = false;    // Is reduce analysis running?
+    var reduction_analysis = false; // Is reduction analysis running?
 
 		var points;								      // Points operations for each specie
 		var convex_hull;								// Convex Hull model Object for calculating the polygon

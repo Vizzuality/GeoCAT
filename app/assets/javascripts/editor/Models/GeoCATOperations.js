@@ -24,56 +24,72 @@
 		/* Download all the data thanks to a .GeoCAT file. */
 		/*========================================================================================================================*/
 		GeoCAT.prototype.download = function(format) {
-		  var dataset = new Object();
-			// Report name
-			dataset.reportName = unescape(report_name);
+			
+			// VIEWPORT
+			
+			var dataset = {
+				reportName: 		unescape(report_name),
+				viewPort: {
+					zoom: 				this.zoom,
+					center: {
+						latitude: 	this.center.lat(),
+						longitude: 	this.center.lng()
+					}
+				},
+				sources: 				[]
+			};
+			
+			
+			// OCCS
 
-			// Viewport
-			dataset.viewPort = {};
-			dataset.viewPort.zoom = this.zoom;
-			dataset.viewPort.center = new Object();
-			dataset.viewPort.center.latitude = this.center.lat();
-			dataset.viewPort.center.longitude = this.center.lng();
-			dataset.sources = [];
 			this.addMarkers(dataset,this.markers_);
 
-			// Analysis
-			var analysis = new Object();
-			// Send analysis if it is visible
+			
+			// ANALYSIS
+			
 			if (convex_hull.isVisible()) {
-			  dataset.analysis = new Object();
-			  analysis.EOO = new Object();
-			  analysis.EOO.status = convex_hull.EOOkind;
-			  analysis.EOO.result = convex_hull.EOO;
-			  analysis.EOO.convex_hull = [];
-			  if (convex_hull.polygon!=undefined && convex_hull.polygon.getPath().getLength()>2) {
-			    for (var i=0; i<convex_hull.polygon.getPath().getLength(); i++) {
-  			    var point = convex_hull.polygon.getPath().getAt(i);
-  			    analysis.EOO.convex_hull.push({latitude:point.lat(), longitude:point.lng()});
+				var m_ = analysis_map.toJSON();
+				var d_ = analysis_data.toJSON();
+
+				var analysis = {
+					EOO: {
+						status: 				m_.EOO_type,
+						result: 				m_.EOO,
+						convex_hull: 		[]
+					},
+					AOO: {
+						status: 				m_.AOO_type,
+						result: 				m_.AOO,
+						cellsize: 			d_.cellsize,
+						cellsize_type: 	d_.celltype,
+						grids: 					[]
+					}
+				};
+
+				// Convex hull vertexes
+				if (analysis_map.hull && analysis_map.hull.getPath().getLength() > 2) {
+			    for (var i=0, l=analysis_map.hull.getPath().getLength(); i<l; i++) {
+  			    var point = analysis_map.hull.getPath().getAt(i);
+  			    analysis.EOO.convex_hull.push({ latitude:point.lat(), longitude:point.lng() });
   			  }
 			  }
 
-			  analysis.AOO = new Object();
-			  analysis.AOO.status = convex_hull.AOOkind;
-			  analysis.AOO.result = convex_hull.AOO;
-			  analysis.AOO.cellsize_type = convex_hull.cellsize_type;
-			  analysis.AOO.cellsize = convex_hull.cellsize;
-			  analysis.AOO.cellsize_step = $("div.cellsize div.slider").slider('value');
-			  analysis.AOO.grids = [];
-
-			  for (var id in convex_hull.Cells) {
+				// Grid polygons vertexes
+				for (var id in analysis_map.cells) {
   			  var path_points = [];
-  			  for (var i=0; i<convex_hull.Cells[id].getPath().getLength(); i++) {
-  			    var point = convex_hull.Cells[id].getPath().getAt(i);
-  			    path_points.push({latitude:point.lat(), longitude:point.lng()});
+  			  for (var i=0; i<analysis_map.cells[id].getPath().getLength(); i++) {
+  			    var point = analysis_map.cells[id].getPath().getAt(i);
+  			    path_points.push({ latitude:point.lat(), longitude: point.lng() });
   			  }
 			    analysis.AOO.grids.push(path_points);
 				}
+
 				dataset.analysis = analysis;
 			}
 
 
-			// Add active custom Layers
+			// LAYERS
+
 			var added_layers = [];
 			layers.sort().each(function(layer,i){
 				if (layer.get('added')) {
@@ -84,6 +100,9 @@
 			});
 
 			dataset.layers = added_layers;
+
+
+			// SEND
 
 			var value_ = JSON.stringify(dataset);
 
@@ -152,37 +171,47 @@
 			obj.reportName = this.upload_data_.data.reportName;
 
 
-			//If there is analysis
-			if (this.upload_data_.data.analysis!=undefined) {
-			  $('a#toggle_analysis').trigger('click');
+			// Analysis?
+
+			if (this.upload_data_.data.analysis !== undefined) {
+
 			  $('body').unbind('getBounds');
-			  if (this.upload_data_.data.analysis.AOO.cellsize_type=='auto') {
-			    $('#auto_value').trigger('click');
-			  } else {
-					var cellsize = this.upload_data_.data.analysis.AOO.cellsize_step;
-					if (cellsize<11) {
-						if (cellsize == 10) {
-							convex_hull.cellsize = 1;
-						} else {
-							convex_hull.cellsize = (cellsize * 0.1).toFixed(1);
-						}
-					} else {
-						convex_hull.cellsize = cellsize - 10;
-					}
 
-			    if (this.upload_data_.data.analysis.AOO.cellsize_type == "auto-value") {
-			      $('#auto_value').trigger('click')
-			    } else {
-			      $("div.cellsize span p").text(convex_hull.cellsize + 'KM');
-  			    $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.AOO.cellsize_step);
-			    }
+			  analysis_data.set({
+			  	cellsize: '',
+			  	celltype: ''
+			  })
 
-			    convex_hull.cellsize_type = this.upload_data_.data.analysis.AOO.cellsize_type;
-			    convex_hull.removeAOOPolygons();
-			  }
+			  // if (this.upload_data_.data.analysis.AOO.cellsize_type=='auto') {
+			  //   $('#auto_value').trigger('click');
+			  // } else {
+					// var cellsize = this.upload_data_.data.analysis.AOO.cellsize_step;
+					// if (cellsize<11) {
+					// 	if (cellsize == 10) {
+					// 		convex_hull.cellsize = 1;
+					// 	} else {
+					// 		convex_hull.cellsize = (cellsize * 0.1).toFixed(1);
+					// 	}
+					// } else {
+					// 	convex_hull.cellsize = cellsize - 10;
+					// }
+
+			  //   if (this.upload_data_.data.analysis.AOO.cellsize_type == "auto-value") {
+			  //     $('#auto_value').trigger('click')
+			  //   } else {
+			  //     $("div.cellsize span p").text(convex_hull.cellsize + 'KM');
+  			//     $("div.cellsize div.slider").slider('value',this.upload_data_.data.analysis.AOO.cellsize_step);
+			  //   }
+
+			  //   convex_hull.cellsize_type = this.upload_data_.data.analysis.AOO.cellsize_type;
+			  //   convex_hull.removeAOOPolygons();
+			  // }
+
+			  $('a#toggle_analysis').trigger('click');
 			}
 
 			result.push(obj);
+
 			for (var i=0; i<this.upload_data_.data.sources.length; i++) {
 				result.push(this.upload_data_.data.sources[i]);
 			}
@@ -196,7 +225,7 @@
 		/*===============================================================================================================*/
 		function downloadGeoCAT(format) {
 
-			if (reduce_analysis) return false;
+			if (reduction_analysis) return false;
 
 			var map_inf = new Object();
 			map_inf.zoom = map.getZoom();
