@@ -49,7 +49,7 @@
         .attr('class','')
         .addClass(this.analysis_map.get('EOO_type'))
         .find('p').html(
-          (this.analysis_map.get('EOO')).toString().addCommas() + "km<sup>2</sup>"
+          (this.analysis_map.get('EOO')).toString().addCommas() + " km<sup>2</sup>"
         )
 
       // Set AOO
@@ -57,7 +57,7 @@
         .attr('class','')
         .addClass(this.analysis_map.get('AOO_type'))
         .find('p').html(
-          (this.analysis_map.get('AOO')).toString().addCommas() + "km<sup>2</sup>"
+          (this.analysis_map.get('AOO')).toString().addCommas() + " km<sup>2</sup>"
         )
 
       // Change test
