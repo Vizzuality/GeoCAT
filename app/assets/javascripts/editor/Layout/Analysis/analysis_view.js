@@ -124,8 +124,6 @@
           top: active ? '229px' : '85px'
         }, 'fast');
 
-      // Close sources globally :( ?
-      closeSources();
 
       // analysis and h3 disable state
       this.$el[ active ? 'removeClass' : 'addClass' ]('disabled');

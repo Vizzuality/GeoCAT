@@ -29,7 +29,6 @@
 				$('a#toggle_analysis').click(function(ev){
 					if ($(this).hasClass('disabled')) {
 					  $('div.sources').stop().animate({top: '229px'},'fast');
-					  closeSources();
 						$('body').bind('getBounds',function(ev){
 							var bounds = new google.maps.LatLngBounds();
 							for (var i in ev.points) {
