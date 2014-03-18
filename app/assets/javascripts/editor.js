@@ -17,4 +17,7 @@
 //=require plugins/tileoverlay
 //=require plugins/oms
 //=require editor/MapOverlays/MapElements
+//=require editor/common/utils
+//=require editor/Layout/NewSources/new_source_items/new_source_search_item
+//=require editor/Layout/NewSources/new_source_items/new_source_upload_item
 //=require_tree ./editor

@@ -33,7 +33,7 @@
       url:    '/editor',
       exts:   /(\.|\/)(geocat|csv)$/i,
       text:   'Import .GeoCAT, .CSV',
-      type:   'upload'
+      type:   'uploadGeoCATCSV'
     }
 
   ];
@@ -68,23 +68,35 @@
     },
 
     _initBinds: function() {
-      _.bindAll(this, 'toggle', 'reset');
+      _.bindAll(this, 'toggle', 'reset', '_onKeyPress');
       // God, please, don't take it into consideration...
       $("#add_source_button").click(this.toggle);
+    },
 
+    _initKeyBind: function() {
+      $(document).bind('keydown',this._onKeyPress);
+    },
+
+    _onKeyPress: function(e) {
+      if (e.keyCode === 27) this.hide()
+    },
+
+    _destroyKeyBind: function() {
+      $(document).unbind('keydown',this._onKeyPress);
     },
 
     _addSource: function(s) {
       var v = new window['New' + s.get('type').capitalize() + 'SourceItem']({
         model: s
       });
-      v.bind('selected', this._selectSource, this);
-      v.bind('import', this._importSource, this);
-      v.bind('dwc', this._dwcSource, this);
+      v.bind('selected',  this._selectSource, this);
+      v.bind('import',    this._importSource, this);
+      v.bind('dwc',       this._dwcSource,    this);
+      v.bind('close',     this.hide,          this);
+      v.bind('changeApp', this._changeApp,    this);
       
       this.$('ul.add_new_sources').append(v.render().el);
       this.addView(v);
-
     },
 
     _importSource: function(data) {
@@ -108,6 +120,11 @@
       });
     },
 
+    _changeApp: function(step) {
+      changeApplicationTo(step);
+      this.hide();
+    },
+
     _resetState: function() {
       this.collection.each(function(s) {
         s.set({
@@ -127,11 +144,13 @@
     },
 
     show: function() {
+      // Arg!
       if (reduction_analysis) return;
 
       this.model.set('visible', true);
       this.render();
       this.$el.fadeIn();
+      this._initKeyBind();
     },
 
     hide: function(e) {
@@ -143,7 +162,12 @@
     reset: function() {
       this._resetState();
       this.clearSubViews();
-    }
+    },
 
+    clean: function() {
+      this._resetState();
+      this._destroyKeyBind();
+      View.prototype.clean.call(this);
+    },
 
   });

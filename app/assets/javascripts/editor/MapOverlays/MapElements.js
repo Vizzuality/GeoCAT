@@ -14,7 +14,6 @@
           '<p>Ops! It looks like your location doesn’t exists</p>' +
         '</span>' +
 
-
         '<!-- Export window -->' +
         '<div id="export_window">' +
           '<a onclick="changeApplicationTo()" class="close">X</a>' +
@@ -29,17 +28,6 @@
               '<a onclick="downloadGeoCAT(\'kml\');changeApplicationTo()" class="export">Download KML</a>' +
             '</div>' +
           '</div>' +
-        '</div>' +
-
-        '<!-- CSV error window -->' +
-        '<div id="csv_error">' +
-          '<a onclick="changeApplicationTo()" class="close">X</a>' +
-          '<h3>There are errors in your uploaded csv file</h3>' +
-          '<ul></ul>' +
-          '<span>' +
-            '<a onclick="changeApplicationTo()" class="cancel">Cancel</a>' +
-            '<a class="continue">continue</a>' +
-          '</span>' +
         '</div>' +
 
         '<!-- Close without save/download -->' +

@@ -10,6 +10,7 @@
     var layers;                     // LayersCustomization variable
 
     var modals = {}                 // Modal dialogs available
+    var csv_error;                  // CSV error dialog
 
 
     $(function() {
@@ -77,6 +78,10 @@
             el: this.$('#add_source_container')
           });
           new_sources_.render();
+
+          // CSV error dialog
+          csv_error = new CSVErrorDialog();
+          this.$el.append(csv_error.render().el);
 
           // IE?
           if ($.browser.msie) {
