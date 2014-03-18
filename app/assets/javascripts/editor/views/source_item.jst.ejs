@@ -1,7 +1,7 @@
 <span class="band <%= type %>"></span>
 <div class="info">
   <form>
-    <input type="text" class="text" value="<%= alias || query %>" readonly />
+    <input type="text" class="text" value="<%= alias || query %>" readonly title="<%= alias || query %>" />
     <p class="total">
       <%= total %> <em class="<%= type %>"><%= type %></em>
       point<% if (total != 1) { %>s<% } %>
