@@ -1,9 +1,9 @@
-<span class="band <%= type %>"></span>
+<span class="band <%= type.toLowerCase() %>"></span>
 <div class="info">
   <form>
     <input type="text" class="text" value="<%= alias || query %>" readonly title="<%= alias || query %>" />
     <p class="total">
-      <%= total %> <em class="<%= type %>"><%= type %></em>
+      <%= total %> <em class="<%= type.toLowerCase() %>"><%= type %></em>
       point<% if (total != 1) { %>s<% } %>
     </p>
   </form>

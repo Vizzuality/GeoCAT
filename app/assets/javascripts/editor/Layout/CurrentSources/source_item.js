@@ -29,7 +29,13 @@
     },
 
     render: function() {
-      this.$el.html(this.template(this.model.toJSON()));
+      var d = this.model.toJSON();
+      
+      if (d.type === "inaturalist") {
+        d.type = "iNaturalist"
+      }
+
+      this.$el.html(this.template(d));
       
       // Set cid as data
       this.$el.attr('data-cid', this.cid);
