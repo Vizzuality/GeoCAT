@@ -82,9 +82,9 @@
           if (kind == "flickr") {
             color = "#FF3399"; //pink
           } else if (kind == "gbif") {
-            color = "#99CC00"; //green
+            color = "#45A82A"; // dark green
           } else if (kind == "inaturalist") {
-            color = "#D9D900"; // yellow
+            color = "#A8CC09"; // light green
           } else {
             color = "#066FB6"; //blue
           }

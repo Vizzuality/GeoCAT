@@ -82,6 +82,8 @@
     _getData: function(specie_name) {
       var specie_data = _.find(this.data.species, function(specie){ return specie.scientificName == specie_name });
       
+      if (!specie_data) return false;
+
       var alias = specie_data.scientificName;
       var query = alias + '_' + new Date().getTime();
       var type = 'dwc';

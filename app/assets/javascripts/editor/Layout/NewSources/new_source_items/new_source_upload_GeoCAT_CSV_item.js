@@ -40,10 +40,8 @@
         var count = _.filter(total_occurrences.points, function(occ) { return !occ.geocat_removed }).length || 0;
 
         this.$('.success p').text(
-          ((count>=1000)?'> ':'') + count + ((count == 1) ? " occ" : " occs") + ' found'
+          count + ((count == 1) ? " occ" : " occs") + ' found'
         );
-
-        this.$('.success .import').text(count>=1000 ? 'import first 1000' : 'import');
 
         this.model.set({
           value: total_occurrences,

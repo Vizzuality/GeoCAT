@@ -24,7 +24,7 @@
     {
       name:   'DWC',
       url:    '/search/dwc',
-      exts:   '',
+      exts:   /(\.|\/)(zip)$/i,
       text:   'Import .DWC',
       type:   'uploadDWC'
     },

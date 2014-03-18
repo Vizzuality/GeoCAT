@@ -169,16 +169,16 @@
           @include background(linear-gradient(#0099FF,#0062A3));
 
           &.gbif {
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99CC00', endColorstr='#7BA600');
-            @include background(linear-gradient(#99CC00,#7BA600))
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#40AB21', endColorstr='#45A82A');
+            @include background(linear-gradient(#40AB21,#45A82A))
           }
           &.flickr {
            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');
             @include background(linear-gradient(#FF3399,#9F2062)) 
           }
           &.inaturalist {
-           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#D9D933', endColorstr='#D9D933');
-            @include background(linear-gradient(#D9D900,#D9D933)) 
+           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A8CC09', endColorstr='#A8CC09');
+            @include background(linear-gradient(#A8CC09,#A8CC09)) 
           }
         }
 
