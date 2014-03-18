@@ -94,53 +94,10 @@
               <a class="add_source" id="add_source_button">Add source</a>
               <div id="add_source_container">
                 <div class="top">
-                  <a onclick="closeSources()" id="close_sources"></a>
+                  <a href="#/close" class="close"></a>
                   <div class="bottom">
                     <div class="middle">
-                      <ul>
-                        <li>
-                          <a id="add_flickr" class="checkbox">Add points from Flickr</a>
-                          <span class="search">
-                            <input type="text" value="Insert species name" />
-                            <a class="search enabled">search</a>
-                          </span>
-                          <span class="loading">
-                            <p>Loading...</p>
-                            <a class="import_data">import</a>
-                          </span>
-                        </li>
-                        <li>
-                          <a id="add_gbif" class="checkbox">Add points from GBIF</a>
-                          <span class="search">
-                            <input type="text" value="Insert species name" />
-                            <a class="search enabled">search</a>
-                          </span>
-                          <span class="loading">
-                            <p>Loading...</p>
-                            <a class="import_data">import</a>
-                          </span>
-                        </li>
-                        <li>
-                          <a id="add_dwc" class="checkbox import_file">Import .DWC</a>
-                          <span class="import">
-                            <div class="inner">
-                              <a class="delete"></a>
-                              <div class="uploader" id="dwc_uploader"><noscript></noscript></div>
-                            </div>
-                            <a class="import_data">import</a>
-                          </span>
-                        </li>
-                        <li>
-                          <a id="add_geocat" class="checkbox import_file">Import .GeoCAT,.CSV</a>
-                          <span class="import">
-                            <div class="inner">
-                              <a class="delete"></a>
-                              <div class="uploader" id="geocat_uploader"><noscript></noscript></div>
-                            </div>
-                            <a class="import_data">import</a>
-                          </span>
-                        </li>
-                      </ul>
+                      <ul class="add_new_sources"></ul>
                     </div>
                   </div>
                 </div>

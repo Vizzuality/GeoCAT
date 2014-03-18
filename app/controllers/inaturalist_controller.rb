@@ -12,7 +12,7 @@ class InaturalistController < ApplicationController
 
       inaturalist_url = URI.escape(
         "http://www.inaturalist.org/observations.json?q=#{q}" +
-        "&per_page=1000&page=1"
+        "&per_page=500&page=1&has[]=geo"
       )
       open(inaturalist_url) {|f| @list =  f.read }
       @list = JSON.parse(@list)
@@ -22,15 +22,16 @@ class InaturalistController < ApplicationController
         {
           'latitude'                      => occ['latitude'],
           'longitude'                     => occ['longitude'],
-          'coordinateUncertaintyInMeters' => 15000,
+          'coordinateUncertaintyInMeters' => occ['positional_accuracy'] || 15000,
           'occurrenceDetails'             => occ['uri'],
           'collector'                     => occ['user_login'],
+          'locality'                      => occ['place_guess'],
           'geocat_active'                 => true,
           'geocat_removed'                => false,
           'geocat_alias'                  => CGI.unescape(q),
           'catalogue_id'                  => "inaturalist_#{occ['id']}-#{occ['user_id']}",
-          'geocat_kind'                   => 'inaturalist',
-          'occurrenceRemarks'             => occ['place_guess'],
+          'geocat_kind'                   => "inaturalist",
+          'occurrenceRemarks'             => "",
           'geocat_query'                  => CGI.unescape(q)
         }
       end

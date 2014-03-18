@@ -77,11 +77,14 @@
         if (canvas.getContext) {
           var context = canvas.getContext('2d');
           var color = '';
+          var kind = this.data.geocat_kind;
 
-          if (this.data.geocat_kind == "flickr") {
+          if (kind == "flickr") {
             color = "#FF3399"; //pink
-          } else if (this.data.geocat_kind == "gbif") {
+          } else if (kind == "gbif") {
             color = "#99CC00"; //green
+          } else if (kind == "inaturalist") {
+            color = "#D9D900"; // yellow
           } else {
             color = "#066FB6"; //blue
           }

@@ -114,6 +114,7 @@
             &.dwc,
             &.csv { text-transform:uppercase }
             &.flickr { text-transform:capitalize }
+            &.inaturalist { text-transform:capitalize }
           }
         }
 
@@ -174,6 +175,10 @@
           &.flickr {
            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');
             @include background(linear-gradient(#FF3399,#9F2062)) 
+          }
+          &.inaturalist {
+           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#D9D933', endColorstr='#D9D933');
+            @include background(linear-gradient(#D9D900,#D9D933)) 
           }
         }
 

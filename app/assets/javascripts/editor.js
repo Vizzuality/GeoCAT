@@ -5,7 +5,9 @@
 //=require plugins/view
 //=require plugins/boxshadow
 //=require plugins/jquery.json-2.2
-//=require plugins/fileuploader
+//=require plugins/jquery.fileupload
+//=require plugins/jquery.fileupload-fp
+//=require plugins/jquery.fileupload-ui
 //=require plugins/select2.min
 //=require plugins/jquery.mousewheel
 //=require plugins/jquery.scrollpane

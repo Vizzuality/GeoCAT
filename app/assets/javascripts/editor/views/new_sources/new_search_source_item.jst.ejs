@@ -1,0 +1,25 @@
+<a href="#/search-<%= name %>" class="source">
+  <i class="checkbox"></i>
+  <%= text %>
+</a>
+<div class="pane">
+  <div class="idle">
+    <form>
+      <input type="text" class="specie" placeholder="Insert species name" />
+      <input type="submit" class="search" value="search" />
+    </form>
+  </div>
+  <div class="loading">
+    <p>Loading...</p>
+    <a href="#/cancel" class="cancel">cancel</a>
+  </div>
+  <div class="success">
+    <p>x ocss</p>
+    <a href="#/discard" class="retry">discard</a>
+    <a href="#/import" class="import">import</a>
+  </div>
+  <div class="error">
+    <p>There was an error :(</p>
+    <a href="#/retry" class="retry">retry</a>
+  </div>
+</div>

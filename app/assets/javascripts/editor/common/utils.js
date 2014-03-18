@@ -17,3 +17,7 @@
     var c = flo.toFixed(x);
     return c.toString().addCommas();
   }
+
+  String.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+  }

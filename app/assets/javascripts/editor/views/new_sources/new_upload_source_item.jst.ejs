@@ -1,0 +1,25 @@
+<a href="#/upload-<%= name %>" class="import_file source">
+  <i class="checkbox"></i>
+  <%= text %>
+</a>
+<div class="pane upload">
+  <div class="idle">
+    <div class="uploader">
+      <form>
+        <input type="file" />
+      </form>
+    </div>
+  </div>
+  <div class="loading">
+    <p>Uploading...</p>
+    <a href="#/cancel" class="cancel">cancel</a>
+  </div>
+  <div class="success">
+    <p>x ocss</p>
+    <a href="#/import" class="import">import</a>
+  </div>
+  <div class="error">
+    <p>There was an error :(</p>
+    <a href="#/retry" class="retry">retry</a>
+  </div>
+</div>

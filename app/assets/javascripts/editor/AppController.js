@@ -27,7 +27,7 @@
 
           mainApp();
           createMap();
-          startSources();
+          // startSources();
 
           google.maps.event.addListenerOnce(map, 'idle', this._startApp);
         },
@@ -71,6 +71,12 @@
           if (upload_information && ( upload_information.species || ( upload_information.errors && !_.isEmpty(upload_information.errors)))) {
             var species_selector = new SpecieSelector(upload_information);
           }
+
+          // New sources view and bindings
+          var new_sources_ = new NewSourcesListView({
+            el: this.$('#add_source_container')
+          });
+          new_sources_.render();
 
           // IE?
           if ($.browser.msie) {

@@ -37,7 +37,7 @@
   
   var SourcesCollection = Backbone.Collection.extend({
 
-    Model: SourceModel,
+    model: SourceModel,
 
     initialize: function(arr, opts) {
       this.options = opts;
