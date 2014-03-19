@@ -22,6 +22,11 @@
       text:   'Add points from iNaturalist'
     },
     {
+      name:   'Picasa',
+      url:    '/search/picasa/<%= value %>',
+      text:   'Add points from Picasa'
+    },
+    {
       name:   'DWC',
       url:    '/search/dwc',
       exts:   /(\.|\/)(zip)$/i,

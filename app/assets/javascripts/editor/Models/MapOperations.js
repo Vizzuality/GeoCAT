@@ -478,7 +478,6 @@
 			/*============================================================================*/
 			function deleteAll(query,type) {
         closeMapWindows();
-        closeDeleteAll();
         showMamufasMap();
         
         if (convex_hull.isVisible()) {

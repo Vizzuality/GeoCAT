@@ -113,7 +113,7 @@
             &.gbif,
             &.dwc,
             &.csv { text-transform:uppercase }
-            &.flickr { text-transform:capitalize }
+            &.flickr, &.picasa { text-transform:capitalize }
           }
         }
 
@@ -172,11 +172,15 @@
             @include background(linear-gradient(#40AB21,#45A82A))
           }
           &.flickr {
-           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');
             @include background(linear-gradient(#FF3399,#9F2062)) 
           }
+          &.picasa {
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#8B6AA2', endColorstr='#674D77');
+            @include background(linear-gradient(#8B6AA2,#674D77)) 
+          }
           &.inaturalist {
-           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A8CC09', endColorstr='#A8CC09');
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A8CC09', endColorstr='#A8CC09');
             @include background(linear-gradient(#A8CC09,#A8CC09)) 
           }
         }

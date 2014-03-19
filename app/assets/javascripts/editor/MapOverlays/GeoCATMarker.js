@@ -85,6 +85,8 @@
             color = "#45A82A"; // dark green
           } else if (kind == "inaturalist") {
             color = "#A8CC09"; // light green
+          } else if (kind == "picasa") {
+            color = "#8B6AA2"; // Purple
           } else {
             color = "#066FB6"; //blue
           }

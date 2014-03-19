@@ -12,6 +12,7 @@ GeocatApp::Application.routes.draw do |map|
   #match 'editor' => 'geocats#editor'
   #match 'editor/:id/:specie' => 'geocats#editor_params'
 
+  match 'search/picasa/:q'      => 'picasa#search'
   match 'search/inaturalist/:q' => 'inaturalist#search'
   match 'search/flickr/:q'      => 'flickr#search'
   match 'search/gbif/:q'        => 'gbif#search'
