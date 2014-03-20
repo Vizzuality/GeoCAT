@@ -30,8 +30,6 @@ class PicasaController < ApplicationController
           @latitude                       = node.xpath("where/Point/pos").text.split(' ')[0].to_f
           @longitude                      = node.xpath("where/Point/pos").text.split(' ')[1].to_f
 
-          puts node
-
           {
             "latitude"                      => @latitude,
             "longitude"                     => @longitude,
