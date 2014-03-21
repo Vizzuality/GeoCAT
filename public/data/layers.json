@@ -1,15 +1,26 @@
  {
   "layers":[
     {
-      "url":"http://184.73.201.235/blue/{Z}/{X}/{Y}",
-      "name":"ProtectedPlanet",
-      "source_url":"http://protectedplanet.net/",
-      "source_name": "ProtectedPlanet",
-      "opacity":1,
-      "position": 0,
-      "tms": false,
-      "type": "xyz",
-      "common": true
+      "url":          "http://184.73.201.235/blue/{Z}/{X}/{Y}",
+      "name":         "ProtectedPlanet",
+      "source_url":   "http://protectedplanet.net/",
+      "source_name":  "ProtectedPlanet",
+      "opacity":      1,
+      "position":     0,
+      "tms":          false,
+      "type":         "xyz",
+      "common":       true
+    },
+    {
+      "url":          "http://www.terra-i.org/latin-america/Z{z}/{y}/{x}.png",
+      "name":         "i-Terra",
+      "source_url":   "http://www.terra-i.org/terra-i.html",
+      "source_name":  "iTerra",
+      "opacity":      1,
+      "position":     0,
+      "tms":          false,
+      "type":         "xyz",
+      "common":       true
     }
   ]
 }
