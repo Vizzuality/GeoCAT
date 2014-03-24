@@ -1,6 +1,17 @@
 <div class="inner">
   <a class="close"></a>
   <h3>EDITING METADATA</h3>
+    
+  <% if (geocat_kind === "gbif") { %>
+    <div class="verbatim">
+      <% if (!interpretedFrom) { %>
+        <div class="loader"></div>
+      <% } %>
+      <p class="bold" title="<%= unescape(scientificName) %>"><%= unescape(scientificName) %></p>
+      <p id="metadata_interpretedFrom" title="<%= unescape(interpretedFrom) %>"><%= unescape(interpretedFrom) %></p>
+    </div>
+  <% } %>
+
   <form class="metadata">
     
     <div class="row">

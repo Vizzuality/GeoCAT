@@ -27,6 +27,8 @@ class GbifController < ApplicationController
 
       doc = Nokogiri::XML(@list)
 
+      scientificname = doc.xpath("//gbif:parameter[@name='scientificname']").attr('value');
+
       points = doc.xpath("//gbif:occurrenceRecords/to:TaxonOccurrence").map do |node|
         @institutionCode               = node.xpath("to:institutionCode").text
         @collectionCode                = node.xpath("to:collectionCode").text
@@ -54,6 +56,8 @@ class GbifController < ApplicationController
           "institutionCode"               => @institutionCode,
           "collectionCode"                => @collectionCode,
           "catalogNumber"                 => @catalogNumber,
+          "scientificName"                => scientificname.to_s,
+          "gbifKey"                       => @gbifKey,
           "basisOfRecord"                 => @basisOfRecord,
           "recordedBy"                    => @recordedBy,
           "eventDate"                     => @eventDate,
@@ -78,9 +82,6 @@ class GbifController < ApplicationController
       end
 
       @list =  [{"specie"=>q,"name"=>"gbif","points"=> points }]
-
-            puts :json => @list
-
 
       render :json =>@list
     rescue Exception=> e

@@ -30,6 +30,8 @@
         stateProvince: '',
         county:'',
         verbatimElevation: '',
+        interpretedFrom: '',
+        scientificName: '',
         locality: '',
         seasonality: 'Resident',
         origin: 'Native',
@@ -61,7 +63,7 @@
         data:             new MetadataModel(info)
       });
 
-      _.bindAll(this, 'changeDistance', 'save', 'hide', 'submit');
+      _.bindAll(this, 'changeDistance', 'save', 'hide', 'submit', 'setExtraInfo');
 
       this.setMap(map);
     }
@@ -99,6 +101,10 @@
         $(div).html(JST['editor/views/metadata_infowindow'](data))
         this.bindEvents();
         this.setDistance();
+
+        if (data.geocat_kind === "gbif") {
+          this.getExtraInfo();
+        }
       },
 
       remove: function() {
@@ -172,6 +178,37 @@
         var metric = (ui.value<11) ? 'M' : 'KM';
         var value_showed = (ui.value<11) ? ui.value*100 : (ui.value-10);
         $(div).find('.slider_value').html(value_showed + metric);
+      },
+
+      getExtraInfo: function() {
+        $.ajax({
+          url:      'http://api.gbif.org/v0.9/occurrence/' + this.model.get('data').get('gbifKey') + '/verbatim',
+          success:  this.setExtraInfo,
+          error:    this.removeLoader
+        })
+      },
+
+      setExtraInfo: function(r) {
+        this.removeLoader();
+
+        if (r.fields && r.fields.scientificName) {
+          var v = r.fields.scientificName;
+          var div = this.model.get('div');
+
+          // Change first data          
+          var marker_id = this.model.get('marker_id');
+          this.model.get('data').set('interpretedFrom', v);
+          occurrences[marker_id].data['interpretedFrom'] = v;
+
+          // Then change html
+          $(div).find('#metadata_interpretedFrom').text('Interpreted from: ' + v);
+        }
+      },
+
+      removeLoader: function(e) {
+        if (e) console.log(e);
+        var div = this.model.get('div');
+        $(div).find('div.loader').remove();
       },
 
       changePosition: function(latlng,marker_id,opt) {
