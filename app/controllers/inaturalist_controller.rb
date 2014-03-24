@@ -27,6 +27,7 @@ class InaturalistController < ApplicationController
           'collector'                     => occ['user_login'],
           'locality'                      => occ['place_guess'],
           'catalogNumber'                 => occ['id'],
+          'basisOfRecord'                 => 'HumanObservation',
           'geocat_active'                 => true,
           'geocat_removed'                => false,
           'geocat_alias'                  => CGI.unescape(q),
