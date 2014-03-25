@@ -14,9 +14,6 @@
     initialize: function(opts) {
       _.bindAll(this, 'activate');
       this.preventDefault = false;
-      
-      if (opts.slash)
-        this.options = { slash: opts.slash };
     },
 
     activate: function(name) {

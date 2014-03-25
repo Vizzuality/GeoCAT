@@ -30,7 +30,7 @@
       {
         name:   'Fusion Tables',
         module: 'FusionTables',
-        slug:   'fusion-tables'
+        slug:   'FusionTables'
       },
       {
         name:   'WMS',
@@ -42,18 +42,21 @@
     tagName:    'div',
 
     events: {
-      'click .close': 'hide'
+      'click .close': 'hide',
+      'click .ok':    'ok'
     },
 
     initialize: function() {
-      this.template = this.getTemplate('new_layer_dialog');
+      this.template = this.getTemplate('new_layer_dialog/new_layer_dialog');
       this.collection = new ModuleTypes(this._TYPES);
-      this._initBinds();
     },
 
     render: function() {
       this.$el.append(this.template());
+      
       this._initTabPane();
+      this._initBinds();
+
       return this;
     },
 
@@ -101,7 +104,13 @@
 
         // Create pane
         var name = d.slug || d.name;
-        var mod = this[name] = new window[d.module]();
+        var mod = this[name] = new window[d.module]({
+          template: name,
+          layers:   this.options.layers_collection
+        });
+
+        mod.bind('finished', this.hide, this);
+
         mod.render();
         this.panes.addTab( name, mod );
 
@@ -110,11 +119,21 @@
       this.tabs.linkToPanel(this.panes);
 
       // Active the first one
-      this.panes.active('xyz');
+      this.panes.active('XYZ');
     },
 
     _initBinds: function() {
       _.bindAll(this, 'clean');
+
+      this.panes.bind('tabEnabled', function(a) {
+        console.log("tabEnabled!", a, this);
+      }, this);
+    },
+
+    ok: function(e) {
+      this.killEvent(e);
+      var pane = this.panes.getActivePane();
+      pane.submit();
     },
 
     show: function() {
@@ -122,7 +141,7 @@
     },
 
     hide: function(e) {
-      if (e) e.preventDefault();
+      this.killEvent(e);
       this.$el.fadeOut(this.clean);
     }
 

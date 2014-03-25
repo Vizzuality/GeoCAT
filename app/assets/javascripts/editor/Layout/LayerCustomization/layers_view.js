@@ -76,7 +76,10 @@
     _openNewLayer: function(e) {
       if (e) e.preventDefault();
 
-      var layer_dialog = new LayerDialog();
+      var layer_dialog = new LayerDialog({
+        layers_collection: this.collection
+      });
+
       $('.center-map').append(layer_dialog.render().el);
       layer_dialog.show();
 

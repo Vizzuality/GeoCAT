@@ -2,43 +2,39 @@
 
 
 
-  var XYZ = View.extend({
+  var XYZ = NewLayerModule.extend({
 
-    render: function() {
-      this.$el.html('xyz');
+    events: {
+      'submit form': 'submit'
+    },
 
-      return this;
-    }
-
-  })
-
-/*
-  _onSubmit: function(e) {
+    submit: function(e) {
       if (e) e.preventDefault();
-      var $input = this.$('form.import input[type="text"]');
+
+      var $input = this.$('form input.text');
       var url = $input.val();
       var error = this._checkUrl(url);
 
       if (!error) {
         this._hideError();
-        var pos = this.collection.size();
-        this.collection.add(
-          new Layer({
-            url: url,
-            name: 'User',
-            source_name: 'user',
-            type: this._getLayerType(url),
-            added: true
-          })
-        );
-        $input.val('');
+        this._addLayer(url);
+        this.trigger('finished', this);
       } else {
         this._showError(error);
       }
     },
 
-    _getLayerType: function(url) {
-      return url.substr(url.length - 4) == ".kml" ? 'kml' : 'xyz'
+    _addLayer: function(url) {
+      var pos = this.options.layers.size();
+      this.options.layers.add(
+        new Layer({
+          url:          url,
+          name:         'XYZ layer',
+          source_name:  'user',
+          type:         'xyz',
+          added:        true
+        })
+      );
     },
 
     _checkUrl: function(url) {
@@ -48,18 +44,16 @@
       }
 
       // Type correct
-      var type = this._getLayerType(url);
       if (
-          type === "xyz" && (
           url.toLowerCase().search('{x}') == -1 ||
           url.toLowerCase().search('{y}') == -1 ||
-          url.toLowerCase().search('{z}') == -1 )
+          url.toLowerCase().search('{z}') == -1
         ) {
         return 'XYZ url doesn\'t contain {x},{y} and {z}'
       }
 
       // Layer previously added?
-      var alreadyAdded = this.collection.find(function(l) { return l.get('url').toLowerCase() == url.toLowerCase() })
+      var alreadyAdded = this.options.layers.find(function(l) { return l.get('url').toLowerCase() == url.toLowerCase() })
       if (alreadyAdded) {
         return 'Layer already added to your list'
       }
@@ -68,19 +62,15 @@
     },
 
     _hideError: function() {
-      this.$('span.error').stop().fadeOut();
+      this.$('div.error').hide();
     },
 
     _showError: function(error) {
       // Show error from the errors array
-      this.$('span.error')
+      this.$('div.error')
         .find('p').text(error)
         .parent()
-        .stop()
-        .fadeIn()
-        .delay(2000)
-        .fadeOut();
-    },
+        .show();
+    }
 
-
-  */
+  });

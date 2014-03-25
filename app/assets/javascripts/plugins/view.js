@@ -1,9 +1,12 @@
 
   var View = Backbone.View.extend({
 
+    options: {},
+
     constructor: function(options) {
       this._models = [];
       this._subviews = {};
+      this.options = _.defaults(options, this.options);
       Backbone.View.call(this, options);
       this._created_at = new Date();
     },
@@ -30,7 +33,7 @@
     },
 
     killEvent: function(e) {
-      if (e) {
+      if (e && e.preventDefault) {
         e.preventDefault();
         e.stopPropagation();
       }

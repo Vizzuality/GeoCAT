@@ -1,0 +1,4 @@
+
+  var WMS = NewLayerModule.extend({
+
+  })

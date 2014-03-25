@@ -33,10 +33,13 @@
 
     _addLayer: function(m) {
       var layer;
-      if (m.get('type') === "xyz") {
-        layer = this._createXYZ(m);
-      } else {
+
+      if (m.get('type') === "fusion-tables") {
+        layer = this._createFusionTables(m);
+      } else if (m.get('type') === "kml") {
         layer = this._createKML(m);
+      } else {
+        layer = this._createXYZ(m);
       }
 
       this._orderLayer(m);
@@ -90,6 +93,46 @@
       });
     },
 
+    _createFusionTables: function(m) {
+
+      var ft_opts = {
+        query: {
+          select:   '',
+          from:     '',
+          where:    ''
+        },
+        styleId:    '',
+        templateId: ''
+      };
+
+      var url = m.get('url');
+
+      // Query parameter
+      var query = url.getParameterValue('q');
+
+      // Query parameter: WHERE clause
+      var wherePos = url.indexOf('where');
+      if (wherePos != -1) {
+        var filter = query.substring('where'.length + wherePos);
+        ft_opts.query.where = decodeURIComponent(filter);
+      }
+
+      // Query parameter: document ID
+      var fromPos = query.indexOf('from');
+      var docIdStartPos = fromPos + 'from '.length;
+      var docIdEndPos = query.length;
+      if (wherePos != -1) {
+        docIdEndPos = wherePos - docIdStartPos;
+      }
+      
+      ft_opts.query.from = query.substring(docIdStartPos,docIdStartPos + docIdEndPos).trim();
+      ft_opts.query.select = url.getParameterValue('l');
+      ft_opts.styleId = url.getParameterValue('y');
+      ft_opts.templateId = url.getParameterValue('tmplt');
+
+      return new google.maps.FusionTablesLayer(ft_opts);
+    },
+
     _removeLayer: function(l) {
       if (l.get('type') === "kml") {
         var layer = l.get('layer');
@@ -107,7 +150,7 @@
       });
 
       this.get('layers').each(function(l) {
-        if (l.get('type') === "kml") {
+        if (l.get('type') === "kml" || l.get('type') === "fusion-tables") {
           var layer = l.get('layer');
           if (!_.isEmpty(layer)) layer.setMap(null)
         }
@@ -130,7 +173,7 @@
           if (type === "xyz") {
             map.overlayMapTypes.setAt(index, layer);
             index++;
-          } else if (type === "kml") {
+          } else if (type === "kml" || type === "fusion-tables") {
             if (!_.isEmpty(layer)) layer.setMap(map)
           }
         }
