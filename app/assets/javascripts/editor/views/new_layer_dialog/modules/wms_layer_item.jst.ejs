@@ -1,5 +1,5 @@
 <div class="msg">
-  <h5 class="<%= !enabled ? 'disabled' : '' %>"><%= name %></h5>
+  <h5 class="<%= !enabled ? 'disabled' : '' %>"><%= title || name %></h5>
   <% if (!enabled) { %>
     <p>It doesn't contain supported projections (3857, 900913)</p>
   <% } %>
