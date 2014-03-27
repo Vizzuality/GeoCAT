@@ -5,47 +5,6 @@
    */
 
 
-  var WMSLayer = Backbone.Model.extend({
-
-    defaults: {}
-
-  });
-
-
-  var WMSLayers = Backbone.Collection.extend({
-
-    _URL: '/api/wms.json',
-
-    model: WMSLayer,
-
-    setURL: function(url) {
-      this.wms_url = url;
-
-      return this;
-    }, 
-
-    url: function() {
-      var url = this.wms_url;
-
-      // If the user didn't provided the necessary params, let's add them
-      var hasCapabilities = url.toLowerCase().indexOf("request=getcapabilities") != -1;
-      var hasService = url.toLowerCase().indexOf("service=wms") != -1;
-
-      if (!hasCapabilities && !hasService) {
-        url = url.replace(/\?.*/,''); // strip params
-        url += "?request=GetCapabilities&service=WMS";
-      }
-
-      return this._URL + '?url=' + encodeURIComponent(url);
-    },
-
-    parse: function(r) {
-      return r.layers
-    }
-
-  });
-
-
   var WMSLayerView = View.extend({
 
     tagName: 'li',
@@ -137,16 +96,22 @@
 
 
 
-
-
-
-
   var WMS = NewLayerModule.URL.extend({
+
+    _TEXTS: {
+      error: 'Your WMS base URL is not valid or doesn\'t contain any layer with supported projections (3857, 900913).'
+    },
 
     initialize: function(opts) {
       NewLayerModule.URL.prototype.initialize.call(this, opts);
 
       this.layers = new WMSLayers();
+
+      this._initBinds();
+    },
+
+    _initBinds: function() {
+      this.model.bind('change:state', this._onStateChange, this);
     },
 
     render: function() {
@@ -166,32 +131,62 @@
       if (e) e.preventDefault();
 
       // Check status
-      console.log("what is the status?");
+      var state = this.model.get('state');
+      if (state !== "idle" && state !== "") return;
 
+      // State ok, go ahead!
       var $input = this.$('form input.text');
       var url = $input.val();
       var error = this._checkUrl(url);
 
       if (!error) {
         this._hideError();
-        this.model.set('value', url);
+        
+        this.model.set({
+          value: url,
+          state: 'loading'
+        });
+
         this._requestLayers(url);
       } else {
         this._showError(error);
       }
     },
 
+    reset: function() {
+      this.model.set('state', '');
+      this.trigger('positionate', this);
+    },
 
     _requestLayers: function(url) {
+      var self = this;
+
       this.layers
         .setURL(url)
         .fetch({
           reset: true,
-          success: function() {},
-          error: function() {}
+          success: function() {
+            self.model.set('state', 'success');
+            self.trigger('positionate', self);
+          },
+          error: function() {
+            self.model.set('state', '' );
+            this._showError(this._TEXTS.error);
+            self.trigger('positionate', self);
+          }
         });
     },
 
+    _onStateChange: function() {
+      var state = this.model.get('state');
+      this.$('.input , .list').hide();
+
+      if (state === "success") {
+        this.$('.list').show();
+      } else {
+        this.$('.input').show();        
+      }
+    },
 
     _addLayer: function(m) {
       var url = this._generateURL(m);

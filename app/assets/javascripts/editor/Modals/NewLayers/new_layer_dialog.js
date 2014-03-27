@@ -48,12 +48,14 @@
 
     events: {
       'click .close': 'hide',
+      'click .back':  'reset',
       'click .ok':    'ok'
     },
 
     initialize: function() {
       this.template = this.getTemplate('new_layer_dialog/new_layer_dialog');
       this.collection = new ModuleTypes(this._TYPES);
+      $(document).trigger('new_layer_dialog');
     },
 
     render: function() {
@@ -111,10 +113,12 @@
         var name = d.slug || d.name;
         var mod = this[name] = new window[d.module]({
           template: name,
-          layers:   this.options.layers_collection
+          layers:   this.options.layers_collection,
+          model:    m
         });
 
-        mod.bind('finished', this.hide, this);
+        mod.bind('positionate', this.positionate, this); // Positionate dialog correctly
+        mod.bind('finished',    this.hide,        this); // Task finished? Hide dialog
 
         mod.render();
         this.panes.addTab( name, mod );
@@ -128,11 +132,48 @@
     },
 
     _initBinds: function() {
-      _.bindAll(this, 'clean');
+      _.bindAll(this, 'clean', 'hide');
 
-      this.panes.bind('tabEnabled', function(a) {
-        console.log("tabEnabled!", a, this);
-      }, this);
+      this.collection.bind('change', this._checkFooter, this);
+      this.panes.bind('tabEnabled', this._checkFooter, this);
+      $(document).bind('new_layer_dialog', this.hide);
+    },
+
+    _destroyBinds: function() {
+      $(document).unbind('new_layer_dialog', this.hide);
+    },
+
+    _checkFooter: function() {
+      var pane = this.panes.getActivePane();
+      var state = pane.model.get('state');
+      var tab = this.panes.activeTab;
+      var $ok = this.$('.ok');
+
+      // Ok disabled?
+      $ok[ state === "idle" || state === "" ? 'removeClass' : 'addClass' ]('disabled');
+
+      // Back button visibility?
+      this.$('.back')[ state === "success" ? 'show' : 'hide' ]();
+
+      // Loader
+      this.$('.loader')[ state === "loading" ? 'show' : 'hide' ]();
+
+      // Positionate
+      this.positionate();
+    },
+
+    positionate: function(e) {
+      var h = this.$el.innerHeight() / 2;
+
+      this.$el.animate({
+        marginTop: -h
+      }, 300);
+    },
+
+    reset: function(e) {
+      this.killEvent(e);
+      var pane = this.panes.getActivePane();
+      pane.reset();
     },
 
     ok: function(e) {
@@ -148,6 +189,11 @@
     hide: function(e) {
       this.killEvent(e);
       this.$el.fadeOut(this.clean);
+    },
+
+    clean: function() {
+      this._destroyBinds();
+      View.prototype.clean.call(this);
     }
 
   })

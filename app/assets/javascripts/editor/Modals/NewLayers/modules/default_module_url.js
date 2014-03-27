@@ -38,7 +38,7 @@
       
       // URL valid
       if (url.search('http://') != 0 && url.search('https://') != 0) {
-        return 'URL provided it\'s not valid'
+        return 'URL provided it is not valid'
       }
 
       // Layer previously added?
