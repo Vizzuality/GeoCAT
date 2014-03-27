@@ -115,9 +115,7 @@
             <div class="top-repeat-map">
               <h1 class="report_name"><p><%= @report_name.blank? ? 'Untitled report' : CGI::unescape(@report_name) %></p><input type="text" value="<%= @report_name.blank? ? 'Untitled report' : CGI::unescape(@report_name) %>"/><sup>(unsaved)</sup></h1>
             </div>
-            <div class="top-right-map">
-              <span id="beta"></span>
-            </div>
+            <div class="top-right-map"></div>
           </div>
           <div class="center">
             <div class="left-repeat-map">
