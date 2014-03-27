@@ -18,6 +18,8 @@ GeocatApp::Application.routes.draw do |map|
   match 'search/gbif/:q'        => 'gbif#search'
   match 'search/dwc'            => 'dwc#search'
 
+  match 'api/wms'               => 'wms#proxy'
+
   match 'download'              => 'file#download'
   match 'editor(/:species)'     => 'file#upload'
 

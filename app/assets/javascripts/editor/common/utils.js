@@ -21,3 +21,21 @@
   String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
   }
+
+  String.prototype.getParameters = function() {
+    var vars = [], hash;
+    var hashes = this.slice(this.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  }
+
+  String.prototype.getParameterValue = function(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(this);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }

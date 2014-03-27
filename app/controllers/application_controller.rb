@@ -28,6 +28,12 @@ class ApplicationController < ActionController::Base
     render :file => "#{Rails.root}/public/500.html", :status => 500, :layout => false
   end
 
+  # dry up the jsonp output
+  def render_jsonp obj, status = 200, options = {}
+    options.reverse_merge! :json => obj, :status => status, :callback => params[:callback]
+    render options
+  end
+
   def no_html5_compliant
     render :file => "#{Rails.root}/public/HTML5.html", :status => 500, :layout => false
   end

@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/Vizzuality/dwc-archive.git
+  revision: 7e622ae239ac75e6f58c9b3bd04bc1fe6e61a12e
+  specs:
+    dwc-archive (0.9.6)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -30,7 +36,6 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.5)
-    archive-tar-minitar (0.5.2)
     arel (3.0.3)
     awesome_print (1.2.0)
     backbone-rails (1.1.0)
@@ -63,15 +68,15 @@ GEM
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.3.1)
     diff-lcs (1.2.5)
-    dwc-archive (0.9.11)
-      archive-tar-minitar (~> 0.5)
-      nokogiri (~> 1.6)
-      parsley-store (~> 0.3)
     ejs (1.1.1)
     erubis (2.7.0)
+    ethon (0.6.3)
+      ffi (>= 1.3.0)
+      mime-types (~> 1.18)
     excon (0.31.0)
     execjs (2.0.2)
     fastercsv (1.5.5)
+    ffi (1.9.3)
     flickraw (0.8.2)
       json (>= 1.1.1)
     fssm (0.2.10)
@@ -180,6 +185,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.6.7)
+      ethon (~> 0.6.2)
     tzinfo (0.3.38)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -200,7 +207,7 @@ DEPENDENCIES
   compass-rails (~> 1.0.3)
   csv-mapper
   debugger
-  dwc-archive
+  dwc-archive!
   ejs (~> 1.1.1)
   flickraw (= 0.8.2)
   heroku
@@ -216,4 +223,5 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.6)
   therubyracer (~> 0.9.10)
+  typhoeus (= 0.6.7)
   uglifier (~> 1.3.0)

@@ -8,7 +8,7 @@
   @import "../../common/buttons";
 
 
-  #layer_dialog {
+  #layers_overlay {
     position:absolute!important;
     display:none;
     left:127px; top:185px;
@@ -168,62 +168,19 @@
       }
     }
 
-    // Import form
-    form.import {
-      position:relative;
+    // New layer button
+    .add_new_layer {
+      @include grey-button();
+      float:left;
       display:block;
-      height:24px;
-      padding:12px 14px;
-      overflow:auto;
-
-      input[type="text"] {
-        float:left;
-        width:139px;
-        margin:0;
-        padding:4px 5px;
-        line-height:14px;
-        border:1px solid #999999;
-        @include border-left-radius(3px);
-        border-right:none;
-        outline:none;
-        @include box-shadow(#C9C9C9 0 1px 0 0);
-        &:focus { border-color:#676767 }
-      }
-
-      input[type="submit"] {
-        @include grey-button();
-        float:left;
-        width:53px;
-        padding:4px 0;
-        line-height:14px;
-        text-align:center;
-        @include border-left-radius(0);
-        border:1px solid #999999;
-        outline:none;
-        @include box-shadow(#C9C9C9 0 1px 0 0);
-        
-        &:hover { cursor:pointer }
-      }
+      width:200px;
+      margin:13px 15px;
+      padding:4px 0;
+      line-height:14px;
+      text-align:center;
+      border:1px solid #999999;
+      outline:none;
+      @include box-shadow(#C9C9C9 0 1px 0 0);
     }
 
-    // Error report
-    span.error {
-      position:absolute;
-      display:none;
-      left:10px;
-      bottom:-55px;
-      width:206px;
-      height:84px;
-      background:url('/assets/editor/search_not_found_bkg.png') no-repeat 0 0;
-      z-index:1000;
-      
-      p {
-        float:left;
-        width:137px;
-        margin:33px 0 0 55px;
-        font:normal 12px Arial;
-        line-height:15px;
-        color:#333333;
-      }
-    }
   }
