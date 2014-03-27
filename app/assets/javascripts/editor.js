@@ -20,6 +20,6 @@
 //=require editor/common/utils
 //=require editor/Layout/NewSources/new_source_items/new_source_search_item
 //=require editor/Layout/NewSources/new_source_items/new_source_upload_item
-//=require editor/modals/NewLayers/modules/default_module
-//=require editor/modals/NewLayers/modules/default_module_url
+//=require editor/Modals/NewLayers/modules/default_module
+//=require editor/Modals/NewLayers/modules/default_module_url
 //=require_tree ./editor
