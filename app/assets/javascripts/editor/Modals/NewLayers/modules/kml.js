@@ -1,26 +1,11 @@
+  
+  /**
+   *  Layer module for KML urls
+   *
+   */
 
 
-  var KML = NewLayerModule.extend({
-
-    events: {
-      'submit form': 'submit'
-    },
-
-    submit: function(e) {
-      if (e) e.preventDefault();
-
-      var $input = this.$('form input.text');
-      var url = $input.val();
-      var error = this._checkUrl(url);
-
-      if (!error) {
-        this._hideError();
-        this._addLayer(url);
-        this.trigger('finished', this);
-      } else {
-        this._showError(error);
-      }
-    },
+  var KML = NewLayerModule.URL.extend({
 
     _addLayer: function(url) {
       var pos = this.options.layers.size();
@@ -36,30 +21,16 @@
     },
 
     _checkUrl: function(url) {
+      var error = NewLayerModule.URL.prototype._checkUrl.call(this, url);
+
+      if (error) return error;
+      
       // URL valid
       if (url.substr(url.length - 4).toLowerCase() !== ".kml") {
         return 'KML provided it\'s not valid'
       }
 
-      // Layer previously added?
-      var alreadyAdded = this.options.layers.find(function(l) { return l.get('url').toLowerCase() == url.toLowerCase() })
-      if (alreadyAdded) {
-        return 'Layer already added to your list'
-      }
-
       return '';
-    },
-
-    _hideError: function() {
-      this.$('div.error').hide();
-    },
-
-    _showError: function(error) {
-      // Show error from the errors array
-      this.$('div.error')
-        .find('p').text(error)
-        .parent()
-        .show();
     }
 
-  })
+  });

@@ -261,7 +261,7 @@ div#editor div#tools div.table div.bottom-right-tool {position:relative; float:r
 /*2nd layer - map*/
 div#editor div#map_container {position:absolute; min-width:615px; min-height:580px; top:10px; bottom:40px; left:83px; right:260px; z-index:100;}
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
-div#editor div#map_container div.table div {position:relative;}
+div#editor div#map_container div.table > div {position:relative;}
 div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url('/assets/editor/top-left-map.png') no-repeat right bottom;}
 div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url('/assets/editor/top-repeat-map.png')  0 bottom;}
 div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url('/assets/editor/top-right-map.png') no-repeat left bottom;}

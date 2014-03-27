@@ -11,6 +11,7 @@
    *    - KML
    *    - Fusion Tables
    *    - WMS
+   *    - CartoDB
    *    - ...
    *
    */
@@ -22,6 +23,10 @@
       {
         name:   'XYZ',
         module: 'XYZ'
+      },
+      {
+        name:   'CartoDB',
+        module: 'CartoDB'
       },
       {
         name:   'KML',

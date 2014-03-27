@@ -66,7 +66,7 @@
     },
 
     _toggleSlider: function() {
-      var isAdded = this.model.get('added') && this.model.get('type') === "xyz";
+      var isAdded = this.model.get('added') && ( this.model.get('type') === "xyz" || this.model.get('type') === "wms" );
       this.$('div.foot')[ !isAdded ? 'hide' : 'show' ]()
     },
 

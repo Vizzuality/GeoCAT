@@ -1,26 +1,11 @@
+  
+  /**
+   *  Layer module for Fusion Table urls
+   *
+   */
 
   
-  var FusionTables = NewLayerModule.extend({
-
-    events: {
-      'submit form': 'submit'
-    },
-
-    submit: function(e) {
-      if (e) e.preventDefault();
-
-      var $input = this.$('form input.text');
-      var url = $input.val();
-      var error = this._checkUrl(url);
-
-      if (!error) {
-        this._hideError();
-        this._addLayer(url);
-        this.trigger('finished', this);
-      } else {
-        this._showError(error);
-      }
-    },
+  var FusionTables = NewLayerModule.URL.extend({
 
     _addLayer: function(url) {
       var pos = this.options.layers.size();
@@ -36,38 +21,27 @@
     },
 
     _checkUrl: function(url) {
-      // URL valid
-      if (url.search('http://') !== 0 && url.search('https://') !== 0) {
-        return 'URL provided it\'s not valid'
-      }
+      var error = NewLayerModule.URL.prototype._checkUrl.call(this, url);
 
-      // Type correct
-      if (
-          url.search('https://www.google.com/fusiontables/embedviz') !== 0 ||
-          !_.contains(url.getParameters(),'q')
-        ) {
-        return 'Fusion Tables url is not correct'
-      }
+      if (error) return error;
 
-      // Layer previously added?
-      var alreadyAdded = this.options.layers.find(function(l) { return l.get('url').toLowerCase() == url.toLowerCase() })
-      if (alreadyAdded) {
-        return 'Layer already added to your list'
-      }
+      // Fusion tables url
+      var vizmap = url.getParameterValue('viz');
+      if (!vizmap || vizmap !== "MAP") return "Fusion table url doesn't contain 'viz' parameter with MAP value included"
+
+      // q parameter
+      var query = url.getParameterValue('q');
+      if (!query) return "Fusion table url doesn't contain 'q' parameter"
+
+      // from parameter
+      var fromPos = query.indexOf('from');
+      if (fromPos === -1) return "Fusion table url doesn't contain 'from' clause"
+
+      // select parameter
+      var select = url.getParameterValue('l');
+      if (!select) return "Fusion table url doesn't contain 'l' parameter (select)"
 
       return '';
-    },
-
-    _hideError: function() {
-      this.$('div.error').hide();
-    },
-
-    _showError: function(error) {
-      // Show error from the errors array
-      this.$('div.error')
-        .find('p').text(error)
-        .parent()
-        .show();
-    }    
+    } 
 
   })

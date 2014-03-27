@@ -109,9 +109,4 @@ function loadWMS(map, baseURL, customParams) {
     };
 
     return new google.maps.ImageMapType(overlayOptions);
-
-    // overlayWMS = new google.maps.ImageMapType(overlayOptions);
-
-    //map.overlayMapTypes.insertAt(0, overlayWMS);
-    // map.overlayMapTypes.setAt(0, overlayWMS);
 }

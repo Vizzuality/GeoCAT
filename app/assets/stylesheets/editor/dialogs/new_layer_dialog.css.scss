@@ -6,6 +6,7 @@
 
   @import "compass/css3/inline-block";
   @import "compass/css3/border-radius";
+  @import "compass/css3/box-shadow";
   @import "../../common/buttons";
 
 
@@ -129,4 +130,44 @@
         }
       }
     }
+  }
+
+
+  // WMS pane
+
+  .wms_layers {
+
+    li {
+      position:relative;
+      display:block;
+      padding:10px 0;
+      border-bottom:1px solid #555;
+
+      &:last-child { border-bottom:0 }
+    }
+
+    div.msg {
+      @include inline-block();
+      width:375px;
+    }
+
+    h5 {
+      display:block;
+      font:bold 15px Arial;
+      color:#DDD;
+
+      &.disabled {
+        color:#999;
+      }
+    }
+
+    a {
+      position:absolute;
+      right:0;
+      top:12px;
+      @include grey-button();
+      @include box-shadow(none);
+    }
+
+    p { margin-top:5px!important }
   }

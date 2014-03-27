@@ -6,6 +6,7 @@
   @import "compass/css3/inline-block";
   @import "compass/css3/box-shadow";
   @import "compass/css3/images";
+  @import "compass/css3/opacity";
   @import "compass/css3/border-radius";
 
   @mixin grey-button() {
@@ -26,9 +27,25 @@
       background:#DDD;//IE9
       @include background(linear-gradient(#FFF,#AAA));
     }
+
     &:active {
       background:#AAA;//IE9
       @include background(linear-gradient(#AAA,#FFF));
+    }
+
+    &.disabled {
+      @include opacity(0.6);
+
+      &:hover {
+        cursor:default;
+        background:#FFF;//IE9
+        @include background(linear-gradient(#FFFFFF,#CCCCCC));
+      }
+
+      &:active {
+        background:#FFF;//IE9
+        @include background(linear-gradient(#FFFFFF,#CCCCCC));
+      }
     }
   }
 
@@ -51,9 +68,25 @@
       background:#739C29;//IE9
       @include background(linear-gradient(#A9E13B,#5C7D21));
     }
+    
     &:active {
       color:#2A3814;
       background:#5C7D21;//IE9
       @include background(linear-gradient(#5C7D21,#A9E13B));
+    }
+
+    &.disabled {
+      @include opacity(0.6);
+
+      &:hover {
+        cursor:default;
+        background:#A9E13B;//IE9
+        @include background(linear-gradient(#A9E13B,#739C29));
+      }
+
+      &:active {
+        background:#A9E13B;//IE9
+        @include background(linear-gradient(#A9E13B,#739C29));
+      }
     }
   }
