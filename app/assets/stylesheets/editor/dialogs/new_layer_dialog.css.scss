@@ -171,6 +171,13 @@
       padding:15px 0;
       border-bottom:1px solid #555;
 
+      &.empty {
+        padding: 20px 80px 10px;
+        font: normal 15px Arial;
+        color: #AAA;
+        text-align: center;
+      }
+
       &:last-child { border-bottom:0 }
     }
 

@@ -10,6 +10,7 @@ https://www.google.com/fusiontables/embedviz?q=select+col1+from+1i2xhC6SPPbgWZHL
 - WMS:
 http://sedac.ciesin.columbia.edu/geoserver/wms (Projections not supported)
 http://geodata.nationaalgeoregister.nl/bevolkingskernen2008/wms (Netherlands data)
+http://mesonet.agron.iastate.edu/ogc/ (empty)
 
 - CartoDB:
 http://stan26.cartodb.com/api/v2/viz/d845d2b4-b4e8-11e3-8343-0e230854a1cb/viz.json (Paris)

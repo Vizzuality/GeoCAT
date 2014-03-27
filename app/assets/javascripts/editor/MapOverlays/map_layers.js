@@ -195,7 +195,7 @@
       var t = l.get('type');
       var map = this.get('map');
 
-      if (t === "kml") {
+      if (t === "kml" || t === "fusion-tables") {
         var layer = l.get('layer');
         if (!_.isEmpty(layer)) layer.setMap(null)
       } else if (t === "cartodb") {

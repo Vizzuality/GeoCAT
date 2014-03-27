@@ -65,12 +65,25 @@
 
   var WMSLayersList = View.extend({
 
+    _TEXTS: {
+      error: 'Your WMS base URL is not valid or doesn\'t contain any layer.'
+    },
+
     initialize: function() {
       this._initBinds();
     },
 
     render: function() {
       this.clearSubViews();
+      this.$el.html('');
+
+      if (this.collection.size() === 0) {
+        this.$el.append(
+          $('<li>')
+            .addClass('empty')
+            .text(this._TEXTS.error)
+        );
+      }
 
       this.collection.each(function(m) {
         var lyr_view = new WMSLayerView({
