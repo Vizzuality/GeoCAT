@@ -119,11 +119,12 @@
         background:url('/assets/editor/download_analysis_bkg.png') repeat-x 0 0;
 
         &#reduction {
-          width:129px;
-          border-right:1px solid #BB8623;
+          display:block;
+          width:100%;
+          // width:129px;
           background:url('/assets/editor/reduced_analysis_bkg.jpg') repeat-x 0 0;
           text-shadow:0 1px #F1D796;
-          @include border-bottom-left-radius(5px);
+          @include border-bottom-radius(5px);
         }
 
         &#report {

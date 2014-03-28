@@ -21,7 +21,7 @@
     events: {
       'click #toggle_analysis': '_toggleAnalysis',
       'click .change':          '_toggleCellsize',
-      'click #report':          '_downloadReport',
+      // 'click #report':          '_downloadReport',
       'click #reduction':       '_startReduction'
     },
 
@@ -68,7 +68,7 @@
       )
 
       // Buttons enabled?
-      this.$('#report')[this.analysis_map.getActivePoints() > 0 ? 'removeClass' : 'addClass' ]('disabled');
+      // this.$('#report')[this.analysis_map.getActivePoints() > 0 ? 'removeClass' : 'addClass' ]('disabled');
       this.$('#reduction')[this.analysis_map.getActivePoints() > 2 ? 'removeClass' : 'addClass' ]('disabled');
       
       return this;
@@ -159,7 +159,7 @@
         }, 100);
 
       // Analysis buttons
-      this.$('#report')[this.analysis_map.getActivePoints() > 0 ? 'removeClass' : 'addClass' ]('disabled');
+      // this.$('#report')[this.analysis_map.getActivePoints() > 0 ? 'removeClass' : 'addClass' ]('disabled');
       this.$('#reduction')[this.analysis_map.getActivePoints() > 2 ? 'removeClass' : 'addClass' ]('disabled');
     },
 
@@ -244,24 +244,3 @@
     }
 
   });
-
-
-
-    // If there are more than 1 source,
-    // you can print the report
-
-    // _checkReport: function() {
-    //   var $report = $('a#report');
-    //   $report.unbind('click');
-
-    //   if (this.collection.size() > 0) {
-    //     $report
-    //       .removeClass('disabled')
-    //       .click(function(e){
-    //         if (e) e.preventDefault();
-    //         downloadGeoCAT('print');
-    //       });
-    //   } else {
-    //     $report.addClass('disabled')
-    //   }
-    // }
