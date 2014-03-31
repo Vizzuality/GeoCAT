@@ -31,6 +31,7 @@
         county:'',
         verbatimElevation: '',
         interpretedFrom: '',
+        presence: '',
         scientificName: '',
         locality: '',
         seasonality: 'Resident',

@@ -100,7 +100,7 @@
     </div>
 
     <div class="row">
-      <div class="field field-2">
+      <div class="field field-1">
         <label>SEASONALITY</label>
         <select id="metadata_seasonality">
           <option <% if (unescape(seasonality) === 'Resident') { %>selected<% } %>>Resident</option>
@@ -118,6 +118,16 @@
           <option <% if (unescape(origin) === 'Introduced') { %>selected<% } %>>Introduced</option>
           <option <% if (unescape(origin) === 'Vagrant') { %>selected<% } %>>Vagrant</option>
           <option <% if (unescape(origin) === 'Origin Uncertain') { %>selected<% } %>>Origin Uncertain</option>
+        </select>
+      </div>
+      <div class="field field-1">
+        <label>PRESENCE</label>
+        <select id="metadata_presence">
+          <option <% if (unescape(presence) === 'Extant') { %>selected<% } %>>Extant</option>
+          <option <% if (unescape(presence) === 'Possibly Extant') { %>selected<% } %>>Possibly Extant</option>
+          <option <% if (unescape(presence) === 'Possibly Extinct') { %>selected<% } %>>Possibly Extinct</option>
+          <option <% if (unescape(presence) === 'Extinct') { %>selected<% } %>>Extinct</option>
+          <option <% if (unescape(presence) === 'Presence Uncertain') { %>selected<% } %>>Presence Uncertain</option>
         </select>
       </div>
     </div>
