@@ -26,8 +26,9 @@
       if (error) return error;
       
       // URL valid
-      if (url.substr(url.length - 4).toLowerCase() !== ".kml") {
-        return 'KML provided it\'s not valid'
+      var ext = url.substr(url.length - 4).toLowerCase();
+      if (ext !== ".kml" && ext !== ".kmz") {
+        return 'KML/KMZ provided it\'s not valid'
       }
 
       return '';
