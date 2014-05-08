@@ -338,11 +338,19 @@
         // Create dataset or get the correct one
         // if it comes defined
         if (information.dataset) {
-          var dataset = datasets.find(function() {
-
+          var dataset = datasets.find(function(m) {
+            if (m.get('name') === information.dataset) {
+              return m
+            }
           });
+
           if (!dataset) {
-            datasets.push();
+            dataset = new DatasetModel({
+              name: information.dataset
+            }, {
+              map: map
+            })
+            datasets.push(dataset);
           }
         }
 
@@ -352,9 +360,8 @@
             var info_data = {};
             $.extend(info_data, observations[i]);
 
-            // 
-            if () {
-
+            if (dataset) {  
+              info_data.dcid = dataset.cid; 
             }
             
             if (info_data.catalogue_id && occurrences[info_data.catalogue_id]==undefined) {
