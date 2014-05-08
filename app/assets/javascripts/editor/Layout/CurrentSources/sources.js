@@ -47,43 +47,106 @@
       return m.get('position')
     },
 
-    sumUp: function(query, type, alias) {
-      // Search model
-      var m = this.find(function(m) {
-        return m.get('query') == query && m.get('type') == type
-      });
+    // sumUp: function(query, type, alias) {
+    //   // Search model
+    //   var m = this.find(function(m) {
+    //     return m.get('query') == query && m.get('type') == type
+    //   });
+
+    //   // If it doesn't exist, let's create it!
+    //   if (!m) {
+    //     m = new SourceModel({ type: type, query: query, alias: alias || query }, { map: this.options.map });
+    //     this.add(m);
+    //   } else {
+    //     // If it does exist, add new one to the total
+    //     var t = m.get('total');
+    //     m.set('total', t+1);
+    //   }
+    // },
+
+    sum: function(data, type, query) {
+      var mdl;
+
+      // If occ has source id (scid)
+      if (data.scid) {
+        // Get source
+        mdl = this.find(function(m) {
+          return m.cid === data.scid
+        });
+      } else {
+        // Search source
+        mdl = this.find(function(m) {
+          return m.get('query') == query && m.get('type') == type
+        });
+      }
 
       // If it doesn't exist, let's create it!
-      if (!m) {
-        m = new SourceModel({ type: type, query: query, alias: alias || query }, { map: this.options.map });
-        this.add(m);
+      if (!mdl) {
+        mdl = new SourceModel({ type: type, query: query, alias: query }, { map: this.options.map });
+        this.add(mdl);
       } else {
         // If it does exist, add new one to the total
-        var t = m.get('total');
-        m.set('total', t+1);
+        var t = mdl.get('total');
+        mdl.set('total', t+1);
       }
+
+      if (!data.scid) data.scid = mdl.cid;
+      return data;
     },
 
-    deduct: function(query, type, alias) {
-      // Search model
-      var m = this.find(function(m) {
-        return m.get('query') == query && m.get('type') == type
-      });
+    // deduct: function(query, type, alias) {
+    //   // Search model
+    //   var m = this.find(function(m) {
+    //     return m.get('query') == query && m.get('type') == type
+    //   });
 
-      // If you can't find it, please console!
-      if (!m) {
-        // console.log('Ouch, source with query ' + query + ' and type ' + type + ' doesn\'t exist' );
+    //   // If you can't find it, please console!
+    //   if (!m) {
+    //     // console.log('Ouch, source with query ' + query + ' and type ' + type + ' doesn\'t exist' );
+    //     return false;
+    //   } else {
+    //     // Deduct one from total, setting model
+    //     var t = m.get('total') - 1;
+    //     m.set('total', t);
+    //   }
+
+    //   // If total is 0, remove the model + remove item + añsdlfjñlajsdflñajsd
+    //   if (t == 0) {
+    //     m.destroy();
+    //   }
+    // },
+
+    deduct: function(data, type, query) {
+      var mdl;
+
+      // If occ has source id (scid)
+      if (data.scid) {
+        // Get source
+        mdl = this.find(function(m) {
+          return m.cid === data.scid
+        });
+      } else {
+        // Search source
+        mdl = this.find(function(m) {
+          return m.get('query') == query && m.get('type') == type
+        });
+      }
+
+      if (!mdl) {
+        console.log('Ouch, source with query ' + query + ' and type ' + type + ' doesn\'t exist' );
         return false;
       } else {
         // Deduct one from total, setting model
-        var t = m.get('total') - 1;
-        m.set('total', t);
+        var t = mdl.get('total') - 1;
+        mdl.set('total', t);
       }
 
       // If total is 0, remove the model + remove item + añsdlfjñlajsdflñajsd
-      if (t == 0) {
-        m.destroy();
-      }  
+      // if (t == 0) {
+      //   mdl.destroy();
+      // }
+
+      return data;
     }
 
   });

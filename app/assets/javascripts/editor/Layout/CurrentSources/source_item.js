@@ -24,7 +24,7 @@
       _.bindAll(this, '_toggleVisibility', '_deleteSpecie', '_finishEdit', '_startEdit', '_onSubmit');
       this.model.bind('change', this.render, this);
       this.model.bind('delete', this._removeSource, this);
-      this.model.bind('destroy', this.clean, this);
+      // this.model.bind('destroy', this.clean, this);
       this.template = JST['editor/views/source_item'];
     },
 
@@ -39,6 +39,9 @@
       
       // Set cid as data
       this.$el.attr('data-cid', this.cid);
+
+      // Show or hide depending the number of occs
+      this.$el[ d.total == 0 ? 'hide' : 'show' ]();
 
       return this;
     },
@@ -76,7 +79,7 @@
 
     _removeSource: function(m) {
       deleteAll(m.get('query'), m.get('type'));
-      this.model.destroy();
+      // this.model.destroy();
     },
 
     _deleteSpecie: function(e) {

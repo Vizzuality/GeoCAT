@@ -39,13 +39,13 @@
 
       this.$el
         .css({
-          top:        pos.top - 4 + 'px',
-          marginLeft: '+=10px',
+          top:        pos.top - 22 + 'px',
+          left:       '+=10px',
           opacity:    0,
           display:    'block'
         })
         .animate({
-          marginLeft: '-=10px',
+          left:       '-=10px',
           opacity:    1
         }, 150);
     },

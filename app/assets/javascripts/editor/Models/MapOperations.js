@@ -65,32 +65,43 @@
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				
 
-        //-----//
+
+
+
+
+        //--- DATASETS MAGIC ---//
+
+        datasets = new DatasetsCollection();
+
+        datasets_view = new DatasetsView({
+          el:         $('div.sources'),
+          collection: datasets,
+          map:        map
+        });
+
+        var initial_dataset = new DatasetModel({}, { map: map });
+        datasets.add(initial_dataset);
+
+        // sources_collection = initial_dataset.getSources();
+
         // collection man!
-        sources_collection = new SourcesCollection(null, { map: map });
+        // sources_collection = new SourcesCollection(null, { map: map });
         
         // map sources -> panes!
         map_sources = new MapSources({
-          map:      map,
-          sources:  sources_collection
+          map:        map,
+          datasets:   datasets
         });
-
-        // sources_list
-        points = new SourcesView({
-          el:         $('div.sources'),
-          collection: sources_collection
-        });
-        points.render();
 
         // Change alias from occs when it is neccessary
-        sources_collection.bind('change:alias', function(m, val){
-          _.each(occurrences, function(occ) {
-            if (
-              m.get('query') == occ.data.geocat_query &&
-              m.get('type') == occ.data.geocat_kind) 
-                occ.data.geocat_alias = val;
-          });
-        });
+        // sources_collection.bind('change:alias', function(m, val){
+        //   _.each(occurrences, function(occ) {
+        //     if (
+        //       m.get('query') == occ.data.geocat_query &&
+        //       m.get('type') == occ.data.geocat_kind) 
+        //         occ.data.geocat_alias = val;
+        //   });
+        // });
 
         // Analysis stuff
         analysis_data = new AnalysisData();           // Analysis data (cell size, cell type, ...)
@@ -324,24 +335,43 @@
         // Remove spiderfy!
         oms.unspiderfy();
 
+        // Create dataset or get the correct one
+        // if it comes defined
+        if (information.dataset) {
+          var dataset = datasets.find(function() {
+
+          });
+          if (!dataset) {
+            datasets.push();
+          }
+        }
+
 				/* Recursive service for adding markers. */
         function asynAddMarker(i,total,_bounds, uploadAction, observations) {
           if (i < total){
-            var info_data = new Object();
+            var info_data = {};
             $.extend(info_data, observations[i]);
+
+            // 
+            if () {
+
+            }
             
             if (info_data.catalogue_id && occurrences[info_data.catalogue_id]==undefined) {
-							// If the point doesnt have info about _active and _removed
+							
+              // If the point doesnt have info about _active and _removed
 							if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
 							if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
 							
 							var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
               var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
-              var geocat_alias = info_data.geocat_alias;
+              // var geocat_alias = info_data.geocat_alias;
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 							
-              // (info_data.geocat_removed)? null : points.add(geocat_query,geocat_kind);
-              if (!info_data.geocat_removed) sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
+              if (!info_data.geocat_removed) {
+                // sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
+                datasets.sum(info_data, geocat_kind, geocat_query);
+              }
 
               bounds.extend(latlng);
 	
@@ -357,29 +387,27 @@
                 occurrences[marker_id].setActive(false);
               }
             } else {
-							// if (info_data.geocat_kind==undefined) {
-								if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
-								if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
+							if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
+							if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
 
-								var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
-								var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
-                var geocat_alias = info_data.geocat_alias;
-								var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
-								
-								// points.add(geocat_query,geocat_kind);
-                sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
+							var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
+							var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
+              // var geocat_alias = info_data.geocat_alias;
+							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
+							
+              // sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
+              datasets.sum(info_data, geocat_kind, geocat_query);
 
-								bounds.extend(latlng);
-								global_id++;
-								info_data.catalogue_id = 'user_' + global_id;
-								
-								var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
-                oms.addMarker(marker)
+							bounds.extend(latlng);
+							global_id++;
+							info_data.catalogue_id = 'user_' + global_id;
+							
+							var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+              oms.addMarker(marker)
 
-	              occurrences[marker.data.catalogue_id] = marker;
-	              occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
-	              occurrences[marker.data.catalogue_id].data.geocat_kind = geocat_kind;
-							// }
+              occurrences[marker.data.catalogue_id] = marker;
+              occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
+              occurrences[marker.data.catalogue_id].data.geocat_kind = geocat_kind;
 						}
 
             // Check if marker was created and it is added to the stack
@@ -399,7 +427,7 @@
             
             if (convex_hull.isVisible()) $(document).trigger('occs_updated')
 
-            // Do add
+            // Store action
             actions.Do('add',null,point_changes);
           }
         }
@@ -494,10 +522,14 @@
         
         function asynRemoveMarker(query,type) {
           for (var i in occsCopy) {
-            if ((occsCopy[i].data.geocat_kind == type) && (!occsCopy[i].data.geocat_removed) && (occsCopy[i].data.geocat_query == query)) {
+            var d = occsCopy[i].data;
+
+            if ((d.geocat_kind == type) && (!d.geocat_removed) && (d.geocat_query == query)) {
               
               // points.deduct(query,type);
-              sources_collection.deduct(query, type);
+              // sources_collection.deduct(query, type);
+              
+              datasets.deduct(occurrences[i].data, type, query);
 
               remove_markers.push(occurrences[i].data);
               occurrences[i].data.geocat_removed = true;
@@ -515,9 +547,12 @@
               $(document).trigger('occs_updated');
             }
           } else {
-            setTimeout(function(){asynRemoveMarker(query,type)},0);            
+            setTimeout(function(){
+              asynRemoveMarker(query,type)
+            },0);
           }
         }
+
         asynRemoveMarker(query,type);
 			}
 
@@ -542,7 +577,8 @@
   					var query = occurrences[marker_id].data.geocat_query;
   					var kind = occurrences[marker_id].data.geocat_kind;
 
-            sources_collection.deduct(query, kind);
+            // sources_collection.deduct(query, kind);
+            datasets.deduct(occurrences[marker_id].data, kind, query);
 
             occurrences[marker_id].data.geocat_removed = true;
             occurrences[marker_id].setMap(null);
@@ -574,44 +610,61 @@
 			/*============================================================================*/
 			function addMarker(latlng, fromAction) {
 
-          oms.unspiderfy();
+        oms.unspiderfy();
 
-					global_id++;
-					global_zIndex++;
-					var date = new Date();
-					
-					var inf = new Object();
-					inf.coordinateUncertaintyInMeters = 15000;
-					inf.geocat_active = true;
-					inf.geocat_kind = 'user';
-					inf.geocat_query = 'user';
-					inf.geocat_removed = false;
-					inf.collector = "";
-					inf.eventDate = date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate();
-					inf.occurrenceRemarks = ""
-					inf.catalogue_id = 'user_' + global_id;
-					inf.latitude = latlng.lat();
-					inf.longitude = latlng.lng();
+				global_id++;
+				global_zIndex++;
+				var date = new Date();
+				
+				var inf = {
+          coordinateUncertaintyInMeters:  15000,
+          collector:                      '',
+          eventDate:                      date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate(),
+          occurrenceRemarks:              '',
+          catalogue_id:                   'user_' + global_id,
+          latitude:                       latlng.lat(),
+          longitude:                      latlng.lng(),
+          geocat_active:                  true,
+          geocat_kind:                    'user',
+          geocat_removed:                 false
+        };
 
-          // Add one to the source collection
-          sources_collection.sumUp('user', 'user', 'User ocss');
 
-          // Get alias and add it.
-          var alias = sources_collection.find(function(m){
-            return m.get('type') == inf.geocat_kind &&  m.get('query') == inf.geocat_query
-          }).get('alias');
-          inf.geocat_alias = alias;
+				// inf.coordinateUncertaintyInMeters = 15000;
+				// inf.geocat_active = true;
+				// inf.geocat_kind = 'user';
+				// inf.geocat_query = 'user';
+				// inf.geocat_removed = false;
+				// inf.collector = "";
+				// inf.eventDate = date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate();
+				// inf.occurrenceRemarks = ""
+				// inf.catalogue_id = 'user_' + global_id;
+				// inf.latitude = latlng.lat();
+				// inf.longitude = latlng.lng();
 
-          var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
-					bounds.extend(latlng);
-					
-					//Save occurence
-					occurrences[inf.catalogue_id] = marker;
-					actions.Do('add', null, [marker.data]);
+        // // Add one to the source collection
+        // sources_collection.sumUp('user', 'user', 'User ocss');
 
-          if (convex_hull.isVisible()) {
-            analysis_map.addPoint(marker);
-          }
+        // Add the new point to the proper Dataset >> SourceCollection (data, type, query)
+        datasets.sum(inf, 'user', 'user');
+
+        // Get alias and add it.
+        // var alias = sources_collection.find(function(m){
+        //   return m.get('type') == inf.geocat_kind &&  m.get('query') == inf.geocat_query
+        // }).get('alias');
+        // inf.geocat_alias = alias;
+
+        var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
+				bounds.extend(latlng);
+				
+				//Save occurence
+				occurrences[inf.catalogue_id] = marker;
+        // Store action
+				actions.Do('add', null, [marker.data]);
+
+        if (convex_hull.isVisible()) {
+          analysis_map.addPoint(marker);
+        }
 			}	
 
 

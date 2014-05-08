@@ -50,7 +50,7 @@
 
       this.$el.find('select').on('change', function(ev) {
         self.specie = ev.val;
-      })
+      });
     },
 
     destroyComponents: function() {

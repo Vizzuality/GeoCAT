@@ -49,9 +49,16 @@
           this._bindEvents();
 
           // Get pane from source
-          var pane = sources_collection.find(function(m){
-            return self.data.geocat_kind == m.get('type') && self.data.geocat_query == m.get('query')
-          }).getPane();
+          if (!this.data.dcid) {
+            console.log('There is no dataset id associated to this occ');
+            return false;
+          }
+          if (!this.data.scid) {
+            console.log('There is no source id associated to this occ');
+            return false
+          }
+          var pane = datasets.get(this.data.dcid).getSources().get(this.data.scid).getPane();
+
           pane.appendChild(canvas);
         }
         

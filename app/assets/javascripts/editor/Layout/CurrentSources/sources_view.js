@@ -17,8 +17,10 @@
     render: function() {
       this._destroySorteable();
       this.clearSubViews();
+
       _.each(this.collection.last(this.collection.length).reverse(), this._addSource, this);
       this._makeSortable();
+      
       return this;
     },
 
@@ -28,7 +30,7 @@
       this.collection.bind('reset',   this.render,        this);
       this.collection.bind('add',     this._addSource,    this);
       this.collection.bind('remove',  this._removeSource, this);
-      this.collection.bind('change',  this._countSources, this);
+      // this.collection.bind('change',  this._countSources, this);
 
       var self = this;
       $(document).bind('start_reduction', function() { self._disableSources() });
@@ -37,25 +39,25 @@
 
     _addSource: function(m, pos) {
       var l = new SourceItem({ model:m });
-      this.$('ul').prepend(l.render().el);
+      this.$el.prepend(l.render().el);
       l.bind('delete', this._showDeleteWarning, this);
       this.addView(l);
 
-      this._countSources();
+      // this._countSources();
     },
 
     _removeSource: function(m) {
-      this._countSources();
+      // this._countSources();
     },
 
     _destroySorteable: function() {
-      this.$('ul').sortable('destroy');
+      this.$el.sortable('destroy');
     },
 
     _makeSortable: function() {
       // Draggable!
       var self = this;
-      this.$('ul').sortable({
+      this.$el.sortable({
         revert:     false,
         items:      'li',
         cursor:     'pointer',
@@ -111,7 +113,7 @@
         model:  m,
         view:   view
       });
-      this.$el.append(this.delete.render().el);
+      view.$el.closest('ul').append(this.delete.render().el);
       this.delete.show();
     },
 
@@ -120,7 +122,7 @@
     },
 
     _enableSources: function() {
-      this.$el.find('div.sources_mamufas').remove();
+      this.$('div.sources_mamufas').remove();
     },
 
     _disableSources: function() {

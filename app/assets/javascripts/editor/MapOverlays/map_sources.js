@@ -9,16 +9,51 @@
   var MapSources = Backbone.Model.extend({
 
     defaults: {
-      sources:  {},
+      datasets: {},
       map:      {}
     },
 
     _START_INDEX: 105,
 
     initialize: function() {
-      var sources = this.get('sources');
-      sources.bind('change', this._changeSource, this);
-      sources.bind('remove add reset', this._managePanes, this);
+      this._setSources();
+      this._bindDatasetsEvent();
+    },
+
+    _bindDatasetsEvent: function() {
+      this.get('datasets').bind('change:active', this._setSources, this);
+    },
+
+    _setSources: function() {
+      this._unsetSources();
+
+      // Get source collection
+      var active_dataset = this._getActiveDataset();
+      
+      if (active_dataset) {
+        this.sources = active_dataset.getSources();
+        this.sources.bind('change',           this._changeSource, this);
+        this.sources.bind('remove add reset', this._managePanes, this);  
+      }
+    },
+
+    _getActiveDataset: function() {
+      var dataset;
+
+      this.get('datasets').each(function(m){
+        if (m.get('active')) {
+          dataset = m;
+        }
+      })
+      
+      return dataset;
+    },
+
+    _unsetSources: function() {
+      if (this.sources) {
+        this.sources.unbind('change',           this._changeSource, this);
+        this.sources.unbind('remove add reset', this._managePanes, this);  
+      }
     },
 
     _changeSource: function(m) {
@@ -29,10 +64,10 @@
 
     _managePanes: function() {
       // Order sources
-      var i = this.get('sources').size();
+      var i = this.sources.size();
       var self = this;
 
-      this.get('sources').each(function(s) {
+      this.sources.each(function(s) {
         var pane = s.getPane();
         var pos = s.get('position');
         if (pane) {
@@ -42,7 +77,7 @@
 
       // Float pane on the top
       var float_pane = this.getFloatPane();
-      float_pane.style.zIndex = this._START_INDEX + this.get('sources').size() + 1;
+      float_pane.style.zIndex = this._START_INDEX + this.sources.size() + 1;
     },
 
     getFloatPane: function() {

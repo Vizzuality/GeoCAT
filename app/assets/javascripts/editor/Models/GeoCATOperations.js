@@ -27,7 +27,7 @@
 			
 			// VIEWPORT
 			
-			var dataset = {
+			var report = {
 				reportName: 		unescape(report_name),
 				viewPort: {
 					zoom: 				this.zoom,
@@ -42,7 +42,7 @@
 			
 			// OCCS
 
-			this.addMarkers(dataset,this.markers_);
+			this.addMarkers(report,this.markers_);
 
 			
 			// ANALYSIS
@@ -84,7 +84,7 @@
 			    analysis.AOO.grids.push(path_points);
 				}
 
-				dataset.analysis = analysis;
+				report.analysis = analysis;
 			}
 
 
@@ -99,12 +99,12 @@
 			  }
 			});
 
-			dataset.layers = added_layers;
+			report.layers = added_layers;
 
 
 			// SEND
 
-			var value_ = JSON.stringify(dataset);
+			var value_ = JSON.stringify(report);
 
       $("#format_input").attr("value",format);
       $("#geocat_input").text(value_);
@@ -118,43 +118,35 @@
 		/* Create the object for download later as a .geocat file. */
 		/*========================================================================================================================*/
 		GeoCAT.prototype.addMarkers = function(obj,markers) {
-			for (var i in markers) {
-				var find = false;
-				for (var j=0; j<obj.sources.length; j++) {
-					if (obj.sources[j].query == markers[i].data.geocat_query && obj.sources[j].type == markers[i].data.geocat_kind) {
-					  for (var prop in markers[i].data) {
-  					  if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0 && prop!='geocat_query') {
-      					delete markers[i].data[prop];
-  					  }
-            }
-  					delete markers[i].data.init_latlng;
-  					(markers[i].data.geocat_kind!='user')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
-						obj.sources[j].points.push(markers[i].data);
-						find = true;
-						break;
-					}
+
+			var non_valid = ['init_latlng', 'scid', 'dcid'];
+			var sources = [];
+
+			_.each(markers, function(m) {
+
+				var dataset = datasets.get(m.data.dcid);
+				var occ_data = _.clone(m.data);
+				_.each(non_valid, function(v) {
+					delete occ_data[v];
+				});
+
+				var s = _.find(sources, function(s) {
+					return s.dataset === dataset.get('name');
+				});
+
+				if (!s) {
+					var source = dataset.getSources().get(m.data.scid);
+					var d = source.toJSON();
+					d.points = [ occ_data ];
+					d.dataset = dataset.get('name');
+					sources.push(d)
+				} else {
+					s.points.push( occ_data );
 				}
+			});
 
-
-				if (!find) {
-					var new_source = new Object();
-					new_source.type = markers[i].data.geocat_kind;
-					new_source.query = markers[i].data.geocat_query;
-					new_source.points = [];
-					for (var prop in markers[i].data) {
-            if (markers[i].data[prop]==undefined || markers[i].data[prop].length==0 && prop!='geocat_query') {
-              delete markers[i].data[prop];
-            }
-          }
-					delete markers[i].data.init_latlng;
-          (markers[i].data.geocat_kind!='user')?markers[i].data.recordSource=markers[i].data.kind:markers[i].data.recordSource="Added by user";
-
-					new_source.points.push(markers[i].data);
-					obj.sources.push(new_source);
-				}
-			}
-
-			
+			obj.sources = sources;
+			return false;
 		}
 
 
@@ -260,6 +252,7 @@
   				  source_pair.kind = app_data[i].type || 'user';
   					sources.push(source_pair);
 					}
+					
 					addSourceToMap(app_data[i],false,true);
 					showMamufasMap();
 				} else {
