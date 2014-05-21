@@ -1,17 +1,13 @@
 
   /**
-   *
+   *  Datasets list view
    *
    */
 
   var DatasetsView = View.extend({
 
-    events: {
-      'change select':          '_setActiveDataset',
-      'click a.create_dataset': '_createDataset'
-    },
-
     initialize: function() {
+      this._initViews();
       this._initBinds();
     },
 
@@ -19,6 +15,17 @@
       this.clearSubViews();
       this.collection.each(this._addDataset);
       return this;
+    },
+
+    _initViews: function() {
+      var selector = new DatasetsSelector({
+        el:         $('select'),
+        collection: this.collection,
+        map:        this.options.map
+      });
+      selector.render();
+      selector.bind('onSelect', this._setActiveDataset, this);
+      this.addView(selector);
     },
 
     _addDataset: function(m) {
@@ -32,25 +39,12 @@
     },
 
     _initBinds: function() {
-      _.bindAll(this, '_createDataset');
       // Set select
-      this.collection.bind('add remove',  this._changeSelect, this);
       this.collection.bind('add',         this._addDataset, this);
       this.collection.bind('remove',      this._removeDataset, this);
     },
 
-    _changeSelect: function() {
-      var $select = this.$('select');
-      $select.html('');
-      this.collection.each(function(m) {
-        $select.append('<option data-cid="' + m.cid + '">' + m.get('name') + '</option>')
-      });
-    },
-
-    _setActiveDataset: function() {
-      var value = this.$('select').val();
-      var cid = this.$('select').find(":selected").data('cid');
-      
+    _setActiveDataset: function(value, cid) {
       this.collection.each(function(m) {
         if (m.get('name') === value && m.cid == cid) {
           // Set active dataset
@@ -66,13 +60,6 @@
     _onSelectDataset: function(e) {
       if (e) this.killEvent(e);
       console.log("other dataset selected, change panes!");
-    },
-
-    _createDataset: function(e) {
-      if (e) this.killEvent(e);
-      var n = this.collection.size();
-      this.collection.add(new DatasetModel({ name: 'Dataset ' + n }, { map: this.options.map }));
     }
-
 
   })

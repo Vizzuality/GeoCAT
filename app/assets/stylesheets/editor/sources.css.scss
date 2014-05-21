@@ -42,18 +42,16 @@
     // Datasets
     .dataset_combo {
       position:relative;
-      
-      .create_dataset {
-        position:absolute;
-        right:20px;
-        top:2px;
-        color:#CDCDCD;
-        font:normal 13px Arial;
-        text-decoration: none;
 
-        &:hover {
-          color:white;
-          text-decoration:underline;
+      // Custom container!
+      select,
+      .select2-container {
+        width:220px;
+        font-family:Arial;
+
+        .select2-chosen {
+          color:#777;
+          font-size:13px;
         }
       }
     }
@@ -336,3 +334,83 @@
   }
 
 
+  // Datasets selector dropdown
+  .datasets_dropdown {
+    font-family:Arial;
+
+    .select2-result {
+      padding:3px 0 1px;
+      
+      .select2-result-label {
+        padding:3px 2px 3px;
+      }
+
+      i {
+        color:#787878;
+
+        // Types
+        &.visible { margin-right:4px; }
+        &.edit { margin:0 4px }
+        &.delete {}
+
+        &:hover {color:#333}
+
+        // States
+        &.disabled {
+          color:#DDD;
+          &:hover { color:#DDD }
+        }
+        &.selected {
+          color:#3875d7;
+          &:hover { color:#3875d7 }
+        }
+      }
+
+      form { @include inline-block(); width:145px }
+      
+
+      input {
+        width:145px;
+        padding:0 0 2px 0;
+        background:none;
+        border:none;
+        outline:none;
+        border-bottom:1px dotted #999;
+        font:normal 13px Arial;
+        color:#666;
+
+        &[readonly] {
+          border-bottom:1px dotted transparent;
+          &:hover {
+            color:#333;
+            cursor:pointer;
+          }
+        }
+      }
+    }
+
+    input.select2-input {
+      color:#878787;
+      font-size:13px;
+    }
+
+    .select2-search {
+      margin:3px 0 0;
+    }
+
+    .select2-no-results {
+      padding:10px 0;
+      text-align:center;
+      background:transparent!important;
+
+      a {
+        font:normal 13px Arial;
+        color:#3875d7
+      }
+    }
+
+    .select2-results .select2-highlighted {
+      background:transparent!important;
+      color:inherit;
+    }
+  }

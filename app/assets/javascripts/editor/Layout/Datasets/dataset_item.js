@@ -1,7 +1,7 @@
 
   /**
-   *
-   *
+   *  Dataset item view (an item 
+   *  from the datasets list)
    */
 
   var DatasetItem = View.extend({
