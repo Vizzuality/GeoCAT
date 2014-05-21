@@ -8,7 +8,7 @@
 
     defaults: {
       name:     'Dataset',
-      active:   true
+      active:   false
     },
 
     initialize: function(obj, opts) {

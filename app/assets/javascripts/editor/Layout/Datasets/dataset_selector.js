@@ -32,9 +32,10 @@
         this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' + m.get('name') + '</option>')
       }, this);
 
-      // Check if there is any option selected
-      if (this.$('option:selected').length === 0) {
-        this.$('option:first').attr('selected','');
+      // Check if there is any dataset selected
+      var actives = this.collection.filter(function(m) { return m.get('active') }).length;
+      if (this.collection.size() > 0 && actives === 0) {
+        this.collection.at(0).set('active', true);
       }
 
       var select2 = this.$el.select2({
@@ -81,21 +82,15 @@
         
         // By class
         if (target) {
-
           var c = target.attr('class');
 
           // Delete?
           if (c.indexOf('delete') !== -1) {
-            // return fn.apply(this, arguments);
-
+            self._onDelete(data,e)
           } else if (c.indexOf('edit') !== -1) {
-            
             self._onEdit(data,e);
-
           } else if (c.indexOf('visible') !== -1) {
-            
-            // return fn.apply(this, arguments);
-
+            self._onVisible(data,e);
           } else {
 
             if (!data.editing) {
@@ -110,6 +105,10 @@
         }        
       }
     },
+
+    _onDelete: function(data, e) {},
+
+    _onVisible: function(data, e) {},
 
     _onEdit: function(data, e) {
       var $el = $(e.target);

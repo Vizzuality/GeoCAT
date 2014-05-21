@@ -43,6 +43,8 @@
     .dataset_combo {
       position:relative;
 
+      .select2-choice { border:none }
+
       // Custom container!
       select,
       .select2-container {
@@ -336,6 +338,8 @@
 
   // Datasets selector dropdown
   .datasets_dropdown {
+    border:none!important;
+    @include box-shadow(none);
     font-family:Arial;
 
     .select2-result {

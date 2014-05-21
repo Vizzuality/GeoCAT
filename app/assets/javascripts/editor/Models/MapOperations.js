@@ -65,10 +65,6 @@
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				
 
-
-
-
-
         //--- DATASETS MAGIC ---//
 
         datasets = new DatasetsCollection();
@@ -79,29 +75,11 @@
           map:        map
         });
 
-        var initial_dataset = new DatasetModel({}, { map: map });
-        datasets.add(initial_dataset);
-
-        // sources_collection = initial_dataset.getSources();
-
-        // collection man!
-        // sources_collection = new SourcesCollection(null, { map: map });
-        
         // map sources -> panes!
         map_sources = new MapSources({
           map:        map,
           datasets:   datasets
         });
-
-        // Change alias from occs when it is neccessary
-        // sources_collection.bind('change:alias', function(m, val){
-        //   _.each(occurrences, function(occ) {
-        //     if (
-        //       m.get('query') == occ.data.geocat_query &&
-        //       m.get('type') == occ.data.geocat_kind) 
-        //         occ.data.geocat_alias = val;
-        //   });
-        // });
 
         // Analysis stuff
         analysis_data = new AnalysisData();           // Analysis data (cell size, cell type, ...)
@@ -128,8 +106,6 @@
 		      fillColor: "#FFFFFF",
 		      fillOpacity: 0
 		    });
-				
-				
 
 				/*========================MAP EVENTS==========================*/
 				
