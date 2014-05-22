@@ -17,7 +17,8 @@
     },
 
     initialize: function() {
-      _.bindAll(this, 'search', 'format', '_onCreateNew', '_onSelect', '_onEdit');
+      _.bindAll(this, 'search', 'format', '_onCreateNew', '_onSelect', '_onEdit',
+        '_enableSelector', '_disableSelector');
       this._initBinds()
     },
 
@@ -29,13 +30,22 @@
       this.$el.html('');
 
       this.collection.each(function(m) {
-        this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' + m.get('name') + '</option>')
+        if (!m.get('removed')) {
+          this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' + m.get('name') + '</option>')  
+        }
       }, this);
 
       // Check if there is any dataset selected
       var actives = this.collection.filter(function(m) { return m.get('active') }).length;
       if (this.collection.size() > 0 && actives === 0) {
-        this.collection.at(0).set('active', true);
+        // If not, select first not removed :)
+        
+        var available_models = this.collection.where({ removed: false });
+        if (available_models.length > 0) {
+          available_models[0].set('active', true);
+        } else {
+          console.log("Not available datasets! :(");
+        }
       }
 
       var select2 = this.$el.select2({
@@ -54,7 +64,8 @@
     },
 
     _initBinds: function() {
-      this.collection.bind('add remove', this.render, this);
+      this.collection.bind('add remove',      this.render, this);
+      this.collection.bind('change:removed',  this.render, this);
     },
 
     search: function(val) {
@@ -62,11 +73,15 @@
     },
 
     format: function(state) {
+      // Count number of datasets to disable "remove" option
+      var size = this.collection.size();
+
       if (!state.id) return state.text;
+
       return  "<i class='fa fa-dot-circle-o visible disabled'></i>\
               <form><input class='text' type='text' value='" + state.text + "' readonly /></form>\
               <i class='fa fa-pencil edit'></i>\
-              <i class='fa fa-times delete disabled'></i>";
+              <i class='fa fa-times delete " + ( size > 1 ? '' : 'disabled' ) + "'></i>";
     },
 
     // Oh god!
@@ -106,7 +121,40 @@
       }
     },
 
-    _onDelete: function(data, e) {},
+    _onDelete: function(data, e) {
+      // Get number of datasets.
+      // If there is only one, don't let remove it
+      var size = this.collection.size();
+      if (size < 2) return;
+
+      // Get dataset info
+      var cid = $(data.element).data('cid');
+      var d = this.collection.get({ cid: cid });
+
+      // Active the first one if the deleted is active
+      if (d.get('active') === true) {
+        var mdl = this.collection.find(function(m) { return m.cid !== cid });
+        this.trigger('onSelect', mdl.get('name'), mdl.cid, this);
+        
+        this.$el.select2('val', mdl.get('name'));
+      }
+
+      // Disable selector
+      this._disableSelector();
+  
+      // Start deleting all dataset markers
+      deleteDataset(d);
+    },
+
+    _disableSelector: function() {
+      $(document).bind('occs_removed', this._enableSelector);
+      this.$el.select2('disable');
+    },
+
+    _enableSelector: function() {
+      $(document).unbind('occs_removed', this._enableSelector);
+      this.$el.select2('enable');
+    },
 
     _onVisible: function(data, e) {},
 

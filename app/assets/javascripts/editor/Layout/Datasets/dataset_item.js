@@ -33,10 +33,17 @@
 
     _initBinds: function() {
       this.model.bind('change:active', this._onActiveChange, this);
+      this.model.bind('change:removed', this._onRemovedChange, this);
     },
 
     _onActiveChange: function() {
-      this.$el[ this.model.get('active') ? 'show' : 'hide' ]();
+      if (!this.model.get('removed')) {
+        this.$el[ this.model.get('active') ? 'show' : 'hide' ]();
+      }
+    },
+
+    _onRemovedChange: function() {
+      this.$el[ !this.model.get('removed') ? 'show' : 'hide' ]();  
     }
 
   });

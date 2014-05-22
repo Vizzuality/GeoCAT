@@ -8,7 +8,9 @@
 
     defaults: {
       name:     'Dataset',
-      active:   false
+      active:   false,
+      removed:  false,
+      hidden:   false
     },
 
     initialize: function(obj, opts) {
@@ -61,6 +63,9 @@
           return false;
         }
       }
+
+      // If dataset was removed, let's make it visible
+      dataset.set('removed', false);
 
       // SOURCES!
       var sources = dataset.getSources();

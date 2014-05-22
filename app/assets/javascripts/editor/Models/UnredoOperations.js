@@ -238,16 +238,11 @@
 						occurrences[observations_data[count].catalogue_id].data.geocat_removed = false;
 						occurrences[observations_data[count].catalogue_id].setMap(map);
 
-						// points.add(occurrences[observations_data[count].catalogue_id].data.geocat_query,occurrences[observations_data[count].catalogue_id].data.geocat_kind);
 						var query = occurrences[observations_data[count].catalogue_id].data.geocat_query;
 						var type = occurrences[observations_data[count].catalogue_id].data.geocat_kind;
-						// var alias = occurrences[observations_data[count].catalogue_id].data.geocat_alias;
-						
-						// sources_collection.sumUp(query, type, alias);
 						datasets.sum(occurrences[observations_data[count].catalogue_id].data, type, query);
 
 						count++;
-						// count = count+1;
 						setTimeout(function(){AsynRestoreMarkers(count, observations_data);},0);
 					} else {
 					  if (convex_hull.isVisible()) {

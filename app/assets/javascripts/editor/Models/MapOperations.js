@@ -348,11 +348,9 @@
 							
 							var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
               var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
-              // var geocat_alias = info_data.geocat_alias;
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 							
               if (!info_data.geocat_removed) {
-                // sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
                 datasets.sum(info_data, geocat_kind, geocat_query);
               }
 
@@ -483,6 +481,82 @@
 			}
 
 
+      /*========================================*/
+      /* Delete all the markers from a dataset. */
+      /*========================================*/
+      function deleteDataset(dataset) {
+        closeMapWindows();
+        showMamufasMap();
+        
+        if (convex_hull.isVisible()) {
+          analysis_map.stop();
+        }
+
+        // Remove spiderfy!
+        oms.unspiderfy();
+
+        // Vars
+        var removed_markers = [];
+        var occsCopy = $.extend(true,{},occurrences);
+        var s; // Actual source
+
+
+        function asyncRemoveMarker(query,type) {
+          for (var i in occsCopy) {
+            var d = occsCopy[i].data;
+
+            if ((d.geocat_kind === type) && (!d.geocat_removed) && (d.scid === s.cid)) {
+              datasets.deduct(occurrences[i].data, type, query);
+
+              removed_markers.push(occurrences[i].data);
+              occurrences[i].data.geocat_removed = true;
+              occurrences[i].setMap(null);
+            }
+            delete occsCopy[i];
+            break;
+          }
+        
+          if (i==undefined) {
+            asyncRemoveSource();
+          } else {
+            setTimeout(function(){
+              asyncRemoveMarker(query,type)
+            },10);
+          }
+        }
+
+        var j;
+        function asyncRemoveSource() {
+          if (j === undefined) {
+            j = 0;
+          } else {
+            ++j;
+          }
+
+          if (dataset.getSources().size() > 0 && dataset.getSources().at(j)) {
+            s = dataset.getSources().at(j);
+            asyncRemoveMarker(s.get('query'),s.get('type'));
+          } else {
+            // Make dataset removed
+            dataset.set('removed', true);
+
+            actions.Do('remove', null, removed_markers);
+            hideMamufasMap(false);
+            delete occsCopy;
+
+            $(document).trigger('occs_removed');
+
+            if (convex_hull.isVisible()) {
+              $(document).trigger('occs_updated');
+            }
+          }
+        }
+
+        // Let's start it!
+        asyncRemoveSource();
+      }
+
+
 
 			/*============================================================================*/
 			/* Delete all the markers of a query and type. 																*/
@@ -492,7 +566,6 @@
         showMamufasMap();
         
         if (convex_hull.isVisible()) {
-          // mamufasPolygon();
           analysis_map.stop();
         }
 
@@ -501,17 +574,16 @@
         
         var remove_markers = [];
         var occsCopy = $.extend(true,{},occurrences);
-        
+        var s = datasets.getActive().getSources().where({ type: type, query: query })[0];
+
+        if (!s) {
+          console.log("Delete all function can't find this source { query:" + query + ", type:" + type + " }" );
+        }
         
         function asynRemoveMarker(query,type) {
           for (var i in occsCopy) {
             var d = occsCopy[i].data;
-
-            if ((d.geocat_kind == type) && (!d.geocat_removed) && (d.geocat_query == query)) {
-              
-              // points.deduct(query,type);
-              // sources_collection.deduct(query, type);
-              
+            if ((d.geocat_kind == type) && (!d.geocat_removed) && (d.scid === s.cid)) {
               datasets.deduct(occurrences[i].data, type, query);
 
               remove_markers.push(occurrences[i].data);

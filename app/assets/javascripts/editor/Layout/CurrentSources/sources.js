@@ -47,22 +47,6 @@
       return m.get('position')
     },
 
-    // sumUp: function(query, type, alias) {
-    //   // Search model
-    //   var m = this.find(function(m) {
-    //     return m.get('query') == query && m.get('type') == type
-    //   });
-
-    //   // If it doesn't exist, let's create it!
-    //   if (!m) {
-    //     m = new SourceModel({ type: type, query: query, alias: alias || query }, { map: this.options.map });
-    //     this.add(m);
-    //   } else {
-    //     // If it does exist, add new one to the total
-    //     var t = m.get('total');
-    //     m.set('total', t+1);
-    //   }
-    // },
 
     sum: function(data, type, query) {
       var mdl;
@@ -94,27 +78,6 @@
       return data;
     },
 
-    // deduct: function(query, type, alias) {
-    //   // Search model
-    //   var m = this.find(function(m) {
-    //     return m.get('query') == query && m.get('type') == type
-    //   });
-
-    //   // If you can't find it, please console!
-    //   if (!m) {
-    //     // console.log('Ouch, source with query ' + query + ' and type ' + type + ' doesn\'t exist' );
-    //     return false;
-    //   } else {
-    //     // Deduct one from total, setting model
-    //     var t = m.get('total') - 1;
-    //     m.set('total', t);
-    //   }
-
-    //   // If total is 0, remove the model + remove item + añsdlfjñlajsdflñajsd
-    //   if (t == 0) {
-    //     m.destroy();
-    //   }
-    // },
 
     deduct: function(data, type, query) {
       var mdl;

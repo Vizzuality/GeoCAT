@@ -351,13 +351,12 @@
 
       i {
         color:#787878;
+        &:hover {color:#333}
 
         // Types
         &.visible { margin-right:4px; }
         &.edit { margin:0 4px }
-        &.delete {}
-
-        &:hover {color:#333}
+        &.delete { &:hover { color:red } }
 
         // States
         &.disabled {

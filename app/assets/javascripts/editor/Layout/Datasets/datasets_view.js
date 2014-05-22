@@ -28,25 +28,22 @@
       this.addView(selector);
     },
 
+    _initBinds: function() {
+      this.collection.bind('add',     this._addDataset, this);
+      this.collection.bind('remove',  this._removeDataset, this);
+    },
+
     _addDataset: function(m) {
       var v = new DatasetItem({ model: m });
       this.$('ul.datasets').append(v.render().el);
       this.addView(v);
     },
 
-    _removeDataset: function(m) {
-      console.log("dataset should be removed!");
-    },
-
-    _initBinds: function() {
-      // Set select
-      this.collection.bind('add',         this._addDataset, this);
-      this.collection.bind('remove',      this._removeDataset, this);
-    },
+    _removeDataset: function(m) {},
 
     _setActiveDataset: function(value, cid) {
       this.collection.each(function(m) {
-        if (m.get('name') === value && m.cid == cid) {
+        if (m.get('name') === value && m.cid == cid && !m.get('removed')) {
           // Set active dataset
           m.set('active', true);
           // Change sources_collection global variable :S
