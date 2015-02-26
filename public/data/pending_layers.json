@@ -1,7 +1,7 @@
 {
   [
     {
-      "url":"http://184.73.201.235/blue/{Z}/{X}/{Y}",
+      "url":"http://maps.protectedplanet.net/blue/{Z}/{X}/{Y}",
       "name":"ProtectedPlanet",
       "source_url":"http://www.protectedplanet.net",
       "source_name": "ProtectedPlanet xyz",
