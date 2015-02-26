@@ -4,7 +4,7 @@ RLAT - Red List Assessment Tool
 1. Requirements
 ---
 
-  You will need ruby 1.8.7. If you are under a UNIX machine, we recommend to install [rvm][rvm]. You will also need git in order to clone the repository.
+  You will need ruby 1.9.3. If you are under a UNIX machine, we recommend to install [rbenv][rbenv] (rbenv users: $> rbenv local 1.9.3-p551). You will also need git in order to clone the repository.
 
 2. Installation instructions
 ---
@@ -15,11 +15,11 @@ RLAT - Red List Assessment Tool
 
   2. Clone the repository
 
-        $ git clone git://github.com/Vizzuality/RLAT.git
+        $ git clone git://github.com/Vizzuality/GeoCAT.git
 
-  3. Go into the RLAT folder
+  3. Go into the GeoCAT folder
 
-        $ cd RLAT
+        $ cd GeoCAT
 
   4. I case you have installed rvm, grant it to execute the .rvmrc file
 
@@ -46,4 +46,4 @@ RLAT - Red List Assessment Tool
 ----------------
 [The Vizzuality team](http://www.vizzuality.com)
 
-[rvm]: http://rvm.beginrescueend.com/
+[rbenv]: https://github.com/sstephenson/rbenv
