@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'bundler'
-gem 'rails',                    '~> 3.2.2'
+gem 'rails',                    '~> 3.2.21'
 gem 'pg',                       '0.13.2'
 
 gem 'awesome_print',            :require => 'ap'
