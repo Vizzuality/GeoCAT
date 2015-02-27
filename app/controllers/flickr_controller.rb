@@ -10,44 +10,14 @@ class FlickrController < ApplicationController
     if params.empty?
       render :json => "{'Status':'Error'}"
     else
-
-      #   Search with ?q= in url => 'q' insead of :q (changing the routes file)
-
       if !params[:q].empty? or !params[:q].nil?
-        name_specie = params[:q]
-        FlickRaw.api_key="ba21020f518d59d9d74b81af71b37e7c"
-        FlickRaw.shared_secret="35b1704d1c3e1e6d"
+        @name_specie = params[:q]
+        response = Typhoeus.get("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=536b7dd52fb0348e3cb6e94d02f94b95&text=#{@name_specie}+&has_geo=1&per_page=5000&format=json&nojsoncallback=1", headers: { "Accept" => "application/json" })
 
-        frob = flickr.auth.getFrob
-        @list = flickr.photos.search(
-          :text     => name_specie,
-          :extras   => 'geo,tags,owner_name,machine_tags,description',
-          :has_geo  => '1',
-          :per_page => 500
-        )
-
-        # Filtering the json answer
-        json_only = @list.map do |photo|
-          {
-            'latitude'                      => photo['latitude'],
-            'longitude'                     => photo['longitude'],
-            'coordinateUncertaintyInMeters' => 15000,
-            "occurrenceDetails"             => FlickRaw.url_photopage(photo),
-            "collector"                     => photo['ownername'],
-            "geocat_active"                 => true,
-            "geocat_removed"                => false,
-            "geocat_alias"                  => CGI.unescape(name_specie),
-            "catalogue_id"                  => "flickr_"+ name_specie + "_" + photo['id'],
-            "geocat_kind"                   => "flickr",
-            "occurrenceRemarks"             => "#{photo['title']} / #{photo['description']}",
-            "geocat_query"                  => CGI.unescape(name_specie)
-          }
-        end
-
-         @json_head = [{"id"=>"flickr_id","name"=>"flickr","points"=>json_only, "specie"=> name_specie, "zoom"=>"3"}]
+         puts JSON.parse(response.body)
          # end to filter
 
-        render :json =>@json_head
+        render :json =>JSON.parse(response.body)
 
       else
         render :json => "{'Status':'Error'}"

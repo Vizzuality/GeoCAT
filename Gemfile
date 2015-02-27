@@ -6,7 +6,6 @@ gem 'pg',                       '0.13.2'
 
 gem 'awesome_print',            :require => 'ap'
 gem 'json'
-gem 'flickraw',                 '0.8.2'
 gem 'RedCloth'
 gem 'nokogiri'
 gem 'csv-mapper'
