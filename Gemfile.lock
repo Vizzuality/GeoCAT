@@ -76,8 +76,6 @@ GEM
     execjs (2.0.2)
     fastercsv (1.5.5)
     ffi (1.9.3)
-    flickraw (0.8.2)
-      json (>= 1.1.1)
     fssm (0.2.10)
     heroku (3.3.0)
       heroku-api (~> 0.3.17)
@@ -210,7 +208,6 @@ DEPENDENCIES
   debugger
   dwc-archive
   ejs (~> 1.1.1)
-  flickraw (= 0.8.2)
   heroku
   htmlentities
   json
