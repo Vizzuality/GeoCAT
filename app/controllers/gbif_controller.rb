@@ -10,12 +10,12 @@ class GbifController < ApplicationController
 
       require 'open-uri'
 
-      response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?georeferencedonly=true&format=darwin&maxresults=1000&coordinateissues=false&scientificName=#{q}", headers: { "Accept" => "application/json" })
+      response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?Georeferenced=true&format=darwin&limit=300&coordinateissues=false&scientificName=#{q}", headers: { "Accept" => "application/json" })
 
       points = JSON.parse(response.body)['results'].map do |item|
         {
-          'latitude'                      => item['decimalLatitude'],
-          'longitude'                     => item['decimalLongitude'],
+          'latitude'                      => item['decimalLatitude']  || 0,
+          'longitude'                     => item['decimalLongitude'] || 0,
           'institutionCode'               => item['institutionCode'],
           'collectionCode'                => item['collectionCode'],
           'catalogNumber'                 => item['catalogNumber'],
