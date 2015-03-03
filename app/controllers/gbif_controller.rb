@@ -11,12 +11,12 @@ class GbifController < ApplicationController
       require 'open-uri'
 
       response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?isGeoreferenced=true&format=darwin&limit=300&coordinateissues=false&eventDate=#{Time.now.year-1}&scientificName=#{q}", headers: { "Accept" => "application/json" })
-
-      points = JSON.parse(response.body)['results'].map do |item|
+      points = []
+      JSON.parse(response.body)['results'].map do |item|
         if item['decimalLatitude'] && item['decimalLatitude'] != 0
-          {
-            'latitude'                      => item['decimalLatitude']  || 0,
-            'longitude'                     => item['decimalLongitude'] || 0,
+          points.push({
+            'latitude'                      => item['decimalLatitude'],
+            'longitude'                     => item['decimalLongitude'],
             'institutionCode'               => item['institutionCode'],
             'collectionCode'                => item['collectionCode'],
             'catalogNumber'                 => item['catalogNumber'],
@@ -37,11 +37,10 @@ class GbifController < ApplicationController
             'geocat_kind'                   => 'gbif',
             'geocat_alias'                  => CGI.unescape(q),
             'geocat_query'                  => CGI.unescape(q)
-          }
+          })
         end
       end
-
-      @list =  [{"specie"=>q,"name"=>"gbif","points"=> points, "zoom"=>"3" }]
+      @list =  [{"id"=>"gbif_id","specie"=>q,"name"=>"gbif","points"=> points, "zoom"=>"3" }]
       render :json =>@list
     rescue Exception=> e
       render :json => "{'Status':'Error',message:'#{e.message}'}"
