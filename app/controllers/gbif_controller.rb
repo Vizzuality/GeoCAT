@@ -10,9 +10,6 @@ class GbifController < ApplicationController
 
       q = params[:q]
 
-      require 'open-uri'
-
-
       for i in 0..2
         offset = 300 * (i * 1)
         response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?isGeoreferenced=true&format=darwin&limit=300&coordinateissues=false&scientificName=#{q}&offset=#{offset}", headers: { "Accept" => "application/json" })
