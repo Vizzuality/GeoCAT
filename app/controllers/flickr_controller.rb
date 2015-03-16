@@ -27,6 +27,8 @@ class FlickrController < ApplicationController
     end
 
   end
+  # end SEARCH
+  
   def populate(response, q)
     JSON.parse(response.body)['photos']['photo'].map do |photo|
       $points.push({
