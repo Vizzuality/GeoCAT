@@ -1,5 +1,7 @@
 class GbifController < ApplicationController
 
+    $points = []
+
     # begin SEARCH
     def search
 
@@ -10,11 +12,24 @@ class GbifController < ApplicationController
 
       require 'open-uri'
 
-      response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?isGeoreferenced=true&format=darwin&limit=300&coordinateissues=false&scientificName=#{q}", headers: { "Accept" => "application/json" })
-      points = []
+
+      for i in 0..2
+        offset = 300 * (i * 1)
+        response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?isGeoreferenced=true&format=darwin&limit=300&coordinateissues=false&scientificName=#{q}&offset=#{offset}", headers: { "Accept" => "application/json" })
+        populate(response, q)
+      end
+
+      @list =  [{"id"=>"gbif_id","specie"=>q,"name"=>"gbif","points"=> $points, "zoom"=>"3" }]
+      render :json =>@list
+    rescue Exception=> e
+      render :json => "{'Status':'Error',message:'#{e.message}'}"
+    end
+    # end SEARCH
+
+    def populate(response, q)
       JSON.parse(response.body)['results'].map do |item|
         if item['decimalLatitude'] && item['decimalLatitude'] != 0
-          points.push({
+          $points.push({
             'latitude'                      => item['decimalLatitude'],
             'longitude'                     => item['decimalLongitude'],
             'institutionCode'               => item['institutionCode'],
@@ -40,10 +55,5 @@ class GbifController < ApplicationController
           })
         end
       end
-      @list =  [{"id"=>"gbif_id","specie"=>q,"name"=>"gbif","points"=> points, "zoom"=>"3" }]
-      render :json =>@list
-    rescue Exception=> e
-      render :json => "{'Status':'Error',message:'#{e.message}'}"
     end
-    # end SEARCH
 end
