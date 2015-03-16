@@ -252,7 +252,7 @@
   				  source_pair.kind = app_data[i].type || 'user';
   					sources.push(source_pair);
 					}
-					
+					app_data[i].dataset = app_data[i];
 					addSourceToMap(app_data[i],false,true);
 					showMamufasMap();
 				} else {
