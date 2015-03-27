@@ -1,9 +1,8 @@
 class GbifController < ApplicationController
 
-    $points = []
-
     # begin SEARCH
     def search
+      $points = []
 
       render :json => "{'Status':'Error'}" and return if params.empty?
       render :json => "{'Status':'Error'}" and return if params[:q].blank?
