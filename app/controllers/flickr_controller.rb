@@ -4,10 +4,9 @@ class FlickrController < ApplicationController
         # - collector
         # - zoom level
 
-  $points = []
 
   def search
-
+    @points = []
     if params.empty?
       render :json => "{'Status':'Error'}"
     else
@@ -18,7 +17,7 @@ class FlickrController < ApplicationController
           populate(response, q)
         end
 
-        @json_head = [{"id"=>"flickr_id","name"=>"flickr","points"=>$points, "specie"=> q, "zoom"=>"3"}]
+        @json_head = [{"id"=>"flickr_id","name"=>"flickr","points"=>@points, "specie"=> q, "zoom"=>"3"}]
         render :json =>@json_head
 
       else
@@ -31,7 +30,7 @@ class FlickrController < ApplicationController
   
   def populate(response, q)
     JSON.parse(response.body)['photos']['photo'].map do |photo|
-      $points.push({
+      @points.push({
           'latitude'                      => photo['latitude'],
           'longitude'                     => photo['longitude'],
           'coordinateUncertaintyInMeters' => 15000,

@@ -2,7 +2,7 @@ class GbifController < ApplicationController
 
     # begin SEARCH
     def search
-      $points = []
+      @points = []
 
       render :json => "{'Status':'Error'}" and return if params.empty?
       render :json => "{'Status':'Error'}" and return if params[:q].blank?
@@ -15,7 +15,7 @@ class GbifController < ApplicationController
         populate(response, q)
       end
 
-      @list =  [{"id"=>"gbif_id","specie"=>q,"name"=>"gbif","points"=> $points, "zoom"=>"3" }]
+      @list =  [{"id"=>"gbif_id","specie"=>q,"name"=>"gbif","points"=> @points, "zoom"=>"3" }]
       render :json =>@list
     rescue Exception=> e
       render :json => "{'Status':'Error',message:'#{e.message}'}"
@@ -25,7 +25,7 @@ class GbifController < ApplicationController
     def populate(response, q)
       JSON.parse(response.body)['results'].map do |item|
         if item['decimalLatitude'] && item['decimalLatitude'] != 0
-          $points.push({
+          @points.push({
             'latitude'                      => item['decimalLatitude'],
             'longitude'                     => item['decimalLongitude'],
             'institutionCode'               => item['institutionCode'],
