@@ -349,10 +349,8 @@
 							var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
               var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
-							
-              if (!info_data.geocat_removed) {
-                datasets.sum(info_data, geocat_kind, geocat_query);
-              }
+
+              datasets.sum(info_data, geocat_kind, geocat_query);
 
               bounds.extend(latlng);
 	

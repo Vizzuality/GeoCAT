@@ -136,10 +136,10 @@
 
 				if (!s) {
 					var source = dataset.getSources().get(m.data.scid);
-					var d = source.toJSON();
-					d.points = [ occ_data ];
-					d.dataset = dataset.get('name');
-					sources.push(d)
+          var d = source.toJSON();
+          d.points = [ occ_data ];
+          d.dataset = dataset.get('name');
+          sources.push(d)
 				} else {
 					s.points.push( occ_data );
 				}

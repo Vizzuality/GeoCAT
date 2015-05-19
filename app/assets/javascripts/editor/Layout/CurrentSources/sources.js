@@ -66,12 +66,18 @@
 
       // If it doesn't exist, let's create it!
       if (!mdl) {
-        mdl = new SourceModel({ type: type, query: query, alias: query }, { map: this.options.map });
+        // starts with zero if the point is removed
+        var starting_total = data.geocat_removed ? 0 : 1;
+        mdl = new SourceModel({ type: type, query: query, alias: query,
+          total: starting_total}, { map: this.options.map });
         this.add(mdl);
       } else {
         // If it does exist, add new one to the total
-        var t = mdl.get('total');
-        mdl.set('total', t+1);
+        // do not add to total if it's not visible
+        if(!data.geocat_removed) {
+          var t = mdl.get('total');
+          mdl.set('total', t+1);
+        }
       }
 
       if (!data.scid) data.scid = mdl.cid;
