@@ -27,6 +27,11 @@
       text:   'Add points from Picasa'
     },
     {
+      name: 'AquaMaps',
+      url: '/search/aquamaps/<%= value %>',
+      text: 'Add points from AquaMaps'
+    },
+    {
       name:   'DWC',
       url:    '/search/dwc',
       exts:   /(\.|\/)(zip)$/i,

@@ -16,6 +16,7 @@ GeocatApp::Application.routes.draw do |map|
   match 'search/inaturalist/:q' => 'inaturalist#search'
   match 'search/flickr/:q'      => 'flickr#search'
   match 'search/gbif/:q'        => 'gbif#search'
+  match 'search/aquamaps/:q'    => 'aquamaps#search'
   match 'search/dwc'            => 'dwc#search'
 
   match 'api/wms'               => 'wms#proxy'
