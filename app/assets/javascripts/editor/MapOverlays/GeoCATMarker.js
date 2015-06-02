@@ -341,7 +341,7 @@
       /* Set active property of the occurrence */
       GeoCATMarker.prototype.setActive = function(active) {
         this.data.geocat_active = active;
-        this.canvas_.style.opacity = (active)?1:0.6;
+        this.canvas_.style.opacity = (active)?1:0;
       };
       
       
