@@ -763,38 +763,37 @@
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
 			function hideAll(query,kind,active) {
-        
-        var hideMarkers = _.select(occurrences, function(element,key){return element.data.geocat_active!=active &&  element.data.geocat_kind==kind && element.data.geocat_query==query && !element.data.geocat_removed});
-        var hide_markers = [];
+		        var hideMarkers = _.select(occurrences, function(element,key){return element.data.geocat_active!=active &&  element.data.geocat_kind==kind && element.data.geocat_query==query && !element.data.geocat_removed});
+		        var hide_markers = [];
 
-        showMamufasMap();
-        asynHideMarker(query,kind,active);
-        
-        if (convex_hull.isVisible()) {
-          // mamufasPolygon();
-          analysis_map.stop();
-        }
+		        showMamufasMap();
+		        asynHideMarker(query,kind,active);
+		        
+		        if (convex_hull.isVisible()) {
+		          // mamufasPolygon();
+		          analysis_map.stop();
+		        }
 
-        function asynHideMarker(query,kind,active) {
-          for (var i in hideMarkers) {
-            var _id = hideMarkers[i].data.catalogue_id;
-            occurrences[_id].setActive(active);
-            hide_markers.push(occurrences[_id].data);
-            delete hideMarkers[i];
-            break;
-          }
-          
-          if (i==undefined) {
-            actions.Do('active', null, hide_markers);            
-            hideMamufasMap(false);
-            if (convex_hull.isVisible()) {
-              $(document).trigger('occs_updated');
-            }
-            delete hideMarkers;
-          } else {
-            setTimeout(function(){asynHideMarker(query,kind,active)},0);
-          }
-        }
+		        function asynHideMarker(query,kind,active) {
+		          for (var i in hideMarkers) {
+		            var _id = hideMarkers[i].data.catalogue_id;
+		            occurrences[_id].setActive(active);
+		            hide_markers.push(occurrences[_id].data);
+		            delete hideMarkers[i];
+		            break;
+		          }
+		          
+		          if (i==undefined) {
+		            actions.Do('active', null, hide_markers);            
+		            hideMamufasMap(false);
+		            if (convex_hull.isVisible()) {
+		              $(document).trigger('occs_updated');
+		            }
+		            delete hideMarkers;
+		          } else {
+		            setTimeout(function(){asynHideMarker(query,kind,active)},0);
+		          }
+		        }
 			}	
 
 
