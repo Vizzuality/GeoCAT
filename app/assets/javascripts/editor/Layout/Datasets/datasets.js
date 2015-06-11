@@ -7,11 +7,15 @@
   var DatasetModel = Backbone.Model.extend({
 
     defaults: {
-      name:     'Dataset',
+      name:     'Group',
       active:   false,
       removed:  false,
       hidden:   false
     },
+    /*
+    * defaults.name, formerly was 'Dataset'
+    */
+
 
     initialize: function(obj, opts) {
       this.map = opts.map;
