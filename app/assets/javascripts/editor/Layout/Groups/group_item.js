@@ -1,16 +1,16 @@
 
   /**
-   *  Dataset item view (an item 
-   *  from the datasets list)
+   *  Group item view (an item 
+   *  from the groups list)
    */
 
-  var DatasetItem = View.extend({
+  var GroupItem = View.extend({
 
-    className:  'dataset',
+    className:  'group',
     tagName:    'li',
 
     initialize: function() {
-      this.template = this.getTemplate('datasets/dataset_list_view');
+      this.template = this.getTemplate('groups/group_list_view');
       this._initBinds();
     },
 

@@ -1,10 +1,10 @@
 
   /**
-   *  Datasets list view
+   *  Groups list view
    *
    */
 
-  var DatasetsView = View.extend({
+  var GroupsView = View.extend({
 
     initialize: function() {
       this._initViews();
@@ -13,50 +13,50 @@
 
     render: function() {
       this.clearSubViews();
-      this.collection.each(this._addDataset);
+      this.collection.each(this._addGroup);
       return this;
     },
 
     _initViews: function() {
-      var selector = new DatasetsSelector({
+      var selector = new GroupsSelector({
         el:         $('select'),
         collection: this.collection,
         map:        this.options.map
       });
       selector.render();
-      selector.bind('onSelect', this._setActiveDataset, this);
+      selector.bind('onSelect', this._setActiveGroup, this);
       this.addView(selector);
     },
 
     _initBinds: function() {
-      this.collection.bind('add',     this._addDataset, this);
-      this.collection.bind('remove',  this._removeDataset, this);
+      this.collection.bind('add',     this._addGroup, this);
+      this.collection.bind('remove',  this._removeGroup, this);
     },
 
-    _addDataset: function(m) {
-      var v = new DatasetItem({ model: m });
-      this.$('ul.datasets').append(v.render().el);
+    _addGroup: function(m) {
+      var v = new GroupItem({ model: m });
+      this.$('ul.groups').append(v.render().el);
       this.addView(v);
     },
 
-    _removeDataset: function(m) {},
+    _removeGroup: function(m) {},
 
-    _setActiveDataset: function(value, cid) {
+    _setActiveGroup: function(value, cid) {
       this.collection.each(function(m) {
         if (m.get('name') === value && m.cid == cid && !m.get('removed')) {
-          // Set active dataset
+          // Set active group
           m.set('active', true);
           // Change sources_collection global variable :S
           sources_collection = m.getSources();
         } else {
           m.set('active', false);
         }
-      });     
+      });
     },
 
-    _onSelectDataset: function(e) {
+    _onSelectGroup: function(e) {
       if (e) this.killEvent(e);
-      console.log("other dataset selected, change panes!");
+      console.log("other group selected, change panes!");
     }
 
   })

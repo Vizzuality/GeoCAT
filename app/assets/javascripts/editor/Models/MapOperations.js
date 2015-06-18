@@ -65,20 +65,20 @@
 				google.maps.event.clearListeners(map, 'tilesloaded');
 				
 
-        //--- DATASETS MAGIC ---//
+        //--- GROUPS MAGIC ---//
 
-        datasets = new DatasetsCollection();
+        groups = new GroupsCollection();
 
-        datasets_view = new DatasetsView({
+        groups_view = new GroupsView({
           el:         $('div.sources'),
-          collection: datasets,
+          collection: groups,
           map:        map
         });
 
         // map sources -> panes!
         map_sources = new MapSources({
           map:        map,
-          datasets:   datasets
+          groups:   groups
         });
 
         // Analysis stuff
@@ -311,22 +311,22 @@
         // Remove spiderfy!
         oms.unspiderfy();
 
-        // Create dataset or get the correct one
+        // Create group or get the correct one
         // if it comes defined
-        if (information.dataset) {
-          var dataset = datasets.find(function(m) {
-            if (m.get('name') === information.dataset) {
+        if (information.group) {
+          var group = groups.find(function(m) {
+            if (m.get('name') === information.group) {
               return m
             }
           });
 
-          if (!dataset) {
-            dataset = new DatasetModel({
-              name: information.dataset
+          if (!group) {
+            group = new GroupModel({
+              name: information.group
             }, {
               map: map
             })
-            datasets.push(dataset);
+            groups.push(group);
           }
         }
 
@@ -336,8 +336,8 @@
             var info_data = {};
             $.extend(info_data, observations[i]);
 
-            if (dataset) {  
-              info_data.dcid = dataset.cid; 
+            if (group) {  
+              info_data.dcid = group.cid; 
             }
             
             if (info_data.catalogue_id && occurrences[info_data.catalogue_id]==undefined) {
@@ -350,7 +350,7 @@
               var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 
-              datasets.sum(info_data, geocat_kind, geocat_query);
+              groups.sum(info_data, geocat_kind, geocat_query);
 
               bounds.extend(latlng);
 	
@@ -375,7 +375,7 @@
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
 							
               // sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
-              datasets.sum(info_data, geocat_kind, geocat_query);
+              groups.sum(info_data, geocat_kind, geocat_query);
 
 							bounds.extend(latlng);
 							global_id++;
@@ -480,9 +480,9 @@
 
 
       /*========================================*/
-      /* Delete all the markers from a dataset. */
+      /* Delete all the markers from a group. */
       /*========================================*/
-      function deleteDataset(dataset) {
+      function deleteGroup(group) {
         closeMapWindows();
         showMamufasMap();
         
@@ -504,7 +504,7 @@
             var d = occsCopy[i].data;
 
             if ((d.geocat_kind === type) && (!d.geocat_removed) && (d.scid === s.cid)) {
-              datasets.deduct(occurrences[i].data, type, query);
+              groups.deduct(occurrences[i].data, type, query);
 
               removed_markers.push(occurrences[i].data);
               occurrences[i].data.geocat_removed = true;
@@ -531,12 +531,12 @@
             ++j;
           }
 
-          if (dataset.getSources().size() > 0 && dataset.getSources().at(j)) {
-            s = dataset.getSources().at(j);
+          if (group.getSources().size() > 0 && group.getSources().at(j)) {
+            s = group.getSources().at(j);
             asyncRemoveMarker(s.get('query'),s.get('type'));
           } else {
-            // Make dataset removed
-            dataset.set('removed', true);
+            // Make group removed
+            group.set('removed', true);
 
             actions.Do('remove', null, removed_markers);
             hideMamufasMap(false);
@@ -572,7 +572,7 @@
         
         var remove_markers = [];
         var occsCopy = $.extend(true,{},occurrences);
-        var s = datasets.getActive().getSources().where({ type: type, query: query })[0];
+        var s = groups.getActive().getSources().where({ type: type, query: query })[0];
 
         if (!s) {
           console.log("Delete all function can't find this source { query:" + query + ", type:" + type + " }" );
@@ -582,7 +582,7 @@
           for (var i in occsCopy) {
             var d = occsCopy[i].data;
             if ((d.geocat_kind == type) && (!d.geocat_removed) && (d.scid === s.cid)) {
-              datasets.deduct(occurrences[i].data, type, query);
+              groups.deduct(occurrences[i].data, type, query);
 
               remove_markers.push(occurrences[i].data);
               occurrences[i].data.geocat_removed = true;
@@ -631,7 +631,7 @@
   					var kind = occurrences[marker_id].data.geocat_kind;
 
             // sources_collection.deduct(query, kind);
-            datasets.deduct(occurrences[marker_id].data, kind, query);
+            groups.deduct(occurrences[marker_id].data, kind, query);
 
             occurrences[marker_id].data.geocat_removed = true;
             occurrences[marker_id].setMap(null);
@@ -698,8 +698,8 @@
         // // Add one to the source collection
         // sources_collection.sumUp('user', 'user', 'User ocss');
 
-        // Add the new point to the proper Dataset >> SourceCollection (data, type, query)
-        datasets.sum(inf, 'user', 'user');
+        // Add the new point to the proper Group >> SourceCollection (data, type, query)
+        groups.sum(inf, 'user', 'user');
 
         // Get alias and add it.
         // var alias = sources_collection.find(function(m){

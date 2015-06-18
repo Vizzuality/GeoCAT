@@ -124,21 +124,21 @@
 
 			_.each(markers, function(m) {
 
-				var dataset = datasets.get(m.data.dcid);
+				var group = groups.get(m.data.dcid);
 				var occ_data = _.clone(m.data);
 				_.each(non_valid, function(v) {
 					delete occ_data[v];
 				});
 
 				var s = _.find(sources, function(s) {
-					return s.dataset === dataset.get('name');
+					return s.group === group.get('name');
 				});
 
 				if (!s) {
-					var source = dataset.getSources().get(m.data.scid);
+					var source = group.getSources().get(m.data.scid);
           var d = source.toJSON();
           d.points = [ occ_data ];
-          d.dataset = dataset.get('name');
+          d.group = group.get('name');
           sources.push(d)
 				} else {
 					s.points.push( occ_data );
@@ -252,7 +252,7 @@
   				  source_pair.kind = app_data[i].type || 'user';
   					sources.push(source_pair);
 					}
-					app_data[i].dataset = (!! app_data[i].dataset) ? app_data[i].dataset : 'User dataset';
+					app_data[i].group = (!! app_data[i].group) ? app_data[i].group : 'User group';
 					addSourceToMap(app_data[i],false,true);
 					showMamufasMap();
 				} else {

@@ -104,9 +104,9 @@
           } else if (_.isEmpty(upload_information)) {
             modals.welcome.show();
 
-            // Create first dataset
-            var initial_dataset = new DatasetModel({ active: true }, { map: map });
-            datasets.add(initial_dataset);
+            // Create first group
+            var initial_group = new GroupModel({ active: true }, { map: map });
+            groups.add(initial_group);
 
             // Trick to hide welcome window if user clicks off this container
             $('body').click(function(event) {
