@@ -1,10 +1,10 @@
 
   /**
-   *  Dataset model
+   *  Group model
    *
    */
-  
-  var DatasetModel = Backbone.Model.extend({
+
+  var GroupModel = Backbone.Model.extend({
 
     defaults: {
       name:     'Group',
@@ -13,7 +13,7 @@
       hidden:   false
     },
     /*
-    * defaults.name, formerly was 'Dataset'
+    * defaults.name, formerly was 'Group'
     */
 
 
@@ -35,14 +35,14 @@
 
 
   /**
-   *  Dataset collection
+   *  Group collection
    *
    */
 
 
-  var DatasetsCollection = Backbone.Collection.extend({
+  var GroupsCollection = Backbone.Collection.extend({
 
-    model: DatasetModel,
+    model: GroupModel,
 
     getActive: function() {
       return this.find(function(m) {
@@ -51,52 +51,52 @@
     },
 
     sum: function(data, type, query) {
-      // DATASETS!
-      var dataset;
+      // GroupS!
+      var group;
 
-      // Get dataset or active one
+      // Get group or active one
       if (!data.dcid) {
-        dataset = this.getActive();
-        data.dcid = dataset.cid;
+        group = this.getActive();
+        data.dcid = group.cid;
       } else {
-        dataset = this.find(function(m) {
+        group = this.find(function(m) {
           return m.cid === data.dcid
         });
-        if (!dataset) {
-          console.log("Dataset not found!");
+        if (!group) {
+          console.log("Group not found!");
           return false;
         }
       }
 
-      // If dataset was removed, let's make it visible
-      dataset.set('removed', false);
+      // If group was removed, let's make it visible
+      group.set('removed', false);
 
       // SOURCES!
-      var sources = dataset.getSources();
+      var sources = group.getSources();
       sources.sum(data, type, query);
 
       return data;
     },
 
     deduct: function(data, type, query) {
-      // DATASETS!
-      var dataset;
+      // groupS!
+      var group;
 
-      // Get dataset or active one
+      // Get group or active one
       if (!data.dcid) {
-        dataset = this.getActive();
+        group = this.getActive();
       } else {
-        dataset = this.find(function(m) {
+        group = this.find(function(m) {
           return m.cid === data.dcid
         });
-        if (!dataset) {
-          console.log("Dataset not found!");
+        if (!group) {
+          console.log("Group not found!");
           return false;
         }
       }
 
       // SOURCES!
-      var sources = dataset.getSources();
+      var sources = group.getSources();
       sources.deduct(data, type, query);
 
       return data;

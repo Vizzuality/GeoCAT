@@ -39,8 +39,8 @@
       z-index:5;
     }
 
-    // Datasets
-    .dataset_combo {
+    // Groups
+    .group_combo {
       position:relative;
 
       .select2-choice { border:none }
@@ -58,14 +58,14 @@
       }
     }
 
-    ul.datasets {
+    ul.groups {
       display:inline;
       width:100%;
       height:100%;
       overflow-x:none;
       white-space:nowrap;
 
-      li.dataset {
+      li.group {
         position:relative;
         @include inline-block();
         height:100%;
@@ -336,8 +336,8 @@
   }
 
 
-  // Datasets selector dropdown
-  .datasets_dropdown {
+  // Groups selector dropdown
+  .groups_dropdown {
     border:none!important;
     @include box-shadow(none);
     font-family:Arial;

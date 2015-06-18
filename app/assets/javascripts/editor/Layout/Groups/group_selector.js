@@ -1,8 +1,8 @@
 
   /**
-   *  Datasets selector view
+   *  Groups selector view
    *
-   *  - Change between datasets
+   *  - Change between groups
    *  - Manage them
    *  - Edit names
    *  - Create new ones
@@ -10,7 +10,7 @@
    */
 
 
-  DatasetsSelector = View.extend({
+  GroupsSelector = View.extend({
 
     events: {
       'change': '_onSelected'
@@ -31,25 +31,25 @@
 
       this.collection.each(function(m) {
         if (!m.get('removed')) {
-          this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' + m.get('name') + '</option>')  
+          this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' + m.get('name') + '</option>')
         }
       }, this);
 
-      // Check if there is any dataset selected
+      // Check if there is any group selected
       var actives = this.collection.filter(function(m) { return m.get('active') }).length;
       if (this.collection.size() > 0 && actives === 0) {
         // If not, select first not removed :)
-        
+
         var available_models = this.collection.where({ removed: false });
         if (available_models.length > 0) {
           available_models[0].set('active', true);
         } else {
-          console.log("Not available datasets! :(");
+          console.log("Not available groups! :(");
         }
       }
 
       var select2 = this.$el.select2({
-        dropdownCssClass:         'datasets_dropdown',
+        dropdownCssClass:         'groups_dropdown',
         minimumResultsForSearch:  1,
         formatResult:             this.format,
         formatNoMatches:          this.search,
@@ -57,7 +57,7 @@
       })
       .parent().find(".select2-with-searchbox").on("click", this._onCreateNew)
       .data('select2');
-      
+
       select2.onSelect = (this._onSelect)(select2.onSelect);
 
       return this;
@@ -69,11 +69,11 @@
     },
 
     search: function(val) {
-      return '<a class="create_new" href="#/create-' + val + '" data-name="' + val + '">Create dataset ' + val + '</a>';
+      return '<a class="create_new" href="#/create-' + val + '" data-name="' + val + '">Create group ' + val + '</a>';
     },
 
     format: function(state) {
-      // Count number of datasets to disable "remove" option
+      // Count number of groups to disable "remove" option
       var size = this.collection.size();
 
       if (!state.id) return state.text;
@@ -90,11 +90,11 @@
 
       return function(data, e) {
         var target;
-        
+
         if (e != null) {
           target = $(e.target);
         }
-        
+
         // By class
         if (target) {
           var c = target.attr('class');
@@ -114,20 +114,20 @@
               e.stopPropagation();
             }
           }
-          
+
         } else {
           return fn.apply(this, arguments);
-        }        
+        }
       }
     },
 
     _onDelete: function(data, e) {
-      // Get number of datasets.
+      // Get number of groups.
       // If there is only one, don't let remove it
       var size = this.collection.size();
       if (size < 2) return;
 
-      // Get dataset info
+      // Get group info
       var cid = $(data.element).data('cid');
       var d = this.collection.get({ cid: cid });
 
@@ -135,15 +135,15 @@
       if (d.get('active') === true) {
         var mdl = this.collection.find(function(m) { return m.cid !== cid });
         this.trigger('onSelect', mdl.get('name'), mdl.cid, this);
-        
+
         this.$el.select2('val', mdl.get('name'));
       }
 
       // Disable selector
       this._disableSelector();
-  
-      // Start deleting all dataset markers
-      deleteDataset(d);
+
+      // Start deleting all group markers
+      deleteGroup(d);
     },
 
     _disableSelector: function() {
@@ -164,10 +164,10 @@
       var $form = $el.parent().find('form');
       var $input = $form.find('input');
       var self = this;
-              
+
       if (data.editing) {
         $el.addClass('selected');
-        
+
         $input
           .removeAttr('readonly')
           .focus();
@@ -200,11 +200,11 @@
         var mdl = self.collection.find(function(m){
           return m.cid === cid
         });
-        
+
         if (mdl) {
-          mdl.set('name', value)  
+          mdl.set('name', value)
         } else {
-          console.log("[DATASET] Dataset not found, renaming incomplete");
+          console.log("[GROUP] Group not found, renaming incomplete");
         }
 
         // Set value
@@ -226,7 +226,7 @@
       if ($e.hasClass('create_new')) {
         this.killEvent(e);
         var name = $(e.target).data('name');
-        var m = new DatasetModel({ name: name, active: true },{ map: this.options.map });
+        var m = new GroupModel({ name: name, active: true },{ map: this.options.map });
         this.collection.add(m);
         this.trigger('onSelect', name, m.cid, this);
       }

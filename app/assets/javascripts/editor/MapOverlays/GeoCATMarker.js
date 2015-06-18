@@ -50,14 +50,14 @@
 
           // Get pane from source
           if (!this.data.dcid) {
-            console.log('There is no dataset id associated to this occ');
+            console.log('There is no group id associated to this occ');
             return false;
           }
           if (!this.data.scid) {
             console.log('There is no source id associated to this occ');
             return false
           }
-          var pane = datasets.get(this.data.dcid).getSources().get(this.data.scid).getPane();
+          var pane = groups.get(this.data.dcid).getSources().get(this.data.scid).getPane();
 
           pane.appendChild(canvas);
         }

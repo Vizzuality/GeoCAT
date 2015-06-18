@@ -240,7 +240,7 @@
 
 						var query = occurrences[observations_data[count].catalogue_id].data.geocat_query;
 						var type = occurrences[observations_data[count].catalogue_id].data.geocat_kind;
-						datasets.sum(occurrences[observations_data[count].catalogue_id].data, type, query);
+						groups.sum(occurrences[observations_data[count].catalogue_id].data, type, query);
 
 						count++;
 						setTimeout(function(){AsynRestoreMarkers(count, observations_data);},0);
@@ -337,7 +337,7 @@
 						var type = observations_data[count].new_.geocat_kind;
 						
 						// sources_collection.deduct(query, type);
-						datasets.deduct(observations_data[count].new_, type, query);
+						groups.deduct(observations_data[count].new_, type, query);
 
 						count = count+1;
 						setTimeout(function(){AsynRemoveMarkers(count,observations_data);},0);

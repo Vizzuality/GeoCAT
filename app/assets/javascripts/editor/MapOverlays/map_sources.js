@@ -9,7 +9,7 @@
   var MapSources = Backbone.Model.extend({
 
     defaults: {
-      datasets: {},
+      groups: {},
       map:      {}
     },
 
@@ -17,36 +17,36 @@
 
     initialize: function() {
       this._setSources();
-      this._bindDatasetsEvent();
+      this._bindGroupsEvent();
     },
 
-    _bindDatasetsEvent: function() {
-      this.get('datasets').bind('change:active', this._setSources, this);
+    _bindGroupsEvent: function() {
+      this.get('groups').bind('change:active', this._setSources, this);
     },
 
     _setSources: function() {
       this._unsetSources();
 
       // Get source collection
-      var active_dataset = this._getActiveDataset();
+      var active_group = this._getActiveGroup();
       
-      if (active_dataset) {
-        this.sources = active_dataset.getSources();
+      if (active_group) {
+        this.sources = active_group.getSources();
         this.sources.bind('change',           this._changeSource, this);
         this.sources.bind('remove add reset', this._managePanes, this);  
       }
     },
 
-    _getActiveDataset: function() {
-      var dataset;
+    _getActiveGroup: function() {
+      var group;
 
-      this.get('datasets').each(function(m){
+      this.get('groups').each(function(m){
         if (m.get('active')) {
-          dataset = m;
+          group = m;
         }
       })
       
-      return dataset;
+      return group;
     },
 
     _unsetSources: function() {
