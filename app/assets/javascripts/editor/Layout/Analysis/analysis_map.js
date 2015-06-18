@@ -1,6 +1,6 @@
 
   /**
-   *  
+   *
    */
 
   var AnalysisMap = Backbone.Model.extend({
@@ -137,7 +137,7 @@
         var cellsize = Math.ceil(d.cellsize / 1000 );
         this.analysis.set('cellsize', cellsize);
       }
-      
+
     },
 
 
@@ -159,7 +159,7 @@
         fillOpacity:0.25,
         strokeOpacity:1
       });
-      this.hull.setMap(this.map); 
+      this.hull.setMap(this.map);
     },
 
     _disableHullPolygon: function() {
@@ -227,7 +227,7 @@
       this.trigger('change:active_points', this);
     },
 
-    // Accepts parameter to check if it 
+    // Accepts parameter to check if it
     _resetActivePoints: function(silent) {
       this.set('active_points', [], { silent: silent });
     },

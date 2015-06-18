@@ -3,7 +3,7 @@
    *  Sources view (it includes sources list)
    *
    */
-  
+
   var SourcesView = View.extend({
 
     events: {
@@ -13,14 +13,14 @@
     initialize: function() {
       this._initBinds();
     },
-    
+
     render: function() {
       this._destroySorteable();
       this.clearSubViews();
 
       _.each(this.collection.last(this.collection.length).reverse(), this._addSource, this);
       this._makeSortable();
-      
+
       return this;
     },
 

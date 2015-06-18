@@ -1,4 +1,4 @@
-  
+
   /**
    *  Source item view
    *
@@ -30,13 +30,13 @@
 
     render: function() {
       var d = this.model.toJSON();
-      
+
       if (d.type === "inaturalist") {
         d.type = "iNaturalist"
       }
 
       this.$el.html(this.template(d));
-      
+
       // Set cid as data
       this.$el.attr('data-cid', this.cid);
 
@@ -65,7 +65,7 @@
 
       this.$('input').attr('readonly', 'readonly')
       var value = this.$('input').val();
-      
+
       if (!value) {
         value = this.old_value;
       }

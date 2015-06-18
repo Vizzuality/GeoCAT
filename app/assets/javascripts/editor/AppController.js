@@ -36,7 +36,7 @@
         _startApp: function() {
           this._initModels();
           this._initBinds();
-          this._initViews();  
+          this._initViews();
         },
 
         _initBinds: function() {
@@ -63,7 +63,7 @@
         },
 
         _initViews: function() {
-          
+
           // Create custom layer dialog
           this.layers_view = new LayersView({ collection: layers });
           this.$el.append(this.layers_view.render().el);

@@ -1,10 +1,10 @@
-  
+
   /**
    *  Layer module for Fusion Table urls
    *
    */
 
-  
+
   var FusionTables = NewLayerModule.URL.extend({
 
     _addLayer: function(url) {
@@ -42,6 +42,6 @@
       if (!select) return "Fusion table url doesn't contain 'l' parameter (select)"
 
       return '';
-    } 
+    }
 
   })

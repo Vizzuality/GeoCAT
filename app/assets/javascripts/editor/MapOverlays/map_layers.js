@@ -20,9 +20,9 @@
 
     _changeLayer: function(m) {
       if (m.changed.opacity !== undefined) {
-        m.get('layer').set('opacity', m.get('opacity'));  
+        m.get('layer').set('opacity', m.get('opacity'));
       } else {
-        this._manageLayers();  
+        this._manageLayers();
       }
     },
 
@@ -114,7 +114,7 @@
           if (lLR_Longitude < lUL_Longitude) {
             lLR_Longitude = Math.abs(lLR_Longitude);
           }
-          
+
           return m.get('url') + "&bbox=" + lUL_Longitude + "," + lUL_Latitude + "," + lLR_Longitude + "," + lLR_Latitude;
         },
         tileSize:   new google.maps.Size(256, 256),
@@ -140,7 +140,7 @@
       var self = this;
       var layergroup = cartodb.createLayer(this.get('map'), m.get('url'));
       layergroup.callback = callback;
-      
+
       layergroup
         .on('done', function(layer) {
           // Set layer model
@@ -182,7 +182,7 @@
       if (wherePos != -1) {
         docIdEndPos = wherePos - docIdStartPos;
       }
-      
+
       ft_opts.query.from = query.substring(docIdStartPos,docIdStartPos + docIdEndPos).trim();
       ft_opts.query.select = url.getParameterValue('l');
       ft_opts.styleId = url.getParameterValue('y');
@@ -208,11 +208,11 @@
 
     _cleanLayers: function() {
       var map = this.get('map');
-      
+
       // Image layers
       _.each(map.overlayMapTypes, function(a,i) {
         var l = map.overlayMapTypes.getAt(i);
-        
+
         // If it is a CartoDB layer
         if (l && l.type && l.type === "layergroup") {
           // Hide infowindow
@@ -224,7 +224,7 @@
             sublyr.setInteraction(false);
           });
         }
-        
+
         map.overlayMapTypes.setAt(i, null);
       });
 
@@ -233,11 +233,11 @@
         var t = l.get('type');
         var layer = l.get('layer');
 
-        if (t === "kml" || t === "fusion-tables") {  
+        if (t === "kml" || t === "fusion-tables") {
           if (!_.isEmpty(layer)) layer.setMap(null)
         }
       });
-      
+
     },
 
     _manageLayers: function() {
@@ -246,7 +246,7 @@
 
       // Clean overlay types
       this._cleanLayers();
-      
+
       // Show layers already added
       this.get('layers').sort().each(function(l) {
         var layer = l.get('layer');

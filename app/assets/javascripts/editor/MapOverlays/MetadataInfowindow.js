@@ -52,7 +52,7 @@
      */
 
     function MetadataInfowindow(latlng, info, map) {
-      
+
       this.model = new Backbone.Model({
         visible:          false,
         latlng:           latlng,
@@ -85,7 +85,7 @@
           $(div).addClass('metadata_infowindow');
 
           this.render();
-          
+
           var panes = this.getPanes();
           panes.floatPane.appendChild(div);
         }
@@ -121,11 +121,11 @@
       bindEvents: function() {
         var div = this.model.get('div');
         var self = this;
-        
+
         $(div).find('form').bind('submit', this.submit);
         $(div).find('.save').bind('click', this.submit);
         $(div).find('a.close, a.cancel').bind('click', this.hide);
-        
+
         $(div).find("div.slider").slider({
           range:  "min",
           value:  10,
@@ -168,7 +168,7 @@
         }
 
         $(div).find('div.slider').slider({ value: km_value });
-        
+
         var metric = (km_value < 11) ? 'M' : 'KM';
         var value_showed = (km_value < 11) ? km_value * 100 : (km_value-10);
         $(div).find('.slider_value').html(value_showed + metric);
@@ -196,7 +196,7 @@
           var v = r.fields.scientificName;
           var div = this.model.get('div');
 
-          // Change first data          
+          // Change first data
           var marker_id = this.model.get('marker_id');
           this.model.get('data').set('interpretedFrom', v);
           occurrences[marker_id].data['interpretedFrom'] = v;
@@ -229,7 +229,7 @@
           marker_id:  marker_id,
           data:       new MetadataModel(opt)
         });
-        
+
         // Fill data into gaps :D
         this.render();
 
@@ -299,7 +299,7 @@
 
       submit: function(e) {
         if (e && e.preventDefault) e.preventDefault();
-        
+
         var errors = this.checkFields();
         if (errors.length == 0) {
           this.hideError();
@@ -320,14 +320,14 @@
         // All fields
         _.each(old_data, function(val,i){
           var $field = $(div).find('#metadata_' + i);
-          
+
           if ($field.length == 0) {
             // console.log('not found ' + i + ' in metadata :(');
           } else {
             var value = $field.val();
             new_data[i] = value;
           }
-          
+
         });
 
         // slider value == coordinateUncertaintyInMeters
@@ -344,12 +344,12 @@
         occurrences[marker_id].redraw();
         occurrences[marker_id].data = new_data;
         occurrences[marker_id].setPosition(new google.maps.LatLng(new_data.latitude,new_data.longitude));
-        
+
         if (convex_hull.isVisible()) {
           $(document).trigger('occs_updated');
         }
         this.hide();
-      
+
         actions.Do('edit',
           [{ catalogue_id: marker_id, info: old_data }],
           [{ catalogue_id: marker_id, info: new_data }]
@@ -391,18 +391,18 @@
       moveMaptoOpen: function() {
         var left = 0;
         var top = 0;
-        
+
         var pixPosition = this.getProjection().fromLatLngToContainerPixel(this.model.get('latlng'));
         var container = this.model.get('map').getDiv();
-        
+
         if (($(container).width() - pixPosition.x) < (this.model.get('width') + this.model.get('offsetHorizontal'))) {
           left = -(($(container).width() - pixPosition.x) - (this.model.get('width') + this.model.get('offsetHorizontal')));
         }
-        
+
         if (($(container).height()-pixPosition.y) < this.model.get('height')) {
           top = -($(container).height() - pixPosition.y - this.model.get('height'));
         }
-        
+
         this.model.get('map').panBy(left,top);
       },
 

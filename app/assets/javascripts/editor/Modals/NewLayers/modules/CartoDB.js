@@ -1,10 +1,10 @@
-  
+
   /**
    *  Layer module for CartoDB viz urls
    *
    */
 
-  
+
   var CartoDB = NewLayerModule.URL.extend({
 
     _addLayer: function(url) {
@@ -29,7 +29,7 @@
       if (url.search('cartodb.com/api/v2/viz') === -1) {
         return 'URL is not a valid CartoDB url'
       }
-      
+
       // viz.json
       if (url.search('viz.json') === -1) {
         return 'CartoDB URL should end with viz.json'
@@ -42,6 +42,6 @@
       }
 
       return '';
-    } 
+    }
 
   })

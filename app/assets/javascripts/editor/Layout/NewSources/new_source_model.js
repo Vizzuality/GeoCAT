@@ -14,7 +14,7 @@
    *    · selected (current view is selected or not)
    *
    */
-  
+
   var NewSourceModel = Backbone.Model.extend({
 
     defaults: {

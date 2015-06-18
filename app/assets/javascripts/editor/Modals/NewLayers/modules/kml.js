@@ -1,4 +1,4 @@
-  
+
   /**
    *  Layer module for KML urls
    *
@@ -24,7 +24,7 @@
       var error = NewLayerModule.URL.prototype._checkUrl.call(this, url);
 
       if (error) return error;
-      
+
       // URL valid
       var ext = url.substr(url.length - 4).toLowerCase();
       if (ext !== ".kml" && ext !== ".kmz") {

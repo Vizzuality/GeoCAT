@@ -24,9 +24,9 @@
 		/* Download all the data thanks to a .GeoCAT file. */
 		/*========================================================================================================================*/
 		GeoCAT.prototype.download = function(format) {
-			
+
 			// VIEWPORT
-			
+
 			var report = {
 				reportName: 		unescape(report_name),
 				viewPort: {
@@ -38,15 +38,15 @@
 				},
 				sources: 				[]
 			};
-			
-			
+
+
 			// OCCS
 
 			this.addMarkers(report,this.markers_);
 
-			
+
 			// ANALYSIS
-			
+
 			if (convex_hull.isVisible()) {
 				var m_ = analysis_map.toJSON();
 				var d_ = analysis_data.toJSON();

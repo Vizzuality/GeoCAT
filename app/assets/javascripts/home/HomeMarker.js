@@ -34,7 +34,7 @@ HomeMarker.prototype.draw = function() {
   this.div_.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
   this.div_.style.height = this.height_ + "px";
   this.div_.style.top = (pixPosition.y + this.offsetVertical_) + "px";
-	
+
   this.div_.style.display = 'block';
 };
 
@@ -50,14 +50,14 @@ HomeMarker.prototype.createElement = function() {
 		} else {
 			var image = '/assets/editor/user_marker.png';
 		}
-    
+
     div = this.div_ = document.createElement("div");
     div.style.border = "0px none";
     div.style.position = "absolute";
     div.style.width = "55px";
     div.style.height = "55px";
     div.style.opacity = "1";
-    
+
     var bkg = document.createElement("div");
     bkg.style.border = "0px none";
     bkg.style.position = "absolute";
@@ -89,7 +89,7 @@ HomeMarker.prototype.createElement = function() {
     inner.style.opacity = "0";
     div.appendChild(inner);
 
-    
+
     $(bkg).animate({
       opacity: 0.5,
       width: '55px',
@@ -105,7 +105,7 @@ HomeMarker.prototype.createElement = function() {
         marginLeft:0
       }, 500);
     });
-    
+
     $(inner).animate({
       opacity: 1,
       width: '25px',
@@ -113,13 +113,13 @@ HomeMarker.prototype.createElement = function() {
       marginTop:-12,
       marginLeft:-12
     }, 500);
-    
-    
+
+
 
     panes.floatPane.appendChild(div);
 
-    
-		
+
+
   } else if (div.parentNode != panes.floatPane) {
     // The panes have changed.  Move the div.
     div.parentNode.removeChild(div);

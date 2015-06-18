@@ -3,7 +3,7 @@
    *  Reduction analysis view
    *
    */
-  
+
 
   var ReductionAnalysisView = View.extend({
 

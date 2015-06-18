@@ -1,9 +1,9 @@
-  
+
   /**
    *  Modal window to select an specie
    *  from a DWC file type (for example).
    */
-  
+
 
   function SpecieSelector(data) {
     this.data = data;
@@ -31,7 +31,7 @@
       $('.center-map').append(this.$el);
 
       if (this.data.errors && !_.isEmpty(this.data.errors))
-        this.renderErrors() 
+        this.renderErrors()
     },
 
     initComponents: function() {
@@ -81,7 +81,7 @@
 
     _getData: function(specie_name) {
       var specie_data = _.find(this.data.species, function(specie){ return specie.scientificName == specie_name });
-      
+
       if (!specie_data) return false;
 
       var alias = specie_data.scientificName;

@@ -1,4 +1,4 @@
-  
+
   /**
    *  New Source upload item view
    *
@@ -23,7 +23,7 @@
       _.bindAll(this, '_submit', '_onRequestError', '_onRequestSuccess',
         '_cancel', '_retry', '_onAdd', '_onStart', '_onProgress',
         '_onError', '_onComplete');
-      
+
       this.model.bind('change:selected',  this._selectedSource, this);
       this.model.bind('change:state',     this._changeState, this);
     },

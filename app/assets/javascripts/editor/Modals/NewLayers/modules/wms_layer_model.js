@@ -22,7 +22,7 @@
       this.wms_url = url;
 
       return this;
-    }, 
+    },
 
     url: function() {
       var url = this.wms_url;

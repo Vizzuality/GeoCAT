@@ -1,7 +1,7 @@
 
   /**
    *  Layers list view.
-   *  
+   *
    *  - It needs a Layers collection.
    *  - It manages rendering and fetching default layers ;).
    *
@@ -26,7 +26,7 @@
       this.collection.bind('remove',  this._removeLayer, this);
       this.template = this.getTemplate('layers_overlay');
     },
-    
+
     render: function() {
       this.clearSubViews();
       this.$el.html(this.template());

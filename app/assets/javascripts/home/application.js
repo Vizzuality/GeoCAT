@@ -9,10 +9,10 @@
   window.onload = initApplication;
 
 	function initApplication() {
-    
+
     //register the Upload button action
     $("#upload_input").change(function(event){
-       $("#upload_form").submit(); 
+       $("#upload_form").submit();
     });
 
 		$('.flash').delay(5000).animate({height:0},300,function(ev){$('.flash').css('border','none');});
@@ -33,7 +33,7 @@
 		elevator = new google.maps.ElevationService();
 
   	var zoom = 9;
-    latlng = new google.maps.LatLng(51.5001524, -0.1262362);   
+    latlng = new google.maps.LatLng(51.5001524, -0.1262362);
 
 		map.setCenter(latlng);
 		map.setZoom(zoom);
@@ -41,14 +41,14 @@
 
 		//input effect - hack
 		$('form.upload input').hover(function(ev){
-			$('form.upload a').css('background-position','0 -32px');	
+			$('form.upload a').css('background-position','0 -32px');
 		},
 		function(ev){
 			$('form.upload a').css('background-position','0 0');
 		});
 
-		$('#rla_name').change(function(){		
-			validateFile(this);			
+		$('#rla_name').change(function(){
+			validateFile(this);
 		})
 
 
@@ -66,12 +66,12 @@
 		}
 
 	}
-	
-	
-	
-	
+
+
+
+
 	function generateObservations() {
-	  
+
 		if (markers.length<10) {
 			var bounds = map.getBounds();
 		  var southWest = bounds.getSouthWest();
@@ -79,8 +79,8 @@
 		  var lngSpan = northEast.lng() - southWest.lng();
 		  var latSpan = northEast.lat() - southWest.lat();
 			var point = new google.maps.LatLng(southWest.lat() + latSpan * Math.random(),southWest.lng() + lngSpan * Math.random());
-			
-			
+
+
 			var positionalRequest = {'locations': [point]}
 
 	    elevator.getElevationForLocations(positionalRequest, function(results, status) {
@@ -119,7 +119,7 @@
 			markers.sort(sortPointY);
 			markers.sort(sortPointX);
 			chainHull_2D(markers, markers.length, hullPoints);
-	
+
 			if (polygon != undefined) {
 				polygon.setPath(this.markersToPoints(hullPoints));
 			} else {
@@ -133,7 +133,7 @@
 				});
 				polygon.setMap(map);
 			}
-			
+
 			var opacity_count = 1;
 			var interval = setInterval(function(){
 			  if (opacity_count>70) {
@@ -144,8 +144,8 @@
   			  opacity_count++;
 			  }
 			},50);
-			
-			
+
+
 			setTimeout(function(){
 				for (var i=0; i<markers.length; i++) {
 					markers[i].setMap(null);
@@ -158,10 +158,10 @@
 			},10000);
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	function markersToPoints(path) {
 		var result = [];
 		for (var i=0; i<path.length; i++) {
@@ -169,17 +169,16 @@
 		}
 		return result;
 	}
-	
+
 	function sortPointX(a,b) {return a.latlng_.lng() - b.latlng_.lng();}
 	function sortPointY(a,b) {return a.latlng_.lat() - b.latlng_.lat();}
-	
-	
-	
+
+
+
 	function goEditor() {
 		var specie_name = $('#inputSearch').attr('value');
 		if (specie_name.length>0) {
 			window.location.href = "/editor/"+$('#inputSearch').attr('value');
 		}
 	}
-	
-	
+

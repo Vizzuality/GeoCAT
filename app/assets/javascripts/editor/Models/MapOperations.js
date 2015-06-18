@@ -4,19 +4,19 @@
 			/*  																																																												*/
 			/*==========================================================================================================================*/
 
-			
+
 			var map;												// Map object
-      var oms;                        // 
+      var oms;                        //
 			var bounds;											// LatLngBounds object to visualize the map correctly
 			var geocoder;                   // Geocoder application
-			
+
 			var occurrences = {};						// All the markers of the map (Associative array)
 			var global_id = 0; 							// Global id for your own markers
 			var global_zIndex = 1;					// Z-index for the markers
-			
-			
+
+
 			// Control vars for map objects
-			var click_infowindow;						// Gray main infowindow object  
+			var click_infowindow;						// Gray main infowindow object
 			var over_tooltip;								// Tiny over infowindow object
 			var over_polygon_tooltip;				// Tiny over polygon object
 			var delete_infowindow;					// Delete infowindow object
@@ -47,13 +47,13 @@
 
 
         function setLocation() {
-          var c = map.getCenter(); 
+          var c = map.getCenter();
           $('.map-center-label').text('Lat,Lon: ' + c.lat().toFixed(5) + ',' + c.lng().toFixed(5))
         }
 
         google.maps.event.addListener(map, "center_changed", setLocation);
         setLocation();
-        
+
 				bounds = new google.maps.LatLngBounds();
         geocoder = new google.maps.Geocoder();
         oms = new OverlappingMarkerSpiderfier(map, { markersWontMove: true, markersWontHide: true });
@@ -63,7 +63,7 @@
         });
 
 				google.maps.event.clearListeners(map, 'tilesloaded');
-				
+
 
         //--- GROUPS MAGIC ---//
 
@@ -108,7 +108,7 @@
 		    });
 
 				/*========================MAP EVENTS==========================*/
-				
+
 				//Click map event
 				google.maps.event.addListener(map,"click",function(event){
 					if (state == 'add') {
@@ -120,22 +120,22 @@
 				//Change cursor depending on application state
 				google.maps.event.addListener(map,"mouseover",function(event){
 						switch(state) {
-							case 'add': 			map.setOptions({draggableCursor: "url(/assets/editor/add_cursor.png),default"});	
+							case 'add': 			map.setOptions({draggableCursor: "url(/assets/editor/add_cursor.png),default"});
 																break;
-							case 'selection': map.setOptions({draggableCursor: "url(/assets/editor/selection_cursor.png),default"});	
-																break;											
-							case 'remove': 		map.setOptions({draggableCursor: "url(/assets/editor/remove_cursor.png),default"});	
-																break;						
-							default: 					map.setOptions({draggableCursor: "url(/assets/editor/default_cursor.png),default"});	
+							case 'selection': map.setOptions({draggableCursor: "url(/assets/editor/selection_cursor.png),default"});
+																break;
+							case 'remove': 		map.setOptions({draggableCursor: "url(/assets/editor/remove_cursor.png),default"});
+																break;
+							default: 					map.setOptions({draggableCursor: "url(/assets/editor/default_cursor.png),default"});
 						}
 				});
 
 
 				//Zoom change = Zoom control change
 				google.maps.event.addListener(map,"zoom_changed",function(event){moveZoomControl();});
-								
-				
-				
+
+
+
 				/*========================DOM EVENTS==========================*/
 				//choose map type
 				$('ul.map_type_list li').click(function(ev){
@@ -162,15 +162,15 @@
 						map.setZoom(map.getZoom()-1);
 					}
 				});
-				
-				
+
+
 				$('div.search_place').hover(function(ev){
 					$(this).stop(ev).fadeTo(0,1);
 				},function(ev){
 					$(this).stop(ev).fadeTo(0,0.5);
 				});
-				
-				
+
+
 				// Selection tool
 				$('div#map').mousedown(function(ev){
 				  if (state=="selection" && !say_polygon_tooltip) {
@@ -179,22 +179,22 @@
             if (over_polygon_tooltip!=null) {
              over_polygon_tooltip.hide();
             }
-            
+
 				    var position = {};
 				    position.x = ev.pageX-($('div#map').offset().left);
 				    position.y = ev.pageY-($('div#map').offset().top);
 				    var latlng = edit_metadata.transformCoordinates(new google.maps.Point(position.x,position.y));
-				    
+
 				    selection_polygon.setOptions({fillOpacity: 0});
             drawing = true;
             selection_polygon.setPath([latlng,latlng,latlng,latlng]);
 				    selection_polygon.setMap(map);
-				    
+
 				    $('div#map').mousemove(function(ev){
               position.x = ev.pageX-($('div#map').offset().left);
   				    position.y = ev.pageY-($('div#map').offset().top);
   				    var latLng = edit_metadata.transformCoordinates(new google.maps.Point(position.x,position.y));
-              
+
               selection_polygon.setPath([
                 selection_polygon.getPath().getAt(0),
                 new google.maps.LatLng(selection_polygon.getPath().getAt(0).lat(),latLng.lng()),
@@ -202,13 +202,13 @@
                 new google.maps.LatLng(latLng.lat(),selection_polygon.getPath().getAt(0).lng()),
                 selection_polygon.getPath().getAt(0)]);
 				    });
-				    
+
 				    $('div#map').mouseup(function(ev){
 				      var position = {};
 				      position.x = ev.pageX-($('div#map').offset().left);
   				    position.y = ev.pageY-($('div#map').offset().top);
   				    var latLng = edit_metadata.transformCoordinates(new google.maps.Point(position.x,position.y));
-				      
+
 				      $('div#map').unbind('mouseup');
 				      $('div#map').unbind('mousemove');
               drawing = false;
@@ -249,7 +249,7 @@
 				$('#mamufas_map').css('background','url(/assets/editor/mamufas_bkg.png) repeat 0 0');
 				$('#mamufas_map').fadeIn();
 				$('#loader_map').fadeIn();
-			}	
+			}
 
 
 			/*============================================================================*/
@@ -293,10 +293,10 @@
 
 				});
 			}
-				
-				
-				
-				
+
+
+
+
 			/*============================================================================*/
 			/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). 					*/
 			/*============================================================================*/
@@ -336,16 +336,16 @@
             var info_data = {};
             $.extend(info_data, observations[i]);
 
-            if (group) {  
-              info_data.dcid = group.cid; 
+            if (group) {
+              info_data.dcid = group.cid;
             }
-            
+
             if (info_data.catalogue_id && occurrences[info_data.catalogue_id]==undefined) {
-							
+
               // If the point doesnt have info about _active and _removed
 							if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
 							if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
-							
+
 							var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
               var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
@@ -353,7 +353,7 @@
               groups.sum(info_data, geocat_kind, geocat_query);
 
               bounds.extend(latlng);
-	
+
               var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
               oms.addMarker(marker)
 
@@ -373,14 +373,14 @@
 							var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
               // var geocat_alias = info_data.geocat_alias;
 							var latlng = new google.maps.LatLng(parseFloat(info_data.latitude),parseFloat(info_data.longitude));
-							
+
               // sources_collection.sumUp(geocat_query, geocat_kind, geocat_alias);
               groups.sum(info_data, geocat_kind, geocat_query);
 
 							bounds.extend(latlng);
 							global_id++;
 							info_data.catalogue_id = 'user_' + global_id;
-							
+
 							var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
               oms.addMarker(marker)
 
@@ -401,16 +401,16 @@
             } else {
               hideMamufasMap(true);
             }
-            
+
             if (_bounds) map.fitBounds(bounds)
-            
+
             if (convex_hull.isVisible()) $(document).trigger('occs_updated')
 
             // Store action
             actions.Do('add',null,point_changes);
           }
         }
-        
+
         if (information.points.length>20) showMamufasMap()
 
         asynAddMarker(0,information.points.length,getBound,uploadAction,information.points);
@@ -432,14 +432,14 @@
 					$('#zoom ul li:eq('+(15-actual_zoom)+')').addClass('selected');
 				}
 			}
-				
+
 
 
 
 			/*============================================================================*/
 			/* Remove selection polygon from map. 																				*/
 			/*============================================================================*/
-			function removeSelectionPolygon() {			
+			function removeSelectionPolygon() {
 				selection_polygon.setPath([]);
 				selection_polygon.setMap(null);
 			}
@@ -449,26 +449,26 @@
 			/*============================================================================*/
 			/* Return markers what contains the selection polygon. 												*/
 			/*============================================================================*/
-			function markersInPolygon() {	
-				
+			function markersInPolygon() {
+
         //Check if the polygon contains this point
-        function Contains(polygon, point) { 
-          var j=0; 
-          var oddNodes = false; 
-          var x = point.lng(); 
-          var y = point.lat(); 
-          for (var i=0; i < polygon.getPath().getLength(); i++) { 
-            j++; 
-            if (j == polygon.getPath().getLength()) {j = 0;} 
-            if (((polygon.getPath().getAt(i).lat() < y) && (polygon.getPath().getAt(j).lat() >= y)) || ((polygon.getPath().getAt(j).lat() < y) && (polygon.getPath().getAt(i).lat() >= y))) { 
-              if ( polygon.getPath().getAt(i).lng() + (y - polygon.getPath().getAt(i).lat()) /  (polygon.getPath().getAt(j).lat()-polygon.getPath().getAt(i).lat()) *  (polygon.getPath().getAt(j).lng() - polygon.getPath().getAt(i).lng())<x ) { 
-                oddNodes = !oddNodes; 
-              } 
-            } 
-          } 
-          return oddNodes; 
+        function Contains(polygon, point) {
+          var j=0;
+          var oddNodes = false;
+          var x = point.lng();
+          var y = point.lat();
+          for (var i=0; i < polygon.getPath().getLength(); i++) {
+            j++;
+            if (j == polygon.getPath().getLength()) {j = 0;}
+            if (((polygon.getPath().getAt(i).lat() < y) && (polygon.getPath().getAt(j).lat() >= y)) || ((polygon.getPath().getAt(j).lat() < y) && (polygon.getPath().getAt(i).lat() >= y))) {
+              if ( polygon.getPath().getAt(i).lng() + (y - polygon.getPath().getAt(i).lat()) /  (polygon.getPath().getAt(j).lat()-polygon.getPath().getAt(i).lat()) *  (polygon.getPath().getAt(j).lng() - polygon.getPath().getAt(i).lng())<x ) {
+                oddNodes = !oddNodes;
+              }
+            }
+          }
+          return oddNodes;
         };
-           
+
         var markers_polygon = [];
 			  _.each(occurrences, function(element){
          if (!element.data.geocat_removed && Contains(selection_polygon,element.getPosition())) {
@@ -485,7 +485,7 @@
       function deleteGroup(group) {
         closeMapWindows();
         showMamufasMap();
-        
+
         if (convex_hull.isVisible()) {
           analysis_map.stop();
         }
@@ -513,7 +513,7 @@
             delete occsCopy[i];
             break;
           }
-        
+
           if (i==undefined) {
             asyncRemoveSource();
           } else {
@@ -562,14 +562,14 @@
 			function deleteAll(query,type) {
         closeMapWindows();
         showMamufasMap();
-        
+
         if (convex_hull.isVisible()) {
           analysis_map.stop();
         }
 
         // Remove spiderfy!
         oms.unspiderfy();
-        
+
         var remove_markers = [];
         var occsCopy = $.extend(true,{},occurrences);
         var s = groups.getActive().getSources().where({ type: type, query: query })[0];
@@ -577,7 +577,7 @@
         if (!s) {
           console.log("Delete all function can't find this source { query:" + query + ", type:" + type + " }" );
         }
-        
+
         function asynRemoveMarker(query,type) {
           for (var i in occsCopy) {
             var d = occsCopy[i].data;
@@ -591,7 +591,7 @@
             delete occsCopy[i];
             break;
           }
-        
+
           if (i==undefined) {
             actions.Do('remove', null, remove_markers);
             hideMamufasMap(false);
@@ -644,8 +644,8 @@
             hideMamufasMap(false);
           }
         }
-         
-         
+
+
         if (remove_markers.length>0) {
           if (remove_markers.length>20) {
             showMamufasMap();
@@ -654,7 +654,7 @@
           actions.Do('remove', null, remove_markers);
         }
 			}
-				
+
 
 
 
@@ -668,7 +668,7 @@
 				global_id++;
 				global_zIndex++;
 				var date = new Date();
-				
+
 				var inf = {
           coordinateUncertaintyInMeters:  15000,
           collector:                      '',
@@ -709,7 +709,7 @@
 
         var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
 				bounds.extend(latlng);
-				
+
 				//Save occurence
 				occurrences[inf.catalogue_id] = marker;
         // Store action
@@ -718,7 +718,7 @@
         if (convex_hull.isVisible()) {
           analysis_map.addPoint(marker);
         }
-			}	
+			}
 
 
 
@@ -727,13 +727,13 @@
 			/*============================================================================*/
 			function makeActive (markers_id, fromAction) {
         if (markers_id.length>0) {
-          
+
           if (convex_hull.isVisible()) {
             // mamufasPolygon();
             analysis_map.stop();
           }
-          
-               
+
+
           for (var i=0; i<markers_id.length; i++) {
            var marker_id = markers_id[i].catalogue_id;
            occurrences[marker_id].setActive(!occurrences[marker_id].data.geocat_active);
@@ -745,31 +745,31 @@
               analysis_map.addPoint(occurrences[marker_id]);
             }
           }
-        
+
           //If the action doesnt come from the UnredoOperations object
           if (!fromAction) {
             actions.Do('active', null, markers_id);
           }
-          
+
           if (convex_hull.isVisible()) {
             $(document).trigger('occs_updated');
           }
         }
 			}
-			
-			
-			
+
+
+
 			/*============================================================================*/
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
 			function hideAll(query,kind,active) {
-        
+
         var hideMarkers = _.select(occurrences, function(element,key){return element.data.geocat_active!=active &&  element.data.geocat_kind==kind && element.data.geocat_query==query && !element.data.geocat_removed});
         var hide_markers = [];
 
         showMamufasMap();
         asynHideMarker(query,kind,active);
-        
+
         if (convex_hull.isVisible()) {
           // mamufasPolygon();
           analysis_map.stop();
@@ -783,9 +783,9 @@
             delete hideMarkers[i];
             break;
           }
-          
+
           if (i==undefined) {
-            actions.Do('active', null, hide_markers);            
+            actions.Do('active', null, hide_markers);
             hideMamufasMap(false);
             if (convex_hull.isVisible()) {
               $(document).trigger('occs_updated');
@@ -795,13 +795,13 @@
             setTimeout(function(){asynHideMarker(query,kind,active)},0);
           }
         }
-			}	
+			}
 
 
 
 			/*============================================================================*/
 			/* Put all the markers with/without drag property.	 													*/
-			/*============================================================================*/		
+			/*============================================================================*/
 			function activeMarkersProperties() {
 			  _.each(occurrences, function(element){
   		    if (state=='add') {
@@ -810,11 +810,11 @@
           } else {
             element.setCursor('pointer');
           }
-          
+
           if (state=='remove') {
             element.setClickable(true);
           }
-          
+
           if (state=='select') {
             element.setClickable(true);
             element.setDraggable(true);
@@ -823,28 +823,28 @@
           }
 			  });
 			}
-			
-			
-			
+
+
+
 			/*============================================================================*/
 			/* Set status of the application. 																						*/
 			/*============================================================================*/
 			function setStatus(status) {
 			  state = status;
-			  
+
 				$("div.left a.select").removeClass('selected');
 				$("div.left a.add").removeClass('selected');
 				$("div.left a.remove").removeClass('selected');
 				$("div.left a.selection").removeClass('selected');
 				$("div.left a."+status).addClass('selected');
-        
+
         // Remove double click zoom when app is in 'add' status
         if (status != "add") {
 				  map.setOptions({disableDoubleClickZoom:false});
 				} else {
 				  map.setOptions({disableDoubleClickZoom:true});
 				}
-			
+
         if (status == "selection") {
           map.setOptions({draggable:false});
         } else {
@@ -854,12 +854,12 @@
 				//Remove selection tool addons
 				google.maps.event.clearListeners(map, 'mousemove');
 				removeSelectionPolygon();
-				
+
 				activeMarkersProperties();
 			}
-			
-			
-			
+
+
+
 			/*============================================================================*/
 			/* Search box.                     																						*/
 			/*============================================================================*/
@@ -874,9 +874,9 @@
           }
         });
 			}
-			
-			
-			
+
+
+
 			/*============================================================================*/
 			/* Close all floating map windows.                     												*/
 			/*============================================================================*/
@@ -885,5 +885,5 @@
   			if (delete_infowindow!=undefined) delete_infowindow.hide();
         if (edit_metadata!=undefined) edit_metadata.hide();
 			}
-			
-			
+
+

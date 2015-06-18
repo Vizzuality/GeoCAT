@@ -42,7 +42,7 @@
     }
 
   ];
-  
+
 
 
   /**
@@ -65,7 +65,7 @@
       this.collection = new NewSourceCollection(new_sources_list);
       this._initBinds();
     },
-    
+
     render: function() {
       this.$('ul.add_new_sources').html('');
       this.collection.each(this._addSource, this);
@@ -99,7 +99,7 @@
       v.bind('dwc',       this._dwcSource,    this);
       v.bind('close',     this.hide,          this);
       v.bind('changeApp', this._changeApp,    this);
-      
+
       this.$('ul.add_new_sources').append(v.render().el);
       this.addView(v);
     },

@@ -3,7 +3,7 @@
 			/*  																																																												*/
 			/*							UnredoOperations => Class to perform undo-redo actions.																											*/
 			/*																																																													*/
-			/*											(*Kind of acions: ADD, REMOVE, MOVE, VISIBLE, EDIT*)																								*/	
+			/*											(*Kind of acions: ADD, REMOVE, MOVE, VISIBLE, EDIT*)																								*/
 			/*  																																																												*/
 			/*==========================================================================================================================*/
 
@@ -12,7 +12,7 @@
 				this.position = 0;
 				this.actions = new Array();
 				var me = this;
-				
+
 				/* Binding events of DOM elements related to UnredoOperations  */
 				//Undo-redo action fade when rollout bottom zone
 				$("div.footer").hover(
@@ -21,7 +21,7 @@
 						$("#action_info").fadeTo(500,0);
 					}
 				);
-				
+
 				// Undo action.
 				$('a.undo').click(function(){me.Undo();});
 
@@ -69,7 +69,7 @@
 
 					// Reset to original values
 					this.position = this.old.position;
-					this.actions = this.old.actions; 
+					this.actions = this.old.actions;
 					delete this.old;
 
 					// Update analysis
@@ -88,15 +88,15 @@
 					// All past actions length + new position! Sum old position
 					// + new position is an error because old position could be
 					// 0, n or (n/2) :S
-					this.position = this.old.position + this.position; 
+					this.position = this.old.position + this.position;
 
 					delete this.old;
 				}
 
 			});
-			
-			
-			
+
+
+
 			/*======================================================================*/
 			/* Function so save the performed action in the actions Array. 					*/
 			/*======================================================================*/
@@ -151,7 +151,7 @@
 														break;
 						case 'add': 		this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
-														break;	
+														break;
 						case 'move': 		this.moveMarker(actions_data[0].catalogue_id,actions_data[0].new_.latlng);
 														$('#action_info span').text('Moved point to ('+actions_data[0].new_.latlng.lat().toFixed(2)+','+actions_data[0].new_.latlng.lng().toFixed(2)+')');
 														break;
@@ -183,11 +183,11 @@
 			UnredoOperations.prototype.Undo = function() {
 				if (this.position!=0) {
 					this.position--;
-          
+
 					var actions_data = this.actions[this.position].data;
 					var actions_count = this.actions[this.position].data.length;
 					var actions_kind = this.actions[this.position].kind;
-					
+
 					switch(actions_kind) {
 						case 'remove': 	this.restoreMarkers(actions_data);
 														$('#action_info span').text('Added ' + actions_count + ((actions_count==1)?' point':' points'));
@@ -199,15 +199,15 @@
 														$('#action_info span').text('Returned point to ('+actions_data[0].old_.latlng.lat().toFixed(2)+','+actions_data[0].old_.latlng.lng().toFixed(2)+')');
 														break;
             case 'edit': 		this.changeData(actions_data[0].catalogue_id,actions_data[0].old_.info);
-  													$('#action_info span').text('Edition undone');	
-  													break;		
+  													$('#action_info span').text('Edition undone');
+  													break;
 						case 'active': 	makeActive(actions_data,true);
 														if (actions_count==1) {
 															$('#action_info span').text('The point is '+((actions_data[0].new_.geocat_active)?'no active':'active')+' now');
 														} else {
 															$('#action_info span').text(actions_count+' points are '+((!actions_data[0].new_.geocat_active)?'no active':'active')+' now');
 														}
-														break;			
+														break;
 						default: 				null;
 					}
 					changeApplicationTo(1);
@@ -216,13 +216,13 @@
 				}
 				$('#action_info').stop(true).fadeTo(200,1);
 			}
-			
-			
+
+
 			/*======================================================================*/
 			/* Add markers from an action performed.																*/
 			/*======================================================================*/
 			UnredoOperations.prototype.restoreMarkers = function(restore_info) {
-			  
+
 			  this.hideAllOverlays();
 			  if (convex_hull.isVisible()) {
           // mamufasPolygon();
@@ -255,21 +255,21 @@
 				if (restore_info.length>20) {
 					showMamufasMap();
 				}
-				
+
 				AsynRestoreMarkers(0, restore_info);
 			}
-			
-			
-			
-			
-			
+
+
+
+
+
 			/*======================================================================*/
 			/* Move marker from previous action performed.													*/
 			/*======================================================================*/
 			UnredoOperations.prototype.moveMarker = function(marker_id, latlng) {
-			  
+
 			  this.hideAllOverlays();
-			  
+
 				occurrences[marker_id].data.longitude = latlng.lng();
 				occurrences[marker_id].data.latitude = latlng.lat();
 				occurrences[marker_id].setPosition(latlng);
@@ -281,9 +281,9 @@
 					$(document).trigger('occs_updated');
 				}
 			}
-			
-			
-			
+
+
+
 			/*======================================================================*/
 			/* Change occurence data.                     .													*/
 			/*======================================================================*/
@@ -292,10 +292,10 @@
 				occurrences[marker_id].data = data_;
 				this.hideAllOverlays();
 			}
-			
-			
-			
-			
+
+
+
+
 			/*======================================================================*/
 			/* Hide all overlays.                     .													*/
 			/*======================================================================*/
@@ -307,16 +307,16 @@
         if (edit_metadata!=undefined)
           edit_metadata.hide();
 			}
-			
-			
-			
-			
-			
+
+
+
+
+
 			/*======================================================================*/
 			/* Remove markers from an action performed.															*/
 			/*======================================================================*/
 			UnredoOperations.prototype.removeMarkers = function(restore_info) {
-				
+
 				this.hideAllOverlays();
 				if (convex_hull.isVisible()) {
           // mamufasPolygon();
@@ -325,17 +325,17 @@
 
 				// Remove spiderfy!
 			  oms.unspiderfy();
-				
+
 				// Recursive function for remove markers.
 				function AsynRemoveMarkers(count, observations_data) {
 					if (observations_data.length>count) {
 						occurrences[observations_data[count].catalogue_id].data.geocat_removed = true;
 						occurrences[observations_data[count].catalogue_id].setMap(null);
-						
+
 						// points.deduct(observations_data[count].new_.geocat_query,observations_data[count].new_.geocat_kind);
 						var query = observations_data[count].new_.geocat_query;
 						var type = observations_data[count].new_.geocat_kind;
-						
+
 						// sources_collection.deduct(query, type);
 						groups.deduct(observations_data[count].new_, type, query);
 
@@ -348,7 +348,7 @@
 						hideMamufasMap(false);
 					}
 				}
-				
+
 				if (restore_info.length>20) {
 					showMamufasMap();
 				}

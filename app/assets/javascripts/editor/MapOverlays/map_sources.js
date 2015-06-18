@@ -1,5 +1,5 @@
 
-  
+
   /**
    *  Sort custom map panes
    *
@@ -29,11 +29,11 @@
 
       // Get source collection
       var active_group = this._getActiveGroup();
-      
+
       if (active_group) {
         this.sources = active_group.getSources();
         this.sources.bind('change',           this._changeSource, this);
-        this.sources.bind('remove add reset', this._managePanes, this);  
+        this.sources.bind('remove add reset', this._managePanes, this);
       }
     },
 
@@ -45,14 +45,14 @@
           group = m;
         }
       })
-      
+
       return group;
     },
 
     _unsetSources: function() {
       if (this.sources) {
         this.sources.unbind('change',           this._changeSource, this);
-        this.sources.unbind('remove add reset', this._managePanes, this);  
+        this.sources.unbind('remove add reset', this._managePanes, this);
       }
     },
 
@@ -81,9 +81,9 @@
     },
 
     getFloatPane: function() {
-      var ov = this.ov = new google.maps.OverlayView(); 
-      ov.onAdd = function(){}; 
-      ov.draw = function(){}; 
+      var ov = this.ov = new google.maps.OverlayView();
+      ov.onAdd = function(){};
+      ov.draw = function(){};
       ov.onRemove = function(){};
       ov.setMap(this.get('map'));
       return ov.getPanes().floatPane;
@@ -92,7 +92,7 @@
     removeFloatPane: function() {
       if (this.ov) {
         this.ov.setMap(null);
-        delete this.ov;  
+        delete this.ov;
       }
     }
 

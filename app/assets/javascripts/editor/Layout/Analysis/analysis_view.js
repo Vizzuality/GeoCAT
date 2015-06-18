@@ -34,14 +34,14 @@
       });
       this.analysis_map = opts.analysis_map;
       this.analysis_data = opts.analysis_data;
-      
+
       this._initViews();
       this._initBinds();
 
       this.add_related_model(this.analysis_map);
       this.add_related_model(this.analysis_data);
     },
-    
+
     render: function() {
 
       // Set EOO
@@ -70,7 +70,7 @@
       // Buttons enabled?
       // this.$('#report')[this.analysis_map.getActivePoints() > 0 ? 'removeClass' : 'addClass' ]('disabled');
       this.$('#reduction')[this.analysis_map.getActivePoints() > 2 ? 'removeClass' : 'addClass' ]('disabled');
-      
+
       return this;
     },
 
@@ -114,7 +114,7 @@
       if (reduction_analysis) return false;
 
       var active = !this.model.get('active');
-      
+
       this.model.set('active', active);
 
       // Animation
@@ -170,7 +170,7 @@
       if (reduction_analysis) return false;
 
       if (this.analysis_map.get('active_points').length > 0) {
-        downloadGeoCAT('print');  
+        downloadGeoCAT('print');
       }
     },
 
@@ -238,7 +238,7 @@
 
 
     // PUBLIC FUNCTIONS
-    
+
     isVisible: function() {
       return this.model.get('active');
     }

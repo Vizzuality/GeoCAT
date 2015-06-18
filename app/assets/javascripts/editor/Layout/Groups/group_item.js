@@ -1,6 +1,6 @@
 
   /**
-   *  Group item view (an item 
+   *  Group item view (an item
    *  from the groups list)
    */
 
@@ -43,7 +43,7 @@
     },
 
     _onRemovedChange: function() {
-      this.$el[ !this.model.get('removed') ? 'show' : 'hide' ]();  
+      this.$el[ !this.model.get('removed') ? 'show' : 'hide' ]();
     }
 
   });

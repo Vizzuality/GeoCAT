@@ -24,10 +24,10 @@
     },
 
     getOverlayPane: function() {
-      var ov = this.ov = new google.maps.OverlayView(); 
-      ov.onAdd = function(){}; 
-      ov.draw = function(){}; 
-      ov.onRemove = function(){}; 
+      var ov = this.ov = new google.maps.OverlayView();
+      ov.onAdd = function(){};
+      ov.draw = function(){};
+      ov.onRemove = function(){};
       ov.setMap(this.options.map);
       return ov.getPanes().overlayMouseTarget;
     },

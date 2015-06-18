@@ -16,7 +16,7 @@
     },
 
     initialize: function(opts) {
-      
+
       this.model = new Backbone.Model({
         active:   false,
         default:  false
@@ -25,7 +25,7 @@
       this.analysis = opts.analysis;
       this._initBinds();
     },
-    
+
     render: function() {
       var is_auto_value = this.analysis.get('celltype') == "auto-value";
       var cellsize = this.analysis.get('cellsize');
@@ -38,7 +38,7 @@
         this.$('span p').text(
           (cellsize < 1 ? cellsize*1000 : cellsize ) +
           (cellsize < 1 ? "M" : "KM" )
-        )  
+        )
       }
       this.$('span p')[ is_auto_value ? 'addClass' : 'removeClass' ]('disabled');
 
@@ -47,7 +47,7 @@
 
       // IUCN button
       this.$('.default')[ is_auto_value ? 'addClass' : 'removeClass' ]('disabled');
-      
+
       return this;
     },
 
@@ -94,7 +94,7 @@
       } else {
         value = cellsize + 10;
       }
-      
+
       this.$("div.slider").slider('value', value);
     },
 
@@ -120,7 +120,7 @@
           celltype: "user defined"
         });
       }
-      
+
     },
 
     _setDefaultCellsize: function() {

@@ -7,7 +7,7 @@
     if (report_name == null) {
       report_name = "Untitled report";
     }
-    
+
     document.title = "GeoCAT - " + report_name;
 
 
@@ -53,16 +53,16 @@
       $(this).parent().removeClass('selected');
     });
   }
-  
-  
-  
+
+
+
   /* ===== APLICATION STATE FUNCTION ===== */
-	
+
 	function changeApplicationTo(type) {
     if (reduction_analysis) return false;
-    
+
 		switch (type) {
-			case 0: //Un-do-re-do operation -> Remove selection polygon 
+			case 0: //Un-do-re-do operation -> Remove selection polygon
 								removeSelectionPolygon();
 								break;
 			case 1: 	//Change app to unsaved
@@ -112,7 +112,7 @@
 								$('ul.editor_list li').removeClass('selected');
   		          $('div#csv_error').fadeIn();
   		          $('div#export_window').fadeOut();
-  							break;  							
+  							break;
   		case 7: 	// Change app to export window
   							$('div.help_container').fadeOut();
 								$('div#close_save').fadeOut();
@@ -120,8 +120,8 @@
 								$('ul.editor_list li').removeClass('selected');
   		          $('div#csv_error').fadeOut();
   		          $('div#export_window').fadeIn();
-  							break;					
-								
+  							break;
+
 			default: 	// Default state for app
 								$(document).unbind('keydown');
 								$('div.help_container').fadeOut();

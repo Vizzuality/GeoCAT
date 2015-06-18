@@ -16,7 +16,7 @@
 		DeleteInfowindow.prototype.draw = function() {
 		  var me = this;
 			var num = 0;
-	
+
 		  var div = this.div_;
 		  if (!div) {
 		    div = this.div_ = document.createElement('DIV');
@@ -28,7 +28,7 @@
 		    panes.floatPane.appendChild(div);
 		  }
 
-		  // Position the overlay 
+		  // Position the overlay
 		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
 		  if (pixPosition) {
 			  div.style.width = this.width_ + "px";
@@ -83,13 +83,13 @@
 
 
 		DeleteInfowindow.prototype.changePosition = function(latlng,marker_id,opt) {
-	
+
 			this.marker_id = marker_id;
 			this.latlng_ = latlng;
 			this.inf = opt;
 			var div = this.div_;
   		div.style.zIndex = global_zIndex + 1;
-	
+
 		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
 		  if (pixPosition) {
 			  div.style.left = (pixPosition.x + this.offsetHorizontal_) + "px";
@@ -135,7 +135,7 @@
 
 		DeleteInfowindow.prototype.isVisible = function() {
 		  if (this.div_) {
-		    var div = this.div_;		
+		    var div = this.div_;
 				if ($(div).css('visibility')=='visible') {
 					return true;
 				} else {

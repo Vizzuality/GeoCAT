@@ -25,10 +25,10 @@
 				div.style.height = '22px';
 				div.style.zIndex = global_zIndex;
 				div.style.background = 'url(/assets/editor/over_bkg.png) no-repeat 0 0';
-		
+
 				$(div).hover(function(){
 					over_mini_tooltip = true;
-				}, function(){			
+				}, function(){
 					over_mini_tooltip = false;
 					setTimeout(function(ev){
 						if (!over_marker) {
@@ -36,13 +36,13 @@
 						}
 					},50);
 				});
-		
+
 				var button_i = document.createElement('a');
 		    button_i.style.position = "absolute";
 				button_i.style.left = "4px";
 				button_i.style.top = "4px";
 				button_i.style.width = "14px";
-				button_i.style.height = "14px";		
+				button_i.style.height = "14px";
 				button_i.style.background = "url(/assets/editor/over_i.png) no-repeat 0 0";
 				button_i.style.cursor = "pointer";
 				$(button_i).click(function(ev){
@@ -55,13 +55,13 @@
 					$(this).css('background-position','0 0');
 				});
 				div.appendChild(button_i);
-		
+
 				var button_o = document.createElement('a');
 		    button_o.style.position = "absolute";
 				button_o.style.left = "21px";
 				button_o.style.top = "4px";
 				button_o.style.width = "14px";
-				button_o.style.height = "14px";		
+				button_o.style.height = "14px";
 				button_o.style.background = "url(/assets/editor/over_o.png) no-repeat 0 0";
 				button_o.style.cursor = "pointer";
 				$(button_o).click(function(ev){
@@ -73,15 +73,15 @@
 				}, function(ev){
 					$(this).css('background-position','0 0');
 				});
-				div.appendChild(button_o);		
-		
-		
+				div.appendChild(button_o);
+
+
 				var button_x = document.createElement('a');
 		    button_x.style.position = "absolute";
 				button_x.style.left = "38px";
 				button_x.style.top = "4px";
 				button_x.style.width = "14px";
-				button_x.style.height = "14px";		
+				button_x.style.height = "14px";
 				button_x.style.background = "url(/assets/editor/over_x.png) no-repeat 0 0";
 				button_x.style.cursor = "pointer";
 				$(button_x).click(function(ev){
@@ -94,13 +94,13 @@
 					$(this).css('background-position','0 0');
 				});
 				div.appendChild(button_x);
-		
+
 
 		    var panes = this.getPanes();
 		    panes.floatPane.appendChild(div);
 		  }
 
-		  // Position the overlay 
+		  // Position the overlay
 		  var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
 		  if (pixPosition) {
 			  div.style.width = this.width_ + "px";
@@ -135,49 +135,49 @@
   		  }
 		  }
 		}
-		
-		
+
+
 		MarkerOverTooltip.prototype.deleteMarker = function() {
 			this.hide();
 			removeMarkers([{catalogue_id: this.marker_id}]);
 		}
-		
-		
+
+
 		MarkerOverTooltip.prototype.makeActive = function() {
 			this.hide();
 			makeActive([{catalogue_id: this.marker_id}],false);
 		}
-		
-		
+
+
 		MarkerOverTooltip.prototype.showInformation = function() {
 			this.hide();
-			if (click_infowindow!=null) {					
+			if (click_infowindow!=null) {
 				if (occurrences[this.marker_id].data.catalogue_id == click_infowindow.getMarkerId() || !click_infowindow.isVisible()) {
 					click_infowindow.changePosition(occurrences[this.marker_id].getPosition(),occurrences[this.marker_id].data.catalogue_id,occurrences[this.marker_id].data);
 				}
 			} else {
 				click_infowindow = new OccurrenceInfowindow(occurrences[this.marker_id].getPosition(), occurrences[this.marker_id].data.catalogue_id, occurrences[this.marker_id].data, map);
 			}
-		}		
-		
+		}
+
 
 
 		MarkerOverTooltip.prototype.hide = function() {
 		  if (this.div_) {
 		    var div = this.div_;
-				div.style.visibility = "hidden";	
+				div.style.visibility = "hidden";
 		  }
 		}
 
 
 		MarkerOverTooltip.prototype.show = function() {
 		  if (this.div_) {
-		    var div = this.div_;  
+		    var div = this.div_;
 				div.style.visibility = "visible";
 			}
 		}
-		
-		
+
+
 		MarkerOverTooltip.prototype.isVisible = function() {
 		  if (this.div_) {
 		    var div = this.div_;

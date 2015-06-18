@@ -34,8 +34,8 @@
     			if (!over_polygon)
     				me.hide();
     		});
-	
-		
+
+
     		var inner_div = document.createElement('div');
         $(inner_div).addClass('inner_tooltip');
         inner_div.style.border = "none";
@@ -45,7 +45,7 @@
     		inner_div.style.height = '22px';
     		inner_div.style.background = 'url(/assets/editor/left_polygon_tooltip.png) no-repeat left 0';
     		div.appendChild(inner_div);
-		
+
     		var inner_div2 = document.createElement('div');
         inner_div2.style.border = "none";
         inner_div2.style.position = "relative";
@@ -54,8 +54,8 @@
     		inner_div2.style.height = '22px';
     		inner_div2.style.background = 'url(/assets/editor/right_polygon_tooltip.png) no-repeat right 0';
     		inner_div.appendChild(inner_div2);
-		
-		
+
+
     		var points = document.createElement('p');
         points.style.border = "none";
         points.style.position = "relative";
@@ -65,7 +65,7 @@
         points.style.font = "normal 11px Arial";
         points.style.color = "white";
     		inner_div2.appendChild(points);
-		
+
 
 
     		var button_o = document.createElement('a');
@@ -73,7 +73,7 @@
     		button_o.style.right = "21px";
     		button_o.style.top = "4px";
     		button_o.style.width = "14px";
-    		button_o.style.height = "14px";		
+    		button_o.style.height = "14px";
     		button_o.style.background = "url(/assets/editor/over_o.png) no-repeat 0 0";
     		button_o.style.cursor = "pointer";
     		$(button_o).click(function(ev){
@@ -85,7 +85,7 @@
     		}, function(ev){
     			$(this).css('background-position','0 0');
     		});
-    		inner_div2.appendChild(button_o);		
+    		inner_div2.appendChild(button_o);
 
 
     		var button_x = document.createElement('a');
@@ -94,7 +94,7 @@
     		button_x.style.right = "4px";
     		button_x.style.top = "4px";
     		button_x.style.width = "14px";
-    		button_x.style.height = "14px";		
+    		button_x.style.height = "14px";
     		button_x.style.background = "url(/assets/editor/over_x.png) no-repeat 0 0";
     		button_x.style.cursor = "pointer";
     		$(button_x).click(function(ev){
@@ -113,7 +113,7 @@
         panes.floatPane.appendChild(div);
       }
 
-      // Position the overlay 
+      // Position the overlay
       var pixPosition = this.getProjection().fromLatLngToDivPixel(this.latlng_);
       if (pixPosition) {
     	  div.style.width = this.width_ + "px";
@@ -166,14 +166,14 @@
   	PolygonOverTooltip.prototype.hide = function() {
   	  if (this.div_) {
   	    var div = this.div_;
-  			div.style.visibility = "hidden";	
+  			div.style.visibility = "hidden";
   	  }
   	}
 
 
   	PolygonOverTooltip.prototype.show = function() {
   	  if (this.div_) {
-  	    var div = this.div_;  
+  	    var div = this.div_;
   			div.style.visibility = "visible";
   		}
   	}

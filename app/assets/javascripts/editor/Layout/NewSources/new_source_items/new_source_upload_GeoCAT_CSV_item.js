@@ -1,4 +1,4 @@
-  
+
   /**
    *  New Source upload GeoCAT / CSV source view
    *
@@ -12,7 +12,7 @@
       var r = data.result;
 
       // Create source using import data :)
-      
+
       var total_occurrences = {};
       total_occurrences.points = new Array();
       var sources = r.data.sources || {};

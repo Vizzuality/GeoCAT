@@ -35,7 +35,7 @@ PolyLineFill.prototype.onAdd = function () {
 
    var def = document.createElementNS(svgns, "defs");
 
-   //create the pattern fill 
+   //create the pattern fill
    var pattern = document.createElementNS(svgns, "pattern");
    pattern.setAttributeNS(null, "id", "lineFill");
    pattern.setAttributeNS(null, "patternUnits", "userSpaceOnUse");

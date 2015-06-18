@@ -17,7 +17,7 @@
 
       this.template = this.getTemplate('ie_bar');
     },
-    
+
     render: function() {
       this.$el.html(this.template());
       this.toggleEditor();

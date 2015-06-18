@@ -1,7 +1,7 @@
 
   /**
    *  Default module pane in
-   *  new layer dialog 
+   *  new layer dialog
    *
    */
 

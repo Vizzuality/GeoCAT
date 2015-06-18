@@ -1,5 +1,5 @@
 
-  
+
   var AnalysisData = Backbone.Model.extend({
 
     defaults: {

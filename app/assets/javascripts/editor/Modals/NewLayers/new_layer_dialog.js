@@ -4,7 +4,7 @@
    *
    *  It lets you to add a new layer to
    *  the map.
-   *  
+   *
    *  Types are:
    *
    *    - XYZ
@@ -60,7 +60,7 @@
 
     render: function() {
       this.$el.append(this.template());
-      
+
       this._initTabPane();
       this._initBinds();
 
@@ -68,7 +68,7 @@
     },
 
     _initTabPane: function() {
-      
+
       // Render tabs
       this.collection.each(function(m) {
 

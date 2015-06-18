@@ -43,16 +43,16 @@
       var self = this;
 
       this.$('ul li').remove();
-      
+
       if (!_.isEmpty(this.data.errors)) {
         $.each(this.data.errors.sources,function(pos,el){
           for (var i=0; i<el.length;i++) {
             errors_size++;
             self.$('ul').append('<li class="error">' + el[i].capitalize() + '</li>');
           }
-        });  
+        });
       }
-      
+
       if (!_.isEmpty(this.data.warnings)) {
         $.each(this.data.warnings,function(pos,el){
           for (var i=0; i<el.length;i++) {

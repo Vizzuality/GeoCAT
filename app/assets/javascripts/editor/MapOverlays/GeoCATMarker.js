@@ -12,8 +12,8 @@
 			/*==========================================================================================================================*/
 
 
-			/* Main marker */			
-			
+			/* Main marker */
+
       function GeoCATMarker(latlng, kind, draggable, clickable, item, marker_map) {
         this.latlng_ = latlng;
         this.data = item;
@@ -27,14 +27,14 @@
         this.clickable = clickable;
         this.setMap(marker_map);
       }
-      
+
       GeoCATMarker.prototype = new google.maps.OverlayView();
-      
-      
+
+
       /* Draw the overlay */
       GeoCATMarker.prototype.draw = function() {
         var self = this;
-      
+
         var canvas = this.canvas_;
         if (!canvas) {
           canvas = this.canvas_ = document.createElement('canvas');
@@ -44,7 +44,7 @@
           canvas.style.zIndex = global_zIndex;
           canvas.setAttribute('width',22);
           canvas.setAttribute('height',22);
-          
+
           this.redraw();
           this._bindEvents();
 
@@ -61,7 +61,7 @@
 
           pane.appendChild(canvas);
         }
-        
+
         var pixPosition = self.getProjection().fromLatLngToDivPixel(self.latlng_);
         if (pixPosition) {
           canvas.style.width = self.width_ + 'px';
@@ -78,7 +78,7 @@
 
       GeoCATMarker.prototype.redraw = function() {
         var canvas = this.canvas_;
-        
+
         if (!canvas) return;
 
         if (canvas.getContext) {
@@ -170,8 +170,8 @@
           }
         });
         $(canvas).draggable((this.draggable)?'enable':'disable');
-        
-        
+
+
         //Marker click event
         $(canvas).click(function(e){
 
@@ -187,7 +187,7 @@
           } else {
             me._click(e);
           }
-          
+
         });
 
 
@@ -217,7 +217,7 @@
                 }
               }
             }
-        
+
           }
         }, function(ev){
           if (state == 'select') {
@@ -249,18 +249,18 @@
         var me = this;
         if (state=="select" || state=="remove") {
           if (state == 'remove') {
-            if (delete_infowindow!=null) {          
+            if (delete_infowindow!=null) {
               if (me.data.catalogue_id != delete_infowindow.marker_id || !delete_infowindow.isVisible()) {
                 delete_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
               }
             } else {
               delete_infowindow = new DeleteInfowindow(me.getPosition(), me.data.catalogue_id, me.data, me.map_);
-            }       
+            }
           } else {
             if (over_tooltip!=null) {
               over_tooltip.hide();
             }
-            if (click_infowindow!=null) {         
+            if (click_infowindow!=null) {
               if (me.data.catalogue_id != click_infowindow.getMarkerId() || !click_infowindow.isVisible()) {
                 click_infowindow.changePosition(me.getPosition(),me.data.catalogue_id,me.data);
               }
@@ -271,8 +271,8 @@
           }
         }
       };
-      
-      
+
+
       /* Remove occurrence from the map */
       GeoCATMarker.prototype.remove = function() {
         if (this.canvas_) {
@@ -281,16 +281,16 @@
           this.canvas_ = null;
         }
       };
-      
-      
+
+
       /* Hide occurrence from the map */
       GeoCATMarker.prototype.hide = function() {
         if (this.canvas_) {
           $(this.canvas_).find('div').fadeOut();
         }
       };
-      
-      
+
+
       /* Get position of the occurrence */
       GeoCATMarker.prototype.getPosition = function() {
        return this.latlng_;
@@ -299,8 +299,8 @@
       GeoCATMarker.prototype.getVisible = function() {
        return !this.data.geocat_removed;
       };
-      
-      
+
+
       /* Set position of the occurrence */
       GeoCATMarker.prototype.setPosition = function(latlng) {
         this.latlng_ = latlng;
@@ -313,8 +313,8 @@
           canvas.style.top = (pixPosition.y + this.offsetVertical_) + 'px';
         }
       };
-      
-      
+
+
       /* Set draggable property of the occurrence */
       GeoCATMarker.prototype.setDraggable = function(draggable) {
         if (!draggable) {
@@ -324,27 +324,27 @@
         }
         this.draggable = draggable;
       };
-      
-      
+
+
       /* Set clickable property of the occurrence */
       GeoCATMarker.prototype.setClickable = function(clickable) {
         this.clickable = clickable;
       };
-      
-      
+
+
       /* Set cursor property of the occurrence */
       GeoCATMarker.prototype.setCursor = function(type) {
         try {this.canvas_.style.cursor = type;} catch(e) {}
       };
-      
-      
+
+
       /* Set active property of the occurrence */
       GeoCATMarker.prototype.setActive = function(active) {
         this.data.geocat_active = active;
         this.canvas_.style.opacity = (active)?1:0.6;
       };
-      
-      
+
+
       /* Set zIndex property of the occurrence */
       GeoCATMarker.prototype.setZIndex = function(num) {
         this.canvas_.style.zIndex = num;

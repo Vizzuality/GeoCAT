@@ -1,7 +1,7 @@
 
   /**
    *  Layer item view.
-   *  
+   *
    *  - It needs a Layer model.
    *
    */
@@ -33,7 +33,7 @@
 
       // Set cid as data
       this.$el.attr('data-cid', this.cid);
-      
+
       // Set slider
       this.$slider = this.$('div.slider');
       this.$slider.slider({
@@ -88,7 +88,7 @@
 
       this.$('input').attr('readonly', 'readonly')
       var value = this.$('input').val();
-      
+
       if (!value) {
         value = this.old_value;
       }

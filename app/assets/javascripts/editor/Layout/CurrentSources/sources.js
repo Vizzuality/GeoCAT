@@ -3,7 +3,7 @@
    *  Source model and collection :)
    *
    */
-  
+
   var SourceModel = Backbone.Model.extend({
 
     defaults: {
@@ -34,7 +34,7 @@
 
 
 
-  
+
   var SourcesCollection = Backbone.Collection.extend({
 
     model: SourceModel,

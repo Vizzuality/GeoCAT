@@ -20,7 +20,7 @@
     render: function() {
       var d = this.model.toJSON();
       d.enabled = this._validLayers().length > 0;
-      
+
       this.$el.append(this.template(d));
       return this;
     },
@@ -28,7 +28,7 @@
     _validLayers: function() {
       var crss = this.model.get('crs');
       var bounding_boxes = this.model.get('bounding_boxes');
-      
+
       var valid_crs = _.map(crss, function(crs){
         if (crs.search('3857') !== -1 ||  crs.search('900913') !== -1) {
           return crs;
@@ -53,7 +53,7 @@
       var valid_crs = this._validLayers();
 
       if (valid_crs.length == 0) return false;
-    
+
       this.model.set('valid_crs', valid_crs[0]);
       this.trigger('add_layer', this.model, this);
     }
@@ -154,7 +154,7 @@
 
       if (!error) {
         this._hideError();
-        
+
         this.model.set({
           value: url,
           state: 'loading'
@@ -197,7 +197,7 @@
       if (state === "success") {
         this.$('.list').show();
       } else {
-        this.$('.input').show();        
+        this.$('.input').show();
       }
     },
 
@@ -245,7 +245,7 @@
         "HEIGHT=256"
       ];
 
-      return url + params.join("&");      
+      return url + params.join("&");
     }
 
   });

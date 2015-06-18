@@ -2,10 +2,10 @@
 
 
 			function getAnalysisData(convex_area, convex_points, all_markers, cellsize_, cellsize_type) {
-				
+
 				var earth_radius=6378137.79;
 				var Cells = {};
-				
+
 				function getUnique (arr) {
 					var o = new Object();
 					var i, e;
@@ -14,8 +14,8 @@
 					for (e in o) {a.push (e)};
 					return a.length;
 				}
-				
-				
+
+
 				function LLtoCylind (Lat,Long) {
 					var XY = new Array();
 
@@ -38,9 +38,9 @@
 				function rad_deg(x){
 					return x * (180.0/Math.PI);
 				}
-				
-				
-				
+
+
+
 				/*=======================================*/
 				/* Draw and get AOO data. */
 				/*=======================================*/
@@ -49,7 +49,7 @@
 				 	var LLll, URll;
 				 	var Cellpoints = new Array();
 				 	var testtxt = new Array();
-				 					 	
+
 				 	for (var idx in points) {
 						var xy = LLtoCylind (points[idx].getPosition().lat(),points[idx].getPosition().lng());
 						LLx = (Math.floor (xy[0]/cellsize)) * cellsize;
@@ -67,10 +67,10 @@
 				        new google.maps.LatLng(URll[0],LLll[1]),
 								new google.maps.LatLng(LLll[0],LLll[1])
 				    ];
-				  					
-				
+
+
 						var array_index = LLll[0] + LLll[1] + LLll[0] + URll[1];
-						
+
 						if (Cells[array_index] == undefined) {
 							Cells[array_index] = new google.maps.Polygon({
 								paths: Cellpoints,
@@ -93,11 +93,11 @@
 
 					return getUnique(testtxt);
 				}
-				
-				
-				
-				
-				
+
+
+
+
+
 				/*=======================================*/
 				/* Get distance between two points. */
 				/*=======================================*/
@@ -114,8 +114,8 @@
 					  var d = R * c;
 					  return d;
 				}
-				
-				
+
+
 				/*=======================================*/
 				/* Get diameter of the points. */
 				/*=======================================*/
@@ -141,8 +141,8 @@
 					}
 					return diamax/1000;
 				}
-				
-				
+
+
 				/*=======================================*/
 				/* EOO rating, change image icon in app. */
 				/*=======================================*/
@@ -182,7 +182,7 @@
 					  }
 					return (AOOString);
 				}
-				
+
 				// Get Diameter
 				if (cellsize_type=="auto-value") {
 				  var diameter = getDiameter(convex_points);
@@ -192,15 +192,15 @@
 						cellsize_ = 50000;
 					}
         }
-				
+
 				var EOORat = EOOrating(convex_area);
 		    var AOO = DrawAOO(all_markers, cellsize_);
 		    var AOOArea = (AOO * cellsize_ * cellsize_)/(1000*1000);
 		    var AOOrat = AOOrating(AOOArea);
 
-				
+
 				return {EOORat: EOORat, EOOArea:convex_area, AOORat: AOOrat, AOOArea: AOOArea, Cells: Cells, cellsize: cellsize_};
 			}
 
-			
+
 

@@ -34,7 +34,7 @@
       marker_id:  			marker_id,
       data:             new OccurrenceModel(opt)
     });
-	
+
 	  this.setMap(map);
 
 	  _.bindAll(this, 'changeDistance', 'editData', 'makeActive', 'deleteMarker', 'hide');
@@ -55,7 +55,7 @@
         $(div).addClass('occurrence_infowindow');
 
         this.render();
-        
+
         var panes = this.getPanes();
         panes.floatPane.appendChild(div);
         show = true;
@@ -151,7 +151,7 @@
       }
 
       $(div).find('div.slider').slider({ value: km_value });
-      
+
       var metric = (km_value < 11) ? 'M' : 'KM';
       var value_showed = (km_value < 11) ? km_value * 100 : (km_value-10);
       $(div).find('.slider_value').html(value_showed + metric);
@@ -179,7 +179,7 @@
         marker_id:  marker_id,
         data:       new OccurrenceModel(opt)
       });
-      
+
       // Fill data
       this.render();
 
@@ -260,7 +260,7 @@
 	      $(div).stop().animate({
 	        top: '-=' + 10 + 'px',
 	        opacity: 1
-	      }, 250, 'swing'); 
+	      }, 250, 'swing');
 	    }
 	    this.model.set('visible', true);
 		},
@@ -268,22 +268,22 @@
 		moveMaptoOpen: function() {
 			var left = 0;
 	    var top = 0;
-	    
+
 	    var pixPosition = this.getProjection().fromLatLngToContainerPixel(this.model.get('latlng'));
       var container = this.model.get('map').getDiv();
 
 	    if ((pixPosition.x + this.model.get('offsetHorizontal')) < 0) {
 	      left = (pixPosition.x + this.model.get('offsetHorizontal') - 20);
 	    }
-	    
+
 	    if ((pixPosition.x - this.model.get('offsetHorizontal')) >= ($(container).width())) {
 	      left = (pixPosition.x - this.model.get('offsetHorizontal') - $(container).width() + 20);
 	    }
-	    
+
 	    if ((pixPosition.y + this.model.get('offsetVertical')) < 0) {
 	      top = (pixPosition.y + this.model.get('offsetVertical') - 10);
 	    }
-	    
+
 	    this.model.get('map').panBy(left,top);
 		}
 

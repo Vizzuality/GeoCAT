@@ -1,4 +1,4 @@
-  
+
   /**
    *  Delete source warning dialog! (view)
    *
