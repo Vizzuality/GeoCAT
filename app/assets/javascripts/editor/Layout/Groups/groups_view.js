@@ -46,8 +46,13 @@
         if (m.get('name') === value && m.cid == cid && !m.get('removed')) {
           // Set active group
           m.set('active', true);
+          // update occurrences active state
+          _.each(occurrences, function(occ) {
+            occ.data.geocat_active = occ.data.dcid === cid;
+          });
           // Change sources_collection global variable :S
           sources_collection = m.getSources();
+          analysis_view.hideAnalysis();
         } else {
           m.set('active', false);
         }
@@ -57,6 +62,10 @@
     _onSelectGroup: function(e) {
       if (e) this.killEvent(e);
       console.log("other group selected, change panes!");
+    },
+
+    getActiveGroupCid: function() {
+      return this.collection.findWhere({active: true}).cid;
     }
 
   })

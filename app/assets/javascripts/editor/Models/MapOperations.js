@@ -340,11 +340,13 @@
               info_data.dcid = group.cid;
             }
 
-            if (info_data.catalogue_id && occurrences[info_data.catalogue_id]==undefined) {
+            if (info_data.catalogue_id && occurrences[info_data.catalogue_id]===undefined) {
 
               // If the point doesnt have info about _active and _removed
-							if (info_data.geocat_active==undefined || info_data.geocat_active==null) info_data.geocat_active = true;
-							if (info_data.geocat_removed==undefined || info_data.geocat_removed==null) info_data.geocat_removed = false;
+							if (info_data.geocat_active===undefined || info_data.geocat_active===null) {
+                info_data.geocat_active = true;
+              }
+							if (info_data.geocat_removed===undefined || info_data.geocat_removed===null) info_data.geocat_removed = false;
 
 							var geocat_query = info_data.geocat_query ? info_data.geocat_query.toLowerCase() : 'user';
               var geocat_kind = info_data.geocat_kind ? info_data.geocat_kind.toLowerCase() : 'user';
