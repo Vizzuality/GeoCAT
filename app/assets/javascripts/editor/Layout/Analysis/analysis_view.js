@@ -241,6 +241,11 @@
 
     isVisible: function() {
       return this.model.get('active');
-    }
+    },
 
+    hideAnalysis: function() {
+      if(this.isVisible()) {
+        this._toggleAnalysis();
+      }
+    }
   });

@@ -212,9 +212,11 @@
 
       this._resetActivePoints(true);
 
+      var activeGroupCid = groups_view.getActiveGroupCid();
       // Get active points from occurrences ( global :( )
       _.each(occurrences, function(o) {
-        if (o.data.geocat_active && !o.data.geocat_removed) {
+        if (o.data.dcid === activeGroupCid && o.data.geocat_active &&
+            !o.data.geocat_removed) {
           self.get('active_points').push(o);
           b.extend(o.getPosition());
         }

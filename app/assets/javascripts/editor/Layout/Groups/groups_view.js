@@ -48,6 +48,7 @@
           m.set('active', true);
           // Change sources_collection global variable :S
           sources_collection = m.getSources();
+          analysis_view.hideAnalysis();
         } else {
           m.set('active', false);
         }
@@ -57,6 +58,10 @@
     _onSelectGroup: function(e) {
       if (e) this.killEvent(e);
       console.log("other group selected, change panes!");
+    },
+
+    getActiveGroupCid: function() {
+      return this.collection.findWhere({active: true}).cid;
     }
 
   })
