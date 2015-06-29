@@ -108,6 +108,7 @@
           <option <% if (unescape(seasonality) === 'Non-Breeding season') { %>selected<% } %>>Non-Breeding season</option>
           <option <% if (unescape(seasonality) === 'Passage') { %>selected<% } %>>Passage</option>
           <option <% if (unescape(seasonality) === 'Seasonal Occurrence Uncertain') { %>selected<% } %>>Seasonal Occurrence Uncertain</option>
+          <option <% if (unescape(seasonality) === 'N/A') { %>selected<% } %>>N/A</option>
         </select>
       </div>
       <div class="field field-1">
@@ -118,6 +119,7 @@
           <option <% if (unescape(origin) === 'Introduced') { %>selected<% } %>>Introduced</option>
           <option <% if (unescape(origin) === 'Vagrant') { %>selected<% } %>>Vagrant</option>
           <option <% if (unescape(origin) === 'Origin Uncertain') { %>selected<% } %>>Origin Uncertain</option>
+          <option <% if (unescape(origin) === 'N/A') { %>selected<% } %>>N/A</option>
         </select>
       </div>
       <div class="field field-1">
@@ -128,6 +130,7 @@
           <option <% if (unescape(presence) === 'Possibly Extinct') { %>selected<% } %>>Possibly Extinct</option>
           <option <% if (unescape(presence) === 'Extinct') { %>selected<% } %>>Extinct</option>
           <option <% if (unescape(presence) === 'Presence Uncertain') { %>selected<% } %>>Presence Uncertain</option>
+          <option <% if (unescape(presence) === 'N/A') { %>selected<% } %>>N/A</option>
         </select>
       </div>
     </div>

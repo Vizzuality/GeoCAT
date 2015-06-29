@@ -41,9 +41,9 @@ class FlickrController < ApplicationController
           "catalogue_id"                  => "flickr_"+ q + "_" + photo['id'],
           "geocat_kind"                   => "flickr",
           "occurrenceRemarks"             => "#{photo['title']} / #{photo['description']}",
-          "seasonality"                   => photo['seasonality'],
-          "origin"                        => photo['origin'],
-          "presence"                      => photo['presence'],
+          "seasonality"                   => photo['seasonality'] || 'N/A',
+          "origin"                        => photo['origin'] || 'N/A',
+          "presence"                      => photo['presence'] || 'N/A',
           "geocat_query"                  => CGI.unescape(q)
         })
     end
