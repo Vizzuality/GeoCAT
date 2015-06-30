@@ -183,7 +183,7 @@ module GeocatDataImporter
             'occurrenceRemarks'             => (row.try(:occurrenceremarks)             rescue nil),
             'occurrenceDetails'             => (row.try(:occurrencedetails)             rescue nil),
             'geocat_query'                  => query,
-            'geocat_kind'                   => 'csv',
+            'geocat_kind'                   => (row.try(:geocat_kind)                   rescue nil),
             'geocat_alias'                  => reportName
           })
         end
