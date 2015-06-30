@@ -220,11 +220,12 @@ module GeocatDataImporter
                 "coordinateUncertaintyMeters",
                 "institutionCode",
                 "eventDate",
-                "verbatimElevation"
+                "verbatimElevation",
+                "geocat_kind"
               )
               point_hash["geocat_active"] = point["active"]
               point_hash["geocat_query"] = rla.scientificname
-              point_hash["geocat_kind"] = point["kind"]
+              point_hash["geocat_kind"] = point["geocat_kind"]
               point_hash["geocat_removed"] = point["removed"]
               point_hash["geocat_alias"] = rla.scientificname
               point_hash
