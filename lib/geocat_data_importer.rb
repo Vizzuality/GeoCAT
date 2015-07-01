@@ -151,6 +151,19 @@ module GeocatDataImporter
           "longitude" => csv.first.respond_to?(:center_longitude) ? csv.first.center_longitude : nil
         }
 
+        def set_geocat_kind(type)
+          case type
+          when type["flickr"]
+            "flickr"
+          when type["inaturalist"]
+            "inaturalist"
+          when type["picasa"]
+            "picasa"
+          else
+            "gbif"
+          end
+        end
+
         self.sources        = [{
           'type'   => 'csv',
           'name'   => reportName,
@@ -183,7 +196,7 @@ module GeocatDataImporter
             'occurrenceRemarks'             => (row.try(:occurrenceremarks)             rescue nil),
             'occurrenceDetails'             => (row.try(:occurrencedetails)             rescue nil),
             'geocat_query'                  => query,
-            'geocat_kind'                   => (row.try(:geocat_kind)                   rescue nil),
+            'geocat_kind'                   => (row.try(:geocat_kind)                   rescue set_geocat_kind(row['catalogue_id'])),
             'geocat_alias'                  => reportName
           })
         end
