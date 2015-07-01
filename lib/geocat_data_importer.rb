@@ -96,7 +96,8 @@ module GeocatDataImporter
             'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
             'identifiedBy'                  => point['identifiedBy'],
             'occurrenceRemarks'             => point['occurrenceRemarks'],
-            'occurrenceDetails'             => point['occurrenceDetails']
+            'occurrenceDetails'             => point['occurrenceDetails'],
+            'geocat_kind'                   => point['geocat_kind']
           }
         end
       end
@@ -150,6 +151,19 @@ module GeocatDataImporter
           "longitude" => csv.first.respond_to?(:center_longitude) ? csv.first.center_longitude : nil
         }
 
+        def set_geocat_kind(type)
+          case type
+          when type["flickr"]
+            "flickr"
+          when type["inaturalist"]
+            "inaturalist"
+          when type["picasa"]
+            "picasa"
+          else
+            "gbif"
+          end
+        end
+
         self.sources        = [{
           'type'   => 'csv',
           'name'   => reportName,
@@ -182,7 +196,7 @@ module GeocatDataImporter
             'occurrenceRemarks'             => (row.try(:occurrenceremarks)             rescue nil),
             'occurrenceDetails'             => (row.try(:occurrencedetails)             rescue nil),
             'geocat_query'                  => query,
-            'geocat_kind'                   => 'csv',
+            'geocat_kind'                   => (row.try(:geocat_kind)                   rescue set_geocat_kind(row['catalogue_id'])),
             'geocat_alias'                  => reportName
           })
         end
@@ -220,11 +234,12 @@ module GeocatDataImporter
                 "coordinateUncertaintyMeters",
                 "institutionCode",
                 "eventDate",
-                "verbatimElevation"
+                "verbatimElevation",
+                "geocat_kind"
               )
               point_hash["geocat_active"] = point["active"]
               point_hash["geocat_query"] = rla.scientificname
-              point_hash["geocat_kind"] = point["kind"]
+              point_hash["geocat_kind"] = point["geocat_kind"]
               point_hash["geocat_removed"] = point["removed"]
               point_hash["geocat_alias"] = rla.scientificname
               point_hash
