@@ -97,7 +97,7 @@
           } else {
             color = "#066FB6"; //blue
           }
-          var shape = '♔';
+          var shape = '♚';
           if (sessionStorage.getItem('currentSymbol'))
             shape = sessionStorage.getItem('currentSymbol');
           context.fillStyle = "rgba(255,255,255,0.75)";

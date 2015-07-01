@@ -35,7 +35,7 @@
     },
 
     _addGroup: function(m) {
-      var symbolsArray = ['♔','♕','♖','♗','♘','♙'];
+      var symbolsArray = ['♚','♛','♜','♝','♞','♟'];
       var currentSymbol = null;
       if (!sessionStorage.getItem('groupsSymbols')) {
         var session_group = JSON.stringify(
