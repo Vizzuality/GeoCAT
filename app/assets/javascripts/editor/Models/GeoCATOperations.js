@@ -236,7 +236,7 @@
 				}
 			});
 
-
+			var symbolsArray = ['♥','☓','⚊','⚬','☐'];
 			for (var i=0; i<app_data.length; i++) {
 				if (i!=0) {
 					//Get last id from "user_points"
@@ -253,7 +253,7 @@
   					sources.push(source_pair);
 					}
 					app_data[i].group = (!! app_data[i].group) ? app_data[i].group : 'User group';
-					addSourceToMap(app_data[i],false,true);
+					addSourceToMap(app_data[i],false,true, symbolsArray[i-1]);
 					showMamufasMap();
 				} else {
 				  specie = app_data[0].specie;

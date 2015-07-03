@@ -297,10 +297,10 @@
 
 
 
-			/*============================================================================*/
-			/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). 					*/
-			/*============================================================================*/
-			function addSourceToMap(information, getBound, uploadAction) {
+	/*============================================================================*/
+	/* Add a new source to the application (GBIF, FLICKR OR YOUR DATA). 					*/
+	/*============================================================================*/
+	function addSourceToMap(information, getBound, uploadAction, symbol) {
         if (convex_hull.isVisible()) {
           // mamufasPolygon();
           analysis_map.stop();
@@ -322,7 +322,8 @@
 
           if (!group) {
             group = new GroupModel({
-              name: information.group
+              name: information.group,
+              symbol: symbol
             }, {
               map: map
             })
@@ -356,7 +357,7 @@
 
               bounds.extend(latlng);
 
-              var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+              var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map, symbol);
               oms.addMarker(marker)
 
               occurrences[marker.data.catalogue_id] = marker;

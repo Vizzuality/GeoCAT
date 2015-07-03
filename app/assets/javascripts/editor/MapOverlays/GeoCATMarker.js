@@ -14,7 +14,7 @@
 
 			/* Main marker */
 
-      function GeoCATMarker(latlng, kind, draggable, clickable, item, marker_map) {
+      function GeoCATMarker(latlng, kind, draggable, clickable, item, marker_map, symbol) {
         this.latlng_ = latlng;
         this.data = item;
         this.map_ = marker_map;
@@ -26,6 +26,7 @@
         this.draggable = draggable;
         this.clickable = clickable;
         this.setMap(marker_map);
+        this.symbol = symbol;
       }
 
       GeoCATMarker.prototype = new google.maps.OverlayView();
@@ -98,6 +99,10 @@
             color = "#066FB6"; //blue
           }
 
+          var shape = this.symbol || '♥';
+          if (sessionStorage.getItem('currentSymbol'))
+            shape = sessionStorage.getItem('currentSymbol');
+          
           context.fillStyle = "rgba(255,255,255,0.75)";
           context.beginPath();
           context.arc(11,11,11,0,Math.PI*2,false);
@@ -107,6 +112,9 @@
           context.arc(11,11,8,0,Math.PI*2,false);
           context.closePath();
           context.fill();
+          context.fillStyle = "#eee"
+          context.font = "13px serif";
+          context.fillText(shape,6,15);
 
           if (this.data.geocat_changed && this.data.geocat_kind !== "user") {
             context.beginPath();
