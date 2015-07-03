@@ -14,7 +14,7 @@
 
 			/* Main marker */
 
-      function GeoCATMarker(latlng, kind, draggable, clickable, item, marker_map) {
+      function GeoCATMarker(latlng, kind, draggable, clickable, item, marker_map, symbol) {
         this.latlng_ = latlng;
         this.data = item;
         this.map_ = marker_map;
@@ -26,6 +26,7 @@
         this.draggable = draggable;
         this.clickable = clickable;
         this.setMap(marker_map);
+        this.symbol = symbol;
       }
 
       GeoCATMarker.prototype = new google.maps.OverlayView();
@@ -98,7 +99,7 @@
             color = "#066FB6"; //blue
           }
 
-          var shape = '♥';
+          var shape = this.symbol;
           if (sessionStorage.getItem('currentSymbol'))
             shape = sessionStorage.getItem('currentSymbol');
           
