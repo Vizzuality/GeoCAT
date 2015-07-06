@@ -43,7 +43,7 @@ class GbifController < ApplicationController
             'occurrenceRemarks'             => item['occurrenceRemarks'],
             'collector'                     => item['recordedBy'],
             'collectorNumber'               => item['collectorNumber'],
-            'seasonality'                   => item['seasonality'] || 'N/A',
+            'seasonal'                      => item['seasonal'] || 'Resident',
             'origin'                        => item['origin'] || 'N/A',
             'presence'                      => item['occurrenceStatus'] || 'N/A',
             'geocat_active'                 => true,

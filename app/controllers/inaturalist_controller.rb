@@ -34,7 +34,7 @@ class InaturalistController < ApplicationController
           'catalogue_id'                  => "inaturalist_#{occ['id']}-#{occ['user_id']}",
           'geocat_kind'                   => "inaturalist",
           'occurrenceRemarks'             => "",
-          'seasonality'                   => occ['seasonality'] || 'N/A',
+          'seasonal'                      => occ['seasonal'] || 'Resident',
           'origin'                        => occ['origin'] || 'N/A',
           'presence'                      => occ['presence'] || 'N/A',
           'geocat_query'                  => CGI.unescape(q)
