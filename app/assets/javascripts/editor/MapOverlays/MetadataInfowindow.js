@@ -34,7 +34,7 @@
         presence: '',
         scientificName: '',
         locality: '',
-        seasonality: 'Resident',
+        seasonal: 'Resident',
         origin: 'Native',
         coordinateUncertaintyInMeters: '',
         identifiedBy: '',
