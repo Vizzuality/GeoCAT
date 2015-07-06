@@ -42,8 +42,8 @@ class FlickrController < ApplicationController
           "geocat_kind"                   => "flickr",
           "occurrenceRemarks"             => "#{photo['title']} / #{photo['description']}",
           "seasonal"                      => photo['seasonal'] || 'Resident',
-          "origin"                        => photo['origin'] || 'N/A',
-          "presence"                      => photo['presence'] || 'N/A',
+          "origin"                        => photo['origin'] || 'Native',
+          "presence"                      => photo['presence'] || 'Extant',
           "geocat_query"                  => CGI.unescape(q)
         })
     end
