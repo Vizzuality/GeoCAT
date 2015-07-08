@@ -43,9 +43,9 @@ class PicasaController < ApplicationController
             "geocat_kind"                   => "picasa",
             "geocat_alias"                  => CGI.unescape(q),
             "geocat_query"                  => CGI.unescape(q),
-            "seasonal"                      => node.xpath("seasonal").text || 'Resident',
-            "origin"                        => node.xpath("origin").text || 'Native',
-            "presence"                      => node.xpath("presence").text || 'Extant',
+            "seasonal"                      => 'Resident',
+            "origin"                        => 'Native',
+            "presence"                      => 'Extant',
           }
         end
 
