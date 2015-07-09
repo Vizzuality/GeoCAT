@@ -70,7 +70,11 @@ class RlatData
           'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
           'identifiedBy'                  => point['identifiedBy'],
           'occurrenceRemarks'             => point['occurrenceRemarks'],
-          'occurrenceDetails'             => point['occurrenceDetails']
+          'occurrenceDetails'             => point['occurrenceDetails'],
+          'geocat_kind'                   => point['geocat_kind'],
+          'presence'                      => point['presence'],
+          'seasonal'                      => point['seasonal'],
+          'origin'                        => point['origin' ]
         }
       end
     end

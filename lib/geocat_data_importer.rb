@@ -97,7 +97,10 @@ module GeocatDataImporter
             'identifiedBy'                  => point['identifiedBy'],
             'occurrenceRemarks'             => point['occurrenceRemarks'],
             'occurrenceDetails'             => point['occurrenceDetails'],
-            'geocat_kind'                   => point['geocat_kind']
+            'geocat_kind'                   => point['geocat_kind'],
+            'presence'                      => point['presence'] || 'Extant',
+            'seasonal'                      => point['seasonal'] || 'Resident',
+            'origin'                        => point['origin'] || 'Native'
           }
         end
       end
