@@ -97,7 +97,10 @@ module GeocatDataImporter
             'identifiedBy'                  => point['identifiedBy'],
             'occurrenceRemarks'             => point['occurrenceRemarks'],
             'occurrenceDetails'             => point['occurrenceDetails'],
-            'geocat_kind'                   => point['geocat_kind']
+            'geocat_kind'                   => point['geocat_kind'],
+            'presence'                      => point['presence'] || 'Extant',
+            'seasonal'                      => point['seasonal'] || 'Resident',
+            'origin'                        => point['origin'] || 'Native'
           }
         end
       end
@@ -182,9 +185,9 @@ module GeocatDataImporter
             'institutionCode'               => (row.try(:institutioncode)               rescue nil),
             'catalogNumber'                 => (row.try(:catalognumber)                 rescue nil),
             'basisOfRecord'                 => (row.try(:basisofrecord)                 rescue nil),
-            'presence'                      => (row.try(:presence)                      rescue nil),
-            'seasonal'                   => (row.try(:seasonal)                   rescue nil),
-            'origin'                        => (row.try(:origin)                        rescue nil),
+            'presence'                      => (row.try(:presence)                      rescue 'Extant'),
+            'seasonal'                      => (row.try(:seasonal)                      rescue 'Resident'),
+            'origin'                        => (row.try(:origin)                        rescue 'Native'),
             'eventDate'                     => (row.try(:eventdate)                     rescue nil),
             'country'                       => (row.try(:country)                       rescue nil),
             'stateProvince'                 => (row.try(:stateprovince)                 rescue nil),

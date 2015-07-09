@@ -42,7 +42,10 @@ class PicasaController < ApplicationController
             "geocat_removed"                => false,
             "geocat_kind"                   => "picasa",
             "geocat_alias"                  => CGI.unescape(q),
-            "geocat_query"                  => CGI.unescape(q)
+            "geocat_query"                  => CGI.unescape(q),
+            "seasonal"                      => 'Resident',
+            "origin"                        => 'Native',
+            "presence"                      => 'Extant',
           }
         end
 

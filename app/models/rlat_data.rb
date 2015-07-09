@@ -70,7 +70,11 @@ class RlatData
           'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
           'identifiedBy'                  => point['identifiedBy'],
           'occurrenceRemarks'             => point['occurrenceRemarks'],
-          'occurrenceDetails'             => point['occurrenceDetails']
+          'occurrenceDetails'             => point['occurrenceDetails'],
+          'geocat_kind'                   => point['geocat_kind'],
+          'presence'                      => point['presence'],
+          'seasonal'                      => point['seasonal'],
+          'origin'                        => point['origin' ]
         }
       end
     end
@@ -152,6 +156,9 @@ class RlatData
           'identifiedBy'                  => row.respond_to?(:identifiedby)                     ? row.identifiedby                  : nil,
           'occurrenceRemarks'             => row.respond_to?(:occurrenceremarks)                ? row.occurrenceremarks             : nil,
           'occurrenceDetails'             => row.respond_to?(:occurrencedetails)                ? row.occurrencedetails             : nil,
+          'presence'                      => row.respond_to?(:presence)                         ? row.presence                      : 'Extant',
+          'seasonal'                      => row.respond_to?(:seasonal)                         ? row.presence                      : 'Resident',
+          'origin'                        => row.respond_to?(:origin)                           ? row.origin                        : 'Native',
           'geocat_query'                  => query,
           'geocat_kind'                   => row.respond_to?(:geocatkind)                      ? row.geocatkind                   : 'csv',
           'geocat_alias'                  => reportName
