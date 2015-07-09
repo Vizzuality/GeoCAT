@@ -349,7 +349,7 @@
       /* Set active property of the occurrence */
       GeoCATMarker.prototype.setActive = function(active) {
         this.data.geocat_active = active;
-        if (! !!sessionStorage.getItem('Toggleing_global'))
+        if (! !!sessionStorage.getItem('toggleing_global'))
           this.canvas_.style.opacity = (active)?1:0.3;
         else 
           this.canvas_.style.opacity = (active)?1:0.0;
