@@ -758,7 +758,7 @@
 		            $(document).trigger('occs_updated');
 		          }
 		        }
-				sessionStorage.setItem('Toggleing_global', false);
+				sessionStorage.setItem('toggleing_global', false);
 			}
 
 
@@ -798,7 +798,7 @@
 		            setTimeout(function(){asynHideMarker(query,kind,active)},0);
 		          }
 		        }
-		        sessionStorage.setItem('Toggleing_global', false);
+		        sessionStorage.setItem('toggleing_global', false);
 			}
 
 

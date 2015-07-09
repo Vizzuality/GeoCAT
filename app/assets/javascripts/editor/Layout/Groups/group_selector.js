@@ -61,7 +61,7 @@
       select2.onSelect = (this._onSelect)(select2.onSelect);
       
       $('.toggle_group_visibility').on('click',function() {
-        sessionStorage.setItem('Toggleing_global', true);
+        sessionStorage.setItem('toggleing_global', true);
         $('.source:visible').find('.visible_specie').trigger('click')
       });
       return this;
