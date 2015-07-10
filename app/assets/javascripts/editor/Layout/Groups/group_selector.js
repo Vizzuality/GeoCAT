@@ -149,11 +149,13 @@
     _disableSelector: function() {
       $(document).bind('occs_removed', this._enableSelector);
       this.$el.select2('disable');
+      this.$el.closest('.group_combo').addClass('disable');
     },
 
     _enableSelector: function() {
       $(document).unbind('occs_removed', this._enableSelector);
       this.$el.select2('enable');
+      this.$el.closest('.group_combo').removeClass('disable');
     },
 
     _onVisible: function(data, e) {},
