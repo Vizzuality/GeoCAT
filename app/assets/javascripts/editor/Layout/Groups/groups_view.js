@@ -75,7 +75,7 @@
           sessionStorage.setItem('currentSymbol', m.attributes.symbol);
           // Change sources_collection global variable :S
           sources_collection = m.getSources();
-          analysis_view.hideAnalysis();
+          analysis_view.reRunAnalysis();
         } else {
           m.set('active', false);
         }

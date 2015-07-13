@@ -243,8 +243,10 @@
       return this.model.get('active');
     },
 
-    hideAnalysis: function() {
+    reRunAnalysis: function() {
       if(this.isVisible()) {
+        // forces a re-run
+        this.model.set('active', false);
         this._toggleAnalysis();
       }
     }
