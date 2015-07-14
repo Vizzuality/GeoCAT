@@ -62,10 +62,11 @@
       
       $('.toggle_group_visibility').on('click',function() {
         sessionStorage.setItem('toggleing_global', true);
-        if (! !!$('.group .source:not(:visible)')[0]) 
-          $('.source:visible').find('.visible_specie').first().trigger('click');
-        else
-          $('.source:visible').find('.visible_specie').trigger('click');
+
+        $data_sets = $('.sources').find('.groups');
+        $data_sets.find('.group:gt(0) .source').hide();
+        $data_sets.find('.source:visible .visible_specie').trigger('click');
+        
       });
       return this;
     },
