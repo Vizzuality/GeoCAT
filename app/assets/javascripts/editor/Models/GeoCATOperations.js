@@ -24,9 +24,7 @@
 		/* Download all the data thanks to a .GeoCAT file. */
 		/*========================================================================================================================*/
 		GeoCAT.prototype.download = function(format) {
-
 			// VIEWPORT
-
 			var report = {
 				reportName: 		unescape(report_name),
 				viewPort: {
@@ -41,9 +39,7 @@
 
 
 			// OCCS
-
 			this.addMarkers(report,this.markers_);
-
 
 			// ANALYSIS
 
@@ -68,20 +64,20 @@
 
 				// Convex hull vertexes
 				if (analysis_map.hull && analysis_map.hull.getPath().getLength() > 2) {
-			    for (var i=0, l=analysis_map.hull.getPath().getLength(); i<l; i++) {
-  			    var point = analysis_map.hull.getPath().getAt(i);
-  			    analysis.EOO.convex_hull.push({ latitude:point.lat(), longitude:point.lng() });
-  			  }
-			  }
+				    for (var i=0, l=analysis_map.hull.getPath().getLength(); i<l; i++) {
+		  			    var point = analysis_map.hull.getPath().getAt(i);
+		  			    analysis.EOO.convex_hull.push({ latitude:point.lat(), longitude:point.lng() });
+	  			  }
+				}
 
 				// Grid polygons vertexes
 				for (var id in analysis_map.cells) {
-  			  var path_points = [];
-  			  for (var i=0; i<analysis_map.cells[id].getPath().getLength(); i++) {
-  			    var point = analysis_map.cells[id].getPath().getAt(i);
-  			    path_points.push({ latitude:point.lat(), longitude: point.lng() });
-  			  }
-			    analysis.AOO.grids.push(path_points);
+					  var path_points = [];
+					  for (var i=0; i<analysis_map.cells[id].getPath().getLength(); i++) {
+					    var point = analysis_map.cells[id].getPath().getAt(i);
+					    path_points.push({ latitude:point.lat(), longitude: point.lng() });
+					  }
+					analysis.AOO.grids.push(path_points);
 				}
 
 				report.analysis = analysis;
@@ -103,12 +99,11 @@
 
 
 			// SEND
-
 			var value_ = JSON.stringify(report);
 
-      $("#format_input").attr("value",format);
-      $("#geocat_input").text(value_);
-      $("#download_form").submit();
+			$("#format_input").attr("value",format);
+			$("#geocat_input").text(value_);
+			$("#download_form").submit();
 		 	changeApplicationTo(2);
 		}
 
