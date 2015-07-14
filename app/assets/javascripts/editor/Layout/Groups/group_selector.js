@@ -64,9 +64,13 @@
         sessionStorage.setItem('toggleing_global', true);
 
         $data_sets = $('.sources').find('.groups');
-        $data_sets.find('.group:gt(0) .source').hide();
-        $data_sets.find('.source:visible .visible_specie').trigger('click');
-        
+        if ($data_sets.find('.source:visible').length === 1) {
+          $data_sets.find('.source:visible .visible_specie').trigger('click');
+          return this;
+        }
+        $data_sets.find('.group:gt(0) .source').addClass('hidden_group');
+        $data_sets.find('.source:not(.hidden_group) .visible_specie').trigger('click');
+        $data_sets.find('.hidden_group').removeClass('hidden_group');
       });
       return this;
     },
