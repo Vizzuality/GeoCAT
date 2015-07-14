@@ -26,7 +26,7 @@
 		GeoCAT.prototype.download = function(format) {
 			// VIEWPORT
 			var report = {
-				reportName: 		unescape(report_name),
+				reportName: 		unescape(report_name = (report_name === 'Untitled report') ? 'Analysis ' + $($('.group_combo .select2-chosen')[0]).text() : report_name),
 				viewPort: {
 					zoom: 				this.zoom,
 					center: {
