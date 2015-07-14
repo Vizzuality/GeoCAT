@@ -665,25 +665,25 @@
 			/* Add new marker to the map. */
 			/*============================================================================*/
 			function addMarker(latlng, fromAction) {
+		        oms.unspiderfy();
 
-        oms.unspiderfy();
+						global_id++;
+						global_zIndex++;
+						var date = new Date();
 
-				global_id++;
-				global_zIndex++;
-				var date = new Date();
-
-				var inf = {
-          coordinateUncertaintyInMeters:  15000,
-          collector:                      '',
-          eventDate:                      date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate(),
-          occurrenceRemarks:              '',
-          catalogue_id:                   'user_' + global_id,
-          latitude:                       latlng.lat(),
-          longitude:                      latlng.lng(),
-          geocat_active:                  true,
-          geocat_kind:                    'user',
-          geocat_removed:                 false
-        };
+						var inf = {
+		          coordinateUncertaintyInMeters:  15000,
+		          collector:                      '',
+		          eventDate:                      date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate(),
+		          occurrenceRemarks:              '',
+		          catalogue_id:                   'user_' + global_id,
+		          latitude:                       latlng.lat(),
+		          longitude:                      latlng.lng(),
+		          geocat_active:                  true,
+		          geocat_kind:                    'user',
+		          geocat_query:                    'user',
+		          geocat_removed:                 false
+		        };
 
 
 				// inf.coordinateUncertaintyInMeters = 15000;
@@ -698,29 +698,29 @@
 				// inf.latitude = latlng.lat();
 				// inf.longitude = latlng.lng();
 
-        // // Add one to the source collection
-        // sources_collection.sumUp('user', 'user', 'User ocss');
+		        // // Add one to the source collection
+		        // sources_collection.sumUp('user', 'user', 'User ocss');
 
-        // Add the new point to the proper Group >> SourceCollection (data, type, query)
-        groups.sum(inf, 'user', 'user');
+		        // Add the new point to the proper Group >> SourceCollection (data, type, query)
+		        groups.sum(inf, 'user', 'user');
 
-        // Get alias and add it.
-        // var alias = sources_collection.find(function(m){
-        //   return m.get('type') == inf.geocat_kind &&  m.get('query') == inf.geocat_query
-        // }).get('alias');
-        // inf.geocat_alias = alias;
+		        // Get alias and add it.
+		        // var alias = sources_collection.find(function(m){
+		        //   return m.get('type') == inf.geocat_kind &&  m.get('query') == inf.geocat_query
+		        // }).get('alias');
+		        // inf.geocat_alias = alias;
 
-        var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
-				bounds.extend(latlng);
+		        var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
+						bounds.extend(latlng);
 
-				//Save occurence
-				occurrences[inf.catalogue_id] = marker;
-        // Store action
-				actions.Do('add', null, [marker.data]);
+						//Save occurence
+						occurrences[inf.catalogue_id] = marker;
+		        // Store action
+						actions.Do('add', null, [marker.data]);
 
-        if (convex_hull.isVisible()) {
-          analysis_map.addPoint(marker);
-        }
+		        if (convex_hull.isVisible()) {
+		          analysis_map.addPoint(marker);
+		        }
 			}
 
 
@@ -766,8 +766,12 @@
 			/*============================================================================*/
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
-			function hideAll(query,kind,active) {
-		        var hideMarkers = _.select(occurrences, function(element,key){return element.data.geocat_active!=active &&  element.data.geocat_kind==kind && element.data.geocat_query==query && !element.data.geocat_removed});
+			function hideAll(query,kind,active, cid) {
+		        var hideMarkers = _.select(occurrences,
+                function(element,key) {
+                  return element.data.geocat_active!==active &&
+                         element.data.scid === cid &&
+                         !element.data.geocat_removed});
 		        var hide_markers = [];
 
 		        showMamufasMap();

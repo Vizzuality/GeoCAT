@@ -42,7 +42,10 @@
     // Groups
     .group_combo {
       position:relative;
-
+      &.disable {
+        pointer-events: none;
+        opacity: 0.7;
+      }
       .select2-choice { border:none }
 
       // Custom container!
