@@ -13,7 +13,7 @@
         geocat_active: true,
         geocat_changed: false,
         geocat_kind: 'user',
-        geocat_query: '',
+        geocat_query: 'user',
         geocat_removed: false,
         // geocat_alias: '',
         catalogue_id: '',
