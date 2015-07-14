@@ -49,16 +49,16 @@
 
 				var analysis = {
 					EOO: {
-						status: 				m_.EOO_type,
-						result: 				m_.EOO,
-						convex_hull: 		[]
+						status: 		m_.EOO_type,
+						result: 		m_.EOO,
+						convex_hull: 	[]
 					},
 					AOO: {
-						status: 				m_.AOO_type,
-						result: 				m_.AOO,
-						cellsize: 			d_.cellsize,
+						status: 		m_.AOO_type,
+						result: 		m_.AOO,
+						cellsize: 		d_.cellsize,
 						cellsize_type: 	d_.celltype,
-						grids: 					[]
+						grids: 			[]
 					}
 				};
 
