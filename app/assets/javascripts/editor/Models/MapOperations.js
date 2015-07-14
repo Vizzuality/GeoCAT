@@ -765,8 +765,12 @@
 			/*============================================================================*/
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
-			function hideAll(query,kind,active) {
-		        var hideMarkers = _.select(occurrences, function(element,key){return element.data.geocat_active!=active &&  element.data.geocat_kind==kind && element.data.geocat_query==query && !element.data.geocat_removed});
+			function hideAll(query,kind,active, cid) {
+		        var hideMarkers = _.select(occurrences,
+                function(element,key) {
+                  return element.data.geocat_active!==active &&
+                         element.data.scid === cid &&
+                         !element.data.geocat_removed});
 		        var hide_markers = [];
 
 		        showMamufasMap();
