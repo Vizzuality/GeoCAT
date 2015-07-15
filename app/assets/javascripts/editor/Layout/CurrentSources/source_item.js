@@ -39,6 +39,7 @@
 
       // Set cid as data
       this.$el.attr('data-cid', this.cid);
+      this.$el.attr('data-modelcid', this.model.cid);
 
       // Show or hide depending the number of occs
       this.$el[ d.total == 0 ? 'hide' : 'show' ]();

@@ -59,20 +59,22 @@
       .data('select2');
 
       select2.onSelect = (this._onSelect)(select2.onSelect);
-      
-      $('.toggle_group_visibility').on('click',function() {
+
+      $('.toggle_group_visibility').off('click', this.clickToggleVisibility).
+                                    on('click',
+                                       { collection: this.collection },
+                                       this.clickToggleVisibility);
+      return this;
+    },
+
+    clickToggleVisibility: function(e) {
         sessionStorage.setItem('toggleing_global', true);
 
-        $data_sets = $('.sources').find('.groups');
-        if ($data_sets.find('.source:visible').length === 1) {
-          $data_sets.find('.source:visible .visible_specie').trigger('click');
-          return this;
-        }
-        $data_sets.find('.group:gt(0) .source').addClass('hidden_group');
-        $data_sets.find('.source:not(.hidden_group) .visible_specie').trigger('click');
-        $data_sets.find('.hidden_group').removeClass('hidden_group');
-      });
-      return this;
+        var selectedCol = e.data.collection.findWhere({ active: true });
+        selectedCol.sources.each(function(s) {
+          $('.source[data-modelcid="'+s.cid+'"] .visible_specie').
+            trigger('click');
+        });
     },
 
     _initBinds: function() {
