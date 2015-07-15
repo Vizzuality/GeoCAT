@@ -766,7 +766,7 @@
 			/*============================================================================*/
 			/* Put all (or only one) markers active or not. */
 			/*============================================================================*/
-			function hideAll(query,kind,active, cid) {
+			function hideAll(active, cid) {
 		        var hideMarkers = _.select(occurrences,
                 function(element,key) {
                   return element.data.geocat_active!==active &&
@@ -775,14 +775,14 @@
 		        var hide_markers = [];
 
 		        showMamufasMap();
-		        asynHideMarker(query,kind,active);
+		        asynHideMarker(active);
 
 		        if (convex_hull.isVisible()) {
 		          // mamufasPolygon();
 		          analysis_map.stop();
 		        }
 
-		        function asynHideMarker(query,kind,active) {
+		        function asynHideMarker(active) {
 		          for (var i in hideMarkers) {
 		            var _id = hideMarkers[i].data.catalogue_id;
 		            occurrences[_id].setActive(active);
@@ -799,7 +799,7 @@
 		            }
 		            delete hideMarkers;
 		          } else {
-		            setTimeout(function(){asynHideMarker(query,kind,active)},0);
+		            setTimeout(function(){asynHideMarker(active)},0);
 		          }
 		        }
 			}
