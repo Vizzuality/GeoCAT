@@ -94,8 +94,7 @@
       this.model.set('visible', !visible);
 
       this.$('.visible_specie')[ visible ? 'removeClass' : 'addClass' ]('on');
-      hideAll(this.model.get('query'), this.model.get('type'), this.model.get('visible'),
-             this.model.cid); // Arg! :(
+      hideAll(this.model.get('visible'), this.model.cid); // Arg! :(
     }
 
   });
