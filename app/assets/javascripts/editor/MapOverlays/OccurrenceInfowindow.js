@@ -32,7 +32,7 @@
       width:            235,
       map:              map,
       marker_id:  			marker_id,
-      data:             new OccurrenceModel(opt)
+      data:             new OccurrenceModel(opt),
     });
 
 	  this.setMap(map);
