@@ -39,8 +39,7 @@
         coordinateUncertaintyInMeters: '',
         identifiedBy: '',
         occurrenceRemarks: '',
-        occurrenceDetails: '',
-        group_name: $('.group_combo .select2-chosen').text()
+        occurrenceDetails: ''
       }
 
     });
