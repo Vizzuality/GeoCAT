@@ -340,7 +340,7 @@
             if (group) {
               info_data.dcid = group.cid;
             }
-            info_data.groupName = information.group || $('.group_combo .select2-chosen').text();
+            info_data.group_name = information.group || $('.group_combo .select2-chosen').text();
             if (info_data.catalogue_id && occurrences[info_data.catalogue_id]===undefined) {
 
 			  // If the point doesnt have info about _active and _removed
