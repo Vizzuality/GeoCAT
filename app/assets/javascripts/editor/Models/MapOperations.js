@@ -667,11 +667,11 @@
 			function addMarker(latlng, fromAction) {
 		        oms.unspiderfy();
 
-						global_id++;
-						global_zIndex++;
-						var date = new Date();
+				global_id++;
+				global_zIndex++;
+				var date = new Date();
 
-						var inf = {
+				var inf = {
 		          coordinateUncertaintyInMeters:  15000,
 		          collector:                      '',
 		          eventDate:                      date.getFullYear()+'-'+(date.getMonth()+1)+"-"+date.getDate(),
@@ -682,7 +682,8 @@
 		          geocat_active:                  true,
 		          geocat_kind:                    'user',
 		          geocat_query:                    'user',
-		          geocat_removed:                 false
+		          geocat_removed:                 false,
+		          group_name: 					  $('.group_combo .select2-chosen').text()
 		        };
 
 
@@ -711,12 +712,11 @@
 		        // inf.geocat_alias = alias;
 
 		        var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
-						bounds.extend(latlng);
-
-						//Save occurence
-						occurrences[inf.catalogue_id] = marker;
+				bounds.extend(latlng);
+				//Save occurence
+				occurrences[inf.catalogue_id] = marker;
 		        // Store action
-						actions.Do('add', null, [marker.data]);
+				actions.Do('add', null, [marker.data]);
 
 		        if (convex_hull.isVisible()) {
 		          analysis_map.addPoint(marker);
