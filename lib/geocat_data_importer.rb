@@ -101,7 +101,7 @@ module GeocatDataImporter
             'presence'                      => point['presence'] || 'Extant',
             'seasonal'                      => point['seasonal'] || 'Resident',
             'origin'                        => point['origin'] || 'Native',
-            'group_name'                    => point['group_name'
+            'group_name'                    => point['group_name']
           }
         end
       end
