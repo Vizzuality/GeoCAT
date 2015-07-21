@@ -46,6 +46,7 @@ class GbifController < ApplicationController
             'seasonal'                      => item['seasonal'] || 'Resident',
             'origin'                        => item['origin'] || 'Native',
             'presence'                      => item['occurrenceStatus'] || 'Extant',
+            'catalogue_id'                  => 'gbif_'+ CGI.unescape(q) + '_' + item['key'].to_s,
             'geocat_active'                 => true,
             'geocat_removed'                => false,
             'geocat_kind'                   => 'gbif',
