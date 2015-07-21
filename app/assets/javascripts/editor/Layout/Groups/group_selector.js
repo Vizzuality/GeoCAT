@@ -242,6 +242,11 @@
       if ($e.hasClass('create_new')) {
         this.killEvent(e);
         var name = $(e.target).data('name');
+        if (!! name) {
+          var symbolsArray = ['','♥','☓','⚊','⚬','☐'];
+          name = symbolsArray[$('.group_combo').find('option').length]+ ' ' + name;
+          symbolsArray.length = 0;
+        }
         var m = new GroupModel({ name: name, active: true },{ map: this.options.map });
         this.collection.add(m);
         this.trigger('onSelect', name, m.cid, this);

@@ -99,7 +99,7 @@
             color = "#066FB6"; //blue
           }
 
-          var shape = this.symbol || '♥';
+          var shape = this.symbol || '';
           if (sessionStorage.getItem('currentSymbol'))
             shape = sessionStorage.getItem('currentSymbol');
           
