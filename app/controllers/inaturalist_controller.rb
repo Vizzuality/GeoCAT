@@ -12,7 +12,7 @@ class InaturalistController < ApplicationController
 
       inaturalist_url = URI.escape(
         "http://www.inaturalist.org/observations.json?q=#{q}" +
-        "&per_page=500&page=1&has[]=geo"
+        "&per_page=500&page=1&has[]=geo&quality_grade=research"
       )
       open(inaturalist_url) {|f| @list =  f.read }
       @list = JSON.parse(@list)
