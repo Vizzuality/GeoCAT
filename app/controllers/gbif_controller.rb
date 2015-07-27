@@ -51,7 +51,8 @@ class GbifController < ApplicationController
             'geocat_removed'                => false,
             'geocat_kind'                   => 'gbif',
             'geocat_alias'                  => CGI.unescape(q),
-            'geocat_query'                  => CGI.unescape(q)
+            'geocat_query'                  => CGI.unescape(q),
+            'occurrenceDetails'             => 'http://gbif.org/occurrence/' + item['key'].to_s
           })
         end
       end
