@@ -101,7 +101,6 @@ class RlatData
           'Dist_comm'                     => point['notes'],
           'Data_sens'                     => point['data_sens'],
           'Sens_comm'                     => point['sens_comm'],
-          'recordSource'                  => point['recordSource'],
           'Binomial'                      => source['query'],
           'Presence'                      => point['presence'],
           'Origin'                        => point['origin'],
@@ -116,6 +115,7 @@ class RlatData
           'BasisOfRec'                    => point['basisOfRecord'],
           'CollectID'                     => point['catalogue_id'],
           'recordedBy'                    => point['collector']
+          # 'recordSource'                  => point['recordSource'],
           # 'changed'                       => point['geocat_changed'],
           # 'collectorNumber'               => point['collectorNumber'],
           # 'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],

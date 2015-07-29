@@ -129,7 +129,6 @@ module GeocatDataImporter
             'Dist_comm'                     => point['notes'],
             'Data_sens'                     => point['data_sens'],
             'Sens_comm'                     => point['sens_comm'],
-            'recordSource'                  => point['recordSource'],
             'Binomial'                      => source['query'],
             'Presence'                      => point['presence'],
             'Origin'                        => point['origin'],
@@ -145,6 +144,7 @@ module GeocatDataImporter
             'CollectID'                     => point['catalogue_id'],
             'recordedBy'                    => point['collector']
             # 'changed'                       => point['geocat_changed'],
+            # 'recordSource'                  => point['recordSource'],
             # 'collectorNumber'               => point['collectorNumber'],
             # 'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
             # 'collectionCode'                => point['collectionCode'],
