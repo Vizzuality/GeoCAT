@@ -61,11 +61,15 @@ class FileController < ApplicationController
       @localities  = all_sources.map{|l| [l['latitude'], l['longitude']]}.uniq.length
 
       render :action => :print
-    when 'csv'
+    when 'csv', 'sis'
       file_name = filename_escape(@geocat['reportName'])
       @geocat = GeocatData.new(@geocat)
 
-      send_data @geocat.to_csv,
+      sending_info = @geocat.to_csv
+      if format.downcase == 'sis'
+        sending_info = @geocat.to_sis
+      end
+      send_data sending_info,
         :type => 'text/csv; charset=iso-8859-1; header=present',
         :disposition => "attachment; filename=#{file_name}.csv"
     end
