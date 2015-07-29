@@ -119,6 +119,60 @@ module GeocatDataImporter
       output
     end
 
+    def to_sis
+      return '' unless self.valid?
+
+      data = []
+      sources.each do |source|
+        data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
+          {
+            'recordSource'                  => point['recordSource'],
+            'scientificname'                => source['query'],
+            'latitude'                      => point['latitude'],
+            'longitude'                     => point['longitude'],
+            'changed'                       => point['geocat_changed'],
+            'collector'                     => point['collector'],
+            'collectorNumber'               => point['collectorNumber'],
+            'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
+            'catalogue_id'                  => point['catalogue_id'],
+            'collectionCode'                => point['collectionCode'],
+            'institutionCode'               => point['institutionCode'],
+            'catalogNumber'                 => point['catalogNumber'],
+            'basisOfRecord'                 => point['basisOfRecord'],
+            'seasonal'                      => point['seasonal'],
+            'origin'                        => point['origin'       ],
+            'presence'                      => point['presence'],
+            'eventDate'                     => point['eventDate'],
+            'country'                       => point['country'],
+            'stateProvince'                 => point['stateProvince'],
+            'county'                        => point['county'],
+            'verbatimElevation'             => point['verbatimElevation'],
+            'locality'                      => point['locality'],
+            'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
+            'identifiedBy'                  => point['identifiedBy'],
+            'occurrenceRemarks'             => point['occurrenceRemarks'],
+            'occurrenceDetails'             => point['occurrenceDetails'],
+            'geocat_kind'                   => point['geocat_kind'],
+            'presence'                      => point['presence'] || 'Extant',
+            'seasonal'                      => point['seasonal'] || 'Resident',
+            'origin'                        => point['origin'] || 'Native',
+            'group_name'                    => point['group_name']
+          }
+        end
+      end
+
+      return if data.first.nil?
+
+      columns = data.first.keys.sort
+
+      output = FasterCSV.generate do |csv|
+        csv << columns
+        data.each do |row|
+          csv << columns.collect { |column| row[column] }
+        end
+      end
+      output
+    end
     private
       def process_as_hash(data)
         hash = if data.is_a? Hash

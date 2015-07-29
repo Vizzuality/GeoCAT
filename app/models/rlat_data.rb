@@ -90,6 +90,54 @@ class RlatData
     output
   end
 
+  def to_sis
+    return '' unless self.valid?
+
+    data = []
+    sources.each do |source|
+      data += source['points'].collect do |point|
+        {
+          'recordSource'                  => point['recordSource'],
+          'scientificname'                => scientificname,
+          'latitude'                      => point['latitude'],
+          'longitude'                     => point['longitude'],
+          'changed'                       => point['geocat_changed'],
+          'collector'                     => point['collector'],
+          'collectorNumber'               => point['collectorNumber'],
+          'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
+          'catalogue_id'                  => point['catalogue_id'],
+          'collectionCode'                => point['collectionCode'],
+          'institutionCode'               => point['institutionCode'],
+          'catalogNumber'                 => point['catalogNumber'],
+          'basisOfRecord'                 => point['basisOfRecord'],
+          'eventDate'                     => point['eventDate'],
+          'country'                       => point['country'],
+          'stateProvince'                 => point['stateProvince'],
+          'county'                        => point['county'],
+          'verbatimElevation'             => point['verbatimElevation'],
+          'locality'                      => point['locality'],
+          'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
+          'identifiedBy'                  => point['identifiedBy'],
+          'occurrenceRemarks'             => point['occurrenceRemarks'],
+          'occurrenceDetails'             => point['occurrenceDetails'],
+          'geocat_kind'                   => point['geocat_kind'],
+          'presence'                      => point['presence'],
+          'seasonal'                      => point['seasonal'],
+          'origin'                        => point['origin' ]
+        }
+      end
+    end
+
+    columns = data.first.keys.sort
+
+    output = FasterCSV.generate do |csv|
+      csv << columns
+      data.each do |row|
+        csv << columns.collect { |column| row[column] }
+      end
+    end
+    output
+  end
   private
     def process_as_hash(data)
       hash = if data.is_a? Hash
