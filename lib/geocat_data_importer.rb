@@ -85,7 +85,7 @@ module GeocatDataImporter
             'catalogNumber'                 => point['catalogNumber'],
             'basisOfRecord'                 => point['basisOfRecord'],
             'seasonal'                      => point['seasonal'],
-            'origin'                        => point['origin'       ],
+            'origin'                        => point['origin'],
             'presence'                      => point['presence'],
             'eventDate'                     => point['eventDate'],
             'country'                       => point['country'],
@@ -121,42 +121,47 @@ module GeocatDataImporter
 
     def to_sis
       return '' unless self.valid?
-
       data = []
       sources.each do |source|
         data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
           {
+            'CatalogNo'                     => point['catalogNumber'],
+            'Dist_comm'                     => point['notes'],
+            'Data_sens'                     => point['data_sens'],
+            'Sens_comm'                     => point['sens_comm'],
             'recordSource'                  => point['recordSource'],
-            'scientificname'                => source['query'],
-            'latitude'                      => point['latitude'],
-            'longitude'                     => point['longitude'],
-            'changed'                       => point['geocat_changed'],
-            'collector'                     => point['collector'],
-            'collectorNumber'               => point['collectorNumber'],
-            'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
-            'catalogue_id'                  => point['catalogue_id'],
-            'collectionCode'                => point['collectionCode'],
-            'institutionCode'               => point['institutionCode'],
-            'catalogNumber'                 => point['catalogNumber'],
-            'basisOfRecord'                 => point['basisOfRecord'],
-            'seasonal'                      => point['seasonal'],
-            'origin'                        => point['origin'       ],
-            'presence'                      => point['presence'],
-            'eventDate'                     => point['eventDate'],
-            'country'                       => point['country'],
-            'stateProvince'                 => point['stateProvince'],
-            'county'                        => point['county'],
-            'verbatimElevation'             => point['verbatimElevation'],
-            'locality'                      => point['locality'],
-            'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
-            'identifiedBy'                  => point['identifiedBy'],
-            'occurrenceRemarks'             => point['occurrenceRemarks'],
-            'occurrenceDetails'             => point['occurrenceDetails'],
-            'geocat_kind'                   => point['geocat_kind'],
-            'presence'                      => point['presence'] || 'Extant',
-            'seasonal'                      => point['seasonal'] || 'Resident',
-            'origin'                        => point['origin'] || 'Native',
-            'group_name'                    => point['group_name']
+            'Binomial'                      => source['query'],
+            'Presence'                      => point['presence'],
+            'Origin'                        => point['origin'],
+            'Seasonal'                      => point['seasonal'],
+            'Compiler'                      => point['compiler'],
+            'YrCompiled'                    => point['YrCompiled'],
+            'Dec_Lat'                       => point['latitude'],
+            'Dec_Lon'                       => point['longitude'],
+            'SpatialRef'                    => '',
+            'Event_Year'                    => point['eventDate'],
+            'Citation'                      => point['institutionCode'],
+            'BasisOfRec'                    => point['basisOfRecord'],
+            'CollectID'                     => point['catalogue_id'],
+            'recordedBy'                    => point['collector']
+            # 'changed'                       => point['geocat_changed'],
+            # 'collectorNumber'               => point['collectorNumber'],
+            # 'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
+            # 'collectionCode'                => point['collectionCode'],
+            # 'country'                       => point['country'],
+            # 'stateProvince'                 => point['stateProvince'],
+            # 'county'                        => point['county'],
+            # 'verbatimElevation'             => point['verbatimElevation'],
+            # 'locality'                      => point['locality'],
+            # 'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
+            # 'identifiedBy'                  => point['identifiedBy'],
+            # 'occurrenceRemarks'             => point['occurrenceRemarks'],
+            # 'occurrenceDetails'             => point['occurrenceDetails'],
+            # 'geocat_kind'                   => point['geocat_kind'],
+            # 'presence'                      => point['presence'] || 'Extant',
+            # 'seasonal'                      => point['seasonal'] || 'Resident',
+            # 'origin'                        => point['origin'] || 'Native',
+            # 'group_name'                    => point['group_name']
           }
         end
       end
@@ -173,6 +178,8 @@ module GeocatDataImporter
       end
       output
     end
+
+
     private
       def process_as_hash(data)
         hash = if data.is_a? Hash
