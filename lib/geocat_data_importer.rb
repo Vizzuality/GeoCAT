@@ -164,7 +164,7 @@ module GeocatDataImporter
             'Dec_Lat'                       => point['latitude'],
             'Dec_Lon'                       => point['longitude'],
             'SpatialRef'                    => '',
-            'Event_Year'                    => point['eventDate'],
+            'Event_Year'                    => point['eventDate'] ? DateTime.parse(point['eventDate']).year : '',
             'Citation'                      => point['institutionCode'],
             'BasisOfRec'                    => point['basisOfRecord'],
             'CollectID'                     => point['catalogue_id'],
