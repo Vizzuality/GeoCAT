@@ -65,9 +65,10 @@ class FileController < ApplicationController
       file_name = filename_escape(@geocat['reportName'])
       @geocat = GeocatData.new(@geocat)
 
-      sending_info = @geocat.to_csv
       if format.downcase == 'sis'
         sending_info = @geocat.to_sis
+      else
+        sending_info = @geocat.to_csv
       end
       send_data sending_info,
         :type => 'text/csv; charset=iso-8859-1; header=present',

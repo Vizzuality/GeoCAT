@@ -5,6 +5,30 @@ require 'json'
 require 'csv-mapper'
 
 module GeocatDataImporter
+  IUCN_ORIGIN = [
+    "native",
+    "reintroduced",
+    "introduced",
+    "vagrant",
+    "origin uncertain"
+  ]
+
+  IUCN_PRESENCE = [
+    "extant",
+    "probably extant",
+    "possibly extant",
+    "possibly extinct",
+    "extinct",
+    "presence uncertain"
+  ]
+
+  IUCN_SEASONAL = [
+    "resident",
+    "breeding season",
+    "non-breeding season",
+    "passage",
+    "seasonal occurrence uncertain"
+  ]
 
   def self.included(base)
 
@@ -15,6 +39,7 @@ module GeocatDataImporter
       attr_writer :warnings
 
       validate :sources_must_be_valid
+
     end
 
     base.send :include, InstanceMethods
@@ -129,39 +154,21 @@ module GeocatDataImporter
             'Dist_comm'                     => point['notes'],
             'Data_sens'                     => point['data_sens'],
             'Sens_comm'                     => point['sens_comm'],
+            'recordSource'                  => point['recordSource'],
             'Binomial'                      => source['query'],
-            'Presence'                      => point['presence'],
-            'Origin'                        => point['origin'],
-            'Seasonal'                      => point['seasonal'],
+            'Presence'                      => map_iucn_presence(point['presence']),
+            'Origin'                        => map_iucn_origin(point['origin']),
+            'Seasonal'                      => map_iucn_seasonal(point['seasonal']),
             'Compiler'                      => point['compiler'],
             'YrCompiled'                    => point['YrCompiled'],
             'Dec_Lat'                       => point['latitude'],
             'Dec_Lon'                       => point['longitude'],
             'SpatialRef'                    => '',
-            'Event_Year'                    => point['eventDate'],
+            'Event_Year'                    => point['eventDate'] ? DateTime.parse(point['eventDate']).year : '',
             'Citation'                      => point['institutionCode'],
             'BasisOfRec'                    => point['basisOfRecord'],
             'CollectID'                     => point['catalogue_id'],
             'recordedBy'                    => point['collector']
-            # 'changed'                       => point['geocat_changed'],
-            # 'recordSource'                  => point['recordSource'],
-            # 'collectorNumber'               => point['collectorNumber'],
-            # 'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
-            # 'collectionCode'                => point['collectionCode'],
-            # 'country'                       => point['country'],
-            # 'stateProvince'                 => point['stateProvince'],
-            # 'county'                        => point['county'],
-            # 'verbatimElevation'             => point['verbatimElevation'],
-            # 'locality'                      => point['locality'],
-            # 'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
-            # 'identifiedBy'                  => point['identifiedBy'],
-            # 'occurrenceRemarks'             => point['occurrenceRemarks'],
-            # 'occurrenceDetails'             => point['occurrenceDetails'],
-            # 'geocat_kind'                   => point['geocat_kind'],
-            # 'presence'                      => point['presence'] || 'Extant',
-            # 'seasonal'                      => point['seasonal'] || 'Resident',
-            # 'origin'                        => point['origin'] || 'Native',
-            # 'group_name'                    => point['group_name']
           }
         end
       end
@@ -365,6 +372,14 @@ module GeocatDataImporter
         end rescue nil
       end
       private :fix_encoding
+
+      [:origin, :presence, :seasonal].each do |method_name|
+        define_method "map_iucn_#{method_name}" do |arg|
+          "GeocatDataImporter::IUCN_#{method_name.to_s.upcase}".
+            constantize.index(arg.downcase.strip).
+            try { |t| t + 1 } || "#VALUE NOT VALID"
+        end
+      end
 
     end
 

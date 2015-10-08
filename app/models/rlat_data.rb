@@ -101,6 +101,7 @@ class RlatData
           'Dist_comm'                     => point['notes'],
           'Data_sens'                     => point['data_sens'],
           'Sens_comm'                     => point['sens_comm'],
+          'recordSource'                  => point['recordSource'],
           'Binomial'                      => source['query'],
           'Presence'                      => point['presence'],
           'Origin'                        => point['origin'],
@@ -115,25 +116,6 @@ class RlatData
           'BasisOfRec'                    => point['basisOfRecord'],
           'CollectID'                     => point['catalogue_id'],
           'recordedBy'                    => point['collector']
-          # 'recordSource'                  => point['recordSource'],
-          # 'changed'                       => point['geocat_changed'],
-          # 'collectorNumber'               => point['collectorNumber'],
-          # 'coordinateuncertaintyinmeters' => point['coordinateUncertaintyInMeters'],
-          # 'collectionCode'                => point['collectionCode'],
-          # 'country'                       => point['country'],
-          # 'stateProvince'                 => point['stateProvince'],
-          # 'county'                        => point['county'],
-          # 'verbatimElevation'             => point['verbatimElevation'],
-          # 'locality'                      => point['locality'],
-          # 'coordinateUncertaintyText'     => point['coordinateUncertaintyText'],
-          # 'identifiedBy'                  => point['identifiedBy'],
-          # 'occurrenceRemarks'             => point['occurrenceRemarks'],
-          # 'occurrenceDetails'             => point['occurrenceDetails'],
-          # 'geocat_kind'                   => point['geocat_kind'],
-          # 'presence'                      => point['presence'] || 'Extant',
-          # 'seasonal'                      => point['seasonal'] || 'Resident',
-          # 'origin'                        => point['origin'] || 'Native',
-          # 'group_name'                    => point['group_name']
         }
       end
     end
@@ -256,5 +238,4 @@ class RlatData
       warnings[:sources] = sources_warnings if sources_warnings.present?
       errors.add(:sources, sources_errors) if sources_errors.present?
     end
-
 end
