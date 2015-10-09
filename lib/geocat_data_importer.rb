@@ -161,7 +161,7 @@ module GeocatDataImporter
             'Origin'                        => map_iucn_origin(point['origin'] || 'Native'),
             'Seasonal'                      => map_iucn_seasonal(point['seasonal'] || 'Resident'),
             'Compiler'                      => point['compiler'],
-            'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] Date.today.year,
+            'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] : Date.today.year,
             'Dec_Lat'                       => point['latitude'],
             'Dec_Lon'                       => point['longitude'],
             'SpatialRef'                    => '',
