@@ -146,6 +146,7 @@ module GeocatDataImporter
 
     def to_sis
       return '' unless self.valid?
+      require 'date'
       data = []
       sources.each do |source|
         data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
@@ -160,7 +161,7 @@ module GeocatDataImporter
             'Origin'                        => map_iucn_origin(point['origin']),
             'Seasonal'                      => map_iucn_seasonal(point['seasonal']),
             'Compiler'                      => point['compiler'],
-            'YrCompiled'                    => point['YrCompiled'],
+            'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] Date.today.year,
             'Dec_Lat'                       => point['latitude'],
             'Dec_Lon'                       => point['longitude'],
             'SpatialRef'                    => '',

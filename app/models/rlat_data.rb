@@ -92,10 +92,51 @@ class RlatData
 
   def to_sis
     return '' unless self.valid?
-
+    require 'date'
     data = []
     sources.each do |source|
       data += source['points'].collect do |point|
+        # case point['presence']
+        # when 'Extant'
+        #   point['presence'] = 1
+        # when 'Probably Extant'
+        #   point['presence'] = 2
+        # when 'Possibly Extant'
+        #   point['presence'] = 3
+        # when 'Possibly Extinct'
+        #   point['presence'] = 4
+        # when 'Extinct'
+        #   point['presence'] = 5
+        # when 'Presence Uncertain'
+        #   point['presence'] = 6
+        # end
+
+        # case point['origin']
+        # when 'Native'
+        #   point['origin'] = 1
+        # when 'Reintroduced'
+        #   point['origin'] = 2
+        # when 'Introduced'
+        #   point['origin'] = 3
+        # when 'Vagrant'
+        #   point['origin'] = 4
+        # when 'Origin Uncertain'
+        #   point['origin'] = 5
+        # end
+
+        # case point['seasonal']
+        # when 'Resident'
+        #   point['seasonal'] = 1
+        # when 'Breeding Season'
+        #   point['seasonal'] = 2
+        # when 'Non-breeding Season'
+        #   point['seasonal'] = 3
+        # when 'Passage'
+        #   point['seasonal'] = 4
+        # when 'Seasonal Occurrence Uncertain'
+        #   point['seasonal'] = 5
+        # end
+
         {
           'CatalogNo'                     => point['catalogNumber'],
           'Dist_comm'                     => point['notes'],
@@ -107,7 +148,7 @@ class RlatData
           'Origin'                        => point['origin'],
           'Seasonal'                      => point['seasonal'],
           'Compiler'                      => point['compiler'],
-          'YrCompiled'                    => point['YrCompiled'],
+          'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] : Date.today.year,
           'Dec_Lat'                       => point['latitude'],
           'Dec_Lon'                       => point['longitude'],
           'SpatialRef'                    => '',
