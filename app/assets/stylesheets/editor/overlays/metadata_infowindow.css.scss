@@ -177,6 +177,12 @@
 
       &:last-child { margin-right:0 }
     }
+    .field-0 {
+      width: 81px;
+      margin: 4px 0px 0 0;
+      input.text { width: 68px; }
+      .select2-container { width:81px }
+    }
 
     .field-1 {
       width:102px;

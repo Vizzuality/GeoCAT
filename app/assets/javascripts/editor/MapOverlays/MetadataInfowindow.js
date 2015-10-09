@@ -40,10 +40,10 @@
         identifiedBy: '',
         occurrenceRemarks: '',
         occurrenceDetails: '',
-        Data_sens: '',
-        Sens_comm: '',
-        Compiler: '',
-        YrCompiled: ''
+        data_sens: '',
+        sens_comm: '',
+        compiler: '',
+        yrcompiled: ''
 
       }
 
