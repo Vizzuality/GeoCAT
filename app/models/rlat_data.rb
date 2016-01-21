@@ -150,7 +150,7 @@ class RlatData
           'Compiler'                      => point['compiler'],
           'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] : Date.today.year,
           'Dec_Lat'                       => point['latitude'],
-          'Dec_Lon'                       => point['longitude'],
+          'Dec_Long'                      => point['longitude'],
           'SpatialRef'                    => '',
           'Event_Year'                    => point['eventDate'],
           'Citation'                      => point['institutionCode'],

@@ -163,7 +163,7 @@ module GeocatDataImporter
             'Compiler'                      => point['compiler'],
             'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] : Date.today.year,
             'Dec_Lat'                       => point['latitude'],
-            'Dec_Lon'                       => point['longitude'],
+            'Dec_Long'                      => point['longitude'],
             'SpatialRef'                    => '',
             'Event_Year'                    => point['eventDate'] ? DateTime.parse(point['eventDate']).year : '',
             'Citation'                      => point['institutionCode'],
