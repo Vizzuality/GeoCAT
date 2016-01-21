@@ -48,7 +48,6 @@ class RlatData
     sources.each do |source|
       data += source['points'].collect do |point|
         {
-          'recordSource'                  => point['recordSource'],
           'scientificname'                => scientificname,
           'latitude'                      => point['latitude'],
           'longitude'                     => point['longitude'],
@@ -142,7 +141,6 @@ class RlatData
           'Dist_comm'                     => point['notes'],
           'Data_sens'                     => point['data_sens'],
           'Sens_comm'                     => point['sens_comm'],
-          'recordSource'                  => point['recordSource'],
           'Binomial'                      => source['query'],
           'Presence'                      => point['presence'],
           'Origin'                        => point['origin'],
@@ -216,7 +214,6 @@ class RlatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'recordSource'                  => row.respond_to?(:recordsource)                     ? row.recordsource                  : 'Added by user',
           'latitude'                      => row.respond_to?(:latitude)                         ? row.latitude                      : nil,
           'longitude'                     => row.respond_to?(:longitude)                        ? row.longitude                     : nil,
           'collector'                     => row.respond_to?(:collector)                        ? row.collectioncode                : nil,
@@ -253,7 +250,6 @@ class RlatData
       sources_warnings = []
       if self.sources.present?
         self.sources.each do |source|
-          sources_errors << 'you must provide a source name' if source['points'].select{|p| p['recordSource'].blank?}.present?
           source['points'].each do |point|
             if point['latitude'].blank? || point['longitude'].blank?
                invalid_points.push(point)

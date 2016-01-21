@@ -96,7 +96,6 @@ module GeocatDataImporter
       sources.each do |source|
         data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
           {
-            'recordSource'                  => point['recordSource'],
             'scientificname'                => source['query'],
             'latitude'                      => point['latitude'],
             'longitude'                     => point['longitude'],
@@ -155,7 +154,6 @@ module GeocatDataImporter
             'Dist_comm'                     => point['notes'],
             'Data_sens'                     => point['data_sens'],
             'Sens_comm'                     => point['sens_comm'],
-            'recordSource'                  => point['recordSource'],
             'Binomial'                      => source['query'],
             'Presence'                      => map_iucn_presence(point['presence'] || "Extant"),
             'Origin'                        => map_iucn_origin(point['origin'] || 'Native'),
@@ -245,7 +243,6 @@ module GeocatDataImporter
         }]
         csv.each do |row|
           self.sources.first['points'].push({
-            'recordSource'                  => (row.try(:recordsource)                  rescue "Added by user"),
             'latitude'                      => (row.try(:latitude)                      rescue nil),
             'longitude'                     => (row.try(:longitude)                     rescue nil),
             'collector'                     => (row.try(:collector)                     rescue nil),
