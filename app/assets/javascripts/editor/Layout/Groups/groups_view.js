@@ -88,7 +88,8 @@
     },
 
     getActiveGroupCid: function() {
-      return this.collection.findWhere({active: true}).cid;
+      item = this.collection.findWhere({active: true});
+      return item ? item.cid : null;
     }
 
   })
