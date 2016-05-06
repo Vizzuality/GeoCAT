@@ -30,6 +30,8 @@ module GeocatDataImporter
     "seasonal occurrence uncertain"
   ]
 
+  SYMBOLS_ARRAY = ['♥','☓','⚊','⚬','☐']
+
   def self.included(base)
 
     base.class_eval do
@@ -95,6 +97,9 @@ module GeocatDataImporter
       data = []
       sources.each do |source|
         data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
+          if SYMBOLS_ARRAY.include?(point['group_name'][0])
+            point['group_name'].slice!(0)
+          end
           {
             'scientificname'                => source['query'],
             'latitude'                      => point['latitude'],
@@ -149,6 +154,9 @@ module GeocatDataImporter
       data = []
       sources.each do |source|
         data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
+          if SYMBOLS_ARRAY.include?(point['group_name'][0])
+            point['group_name'].slice!(0)
+          end
           {
             'CatalogNo'                     => point['catalogNumber'],
             'Dist_comm'                     => point['notes'],
@@ -167,7 +175,8 @@ module GeocatDataImporter
             'Citation'                      => point['institutionCode'],
             'BasisOfRec'                    => point['basisOfRecord'],
             'CollectID'                     => point['catalogue_id'],
-            'recordedBy'                    => point['collector']
+            'recordedBy'                    => point['collector'],
+            'group_name'                    => point['group_name']
           }
         end
       end

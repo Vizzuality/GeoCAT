@@ -158,7 +158,6 @@ class RlatData
         }
       end
     end
-
     columns = data.first.keys.sort
 
     output = FasterCSV.generate do |csv|
