@@ -130,7 +130,7 @@ module GeocatDataImporter
             'presence'                      => point['presence'] || 'Extant',
             'seasonal'                      => point['seasonal'] || 'Resident',
             'origin'                        => point['origin'] || 'Native',
-            'group_name'                    => point['group_name']
+            'geocat_group'                    => point['group_name']
           }
         end
       end
@@ -176,7 +176,7 @@ module GeocatDataImporter
             'BasisOfRec'                    => point['basisOfRecord'],
             'CollectID'                     => point['catalogue_id'],
             'recordedBy'                    => point['collector'],
-            'group_name'                    => point['group_name']
+            'geocat_group'                    => point['group_name']
           }
         end
       end
