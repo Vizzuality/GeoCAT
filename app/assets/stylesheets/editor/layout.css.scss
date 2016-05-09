@@ -96,6 +96,10 @@ span.logos a.eu {float:left; width:43px; height:37px;  background:url('/assets/h
 span.logos a.eu:hover {background-position:-241px -37px;}
 span.logos a.vizzuality {float:left; margin:0 0 0 10px; width:71px; height:38px;  background:url('/assets/home/logos.png') no-repeat 0 -81px; text-indent:-9999px;}
 span.logos a.vizzuality:hover {background-position:0 -121px;}
+span.logos a.nerc {float:left; margin:0; width:46px; height:38px;  background:url('/assets/home/logos.png') no-repeat -70px -81px; text-indent:-9999px;}
+span.logos a.nerc:hover {background-position:-70px -121px;}
+span.logos a.nerc.about {float:left; margin:0 0 0 10px; width:46px; height:38px;  background:url('/assets/home/logos.png') no-repeat -70px -90px; text-indent:-9999px;}
+span.logos a.nerc.about:hover {background-position:-70px -130px;}
 
 section.about {position:absolute; left:50%; top:100px; width:980px; margin:0 0 0 -490px; z-index:100;}
 section.about div.float {position:relative; overflow:hidden; width:920px; padding:40px 30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5);
@@ -143,8 +147,9 @@ footer div.inner div.left p a:hover {color:#333333;}
 footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 footer div.inner div.right {float:right; width:160px;}
 footer div.inner div.right p {float:right; width:auto; font:normal 13px Arial; color:#757575; padding:22px 5px 0 0;}
-footer div.inner div.right a {float:right; margin:0 0 0 0; width:71px; height:38px; background:url('/assets/home/vizzuality.jpg') no-repeat 0 0; text-indent:-9999px;}
-footer div.inner div.right a:hover {background-position:0 -38px;}
+/* vizzuality's logo */
+footer div.inner div.right a {float:right; margin:1px 0 0 0; width:71px; height:38px; background:url('/assets/home/logos.png') no-repeat 0 -81px; text-indent:-9999px;}
+footer div.inner div.right a:hover {background-position:0 -121px;}
 
 
 
@@ -415,4 +420,4 @@ footer.app_footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 footer.app_footer div.inner div.right {position:absolute; right:40px; width:160px; z-index:1;}
 footer.app_footer div.inner div.right a {background:none;}
 footer.app_footer div.inner div.right p {float:right; width:auto; font:normal 13px Arial; color:#0B0B0C; padding:22px 5px 0 0;}
-footer.app_footer div.inner div.right img {float:right; margin:7px 0 0 0; width:auto;}
+footer.app_footer div.inner div.right img {float:right; margin:0; width:auto;}
