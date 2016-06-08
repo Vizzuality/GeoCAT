@@ -27,6 +27,7 @@ PolyLineFill.prototype.onAdd = function () {
    div.style.borderStyle = 'none';
    div.style.borderWidth = '0px';
    div.style.position = 'absolute';
+   div.style.zIndex = '1';
 
    //createthe svg element
    var svgns = "http://www.w3.org/2000/svg";
