@@ -33,6 +33,8 @@ PolyLineFill.prototype.onAdd = function () {
    var svgns = "http://www.w3.org/2000/svg";
    var svg = document.createElementNS(svgns, "svg");
    svg.setAttributeNS(null, "preserveAspectRatio", "xMidYMid meet");
+   svg.setAttributeNS(null, "height", "100%");
+   svg.setAttributeNS(null, "width", "100%");
 
    var def = document.createElementNS(svgns, "defs");
 
