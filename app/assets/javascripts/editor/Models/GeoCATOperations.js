@@ -122,7 +122,6 @@
 			var sources = [];
 
 			_.each(markers, function(m) {
-
 				var group = groups.get(m.data.dcid);
 				var occ_data = _.clone(m.data);
 				_.each(non_valid, function(v) {
@@ -130,15 +129,16 @@
 				});
 
 				var s = _.find(sources, function(s) {
-					return s.group === group.get('name');
+                                        return s.scid === m.data.scid;
 				});
 
 				if (!s) {
 					var source = group.getSources().get(m.data.scid);
           var d = source.toJSON();
+          d.scid = m.data.scid;
           d.points = [ occ_data ];
           d.group = group.get('name');
-          sources.push(d)
+          sources.push(d);
 				} else {
 					s.points.push( occ_data );
 				}

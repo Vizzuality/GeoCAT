@@ -10,7 +10,8 @@ module GeocatDataImporter
     "reintroduced",
     "introduced",
     "vagrant",
-    "origin uncertain"
+    "origin uncertain",
+    "assisted colonisation"
   ]
 
   IUCN_PRESENCE = [
@@ -101,7 +102,7 @@ module GeocatDataImporter
             point['group_name'].slice!(0)
           end
           {
-            'scientificname'                => source['query'],
+            'scientificname'                => source['alias'].empty? ? source['query'] : source['alias'],
             'latitude'                      => point['latitude'],
             'longitude'                     => point['longitude'],
             'changed'                       => point['geocat_changed'],
@@ -157,12 +158,19 @@ module GeocatDataImporter
           if SYMBOLS_ARRAY.include?(point['group_name'][0])
             point['group_name'].slice!(0)
           end
+
+          if point['eventDate']
+            eventDate = DateTime.parse(point['eventDate']).year
+          else
+            eventDate = point['year']
+          end
+
           {
             'CatalogNo'                     => point['catalogNumber'],
-            'Dist_comm'                     => point['notes'],
+            'Dist_comm'                     => point['occurrenceRemarks'],
             'Data_sens'                     => point['data_sens'],
             'Sens_comm'                     => point['sens_comm'],
-            'Binomial'                      => source['query'],
+            'ScientificName'                => source['alias'].empty? ? source['query'] : source['alias'],
             'Presence'                      => map_iucn_presence(point['presence'] || "Extant"),
             'Origin'                        => map_iucn_origin(point['origin'] || 'Native'),
             'Seasonal'                      => map_iucn_seasonal(point['seasonal'] || 'Resident'),
@@ -171,7 +179,7 @@ module GeocatDataImporter
             'Dec_Lat'                       => point['latitude'],
             'Dec_Long'                      => point['longitude'],
             'SpatialRef'                    => 'WGS 84',
-            'Event_Year'                    => point['eventDate'] ? DateTime.parse(point['eventDate']).year : '',
+            'Event_Year'                    => eventDate,
             'Citation'                      => point['institutionCode'],
             'BasisOfRec'                    => point['basisOfRecord'],
             'CollectID'                     => point['catalogue_id'],
