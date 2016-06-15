@@ -138,10 +138,10 @@ class RlatData
 
         {
           'CatalogNo'                     => point['catalogNumber'],
-          'Dist_comm'                     => point['notes'],
+          'Dist_comm'                     => point['occurrenceRemarks'],
           'Data_sens'                     => point['data_sens'],
           'Sens_comm'                     => point['sens_comm'],
-          'Binomial'                      => source['query'],
+          'ScientificName'                => source['query'],
           'Presence'                      => point['presence'],
           'Origin'                        => point['origin'],
           'Seasonal'                      => point['seasonal'],
