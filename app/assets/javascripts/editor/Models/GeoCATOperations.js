@@ -124,12 +124,14 @@
 			_.each(markers, function(m) {
 				var group = groups.get(m.data.dcid);
 				var occ_data = _.clone(m.data);
+        occ_data.group_name = group.get('name');
+
 				_.each(non_valid, function(v) {
 					delete occ_data[v];
 				});
 
 				var s = _.find(sources, function(s) {
-                                        return s.scid === m.data.scid;
+          return s.scid === m.data.scid;
 				});
 
 				if (!s) {
