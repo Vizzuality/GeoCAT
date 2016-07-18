@@ -14,6 +14,7 @@ class InaturalistController < ApplicationController
         "http://www.inaturalist.org/observations.json?q=#{q}" +
         "&per_page=500&page=1&has[]=geo&quality_grade=research"
       )
+
       open(inaturalist_url) {|f| @list =  f.read }
       @list = JSON.parse(@list)
 
@@ -28,6 +29,7 @@ class InaturalistController < ApplicationController
           'locality'                      => occ['place_guess'],
           'catalogNumber'                 => occ['id'],
           'basisOfRecord'                 => 'HumanObservation',
+          'eventDate'                     => occ['observed_on'],
           'geocat_active'                 => true,
           'geocat_removed'                => false,
           'geocat_alias'                  => CGI.unescape(q),
