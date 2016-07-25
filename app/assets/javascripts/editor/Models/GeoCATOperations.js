@@ -25,12 +25,11 @@
 		/*========================================================================================================================*/
 		GeoCAT.prototype.download = function(format) {
 			// VIEWPORT
-      report_name = $($('.group_combo .select2-chosen')[0]).text();
       if (report_name === undefined || report_name === "") {
         report_name = "Untitled Analysis";
       }
 			var report = {
-                                reportName: 		unescape(report_name),
+        reportName: 		unescape(report_name),
 				viewPort: {
 					zoom: 				this.zoom,
 					center: {

@@ -70,9 +70,11 @@ class FileController < ApplicationController
       else
         sending_info = @geocat.to_csv
       end
+
       send_data sending_info,
-        :type => 'text/csv; charset=iso-8859-1; header=present',
-        :disposition => "attachment; filename=#{file_name}.csv"
+        :type => 'text/csv; charset=utf-8; header=present',
+        :filename => "#{file_name}.csv",
+        :disposition => "attachment"
     end
   end
 
