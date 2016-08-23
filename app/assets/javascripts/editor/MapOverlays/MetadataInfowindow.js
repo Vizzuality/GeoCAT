@@ -39,7 +39,12 @@
         coordinateUncertaintyInMeters: '',
         identifiedBy: '',
         occurrenceRemarks: '',
-        occurrenceDetails: ''
+        occurrenceDetails: '',
+        data_sens: '',
+        sens_comm: '',
+        compiler: '',
+        yrcompiled: ''
+
       }
 
     });

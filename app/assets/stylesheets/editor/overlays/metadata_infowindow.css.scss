@@ -114,6 +114,10 @@
       line-height:11px;
     }
 
+    label.year_compiled {
+      font-size: 9px;
+    }
+
     input.text {
       position:relative;
       padding:0 5px;
@@ -176,6 +180,12 @@
       vertical-align:top;
 
       &:last-child { margin-right:0 }
+    }
+    .field-0 {
+      width: 81px;
+      margin: 4px 0px 0 0;
+      input.text { width: 68px; }
+      .select2-container { width:81px }
     }
 
     .field-1 {

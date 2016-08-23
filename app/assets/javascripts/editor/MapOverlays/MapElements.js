@@ -23,9 +23,13 @@
               '<p>Plain text, comma separated values</p>' +
               '<a onclick="downloadGeoCAT(\'csv\');changeApplicationTo()" class="export">Download CSV</a>' +
             '</div>' +
-            '<div class="block last">' +
+            '<div class="block">' +
               '<p>Structured XML file for geographic data</p>' +
               '<a onclick="downloadGeoCAT(\'kml\');changeApplicationTo()" class="export">Download KML</a>' +
+            '</div>' +
+            '<div class="block last">' +
+              '<p>IUCN Red List CSV file</p>' +
+              '<a onclick="downloadGeoCAT(\'sis\');changeApplicationTo()" class="export">Download SIS</a>' +
             '</div>' +
           '</div>' +
         '</div>' +

@@ -356,11 +356,11 @@ div#map_container div.footer div.right a.export:hover {background-position:0 -32
 
 
 /*EXPORT WINDOW*/
-div#export_window {position:absolute!important; display:none; width:320px; height:159px; padding:31px; top:50%!important; left:50%; margin:-110px 0 0 -191px!important; background: rgba(0,0,0, 0.8); z-index:20;
+div#export_window {position:absolute!important; display:none; width:470px; height:159px; padding:31px; top:50%!important; left:50%; margin:-110px 0 0 -271px!important; background: rgba(0,0,0, 0.8); z-index:20;
   border-radius:10px; -webkit-border-radius: 10px; -moz-border-radius: 10px;}
 div#export_window a.close {position:absolute; right:14px; top:14px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#export_window h3 {font:bold 21px Arial; color:white; letter-spacing:-1px;}
-div#export_window div.blocks {float:left; width:276px; height:73px; margin:25px 0 0 0; padding:15px 20px; background: rgba(0,0,0, 0.5); z-index:10;
+div#export_window div.blocks {float:left; width:430px; height:73px; margin:25px 0 0 0; padding:15px 20px; background: rgba(0,0,0, 0.5); z-index:10;
   border-radius:10px; -webkit-border-radius: 10px; -moz-border-radius: 10px;}
 div#export_window div.block {float:left; width:125px; margin:0 25px 0 0;}
 div#export_window div.block.last {margin:0;}

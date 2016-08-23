@@ -11,7 +11,7 @@ class GbifController < ApplicationController
 
       for i in 0..2
         offset = 300 * (i * 1)
-        response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?hasCoordinate=true&format=darwin&limit=300&hasGeospatialIssue=false&scientificName=#{q}&offset=#{offset}", headers: { "Accept" => "application/json" })
+        response = Typhoeus.get("http://api.gbif.org/v1/occurrence/search?hasCoordinate=true&limit=300&hasGeospatialIssue=false&scientificName=#{q}&offset=#{offset}", headers: { "Accept" => "application/json" })
         populate(response, q)
       end
 

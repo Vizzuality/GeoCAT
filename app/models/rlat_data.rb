@@ -48,7 +48,6 @@ class RlatData
     sources.each do |source|
       data += source['points'].collect do |point|
         {
-          'recordSource'                  => point['recordSource'],
           'scientificname'                => scientificname,
           'latitude'                      => point['latitude'],
           'longitude'                     => point['longitude'],
@@ -90,6 +89,85 @@ class RlatData
     output
   end
 
+  def to_sis
+    return '' unless self.valid?
+    require 'date'
+    data = []
+    sources.each do |source|
+      data += source['points'].collect do |point|
+        # case point['presence']
+        # when 'Extant'
+        #   point['presence'] = 1
+        # when 'Probably Extant'
+        #   point['presence'] = 2
+        # when 'Possibly Extant'
+        #   point['presence'] = 3
+        # when 'Possibly Extinct'
+        #   point['presence'] = 4
+        # when 'Extinct'
+        #   point['presence'] = 5
+        # when 'Presence Uncertain'
+        #   point['presence'] = 6
+        # end
+
+        # case point['origin']
+        # when 'Native'
+        #   point['origin'] = 1
+        # when 'Reintroduced'
+        #   point['origin'] = 2
+        # when 'Introduced'
+        #   point['origin'] = 3
+        # when 'Vagrant'
+        #   point['origin'] = 4
+        # when 'Origin Uncertain'
+        #   point['origin'] = 5
+        # end
+
+        # case point['seasonal']
+        # when 'Resident'
+        #   point['seasonal'] = 1
+        # when 'Breeding Season'
+        #   point['seasonal'] = 2
+        # when 'Non-breeding Season'
+        #   point['seasonal'] = 3
+        # when 'Passage'
+        #   point['seasonal'] = 4
+        # when 'Seasonal Occurrence Uncertain'
+        #   point['seasonal'] = 5
+        # end
+
+        {
+          'CatalogNo'                     => point['catalogNumber'],
+          'Dist_comm'                     => point['occurrenceRemarks'],
+          'Data_sens'                     => point['data_sens'],
+          'Sens_comm'                     => point['sens_comm'],
+          'ScientificName'                => source['query'],
+          'Presence'                      => point['presence'],
+          'Origin'                        => point['origin'],
+          'Seasonal'                      => point['seasonal'],
+          'Compiler'                      => point['compiler'],
+          'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] : Date.today.year,
+          'Dec_Lat'                       => point['latitude'],
+          'Dec_Long'                      => point['longitude'],
+          'SpatialRef'                    => 'WGS 84',
+          'Event_Year'                    => point['eventDate'],
+          'Citation'                      => point['institutionCode'],
+          'BasisOfRec'                    => point['basisOfRecord'],
+          'CollectID'                     => point['catalogue_id'],
+          'recordedBy'                    => point['collector']
+        }
+      end
+    end
+    columns = data.first.keys.sort
+
+    output = FasterCSV.generate do |csv|
+      csv << columns
+      data.each do |row|
+        csv << columns.collect { |column| row[column] }
+      end
+    end
+    output
+  end
   private
     def process_as_hash(data)
       hash = if data.is_a? Hash
@@ -135,7 +213,6 @@ class RlatData
       }]
       csv.each do |row|
         self.sources.first['points'].push({
-          'recordSource'                  => row.respond_to?(:recordsource)                     ? row.recordsource                  : 'Added by user',
           'latitude'                      => row.respond_to?(:latitude)                         ? row.latitude                      : nil,
           'longitude'                     => row.respond_to?(:longitude)                        ? row.longitude                     : nil,
           'collector'                     => row.respond_to?(:collector)                        ? row.collectioncode                : nil,
@@ -172,7 +249,6 @@ class RlatData
       sources_warnings = []
       if self.sources.present?
         self.sources.each do |source|
-          sources_errors << 'you must provide a source name' if source['points'].select{|p| p['recordSource'].blank?}.present?
           source['points'].each do |point|
             if point['latitude'].blank? || point['longitude'].blank?
                invalid_points.push(point)
@@ -198,5 +274,4 @@ class RlatData
       warnings[:sources] = sources_warnings if sources_warnings.present?
       errors.add(:sources, sources_errors) if sources_errors.present?
     end
-
 end

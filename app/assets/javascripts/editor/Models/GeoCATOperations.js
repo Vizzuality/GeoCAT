@@ -25,8 +25,11 @@
 		/*========================================================================================================================*/
 		GeoCAT.prototype.download = function(format) {
 			// VIEWPORT
+      if (report_name === undefined || report_name === "") {
+        report_name = "Untitled Analysis";
+      }
 			var report = {
-				reportName: 		unescape(report_name = (report_name === 'Untitled report') ? 'Analysis ' + $($('.group_combo .select2-chosen')[0]).text() : report_name),
+        reportName: 		unescape(report_name),
 				viewPort: {
 					zoom: 				this.zoom,
 					center: {
@@ -118,23 +121,25 @@
 			var sources = [];
 
 			_.each(markers, function(m) {
-
 				var group = groups.get(m.data.dcid);
 				var occ_data = _.clone(m.data);
+        occ_data.group_name = group.get('name');
+
 				_.each(non_valid, function(v) {
 					delete occ_data[v];
 				});
 
 				var s = _.find(sources, function(s) {
-					return s.group === group.get('name');
+          return s.scid === m.data.scid;
 				});
 
 				if (!s) {
 					var source = group.getSources().get(m.data.scid);
           var d = source.toJSON();
+          d.scid = m.data.scid;
           d.points = [ occ_data ];
           d.group = group.get('name');
-          sources.push(d)
+          sources.push(d);
 				} else {
 					s.points.push( occ_data );
 				}

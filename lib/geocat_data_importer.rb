@@ -5,6 +5,33 @@ require 'json'
 require 'csv-mapper'
 
 module GeocatDataImporter
+  IUCN_ORIGIN = [
+    "native",
+    "reintroduced",
+    "introduced",
+    "vagrant",
+    "origin uncertain",
+    "assisted colonisation"
+  ]
+
+  IUCN_PRESENCE = [
+    "extant",
+    "probably extant",
+    "possibly extant",
+    "possibly extinct",
+    "extinct",
+    "presence uncertain"
+  ]
+
+  IUCN_SEASONAL = [
+    "resident",
+    "breeding season",
+    "non-breeding season",
+    "passage",
+    "seasonal occurrence uncertain"
+  ]
+
+  SYMBOLS_ARRAY = ['♥','☓','⚊','⚬','☐']
 
   def self.included(base)
 
@@ -15,6 +42,7 @@ module GeocatDataImporter
       attr_writer :warnings
 
       validate :sources_must_be_valid
+
     end
 
     base.send :include, InstanceMethods
@@ -70,9 +98,11 @@ module GeocatDataImporter
       data = []
       sources.each do |source|
         data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
+          if SYMBOLS_ARRAY.include?(point['group_name'][0])
+            point['group_name'].slice!(0)
+          end
           {
-            'recordSource'                  => point['recordSource'],
-            'scientificname'                => source['query'],
+            'scientificname'                => source['alias'].empty? ? source['query'] : source['alias'],
             'latitude'                      => point['latitude'],
             'longitude'                     => point['longitude'],
             'changed'                       => point['geocat_changed'],
@@ -85,7 +115,7 @@ module GeocatDataImporter
             'catalogNumber'                 => point['catalogNumber'],
             'basisOfRecord'                 => point['basisOfRecord'],
             'seasonal'                      => point['seasonal'],
-            'origin'                        => point['origin'       ],
+            'origin'                        => point['origin'],
             'presence'                      => point['presence'],
             'eventDate'                     => point['eventDate'],
             'country'                       => point['country'],
@@ -118,6 +148,60 @@ module GeocatDataImporter
       end
       output
     end
+
+    def to_sis
+      return '' unless self.valid?
+      require 'date'
+      data = []
+      sources.each do |source|
+        data += source['points'].reject{|p| p["geocat_removed"]}.collect do |point|
+          if SYMBOLS_ARRAY.include?(point['group_name'][0])
+            point['group_name'].slice!(0)
+          end
+
+          if point['eventDate']
+            eventDate = DateTime.parse(point['eventDate']).year
+          else
+            eventDate = point['year']
+          end
+
+          {
+            'CatalogNo'                     => point['catalogNumber'],
+            'Dist_comm'                     => point['occurrenceRemarks'],
+            'Data_sens'                     => point['data_sens'],
+            'Sens_comm'                     => point['sens_comm'],
+            'Binomial'                => source['alias'].empty? ? source['query'] : source['alias'],
+            'Presence'                      => map_iucn_presence(point['presence'] || "Extant"),
+            'Origin'                        => map_iucn_origin(point['origin'] || 'Native'),
+            'Seasonal'                      => map_iucn_seasonal(point['seasonal'] || 'Resident'),
+            'Compiler'                      => point['compiler'],
+            'YrCompiled'                    => point['YrCompiled'] ? point['YrCompiled'] : Date.today.year,
+            'Dec_Lat'                       => point['latitude'],
+            'Dec_Long'                      => point['longitude'],
+            'SpatialRef'                    => 'WGS 84',
+            'Event_Year'                    => eventDate,
+            'Citation'                      => point['institutionCode'],
+            'BasisOfRec'                    => point['basisOfRecord'],
+            'CollectID'                     => point['catalogue_id'],
+            'recordedBy'                    => point['collector'],
+            'group_name'                    => point['group_name']
+          }
+        end
+      end
+
+      return if data.first.nil?
+
+      columns = data.first.keys.sort
+
+      output = FasterCSV.generate do |csv|
+        csv << columns
+        data.each do |row|
+          csv << columns.collect { |column| row[column] }
+        end
+      end
+      output
+    end
+
 
     private
       def process_as_hash(data)
@@ -163,7 +247,6 @@ module GeocatDataImporter
         }]
         csv.each do |row|
           self.sources.first['points'].push({
-            'recordSource'                  => (row.try(:recordsource)                  rescue "Added by user"),
             'latitude'                      => (row.try(:latitude)                      rescue nil),
             'longitude'                     => (row.try(:longitude)                     rescue nil),
             'collector'                     => (row.try(:collector)                     rescue nil),
@@ -305,6 +388,14 @@ module GeocatDataImporter
         end rescue nil
       end
       private :fix_encoding
+
+      [:origin, :presence, :seasonal].each do |method_name|
+        define_method "map_iucn_#{method_name}" do |arg|
+          "GeocatDataImporter::IUCN_#{method_name.to_s.upcase}".
+            constantize.index(arg.downcase.strip).
+            try { |t| t + 1 } || "#VALUE NOT VALID"
+        end
+      end
 
     end
 

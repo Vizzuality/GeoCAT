@@ -3,6 +3,6 @@ development:
   encoding: unicode
   database: geocat
   pool: 5
-  username: adrianperez
+  username: postgres
   password:
 

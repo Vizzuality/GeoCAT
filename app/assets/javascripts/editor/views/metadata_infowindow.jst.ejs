@@ -105,28 +105,6 @@
 
     <div class="row">
       <div class="field field-1">
-        <label>SEASONAL</label>
-        <select id="metadata_seasonal">
-          <option <% if (unescape(seasonal) === 'Resident') { %>selected<% } %>>Resident</option>
-          <option <% if (unescape(seasonal) === 'Breeding Season') { %>selected<% } %>>Breeding Season</option>
-          <option <% if (unescape(seasonal) === 'Non-Breeding season') { %>selected<% } %>>Non-Breeding season</option>
-          <option <% if (unescape(seasonal) === 'Passage') { %>selected<% } %>>Passage</option>
-          <option <% if (unescape(seasonal) === 'Seasonal Occurrence Uncertain') { %>selected<% } %>>Seasonal Occurrence Uncertain</option>
-          <option <% if (unescape(seasonal) === 'N/A') { %>selected<% } %>>N/A</option>
-        </select>
-      </div>
-      <div class="field field-1">
-        <label>ORIGIN</label>
-        <select id="metadata_origin">
-          <option <% if (unescape(origin) === 'Native') { %>selected<% } %>>Native</option>
-          <option <% if (unescape(origin) === 'Reintroduced') { %>selected<% } %>>Reintroduced</option>
-          <option <% if (unescape(origin) === 'Introduced') { %>selected<% } %>>Introduced</option>
-          <option <% if (unescape(origin) === 'Vagrant') { %>selected<% } %>>Vagrant</option>
-          <option <% if (unescape(origin) === 'Origin Uncertain') { %>selected<% } %>>Origin Uncertain</option>
-          <option <% if (unescape(origin) === 'N/A') { %>selected<% } %>>N/A</option>
-        </select>
-      </div>
-      <div class="field field-1">
         <label>PRESENCE</label>
         <select id="metadata_presence">
           <option <% if (unescape(presence) === 'Extant') { %>selected<% } %>>Extant</option>
@@ -137,8 +115,51 @@
           <option <% if (unescape(presence) === 'N/A') { %>selected<% } %>>N/A</option>
         </select>
       </div>
+      <div class="field field-1">
+        <label>ORIGIN</label>
+        <select id="metadata_origin">
+          <option <% if (unescape(origin) === 'Native') { %>selected<% } %>>Native</option>
+          <option <% if (unescape(origin) === 'Reintroduced') { %>selected<% } %>>Reintroduced</option>
+          <option <% if (unescape(origin) === 'Introduced') { %>selected<% } %>>Introduced</option>
+          <option <% if (unescape(origin) === 'Vagrant') { %>selected<% } %>>Vagrant</option>
+          <option <% if (unescape(origin) === 'Origin Uncertain') { %>selected<% } %>>Origin Uncertain</option>
+          <option <% if (unescape(origin) === 'Assisted Colonisation') { %>selected<% } %>>Assisted Colonisation</option>
+          <option <% if (unescape(origin) === 'N/A') { %>selected<% } %>>N/A</option>
+        </select>
+      </div>
+      <div class="field field-1">
+        <label>SEASONAL</label>
+        <select id="metadata_seasonal">
+          <option <% if (unescape(seasonal) === 'Resident') { %>selected<% } %>>Resident</option>
+          <option <% if (unescape(seasonal) === 'Breeding Season') { %>selected<% } %>>Breeding Season</option>
+          <option <% if (unescape(seasonal) === 'Non-Breeding season') { %>selected<% } %>>Non-Breeding season</option>
+          <option <% if (unescape(seasonal) === 'Passage') { %>selected<% } %>>Passage</option>
+          <option <% if (unescape(seasonal) === 'Seasonal Occurrence Uncertain') { %>selected<% } %>>Seasonal Occurrence Uncertain</option>
+          <option <% if (unescape(seasonal) === 'N/A') { %>selected<% } %>>N/A</option>
+        </select>
+      </div>
     </div>
-
+    <div class="row">
+      <div class="field field-0">
+        <label>SENSITIVE</label>
+        <select id="metadata_data_sens">
+          <option <% if (unescape(data_sens) === 'Yes') { %>selected<% } %>>Yes</option>
+          <option <% if (unescape(data_sens) === 'No' || unescape(data_sens) == "") { %>selected<% } %>>No</option>
+        </select>
+      </div>
+      <div class="field field-0">
+        <label>SENSE NOTES</label>
+        <input type="text" class="text" id="metadata_sens_comm" value='<%= unescape(sens_comm) %>' />
+      </div>
+      <div class="field field-0">
+        <label>COMPILER</label>
+        <input type="text" class="text" id="metadata_compiler" value='<%= unescape(compiler) %>' />
+      </div>
+      <div class="field field-0">
+        <label class="year_compiled">YEAR COMPILED</label>
+        <input type="text" class="text" id="metadata_yrcompiled" value='<%= unescape(yrcompiled) %>' />
+      </div>
+    </div>
     <div class="row">
       <div class="field field-3">
         <label>NOTES</label>
