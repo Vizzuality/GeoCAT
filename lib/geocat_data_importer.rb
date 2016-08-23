@@ -170,7 +170,7 @@ module GeocatDataImporter
             'Dist_comm'                     => point['occurrenceRemarks'],
             'Data_sens'                     => point['data_sens'],
             'Sens_comm'                     => point['sens_comm'],
-            'ScientificName'                => source['alias'].empty? ? source['query'] : source['alias'],
+            'Binomial'                => source['alias'].empty? ? source['query'] : source['alias'],
             'Presence'                      => map_iucn_presence(point['presence'] || "Extant"),
             'Origin'                        => map_iucn_origin(point['origin'] || 'Native'),
             'Seasonal'                      => map_iucn_seasonal(point['seasonal'] || 'Resident'),
