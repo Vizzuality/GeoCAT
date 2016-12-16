@@ -26,7 +26,7 @@
       if (error) return error;
 
       // CartoDB api
-      if (url.search('cartodb.com/api/v2/viz') === -1) {
+      if (url.search('cartodb.com/api/v2/viz') === -1 && url.search('carto.com/api/v2/viz') === -1) {
         return 'URL is not a valid CartoDB url'
       }
 
