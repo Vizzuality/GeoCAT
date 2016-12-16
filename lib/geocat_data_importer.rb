@@ -244,8 +244,10 @@ module GeocatDataImporter
             "inaturalist"
           when type["picasa"]
             "picasa"
-          else
+          when type["gbif"]
             "gbif"
+          else
+            "user"
           end
         end
 
