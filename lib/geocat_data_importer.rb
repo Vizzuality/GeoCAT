@@ -253,7 +253,9 @@ module GeocatDataImporter
 
         self.sources = []
 
-        data_by_species = csv.group_by{|t| t.scientificname}
+
+        data_by_species = csv.group_by{|t| t.respond_to?(:scientificname) ? t.scientificname : "user" }
+
         data_by_species.each do |species_name, spc_data|
           source = {
             'type' => 'csv',
@@ -263,30 +265,30 @@ module GeocatDataImporter
           }
           spc_data.each do |row|
             source['points'] << {
-              'latitude' => (row.try(:latitude) || nil),
-              'longitude' => (row.try(:longitude) || nil),
-              'collector' => (row.try(:collector) || nil),
-              'coordinateUncertaintyInMeters' => (row.try(:coordinateuncertaintyinmeters) || nil),
+              'latitude' => (row.respond_to?(:latitude) ? row.latitude : nil),
+              'longitude' => (row.respond_to?(:longitude) ? row.longitude : nil),
+              'collector' => (row.respond_to?(:collector) ? row.collector : nil),
+              'coordinateUncertaintyInMeters' => (row.respond_to?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil),
               'catalogue_id' => nil,
-              'collectionCode' => (row.try(:collectioncode) || nil),
-              'institutionCode' => (row.try(:institutioncode) || nil),
-              'catalogNumber' => (row.try(:catalognumber) || nil),
-              'basisOfRecord' => (row.try(:basisofrecord) || nil),
-              'presence' => (row.try(:presence) || 'Extant'),
-              'seasonal' => (row.try(:seasonal) || 'Resident'),
-              'origin' => (row.try(:origin) || 'Native'),
-              'eventDate' => (row.try(:eventdate) || nil),
-              'country' => (row.try(:country) || nil),
-              'stateProvince' => (row.try(:stateprovince) || nil),
-              'county' => (row.try(:county) || nil),
-              'verbatimElevation' => (row.try(:verbatimelevation) || nil),
-              'locality' => (row.try(:locality) || nil),
-              'coordinateUncertaintyText' => (row.try(:coordinateuncertaintytext) || nil),
-              'identifiedBy' => (row.try(:identifiedby) || nil),
-              'occurrenceRemarks' => (row.try(:occurrenceremarks) || nil),
-              'occurrenceDetails' => (row.try(:occurrencedetails) || nil),
+              'collectionCode' => (row.respond_to?(:collectioncode) ? row.collectioncode : nil),
+              'institutionCode' => (row.respond_to?(:institutioncode) ? row.institutioncode : nil),
+              'catalogNumber' => (row.respond_to?(:catalognumber) ? row.catalognumber : nil),
+              'basisOfRecord' => (row.respond_to?(:basisofrecord) ? row.basisofrecord : nil),
+              'presence' => (row.respond_to?(:presence) ? row.presence : 'Extant'),
+              'seasonal' => (row.respond_to?(:seasonal) ? row.seasonal : 'Resident'),
+              'origin' => (row.respond_to?(:origin) ? row.origin : 'Native'),
+              'eventDate' => (row.respond_to?(:eventdate) ? row.eventdate :  nil),
+              'country' => (row.respond_to?(:country) ? row.country : nil),
+              'stateProvince' => (row.respond_to?(:stateprovince) ? row.stateprovince : nil),
+              'county' => (row.respond_to?(:county) ? row.county : nil),
+              'verbatimElevation' => (row.respond_to?(:verbatimelevation) ? row.verbatimelevation : nil),
+              'locality' => (row.respond_to?(:locality) ? row.locality : nil),
+              'coordinateUncertaintyText' => (row.respond_to?(:coordinateuncertaintytext) ? row.coordinateuncertaintytext : nil),
+              'identifiedBy' => (row.respond_to?(:identifiedby) ? row.identifiedby : nil),
+              'occurrenceRemarks' => (row.respond_to?(:occurrenceremarks) ? row.occurrenceremarks : nil),
+              'occurrenceDetails' => (row.respond_to?(:occurrencedetails) ? row.ocurrencedetails : nil),
               'geocat_query' => species_name,
-              'geocat_kind' => (row.try(:geocat_kind) || set_geocat_kind(row['catalogue_id'])),
+              'geocat_kind' => row.respond_to?(:geocat_kind) ? row.geocat_kind : row.respond_to?(:catalogue_id) ? set_geocat_kind(row.catalogue_id): nil,
               'geocat_alias' => species_name
             }
           end
