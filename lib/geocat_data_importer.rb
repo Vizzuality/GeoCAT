@@ -253,7 +253,6 @@ module GeocatDataImporter
 
         self.sources = []
 
-
         data_by_species = csv.group_by{|t| t.respond_to?(:scientificname) ? t.scientificname : "user" }
 
         data_by_species.each do |species_name, spc_data|
@@ -286,7 +285,7 @@ module GeocatDataImporter
               'coordinateUncertaintyText' => (row.members.include?(:coordinateuncertaintytext) ? row.coordinateuncertaintytext : nil),
               'identifiedBy' => (row.members.include?(:identifiedby) ? row.identifiedby : nil),
               'occurrenceRemarks' => (row.members.include?(:occurrenceremarks) ? row.occurrenceremarks : nil),
-              'occurrenceDetails' => (row.members.include?(:occurrencedetails) ? row.ocurrencedetails : nil),
+              'occurrenceDetails' => (row.members.include?(:occurrencedetails) ? row.occurrencedetails : nil),
               'geocat_query' => species_name,
               'geocat_kind' => row.members.include?(:geocat_kind) ? row.geocat_kind : row.members.include?(:catalogue_id) ? set_geocat_kind(row.catalogue_id): nil,
               'geocat_alias' => species_name
