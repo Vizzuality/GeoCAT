@@ -18,7 +18,7 @@
     events: {
       'click a.source': '_triggerSelect',
       'click a.cancel': '_cancel',
-      'click a.retry':  '_retry',
+      'click a.-js-retry':  '_retry',
       'submit form':    '_submit',
       'click a.import': '_import',
     },
