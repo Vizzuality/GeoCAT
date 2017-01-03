@@ -95,7 +95,7 @@
 
     _import: function(e) {
       this.killEvent(e);
-      this.trigger("import", this.model.get('value'));
+      this.trigger("import", this.model.get('value'), $(e.currentTarget).data('split'));
     },
 
     _onRequestError: function(e) {

@@ -289,7 +289,8 @@ module GeocatDataImporter
               'geocat_query' => species_name,
               'geocat_kind' => row.members.include?(:geocat_kind) ? row.geocat_kind : row.members.include?(:catalogue_id) ? set_geocat_kind(row.catalogue_id): nil,
               'geocat_alias' => species_name,
-              'group' => row.members.include?(:group_name) ? row.group_name : "Group"
+              'group' => row.members.include?(:group_name) ? row.group_name : "Group",
+              'species_name' => species_name
             }
           end
           self.sources << source

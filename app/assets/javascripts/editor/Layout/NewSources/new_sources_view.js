@@ -104,11 +104,15 @@
       this.addView(v);
     },
 
-    _importSource: function(data) {
+    _importSource: function(data, splitOn) {
       // Again, please, god :)
-      _.each(_.groupBy(data.points, 'group'), function(points, key) {
-        addSourceToMap({group: key, points: points}, true, false);
-      });
+      if(splitOn !== undefined && ['group', 'species_name'].indexOf(splitOn) >=0) {
+        _.each(_.groupBy(data.points, splitOn), function(points, key) {
+          addSourceToMap({group: key, points: points}, true, false);
+        });
+      } else {
+        addSourceToMap(data, true, false);
+      }
       this.hide();
     },
 

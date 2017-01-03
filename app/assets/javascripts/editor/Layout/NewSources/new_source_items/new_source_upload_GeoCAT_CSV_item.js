@@ -37,9 +37,13 @@
         }
 
         var count = _.filter(total_occurrences.points, function(occ) { return !occ.geocat_removed }).length || 0;
+        var count_spp = Object.keys(_.groupBy(total_occurrences.points, 'geocat_query')).length;
+        var count_group = Object.keys(_.groupBy(total_occurrences.points, 'group')).length;
 
-        this.$('.success p').text(
-          count + ((count == 1) ? " occ" : " occs") + ' found'
+        this.$('.success p').html(
+          count_spp + " species<br />"+
+          count_group + (count_group === 1 ? " group" : " groups") + "<br /> in " +
+          count + ((count == 1) ? " occ" : " occs") + ' found <br />'
         );
 
         this.model.set({
