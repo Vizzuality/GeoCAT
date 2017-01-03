@@ -52,7 +52,7 @@ module GeocatDataImporter
 
   module InstanceMethods
 
-    def initialize(data = nil)
+    def initialize(data = nil, split_on = "scientificname")
       return if data.blank?
 
       case data
@@ -63,7 +63,7 @@ module GeocatDataImporter
           process_as_hash data
         rescue JSON::ParserError => e
           begin
-            process_as_csv data
+            process_as_csv data, split_on
           rescue Exception => ex
             errors.add(:file, 'file is not valid')
           end
@@ -217,7 +217,7 @@ module GeocatDataImporter
 
       end
 
-      def process_as_csv(file)
+      def process_as_csv(file, split_on)
         buffer = fix_encoding(file)
 
         csv = CsvMapper.import(buffer, {:type => :io}) do
@@ -288,7 +288,8 @@ module GeocatDataImporter
               'occurrenceDetails' => (row.members.include?(:occurrencedetails) ? row.occurrencedetails : nil),
               'geocat_query' => species_name,
               'geocat_kind' => row.members.include?(:geocat_kind) ? row.geocat_kind : row.members.include?(:catalogue_id) ? set_geocat_kind(row.catalogue_id): nil,
-              'geocat_alias' => species_name
+              'geocat_alias' => species_name,
+              'group' => split_on == "scientificname" ? species_name : (row.members.include?(:group_name) ? row.group_name : "Group")
             }
           end
           self.sources << source
