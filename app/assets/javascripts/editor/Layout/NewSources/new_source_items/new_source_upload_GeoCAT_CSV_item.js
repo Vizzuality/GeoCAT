@@ -10,7 +10,6 @@
     _onComplete: function(e, data) {
 
       var r = data.result;
-
       // Create source using import data :)
 
       var total_occurrences = {};
