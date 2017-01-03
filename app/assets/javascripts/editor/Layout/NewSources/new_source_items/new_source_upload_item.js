@@ -49,9 +49,14 @@
     },
 
     _onAdd: function(e, data) {
-      if (data.originalFiles.length == 1) {
-        this.xhr = data.submit();
-      }
+      $('.split').show();
+      data.context = $('.split button').click(function() {
+        if (data.originalFiles.length == 1) {
+          $('.split').hide();
+          data.formData = {split_on: $(this).data('split')};
+          this.xhr = data.submit();
+        }
+      });
     },
 
     _onProgress: function(){
@@ -87,6 +92,7 @@
 
     _destroyUploader: function() {
       this.$('.uploader').fileupload('destroy');
+      this.$('.split').hide();
     },
 
     clean: function() {
