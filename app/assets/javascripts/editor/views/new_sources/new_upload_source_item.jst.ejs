@@ -12,11 +12,6 @@
       <span class="label">Select a file</span>
     </div>
   </div>
-  <div class="split">
-    Split file on
-    <button data-split='scientificname'>Scientific Name</button>
-    <button data-split='group'>Group</button>
-  </div>
   <div class="loading">
     <p>Uploading...</p>
     <a href="#/cancel" class="cancel">cancel</a>
@@ -25,6 +20,12 @@
     <p>x ocss</p>
     <a href="#/discard" class="retry">discard</a>
     <a href="#/import" class="import">import</a>
+    <a href="#/import_split_species" class="import" data-split="species_name">
+      import split on species
+    </a>
+    <a href="#/import_split_group" class="import" data-split="group">
+      import split on group
+    </a>
   </div>
   <div class="error">
     <p>There was an error :(</p>
