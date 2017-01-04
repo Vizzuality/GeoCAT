@@ -113,6 +113,7 @@
       } else {
         addSourceToMap(data, true, false);
       }
+      $(".select2-container").select2("open")
       this.hide();
     },
 

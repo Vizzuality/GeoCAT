@@ -43,8 +43,20 @@
         this.$('.success p').html(
           count_spp + " species<br />"+
           count_group + (count_group === 1 ? " group" : " groups") + "<br /> in " +
-          count + ((count == 1) ? " occ" : " occs") + ' found <br />'
+          count + ((count == 1) ? " ocurrence" : " occurrences")
         );
+
+        if(count_spp > 1) {
+          this.$('.success .import-species').show();
+        } else {
+          this.$('.success .import-species').hide();
+        }
+
+        if(count_group > 1) {
+          this.$('.success .import-group').show();
+        } else {
+          this.$('.success .import-group').hide();
+        }
 
         this.model.set({
           value: total_occurrences,
