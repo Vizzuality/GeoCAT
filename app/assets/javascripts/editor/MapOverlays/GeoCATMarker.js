@@ -100,9 +100,7 @@
           }
 
           var shape = this.symbol || '';
-          if (sessionStorage.getItem('currentSymbol'))
-            shape = sessionStorage.getItem('currentSymbol');
-          
+
           context.fillStyle = "rgba(255,255,255,0.75)";
           context.beginPath();
           context.arc(11,11,11,0,Math.PI*2,false);

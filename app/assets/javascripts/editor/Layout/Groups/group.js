@@ -7,6 +7,7 @@
   var GroupModel = Backbone.Model.extend({
 
     defaults: {
+      order:    1,
       name:     'Group',
       active:   false,
       removed:  false,

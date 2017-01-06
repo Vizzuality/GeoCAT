@@ -31,7 +31,8 @@
 
       this.collection.each(function(m) {
         if (!m.get('removed')) {
-          this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' + m.get('name') + '</option>')
+          this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' +
+                          '('+m.get('order')+') '+m.get('name') + '</option>')
         }
       }, this);
 
@@ -71,10 +72,12 @@
         sessionStorage.setItem('toggleing_global', true);
 
         var selectedCol = e.data.collection.findWhere({ active: true });
-        selectedCol.sources.each(function(s) {
-          $('.source[data-modelcid="'+s.cid+'"] .visible_specie').
-            trigger('click');
-        });
+        if(selectedCol !== undefined) {
+          selectedCol.sources.each(function(s) {
+            $('.source[data-modelcid="'+s.cid+'"] .visible_specie').
+              trigger('click');
+          });
+        }
     },
 
     _initBinds: function() {
@@ -91,9 +94,11 @@
       var size = this.collection.size();
 
       if (!state.id) return state.text;
-
+      var cid = $(state.element).data('cid');
+      var mdl = this.collection.find(function(m) { return m.cid === cid });
+      var text = state.text.replace("("+mdl.get('order')+") ", "");
       return  "<i class='fa fa-dot-circle-o visible disabled'></i>\
-              <form><input class='text' type='text' value='" + state.text + "' readonly /></form>\
+              <form><input class='text' type='text' value='" + text + "' readonly /></form>\
               <i class='fa fa-pencil edit'></i>\
               <i class='fa fa-times delete " + ( size > 1 ? '' : 'disabled' ) + "'></i>";
     },
@@ -204,23 +209,24 @@
         // Change option
         var $opt = $(data.element);
         var cid = $opt.data('cid');
-        var value = $input.val();
-        $opt.text(value);
-
-        // Change current selected?
-        if ($opt.attr('selected')) {
-          self.$el.data('select2').container.find('.select2-chosen').text(value);
-        }
 
         // Change model property
         var mdl = self.collection.find(function(m){
           return m.cid === cid
         });
-
+        var value = $input.val();
         if (mdl) {
-          mdl.set('name', value)
+          mdl.set('name', value);
         } else {
           console.log("[GROUP] Group not found, renaming incomplete");
+        }
+        value = '('+mdl.get('order')+') '+ value;
+
+        $opt.text(value);
+
+        // Change current selected?
+        if ($opt.attr('selected')) {
+          self.$el.data('select2').container.find('.select2-chosen').text(value);
         }
 
         // Set value
@@ -241,13 +247,10 @@
 
       if ($e.hasClass('create_new')) {
         this.killEvent(e);
+        var position = $('.group_combo').find('option').length + 1;
         var name = $(e.target).data('name');
-        if (!! name) {
-          var symbolsArray = ['','♥','☓','⚊','⚬','☐'];
-          name = symbolsArray[$('.group_combo').find('option').length]+ ' ' + name;
-          symbolsArray.length = 0;
-        }
-        var m = new GroupModel({ name: name, active: true },{ map: this.options.map });
+        var m = new GroupModel({ order: position,
+                               name: name, active: true },{ map: this.options.map });
         this.collection.add(m);
         this.trigger('onSelect', name, m.cid, this);
       }

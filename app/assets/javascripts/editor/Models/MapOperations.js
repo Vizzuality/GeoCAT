@@ -321,13 +321,17 @@
           });
 
           if (!group) {
+            var group_order = groups.length + 1;
             group = new GroupModel({
               name: information.group,
-              symbol: symbol
+              order: group_order
             }, {
               map: map
             })
             groups.push(group);
+          }
+          if(group !== undefined) {
+            symbol = group.get('order');
           }
         }
 
@@ -384,9 +388,9 @@
 				global_id++;
 				info_data.catalogue_id = 'user_' + global_id;
 
-				var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map);
+				var marker = new GeoCATMarker(latlng, geocat_kind, true, true, info_data, (info_data.geocat_removed)?null:map, symbol);
                 oms.addMarker(marker)
-  
+
                 occurrences[marker.data.catalogue_id] = marker;
                 occurrences[marker.data.catalogue_id].data.geocat_query = geocat_query;
                 occurrences[marker.data.catalogue_id].data.geocat_kind = geocat_kind;
