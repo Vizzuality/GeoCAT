@@ -40,11 +40,19 @@
         var count_spp = Object.keys(_.groupBy(total_occurrences.points, 'geocat_query')).length;
         var count_group = Object.keys(_.groupBy(total_occurrences.points, 'group')).length;
 
-        this.$('.success p').html(
-          count_spp + " species<br />"+
-          count_group + (count_group === 1 ? " group" : " groups") + "<br /> in " +
-          count + ((count == 1) ? " ocurrence" : " occurrences")
-        );
+        var msg = '';
+        if(count_spp > 1) {
+          msg = count_spp + ' species<br />';
+        }
+        if(count_group > 1) {
+          msg = msg + count_group + " groups <br />";
+        }
+        if(msg !== '') {
+          msg = msg + "in ";
+        }
+        msg = msg + count + ((count == 1) ? " ocurrence" : " occurrences");
+
+        this.$('.success p').html(msg);
 
         if(count_spp > 1) {
           this.$('.success .import-species').show();
