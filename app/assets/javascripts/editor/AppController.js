@@ -106,7 +106,6 @@
 
             // Create first group
             var initial_group = new GroupModel({ active: true }, { map: map });
-            sessionStorage.setItem('currentSymbol', initial_group.attributes.order);
             groups.add(initial_group);
 
             // Trick to hide welcome window if user clicks off this container

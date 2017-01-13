@@ -675,6 +675,9 @@
 				global_zIndex++;
 				var date = new Date();
 
+        // find selected group
+        var selectedGroup = groups.models.
+          find(function(m) { return "("+m.get("order")+") "+m.get("name") === $('.group_combo .select2-chosen').text()});
 				var inf = {
 		          coordinateUncertaintyInMeters:  15000,
 		          collector:                      '',
@@ -687,7 +690,7 @@
 		          geocat_kind:                    'user',
 		          geocat_query:                    'user',
 		          geocat_removed:                 false,
-		          group_name: 					  $('.group_combo .select2-chosen').text()
+		          group_name: 					  selectedGroup.get("name")
 		        };
 
 
@@ -715,7 +718,7 @@
 		        // }).get('alias');
 		        // inf.geocat_alias = alias;
 
-		        var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map);
+		        var marker = new GeoCATMarker(latlng, 'user', false, false, inf, map, selectedGroup.get("order"));
 				bounds.extend(latlng);
 				//Save occurence
 				occurrences[inf.catalogue_id] = marker;
