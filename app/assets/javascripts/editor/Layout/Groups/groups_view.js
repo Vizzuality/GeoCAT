@@ -45,7 +45,7 @@
     _setActiveGroup: function(value, cid) {
       this.collection.each(function(m) {
         var groupDisplayName = '('+m.get('order')+') '+m.get('name');
-        if ([m.get('name'), groupDisplayName].indexOf(value) > 0 && m.cid == cid && !m.get('removed')) {
+        if ([m.get('name'), groupDisplayName].indexOf(value) > -1 && m.cid == cid && !m.get('removed')) {
           // Set active group
           m.set('active', true);
           // Change sources_collection global variable :S
