@@ -110,10 +110,10 @@
         _.each(_.groupBy(data.points, splitOn), function(points, key) {
           addSourceToMap({group: key, points: points}, true, false);
         });
+        $(".select2-container").select2("open")
       } else {
         addSourceToMap(data, true, false);
       }
-      $(".select2-container").select2("open")
       this.hide();
     },
 
