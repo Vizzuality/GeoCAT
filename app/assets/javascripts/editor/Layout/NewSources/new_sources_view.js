@@ -110,8 +110,12 @@
         _.each(_.groupBy(data.points, splitOn), function(points, key) {
           addSourceToMap({group: key, points: points}, true, false);
         });
-        $(".select2-container").select2("open")
+        $('.select2-container').select2('open')
       } else {
+        var activeGroup = groups.getActive();
+        if(activeGroup !== undefined) {
+          data.group = activeGroup.get('name');
+        }
         addSourceToMap(data, true, false);
       }
       this.hide();
