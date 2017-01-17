@@ -156,11 +156,15 @@ module GeocatDataImporter
             point['group_name'].slice!(0)
           end
 
-          if point['eventDate']
-            eventDate = DateTime.parse(point['eventDate']).year
-          else
-            eventDate = point['year']
-          end
+          eventDate = if point['eventDate'].present?
+                        begin
+                          DateTime.parse(point['eventDate']).try(:year)
+                        rescue
+                          point['eventDate']
+                        end
+                      else
+                        point['year']
+                      end
 
           {
             'CatalogNo'                     => point['catalogNumber'],
