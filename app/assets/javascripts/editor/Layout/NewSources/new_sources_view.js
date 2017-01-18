@@ -106,7 +106,9 @@
 
     _importSource: function(data) {
       // Again, please, god :)
-      addSourceToMap(data, true, false);
+      _.each(_.groupBy(data.points, 'group'), function(points, key) {
+        addSourceToMap({group: key, points: points}, true, false);
+      });
       this.hide();
     },
 

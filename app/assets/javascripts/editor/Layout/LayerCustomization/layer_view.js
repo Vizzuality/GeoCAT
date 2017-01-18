@@ -66,7 +66,7 @@
     },
 
     _toggleSlider: function() {
-      var isAdded = this.model.get('added') && ( this.model.get('type') === "xyz" || this.model.get('type') === "wms" );
+      var isAdded = this.model.get('added') && ["xyz", "wms", "cartodb"].indexOf(this.model.get('type') >= 0);
       this.$('div.foot')[ !isAdded ? 'hide' : 'show' ]()
     },
 
@@ -96,7 +96,11 @@
     },
 
     _onSlideChange: function(e, ui) {
-      this.model.set('opacity', ui.value);
+      if(this.model.get('type') === 'cartodb') {
+        this.model.get('layer').setOpacity(ui.value)
+      } else {
+        this.model.set('opacity', ui.value);
+      }
     },
 
     _onSubmit: function(e) {

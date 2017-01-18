@@ -533,7 +533,6 @@
           } else {
             ++j;
           }
-
           if (group.getSources().size() > 0 && group.getSources().at(j)) {
             s = group.getSources().at(j);
             asyncRemoveMarker(s.get('query'),s.get('type'));
@@ -579,6 +578,9 @@
 
         if (!s) {
           console.log("Delete all function can't find this source { query:" + query + ", type:" + type + " }" );
+        } else {
+          // mark group as removed
+          s.set("removed", true);
         }
 
         function asynRemoveMarker(query,type) {
@@ -608,7 +610,6 @@
             },0);
           }
         }
-
         asynRemoveMarker(query,type);
 			}
 
@@ -635,7 +636,6 @@
 
             // sources_collection.deduct(query, kind);
             groups.deduct(occurrences[marker_id].data, kind, query);
-
             occurrences[marker_id].data.geocat_removed = true;
             occurrences[marker_id].setMap(null);
             i++;

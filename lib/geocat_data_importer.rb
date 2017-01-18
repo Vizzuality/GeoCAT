@@ -114,9 +114,6 @@ module GeocatDataImporter
             'institutionCode'               => point['institutionCode'],
             'catalogNumber'                 => point['catalogNumber'],
             'basisOfRecord'                 => point['basisOfRecord'],
-            'seasonal'                      => point['seasonal'],
-            'origin'                        => point['origin'],
-            'presence'                      => point['presence'],
             'eventDate'                     => point['eventDate'],
             'country'                       => point['country'],
             'stateProvince'                 => point['stateProvince'],
@@ -159,11 +156,15 @@ module GeocatDataImporter
             point['group_name'].slice!(0)
           end
 
-          if point['eventDate']
-            eventDate = DateTime.parse(point['eventDate']).year
-          else
-            eventDate = point['year']
-          end
+          eventDate = if point['eventDate'].present?
+                        begin
+                          DateTime.parse(point['eventDate']).try(:year)
+                        rescue
+                          point['eventDate']
+                        end
+                      else
+                        point['year']
+                      end
 
           {
             'CatalogNo'                     => point['catalogNumber'],
@@ -239,53 +240,63 @@ module GeocatDataImporter
           "longitude" => csv.first.respond_to?(:center_longitude) ? csv.first.center_longitude : nil
         }
 
-        self.sources        = [{
-          'type'   => 'csv',
-          'name'   => reportName,
-          'query'  => query,
-          'points' => []
-        }]
-        csv.each do |row|
-          self.sources.first['points'].push({
-            'latitude'                      => (row.try(:latitude)                      rescue nil),
-            'longitude'                     => (row.try(:longitude)                     rescue nil),
-            'collector'                     => (row.try(:collector)                     rescue nil),
-            'coordinateUncertaintyInMeters' => (row.try(:coordinateuncertaintyinmeters) rescue nil),
-            'catalogue_id'                  => nil,
-            'collectionCode'                => (row.try(:collectioncode)                rescue nil),
-            'institutionCode'               => (row.try(:institutioncode)               rescue nil),
-            'catalogNumber'                 => (row.try(:catalognumber)                 rescue nil),
-            'basisOfRecord'                 => (row.try(:basisofrecord)                 rescue nil),
-            'presence'                      => (row.try(:presence)                      rescue 'Extant'),
-            'seasonal'                      => (row.try(:seasonal)                      rescue 'Resident'),
-            'origin'                        => (row.try(:origin)                        rescue 'Native'),
-            'eventDate'                     => (row.try(:eventdate)                     rescue nil),
-            'country'                       => (row.try(:country)                       rescue nil),
-            'stateProvince'                 => (row.try(:stateprovince)                 rescue nil),
-            'county'                        => (row.try(:county)                        rescue nil),
-            'verbatimElevation'             => (row.try(:verbatimelevation)             rescue nil),
-            'locality'                      => (row.try(:locality)                      rescue nil),
-            'coordinateUncertaintyText'     => (row.try(:coordinateuncertaintytext)     rescue nil),
-            'identifiedBy'                  => (row.try(:identifiedby)                  rescue nil),
-            'occurrenceRemarks'             => (row.try(:occurrenceremarks)             rescue nil),
-            'occurrenceDetails'             => (row.try(:occurrencedetails)             rescue nil),
-            'geocat_query'                  => query,
-            'geocat_kind'                   => (row.try(:geocat_kind)                   rescue row.members.include?(:catalogue_id) ? set_geocat_kind(row.catalogue_id) : 'user'),
-            'geocat_alias'                  => reportName
-          })
+        def set_geocat_kind(type)
+          case type
+          when type["flickr"]
+            "flickr"
+          when type["inaturalist"]
+            "inaturalist"
+          when type["picasa"]
+            "picasa"
+          when type["gbif"]
+            "gbif"
+          else
+            "user"
+          end
         end
-      end
 
-      def set_geocat_kind(type)
-        case type
-        when type["flickr"]
-          "flickr"
-        when type["inaturalist"]
-          "inaturalist"
-        when type["picasa"]
-          "picasa"
-        else
-          "gbif"
+        self.sources = []
+
+        data_by_species = csv.group_by{|t| t.respond_to?(:scientificname) ? t.scientificname : "user" }
+
+        data_by_species.each do |species_name, spc_data|
+          source = {
+            'type' => 'csv',
+            'name' => species_name,
+            'query' => species_name,
+            'points' => []
+          }
+          spc_data.each do |row|
+            source['points'] << {
+              'latitude' => (row.members.include?(:latitude) ? row.latitude : nil),
+              'longitude' => (row.members.include?(:longitude) ? row.longitude : nil),
+              'collector' => (row.members.include?(:collector) ? row.collector : nil),
+              'coordinateUncertaintyInMeters' => (row.members.include?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil),
+              'catalogue_id' => nil,
+              'collectionCode' => (row.members.include?(:collectioncode) ? row.collectioncode : nil),
+              'institutionCode' => (row.members.include?(:institutioncode) ? row.institutioncode : nil),
+              'catalogNumber' => (row.members.include?(:catalognumber) ? row.catalognumber : nil),
+              'basisOfRecord' => (row.members.include?(:basisofrecord) ? row.basisofrecord : nil),
+              'presence' => (row.members.include?(:presence) ? row.presence : 'Extant'),
+              'seasonal' => (row.members.include?(:seasonal) ? row.seasonal : 'Resident'),
+              'origin' => (row.members.include?(:origin) ? row.origin : 'Native'),
+              'eventDate' => (row.members.include?(:eventdate) ? row.eventdate :  nil),
+              'country' => (row.members.include?(:country) ? row.country : nil),
+              'stateProvince' => (row.members.include?(:stateprovince) ? row.stateprovince : nil),
+              'county' => (row.members.include?(:county) ? row.county : nil),
+              'verbatimElevation' => (row.members.include?(:verbatimelevation) ? row.verbatimelevation : nil),
+              'locality' => (row.members.include?(:locality) ? row.locality : nil),
+              'coordinateUncertaintyText' => (row.members.include?(:coordinateuncertaintytext) ? row.coordinateuncertaintytext : nil),
+              'identifiedBy' => (row.members.include?(:identifiedby) ? row.identifiedby : nil),
+              'occurrenceRemarks' => (row.members.include?(:occurrenceremarks) ? row.occurrenceremarks : nil),
+              'occurrenceDetails' => (row.members.include?(:occurrencedetails) ? row.occurrencedetails : nil),
+              'geocat_query' => species_name,
+              'geocat_kind' => row.members.include?(:geocat_kind) ? row.geocat_kind : row.members.include?(:catalogue_id) ? set_geocat_kind(row.catalogue_id): nil,
+              'geocat_alias' => species_name,
+              'group' => row.members.include?(:group_name) ? row.group_name : "Group"
+            }
+          end
+          self.sources << source
         end
       end
 

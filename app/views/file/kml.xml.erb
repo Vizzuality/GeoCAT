@@ -528,8 +528,10 @@
         <name>occurrences</name>
         <% if @geocat['sources'].present? %>
           <% @geocat['sources'].each do |source| %>
+            <% next if source['removed'] == true %>
             <% if source && source['points'].present? %>
               <% source['points'].each do |point| %>
+                <% next if point['geocat_removed'] == true %>
                 <Placemark>
                   <name><%= @geocat['scientificname'] %></name>
                   <description>
