@@ -172,7 +172,11 @@
       this.$el.closest('.group_combo').removeClass('disable');
     },
 
-    _onVisible: function(data, e) {},
+    _onVisible: function(data, e) {
+      //how great this function was empty...
+      $(e.target).toggleClass('disabled');
+      $('.toggle_group_visibility').trigger('click');
+    },
 
     _onEdit: function(data, e) {
       var $el = $(e.target);
