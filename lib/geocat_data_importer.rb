@@ -259,7 +259,7 @@ module GeocatDataImporter
 
         data_by_species = csv.group_by{|t| t.respond_to?(:scientificname) ? t.scientificname : "user" }
 
-        data_by_species.each do |species_name, spc_data|
+        data_by_species.sort.each do |species_name, spc_data|
           source = {
             'type' => 'csv',
             'name' => species_name,
