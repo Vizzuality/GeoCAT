@@ -60,24 +60,7 @@
       .data('select2');
 
       select2.onSelect = (this._onSelect)(select2.onSelect);
-
-      $('.toggle_group_visibility').off('click', this.clickToggleVisibility).
-                                    on('click',
-                                       { collection: this.collection },
-                                       this.clickToggleVisibility);
       return this;
-    },
-
-    clickToggleVisibility: function(e) {
-        sessionStorage.setItem('toggleing_global', true);
-
-        var selectedCol = e.data.collection.findWhere({ active: true });
-        if(selectedCol !== undefined) {
-          selectedCol.sources.each(function(s) {
-            $('.source[data-modelcid="'+s.cid+'"] .visible_specie').
-              trigger('click');
-          });
-        }
     },
 
     _initBinds: function() {
