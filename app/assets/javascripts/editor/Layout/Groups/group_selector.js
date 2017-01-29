@@ -164,17 +164,17 @@
       // Get group info
       var cid = $(data.element).data('cid');
       var mdl = this.collection.get({ cid: cid });
+      var hidden = mdl.get('hidden');
+
+      $(e.target)[hidden ? 'removeClass' : 'addClass']('disabled');
+      mdl.set('hidden', !hidden);
+
       mdl.sources.each(function(s) {
-        $('.source[data-modelcid="'+s.cid+'"] .visible_specie').
-          trigger('click');
+        // because visible is the opposite of hidden...
+        s.set('visible', !mdl.get('hidden'));
+        $('.source[data-modelcid="'+s.cid+'"] .visible_specie')[hidden ? 'addClass' : 'removeClass']('on');
+        hideAll(s.get('visible'), s.cid);
       });
-      if(mdl.get('hidden') === true) {
-        $(e.target).removeClass("disabled");
-        mdl.set('hidden', false);
-      } else {
-        $(e.target).addClass("disabled");
-        mdl.set('hidden', true);
-      }
     },
 
     _onEdit: function(data, e) {
