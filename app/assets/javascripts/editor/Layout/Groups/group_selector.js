@@ -97,7 +97,7 @@
       var cid = $(state.element).data('cid');
       var mdl = this.collection.find(function(m) { return m.cid === cid });
       var text = state.text.replace("("+mdl.get('order')+") ", "");
-      return  "<i class='fa fa-dot-circle-o visible "+ (mdl.get('hidden') ? 'disabled' : '') +"'></i>\
+      return  "<i class='fa fa-eye visible "+ (mdl.get('hidden') ? 'disabled' : '') +"'></i>\
               <form><input class='text' type='text' value='" + text + "' readonly /></form>\
               <i class='fa fa-pencil edit'></i>\
               <i class='fa fa-times delete " + ( size > 1 ? '' : 'disabled' ) + "'></i>";
