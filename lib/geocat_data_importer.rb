@@ -267,9 +267,11 @@ module GeocatDataImporter
             'points' => []
           }
           spc_data.each do |row|
+            lat = row.members.include?(:latitude) ? row.latitude : (row.members.include?(:dec_lat) ? row.dec_lat : nil)
+            lon = row.members.include?(:longitude) ? row.longitude : (row.members.include?(:dec_long) ? row.dec_long : nil)
             source['points'] << {
-              'latitude' => (row.members.include?(:latitude) ? row.latitude : nil),
-              'longitude' => (row.members.include?(:longitude) ? row.longitude : nil),
+              'latitude' => lat,
+              'longitude' => lon,
               'collector' => (row.members.include?(:collector) ? row.collector : nil),
               'coordinateUncertaintyInMeters' => (row.members.include?(:coordinateuncertaintyinmeters) ? row.coordinateuncertaintyinmeters : nil),
               'catalogue_id' => nil,
