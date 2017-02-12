@@ -321,7 +321,8 @@
           });
 
           if (!group) {
-            var group_order = groups.length + 1;
+            var base = groups.size() === 0 ? 0 : groups.max(function(group) { return group.get('order'); }).get('order');
+            var group_order = base + 1;
             group = new GroupModel({
               name: information.group,
               order: group_order

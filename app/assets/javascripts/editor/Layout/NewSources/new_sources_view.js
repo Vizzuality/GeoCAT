@@ -107,6 +107,19 @@
     _importSource: function(data, splitOn) {
       // Again, please, god :)
       if(splitOn !== undefined && ['group', 'species_name'].indexOf(splitOn) >=0) {
+
+        var toRemove = [];
+        groups.each(function(group) {
+          console.log(group.get('name') + ' ' + group.sources.length);
+          if(group.sources.length === 0) {
+            toRemove.push(group);
+          }
+        });
+        _.each(toRemove, function(group) {
+          groups.remove({cid: group.cid});
+          deleteGroup(group);
+        });
+
         _.each(_.groupBy(data.points, splitOn), function(points, key) {
           addSourceToMap({group: key, points: points}, true, false);
         });
