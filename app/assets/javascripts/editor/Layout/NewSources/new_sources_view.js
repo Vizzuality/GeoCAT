@@ -39,6 +39,13 @@
       exts:   /(\.|\/)(geocat|csv)$/i,
       text:   'Import .GeoCAT, .CSV',
       type:   'uploadGeoCATCSV'
+    },
+    {
+      name:   'multiple-species-csv',
+      url:    '/editor/multiple-species',
+      exts:   /(\.|\/)(csv)$/i,
+      text:   'Import multiple species (.csv)',
+      type:   'uploadMultiSpeciesCSV'
     }
 
   ];

@@ -1,11 +1,15 @@
 
   /**
-   *  New Source upload GeoCAT / CSV source view
+   *  New Source upload Multiple species CSV source view
    *
    */
 
 
-  var NewUploadGeoCATCSVSourceItem = NewUploadSourceItem.extend({
+  var NewUploadMultiSpeciesCSVSourceItem = NewUploadSourceItem.extend({
+
+    options: {
+      template: 'new_upload_multi_species_source_item'
+    },
 
     _onComplete: function(e, data) {
 
@@ -37,10 +41,34 @@
         }
 
         var count = _.filter(total_occurrences.points, function(occ) { return !occ.geocat_removed }).length || 0;
+        var count_spp = Object.keys(_.groupBy(total_occurrences.points, 'geocat_query')).length;
+        var count_group = Object.keys(_.groupBy(total_occurrences.points, 'group')).length;
 
-        var msg = count + ((count == 1) ? " ocurrence" : " occurrences");
+        var msg = '';
+        if(count_spp > 1) {
+          msg = count_spp + ' species<br />';
+        }
+        if(count_group > 1) {
+          msg = msg + count_group + " groups <br />";
+        }
+        if(msg !== '') {
+          msg = msg + "in ";
+        }
+        msg = msg + count + ((count == 1) ? " ocurrence" : " occurrences");
 
         this.$('.success p').html(msg);
+
+        if(count_spp > 1) {
+          this.$('.success .import-species').show();
+        } else {
+          this.$('.success .import-species').hide();
+        }
+
+        if(count_group > 1) {
+          this.$('.success .import-group').show();
+        } else {
+          this.$('.success .import-group').hide();
+        }
 
         this.model.set({
           value: total_occurrences,
