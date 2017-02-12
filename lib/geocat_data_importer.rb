@@ -257,7 +257,16 @@ module GeocatDataImporter
 
         self.sources = []
 
-        data_by_species = csv.group_by{|t| t.respond_to?(:scientificname) && t.scientificname ? t.scientificname : "user" }
+        species_name_method = if csv.first.respond_to?(:scientificname)
+                                   :scientificname
+                                 elsif csv.first.respond_to?(:scientific_name)
+                                   :scientific_name
+                                 elsif csv.first.respond_to?(:binomial)
+                                   :binomial
+                                 else
+                                   nil
+                                 end
+        data_by_species = csv.group_by{|t| species_name_method ? t.send(species_name_method) : "user" }
 
         data_by_species.sort.each do |species_name, spc_data|
           source = {
