@@ -329,6 +329,7 @@
               map: map
             })
             groups.push(group);
+            group.set('active', true);
           }
           if(group !== undefined) {
             symbol = group.get('order');

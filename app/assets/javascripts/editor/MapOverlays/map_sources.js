@@ -26,7 +26,6 @@
 
     _setSources: function() {
       this._unsetSources();
-
       // Get source collection
       var active_group = this._getActiveGroup();
 
