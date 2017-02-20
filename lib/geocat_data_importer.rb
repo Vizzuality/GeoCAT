@@ -266,7 +266,7 @@ module GeocatDataImporter
                                  else
                                    nil
                                  end
-        data_by_species = csv.group_by{|t| species_name_method ? t.send(species_name_method) : "user" }
+        data_by_species = csv.group_by{|t| species_name_method ? t.send(species_name_method) || "user" : "user" }
 
         data_by_species.sort.each do |species_name, spc_data|
           source = {
