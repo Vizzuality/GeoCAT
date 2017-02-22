@@ -275,9 +275,11 @@ module GeocatDataImporter
             'query' => species_name,
             'points' => []
           }
+          lat_method = ([:latitude, :lat, :dec_lat] & spc_data.first.members).first
+          long_method = ([:longitude, :long, :dec_long] & spc_data.first.members).first
           spc_data.each do |row|
-            lat = row.members.include?(:latitude) ? row.latitude : (row.members.include?(:dec_lat) ? row.dec_lat : nil)
-            lon = row.members.include?(:longitude) ? row.longitude : (row.members.include?(:dec_long) ? row.dec_long : nil)
+            lat = lat_method ? row.send(lat_method) : nil
+            lon = long_method ? row.send(long_method) : nil
             source['points'] << {
               'latitude' => lat,
               'longitude' => lon,
