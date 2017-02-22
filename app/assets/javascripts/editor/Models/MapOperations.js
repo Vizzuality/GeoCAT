@@ -372,6 +372,7 @@
 
               if (!info_data.geocat_active) {
                 var marker_id = marker.data.catalogue_id;
+                occurrences[marker_id].draw();
                 occurrences[marker_id].setActive(false);
               }
             } else {
