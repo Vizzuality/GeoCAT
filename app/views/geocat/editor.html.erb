@@ -14,6 +14,12 @@
         <% if @geocat_json %>
           upload_information = <%= @geocat_json.html_safe %>;
         <% end %>
+        //register the Upload button action
+        $(function() {
+          $("#upload_input").change(function(event){
+            $("#upload_form").submit();
+          });
+        });
       </script>
     <% end %>
 
@@ -165,6 +171,10 @@
               <div class="right">
                 <a onclick="changeApplicationTo(7)" class="export">DOWNLOAD DATA</a>
                 <a onclick="downloadGeoCAT('geocat')" class="download">SAVE PROJECT</a>
+                <form class="upload" id="upload_form" enctype="multipart/form-data" method="post" action="/editor/">
+                  <a id="upload_button" class="open-project">OPEN PROJECT</a>
+                  <input type="file" name="file" size="30" id="upload_input" />
+                </form>
               </div>
             </div>
             <div class="bottom-right-map"></div>
