@@ -17,7 +17,11 @@
         //register the Upload button action
         $(function() {
           $("#upload_input").change(function(event){
-            $("#upload_form").submit();
+            if($('div.header h1').hasClass('saved') || confirm("Opening a new project. Any unsaved data will be lost. Please confirm if you would like to proceed.")) {
+              $("#upload_form").submit();
+            } else {
+              return false;
+            }
           });
         });
       </script>
