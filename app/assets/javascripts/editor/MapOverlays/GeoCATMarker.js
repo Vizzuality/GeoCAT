@@ -11,6 +11,23 @@
 			/*  																																																												*/
 			/*==========================================================================================================================*/
 
+      var markersColours = [
+        "#600000",
+        "#01dd92",
+        "#f500cd",
+        "#b49d00",
+        "#5981ff",
+        "#ba6c00",
+        "#00367e",
+        "#ffb854",
+        "#00d1f4",
+        "#d20039",
+        "#2b542f",
+        "#ffa172",
+        "#210500",
+        "#a4bfab",
+        "#7d871c"
+      ]
 
 			/* Main marker */
 
@@ -26,7 +43,20 @@
         this.draggable = draggable;
         this.clickable = clickable;
         this.setMap(marker_map);
-        this.symbol = symbol;
+
+        if (kind == "flickr") {
+          this.symbol = "F";
+        } else if (kind == "gbif") {
+          this.symbol = "G";
+        } else if (kind == "inaturalist") {
+          this.symbol = "iN";
+        } else if (kind == "picasa") {
+          this.symbol = "P";
+        } else {
+          this.symbol = ""; //for User
+        }
+
+        this.colorOrder = symbol;
       }
 
       GeoCATMarker.prototype = new google.maps.OverlayView();
@@ -84,21 +114,8 @@
 
         if (canvas.getContext) {
           var context = canvas.getContext('2d');
-          var color = '';
-          var kind = this.data.geocat_kind;
 
-          if (kind == "flickr") {
-            color = "#FF3399"; //pink
-          } else if (kind == "gbif") {
-            color = "#45A82A"; // dark green
-          } else if (kind == "inaturalist") {
-            color = "#A8CC09"; // light green
-          } else if (kind == "picasa") {
-            color = "#8B6AA2"; // Purple
-          } else {
-            color = "#066FB6"; //blue
-          }
-
+          var color = markersColours[this.colorOrder-1];
           var shape = this.symbol || '';
 
           context.fillStyle = "rgba(255,255,255,0.75)";

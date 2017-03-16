@@ -17,7 +17,7 @@
     },
 
     initialize: function() {
-      _.bindAll(this, 'search', 'format', '_onCreateNew', '_onSelect', '_onEdit',
+      _.bindAll(this, 'search', 'format', 'templateSelection', '_onCreateNew', '_onSelect', '_onEdit',
         '_enableSelector', '_disableSelector');
       this._initBinds()
     },
@@ -32,7 +32,7 @@
       this.collection.each(function(m) {
         if (!m.get('removed')) {
           this.$el.append('<option data-cid="' + m.cid + '" ' + ( m.get('active') ? 'selected' : '') + ' >' +
-                          '('+m.get('order')+') '+m.get('name') + '</option>')
+                          m.get('name') + '</option>')
         }
       }, this);
 
@@ -54,6 +54,7 @@
         minimumResultsForSearch:  1,
         formatResult:             this.format,
         formatNoMatches:          this.search,
+        formatSelection:          this.templateSelection,
         escapeMarkup:             function(m) { return m }
       })
       .parent().find(".select2-with-searchbox").on("click", this._onCreateNew)
@@ -79,11 +80,18 @@
       if (!state.id) return state.text;
       var cid = $(state.element).data('cid');
       var mdl = this.collection.find(function(m) { return m.cid === cid });
-      var text = state.text.replace("("+mdl.get('order')+") ", "");
+      var text = state.text;
       return  "<i class='fa fa-eye visible "+ (mdl.get('hidden') ? 'disabled' : '') +"'></i>\
               <form><input class='text' type='text' value='" + text + "' readonly /></form>\
               <i class='fa fa-pencil edit'></i>\
               <i class='fa fa-times delete " + ( size > 1 ? '' : 'disabled' ) + "'></i>";
+    },
+
+    templateSelection: function(data, container) {
+      var cid = $(data.element).data('cid');
+      var mdl = this.collection.find(function(m) { return m.cid === cid });
+      var color = markersColours[mdl.get('order')-1];
+      return "<span class='square' style='border-color:"+ color +"'></span> "+data.text;
     },
 
     // Oh god!
@@ -109,7 +117,6 @@
           } else if (c.indexOf('visible') !== -1) {
             self._onVisible(data,e);
           } else {
-
             if (!data.editing) {
               return fn.apply(this, arguments);
             } else {
@@ -218,7 +225,6 @@
         } else {
           console.log("[GROUP] Group not found, renaming incomplete");
         }
-        value = '('+mdl.get('order')+') '+ value;
 
         $opt.text(value);
 

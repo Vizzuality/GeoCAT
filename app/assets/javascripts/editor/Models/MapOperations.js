@@ -680,7 +680,7 @@
 
         // find selected group
         var selectedGroup = groups.models.
-          find(function(m) { return "("+m.get("order")+") "+m.get("name") === $('.group_combo .select2-chosen').text()});
+          find(function(m) { return m.get("name") === $.trim($('.group_combo .select2-chosen').text())});
 				var inf = {
 		          coordinateUncertaintyInMeters:  15000,
 		          collector:                      '',
