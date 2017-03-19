@@ -80,8 +80,10 @@
       if (!state.id) return state.text;
       var cid = $(state.element).data('cid');
       var mdl = this.collection.find(function(m) { return m.cid === cid });
+      var color = markersColours[mdl.get('order')-1];
       var text = state.text;
       return  "<i class='fa fa-eye visible "+ (mdl.get('hidden') ? 'disabled' : '') +"'></i>\
+              <span class='square -small' style='border-color:"+ color +"'></span>\
               <form><input class='text' type='text' value='" + text + "' readonly /></form>\
               <i class='fa fa-pencil edit'></i>\
               <i class='fa fa-times delete " + ( size > 1 ? '' : 'disabled' ) + "'></i>";

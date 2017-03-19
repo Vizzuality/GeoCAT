@@ -371,11 +371,11 @@
         }
       }
 
-      form { @include inline-block(); width:145px }
+      form { @include inline-block(); width:143px }
       
 
       input {
-        width:145px;
+        width:143px;
         padding:0 0 2px 0;
         background:none;
         border:none;
@@ -424,4 +424,9 @@
     width: 5px;
     height: 5px;
     margin-right: 5px;
+
+    &.-small {
+      border-width: 2px;
+      margin-right: 3px;
+    }
   }
