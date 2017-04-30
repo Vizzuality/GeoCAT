@@ -419,14 +419,17 @@
       color:inherit;
     }
   }
-  span.square {
-    border: solid 4px #f0f;
-    width: 5px;
-    height: 5px;
-    margin-right: 5px;
+
+  div.circle {
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
 
     &.-small {
-      border-width: 2px;
-      margin-right: 3px;
+      width: 8px;
+      height: 8px;
     }
   }

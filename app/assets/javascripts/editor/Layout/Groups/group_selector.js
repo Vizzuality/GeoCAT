@@ -83,7 +83,7 @@
       var color = markersColours[mdl.get('order')-1];
       var text = state.text;
       return  "<i class='fa fa-eye visible "+ (mdl.get('hidden') ? 'disabled' : '') +"'></i>\
-              <span class='square -small' style='border-color:"+ color +"'></span>\
+              <div class='circle -small' style='background-color:"+ color +"'></div>\
               <form><input class='text' type='text' value='" + text + "' readonly /></form>\
               <i class='fa fa-pencil edit'></i>\
               <i class='fa fa-times delete " + ( size > 1 ? '' : 'disabled' ) + "'></i>";
@@ -93,7 +93,7 @@
       var cid = $(data.element).data('cid');
       var mdl = this.collection.find(function(m) { return m.cid === cid });
       var color = markersColours[mdl.get('order')-1];
-      return "<span class='square' style='border-color:"+ color +"'></span> "+data.text;
+      return "<div class='circle' style='background-color:"+ color +"'></div> "+data.text;
     },
 
     // Oh god!
