@@ -43,12 +43,23 @@
     _removeGroup: function(m) {},
 
     _setActiveGroup: function(value, cid) {
+      var b = new google.maps.LatLngBounds();
+
       this.collection.each(function(m) {
         if (m.get('name') === value && m.cid == cid && !m.get('removed')) {
           // Set active group
           m.set('active', true);
           // Change sources_collection global variable :S
           sources_collection = m.getSources();
+          _.each(occurrences, function(o) {
+            if(o.data.dcid === cid && o.data.geocat_active && !o.data.geocat_removed) {
+              b.extend(o.getPosition());
+            }
+          });
+          if(!b.isEmpty()) {
+            map.fitBounds(b);
+          }
+
           analysis_view.reRunAnalysis();
         } else {
           m.set('active', false);
