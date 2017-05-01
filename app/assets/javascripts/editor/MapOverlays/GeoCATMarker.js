@@ -128,8 +128,9 @@
           context.closePath();
           context.fill();
           context.fillStyle = "#eee"
-          context.font = "13px serif";
-          context.fillText(shape,6,15);
+          context.font = "12px serif";
+          var symbolPos = shape === 'iN' ? 6 : 8;
+          context.fillText(shape,symbolPos,15);
 
           if (this.data.geocat_changed && this.data.geocat_kind !== "user") {
             context.beginPath();
