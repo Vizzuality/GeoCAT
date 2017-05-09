@@ -27,7 +27,7 @@
         "#210500",
         "#a4bfab",
         "#7d871c"
-      ]
+      ];
 
 			/* Main marker */
 
@@ -56,7 +56,11 @@
           this.symbol = ""; //for User
         }
 
-        this.colorOrder = symbol;
+        var order = symbol;
+        if (order > markersColours.length) {
+          order = symbol % (markersColours.length - 1);
+        }
+        this.colorOrder = order;
       }
 
       GeoCATMarker.prototype = new google.maps.OverlayView();
@@ -115,7 +119,8 @@
         if (canvas.getContext) {
           var context = canvas.getContext('2d');
 
-          var color = markersColours[this.colorOrder-1];
+          var color = markersColours[this.colorOrder];
+
           var shape = this.symbol || '';
 
           context.fillStyle = "rgba(255,255,255,0.75)";
