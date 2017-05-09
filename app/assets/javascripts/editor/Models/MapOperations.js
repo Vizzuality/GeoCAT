@@ -768,6 +768,7 @@
 		            $(document).trigger('occs_updated');
 		          }
 		        }
+              sessionStorage.removeItem('toggleing_global');
 			}
 
 
