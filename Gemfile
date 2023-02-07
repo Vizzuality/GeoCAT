@@ -31,6 +31,3 @@ group :development, :test do
   gem 'rspec-rails', "~> 3.9"
   gem 'byebug'
 end
-
-gem 'capistrano'
-gem 'capistrano-ext'
