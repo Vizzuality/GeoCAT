@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   class NoHTML5Compliant < Exception; end;
 
-  rescue_from Exception, :with => :render_500
-  rescue_from NoHTML5Compliant, :with => :no_html5_compliant
+  #rescue_from Exception, :with => :render_500
+  #rescue_from NoHTML5Compliant, :with => :no_html5_compliant
 
   before_filter :browser_is_html5_compliant?
 

@@ -1,4 +1,5 @@
 class Geocat < ActiveRecord::Base
+  self.table_name = "geocat"
   
   # attr_accessor :zoom, :specie, :center
   
