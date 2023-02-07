@@ -29,8 +29,7 @@ gem 'oily_png',               "~> 1.1.0"
 
 group :development, :test do
   gem 'rspec-rails', "~> 3.9"
-  # gem 'debugger' # TODO:
-  # gem 'heroku' # TODO:
+  gem 'byebug'
 end
 
 gem 'capistrano'

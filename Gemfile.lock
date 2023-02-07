@@ -46,6 +46,7 @@ GEM
       treetop (~> 1.4.1)
       unicode_utils (~> 1.4)
     builder (3.2.4)
+    byebug (11.1.3)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -207,6 +208,7 @@ DEPENDENCIES
   RedCloth
   awesome_print
   backbone-rails
+  byebug
   capistrano
   capistrano-ext
   chunky_png (~> 1.2.9)
