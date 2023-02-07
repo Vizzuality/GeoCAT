@@ -20,11 +20,11 @@ gem "typhoeus",                 "0.6.7"
 group :assets do
   gem 'sprockets',              '2.8' # min requirement for Rails 4
   gem 'sass-rails',             '4.0.0'
-  gem "sass", "3.2.19", :require => 'sass'
+  gem "sass", "3.3.13", :require => 'sass'
   gem 'uglifier',               "~> 1.3.0"
   # gem 'therubyracer',           "~> 0.12.1" # TODO:
-  gem 'compass-rails',          "1.0.3"
-  gem 'compass', "0.12.7"
+  gem 'compass-rails',          "~> 2.0"
+  gem 'compass',                "~> 1.0"
   gem 'chunky_png',             "~> 1.2.9"
   gem 'oily_png',               "~> 1.1.0"
 end
