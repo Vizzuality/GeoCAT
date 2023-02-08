@@ -73,7 +73,7 @@ Rails.application.routes.draw do
 
   get 'api/wms'               => 'wms#proxy'
 
-  get 'download'              => 'file#download'
+  match 'download'              => 'file#download', via: [:get, :post]
   post 'editor(/:species)'     => 'file#upload'
 
   get '*a', :to => 'main#render_404'
