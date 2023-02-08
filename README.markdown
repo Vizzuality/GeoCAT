@@ -41,7 +41,13 @@ RLAT - Red List Assessment Tool
 
   9. It should be working at [http://localhost:3000](http://localhost:3000)
 
-
+## Installing RubyRacer
+### MacOS
+```
+brew install v8-315
+gem install libv8 -v '3.16.14.19' -- --with-system-v8
+gem install therubyracer  -v '0.12.3’ -- --with-v8-dir=/usr/local/opt/v8\@3.15
+```
 
 ----------------
 [The Vizzuality team](http://www.vizzuality.com)
