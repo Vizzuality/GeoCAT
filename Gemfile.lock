@@ -137,6 +137,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (4.2.8)
       actionpack (= 4.2.8)
       activesupport (= 4.2.8)
@@ -221,6 +226,7 @@ DEPENDENCIES
   parsley-store (~> 0.3.2)
   pg (= 0.20.0)
   rails (= 4.2.8)
+  rails_12factor
   rchardet
   rspec-rails (~> 3.9)
   sass (= 3.3.13)

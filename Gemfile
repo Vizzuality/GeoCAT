@@ -29,6 +29,8 @@ gem 'chunky_png',             "~> 1.2.9"
 gem 'oily_png',               "~> 1.1.0"
 gem 'bigdecimal', '1.3.5'
 
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem 'rspec-rails', "~> 3.9"
   gem 'byebug'
