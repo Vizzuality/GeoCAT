@@ -1,4 +1,4 @@
-ruby '2.6.10'
+ruby '2.7.7'
 source 'http://rubygems.org'
 
 gem 'rails',                    '4.2.8'
@@ -27,6 +27,7 @@ gem 'compass-rails',          "~> 2.0"
 gem 'compass',                "~> 1.0"
 gem 'chunky_png',             "~> 1.2.9"
 gem 'oily_png',               "~> 1.1.0"
+gem 'bigdecimal', '1.3.5'
 
 group :development, :test do
   gem 'rspec-rails', "~> 3.9"
