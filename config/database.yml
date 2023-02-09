@@ -12,5 +12,6 @@ development:
   database: geocat
   pool: 5
   username: postgres
-  password:
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
 
