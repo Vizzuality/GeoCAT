@@ -90,6 +90,7 @@ GEM
       concurrent-ruby (~> 1.0)
     json (1.8.6)
     libv8 (3.16.14.19)
+    libv8 (3.16.14.19-x86_64-linux)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -195,6 +196,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   RedCloth
