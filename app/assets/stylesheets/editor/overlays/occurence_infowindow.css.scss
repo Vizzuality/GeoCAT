@@ -13,7 +13,7 @@
     height:251px;
     padding:0;
     @include opacity(0);
-    background:url('/assets/editor/tooltip_bkg.png') no-repeat 0 0;
+    background:image-url('editor/tooltip_bkg.png') no-repeat 0 0;
 
     a.close {
       position:absolute;
@@ -22,7 +22,7 @@
       width:21px;
       height:21px;
       @include text-indent();
-      background:url('/assets/editor/close_infowindow.png') no-repeat 0 0;
+      background:image-url('editor/close_infowindow.png') no-repeat 0 0;
       z-index:10;
       &:hover { background-position:0 -21px }
     }

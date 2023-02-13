@@ -7,10 +7,10 @@
 
 
 /*fonts*/
-@font-face{font-family:'FuturaStdMedium';src:url('/assets/futurastd-medium-webfont.eot');src:url('/assets/futurastd-medium-webfont.eot?#iefix') format('embedded-opentype'),
-url('/assets/futurastd-medium-webfont.woff') format('woff'),
-url('/assets/futurastd-medium-webfont.ttf') format('truetype'),
-url('/assets/futurastd-medium-webfont.svg#FuturaStdMedium') format('svg');font-weight:normal;font-style:normal;}
+@font-face{font-family:'FuturaStdMedium';src:image-url('futurastd-medium-webfont.eot');src:image-url('futurastd-medium-webfont.eot?#iefix') format('embedded-opentype'),
+image-url('futurastd-medium-webfont.woff') format('woff'),
+image-url('futurastd-medium-webfont.ttf') format('truetype'),
+image-url('futurastd-medium-webfont.svg#FuturaStdMedium') format('svg');font-weight:normal;font-style:normal;}
 
 
 
@@ -35,7 +35,7 @@ div.map-crosshair {
   width:19px;
   height:19px;
   margin:-9px 0 0 -9px;
-  background:url('/assets/editor/map-crosshair.png') no-repeat 0 0;
+  background:image-url('editor/map-crosshair.png') no-repeat 0 0;
   pointer-events:none;
   z-index:20;
 }
@@ -57,7 +57,7 @@ section.layout.small div.opaque {position:absolute; right:0; left:0; top:0; heig
 section.main {position:absolute; left:50%; top:50%; width:980px; margin:-280px 0 0 -490px; z-index:100;}
 section.main div.float {position:relative; width:920px; padding:30px; -moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px; background:white; -moz-box-shadow:0 0 20px rgba(0,0,0,0.5);
   -webkit-box-shadow:0 0 20px rgba(0,0,0,0.5); box-shadow:0 0 20px rgba(0,0,0,0.5);}
-section.main div.video {position:absolute; top:-75px; right:23px; width:550px; height:308px; padding:35px; background:url('/assets/home/video.png') no-repeat 0 0;}
+section.main div.video {position:absolute; top:-75px; right:23px; width:550px; height:308px; padding:35px; background:image-url('home/video.png') no-repeat 0 0;}
 section.main header {width:285px; height:285px;}
 section.main header h1 {font:bold 43px "Helvetica","Arial"; color:black; letter-spacing:-2px; line-height:43px;}
 section.main header p {padding:6px 0 0 0; font:normal 15px "Arial"; color:#999999;}
@@ -79,26 +79,26 @@ section.main div.info div.block p {font:normal 15px Arial; color:#666666; line-h
 section.main div.info div.block p a {color:#729A27;}
 section.main div.info div.block p a:hover {color:#435B16;}
 section.main div.info div.block ul {width:100%;}
-section.main div.info div.block ul li {padding:0 0 15px 35px; background:url('/assets/home/ol.jpg') no-repeat 0 0;}
+section.main div.info div.block ul li {padding:0 0 15px 35px; background:image-url('home/ol.jpg') no-repeat 0 0;}
 section.main div.info div.block ul li.two {background-position:0 -67px;}
 section.main div.info div.block ul li.three {background-position:0 -134px;}
 span.logos {display:inline-block; width:100%; margin:23px 0 0 0;}
-span.logos a.iucn {float:left; width:36px; height:37px; margin:0 12px 0 0; background:url('/assets/home/logos.png') no-repeat 0 0; text-indent:-9999px;}
+span.logos a.iucn {float:left; width:36px; height:37px; margin:0 12px 0 0; background:image-url('home/logos.png') no-repeat 0 0; text-indent:-9999px;}
 span.logos a.iucn:hover {background-position:0 -37px;}
-span.logos a.vibrant {float:left; width:75px; height:37px; margin:0 8px 0 0; background:url('/assets/home/logos.png') no-repeat -101px 0; text-indent:-9999px;}
+span.logos a.vibrant {float:left; width:75px; height:37px; margin:0 8px 0 0; background:image-url('home/logos.png') no-repeat -101px 0; text-indent:-9999px;}
 span.logos a.vibrant:hover {background-position:-101px -37px;}
-span.logos a.kew {float:left; width:46px; height:37px; margin:0 8px 0 0; background:url('/assets/home/logos.png') no-repeat -47px 0; text-indent:-9999px;}
+span.logos a.kew {float:left; width:46px; height:37px; margin:0 8px 0 0; background:image-url('home/logos.png') no-repeat -47px 0; text-indent:-9999px;}
 span.logos a.kew.top {margin:10px 0 0 0;}
 span.logos a.kew:hover {background-position:-47px -37px;}
-span.logos a.seventh {float:left; width:47px; height:37px; margin:0 8px 0 0; background:url('/assets/home/logos.png') no-repeat -184px 0; text-indent:-9999px;}
+span.logos a.seventh {float:left; width:47px; height:37px; margin:0 8px 0 0; background:image-url('home/logos.png') no-repeat -184px 0; text-indent:-9999px;}
 span.logos a.seventh:hover {background-position:-184px -37px;}
-span.logos a.eu {float:left; width:43px; height:37px;  background:url('/assets/home/logos.png') no-repeat -241px 0; text-indent:-9999px;}
+span.logos a.eu {float:left; width:43px; height:37px;  background:image-url('home/logos.png') no-repeat -241px 0; text-indent:-9999px;}
 span.logos a.eu:hover {background-position:-241px -37px;}
-span.logos a.vizzuality {float:left; margin:0 0 0 10px; width:71px; height:38px;  background:url('/assets/home/logos.png') no-repeat 0 -81px; text-indent:-9999px;}
+span.logos a.vizzuality {float:left; margin:0 0 0 10px; width:71px; height:38px;  background:image-url('home/logos.png') no-repeat 0 -81px; text-indent:-9999px;}
 span.logos a.vizzuality:hover {background-position:0 -121px;}
-span.logos a.nerc {float:left; margin:0; width:46px; height:38px;  background:url('/assets/home/logos.png') no-repeat -70px -81px; text-indent:-9999px;}
+span.logos a.nerc {float:left; margin:0; width:46px; height:38px;  background:image-url('home/logos.png') no-repeat -70px -81px; text-indent:-9999px;}
 span.logos a.nerc:hover {background-position:-70px -121px;}
-span.logos a.nerc.about {float:left; margin:0 0 0 10px; width:46px; height:38px;  background:url('/assets/home/logos.png') no-repeat -70px -90px; text-indent:-9999px;}
+span.logos a.nerc.about {float:left; margin:0 0 0 10px; width:46px; height:38px;  background:image-url('home/logos.png') no-repeat -70px -90px; text-indent:-9999px;}
 span.logos a.nerc.about:hover {background-position:-70px -130px;}
 
 section.about {position:absolute; left:50%; top:100px; width:980px; margin:0 0 0 -490px; z-index:100;}
@@ -148,16 +148,16 @@ footer div.inner div.left img {float:left; margin:12px 0 0 0;}
 footer div.inner div.right {float:right; width:160px;}
 footer div.inner div.right p {float:right; width:auto; font:normal 13px Arial; color:#757575; padding:22px 5px 0 0;}
 /* vizzuality's logo */
-footer div.inner div.right a {float:right; margin:1px 0 0 0; width:71px; height:38px; background:url('/assets/home/logos.png') no-repeat 0 -81px; text-indent:-9999px;}
+footer div.inner div.right a {float:right; margin:1px 0 0 0; width:71px; height:38px; background:image-url('home/logos.png') no-repeat 0 -81px; text-indent:-9999px;}
 footer div.inner div.right a:hover {background-position:0 -121px;}
 
 
 
 /*EDITOR*/
-div#start_one_mamufas {position:absolute; display:none; top:0; left:0; bottom:0; right:0; background:url('/assets/editor/transparent_bkg.png') no-repeat 0 0; z-index:100000;}
-div#start_one {position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-95px 0 0 -340px!important; padding:52px 17px 17px 17px; background:url('/assets/editor/modal_bkg.png') no-repeat 0 0; z-index:101;}
+div#start_one_mamufas {position:absolute; display:none; top:0; left:0; bottom:0; right:0; background:image-url('editor/transparent_bkg.png') no-repeat 0 0; z-index:100000;}
+div#start_one {position:absolute!important; width:512px; height:145px; top:50%!important; left:50%; margin:-95px 0 0 -340px!important; padding:52px 17px 17px 17px; background:image-url('editor/modal_bkg.png') no-repeat 0 0; z-index:101;}
 div#start_one p {float:left; width:100%; margin:0; padding:0; font:bold 27px Arial; color:white; letter-spacing:-2px; text-align:center; line-height:33px;}
-div#start_one input {float:left; width:418px; height:24px; margin:10px 0 0 36px; padding:6px 10px; background:url('editor/start_text_input.png') no-repeat 0 0; border:none; font:italic 17px Arial; color:#999999;}
+div#start_one input {float:left; width:418px; height:24px; margin:10px 0 0 36px; padding:6px 10px; background:image-url('editor/start_text_input.png') no-repeat 0 0; border:none; font:italic 17px Arial; color:#999999;}
 div#start_one input:focus {outline:none;}
 div#start_one a {float:left; margin:15px 0 0 200px; text-decoration:underline; font:bold 23px Arial; color:#A4D939;}
 div#start_one a:hover {color:#6F9326;}
@@ -171,7 +171,7 @@ div#start_one a:hover {color:#6F9326;}
 .specie_selector .select2-container {float:left; width:300px; font-family: Arial; font-size:13px;}
 .specie_selector .select2-default {font-style:italic; color:#CDCDCD;}
 .select2-drop .select2-result-label {font-family: Arial; font-size:13px;}
-.specie_selector a.import {float:right; width:118px; height:26px; margin:20px 0 0 0; text-indent:-9999px; background:url('/assets/editor/import_data.png') no-repeat 0 0;}
+.specie_selector a.import {float:right; width:118px; height:26px; margin:20px 0 0 0; text-indent:-9999px; background:image-url('editor/import_data.png') no-repeat 0 0;}
 .specie_selector a.import:hover {background-position:0 -26px; cursor:pointer; color:#2a3814;}
 
 div#close_save {display:none; position:absolute!important; width:512px; height:130px; top:50%!important; left:50%; margin:-85px 0 0 -276px!important; padding:23px 17px 17px 17px; background:rgba(0,0,0,0.7); z-index:100; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px;}
@@ -181,7 +181,7 @@ div#close_save a.close:hover {color:white; text-decoration:none; cursor:pointer;
 div#close_save p.bottom {margin:10px 0 0 0;}
 div#close_save p a.cancel {float:left; width:auto; margin:22px 0 0 10px; font:normal 15px Arial; color:#CCCCCC; text-decoration:underline;}
 div#close_save p a.cancel:hover {color:white; cursor:pointer;}
-div#close_save p a.download {float:right; width:114px; height:13px; padding:10px 10px 9px 25px; margin:15px 0 0 10px; background:url('/assets/editor/download_button.png') no-repeat 0 0; font:bold 13px Arial; color:#4F691B; text-align:center; line-height:13px;}
+div#close_save p a.download {float:right; width:114px; height:13px; padding:10px 10px 9px 25px; margin:15px 0 0 10px; background:image-url('editor/download_button.png') no-repeat 0 0; font:bold 13px Arial; color:#4F691B; text-align:center; line-height:13px;}
 div#close_save p a.download:hover {background-position:0 -32px; cursor:pointer; color:#2a3814}
 div#editor {position:absolute; top:0; bottom:0; left:0; right:0; width:100%; z-index:1;}
 div#editor.ie {top:50px;}
@@ -197,32 +197,32 @@ div#editor ul.editor_list li.selected a:hover {cursor:default;}
 div#tools {position:absolute; top:60px; left:20px; bottom:70px; right:20px; min-height:510px; min-width:920px;}
 div#tools div.table {position:relative; float:left; width:100%; height:100%;}
 div#tools div.table div {position:relative;}
-div#tools div.table div.top-left-tool{position:relative; float:left; width:24px; height:62px; background:url('/assets/editor/top-left-tool.png') no-repeat right bottom;}
-div#tools div.table div.top-repeat-tool{position:absolute; left:24px; right:24px; top:0; height:62px; background:url('/assets/editor/top-repeat-tool.png')  0 bottom;}
-div#tools div.table div.top-right-tool {position:relative; float:right; width:24px; height:62px; background:url('/assets/editor/top-right-tool.png') no-repeat left bottom;}
+div#tools div.table div.top-left-tool{position:relative; float:left; width:24px; height:62px; background:image-url('editor/top-left-tool.png') no-repeat right bottom;}
+div#tools div.table div.top-repeat-tool{position:absolute; left:24px; right:24px; top:0; height:62px; background:image-url('editor/top-repeat-tool.png')  0 bottom;}
+div#tools div.table div.top-right-tool {position:relative; float:right; width:24px; height:62px; background:image-url('editor/top-right-tool.png') no-repeat left bottom;}
 div#tools div.header div.left {float:left; padding:22px 0 0 3px; width:50px; color:white; height:40px;}
 div#tools div.header div.left h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura","FuturaStdMedium"; text-shadow:0 1px #000000; color:#CCCCCC;}
 div#tools div.header div.right {float:right; padding:22px 0 0 0; width:220px; color:white; height:45px;}
 div#tools div.header div.right h2 {float:left; padding:0; margin:10px 0 0 0; text-transform:uppercase; font:normal 11px "Futura","FuturaStdMedium"; color:#CCCCCC; text-shadow:0 1px #000000}
 div#tools div.table div.center {position:absolute; top:62px; bottom:76px; left:0; right:0;}
-div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:14px; background:url('/assets/editor/left-repeat-tool.png') repeat-y left 0;}
+div#tools div.table div.left-repeat-tool {position:absolute; top:0; left:0; bottom:0; width:14px; background:image-url('editor/left-repeat-tool.png') repeat-y left 0;}
 div#tools div.table div.center-tool {position:absolute; top:0; bottom:0; left:14px; right:24px; background:#242628;}
-div#tools div.table div.right-repeat-tool {position:absolute; top:0; right:0; bottom:0; width:24px; background:url('/assets/editor/right-repeat-tool.png') repeat-y left 0;}
+div#tools div.table div.right-repeat-tool {position:absolute; top:0; right:0; bottom:0; width:24px; background:image-url('editor/right-repeat-tool.png') repeat-y left 0;}
 div#tools div.center div.left {float:left; width:62px; padding:0; margin:0;}
 div#tools div.center div.left a {float:left; width:62px!important; height:50px!important; margin:0; padding:0;}
-div#tools div.center div.left a.select {background:url('/assets/editor/tool_buttons.png') no-repeat 0 -1px; height:49px;}
+div#tools div.center div.left a.select {background:image-url('editor/tool_buttons.png') no-repeat 0 -1px; height:49px;}
 div#tools div.center div.left a.select:hover {background-position:0 -51px; cursor:pointer;}
 div#tools div.center div.left a.select.selected {background-position:0 -51px;}
-div#tools div.center div.left a.selection {background:url('/assets/editor/tool_buttons.png') no-repeat -62px 0;}
+div#tools div.center div.left a.selection {background:image-url('editor/tool_buttons.png') no-repeat -62px 0;}
 div#tools div.center div.left a.selection:hover {background-position:-62px -51px; cursor:pointer;}
 div#tools div.center div.left a.selection.selected {background-position:-62px -51px;}
-div#tools div.center div.left a.add {background:url('/assets/editor/tool_buttons.png') no-repeat -124px 0;}
+div#tools div.center div.left a.add {background:image-url('editor/tool_buttons.png') no-repeat -124px 0;}
 div#tools div.center div.left a.add:hover {background-position:-124px -51px; cursor:pointer;}
 div#tools div.center div.left a.add.selected {background-position:-124px -51px;}
-div#tools div.center div.left a.remove {background:url('/assets/editor/tool_buttons.png') no-repeat -186px 0;}
+div#tools div.center div.left a.remove {background:image-url('editor/tool_buttons.png') no-repeat -186px 0;}
 div#tools div.center div.left a.remove:hover {background-position:-186px -51px; cursor:pointer;}
 div#tools div.center div.left a.remove.selected {background-position:-186px -51px;}
-div#tools div.center div.left a.layer {background:url('/assets/editor/tool_buttons.png') no-repeat -248px 0;}
+div#tools div.center div.left a.layer {background:image-url('editor/tool_buttons.png') no-repeat -248px 0;}
 div#tools div.center div.left a.layer:hover {background-position:-248px -51px; cursor:pointer;}
 div#tools div.center div.left a.layer.selected {background-position:-248px -51px;}
 div#tools div.center div.left a.selected:hover {cursor:default;}
@@ -230,18 +230,18 @@ div#tools div.center div.right {position:absolute; right:-10px; top:0; bottom:0;
 div#tools div.center div.right div.analysis {float:left; padding:15px 10px 15px 0; border-bottom:1px solid black;}
 div#tools div.center div.right div.inner_analysis {position:relative; float:left; padding:16px 0 0; margin:0 0 0 30px; width:220px; height:auto; border-radius:5px; -moz-border-radius:5px;
   -webkit-border-radius:5px; background:#EEE; background:-webkit-gradient(linear,50% 0%,50% 100%,from(#FFF),to(#EEE));background:-moz-linear-gradient(-90deg,#FFF,#EEE);background:-o-linear-gradient(#FFF,#EEE);background:#EEEEEE\9;}
-div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:url('/assets/editor/analysis_button.png') no-repeat 0 0; margin:0 0 0 16px;}
+div#tools div.center div.right div.inner_analysis a#toggle_analysis {float:left; width:52px; height:22px; padding:1px; background:image-url('editor/analysis_button.png') no-repeat 0 0; margin:0 0 0 16px;}
 div#tools div.center div.right div.inner_analysis a#toggle_analysis:hover {cursor:pointer;}
-div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:url('/assets/editor/analysis_button.png') no-repeat -26px -25px #999999; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
+div#tools div.center div.right div.inner_analysis a#toggle_analysis span {float:left; width:100%; height:100%; background:image-url('editor/analysis_button.png') no-repeat -26px -25px #999999; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
 div#tools div.center div.right div.inner_analysis h3 {float:left; font:bold 13px Arial; color:#999999; text-shadow:0 1px white; padding:3px 0 0 0; margin:2px 0 18px 10px;}
 div#tools div.center div.right div.inner_analysis h3.disabled {color:#B7B7B7;}
 
 div#tools div.center div.right div.algorithms {position:relative; float:left; padding:0 0 14px 30px; width:230px; border-bottom:1px solid #000000;}
 div#tools div.center div.right div.algorithms h3 {padding:0 0 0 12px; font:normal 11px "Futura","FuturaStdMedium"; color:#CCCCCC; text-shadow:0 1px #000000;}
-div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:url('/assets/editor/orange_bar.png') no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}
+div#tools div.center div.right div.algorithms a {float:left; padding:5px 8px; font:normal 13px Arial; color:#FFFFFF; text-shadow:0 1px #A9772E; width:205px; height:14px; background:image-url('editor/orange_bar.png') no-repeat 0 0; margin:5px 0 0 0; text-decoration:none;}
 div#tools div.center div.right div.algorithms a.first {margin:0;}
 div#tools div.center div.right div.algorithms a:hover {background-position:0 -24px;}
-div.hull_container {display:none; position:absolute; top:0; right:30px; z-index:100000; background:url('/assets/editor/convex_hull_bkg.png') no-repeat 0 0; width:280px; height:330px;}
+div.hull_container {display:none; position:absolute; top:0; right:30px; z-index:100000; background:image-url('editor/convex_hull_bkg.png') no-repeat 0 0; width:280px; height:330px;}
 div.hull_container a {position:absolute; right:15px; top:8px; font:normal 11px Arial; color:#FF9900; text-decoration:underline;}
 div.hull_container a:hover {color:#FF6600;}
 div.hull_container p {font:normal 23px Georgia; color:#666666;}
@@ -253,83 +253,83 @@ div.hull_container p.diameter {position:absolute; top:72px; left:31px;}
 div.hull_container p.cell_size {position:absolute; top:119px; left:31px;}
 div.hull_container p.number_cells {position:absolute; top:119px; left:154px;}
 div.hull_container p.aoo_area {position:absolute; top:165px; left:31px;}
-div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:22px; right:18px; z-index:10; background:url('/assets/editor/merge_delete_container.png') no-repeat 0 0;}
+div.merge_container {display:none; position:absolute!important; width:152px; height:147px; padding:13px 40px 15px 25px; margin:0; top:22px; right:18px; z-index:10; background:image-url('editor/merge_delete_container.png') no-repeat 0 0;}
 div.merge_container h4 {float:left; margin:12px 0 0 0; font:normal 11px "Futura","FuturaStdMedium"; color:#666666; text-shadow:#FFFFFF 0px 1px; text-transform:uppercase;}
 div.merge_container p {float:left; padding:0; margin:25px 0 0 0; font:bold 13px Arial; color:#666666; line-height:17px;}
 div.merge_container a.preview:hover {color:#333333; cursor:pointer;}
 div.merge_container div {float:right; margin:18px 0 0 0;}
 div.merge_container div a.cancel {float:right; font:normal 11px Arial; text-decoration:underline; color:#333333; margin:12px 15px 0 0; padding:0!important;}
 div.merge_container div a.cancel:hover {color:#000000; cursor:pointer;}
-div.merge_container div a.merge_button {float:right; margin:7px 0 0 0!important; padding:0!important; width:54px!important; height:21px!important; background:url('/assets/editor/merge_button.png') no-repeat 0 0!important;}
+div.merge_container div a.merge_button {float:right; margin:7px 0 0 0!important; padding:0!important; width:54px!important; height:21px!important; background:image-url('editor/merge_button.png') no-repeat 0 0!important;}
 div.merge_container div a.merge_button:hover {background-position: 0 -21px!important; cursor:pointer;}
-div.merge_container span.arrow {position:absolute; right:12px; top:52px; width:12px!important; height:23px; background:url('/assets/editor/grey_arrow.png') no-repeat 0 0;}
+div.merge_container span.arrow {position:absolute; right:12px; top:52px; width:12px!important; height:23px; background:image-url('editor/grey_arrow.png') no-repeat 0 0;}
 
 div#editor div#tools div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:76px;}
-div#editor div#tools div.table div.bottom-left-tool {position:relative; float:left; width:24px; height:76px; background:url('/assets/editor/bottom-left-tool.png') no-repeat right top;}
-div#editor div#tools div.table div.bottom-repeat-tool {position:absolute; bottom:0; left:24px; right:24px; background:url('/assets/editor/bottom-repeat-tool.png') repeat left 0; height:76px;}
-div#editor div#tools div.table div.bottom-right-tool {position:relative; float:right; width:24px; height:76px; background:url('/assets/editor/bottom-right-tool.png') no-repeat left top;}
+div#editor div#tools div.table div.bottom-left-tool {position:relative; float:left; width:24px; height:76px; background:image-url('editor/bottom-left-tool.png') no-repeat right top;}
+div#editor div#tools div.table div.bottom-repeat-tool {position:absolute; bottom:0; left:24px; right:24px; background:image-url('editor/bottom-repeat-tool.png') repeat left 0; height:76px;}
+div#editor div#tools div.table div.bottom-right-tool {position:relative; float:right; width:24px; height:76px; background:image-url('editor/bottom-right-tool.png') no-repeat left top;}
 
 
 /*2nd layer - map*/
 div#editor div#map_container {position:absolute; min-width:615px; min-height:580px; top:10px; bottom:40px; left:83px; right:260px; z-index:100;}
 div#editor div#map_container div.table {position:relative; float:left; width:100%; height:100%;}
 div#editor div#map_container div.table > div {position:relative;}
-div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:url('/assets/editor/top-left-map.png') no-repeat right bottom;}
-div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:url('/assets/editor/top-repeat-map.png')  0 bottom;}
-div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:url('/assets/editor/top-right-map.png') no-repeat left bottom;}
-div#editor div#map_container div.table div.top-right-map span#beta{position:absolute; top:11px; right:11px; width:80px; height:80px; background:url('/assets/editor/beta_version.png') no-repeat 0 0; z-index:1000;}
+div#editor div#map_container div.table div.top-left-map{position:relative; float:left; width:25px; height:80px; background:image-url('editor/top-left-map.png') no-repeat right bottom;}
+div#editor div#map_container div.table div.top-repeat-map{position:absolute; left:25px; right:25px; top:0; height:80px; background:image-url('editor/top-repeat-map.png')  0 bottom;}
+div#editor div#map_container div.table div.top-right-map{position:relative; float:right; width:25px; height:80px; background:image-url('editor/top-right-map.png') no-repeat left bottom;}
+div#editor div#map_container div.table div.top-right-map span#beta{position:absolute; top:11px; right:11px; width:80px; height:80px; background:image-url('editor/beta_version.png') no-repeat 0 0; z-index:1000;}
 div#editor div#map_container div.table div.center {position:absolute; top:80px; bottom:80px; left:0; right:0; -moz-user-select: none;-webkit-user-select: none;}
-div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:url('/assets/editor/left-repeat-map.png') repeat-y -6px 0;}
+div#editor div#map_container div.table div.left-repeat-map{position:absolute; top:0; bottom:0; left:0; width:25px; background:image-url('editor/left-repeat-map.png') repeat-y -6px 0;}
 div#editor div#map_container div.table div.center-map {position:absolute; top:0; left:15px; right:15px; bottom:0; background:#242627;}
 div#editor div#map_container div.table div.center-map a.vizzuality {position:absolute; bottom:3px; left:75px; z-index:100;}
-div#editor div#map_container div.table div.right-repeat-map{position:absolute; top:0; bottom:0; right:0; width:25px; background:url('/assets/editor/right-repeat-map.png') repeat-y 10px 0;}
+div#editor div#map_container div.table div.right-repeat-map{position:absolute; top:0; bottom:0; right:0; width:25px; background:image-url('editor/right-repeat-map.png') repeat-y 10px 0;}
 div#editor div#map_container div.table div.footer {position:absolute; bottom:0; left:0; right:0; height:80px;}
-div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:url('/assets/editor/bottom-left-map.png') no-repeat right top; margin:0;}
-div#editor div#map_container div.table div.bottom-repeat-map{position:absolute; background:url('/assets/editor/bottom-repeat-map.png') repeat left 0; left:25px; right:25px; top:0; height:80px;}
-div#editor div#map_container div.table div.bottom-right-map{position:relative; float:right; width:25px; height:80px; background:url('/assets/editor/bottom-right-map.png') no-repeat left top;}
+div#editor div#map_container div.table div.bottom-left-map{position:relative; float:left; width:25px; height:80px; background:image-url('editor/bottom-left-map.png') no-repeat right top; margin:0;}
+div#editor div#map_container div.table div.bottom-repeat-map{position:absolute; background:image-url('editor/bottom-repeat-map.png') repeat left 0; left:25px; right:25px; top:0; height:80px;}
+div#editor div#map_container div.table div.bottom-right-map{position:relative; float:right; width:25px; height:80px; background:image-url('editor/bottom-right-map.png') no-repeat left top;}
 div#zoom {position:absolute; top:21px; left:32px; width:28px; height:auto; z-index:100; opacity:0.5;}
 div#zoom:hover {opacity:1;}
 div#zoom a {float:left; width:28px; height:30px;}
-div#zoom a.zoom_in {background:url('/assets/editor/zoom_in.png') no-repeat 0 0;}
-div#zoom a.zoom_out {background:url('/assets/editor/zoom_out.png') no-repeat 0 0;}
+div#zoom a.zoom_in {background:image-url('editor/zoom_in.png') no-repeat 0 0;}
+div#zoom a.zoom_out {background:image-url('editor/zoom_out.png') no-repeat 0 0;}
 div#zoom a:hover {background-position: 0 -30px; cursor:pointer;}
 div#zoom ul {float:left; width:28px; padding:0 0 1px 0; margin:0;}
-div#zoom ul li {float:left; width:28px; height:10px; background:url('/assets/editor/zoom_level.png') no-repeat 0 0; margin:1px 0 0 0;}
+div#zoom ul li {float:left; width:28px; height:10px; background:image-url('editor/zoom_level.png') no-repeat 0 0; margin:1px 0 0 0;}
 div#zoom ul li:hover {background-position:0 -10px; cursor:pointer;}
 div#zoom ul li.selected {background-position:0 -10px; cursor:default;}
-div#editor div#map_container div.table div.center-map div.search_place {position:absolute; opacity:0.5; top:21px; right:120px!important; width:180px!important; height:30px; background:url('/assets/editor/search_bkg.png') no-repeat 0 0; z-index:10;}
+div#editor div#map_container div.table div.center-map div.search_place {position:absolute; opacity:0.5; top:21px; right:120px!important; width:180px!important; height:30px; background:image-url('editor/search_bkg.png') no-repeat 0 0; z-index:10;}
 div#editor div#map_container div.table div.center-map div.search_place p {float:left; width:auto; margin:4px 0 0 5px; font:normal 13px Arial; color:white;}
-div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:0 0 3px 6px; width:110px; height:auto; padding:4px 0; background:url('/assets/editor/search_input_bkg.png') no-repeat 0 18px; border:0;
+div#editor div#map_container div.table div.center-map div.search_place input[type="text"] {float:left; margin:0 0 3px 6px; width:110px; height:auto; padding:4px 0; background:image-url('editor/search_input_bkg.png') no-repeat 0 18px; border:0;
   font:normal 13px Arial; color:white;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="text"]:focus {outline:none;}
-div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:13px; height:13px; margin:4px 0 0 10px; background:url('/assets/editor/len_bkg.png') no-repeat 0 0;}
+div#editor div#map_container div.table div.center-map div.search_place input[type="submit"] {position:relative; border:none; width:13px; height:13px; margin:4px 0 0 10px; background:image-url('editor/len_bkg.png') no-repeat 0 0;}
 div#editor div#map_container div.table div.center-map div.search_place input[type="submit"]:hover {cursor:pointer;}
-div#editor div#map_container div.table div.center-map span.search_not_found {position:absolute; display:none; right:120px; top:30px; width:206px; height:84px; background:url('/assets/editor/search_not_found_bkg.png') no-repeat 0 0; z-index:1000;}
+div#editor div#map_container div.table div.center-map span.search_not_found {position:absolute; display:none; right:120px; top:30px; width:206px; height:84px; background:image-url('editor/search_not_found_bkg.png') no-repeat 0 0; z-index:1000;}
 div#editor div#map_container div.table div.center-map span.search_not_found p {float:left; width:137px; margin:33px 0 0 55px; font:normal 13px Arial; color:#333333;}
 div#map_type {position:absolute; right:33px; top:21px; height:auto; opacity:0.5; margin:0!important; padding:0; z-index:10;}
 div#map_type:hover {opacity:1;}
 div#map_type div.map_type {float:right; position:relative; width:auto;}
-div#map_type a {position:relative; float:right; width:auto; padding:0 24px 0 0; height:24px; background:url('/assets/editor/map_type_right.png') no-repeat right 0; border:none;}
-div#map_type a span {float:right; padding:6px 1px 5px 10px; height:13px; font:bold 11px Arial; color:white; text-shadow:0 1px black; background:url('/assets/editor/map_type_left.png') no-repeat left 0;}
+div#map_type a {position:relative; float:right; width:auto; padding:0 24px 0 0; height:24px; background:image-url('editor/map_type_right.png') no-repeat right 0; border:none;}
+div#map_type a span {float:right; padding:6px 1px 5px 10px; height:13px; font:bold 11px Arial; color:white; text-shadow:0 1px black; background:image-url('editor/map_type_left.png') no-repeat left 0;}
 div#map_type a:hover {cursor:pointer;}
 div#map_type div:hover a {background-position:right -48px;}
 div#map_type div:hover a span {background-position:left -24px;}
 div#map_type div:hover ul {display:block;}
-div#map_type ul {float:left; width:100%; margin:0; padding:4px 0 7px 0; background:url('/assets/editor/map_type_bkg.png') repeat 0 0; display:none; border-top:1px solid #CCCCCC;
+div#map_type ul {float:left; width:100%; margin:0; padding:4px 0 7px 0; background:image-url('editor/map_type_bkg.png') repeat 0 0; display:none; border-top:1px solid #CCCCCC;
   border-bottom-left-radius:5px; border-bottom-right-radius:5px; -moz-border-radius-bottomright:5px; -moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius:5px; -webkit-border-bottom-right-radius: 5px; }
 div#map_type ul li {float:left; width:100%; font:bold 11px Arial; color:white; text-shadow:0 1px black; margin:4px 0 2px 10px; text-align:left;}
 div#map_type ul li:hover {cursor:pointer;}
 div#map_container div.table div.center-map div#map {position:absolute; z-index:1; top:0; left:0; height:100%; width:100%;}
-div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:url('/assets/editor/mamufas_bkg.png') repeat 0 0;}
+div#map_container div.table div.center-map div#mamufas_map {position:absolute; display:none; top:0; bottom:0; left:0; right:0; z-index:110; background:image-url('editor/mamufas_bkg.png') repeat 0 0;}
 div#map_container div.table div.center-map div#mamufas_map div#loader_map {position:absolute; top:50%; left:50%; margin:-25px 0 0 -25px;/*hack*/ display:none; width:50px; height:50px; -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px; background:#333333;}
 div#map_container div.table div.center-map div#mamufas_map div#loader_map img {position:relative; margin:9px 9px;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success {position:absolute; display:none; top:50%; left:50%; margin:-70px 0 0 -101px;/*hack*/ width:202px; height:139px; background:black; -moz-border-radius: 7px; -webkit-border-radius:7px; border-radius:7px; opacity:0.7;}
 div#map_container div.table div.center-map div#mamufas_map div#import_success img {float:left; top:50%; margin:40px 0 0 0; width:202px; height:58px;}
-div#map_container div.header h1 {position:relative; float:left; width:auto; height:22px; margin:30px 0 0 6px; padding:5px 0 5px 26px; background:url('/assets/editor/save_stars.png') no-repeat 0 0; font:normal 13px "Futura","FuturaStdMedium"; color:#CCCCCC; text-indent:0; line-height:20px;}
+div#map_container div.header h1 {position:relative; float:left; width:auto; height:22px; margin:30px 0 0 6px; padding:5px 0 5px 26px; background:image-url('editor/save_stars.png') no-repeat 0 0; font:normal 13px "Futura","FuturaStdMedium"; color:#CCCCCC; text-indent:0; line-height:20px;}
 div#map_container div.header h1.saved {background-position:0 -30px;}
 div#map_container div.header h1.saved sup {color:#7FAB2D;}
-div#map_container div.header h1.selected{width:200px;height:22px;border:1px solid black; border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;background:url('/assets/editor/save_stars.png') no-repeat -1px -1px,-moz-linear-gradient(-90deg,#CCCCCC,#FFFFFF);background:url('/assets/editor/save_stars.png') no-repeat -1px -1px,-webkit-gradient(linear,50% 0%,50% 100%,from(#CCCCCC),to(#FFFFFF));
-  background:url('/assets/editor/save_stars.png') no-repeat -1px -1px,-o-linear-gradient(#CCCCCC,#FFFFFF);background:url('/assets/editor/save_stars.png') no-repeat 0 0 #F7F7F7\9;}
+div#map_container div.header h1.selected{width:200px;height:22px;border:1px solid black; border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;background:image-url('editor/save_stars.png') no-repeat -1px -1px,-moz-linear-gradient(-90deg,#CCCCCC,#FFFFFF);background:image-url('editor/save_stars.png') no-repeat -1px -1px,-webkit-gradient(linear,50% 0%,50% 100%,from(#CCCCCC),to(#FFFFFF));
+  background:image-url('editor/save_stars.png') no-repeat -1px -1px,-o-linear-gradient(#CCCCCC,#FFFFFF);background:image-url('editor/save_stars.png') no-repeat 0 0 #F7F7F7\9;}
 div#map_container div.header h1 p {float:none; display:inline-block; width:auto;}
 div#map_container div.header h1.selected p {text-indent:-9999px;}
 div#map_container div.header h1 input {display:none;}
@@ -340,17 +340,17 @@ div#map_container div.header h1 sup {padding:0 0 0 5px; margin:0; font:normal 10
 
 
 div#map_container div.footer div.left {float:left; margin:15px 0 0 5px; width:50%;}
-div#map_container div.footer div.left a.undo {float:left; width:44px; height:35px; background:url('/assets/editor/actions_buttons.png') no-repeat 0 0; margin:0 5px 0 0;}
-div#map_container div.footer div.left a.redo {float:left; width:44px; height:35px; background:url('/assets/editor/actions_buttons.png') no-repeat -44px 0;}
+div#map_container div.footer div.left a.undo {float:left; width:44px; height:35px; background:image-url('editor/actions_buttons.png') no-repeat 0 0; margin:0 5px 0 0;}
+div#map_container div.footer div.left a.redo {float:left; width:44px; height:35px; background:image-url('editor/actions_buttons.png') no-repeat -44px 0;}
 div#map_container div.footer div.left a.undo:hover {background-position:0 -35px; cursor:pointer;}
 div#map_container div.footer div.left a.redo:hover {background-position:-44px -35px; cursor:pointer;}
-div#map_container div.footer div.left p {opacity:0; float:left; height:32px; padding:0 0 0 5px; margin:0 0 0 10px; background:url('/assets/editor/action_left.png') no-repeat 0 0;}
-div#map_container div.footer div.left p span {float:left; padding:7px 11px 7px 6px; height:18px; font:normal 13px Arial; color:#cccccc; background:url('/assets/editor/action_right.png') no-repeat right 0;}
+div#map_container div.footer div.left p {opacity:0; float:left; height:32px; padding:0 0 0 5px; margin:0 0 0 10px; background:image-url('editor/action_left.png') no-repeat 0 0;}
+div#map_container div.footer div.left p span {float:left; padding:7px 11px 7px 6px; height:18px; font:normal 13px Arial; color:#cccccc; background:image-url('editor/action_right.png') no-repeat right 0;}
 div#map_container div.footer div.right {float:right; margin:15px 5px 0 0;}
-div#map_container div.footer div.right a.download {float:left; width:112px; height:13px; padding:10px 10px 9px 25px; margin:1px 0 0 0; background:url('/assets/editor/download_button.png') no-repeat 0 0; font:bold 13px Arial; color:#4F691B; text-align:center;
+div#map_container div.footer div.right a.download {float:left; width:112px; height:13px; padding:10px 10px 9px 25px; margin:1px 0 0 0; background:image-url('editor/download_button.png') no-repeat 0 0; font:bold 13px Arial; color:#4F691B; text-align:center;
   line-height:13px; box-shadow:0 0 1px 0 black; border-radius:4px;}
 div#map_container div.footer div.right a.download:hover {background-position:0 -32px; cursor:pointer; color:#2a3814}
-div#map_container div.footer div.right a.export {float:left; width:119px; height:13px; margin:2px 10px 0 0; padding:9px 10px 9px 25px; background:url('/assets/editor/export_button.png') no-repeat 0 0; text-align:center; font:bold 13px Arial; color:#CCCCCC; text-shadow:0 1px black; line-height:13px;
+div#map_container div.footer div.right a.export {float:left; width:119px; height:13px; margin:2px 10px 0 0; padding:9px 10px 9px 25px; background:image-url('editor/export_button.png') no-repeat 0 0; text-align:center; font:bold 13px Arial; color:#CCCCCC; text-shadow:0 1px black; line-height:13px;
   box-shadow:0 0 1px 0 black; border-radius:4px;}
 div#map_container div.footer div.right a.export:hover {background-position:0 -32px; cursor:pointer; color:white;}
 
@@ -365,26 +365,26 @@ div#export_window div.blocks {float:left; width:430px; height:73px; margin:25px 
 div#export_window div.block {float:left; width:125px; margin:0 25px 0 0;}
 div#export_window div.block.last {margin:0;}
 div#export_window div.block p {text-align:center; font:normal 13px Arial; color:#999999;}
-div#export_window div.block a.export {float:left; width:125px; height:13px; padding:6px 0 7px 0; margin:12px 0 0 0; background:url('/assets/editor/export_to_button.png') no-repeat 0 0; text-align:center; font:bold 13px Arial; color:#4D6719; text-shadow:0 1px #B1D47E; text-transform:uppercase;}
+div#export_window div.block a.export {float:left; width:125px; height:13px; padding:6px 0 7px 0; margin:12px 0 0 0; background:image-url('editor/export_to_button.png') no-repeat 0 0; text-align:center; font:bold 13px Arial; color:#4D6719; text-shadow:0 1px #B1D47E; text-transform:uppercase;}
 div#export_window div.block a.export:hover {background-position:0 -26px;}
 
 /*CSV Error*/
-div#csv_error {position:absolute!important; display:none; width:462px; height:311px; top:50%!important; left:50%; margin:-175px 0 0 -251px!important; padding:20px; background:url('/assets/editor/csv_error_bkg.png') no-repeat 0 0; z-index:101;}
+div#csv_error {position:absolute!important; display:none; width:462px; height:311px; top:50%!important; left:50%; margin:-175px 0 0 -251px!important; padding:20px; background:image-url('editor/csv_error_bkg.png') no-repeat 0 0; z-index:101;}
 div#csv_error a.close {position:absolute; right:14px; top:14px; padding:5px; font:bold 13px Arial; color:#CCCCCC; text-decoration:none;}
 div#csv_error a.close:hover {color:white;}
 div#csv_error h3 {float:left; width:100%; font:bold 19px Arial; color:white;}
 div#csv_error ul {float:left; width:446px; height:105px; margin:125px 0 0 14px;}
 div#csv_error ul li {float:left; padding:10px 0 10px 35px; font:normal 15px Arial;}
-div#csv_error ul li.warning {background:url('/assets/editor/warning_csv.png') no-repeat 0 7px; color:#929292;}
-div#csv_error ul li.error {background:url('/assets/editor/error_csv.png') no-repeat 0 7px; color:#C7C7C7;}
+div#csv_error ul li.warning {background:image-url('editor/warning_csv.png') no-repeat 0 7px; color:#929292;}
+div#csv_error ul li.error {background:image-url('editor/error_csv.png') no-repeat 0 7px; color:#C7C7C7;}
 div#csv_error span {float:left; width:440px; margin:34px 0 0 10px; height:auto;}
-div#csv_error span a.continue {float:right; width:94px; height:26px; text-indent:-9999px; background:url('/assets/editor/continue_button.png') no-repeat 0 0;}
+div#csv_error span a.continue {float:right; width:94px; height:26px; text-indent:-9999px; background:image-url('editor/continue_button.png') no-repeat 0 0;}
 div#csv_error span a.continue:hover {background-position:0 -26px;}
 div#csv_error span a.cancel {float:left; padding:5px 0 0 0; font:normal 15px Arial; color:white; text-decoration:underline;}
 div#csv_error span a.cancel:hover {cursor:pointer;}
 
 /*HTML5 && 404*/
-div#other {position:absolute; top:0; left:0; right:0; min-height:800px; width:100%; height:100%; background:url('/assets/editor/bkg.jpg') repeat 0 0;}
+div#other {position:absolute; top:0; left:0; right:0; min-height:800px; width:100%; height:100%; background:image-url('editor/bkg.jpg') repeat 0 0;}
 div#other div.content {position:absolute; width:400px; height:270px; top:50%; left:50%; margin:-185px 0 0 -200px;}
 div#other div.content2 {position:absolute; width:450px; height:125px; top:50%; left:50%; margin:-90px 0 0 -225px;}
 div#other div.content2 h1, div#other div.content h1 {float:left; width:100%; font:normal 15px Arial; color:white;}
@@ -392,10 +392,10 @@ div#other div.content2 h2, div#other div.content h2 {float:left; margin:15px 0 0
 div#other div.content2 p,div#other div.content p {float:left; margin:15px 0 0 0; width:100%; font:normal 17px Arial; color:white;}
 div#other div span {float:left; width:100%; margin:15px 0 0 0;}
 div#other div span a {float:left; width:84px; height:87px; margin:0 20px 0 0;}
-div#other div span a.ie9 {background:url('/assets/html5/ie9.jpg') no-repeat 0 0;}
-div#other div span a.safari {background:url('/assets/html5/safari.jpg') no-repeat 0 0;}
-div#other div span a.firefox {background:url('/assets/html5/firefox.jpg') no-repeat 0 0;}
-div#other div span a.chrome {background:url('/assets/html5/chrome.jpg') no-repeat 0 0; margin:0;}
+div#other div span a.ie9 {background:image-url('html5/ie9.jpg') no-repeat 0 0;}
+div#other div span a.safari {background:image-url('html5/safari.jpg') no-repeat 0 0;}
+div#other div span a.firefox {background:image-url('html5/firefox.jpg') no-repeat 0 0;}
+div#other div span a.chrome {background:image-url('html5/chrome.jpg') no-repeat 0 0; margin:0;}
 div#other div span a:hover {background-position:0 -87px;}
 div#other div form input {width:120px; position:absolute; bottom:5; right:0; opacity:0;}
 div#other div form input:hover {cursor:pointer;}

@@ -15,10 +15,10 @@
     display:none;
     margin:0;
     
-    @include background(url('/assets/editor/gaps_bkg.png') no-repeat 0 0);
+    @include background(image-url('editor/gaps_bkg.png') no-repeat 0 0);
 
     div.inner {
-      padding:22px 22px 0 33px;  
+      padding:22px 22px 0 33px;
     }
 
     h3 {
@@ -33,7 +33,7 @@
       right:1px; top:1px;
       width:21px;
       height:21px;
-      background:url('/assets/editor/close_infowindow.png') no-repeat 0 0;
+      background:image-url('editor/close_infowindow.png') no-repeat 0 0;
       &:hover { background-position: 0 -21px }
     }
 
@@ -62,7 +62,7 @@
         right:0;
         width:16px;
         height:16px;
-        background:url('/assets/editor/ajax-loader.gif') no-repeat;
+        background:image-url('editor/ajax-loader.gif') no-repeat;
       }
 
       p {
@@ -220,7 +220,7 @@
       width:89px;
       height:19px;
       margin-top:3px;
-      background:url('/assets/editor/save_changes_metadata.png') no-repeat 0 0;
+      background:image-url('editor/save_changes_metadata.png') no-repeat 0 0;
       border:none;
       text-indent:-9999px;
       font-size:0;
@@ -239,7 +239,7 @@
       margin:31px 0 0 -50px;
       width:206px;
       height:84px;
-      background:url('/assets/editor/search_not_found_bkg.png') no-repeat 0 0;
+      background:image-url('editor/search_not_found_bkg.png') no-repeat 0 0;
       z-index:1000;
       
       p {
