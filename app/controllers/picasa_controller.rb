@@ -10,7 +10,7 @@ class PicasaController < ApplicationController
 
       require 'open-uri'
 
-      picasa_url = URI.escape("http://picasaweb.google.com/data/feed/api/all?q=#{q}&max-results=20000")
+      picasa_url = URI.escape("https://picasaweb.google.com/data/feed/api/all?q=#{q}&max-results=20000")
       open(picasa_url) {|f| @list =  f.read }
       doc = Nokogiri::XML(@list)
       doc.remove_namespaces!

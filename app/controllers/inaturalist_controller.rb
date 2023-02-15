@@ -11,7 +11,7 @@ class InaturalistController < ApplicationController
       require 'open-uri'
 
       inaturalist_url = URI.escape(
-        "http://www.inaturalist.org/observations.json?q=#{q}" +
+        "https://www.inaturalist.org/observations.json?q=#{q}" +
         "&per_page=500&page=1&has[]=geo&quality_grade=research"
       )
 

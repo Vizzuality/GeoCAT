@@ -1,12 +1,12 @@
 
     <% content_for :css do %>
-      <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-      <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+      <link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <% end %>
 
     <% content_for :js do %>
-      <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.4&libraries=geometry&sensor=false&key=<%=ENV['GMAPS_KEY']%>"></script>
-      <script type="text/javascript" src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.uncompressed.js"></script>
+      <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.4&libraries=geometry&sensor=false&key=<%=ENV['GMAPS_KEY']%>"></script>
+      <script type="text/javascript" src="https://libs.cartocdn.com/cartodb.js/v3/cartodb.uncompressed.js"></script>
       <%= javascript_include_tag :editor %>
 
       <script type="text/javascript" charset="utf-8">
@@ -177,10 +177,10 @@
       <footer class="app_footer">
         <div class="inner">
           <div class="left">
-            <p>Geospatial Conservation Assessment Tool. All rights reserved. <%= Time.now.year %>. <a href="http://www.kew.org/about-kew/website-information/legal-notices/">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a> / <a href="https://kewgis.uservoice.com/" target="_blank" class="feedback">feedback</a></p>
+            <p>Geospatial Conservation Assessment Tool. All rights reserved. <%= Time.now.year %>. <a href="https://www.kew.org/about-kew/website-information/legal-notices/">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a> / <a href="https://kewgis.uservoice.com/" target="_blank" class="feedback">feedback</a></p>
           </div>
           <div class="right">
-            <a href="http://www.vizzuality.com" target="_blank">
+            <a href="https://www.vizzuality.com" target="_blank">
               <%= image_tag 'editor/vizzuality_black.png', :alt => 'Vizzuality' %>
             </a>
             <p>Developed by</p>
