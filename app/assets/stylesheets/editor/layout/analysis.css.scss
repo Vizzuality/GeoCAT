@@ -307,7 +307,7 @@
             div.bar {
               right:1px;
               height:100%;
-              background:url("editor/analysis_bar_bkg.png") repeat-y 0 0;
+              background:image-url('editor/analysis_bar_bkg.png') repeat-y 0 0;
             }
             p, label { text-align: right }
           }
