@@ -132,7 +132,7 @@
       // Analysis help :(
       $('#analysis_help').css(
         'background',
-        active ? 'url(editor/analysis_help2.png) no-repeat -2px 0' : 'url(editor/analysis_help.png) no-repeat 0 0'
+        active ? "image-url('editor/analysis_help2.png') no-repeat -2px 0" : "image-url('editor/analysis_help.png') no-repeat 0 0"
       );
 
       // Start or finish convex hull
