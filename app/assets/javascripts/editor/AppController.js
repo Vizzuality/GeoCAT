@@ -94,7 +94,7 @@
           this.$('div.center-map').append(modals.welcome.render().el);
 
           //if the application comes through an upload file
-          if (upload_information.data && upload_information.data.sources!=null) {
+          if (upload_information && upload_information.data && upload_information.data.sources != null) {
             report_name = upload_information.data.reportName;
             this.$('div.header h1 p').text(report_name);
             this.$('div.header h1 sup').text('saved');
