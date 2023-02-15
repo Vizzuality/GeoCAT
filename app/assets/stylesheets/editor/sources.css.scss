@@ -11,7 +11,7 @@
   @import "compass/css3/opacity";
   @import "../common/mixins";
   @import "../common/buttons";
-  
+
 
   .sources {
     position:absolute!important;
@@ -159,7 +159,7 @@
             &.gbif,
             &.dwc,
             &.csv { text-transform:uppercase }
-            &.flickr, &.picasa { text-transform:capitalize }
+            &.flickr { text-transform:capitalize }
           }
         }
 
@@ -198,7 +198,7 @@
           margin:8px 0 0 12px;
           background:image-url('editor/merge_specie.png') no-repeat 0 0;
           @include text-indent();
-          
+
           &.update {
             background-position:0 -13px;
           }
@@ -219,15 +219,11 @@
           }
           &.flickr {
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');
-            @include background(linear-gradient(#FF3399,#9F2062)) 
-          }
-          &.picasa {
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#8B6AA2', endColorstr='#674D77');
-            @include background(linear-gradient(#8B6AA2,#674D77)) 
+            @include background(linear-gradient(#FF3399,#9F2062))
           }
           &.inaturalist {
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A8CC09', endColorstr='#A8CC09');
-            @include background(linear-gradient(#A8CC09,#A8CC09)) 
+            @include background(linear-gradient(#A8CC09,#A8CC09))
           }
         }
 
@@ -255,7 +251,7 @@
       text-align:center;
       text-decoration:none;
       line-height:62px;
-      
+
       &:hover {
         cursor:pointer;
         color:#000000;
@@ -360,7 +356,7 @@
 
     .select2-result {
       padding:3px 0 1px;
-      
+
       .select2-result-label {
         padding:3px 2px 3px;
       }
@@ -386,7 +382,7 @@
       }
 
       form { @include inline-block(); width:145px }
-      
+
 
       input {
         width:145px;

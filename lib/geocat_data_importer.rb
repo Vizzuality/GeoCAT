@@ -247,8 +247,6 @@ module GeocatDataImporter
             "flickr"
           when type["inaturalist"]
             "inaturalist"
-          when type["picasa"]
-            "picasa"
           when type["gbif"]
             "gbif"
           else

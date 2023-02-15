@@ -65,7 +65,6 @@ Rails.application.routes.draw do
   get 'editor' => 'geocat#editor'
   get 'editor/:id/:specie' => 'geocat#editor_params'
 
-  get 'search/picasa/:q'      => 'picasa#search'
   get 'search/inaturalist/:q' => 'inaturalist#search'
   get 'search/flickr/:q'      => 'flickr#search'
   get 'search/gbif/:q'        => 'gbif#search'
