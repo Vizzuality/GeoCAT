@@ -1,6 +1,6 @@
 
   function mainApp() {
-    $('body').css('background','url(editor/bkg.jpg) 0 0');
+    $('body').css('background','image-url(\'editor/bkg.jpg\') 0 0');
 
     //Get report name and bind report name events
     report_name = $('h1 p').text();
