@@ -6,19 +6,18 @@
     <meta name="description" content="Red Species List Assessment Tool"/>
     <meta name="Keywords" content="biodiversity, kew, editor, vizzuality, project, visualization, analysis, conservation" />
     <meta name="Distribution" content="Global" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link href="/assets/reset.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/assets/layout.css" media="screen" rel="stylesheet" type="text/css" />
+    <%= favicon_link_tag %>
+    <%= stylesheet_link_tag :reset, :layout %>
   </head>
 
   <body>
     <div id="other">
       <div class="content2">
         <h1>Geospatial Conservation Assessment Tool</h1>
-        <h2>The change you wanted was rejected</h2>
-        <form enctype="multipart/form-data" method="post" action="/editor/">
-          <p>We suggest you to <a href="/editor/">create it from scratch</a> or <input type="file" size="30" id="file_input"/><a>upload your file</p></p>
-        </form>
+
+        <%= yield %>
+
+        <p>Sorry, it appears there has been an internal server error with the page you've requested. The site administrator has been notified...</p>
       </div>
       <div class="footer">
         <div class="inner">
