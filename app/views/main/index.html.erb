@@ -1,6 +1,6 @@
   <% content_for :js do %>
     <%= javascript_include_tag :gmaps %>
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.4&libraries=geometry&sensor=true&callback=initMap&key=<%=ENV['GMAPS_KEY']%>"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.4&libraries=geometry&callback=initMap&key=<%=ENV['GMAPS_KEY']%>"></script>
     <%= javascript_include_tag :home %>
   <% end -%>
 
