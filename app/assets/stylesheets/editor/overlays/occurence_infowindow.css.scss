@@ -107,9 +107,9 @@
         &:hover { background-position:0 -19px }
       }
 
-      .hide { width:51px; background:url(editor/info_hide.png) no-repeat 0 0 }
-      .show { width:51px; background:url(editor/show_button.png) no-repeat 0 0 }
-      .delete { margin-left:3px; background:url(editor/info_delete.png) no-repeat 0 0 }
-      .edit { width:38px; background:url(editor/edit_button.png) no-repeat 0 0 }
+      .hide { width:51px; background:image-url('editor/info_hide.png') no-repeat 0 0 }
+      .show { width:51px; background:image-url('editor/show_button.png') no-repeat 0 0 }
+      .delete { margin-left:3px; background:image-url('editor/info_delete.png') no-repeat 0 0 }
+      .edit { width:38px; background:image-url('editor/edit_button.png') no-repeat 0 0 }
     }
   }
