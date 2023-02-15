@@ -44,11 +44,11 @@ HomeMarker.prototype.createElement = function() {
   if (!div) {
     var random = Math.random();
 		if (random<0.33) {
-			var image = '/assets/editor/gbif_marker.png';
+			var image = 'editor/gbif_marker.png';
 		} else if (random>0.32&&random<0.66) {
-			var image = '/assets/editor/flickr_marker.png';
+			var image = 'editor/flickr_marker.png';
 		} else {
-			var image = '/assets/editor/user_marker.png';
+			var image = 'editor/user_marker.png';
 		}
 
     div = this.div_ = document.createElement("div");

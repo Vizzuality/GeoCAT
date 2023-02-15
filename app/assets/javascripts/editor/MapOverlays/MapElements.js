@@ -46,16 +46,16 @@
         '<!-- Mamufas map -->' +
         '<div id="mamufas_map">' +
           '<div id="loader_map">' +
-            '<img src="/assets/editor/map_loader.gif" alt="Map loader" />' +
+            '<img src="editor/map_loader.gif" alt="Map loader" />' +
           '</div>' +
           '<div id="import_success">' +
-            '<img src="/assets/editor/import_done.png" alt="Import done" />' +
+            '<img src="editor/import_done.png" alt="Import done" />' +
           '</div>' +
         '</div>' +
 
         '<!-- Help state -->' +
         '<div class="help_container" onclick="changeApplicationTo()">' +
-          '<img src="/assets/editor/help_bkg.png" class="help"/>' +
+          '<img src="editor/help_bkg.png" class="help"/>' +
           '<span class="do"></span>' +
           '<span class="tool"></span>' +
           '<span class="download"></span>' +

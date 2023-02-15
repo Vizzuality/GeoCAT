@@ -43,7 +43,7 @@
         inner_div.style['float'] = "left";
         inner_div.style.padding = "0 0 0 10px";
     		inner_div.style.height = '22px';
-    		inner_div.style.background = 'url(/assets/editor/left_polygon_tooltip.png) no-repeat left 0';
+    		inner_div.style.background = 'url(editor/left_polygon_tooltip.png) no-repeat left 0';
     		div.appendChild(inner_div);
 
     		var inner_div2 = document.createElement('div');
@@ -52,7 +52,7 @@
         inner_div2.style['float'] = "left";
         inner_div2.style.padding = "0 40px 0 0";
     		inner_div2.style.height = '22px';
-    		inner_div2.style.background = 'url(/assets/editor/right_polygon_tooltip.png) no-repeat right 0';
+    		inner_div2.style.background = 'url(editor/right_polygon_tooltip.png) no-repeat right 0';
     		inner_div.appendChild(inner_div2);
 
 
@@ -74,7 +74,7 @@
     		button_o.style.top = "4px";
     		button_o.style.width = "14px";
     		button_o.style.height = "14px";
-    		button_o.style.background = "url(/assets/editor/over_o.png) no-repeat 0 0";
+    		button_o.style.background = "url(editor/over_o.png) no-repeat 0 0";
     		button_o.style.cursor = "pointer";
     		$(button_o).click(function(ev){
     			me.makeActive();
@@ -95,7 +95,7 @@
     		button_x.style.top = "4px";
     		button_x.style.width = "14px";
     		button_x.style.height = "14px";
-    		button_x.style.background = "url(/assets/editor/over_x.png) no-repeat 0 0";
+    		button_x.style.background = "url(editor/over_x.png) no-repeat 0 0";
     		button_x.style.cursor = "pointer";
     		$(button_x).click(function(ev){
     		  me.deleteMarker();

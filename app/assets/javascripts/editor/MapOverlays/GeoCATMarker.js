@@ -22,7 +22,7 @@
         this.offsetHorizontal_ = -11;
         this.height_ = 22;
         this.width_ = 22;
-        this.image = '/assets/editor/'+ kind +'_marker.png';
+        this.image = 'editor/'+ kind +'_marker.png';
         this.draggable = draggable;
         this.clickable = clickable;
         this.setMap(marker_map);
