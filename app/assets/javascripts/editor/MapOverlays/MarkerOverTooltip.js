@@ -24,7 +24,7 @@
 				div.style.width = '57px';
 				div.style.height = '22px';
 				div.style.zIndex = global_zIndex;
-				div.style.background = 'url(editor/over_bkg.png) no-repeat 0 0';
+				div.style.background = "image-url('editor/over_bkg.png') no-repeat 0 0";
 
 				$(div).hover(function(){
 					over_mini_tooltip = true;
@@ -43,7 +43,7 @@
 				button_i.style.top = "4px";
 				button_i.style.width = "14px";
 				button_i.style.height = "14px";
-				button_i.style.background = "url(editor/over_i.png) no-repeat 0 0";
+				button_i.style.background = "image-url('editor/over_i.png') no-repeat 0 0";
 				button_i.style.cursor = "pointer";
 				$(button_i).click(function(ev){
 					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
@@ -62,7 +62,7 @@
 				button_o.style.top = "4px";
 				button_o.style.width = "14px";
 				button_o.style.height = "14px";
-				button_o.style.background = "url(editor/over_o.png) no-repeat 0 0";
+				button_o.style.background = "image-url('editor/over_o.png') no-repeat 0 0";
 				button_o.style.cursor = "pointer";
 				$(button_o).click(function(ev){
 					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
@@ -82,7 +82,7 @@
 				button_x.style.top = "4px";
 				button_x.style.width = "14px";
 				button_x.style.height = "14px";
-				button_x.style.background = "url(editor/over_x.png) no-repeat 0 0";
+				button_x.style.background = "image-url('editor/over_x.png') no-repeat 0 0";
 				button_x.style.cursor = "pointer";
 				$(button_x).click(function(ev){
 					try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
