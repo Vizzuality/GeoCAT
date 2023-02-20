@@ -1,9 +1,9 @@
  {
   "layers":[
     {
-      "url":          "http://maps.protectedplanet.net/blue/{Z}/{X}/{Y}",
+      "url":          "https://data-gis.unep-wcmc.org/server/rest/services/ProtectedSites/The_World_Database_of_Protected_Areas/MapServer/tile/{Z}/{X}/{Y}",
       "name":         "ProtectedPlanet",
-      "source_url":   "http://protectedplanet.net/",
+      "source_url":   "https://protectedplanet.net/",
       "source_name":  "ProtectedPlanet",
       "opacity":      1,
       "position":     0,
@@ -12,10 +12,10 @@
       "common":       true
     },
     {
-      "url":          "http://www.terra-i.org/latin-america/Z{z}/{y}/{x}.png",
-      "name":         "i-Terra",
-      "source_url":   "http://www.terra-i.org/terra-i.html",
-      "source_name":  "iTerra",
+      "url":          "https://api.resourcewatch.org/v1/layer/37a89e36-119b-451f-8d0f-321acfae6acd/tile/gee/{z}/{x}/{y}",
+      "name":         "Vegetation Condition Index",
+      "source_url":   "https://www.star.nesdis.noaa.gov/smcd/emb/vci/VH/index.php",
+      "source_name":  "NOAA STAR",
       "opacity":      1,
       "position":     0,
       "tms":          false,

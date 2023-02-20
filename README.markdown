@@ -64,8 +64,8 @@ gem install therubyracer  -v '0.12.3’ -- --with-v8-dir=/usr/local/opt/v8\@3.15
 docker compose up --build
 ```
 
-3. Setup the database
+3. Setup the database (in other terminal window)
 
 ```bash
-docker compose run web rake db:create db:migrate
+docker compose run web bundle exec rails db:setup
 ```

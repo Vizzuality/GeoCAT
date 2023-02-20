@@ -246,15 +246,15 @@
       background:image-url('editor/add_new_source.png') no-repeat 0 0;
       border:none;
       font:bold 13px Arial;
-      color:#0B0C0D;
-      text-shadow:0 1px #2D2F30;
+      color:#666;
+      text-shadow:0 1px #2d2f30;
       text-align:center;
       text-decoration:none;
       line-height:62px;
 
       &:hover {
         cursor:pointer;
-        color:#000000;
+        color:#ccc;
         text-decoration:underline;
       }
     }
