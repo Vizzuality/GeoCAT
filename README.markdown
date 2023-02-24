@@ -41,9 +41,31 @@ RLAT - Red List Assessment Tool
 
   9. It should be working at [http://localhost:3000](http://localhost:3000)
 
-
+## Installing RubyRacer
+### MacOS
+```
+brew install v8-315
+gem install libv8 -v '3.16.14.19' -- --with-system-v8
+gem install therubyracer  -v '0.12.3’ -- --with-v8-dir=/usr/local/opt/v8\@3.15
+```
 
 ----------------
 [The Vizzuality team](http://www.vizzuality.com)
 
 [rbenv]: https://github.com/sstephenson/rbenv
+
+## Installing using Docker
+
+1. Install [Docker](https://docs.docker.com/installation/#installation)
+
+2. Run the following commands:
+
+```
+docker compose up --build
+```
+
+3. Setup the database (in other terminal window)
+
+```bash
+docker compose run web bundle exec rails db:setup
+```

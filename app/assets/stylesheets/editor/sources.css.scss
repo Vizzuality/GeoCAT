@@ -11,7 +11,7 @@
   @import "compass/css3/opacity";
   @import "../common/mixins";
   @import "../common/buttons";
-  
+
 
   .sources {
     position:absolute!important;
@@ -93,7 +93,7 @@
         height:46px;
         padding:7px 9px 5px 9px;
         margin:3px 0 3px 0;
-        background:url('/assets/editor/li_bkg.png') no-repeat 0 0;
+        background:image-url('editor/li_bkg.png') no-repeat 0 0;
         @include border-radius(3px);
 
         // Elements //
@@ -159,7 +159,7 @@
             &.gbif,
             &.dwc,
             &.csv { text-transform:uppercase }
-            &.flickr, &.picasa { text-transform:capitalize }
+            &.flickr { text-transform:capitalize }
           }
         }
 
@@ -170,7 +170,7 @@
           height:14px;
           margin:4px 0 0;
           @include text-indent();
-          background:url('/assets/editor/specie_visible.png') no-repeat -20px 0;
+          background:image-url('editor/specie_visible.png') no-repeat -20px 0;
           @include transform-style("linear");
           @include transition-property("background-position");
           @include transition-duration(200ms);
@@ -186,7 +186,7 @@
           height:13px;
           margin:8px 0 0;
           @include text-indent();
-          background:url('/assets/editor/delete_specie.png') no-repeat 0 0;
+          background:image-url('editor/delete_specie.png') no-repeat 0 0;
 
           &:hover { background-position:0 -13px }
         }
@@ -196,9 +196,9 @@
           width:12px;
           height:13px;
           margin:8px 0 0 12px;
-          background:url('/assets/editor/merge_specie.png') no-repeat 0 0;
+          background:image-url('editor/merge_specie.png') no-repeat 0 0;
           @include text-indent();
-          
+
           &.update {
             background-position:0 -13px;
           }
@@ -219,15 +219,11 @@
           }
           &.flickr {
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FF3399', endColorstr='#9F2062');
-            @include background(linear-gradient(#FF3399,#9F2062)) 
-          }
-          &.picasa {
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#8B6AA2', endColorstr='#674D77');
-            @include background(linear-gradient(#8B6AA2,#674D77)) 
+            @include background(linear-gradient(#FF3399,#9F2062))
           }
           &.inaturalist {
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#A8CC09', endColorstr='#A8CC09');
-            @include background(linear-gradient(#A8CC09,#A8CC09)) 
+            @include background(linear-gradient(#A8CC09,#A8CC09))
           }
         }
 
@@ -247,18 +243,18 @@
       width:211px;
       height:62px;
       margin:0;
-      background:url('/assets/editor/add_new_source.png') no-repeat 0 0;
+      background:image-url('editor/add_new_source.png') no-repeat 0 0;
       border:none;
       font:bold 13px Arial;
-      color:#0B0C0D;
-      text-shadow:0 1px #2D2F30;
+      color:#666;
+      text-shadow:0 1px #2d2f30;
       text-align:center;
       text-decoration:none;
       line-height:62px;
-      
+
       &:hover {
         cursor:pointer;
-        color:#000000;
+        color:#ccc;
         text-decoration:underline;
       }
     }
@@ -289,7 +285,7 @@
     height:147px;
     padding:13px 40px 15px 25px;
     margin:0;
-    background:url('/assets/editor/merge_delete_container.png') no-repeat 0 0;
+    background:image-url('editor/merge_delete_container.png') no-repeat 0 0;
     z-index:10;
 
     h4 {
@@ -360,7 +356,7 @@
 
     .select2-result {
       padding:3px 0 1px;
-      
+
       .select2-result-label {
         padding:3px 2px 3px;
       }
@@ -386,7 +382,7 @@
       }
 
       form { @include inline-block(); width:145px }
-      
+
 
       input {
         width:145px;

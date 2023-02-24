@@ -22,7 +22,7 @@
         this.offsetHorizontal_ = -11;
         this.height_ = 22;
         this.width_ = 22;
-        this.image = '/assets/editor/'+ kind +'_marker.png';
+        this.image = 'editor/'+ kind +'_marker.png';
         this.draggable = draggable;
         this.clickable = clickable;
         this.setMap(marker_map);
@@ -93,8 +93,6 @@
             color = "#45A82A"; // dark green
           } else if (kind == "inaturalist") {
             color = "#A8CC09"; // light green
-          } else if (kind == "picasa") {
-            color = "#8B6AA2"; // Purple
           } else {
             color = "#066FB6"; //blue
           }
@@ -102,7 +100,7 @@
           var shape = this.symbol || '';
           if (sessionStorage.getItem('currentSymbol'))
             shape = sessionStorage.getItem('currentSymbol');
-          
+
           context.fillStyle = "rgba(255,255,255,0.75)";
           context.beginPath();
           context.arc(11,11,11,0,Math.PI*2,false);
@@ -351,7 +349,7 @@
         this.data.geocat_active = active;
         // if (! !!sessionStorage.getItem('toggleing_global'))
           this.canvas_.style.opacity = (active)?1:0.3;
-        // else 
+        // else
           // this.canvas_.style.opacity = (active)?1:0.0;
       };
 

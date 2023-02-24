@@ -1,5 +1,6 @@
   <% content_for :js do %>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.4&libraries=geometry&sensor=true"></script>
+		<%= javascript_include_tag :gmaps %>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.4&libraries=geometry&callback=initMap&key=<%=ENV['GMAPS_KEY']%>"></script>
     <%= javascript_include_tag :home %>
   <% end -%>
 
@@ -16,11 +17,11 @@
 	      <div class="left">
 	        <h2 class="margin40">GeoCAT help</h2>
 	        <p>You can <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-help" target="_blank">check the GeoCAT User Guide</a> to guide you in the usage of the tool.
-	        	The User Guide includes <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-help" target="_blank">Help</a>, <a href="http://www.kew.org/geocat-screencasts" target="_blank">Data layers</a>, <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-faqs" target="_blank">FAQs</a>, <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-links" target="_blank">Links</a>, <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-documents" target="_blank">Documents</a> and <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-glossary" target="_blank">a Glossary</a> to help you make the most of GeoCAT.</p>
+	        	The User Guide includes <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-help" target="_blank">Help</a>, <a href="https://www.kew.org/geocat-screencasts" target="_blank">Data layers</a>, <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-faqs" target="_blank">FAQs</a>, <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-links" target="_blank">Links</a>, <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-documents" target="_blank">Documents</a> and <a href="https://www.kew.org/science/collections-and-resources/data-and-digital/tools/geocat-glossary" target="_blank">a Glossary</a> to help you make the most of GeoCAT.</p>
 
 	        <h2 class="margin40">Mailing list</h2>
-	        <p>If you think you will become a regular user of GeoCAT, you will find a lot of useful information in <a href="http://groups.google.com/group/geocatusers" target="_blank">GeoCAT Mailing List</a>. Subscribe to it and get in touch with us and other users.</p>
-	        <form action="http://groups.google.com/group/geocatusers/boxsubscribe">
+	        <p>If you think you will become a regular user of GeoCAT, you will find a lot of useful information in <a href="https://groups.google.com/group/geocatusers" target="_blank">GeoCAT Mailing List</a>. Subscribe to it and get in touch with us and other users.</p>
+	        <form action="https://groups.google.com/group/geocatusers/boxsubscribe">
 	        	<h5>Subscribe to GeoCAT Google Group</h5>
 						<label>EMAIL</label>
 						<input type=text name="email" />
@@ -40,10 +41,10 @@
 	    <footer>
 	      <div class="inner">
 	        <div class="left">
-	          <p>All rights reserved. <%= Time.now.year %>. <a href="http://www.kew.org/about-kew/website-information/legal-notices/" target="_blank">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a></p>
+	          <p>All rights reserved. <%= Time.now.year %>. <a href="https://www.kew.org/about-kew/website-information/legal-notices/" target="_blank">Legal terms</a> / <a href="mailto:GISUnit@kew.org">Contact us</a></p>
 	        </div>
 	        <div class="right">
-	          <a href="http://www.vizzuality.com" target="_blank">Vizzuality</a>
+	          <a href="https://www.vizzuality.com" target="_blank">Vizzuality</a>
 	          <p>Developed by</p>
 	        </div>
 	      </div>

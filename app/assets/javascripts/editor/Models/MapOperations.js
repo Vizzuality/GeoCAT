@@ -120,13 +120,13 @@
 				//Change cursor depending on application state
 				google.maps.event.addListener(map,"mouseover",function(event){
 						switch(state) {
-							case 'add': 			map.setOptions({draggableCursor: "url(/assets/editor/add_cursor.png),default"});
+							case 'add': 			map.setOptions({draggableCursor: "image-url('editor/add_cursor.png'),default"});
 																break;
-							case 'selection': map.setOptions({draggableCursor: "url(/assets/editor/selection_cursor.png),default"});
+							case 'selection': map.setOptions({draggableCursor: "image-url('editor/selection_cursor.png'),default"});
 																break;
-							case 'remove': 		map.setOptions({draggableCursor: "url(/assets/editor/remove_cursor.png),default"});
+							case 'remove': 		map.setOptions({draggableCursor: "image-url('editor/remove_cursor.png'),default"});
 																break;
-							default: 					map.setOptions({draggableCursor: "url(/assets/editor/default_cursor.png),default"});
+							default: 					map.setOptions({draggableCursor: "image-url('editor/default_cursor.png'),default"});
 						}
 				});
 
@@ -246,7 +246,7 @@
 			/* Show loading map stuff. 																										*/
 			/*============================================================================*/
 			function showMamufasMap() {
-				$('#mamufas_map').css('background','url(/assets/editor/mamufas_bkg.png) repeat 0 0');
+				$('#mamufas_map').css('background',"image-url('editor/mamufas_bkg.png') repeat 0 0");
 				$('#mamufas_map').fadeIn();
 				$('#loader_map').fadeIn();
 			}

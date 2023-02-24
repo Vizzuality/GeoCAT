@@ -1,8 +1,17 @@
-development:
+test:
   adapter: postgresql
-  encoding: unicode
-  database: geocat
+  encoding: utf8
+  database: geocat_test
   pool: 5
   username: postgres
   password:
+
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: geocat
+  pool: 5
+  username: postgres
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_HOST'] %>
 

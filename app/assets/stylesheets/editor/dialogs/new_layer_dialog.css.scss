@@ -44,7 +44,7 @@
         right:151px;
         width:22px;
         height:22px;
-        background:url('/assets/editor/white-ajax-loader.gif') no-repeat center center black;
+        background:image-url('editor/white-ajax-loader.gif') no-repeat center center black;
         @include border-radius(3px);
       }
     }

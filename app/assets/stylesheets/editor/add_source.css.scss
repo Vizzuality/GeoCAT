@@ -22,7 +22,7 @@
       float:left;
       width:209px;
       padding:51px 0 0 0;
-      background:url('/assets/editor/add_source_top.png') no-repeat 0 top;
+      background:image-url('editor/add_source_top.png') no-repeat 0 top;
 
       a.close {
         position:absolute;
@@ -32,7 +32,7 @@
         height:16px;
         padding:0;
         margin:0;
-        background:url('/assets/editor/close_source.png') no-repeat 0 0; 
+        background:image-url('editor/close_source.png') no-repeat 0 0;
         
         &:hover {
           background-position:0 -16px;
@@ -45,14 +45,14 @@
       float:left;
       width:209px;
       padding:0 0 25px;
-      background:url('/assets/editor/add_source_bottom.png') no-repeat 0 bottom;
+      background:image-url('editor/add_source_bottom.png') no-repeat 0 bottom;
     }
 
     div.middle {
       float:left;
       width:185px;
       padding:0 12px;
-      background:url('/assets/editor/add_source_repeat.png') repeat-y 0 0;
+      background:image-url('editor/add_source_repeat.png') repeat-y 0 0;
     }
   }
 
@@ -95,7 +95,7 @@
           left:4px;
           width:14px;
           height:14px;
-          background:url('/assets/editor/checkbox_add_image.png') no-repeat 0 1px;
+          background:image-url('editor/checkbox_add_image.png') no-repeat 0 1px;
         }
 
         &:hover {
@@ -206,7 +206,7 @@
 
     div.loading {
       p {
-        background:url('/assets/editor/loader_source.gif') no-repeat 7px 7px #EBF7D6;
+        background:image-url('editor/loader_source.gif') no-repeat 7px 7px #EBF7D6;
         color:#999999
       }
 
@@ -215,7 +215,7 @@
 
     div.error {
       p {
-        background:url('/assets/editor/error_searching.png') no-repeat 9px 11px #f57070; 
+        background:image-url('editor/error_searching.png') no-repeat 9px 11px #f57070; 
         color:white;
       }
 
@@ -224,7 +224,7 @@
 
     div.success {
       p {
-        background:url('/assets/editor/ok_loaded.png') no-repeat 9px 10px #A9C07C;
+        background:image-url('editor/ok_loaded.png') no-repeat 9px 10px #A9C07C;
         color:white;
       }
       a.retry { float:left }
@@ -266,7 +266,7 @@
       height:21px;
       padding:0;
       margin:0;
-      background:url('/assets/editor/browse.png') no-repeat 0 0;
+      background:image-url('editor/browse.png') no-repeat 0 0;
       text-indent:-9999px;
     }
 
@@ -291,6 +291,6 @@
   div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added a:hover {cursor:default; color:#c3c3c3;}
   div#editor div#tools div.center div.right div.sources div#add_source_container div.middle ul li.added span {display:none;}
   
-  div#editor div#tools div.table div.bottom-repeat-tool a.add_source {float:right; width:92px; height:11px; padding:12px 0 12px 10px; background:url('/assets/editor/add_source.png') no-repeat 0 0; font:normal 11px Arial; color:#CCCCCC; line-height:11px; text-shadow:0 1px black; margin:14px 0 0 4px;}
+  div#editor div#tools div.table div.bottom-repeat-tool a.add_source {float:right; width:92px; height:11px; padding:12px 0 12px 10px; background:image-url('editor/add_source.png') no-repeat 0 0; font:normal 11px Arial; color:#CCCCCC; line-height:11px; text-shadow:0 1px black; margin:14px 0 0 4px;}
   div#editor div#tools div.table div.bottom-repeat-tool a.add_source:hover {background-position:0 -35px;}
   

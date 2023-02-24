@@ -39,27 +39,27 @@ class GeocatDWC
   end
 
   def get_types_and_specimen_extensions
-    @types_and_specimen_extensions = dwc.extensions.select{|e| e.data[:attributes][:rowType] == 'http://rs.gbif.org/terms/1.0/TypesAndSpecimen'}
+    @types_and_specimen_extensions = dwc.extensions.select{|e| e.data[:attributes][:rowType] == 'https://rs.gbif.org/terms/1.0/TypesAndSpecimen'}
   end
 
   def get_terms
     return if @types_and_specimen_extensions.blank?
 
     fields = @types_and_specimen_extensions.map{|e| e.data[:field]}.flatten
-    @terms  = fields.map{|f| f[:attributes][:term]} & %w(http://rs.tdwg.org/dwc/merms/decimalLatitude http://rs.tdwg.org/dwc/terms/decimalLongitude)
+    @terms  = fields.map{|f| f[:attributes][:term]} & %w(https://rs.tdwg.org/dwc/merms/decimalLatitude https://rs.tdwg.org/dwc/terms/decimalLongitude)
   end
 
   def get_scientific_name_index
-    @scientific_name_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/scientificName'}.first[:attributes][:index] rescue nil
+    @scientific_name_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'https://rs.tdwg.org/dwc/terms/scientificName'}.first[:attributes][:index] rescue nil
   end
 
   def get_coords_index
-    @latitude_index = dwc.extensions[0].data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/decimalLatitude'}.first[:attributes][:index]
-    @longitude_index = dwc.extensions[0].data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/decimalLongitude'}.first[:attributes][:index]
+    @latitude_index = dwc.extensions[0].data[:field].select{|f| f[:attributes][:term] == 'https://rs.tdwg.org/dwc/terms/decimalLatitude'}.first[:attributes][:index]
+    @longitude_index = dwc.extensions[0].data[:field].select{|f| f[:attributes][:term] == 'https://rs.tdwg.org/dwc/terms/decimalLongitude'}.first[:attributes][:index]
   end
 
   def get_taxon_rank_index
-      @taxon_rank_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'http://rs.tdwg.org/dwc/terms/taxonRank'}.first[:attributes][:index] rescue nil
+      @taxon_rank_index = dwc.core.data[:field].select{|f| f[:attributes][:term] == 'https://rs.tdwg.org/dwc/terms/taxonRank'}.first[:attributes][:index] rescue nil
     end
 
     def get_species

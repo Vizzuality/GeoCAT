@@ -10,8 +10,8 @@
     z-index:1000;
 
     img.help {float:left; width:100%; height:100%;}
-    span.do {position:absolute; width:320px; height:89px; bottom:1px!important; left:35px; background:url('/assets/editor/do_help.png') no-repeat 0 0;}
-    span.tool {position:absolute; width:240px; height:215px; top:50px; left:0px; background:url('/assets/editor/tool_help.png') no-repeat 0 0;}
-    span.download {position:absolute; width:270px; height:94px; bottom:1px; right:-10px; background:url('/assets/editor/download_help.png') no-repeat 0 0;}
-    span#analysis_help {position:absolute; width:232px; height:245px; top:61px; right:0; background:url('/assets/editor/analysis_help.png') no-repeat 0 0;}
+    span.do {position:absolute; width:320px; height:89px; bottom:1px!important; left:35px; background:image-url('editor/do_help.png') no-repeat 0 0;}
+    span.tool {position:absolute; width:240px; height:215px; top:50px; left:0px; background:image-url('editor/tool_help.png') no-repeat 0 0;}
+    span.download {position:absolute; width:270px; height:94px; bottom:1px; right:-10px; background:image-url('editor/download_help.png') no-repeat 0 0;}
+    span#analysis_help {position:absolute; width:232px; height:245px; top:61px; right:0; background:image-url('editor/analysis_help.png') no-repeat 0 0;}
   }

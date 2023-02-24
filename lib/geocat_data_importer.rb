@@ -3,6 +3,7 @@ require 'active_model'
 require './app/models/rlat_data'
 require 'json'
 require 'csv-mapper'
+require 'rchardet'
 
 module GeocatDataImporter
   IUCN_ORIGIN = [
@@ -246,8 +247,6 @@ module GeocatDataImporter
             "flickr"
           when type["inaturalist"]
             "inaturalist"
-          when type["picasa"]
-            "picasa"
           when type["gbif"]
             "gbif"
           else

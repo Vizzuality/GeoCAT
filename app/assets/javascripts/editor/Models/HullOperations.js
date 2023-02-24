@@ -41,7 +41,7 @@
 						$(this).parent().children().removeClass('disabled');
 						$(this).find('span').stop().animate({backgroundPosition:'-3px -25px', backgroundColor:'#A6DD3A'}, 100);
 						$('div.analysis_data').stop().animate({height: '144px'}, 'fast',function(ev){$(this).css('overflow','auto');});
-						$('#analysis_help').css('background','url(/assets/editor/analysis_help2.png) no-repeat -2px 0');
+						$('#analysis_help').css('background',"image-url('editor/analysis_help2.png') no-repeat -2px 0");
 					} else {
 					  // $('body').unbind('click');
 					  $('div.sources').stop().animate({top: '85px'},'fast');
@@ -50,7 +50,7 @@
 						$(this).parent().children('h3').addClass('disabled');
 						$(this).find('span').stop(true).animate({backgroundPosition:'-26px -25px', backgroundColor:'#999999'}, 100);
 						$('div.analysis_data').stop().animate({height: '0'}, 'fast',function(ev){$(this).css('overflow','auto');});
-						$('#analysis_help').css('background','url(/assets/editor/analysis_help.png) no-repeat 0 0');
+						$('#analysis_help').css('background',"image-url('editor/analysis_help.png') no-repeat 0 0");
 					}
 				});
 

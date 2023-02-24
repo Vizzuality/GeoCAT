@@ -44,11 +44,11 @@ HomeMarker.prototype.createElement = function() {
   if (!div) {
     var random = Math.random();
 		if (random<0.33) {
-			var image = '/assets/editor/gbif_marker.png';
+			var image = '<%= asset_url('editor/gbif_marker.png') %>';
 		} else if (random>0.32&&random<0.66) {
-			var image = '/assets/editor/flickr_marker.png';
+			var image = '<%= asset_url('editor/flickr_marker.png') %>';
 		} else {
-			var image = '/assets/editor/user_marker.png';
+			var image = '<%= asset_url('editor/user_marker.png') %>';
 		}
 
     div = this.div_ = document.createElement("div");
@@ -83,7 +83,7 @@ HomeMarker.prototype.createElement = function() {
     $(inner).css('-webkit-border-radius','5px');
     $(inner).css('border-radius','5px');
     $(inner).css('-moz-border-radius','5px');
-    inner.style.background = "url('"+image+"') no-repeat center center";
+    inner.style.background = "image-url('"+image+"') no-repeat center center";
     inner.style.width = "0";
     inner.style.height = "0";
     inner.style.opacity = "0";

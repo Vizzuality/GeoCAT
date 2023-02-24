@@ -45,7 +45,7 @@ class FlickrController < ApplicationController
           "origin"                        => photo['origin'] || 'Native',
           "presence"                      => photo['presence'] || 'Extant',
           "geocat_query"                  => CGI.unescape(q),
-          "occurrenceDetails"             => 'http://flickr.com/' + photo['owner'] + '/' + photo['id']
+          "occurrenceDetails"             => 'https://flickr.com/' + photo['owner'] + '/' + photo['id']
         })
     end
   end
