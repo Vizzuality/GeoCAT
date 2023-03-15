@@ -40,6 +40,20 @@
 
   9. It should be working at [http://localhost:3000](http://localhost:3000)
 
+## Installing using Docker
 
+1. Install [Docker](https://docs.docker.com/installation/#installation)
+
+2. Run the following commands:
+
+```
+docker compose up --build
+```
+
+3. Setup the database (in other terminal window)
+
+```bash
+docker compose run web bundle exec rake db:setup
+```
 
 [The Vizzuality team](https://www.vizzuality.com)
