@@ -43,7 +43,7 @@
         inner_div.style['float'] = "left";
         inner_div.style.padding = "0 0 0 10px";
     		inner_div.style.height = '22px';
-    		inner_div.style.background = "image-url('editor/left_polygon_tooltip.png') no-repeat left 0";
+    		inner_div.style.background = "url(<%= asset_url('editor/left_polygon_tooltip.png') %>) no-repeat left 0";
     		div.appendChild(inner_div);
 
     		var inner_div2 = document.createElement('div');
@@ -52,7 +52,7 @@
         inner_div2.style['float'] = "left";
         inner_div2.style.padding = "0 40px 0 0";
     		inner_div2.style.height = '22px';
-    		inner_div2.style.background = "image-url('editor/right_polygon_tooltip.png') no-repeat right 0";
+    		inner_div2.style.background = "url(<%= asset_url('editor/right_polygon_tooltip.png') %>) no-repeat right 0";
     		inner_div.appendChild(inner_div2);
 
 
@@ -61,6 +61,7 @@
         points.style.position = "relative";
         points.style.padding = "5px 0 0 0";
         points.style.margin = "0";
+				points.style.whiteSpace = 'nowrap';
     		$(points).text(this.markers.length + ((this.markers.length==1)?' point':' points'));
         points.style.font = "normal 11px Arial";
         points.style.color = "white";
@@ -74,9 +75,10 @@
     		button_o.style.top = "4px";
     		button_o.style.width = "14px";
     		button_o.style.height = "14px";
-    		button_o.style.background = "image-url('editor/over_o.png') no-repeat 0 0";
+    		button_o.style.background = "url(<%= asset_url('editor/over_o.png') %>) no-repeat 0 0";
     		button_o.style.cursor = "pointer";
     		$(button_o).click(function(ev){
+					ev.stopPropagation();
     			me.makeActive();
     			try{ev.stopPropagation();}catch(e){event.cancelBubble=true;};
     		});
@@ -95,7 +97,7 @@
     		button_x.style.top = "4px";
     		button_x.style.width = "14px";
     		button_x.style.height = "14px";
-    		button_x.style.background = "image-url('editor/over_x.png') no-repeat 0 0";
+    		button_x.style.background = "url(<%= asset_url('editor/over_x.png') %>) no-repeat 0 0";
     		button_x.style.cursor = "pointer";
     		$(button_x).click(function(ev){
     		  me.deleteMarker();

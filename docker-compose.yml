@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bundle exec rails s -b 0.0.0.0
+    command: ./entrypoint.sh
     environment:
       - RAILS_ENV=development
       - POSTGRES_HOST=db

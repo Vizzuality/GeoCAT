@@ -725,7 +725,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
 			}
 		},
 		hide: function() {
-			$('form.up').css('background','url(/assets/home/form_bkg.png) no-repeat 200px 300px');
+			$('form.up').css('background',"url(<%= asset_url('home/form_bkg.png') no-repeat 200px 300px");
 			element && element.hide();
 			listItems && listItems.removeClass(CLASSES.ACTIVE);
 			active = -1;
@@ -738,7 +738,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
 		},
 		show: function() {
 			var offset = $(input).offset();
-			$('form.up').css('background','url(/assets/home/form_bkg.png) no-repeat 3px 0');
+			$('form.up').css('background', "url(<%= asset_url('home/form_bkg.png') no-repeat 3px 0");
 			
 			element.css({
 				width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).width(),
