@@ -1,7 +1,7 @@
  {
   "layers":[
     {
-      "url":          "https://data-gis.unep-wcmc.org/server/rest/services/ProtectedSites/The_World_Database_of_Protected_Areas/MapServer/tile/{Z}/{X}/{Y}",
+      "url":          "https://data-gis.unep-wcmc.org/server/rest/services/ProtectedSites/The_World_Database_of_Protected_Areas/MapServer/tile/{Z}/{Y}/{X}",
       "name":         "ProtectedPlanet",
       "source_url":   "https://protectedplanet.net/",
       "source_name":  "ProtectedPlanet",
